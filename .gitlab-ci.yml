@@ -175,8 +175,7 @@ pages:
   artifacts:
     paths:
       - public
-  only:
-    - $CI_DEFAULT_BRANCH
+  when: manual
 
 workflow:
   rules:
