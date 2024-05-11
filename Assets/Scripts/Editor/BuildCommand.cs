@@ -1,8 +1,10 @@
 using UnityEditor;
+using UnityEngine.TestTools;
 using System.Linq;
 using System;
 using System.IO;
 
+[ExcludeFromCoverage]
 static class BuildCommand
 {
     private const string KEYSTORE_PASS  = "KEYSTORE_PASS";
