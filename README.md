@@ -17,3 +17,5 @@ The latest development version of the game can be played here: <https://mythic-n
 3. Install and setup commit linter and pre commit by running `npm install`.
 
 > Now, every time you want to commit, a formatter will automatically format the staged `.cs` files for you before commiting, then a commit linter applying the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) convention will prevent you from writing bad formatted commits.
+
+
