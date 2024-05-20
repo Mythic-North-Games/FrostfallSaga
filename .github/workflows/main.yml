@@ -2,6 +2,8 @@ name: Test, Build and Deploy to GitHub Pages 😎
 
 on: workflow_dispatch
 
+permissions: write-all
+
 jobs:
   test:
     name: FFS Tests 🧪
@@ -45,7 +47,7 @@ jobs:
         with:
           name: Coverage results
           path: ${{ steps.testsStep.outputs.coveragePath }}
-          
+
   buildWindows:
     needs: test
     name: Build for Windows 🖥️
@@ -64,7 +66,7 @@ jobs:
           key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
             Library-
-      
+
       # Build for Windows
       - name: Build 🏗️
         uses: game-ci/unity-builder@v4
