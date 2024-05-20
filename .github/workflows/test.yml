@@ -1,0 +1,49 @@
+name: Only tests 🧪
+
+on: [workflow_dispatch, push, pull_request]
+
+permissions: write-all
+
+jobs:
+  test:
+    name: FFS Tests 🧪
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      # Cache
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+
+      # Test
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v4
+        id: testsStep
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      # Store tests results in artifact
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Test results
+          path: ${{ steps.testsStep.outputs.artifactsPath }}
+
+      # Store tests results coverage in artifact
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Coverage results
+          path: ${{ steps.testsStep.outputs.coveragePath }}

@@ -1,0 +1,40 @@
+name: Only build for Windows 🏗️
+
+on: workflow_dispatch
+
+permissions: write-all
+
+jobs:
+  buildWindows:
+    name: Build for Windows 🖥️
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      # Cache
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
+
+      # Build for Windows
+      - name: Build 🏗️
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: StandaloneWindows64
+
+      # Store build to build/Windows
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-Windows
+          path: build/Windows
