@@ -20,11 +20,11 @@ The latest development version of the game can be played here: <https://mythic-n
 
 ## Contributing
 
-### Use the Github Actions to test your development
+### Use the Github workflows to test your development
 
-The [Test, Build and Deploy to GitHub Pages 😎](https://github.com/Mythic-North-Games/FrostallSaga/actions/workflows/main.yml) workflow allows you, as its name suggest, to test, build and deploy the code on the targeted branch on Github Pages.
-Because of the 2000 minutes of free runners availability [(learn more here)](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions), this workflow is not triggered automatically on pull requests or push.
-You need to trigger it manually [here](https://github.com/Mythic-North-Games/FrostallSaga/actions/workflows/main.yml) and choose the branch you want to trigger on.
-You must do it when your pull request has been approved and is ready to merge, to avoid introducing regressions that could have been detected by the tests or the builds.
+Because of the 2000 minutes of free runners availability, only the [Only tests 🧪](https://github.com/Mythic-North-Games/FrostallSaga/actions/workflows/test.yml) workflow is triggered automatically on PR and pushes.
+If you want to test the builds, you need to manually trigger one of these two jobs:
+- [Only build for Windows 🏗️](https://github.com/Mythic-North-Games/FrostallSaga/actions/workflows/build-windows.yml) if you don't want to deploy your version to GitHub pages
+- [Build WebGL and Deploy to GitHub Pages 🚀](https://github.com/Mythic-North-Games/FrostallSaga/actions/workflows/build-webgl-and-deploy.yml) if you want to deploy your version to GitHub Pages.
 
-> Triggering the workflow will, if the tests and the WebGL build succeed, deploy the built game to Github Pages. Use it to showcase the latest version of your game or to functionally test a specific branch.
+> ⚠️ Only one version of Github Pages can live at a given time. Deploying to Github Pages will **override** the existing deployed version.
