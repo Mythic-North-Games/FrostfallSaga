@@ -82,3 +82,7 @@ crashlytics-build.properties
 
 # Nodejs
 node_modules/
+
+# Assets Package import
+Assets/PolygonVikings/
+Assets/PolygonParticleFX/
