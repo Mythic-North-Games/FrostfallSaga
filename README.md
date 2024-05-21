@@ -1,6 +1,6 @@
 # FrostFall-Saga
 
-The latest development version of the game can be played here: <https://mythic-north-games.gitlab.io/games/frostfall-saga/>
+The latest development version of the game can be played here: <https://mythic-north-games.github.io/FrostfallSaga/>
 
 ## Setup project
 
@@ -19,6 +19,21 @@ The latest development version of the game can be played here: <https://mythic-n
 > Now, every time you want to commit, a formatter will automatically format the staged `.cs` files for you before commiting, then a commit linter applying the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) convention will prevent you from writing bad formatted commits.
 
 ## Contributing
+
+### Conventions read and follow
+
+#### Architecture
+
+- [SOLID](https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
+- [KISS](https://medium.com/@symflower/programming-principle-kiss-keep-it-simple-stupid-c428784acb71)
+
+#### Naming and coding conventions
+
+- [Microsoft C# naming conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/identifier-names)
+- [Microsoft C# coding conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
+- [Unity naming and coding conventions](https://unity.com/how-to/naming-and-code-style-tips-c-scripting-unity)
+- [Unity scene structure convention](https://github.com/justinwasilenko/Unity-Style-Guide?tab=readme-ov-file#29-scene-structure)
+- [Unity resources naming conventions](https://github.com/justinwasilenko/Unity-Style-Guide?tab=readme-ov-file#4-asset-naming-conventions)
 
 ### Use the Github workflows to test your development
 
