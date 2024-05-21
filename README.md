@@ -20,7 +20,7 @@ The latest development version of the game can be played here: <https://mythic-n
 
 ## Contributing
 
-### Conventions read and follow
+### Conventions to read and follow
 
 #### Architecture
 
@@ -32,7 +32,7 @@ The latest development version of the game can be played here: <https://mythic-n
 - [Microsoft C# naming conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/identifier-names)
 - [Microsoft C# coding conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
 - [Unity naming and coding conventions](https://unity.com/how-to/naming-and-code-style-tips-c-scripting-unity)
-- [Unity scene structure convention](https://github.com/justinwasilenko/Unity-Style-Guide?tab=readme-ov-file#29-scene-structure)
+- [Unity scene structure conventions](https://github.com/justinwasilenko/Unity-Style-Guide?tab=readme-ov-file#29-scene-structure)
 - [Unity resources naming conventions](https://github.com/justinwasilenko/Unity-Style-Guide?tab=readme-ov-file#4-asset-naming-conventions)
 
 ### Use the Github workflows to test your development
