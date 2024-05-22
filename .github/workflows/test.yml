@@ -12,7 +12,8 @@ on:
 permissions: write-all
 
 env:
-  TO_TEST_FOLDERS_PATH: "+**/Assets/Code/**"
+  COVERAGE_PATH_FILTERS: "+**/Assets/Code/**"
+  COVERAGE_ASSEMBLY_FILTERS: "-*unity*,-*Meryel*,-*meryel*"
 
 jobs:
   test:
@@ -43,7 +44,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;pathFilters:$TO_TEST_FOLDERS_PATH'
+          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;pathFilters:$COVERAGE_PATH_FILTERS;assemblyFilters:$COVERAGE_ASSEMBLY_FILTERS'
 
       # Store tests results in artifact
       - uses: actions/upload-artifact@v3
