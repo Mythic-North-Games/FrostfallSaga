@@ -35,6 +35,10 @@ The latest development version of the game can be played here: <https://mythic-n
 - [Unity scene structure conventions](https://github.com/justinwasilenko/Unity-Style-Guide?tab=readme-ov-file#29-scene-structure)
 - [Unity resources naming conventions](https://github.com/justinwasilenko/Unity-Style-Guide?tab=readme-ov-file#4-asset-naming-conventions)
 
+#### Personal conventions document
+
+- [Architecture, code and development Guidelines](https://frostfall-saga.atlassian.net/wiki/spaces/FUSYB/pages/23298453/Architecture+code+and+development+Guidelines)
+
 ### Use the Github workflows to test your development
 
 Because of the 2000 minutes of free runners availability, only the [Only tests 🧪](https://github.com/Mythic-North-Games/FrostallSaga/actions/workflows/test.yml) workflow is triggered automatically on PR and pushes.
