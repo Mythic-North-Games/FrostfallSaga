@@ -1,0 +1,35 @@
+{
+  "summary": {
+    "generatedon": "2024-05-22T20:31:32Z",
+    "parser": "MultiReportParser (3x OpenCoverParser)",
+    "assemblies": 2,
+    "classes": 11,
+    "files": 11,
+    "coveredlines": 0,
+    "uncoveredlines": 258,
+    "coverablelines": 258,
+    "totallines": 438,
+    "linecoverage": 0,
+    "coveredbranches": 0,
+    "totalbranches": 0,
+    "coveredmethods": 0,
+    "totalmethods": 44,
+    "methodcoverage": 0
+ },
+  "coverage": {
+    "assemblies": [
+      { "name": "Assembly-CSharp", "classes": 8, "coverage": 0, "coveredlines": 0, "coverablelines": 221, "totallines": 370, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 41, "classesinassembly": [
+        { "name": "Cell", "coverage": 0, "coveredlines": 0, "coverablelines": 13, "totallines": 31, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
+        { "name": "CellVisual", "coverage": 0, "coveredlines": 0, "coverablelines": 9, "totallines": 25, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
+        { "name": "HexGrid", "coverage": 0, "coveredlines": 0, "coverablelines": 28, "totallines": 47, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 14 },
+        { "name": "HexGridGenerator", "coverage": 0, "coveredlines": 0, "coverablelines": 62, "totallines": 87, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 8 },
+        { "name": "HexMetrics", "coverage": 0, "coveredlines": 0, "coverablelines": 40, "totallines": 63, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 6 },
+        { "name": "MouseController", "coverage": 0, "coveredlines": 0, "coverablelines": 34, "totallines": 57, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
+        { "name": "SceneChanger", "coverage": 0, "coveredlines": 0, "coverablelines": 3, "totallines": 10, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
+        { "name": "Singleton[T]", "coverage": 0, "coveredlines": 0, "coverablelines": 32, "totallines": 50, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 5 } ] },
+      { "name": "Assembly-CSharp-Editor", "classes": 3, "coverage": 0, "coveredlines": 0, "coverablelines": 37, "totallines": 68, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3, "classesinassembly": [
+        { "name": "CellEditor", "coverage": 0, "coveredlines": 0, "coverablelines": 8, "totallines": 18, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
+        { "name": "HexGridEditor", "coverage": 0, "coveredlines": 0, "coverablelines": 13, "totallines": 22, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
+        { "name": "HexGridGeneratorEditor", "coverage": 0, "coveredlines": 0, "coverablelines": 16, "totallines": 28, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 } ] } ]
+  }
+}
