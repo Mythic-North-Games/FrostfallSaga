@@ -1,7 +1,7 @@
 # FrostFall-Saga
 <img src="https://mythic-north-games.github.io/FrostfallSaga/coverage/Report/badge_shieldsio_linecoverage_orange.svg">
 
-The latest development version of the game can be played here: <https://mythic-north-games.github.io/FrostfallSaga/>
+The latest development version of the game can be played here: <https://mythic-north-games.github.io/FrostfallSaga/main>
 
 ## Setup project
 
@@ -46,8 +46,6 @@ Because of the 2000 minutes of free runners availability, only the [Only tests �
 If you want to test the builds, you need to manually trigger one of these two jobs:
 - [Only build for Windows 🏗️](https://github.com/Mythic-North-Games/FrostallSaga/actions/workflows/build-windows.yml) if you don't want to deploy your version to GitHub pages
 - [Build WebGL and Deploy to GitHub Pages 🚀](https://github.com/Mythic-North-Games/FrostallSaga/actions/workflows/build-webgl-and-deploy.yml) if you want to deploy your version to GitHub Pages.
-
-> ⚠️ Only one version of Github Pages can live at a given time. Deploying to Github Pages will **override** the existing deployed version.
 
 ## Miscellaneous
 
