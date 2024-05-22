@@ -1,4 +1,5 @@
 # FrostFall-Saga
+<img src="https://mythic-north-games.github.io/FrostfallSaga/coverage/Report/badge_shieldsio_linecoverage_orange.svg">
 
 The latest development version of the game can be played here: <https://mythic-north-games.github.io/FrostfallSaga/>
 
