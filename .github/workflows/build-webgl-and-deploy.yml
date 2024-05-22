@@ -57,3 +57,4 @@ jobs:
         with:
           branch: gh-pages
           folder: build/WebGL
+          target-folder: ${{ github.ref_name }}
