@@ -47,6 +47,8 @@ If you want to test the builds, you need to manually trigger one of these two jo
 - [Only build for Windows 🏗️](https://github.com/Mythic-North-Games/FrostallSaga/actions/workflows/build-windows.yml) if you don't want to deploy your version to GitHub pages
 - [Build WebGL and Deploy to GitHub Pages 🚀](https://github.com/Mythic-North-Games/FrostallSaga/actions/workflows/build-webgl-and-deploy.yml) if you want to deploy your version to GitHub Pages.
 
+> Each WebGL version deployed will be located at `https://mythic-north-games.github.io/FrostfallSaga/<your_branch_name>`
+
 ## Miscellaneous
 
 - [Latest full test coverage report](https://mythic-north-games.github.io/FrostfallSaga/coverage/Report/)
