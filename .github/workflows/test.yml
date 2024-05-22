@@ -11,6 +11,9 @@ on:
 
 permissions: write-all
 
+env:
+  TO_TEST_FOLDERS_PATH: "+**/Assets/Code/**"
+
 jobs:
   test:
     name: FFS Tests 🧪
@@ -40,6 +43,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;pathFilters:$TO_TEST_FOLDERS_PATH'
 
       # Store tests results in artifact
       - uses: actions/upload-artifact@v3
