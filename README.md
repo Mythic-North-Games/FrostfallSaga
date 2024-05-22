@@ -48,3 +48,7 @@ If you want to test the builds, you need to manually trigger one of these two jo
 - [Build WebGL and Deploy to GitHub Pages 🚀](https://github.com/Mythic-North-Games/FrostallSaga/actions/workflows/build-webgl-and-deploy.yml) if you want to deploy your version to GitHub Pages.
 
 > ⚠️ Only one version of Github Pages can live at a given time. Deploying to Github Pages will **override** the existing deployed version.
+
+## Miscellaneous
+
+- [Latest full test coverage report](https://mythic-north-games.github.io/FrostfallSaga/coverage/Report/)
