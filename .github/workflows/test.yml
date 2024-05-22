@@ -11,10 +11,6 @@ on:
 
 permissions: write-all
 
-env:
-  COVERAGE_PATH_FILTERS: "+**/Assets/Code/**"
-  COVERAGE_ASSEMBLY_FILTERS: "-*unity*,-*Meryel*,-*meryel*"
-
 jobs:
   test:
     name: FFS Tests 🧪
@@ -44,7 +40,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;pathFilters:$COVERAGE_PATH_FILTERS;assemblyFilters:$COVERAGE_ASSEMBLY_FILTERS'
+          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;pathFilters:+**/Assets/Code/**;assemblyFilters:-*unity*,-*Meryel*,-*meryel*'
 
       # Store tests results in artifact
       - uses: actions/upload-artifact@v3
