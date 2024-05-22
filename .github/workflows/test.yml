@@ -55,3 +55,12 @@ jobs:
         with:
           name: Coverage results
           path: ${{ steps.testsStep.outputs.coveragePath }}
+
+      # Upload coverage results to pages if main to use badge
+      - name: Deploy coverage results to GitHub Pages 🚀
+        if: github.ref == 'refs/heads/main'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: ${{ steps.testsStep.outputs.coveragePath }}
+          target-folder: /coverage
