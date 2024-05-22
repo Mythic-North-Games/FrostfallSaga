@@ -40,6 +40,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;pathFilters:+**/Assets/Code/**;assemblyFilters:-*unity*,-*Meryel*,-*meryel*'
 
       # Store tests results in artifact
       - uses: actions/upload-artifact@v3
