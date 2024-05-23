@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CellVisual : MonoBehaviour
 {
     [SerializeField] private Material HighlightMaterial;
-    
+
     private Material _oldMaterial;
 
     private void Start()
