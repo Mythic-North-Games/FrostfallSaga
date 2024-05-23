@@ -1,9 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
 
+/// <summary>
+/// HexMetrics provides all the maths methods needed to create and manage the HexGrid.
+/// </summary>
 public static class HexMetrics
 {
     public static float OuterRadius(float hexSize)
@@ -11,9 +10,9 @@ public static class HexMetrics
         return hexSize;
     }
 
-    public static float InnerRadius(float hexSize) 
-    {  
-        return hexSize * 0.866025404f; 
+    public static float InnerRadius(float hexSize)
+    {
+        return hexSize * 0.866025404f;
     }
 
     public static Vector3[] Corners(float HexSize, HexOrientation orientation)
@@ -37,7 +36,7 @@ public static class HexMetrics
         return corner;
     }
 
-    public static Vector3 Center(float hexSize, int x, int z, HexOrientation orientation) 
+    public static Vector3 Center(float hexSize, int x, int z, HexOrientation orientation)
     {
         Vector3 centerPosition;
         if (orientation == HexOrientation.PointyTop)

@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshCollider))]
 public class HexGridGenerator : MonoBehaviour
 {
-    [field:SerializeField] public HexGrid HexGrid { get; private set; }
+    [field: SerializeField] public HexGrid HexGrid { get; private set; }
     [SerializeField] private Material AlternativeMaterial;
 
     private void Awake()
@@ -35,8 +33,9 @@ public class HexGridGenerator : MonoBehaviour
     {
         var rotation = Quaternion.identity;
         ClearHexGridMesh();
-        if (orientation.Equals(HexOrientation.FlatTop)) {
-            rotation = Quaternion.Euler(new Vector3(0f , -30f, 0f));
+        if (orientation.Equals(HexOrientation.FlatTop))
+        {
+            rotation = Quaternion.Euler(new Vector3(0f, -30f, 0f));
         }
 
         for (int z = 0; z < height; z++)
@@ -45,12 +44,12 @@ public class HexGridGenerator : MonoBehaviour
             {
                 Vector3 centerPosition = HexMetrics.Center(hexSize, x, z, orientation);
                 GameObject newHex = Instantiate<GameObject>(HexGrid.HexPrefab, centerPosition, rotation, HexGrid.transform);
-                
+
                 newHex.transform.name = "Cell[" + x + ";" + z + "]";
                 newHex.GetComponent<Cell>().Coordinate = new Vector2Int(x, z);
                 newHex.GetComponent<Cell>().Accessible = true;
                 newHex.GetComponent<Cell>().CellHigh = CellHigh.LOW;
-                var childVisual = newHex.transform.GetComponentInChildren<CellVisual>();
+                CellVisual childVisual = newHex.transform.GetComponentInChildren<CellVisual>();
                 childVisual.transform.localScale = Vector3.one * hexSize / 2.68f;
 
                 if (x % 2 == 0)
@@ -65,11 +64,11 @@ public class HexGridGenerator : MonoBehaviour
     {
 
         GameObject[] cells = GameObject.FindGameObjectsWithTag("Cell");
-        if( cells != null )
+        if (cells != null)
         {
-            foreach (var cell in cells)
+            foreach (GameObject cell in cells)
             {
-                DestroyImmediate(cell.gameObject);
+                DestroyImmediate(cell);
             }
         }
     }
@@ -79,7 +78,7 @@ public class HexGridGenerator : MonoBehaviour
         int childCount = HexGrid.transform.childCount;
         for (int i = 0; i < childCount; i++)
         {
-            var child = HexGrid.transform.GetChild(i).GetComponent<Cell>();
+            Cell child = HexGrid.transform.GetChild(i).GetComponent<Cell>();
             child.CellHigh = (CellHigh)Random.Range(0, 3);
             child.OnHighChanged();
         }
