@@ -222,23 +222,24 @@ for (i = 0, l = charts.length; i < l; i++) {
 
 var assemblies = [
   {
-    "name": "Assembly-CSharp",
+    "name": "EditMode",
     "classes": [
-      { "name": "Cell", "rp": "Assembly_CSharp_Cell.html", "cl": 0, "ucl": 13, "cal": 13, "tl": 31, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "CellVisual", "rp": "Assembly_CSharp_CellVisual.html", "cl": 0, "ucl": 9, "cal": 9, "tl": 25, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "HexGrid", "rp": "Assembly_CSharp_HexGrid.html", "cl": 0, "ucl": 28, "cal": 28, "tl": 47, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "HexGridGenerator", "rp": "Assembly_CSharp_HexGridGenerator.html", "cl": 0, "ucl": 62, "cal": 62, "tl": 87, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "HexMetrics", "rp": "Assembly_CSharp_HexMetrics.html", "cl": 0, "ucl": 40, "cal": 40, "tl": 63, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "MouseController", "rp": "Assembly_CSharp_MouseController.html", "cl": 0, "ucl": 34, "cal": 34, "tl": 57, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "SceneChanger", "rp": "Assembly_CSharp_SceneChanger.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 10, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "Singleton[T]", "rp": "Assembly_CSharp_Singleton_T_.html", "cl": 0, "ucl": 32, "cal": 32, "tl": 50, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "HexMetricsTests", "rp": "EditMode_HexMetricsTests.html", "cl": 18, "ucl": 0, "cal": 18, "tl": 46, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
     ]},
   {
-    "name": "Assembly-CSharp-Editor",
+    "name": "Scripts",
     "classes": [
-      { "name": "CellEditor", "rp": "Assembly_CSharp_Editor_CellEditor.html", "cl": 0, "ucl": 8, "cal": 8, "tl": 18, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "HexGridEditor", "rp": "Assembly_CSharp_Editor_HexGridEditor.html", "cl": 0, "ucl": 13, "cal": 13, "tl": 22, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "HexGridGeneratorEditor", "rp": "Assembly_CSharp_Editor_HexGridGeneratorEditor.html", "cl": 0, "ucl": 16, "cal": 16, "tl": 28, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Cell", "rp": "Scripts_Cell.html", "cl": 0, "ucl": 13, "cal": 13, "tl": 29, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "CellEditor", "rp": "Scripts_CellEditor.html", "cl": 0, "ucl": 8, "cal": 8, "tl": 18, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "CellVisual", "rp": "Scripts_CellVisual.html", "cl": 0, "ucl": 9, "cal": 9, "tl": 23, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "HexGrid", "rp": "Scripts_HexGrid.html", "cl": 0, "ucl": 28, "cal": 28, "tl": 44, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "HexGridEditor", "rp": "Scripts_HexGridEditor.html", "cl": 0, "ucl": 13, "cal": 13, "tl": 22, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "HexGridGenerator", "rp": "Scripts_HexGridGenerator.html", "cl": 0, "ucl": 63, "cal": 63, "tl": 86, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "HexGridGeneratorEditor", "rp": "Scripts_HexGridGeneratorEditor.html", "cl": 0, "ucl": 16, "cal": 16, "tl": 28, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "HexMetrics", "rp": "Scripts_HexMetrics.html", "cl": 6, "ucl": 34, "cal": 40, "tl": 62, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "MouseController", "rp": "Scripts_MouseController.html", "cl": 0, "ucl": 34, "cal": 34, "tl": 55, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "SceneChanger", "rp": "Scripts_SceneChanger.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 10, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Singleton[T]", "rp": "Scripts_Singleton_T_.html", "cl": 0, "ucl": 32, "cal": 32, "tl": 50, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
     ]},
 ];
 
@@ -252,7 +253,7 @@ var riskHotspotMetrics = [
 
 var riskHotspots = [
   {
-    "assembly": "Assembly-CSharp", "class": "MouseController", "reportPath": "Assembly_CSharp_MouseController.html", "methodName": "System.Void MouseController::CheckMouseClick(System.Int32)", "methodShortName": "CheckMouseClick(...)", "fileIndex": 0, "line": 37,
+    "assembly": "Scripts", "class": "MouseController", "reportPath": "Scripts_MouseController.html", "methodName": "System.Void MouseController::CheckMouseClick(System.Int32)", "methodShortName": "CheckMouseClick(...)", "fileIndex": 0, "line": 35,
     "metrics": [
       { "value": 8, "exceeded": false },
       { "value": 0, "exceeded": false },

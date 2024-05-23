@@ -1,35 +1,36 @@
 {
   "summary": {
-    "generatedon": "2024-05-22T20:31:32Z",
+    "generatedon": "2024-05-23T21:55:24Z",
     "parser": "MultiReportParser (3x OpenCoverParser)",
     "assemblies": 2,
-    "classes": 11,
-    "files": 11,
-    "coveredlines": 0,
-    "uncoveredlines": 258,
-    "coverablelines": 258,
-    "totallines": 438,
-    "linecoverage": 0,
+    "classes": 12,
+    "files": 12,
+    "coveredlines": 24,
+    "uncoveredlines": 253,
+    "coverablelines": 277,
+    "totallines": 473,
+    "linecoverage": 8.6,
     "coveredbranches": 0,
     "totalbranches": 0,
-    "coveredmethods": 0,
-    "totalmethods": 44,
-    "methodcoverage": 0
+    "coveredmethods": 5,
+    "totalmethods": 47,
+    "methodcoverage": 10.6
  },
   "coverage": {
     "assemblies": [
-      { "name": "Assembly-CSharp", "classes": 8, "coverage": 0, "coveredlines": 0, "coverablelines": 221, "totallines": 370, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 41, "classesinassembly": [
-        { "name": "Cell", "coverage": 0, "coveredlines": 0, "coverablelines": 13, "totallines": 31, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
-        { "name": "CellVisual", "coverage": 0, "coveredlines": 0, "coverablelines": 9, "totallines": 25, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
-        { "name": "HexGrid", "coverage": 0, "coveredlines": 0, "coverablelines": 28, "totallines": 47, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 14 },
-        { "name": "HexGridGenerator", "coverage": 0, "coveredlines": 0, "coverablelines": 62, "totallines": 87, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 8 },
-        { "name": "HexMetrics", "coverage": 0, "coveredlines": 0, "coverablelines": 40, "totallines": 63, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 6 },
-        { "name": "MouseController", "coverage": 0, "coveredlines": 0, "coverablelines": 34, "totallines": 57, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
-        { "name": "SceneChanger", "coverage": 0, "coveredlines": 0, "coverablelines": 3, "totallines": 10, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
-        { "name": "Singleton[T]", "coverage": 0, "coveredlines": 0, "coverablelines": 32, "totallines": 50, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 5 } ] },
-      { "name": "Assembly-CSharp-Editor", "classes": 3, "coverage": 0, "coveredlines": 0, "coverablelines": 37, "totallines": 68, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3, "classesinassembly": [
+      { "name": "EditMode", "classes": 1, "coverage": 100, "coveredlines": 18, "coverablelines": 18, "totallines": 46, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 3, "totalmethods": 3, "classesinassembly": [
+        { "name": "HexMetricsTests", "coverage": 100, "coveredlines": 18, "coverablelines": 18, "totallines": 46, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 3, "totalmethods": 3 } ] },
+      { "name": "Scripts", "classes": 11, "coverage": 2.3, "coveredlines": 6, "coverablelines": 259, "totallines": 427, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 4.5, "coveredmethods": 2, "totalmethods": 44, "classesinassembly": [
+        { "name": "Cell", "coverage": 0, "coveredlines": 0, "coverablelines": 13, "totallines": 29, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
         { "name": "CellEditor", "coverage": 0, "coveredlines": 0, "coverablelines": 8, "totallines": 18, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
+        { "name": "CellVisual", "coverage": 0, "coveredlines": 0, "coverablelines": 9, "totallines": 23, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
+        { "name": "HexGrid", "coverage": 0, "coveredlines": 0, "coverablelines": 28, "totallines": 44, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 14 },
         { "name": "HexGridEditor", "coverage": 0, "coveredlines": 0, "coverablelines": 13, "totallines": 22, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
-        { "name": "HexGridGeneratorEditor", "coverage": 0, "coveredlines": 0, "coverablelines": 16, "totallines": 28, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 } ] } ]
+        { "name": "HexGridGenerator", "coverage": 0, "coveredlines": 0, "coverablelines": 63, "totallines": 86, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 8 },
+        { "name": "HexGridGeneratorEditor", "coverage": 0, "coveredlines": 0, "coverablelines": 16, "totallines": 28, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
+        { "name": "HexMetrics", "coverage": 15, "coveredlines": 6, "coverablelines": 40, "totallines": 62, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 33.3, "coveredmethods": 2, "totalmethods": 6 },
+        { "name": "MouseController", "coverage": 0, "coveredlines": 0, "coverablelines": 34, "totallines": 55, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
+        { "name": "SceneChanger", "coverage": 0, "coveredlines": 0, "coverablelines": 3, "totallines": 10, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
+        { "name": "Singleton[T]", "coverage": 0, "coveredlines": 0, "coverablelines": 32, "totallines": 50, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 5 } ] } ]
   }
 }
