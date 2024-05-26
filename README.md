@@ -19,9 +19,15 @@ The latest development version of the game can be played here: <https://mythic-n
 
 > Now, every time you want to commit, a formatter will automatically format the staged `.cs` files for you before commiting, then a commit linter applying the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) convention will prevent you from writing bad formatted commits.
 
+## Documentation
+
+- [🗃️ Organisation du code (Assemblies & Namespaces)](https://frostfall-saga.atlassian.net/wiki/spaces/FUSYB/pages/34603009/Organisation+du+code+Assemblies+Namespaces)
+
 ## Contributing
 
 ### Conventions to read and follow
+
+- [Architecture, code and development Guidelines](https://frostfall-saga.atlassian.net/wiki/spaces/FUSYB/pages/23298453/Architecture+code+and+development+Guidelines)
 
 #### Architecture
 
@@ -36,9 +42,8 @@ The latest development version of the game can be played here: <https://mythic-n
 - [Unity scene structure conventions](https://github.com/justinwasilenko/Unity-Style-Guide?tab=readme-ov-file#29-scene-structure)
 - [Unity resources naming conventions](https://github.com/justinwasilenko/Unity-Style-Guide?tab=readme-ov-file#4-asset-naming-conventions)
 
-#### Personal conventions documents
+### Guides
 
-- [Architecture, code and development Guidelines](https://frostfall-saga.atlassian.net/wiki/spaces/FUSYB/pages/23298453/Architecture+code+and+development+Guidelines)
 - [Create tests in Unity](https://frostfall-saga.atlassian.net/wiki/spaces/FUSYB/pages/33456129/Cr+er+des+tests+sur+Unity)
 
 ### Use the Github workflows to test your development
