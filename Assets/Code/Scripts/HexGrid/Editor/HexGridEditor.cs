@@ -1,21 +1,24 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(HexGrid))]
-public class HexGridEditor : Editor
+namespace FrostfallSaga.Grid
 {
-    private void OnSceneGUI()
+    [CustomEditor(typeof(HexGrid))]
+    public class HexGridEditor : Editor
     {
-        HexGrid hexGrid = (HexGrid)target;
-
-        for (int z = 0; z < hexGrid.Height; z++)
+        private void OnSceneGUI()
         {
-            for (int x = 0; x < hexGrid.Width; x++)
+            HexGrid hexGrid = (HexGrid)target;
+
+            for (int z = 0; z < hexGrid.Height; z++)
             {
-                Vector3 centerPosition = HexMetrics.Center(hexGrid.HexSize, x, z, hexGrid.HexOrientation);
-                int centerX = x;
-                int centerZ = z;
-                Handles.Label(centerPosition + Vector3.forward, $"Hex[X:{centerX}, Z:{centerZ}]");
+                for (int x = 0; x < hexGrid.Width; x++)
+                {
+                    Vector3 centerPosition = HexMetrics.Center(hexGrid.HexSize, x, z, hexGrid.HexOrientation);
+                    int centerX = x;
+                    int centerZ = z;
+                    Handles.Label(centerPosition + Vector3.forward, $"Hex[X:{centerX}, Z:{centerZ}]");
+                }
             }
         }
     }
