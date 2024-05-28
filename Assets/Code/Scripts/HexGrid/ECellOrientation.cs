@@ -3,7 +3,7 @@
     /// <summary>
     /// The orientation of the hexagonal cells inside the grid.
     /// </summary>
-    public enum CellOrientation
+    public enum ECellOrientation
     {
         FlatTop,
         PointyTop

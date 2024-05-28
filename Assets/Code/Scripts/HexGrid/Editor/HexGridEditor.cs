@@ -1,7 +1,8 @@
 using UnityEditor;
 using UnityEngine;
+using FrostfallSaga.Grid;
 
-namespace FrostfallSaga.Grid
+namespace FrostfallSaga.FFSEditor.Grid
 {
     [CustomEditor(typeof(HexGrid))]
     public class HexGridEditor : Editor

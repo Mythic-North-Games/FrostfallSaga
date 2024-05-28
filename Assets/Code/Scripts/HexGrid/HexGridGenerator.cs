@@ -33,7 +33,7 @@ namespace FrostfallSaga.Grid
             ClearCells();
 
             Quaternion rotation = Quaternion.identity;
-            if (HexGrid.HexOrientation.Equals(CellOrientation.FlatTop))
+            if (HexGrid.HexOrientation.Equals(ECellOrientation.FlatTop))
             {
                 rotation = Quaternion.Euler(new Vector3(0f, -30f, 0f));
             }

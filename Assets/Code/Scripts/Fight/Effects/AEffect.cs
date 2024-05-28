@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Code.Scripts.Effect
+namespace FrostfallSaga.Fight.Effects
 {
+    /// <summary>
+    /// Base class for all effects that abilities will have.
+    /// </summary>
     public abstract class AEffect
     {
         [SerializeField] public string Name { get; private set; }
