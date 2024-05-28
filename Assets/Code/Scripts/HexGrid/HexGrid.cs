@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class HexGrid : MonoBehaviour
 {
-    [field:SerializeField] public int Width { get; private set; }
-    [field:SerializeField] public int Height { get; private set; }
-    [field:SerializeField] public float HexSize { get; private set; }
-    [field:SerializeField] public GameObject HexPrefab {  get; private set; }
-    [field:SerializeField] public HexOrientation HexOrientation { get; private set; }
+    [field: SerializeField] public int Width { get; private set; }
+    [field: SerializeField] public int Height { get; private set; }
+    [field: SerializeField] public float HexSize { get; private set; }
+    [field: SerializeField] public GameObject HexPrefab { get; private set; }
+    [field: SerializeField] public HexOrientation HexOrientation { get; private set; }
 
     private void OnDrawGizmos()
     {
@@ -40,7 +37,7 @@ public class HexGrid : MonoBehaviour
     }
     private void OnClickLeft(RaycastHit hit)
     {
-        var parent = hit.transform.GetComponentInParent<Cell>();
+        Cell parent = hit.transform.GetComponentInParent<Cell>();
         Debug.Log("[X=" + parent.Coordinate.x + ";" + parent.Coordinate.y + "]");
     }
 

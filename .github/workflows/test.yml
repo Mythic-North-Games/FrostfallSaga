@@ -4,9 +4,6 @@ on:
   pull_request:
     branches:
       - main
-  push:
-    paths:
-      - '**.cs'
   workflow_dispatch:
 
 permissions: write-all
@@ -40,6 +37,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;pathFilters:+**/Assets/Code/**;assemblyFilters:-*unity*,-*Meryel*,-*meryel*'
 
       # Store tests results in artifact
       - uses: actions/upload-artifact@v3
@@ -54,3 +52,12 @@ jobs:
         with:
           name: Coverage results
           path: ${{ steps.testsStep.outputs.coveragePath }}
+
+      # Upload coverage results to pages if main to use badge
+      - name: Deploy coverage results to GitHub Pages 🚀
+        if: github.ref == 'refs/heads/main'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: ${{ steps.testsStep.outputs.coveragePath }}
+          target-folder: /coverage
