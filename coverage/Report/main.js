@@ -222,24 +222,78 @@ for (i = 0, l = charts.length; i < l; i++) {
 
 var assemblies = [
   {
-    "name": "EditMode",
+    "name": "EditModeTests",
     "classes": [
-      { "name": "HexMetricsTests", "rp": "EditMode_HexMetricsTests.html", "cl": 18, "ucl": 0, "cal": 18, "tl": 46, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.EditModeTests.HexMetricsTests", "rp": "EditModeTests_HexMetricsTests.html", "cl": 18, "ucl": 0, "cal": 18, "tl": 50, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
     ]},
   {
-    "name": "Scripts",
+    "name": "FrostfallSaga.Core",
     "classes": [
-      { "name": "Cell", "rp": "Scripts_Cell.html", "cl": 0, "ucl": 13, "cal": 13, "tl": 29, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "CellEditor", "rp": "Scripts_CellEditor.html", "cl": 0, "ucl": 8, "cal": 8, "tl": 18, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "CellVisual", "rp": "Scripts_CellVisual.html", "cl": 0, "ucl": 9, "cal": 9, "tl": 23, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "HexGrid", "rp": "Scripts_HexGrid.html", "cl": 0, "ucl": 28, "cal": 28, "tl": 44, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "HexGridEditor", "rp": "Scripts_HexGridEditor.html", "cl": 0, "ucl": 13, "cal": 13, "tl": 22, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "HexGridGenerator", "rp": "Scripts_HexGridGenerator.html", "cl": 0, "ucl": 63, "cal": 63, "tl": 86, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "HexGridGeneratorEditor", "rp": "Scripts_HexGridGeneratorEditor.html", "cl": 0, "ucl": 16, "cal": 16, "tl": 28, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "HexMetrics", "rp": "Scripts_HexMetrics.html", "cl": 6, "ucl": 34, "cal": 40, "tl": 62, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "MouseController", "rp": "Scripts_MouseController.html", "cl": 0, "ucl": 34, "cal": 34, "tl": 55, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "SceneChanger", "rp": "Scripts_SceneChanger.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 10, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "Singleton[T]", "rp": "Scripts_Singleton_T_.html", "cl": 0, "ucl": 32, "cal": 32, "tl": 50, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Core.MonoBehaviourPersistingSingleton[T]", "rp": "FrostfallSaga.Core_MonoBehaviourPersistingSingleton_T_.html", "cl": 0, "ucl": 32, "cal": 32, "tl": 53, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Core.MouseController", "rp": "FrostfallSaga.Core_MouseController.html", "cl": 0, "ucl": 64, "cal": 64, "tl": 122, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Core.SceneChanger", "rp": "FrostfallSaga.Core_SceneChanger.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 13, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+    ]},
+  {
+    "name": "FrostfallSaga.Grid",
+    "classes": [
+      { "name": "FrostfallSaga.Grid.Cells.Cell", "rp": "FrostfallSaga.Grid_Cell.html", "cl": 0, "ucl": 51, "cal": 51, "tl": 90, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.Cells.CellEditor", "rp": "FrostfallSaga.Grid_CellEditor.html", "cl": 0, "ucl": 8, "cal": 8, "tl": 21, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.Cells.CellMouseEventsController", "rp": "FrostfallSaga.Grid_CellMouseEventsController.html", "cl": 0, "ucl": 28, "cal": 28, "tl": 56, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.Cells.CellVisual", "rp": "FrostfallSaga.Grid_CellVisual.html", "cl": 0, "ucl": 10, "cal": 10, "tl": 40, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.GridCellsGenerator", "rp": "FrostfallSaga.Grid_GridCellsGenerator.html", "cl": 0, "ucl": 57, "cal": 57, "tl": 95, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.HexGrid", "rp": "FrostfallSaga.Grid_HexGrid.html", "cl": 0, "ucl": 21, "cal": 21, "tl": 41, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.HexGridEditor", "rp": "FrostfallSaga.Grid_HexGridEditor.html", "cl": 0, "ucl": 13, "cal": 13, "tl": 25, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.HexGridGeneratorEditor", "rp": "FrostfallSaga.Grid_HexGridGeneratorEditor.html", "cl": 0, "ucl": 16, "cal": 16, "tl": 31, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.HexMetrics", "rp": "FrostfallSaga.Grid_HexMetrics.html", "cl": 7, "ucl": 34, "cal": 41, "tl": 66, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+    ]},
+  {
+    "name": "FrostfallSaga.Kingdom",
+    "classes": [
+      { "name": "FrostfallSaga.Kingdom.KingdomManager", "rp": "FrostfallSaga.Kingdom_KingdomManager.html", "cl": 0, "ucl": 41, "cal": 41, "tl": 71, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+    ]},
+  {
+    "name": "Meryel.CodeAssist.Editor",
+    "classes": [
+      { "name": "Meryel.UnityCodeAssist.Editor.AboutWindow", "rp": "Meryel.CodeAssist.Editor_AboutWindow.html", "cl": 0, "ucl": 22, "cal": 22, "tl": 65, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Assister", "rp": "Meryel.CodeAssist.Editor_Assister.html", "cl": 0, "ucl": 45, "cal": 45, "tl": 263, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.CommonTools", "rp": "Meryel.CodeAssist.Editor_CommonTools.html", "cl": 0, "ucl": 37, "cal": 37, "tl": 115, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine", "rp": "Meryel.CodeAssist.Editor_EditorCoroutine.html", "cl": 0, "ucl": 85, "cal": 85, "tl": 157, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutineUtility", "rp": "Meryel.CodeAssist.Editor_EditorCoroutineUtility.html", "cl": 0, "ucl": 13, "cal": 13, "tl": 128, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorWaitForSeconds", "rp": "Meryel.CodeAssist.Editor_EditorWaitForSeconds.html", "cl": 0, "ucl": 5, "cal": 5, "tl": 49, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorWindowCoroutineExtension", "rp": "Meryel.CodeAssist.Editor_EditorWindowCoroutineExtension.html", "cl": 0, "ucl": 21, "cal": 21, "tl": 109, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.FeedbackWindow", "rp": "Meryel.CodeAssist.Editor_FeedbackWindow.html", "cl": 0, "ucl": 55, "cal": 55, "tl": 105, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.Binary2TextExec", "rp": "Meryel.CodeAssist.Editor_Binary2TextExec.html", "cl": 0, "ucl": 15, "cal": 15, "tl": 141, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.Class13Mapper", "rp": "Meryel.CodeAssist.Editor_Class13Mapper.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 405, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.EditorToolExec", "rp": "Meryel.CodeAssist.Editor_EditorToolExec.html", "cl": 0, "ucl": 32, "cal": 32, "tl": 141, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.Extensions", "rp": "Meryel.CodeAssist.Editor_Extensions.html", "cl": 0, "ucl": 45, "cal": 45, "tl": 356, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.InputAxis", "rp": "Meryel.CodeAssist.Editor_InputAxis.html", "cl": 0, "ucl": 21, "cal": 21, "tl": 405, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.InputAxisMapper", "rp": "Meryel.CodeAssist.Editor_InputAxisMapper.html", "cl": 0, "ucl": 16, "cal": 16, "tl": 405, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.InputManager", "rp": "Meryel.CodeAssist.Editor_InputManager.html", "cl": 0, "ucl": 18, "cal": 18, "tl": 405, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.InputManagerMapper", "rp": "Meryel.CodeAssist.Editor_InputManagerMapper.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 405, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.InputManagerMonitor", "rp": "Meryel.CodeAssist.Editor_InputManagerMonitor.html", "cl": 0, "ucl": 35, "cal": 35, "tl": 146, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.Text2Yaml", "rp": "Meryel.CodeAssist.Editor_Text2Yaml.html", "cl": 0, "ucl": 115, "cal": 115, "tl": 210, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.UnityInputManager", "rp": "Meryel.CodeAssist.Editor_UnityInputManager.html", "cl": 0, "ucl": 151, "cal": 151, "tl": 405, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Logger.DomainHashEnricher", "rp": "Meryel.CodeAssist.Editor_DomainHashEnricher.html", "cl": 3, "ucl": 4, "cal": 7, "tl": 31, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Logger.ELogger", "rp": "Meryel.CodeAssist.Editor_ELogger.html", "cl": 0, "ucl": 73, "cal": 73, "tl": 186, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Logger.MemorySink", "rp": "Meryel.CodeAssist.Editor_MemorySink.html", "cl": 7, "ucl": 70, "cal": 77, "tl": 131, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Logger.MyDestructuringPolicy", "rp": "Meryel.CodeAssist.Editor_MyDestructuringPolicy.html", "cl": 5, "ucl": 4, "cal": 9, "tl": 186, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Logger.UnityOutputWindowSink", "rp": "Meryel.CodeAssist.Editor_UnityOutputWindowSink.html", "cl": 0, "ucl": 15, "cal": 15, "tl": 47, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.MainThreadDispatcher", "rp": "Meryel.CodeAssist.Editor_MainThreadDispatcher.html", "cl": 3, "ucl": 8, "cal": 11, "tl": 35, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Monitor", "rp": "Meryel.CodeAssist.Editor_Monitor.html", "cl": 23, "ucl": 122, "cal": 145, "tl": 256, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.NetMQInitializer", "rp": "Meryel.CodeAssist.Editor_NetMQInitializer.html", "cl": 0, "ucl": 43, "cal": 43, "tl": 95, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.NetMQPublisher", "rp": "Meryel.CodeAssist.Editor_NetMQPublisher.html", "cl": 19, "ucl": 358, "cal": 377, "tl": 792, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.OSPath", "rp": "Meryel.CodeAssist.Editor_OSPath.html", "cl": 0, "ucl": 23, "cal": 23, "tl": 115, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Preferences.LinuxPrefStorage", "rp": "Meryel.CodeAssist.Editor_LinuxPrefStorage.html", "cl": 0, "ucl": 27, "cal": 27, "tl": 287, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Preferences.PreferanceStorageAccessor", "rp": "Meryel.CodeAssist.Editor_PreferanceStorageAccessor.html", "cl": 0, "ucl": 23, "cal": 23, "tl": 287, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Preferences.PreferenceEntry", "rp": "Meryel.CodeAssist.Editor_PreferenceEntry.html", "cl": 0, "ucl": 7, "cal": 7, "tl": 60, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Preferences.PreferenceEntryHolder", "rp": "Meryel.CodeAssist.Editor_PreferenceEntryHolder.html", "cl": 0, "ucl": 9, "cal": 9, "tl": 60, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Preferences.PreferenceMonitor", "rp": "Meryel.CodeAssist.Editor_PreferenceMonitor.html", "cl": 0, "ucl": 187, "cal": 187, "tl": 370, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor", "rp": "Meryel.CodeAssist.Editor_RegistryMonitor.html", "cl": 0, "ucl": 138, "cal": 138, "tl": 339, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.ScriptFinder", "rp": "Meryel.CodeAssist.Editor_ScriptFinder.html", "cl": 4, "ucl": 157, "cal": 161, "tl": 307, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.StatusWindow", "rp": "Meryel.CodeAssist.Editor_StatusWindow.html", "cl": 0, "ucl": 33, "cal": 33, "tl": 81, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser", "rp": "Meryel.CodeAssist.Editor_JsonParser.html", "cl": 0, "ucl": 255, "cal": 255, "tl": 376, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonWriter", "rp": "Meryel.CodeAssist.Editor_JsonWriter.html", "cl": 31, "ucl": 125, "cal": 156, "tl": 202, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.UnityClassExtensions", "rp": "Meryel.CodeAssist.Editor_UnityClassExtensions.html", "cl": 0, "ucl": 147, "cal": 147, "tl": 322, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
     ]},
 ];
 
@@ -253,11 +307,298 @@ var riskHotspotMetrics = [
 
 var riskHotspots = [
   {
-    "assembly": "Scripts", "class": "MouseController", "reportPath": "Scripts_MouseController.html", "methodName": "System.Void MouseController::CheckMouseClick(System.Int32)", "methodShortName": "CheckMouseClick(...)", "fileIndex": 0, "line": 35,
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser", "reportPath": "Meryel.CodeAssist.Editor_JsonParser.html", "methodName": "static System.Object Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser::ParseValue(System.Type, System.String)", "methodShortName": "ParseValue(...)", "fileIndex": 0, "line": 134,
+    "metrics": [
+      { "value": 36, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 1332, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Input.Text2Yaml", "reportPath": "Meryel.CodeAssist.Editor_Text2Yaml.html", "methodName": "static System.String Meryel.UnityCodeAssist.Editor.Input.Text2Yaml::Convert(System.Collections.Generic.IEnumerable[String])", "methodShortName": "Convert(...)", "fileIndex": 0, "line": 18,
+    "metrics": [
+      { "value": 33, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 1122, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonWriter", "reportPath": "Meryel.CodeAssist.Editor_JsonWriter.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.TinyJson.JsonWriter::AppendValue(System.Text.StringBuilder, System.Object)", "methodShortName": "AppendValue(...)", "fileIndex": 0, "line": 30,
+    "metrics": [
+      { "value": 43, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 1051.33, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Input.Extensions", "reportPath": "Meryel.CodeAssist.Editor_Extensions.html", "methodName": "static System.String Meryel.UnityCodeAssist.Editor.Input.Extensions::GetInfo(System.Collections.Generic.List[InputAxis], System.String)", "methodShortName": "GetInfo(...)", "fileIndex": 0, "line": 92,
+    "metrics": [
+      { "value": 26, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 702, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor", "reportPath": "Meryel.CodeAssist.Editor_RegistryMonitor.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor::InitRegistryKey(System.String)", "methodShortName": "InitRegistryKey(...)", "fileIndex": 0, "line": 187,
+    "metrics": [
+      { "value": 20, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 420, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Preferences.PreferenceMonitor", "reportPath": "Meryel.CodeAssist.Editor_PreferenceMonitor.html", "methodName": "System.String[] Meryel.UnityCodeAssist.Editor.Preferences.PreferenceMonitor::GetKeyValues(System.Boolean, System.String[], System.String[]&, System.String[]&, System.String[]&, System.String[]&)", "methodShortName": "GetKeyValues(...)", "fileIndex": 0, "line": 214,
+    "metrics": [
+      { "value": 19, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 380, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser", "reportPath": "Meryel.CodeAssist.Editor_JsonParser.html", "methodName": "static System.Object Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser::ParseAnonymousValue(System.String)", "methodShortName": "ParseAnonymousValue(...)", "fileIndex": 0, "line": 268,
+    "metrics": [
+      { "value": 16, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 272, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Input.UnityInputManager", "reportPath": "Meryel.CodeAssist.Editor_UnityInputManager.html", "methodName": "System.Boolean Meryel.UnityCodeAssist.Editor.Input.UnityInputManager::CreateBindingsMap(System.String[]&, System.String[]&)", "methodShortName": "CreateBindingsMap(...)", "fileIndex": 0, "line": 168,
+    "metrics": [
+      { "value": 14, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 210, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser", "reportPath": "Meryel.CodeAssist.Editor_JsonParser.html", "methodName": "static System.Collections.Generic.List[String] Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser::Split(System.String)", "methodShortName": "Split(...)", "fileIndex": 0, "line": 92,
+    "metrics": [
+      { "value": 14, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 210, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.UnityClassExtensions", "reportPath": "Meryel.CodeAssist.Editor_UnityClassExtensions.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.UnityClassExtensions::ShowFieldInfo(System.Type, UnityEngine.Object, System.Collections.Generic.List[ValueTuple`2])", "methodShortName": "ShowFieldInfo(...)", "fileIndex": 0, "line": 262,
+    "metrics": [
+      { "value": 14, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 210, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.ScriptFinder", "reportPath": "Meryel.CodeAssist.Editor_ScriptFinder.html", "methodName": "static UnityEngine.Object Meryel.UnityCodeAssist.Editor.ScriptFinder::GetObjectOfType(System.Type, System.Boolean&)", "methodShortName": "GetObjectOfType(...)", "fileIndex": 0, "line": 117,
+    "metrics": [
+      { "value": 13, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 182, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Logger.MemorySink", "reportPath": "Meryel.CodeAssist.Editor_MemorySink.html", "methodName": "System.String Meryel.UnityCodeAssist.Editor.Logger.MemorySink::Export()", "methodShortName": "Export()", "fileIndex": 0, "line": 73,
+    "metrics": [
+      { "value": 12, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 156, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.NetMQPublisher", "reportPath": "Meryel.CodeAssist.Editor_NetMQPublisher.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.NetMQPublisher::Clear()", "methodShortName": "Clear()", "fileIndex": 0, "line": 244,
+    "metrics": [
+      { "value": 12, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 156, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.FeedbackWindow", "reportPath": "Meryel.CodeAssist.Editor_FeedbackWindow.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.FeedbackWindow::OnGUI()", "methodShortName": "OnGUI()", "fileIndex": 0, "line": 40,
+    "metrics": [
+      { "value": 11, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 132, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.NetMQPublisher", "reportPath": "Meryel.CodeAssist.Editor_NetMQPublisher.html", "methodName": "PullAsync()", "methodShortName": "PullAsync()", "fileIndex": 0, "line": 203,
+    "metrics": [
+      { "value": 11, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 132, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor", "reportPath": "Meryel.CodeAssist.Editor_RegistryMonitor.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor::InitRegistryKey(Microsoft.Win32.RegistryHive, System.String)", "methodShortName": "InitRegistryKey(...)", "fileIndex": 0, "line": 171,
+    "metrics": [
+      { "value": 11, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 132, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.UnityClassExtensions", "reportPath": "Meryel.CodeAssist.Editor_UnityClassExtensions.html", "methodName": "static Meryel.UnityCodeAssist.Synchronizer.Model.GameObject[] Meryel.UnityCodeAssist.Editor.UnityClassExtensions::ToSyncModelOfHierarchy(UnityEngine.GameObject)", "methodShortName": "ToSyncModelOfHierarchy(...)", "fileIndex": 0, "line": 108,
+    "metrics": [
+      { "value": 11, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 132, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.UnityClassExtensions", "reportPath": "Meryel.CodeAssist.Editor_UnityClassExtensions.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.UnityClassExtensions::ShowFieldInfo(System.Type)", "methodShortName": "ShowFieldInfo(...)", "fileIndex": 0, "line": 219,
+    "metrics": [
+      { "value": 10, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 110, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Assister", "reportPath": "Meryel.CodeAssist.Editor_Assister.html", "methodName": "SyncAux()", "methodShortName": "SyncAux()", "fileIndex": 0, "line": 74,
+    "metrics": [
+      { "value": 9, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 90, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Assister", "reportPath": "Meryel.CodeAssist.Editor_Assister.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.Assister::SendTagsAndLayers()", "methodShortName": "SendTagsAndLayers()", "fileIndex": 0, "line": 245,
     "metrics": [
       { "value": 8, "exceeded": false },
       { "value": 0, "exceeded": false },
       { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine", "reportPath": "Meryel.CodeAssist.Editor_EditorCoroutine.html", "methodName": "System.Boolean Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine/YieldProcessor::MoveNext(System.Collections.IEnumerator)", "methodShortName": "MoveNext(...)", "fileIndex": 0, "line": 65,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorWindowCoroutineExtension", "reportPath": "Meryel.CodeAssist.Editor_EditorWindowCoroutineExtension.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorWindowCoroutineExtension::StopCoroutine(UnityEditor.EditorWindow, Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine)", "methodShortName": "StopCoroutine(...)", "fileIndex": 0, "line": 82,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.NetMQPublisher", "reportPath": "Meryel.CodeAssist.Editor_NetMQPublisher.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.NetMQPublisher::LogContext()", "methodShortName": "LogContext()", "fileIndex": 0, "line": 63,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.ScriptFinder", "reportPath": "Meryel.CodeAssist.Editor_ScriptFinder.html", "methodName": "static System.Boolean Meryel.UnityCodeAssist.Editor.ScriptFinder::FindInstanceOfType(System.String, System.String, UnityEngine.GameObject&, UnityEngine.ScriptableObject&)", "methodShortName": "FindInstanceOfType(...)", "fileIndex": 0, "line": 82,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser", "reportPath": "Meryel.CodeAssist.Editor_JsonParser.html", "methodName": "static T Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser::FromJson[T](System.String)", "methodShortName": "FromJson[T](...)", "fileIndex": 0, "line": 40,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser", "reportPath": "Meryel.CodeAssist.Editor_JsonParser.html", "methodName": "static System.Object Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser::ParseObject(System.Type, System.String)", "methodShortName": "ParseObject(...)", "fileIndex": 0, "line": 339,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Grid", "class": "FrostfallSaga.Grid.Cells.Cell", "reportPath": "FrostfallSaga.Grid_Cell.html", "methodName": "System.Void FrostfallSaga.Grid.Cells.Cell::SetPositionForCellHeight(FrostfallSaga.Grid.Cells.ECellHeight)", "methodShortName": "SetPositionForCellHeight(...)", "fileIndex": 0, "line": 60,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine", "reportPath": "Meryel.CodeAssist.Editor_EditorCoroutine.html", "methodName": "System.Boolean Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine::ProcessIEnumeratorRecursive(System.Collections.IEnumerator)", "methodShortName": "ProcessIEnumeratorRecursive(...)", "fileIndex": 0, "line": 120,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Input.UnityInputManager", "reportPath": "Meryel.CodeAssist.Editor_UnityInputManager.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.Input.UnityInputManager::ReadFromPath(System.String)", "methodShortName": "ReadFromPath(...)", "fileIndex": 0, "line": 29,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Logger.ELogger", "reportPath": "Meryel.CodeAssist.Editor_ELogger.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.Logger.ELogger::OnOptionsChanged()", "methodShortName": "OnOptionsChanged()", "fileIndex": 0, "line": 151,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Monitor", "reportPath": "Meryel.CodeAssist.Editor_Monitor.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.Monitor::SetDirty(UnityEngine.Object)", "methodShortName": "SetDirty(...)", "fileIndex": 0, "line": 181,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.NetMQPublisher", "reportPath": "Meryel.CodeAssist.Editor_NetMQPublisher.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.NetMQPublisher::SendGameObject(UnityEngine.GameObject)", "methodShortName": "SendGameObject(...)", "fileIndex": 0, "line": 533,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.NetMQPublisher", "reportPath": "Meryel.CodeAssist.Editor_NetMQPublisher.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.NetMQPublisher.Meryel.UnityCodeAssist.Synchronizer.Model.IProcessor::Process(Meryel.UnityCodeAssist.Synchronizer.Model.RequestScript)", "methodShortName": "Process(...)", "fileIndex": 0, "line": 723,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Preferences.PreferenceEntry", "reportPath": "Meryel.CodeAssist.Editor_PreferenceEntry.html", "methodName": "System.String Meryel.UnityCodeAssist.Editor.Preferences.PreferenceEntry::ValueAsString()", "methodShortName": "ValueAsString()", "fileIndex": 0, "line": 50,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Preferences.PreferenceMonitor", "reportPath": "Meryel.CodeAssist.Editor_PreferenceMonitor.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.Preferences.PreferenceMonitor::LoadKeys(System.String[]&, System.String[]&, System.Boolean)", "methodShortName": "LoadKeys(...)", "fileIndex": 0, "line": 321,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.ScriptFinder", "reportPath": "Meryel.CodeAssist.Editor_ScriptFinder.html", "methodName": "static System.Type Meryel.UnityCodeAssist.Editor.ScriptFinder::GetType123(System.String)", "methodShortName": "GetType123(...)", "fileIndex": 0, "line": 21,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.StatusWindow", "reportPath": "Meryel.CodeAssist.Editor_StatusWindow.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.StatusWindow::OnGUI()", "methodShortName": "OnGUI()", "fileIndex": 0, "line": 39,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Core", "class": "FrostfallSaga.Core.MouseController", "reportPath": "FrostfallSaga.Core_MouseController.html", "methodName": "System.Void FrostfallSaga.Core.MouseController::Update()", "methodShortName": "Update()", "fileIndex": 0, "line": 61,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine", "reportPath": "Meryel.CodeAssist.Editor_EditorCoroutine.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine/YieldProcessor::Set(System.Object)", "methodShortName": "Set(...)", "fileIndex": 0, "line": 39,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Input.UnityInputManager", "reportPath": "Meryel.CodeAssist.Editor_UnityInputManager.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.Input.UnityInputManager::ReadAux(System.Boolean, System.Boolean&)", "methodShortName": "ReadAux(...)", "fileIndex": 0, "line": 84,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Input.UnityInputManager", "reportPath": "Meryel.CodeAssist.Editor_UnityInputManager.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.Input.UnityInputManager::SendData()", "methodShortName": "SendData()", "fileIndex": 0, "line": 131,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor", "reportPath": "Meryel.CodeAssist.Editor_RegistryMonitor.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor::ThreadLoop()", "methodShortName": "ThreadLoop()", "fileIndex": 0, "line": 286,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
     ]},
 ];
 

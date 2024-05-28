@@ -1,35 +1,80 @@
 ﻿# Summary
 |||
 |:---|:---|
-| Generated on: | 05/23/2024 - 21:55:24 |
+| Generated on: | 05/28/2024 - 14:33:51 |
 | Parser: | MultiReportParser (3x OpenCoverParser) |
-| Assemblies: | 2 |
-| Classes: | 12 |
-| Files: | 12 |
-| Covered lines: | 24 |
-| Uncovered lines: | 253 |
-| Coverable lines: | 277 |
-| Total lines: | 473 |
-| Line coverage: | 8.6% (24 of 277) |
+| Assemblies: | 5 |
+| Classes: | 54 |
+| Files: | 43 |
+| Covered lines: | 120 |
+| Uncovered lines: | 2942 |
+| Coverable lines: | 3062 |
+| Total lines: | 6584 |
+| Line coverage: | 3.9% (120 of 3062) |
 | Covered branches: | 0 |
 | Total branches: | 0 |
-| Covered methods: | 5 |
-| Total methods: | 47 |
-| Method coverage: | 10.6% (5 of 47) |
+| Covered methods: | 21 |
+| Total methods: | 401 |
+| Method coverage: | 5.2% (21 of 401) |
 
 |**Name**|**Covered**|**Uncovered**|**Coverable**|**Total**|**Line coverage**|**Covered**|**Total**|**Branch coverage**|**Covered**|**Total**|**Method coverage**|
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|**EditMode**|**18**|**0**|**18**|**46**|**100%**|**0**|**0**|****|**3**|**3**|**100%**|
-|HexMetricsTests|18|0|18|46|100%|0|0||3|3|100%|
-|**Scripts**|**6**|**253**|**259**|**427**|**2.3%**|**0**|**0**|****|**2**|**44**|**4.5%**|
-|Cell|0|13|13|29|0%|0|0||0|1|0%|
-|CellEditor|0|8|8|18|0%|0|0||0|1|0%|
-|CellVisual|0|9|9|23|0%|0|0||0|3|0%|
-|HexGrid|0|28|28|44|0%|0|0||0|14|0%|
-|HexGridEditor|0|13|13|22|0%|0|0||0|1|0%|
-|HexGridGenerator|0|63|63|86|0%|0|0||0|8|0%|
-|HexGridGeneratorEditor|0|16|16|28|0%|0|0||0|1|0%|
-|HexMetrics|6|34|40|62|15%|0|0||2|6|33.3%|
-|MouseController|0|34|34|55|0%|0|0||0|3|0%|
-|SceneChanger|0|3|3|10|0%|0|0||0|1|0%|
-|Singleton[T]|0|32|32|50|0%|0|0||0|5|0%|
+|**EditModeTests**|**18**|**0**|**18**|**50**|**100%**|**0**|**0**|****|**3**|**3**|**100%**|
+|FrostfallSaga.EditModeTests.HexMetricsTests|18|0|18|50|100%|0|0||3|3|100%|
+|**FrostfallSaga.Core**|**0**|**99**|**99**|**188**|**0%**|**0**|**0**|****|**0**|**14**|**0%**|
+|FrostfallSaga.Core.MonoBehaviourPersistingSingleton[T]|0|32|32|53|0%|0|0||0|5|0%|
+|FrostfallSaga.Core.MouseController|0|64|64|122|0%|0|0||0|8|0%|
+|FrostfallSaga.Core.SceneChanger|0|3|3|13|0%|0|0||0|1|0%|
+|**FrostfallSaga.Grid**|**7**|**238**|**245**|**465**|**2.8%**|**0**|**0**|****|**3**|**55**|**5.4%**|
+|FrostfallSaga.Grid.Cells.Cell|0|51|51|90|0%|0|0||0|16|0%|
+|FrostfallSaga.Grid.Cells.CellEditor|0|8|8|21|0%|0|0||0|1|0%|
+|FrostfallSaga.Grid.Cells.CellMouseEventsController|0|28|28|56|0%|0|0||0|5|0%|
+|FrostfallSaga.Grid.Cells.CellVisual|0|10|10|40|0%|0|0||0|5|0%|
+|FrostfallSaga.Grid.GridCellsGenerator|0|57|57|95|0%|0|0||0|7|0%|
+|FrostfallSaga.Grid.HexGrid|0|21|21|41|0%|0|0||0|12|0%|
+|FrostfallSaga.Grid.HexGridEditor|0|13|13|25|0%|0|0||0|1|0%|
+|FrostfallSaga.Grid.HexGridGeneratorEditor|0|16|16|31|0%|0|0||0|1|0%|
+|FrostfallSaga.Grid.HexMetrics|7|34|41|66|17%|0|0||3|7|42.8%|
+|**FrostfallSaga.Kingdom**|**0**|**41**|**41**|**71**|**0%**|**0**|**0**|****|**0**|**5**|**0%**|
+|FrostfallSaga.Kingdom.KingdomManager|0|41|41|71|0%|0|0||0|5|0%|
+|**Meryel.CodeAssist.Editor**|**95**|**2564**|**2659**|**8980**|**3.5%**|**0**|**0**|****|**15**|**324**|**4.6%**|
+|Meryel.UnityCodeAssist.Editor.AboutWindow|0|22|22|65|0%|0|0||0|3|0%|
+|Meryel.UnityCodeAssist.Editor.Assister|0|45|45|263|0%|0|0||0|8|0%|
+|Meryel.UnityCodeAssist.Editor.CommonTools|0|37|37|115|0%|0|0||0|5|0%|
+|Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine|0|85|85|157|0%|0|0||0|8|0%|
+|Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutineUtility|0|13|13|128|0%|0|0||0|3|0%|
+|Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorWaitForSeconds|0|5|5|49|0%|0|0||0|2|0%|
+|Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorWindowCoroutineExtension|0|21|21|109|0%|0|0||0|2|0%|
+|Meryel.UnityCodeAssist.Editor.FeedbackWindow|0|55|55|105|0%|0|0||0|3|0%|
+|Meryel.UnityCodeAssist.Editor.Input.Binary2TextExec|0|15|15|141|0%|0|0||0|3|0%|
+|Meryel.UnityCodeAssist.Editor.Input.Class13Mapper|0|1|1|405|0%|0|0||0|2|0%|
+|Meryel.UnityCodeAssist.Editor.Input.EditorToolExec|0|32|32|141|0%|0|0||0|3|0%|
+|Meryel.UnityCodeAssist.Editor.Input.Extensions|0|45|45|356|0%|0|0||0|2|0%|
+|Meryel.UnityCodeAssist.Editor.Input.InputAxis|0|21|21|405|0%|0|0||0|18|0%|
+|Meryel.UnityCodeAssist.Editor.Input.InputAxisMapper|0|16|16|405|0%|0|0||0|32|0%|
+|Meryel.UnityCodeAssist.Editor.Input.InputManager|0|18|18|405|0%|0|0||0|8|0%|
+|Meryel.UnityCodeAssist.Editor.Input.InputManagerMapper|0|4|4|405|0%|0|0||0|8|0%|
+|Meryel.UnityCodeAssist.Editor.Input.InputManagerMonitor|0|35|35|146|0%|0|0||0|5|0%|
+|Meryel.UnityCodeAssist.Editor.Input.Text2Yaml|0|115|115|210|0%|0|0||0|1|0%|
+|Meryel.UnityCodeAssist.Editor.Input.UnityInputManager|0|151|151|405|0%|0|0||0|10|0%|
+|Meryel.UnityCodeAssist.Editor.Logger.DomainHashEnricher|3|4|7|31|42.8%|0|0||1|2|50%|
+|Meryel.UnityCodeAssist.Editor.Logger.ELogger|0|73|73|186|0%|0|0||0|17|0%|
+|Meryel.UnityCodeAssist.Editor.Logger.MemorySink|7|70|77|131|9%|0|0||1|7|14.2%|
+|Meryel.UnityCodeAssist.Editor.Logger.MyDestructuringPolicy|5|4|9|186|55.5%|0|0||1|1|100%|
+|Meryel.UnityCodeAssist.Editor.Logger.UnityOutputWindowSink|0|15|15|47|0%|0|0||0|2|0%|
+|Meryel.UnityCodeAssist.Editor.MainThreadDispatcher|3|8|11|35|27.2%|0|0||1|3|33.3%|
+|Meryel.UnityCodeAssist.Editor.Monitor|23|122|145|256|15.8%|0|0||4|15|26.6%|
+|Meryel.UnityCodeAssist.Editor.NetMQInitializer|0|43|43|95|0%|0|0||0|9|0%|
+|Meryel.UnityCodeAssist.Editor.NetMQPublisher|19|358|377|792|5%|0|0||4|50|8%|
+|Meryel.UnityCodeAssist.Editor.OSPath|0|23|23|115|0%|0|0||0|20|0%|
+|Meryel.UnityCodeAssist.Editor.Preferences.LinuxPrefStorage|0|27|27|287|0%|0|0||0|6|0%|
+|Meryel.UnityCodeAssist.Editor.Preferences.PreferanceStorageAccessor|0|23|23|287|0%|0|0||0|4|0%|
+|Meryel.UnityCodeAssist.Editor.Preferences.PreferenceEntry|0|7|7|60|0%|0|0||0|1|0%|
+|Meryel.UnityCodeAssist.Editor.Preferences.PreferenceEntryHolder|0|9|9|60|0%|0|0||0|2|0%|
+|Meryel.UnityCodeAssist.Editor.Preferences.PreferenceMonitor|0|187|187|370|0%|0|0||0|15|0%|
+|Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor|0|138|138|339|0%|0|0||0|16|0%|
+|Meryel.UnityCodeAssist.Editor.ScriptFinder|4|157|161|307|2.4%|0|0||1|5|20%|
+|Meryel.UnityCodeAssist.Editor.StatusWindow|0|33|33|81|0%|0|0||0|3|0%|
+|Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser|0|255|255|376|0%|0|0||0|7|0%|
+|Meryel.UnityCodeAssist.Editor.TinyJson.JsonWriter|31|125|156|202|19.8%|0|0||2|3|66.6%|
+|Meryel.UnityCodeAssist.Editor.UnityClassExtensions|0|147|147|322|0%|0|0||0|10|0%|
