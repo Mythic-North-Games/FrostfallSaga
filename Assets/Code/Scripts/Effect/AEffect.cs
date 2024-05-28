@@ -4,18 +4,8 @@ namespace Code.Scripts.Effect
 {
     public abstract class AEffect
     {
-        [SerializeField] private string _name;
-        [SerializeField] private string _description;
-
-        public string Name
-        {
-            get => _name;
-        }
-
-        public string Description
-        {
-            get => _description;
-        }
+        [SerializeField] public string Name { get; private set; }
+        [SerializeField] public string Description { get; private set; }
 
         public abstract void ApplyEffect(); // Fighter fighter
     }
