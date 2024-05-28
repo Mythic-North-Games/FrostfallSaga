@@ -1,28 +1,31 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(HexGridGenerator))]
-public class HexGridGeneratorEditor : Editor
+namespace FrostfallSaga.Grid
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(GridCellsGenerator))]
+    public class HexGridGeneratorEditor : Editor
     {
-        DrawDefaultInspector();
-
-        HexGridGenerator hexGridMeshGenerator = (HexGridGenerator)target;
-
-        if (GUILayout.Button("Generate Hex Mesh")) 
+        public override void OnInspectorGUI()
         {
-            hexGridMeshGenerator.CreateHexMesh();
-        }
+            DrawDefaultInspector();
 
-        if (GUILayout.Button("Clear Hex Mesh"))
-        {
-            hexGridMeshGenerator.ClearHexGridMesh();
-        }
+            GridCellsGenerator hexGridMeshGenerator = (GridCellsGenerator)target;
 
-        if (GUILayout.Button("Generate Random High"))
-        {
-            hexGridMeshGenerator.GenerateRandomHigh();
+            if (GUILayout.Button("Generate Hex Mesh"))
+            {
+                hexGridMeshGenerator.GenerateCells();
+            }
+
+            if (GUILayout.Button("Clear Hex Mesh"))
+            {
+                hexGridMeshGenerator.ClearCells();
+            }
+
+            if (GUILayout.Button("Generate Random High"))
+            {
+                hexGridMeshGenerator.GenerateRandomHeight();
+            }
         }
     }
 }
