@@ -1,38 +1,45 @@
 {
   "summary": {
-    "generatedon": "2024-05-28T14:33:51Z",
+    "generatedon": "2024-05-28T20:23:39Z",
     "parser": "MultiReportParser (3x OpenCoverParser)",
-    "assemblies": 5,
-    "classes": 54,
-    "files": 43,
+    "assemblies": 7,
+    "classes": 59,
+    "files": 48,
     "coveredlines": 120,
-    "uncoveredlines": 2942,
-    "coverablelines": 3062,
-    "totallines": 6584,
-    "linecoverage": 3.9,
+    "uncoveredlines": 3051,
+    "coverablelines": 3171,
+    "totallines": 6812,
+    "linecoverage": 3.7,
     "coveredbranches": 0,
     "totalbranches": 0,
     "coveredmethods": 21,
-    "totalmethods": 401,
-    "methodcoverage": 5.2
+    "totalmethods": 425,
+    "methodcoverage": 4.9
  },
   "coverage": {
     "assemblies": [
       { "name": "EditModeTests", "classes": 1, "coverage": 100, "coveredlines": 18, "coverablelines": 18, "totallines": 50, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 3, "totalmethods": 3, "classesinassembly": [
         { "name": "FrostfallSaga.EditModeTests.HexMetricsTests", "coverage": 100, "coveredlines": 18, "coverablelines": 18, "totallines": 50, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 3, "totalmethods": 3 } ] },
-      { "name": "FrostfallSaga.Core", "classes": 3, "coverage": 0, "coveredlines": 0, "coverablelines": 99, "totallines": 188, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 14, "classesinassembly": [
+      { "name": "FrostfallSaga.Core", "classes": 4, "coverage": 0, "coveredlines": 0, "coverablelines": 122, "totallines": 224, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 18, "classesinassembly": [
         { "name": "FrostfallSaga.Core.MonoBehaviourPersistingSingleton[T]", "coverage": 0, "coveredlines": 0, "coverablelines": 32, "totallines": 53, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 5 },
         { "name": "FrostfallSaga.Core.MouseController", "coverage": 0, "coveredlines": 0, "coverablelines": 64, "totallines": 122, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 8 },
-        { "name": "FrostfallSaga.Core.SceneChanger", "coverage": 0, "coveredlines": 0, "coverablelines": 3, "totallines": 13, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 } ] },
-      { "name": "FrostfallSaga.Grid", "classes": 9, "coverage": 2.8, "coveredlines": 7, "coverablelines": 245, "totallines": 465, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 5.4, "coveredmethods": 3, "totalmethods": 55, "classesinassembly": [
-        { "name": "FrostfallSaga.Grid.Cells.Cell", "coverage": 0, "coveredlines": 0, "coverablelines": 51, "totallines": 90, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 16 },
-        { "name": "FrostfallSaga.Grid.Cells.CellEditor", "coverage": 0, "coveredlines": 0, "coverablelines": 8, "totallines": 21, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
+        { "name": "FrostfallSaga.Core.SceneChanger", "coverage": 0, "coveredlines": 0, "coverablelines": 3, "totallines": 13, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
+        { "name": "PriorityQueue[T]", "coverage": 0, "coveredlines": 0, "coverablelines": 23, "totallines": 36, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 4 } ] },
+      { "name": "FrostfallSaga.FFSEditor", "classes": 3, "coverage": 0, "coveredlines": 0, "coverablelines": 45, "totallines": 89, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3, "classesinassembly": [
+        { "name": "FrostfallSaga.FFSEditor.Grid.CellEditor", "coverage": 0, "coveredlines": 0, "coverablelines": 16, "totallines": 31, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
+        { "name": "FrostfallSaga.FFSEditor.Grid.HexGridEditor", "coverage": 0, "coveredlines": 0, "coverablelines": 13, "totallines": 26, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
+        { "name": "FrostfallSaga.FFSEditor.Grid.HexGridGeneratorEditor", "coverage": 0, "coveredlines": 0, "coverablelines": 16, "totallines": 32, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 } ] },
+      { "name": "FrostfallSaga.Fight", "classes": 3, "coverage": 0, "coveredlines": 0, "coverablelines": 8, "totallines": 49, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 10, "classesinassembly": [
+        { "name": "FrostfallSaga.Fight.Effects.AEffect", "coverage": 0, "coveredlines": 0, "coverablelines": 2, "totallines": 15, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 4 },
+        { "name": "FrostfallSaga.Fight.Effects.DamageEffect", "coverage": 0, "coveredlines": 0, "coverablelines": 3, "totallines": 17, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
+        { "name": "FrostfallSaga.Fight.Effects.HealEffect", "coverage": 0, "coveredlines": 0, "coverablelines": 3, "totallines": 17, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 } ] },
+      { "name": "FrostfallSaga.Grid", "classes": 7, "coverage": 2.5, "coveredlines": 7, "coverablelines": 278, "totallines": 519, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 4.8, "coveredmethods": 3, "totalmethods": 62, "classesinassembly": [
+        { "name": "FrostfallSaga.Grid.Cells.Cell", "coverage": 0, "coveredlines": 0, "coverablelines": 65, "totallines": 124, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 17 },
         { "name": "FrostfallSaga.Grid.Cells.CellMouseEventsController", "coverage": 0, "coveredlines": 0, "coverablelines": 28, "totallines": 56, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 5 },
         { "name": "FrostfallSaga.Grid.Cells.CellVisual", "coverage": 0, "coveredlines": 0, "coverablelines": 10, "totallines": 40, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 5 },
-        { "name": "FrostfallSaga.Grid.GridCellsGenerator", "coverage": 0, "coveredlines": 0, "coverablelines": 57, "totallines": 95, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 7 },
-        { "name": "FrostfallSaga.Grid.HexGrid", "coverage": 0, "coveredlines": 0, "coverablelines": 21, "totallines": 41, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 12 },
-        { "name": "FrostfallSaga.Grid.HexGridEditor", "coverage": 0, "coveredlines": 0, "coverablelines": 13, "totallines": 25, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
-        { "name": "FrostfallSaga.Grid.HexGridGeneratorEditor", "coverage": 0, "coveredlines": 0, "coverablelines": 16, "totallines": 31, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
+        { "name": "FrostfallSaga.Grid.CellsPathFinding", "coverage": 0, "coveredlines": 0, "coverablelines": 45, "totallines": 80, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 4 },
+        { "name": "FrostfallSaga.Grid.GridCellsGenerator", "coverage": 0, "coveredlines": 0, "coverablelines": 58, "totallines": 97, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 7 },
+        { "name": "FrostfallSaga.Grid.HexGrid", "coverage": 0, "coveredlines": 0, "coverablelines": 31, "totallines": 56, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 17 },
         { "name": "FrostfallSaga.Grid.HexMetrics", "coverage": 17, "coveredlines": 7, "coverablelines": 41, "totallines": 66, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 42.8, "coveredmethods": 3, "totalmethods": 7 } ] },
       { "name": "FrostfallSaga.Kingdom", "classes": 1, "coverage": 0, "coveredlines": 0, "coverablelines": 41, "totallines": 71, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 5, "classesinassembly": [
         { "name": "FrostfallSaga.Kingdom.KingdomManager", "coverage": 0, "coveredlines": 0, "coverablelines": 41, "totallines": 71, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 5 } ] },

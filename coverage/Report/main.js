@@ -232,18 +232,31 @@ var assemblies = [
       { "name": "FrostfallSaga.Core.MonoBehaviourPersistingSingleton[T]", "rp": "FrostfallSaga.Core_MonoBehaviourPersistingSingleton_T_.html", "cl": 0, "ucl": 32, "cal": 32, "tl": 53, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Core.MouseController", "rp": "FrostfallSaga.Core_MouseController.html", "cl": 0, "ucl": 64, "cal": 64, "tl": 122, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Core.SceneChanger", "rp": "FrostfallSaga.Core_SceneChanger.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 13, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "PriorityQueue[T]", "rp": "FrostfallSaga.Core_PriorityQueue_T_.html", "cl": 0, "ucl": 23, "cal": 23, "tl": 36, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+    ]},
+  {
+    "name": "FrostfallSaga.FFSEditor",
+    "classes": [
+      { "name": "FrostfallSaga.FFSEditor.Grid.CellEditor", "rp": "FrostfallSaga.FFSEditor_CellEditor.html", "cl": 0, "ucl": 16, "cal": 16, "tl": 31, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.FFSEditor.Grid.HexGridEditor", "rp": "FrostfallSaga.FFSEditor_HexGridEditor.html", "cl": 0, "ucl": 13, "cal": 13, "tl": 26, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.FFSEditor.Grid.HexGridGeneratorEditor", "rp": "FrostfallSaga.FFSEditor_HexGridGeneratorEditor.html", "cl": 0, "ucl": 16, "cal": 16, "tl": 32, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+    ]},
+  {
+    "name": "FrostfallSaga.Fight",
+    "classes": [
+      { "name": "FrostfallSaga.Fight.Effects.AEffect", "rp": "FrostfallSaga.Fight_AEffect.html", "cl": 0, "ucl": 2, "cal": 2, "tl": 15, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Effects.DamageEffect", "rp": "FrostfallSaga.Fight_DamageEffect.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 17, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Effects.HealEffect", "rp": "FrostfallSaga.Fight_HealEffect.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 17, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
     ]},
   {
     "name": "FrostfallSaga.Grid",
     "classes": [
-      { "name": "FrostfallSaga.Grid.Cells.Cell", "rp": "FrostfallSaga.Grid_Cell.html", "cl": 0, "ucl": 51, "cal": 51, "tl": 90, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Grid.Cells.CellEditor", "rp": "FrostfallSaga.Grid_CellEditor.html", "cl": 0, "ucl": 8, "cal": 8, "tl": 21, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.Cells.Cell", "rp": "FrostfallSaga.Grid_Cell.html", "cl": 0, "ucl": 65, "cal": 65, "tl": 124, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Grid.Cells.CellMouseEventsController", "rp": "FrostfallSaga.Grid_CellMouseEventsController.html", "cl": 0, "ucl": 28, "cal": 28, "tl": 56, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Grid.Cells.CellVisual", "rp": "FrostfallSaga.Grid_CellVisual.html", "cl": 0, "ucl": 10, "cal": 10, "tl": 40, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Grid.GridCellsGenerator", "rp": "FrostfallSaga.Grid_GridCellsGenerator.html", "cl": 0, "ucl": 57, "cal": 57, "tl": 95, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Grid.HexGrid", "rp": "FrostfallSaga.Grid_HexGrid.html", "cl": 0, "ucl": 21, "cal": 21, "tl": 41, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Grid.HexGridEditor", "rp": "FrostfallSaga.Grid_HexGridEditor.html", "cl": 0, "ucl": 13, "cal": 13, "tl": 25, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Grid.HexGridGeneratorEditor", "rp": "FrostfallSaga.Grid_HexGridGeneratorEditor.html", "cl": 0, "ucl": 16, "cal": 16, "tl": 31, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.CellsPathFinding", "rp": "FrostfallSaga.Grid_CellsPathFinding.html", "cl": 0, "ucl": 45, "cal": 45, "tl": 80, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.GridCellsGenerator", "rp": "FrostfallSaga.Grid_GridCellsGenerator.html", "cl": 0, "ucl": 58, "cal": 58, "tl": 97, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.HexGrid", "rp": "FrostfallSaga.Grid_HexGrid.html", "cl": 0, "ucl": 31, "cal": 31, "tl": 56, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Grid.HexMetrics", "rp": "FrostfallSaga.Grid_HexMetrics.html", "cl": 7, "ucl": 34, "cal": 41, "tl": 66, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
     ]},
   {
@@ -440,6 +453,13 @@ var riskHotspots = [
       { "value": 90, "exceeded": true },
     ]},
   {
+    "assembly": "FrostfallSaga.Grid", "class": "FrostfallSaga.Grid.Cells.Cell", "reportPath": "FrostfallSaga.Grid_Cell.html", "methodName": "FrostfallSaga.Grid.Cells.Cell[] FrostfallSaga.Grid.Cells.Cell::GetNeighbors(FrostfallSaga.Grid.HexGrid, System.Boolean)", "methodShortName": "GetNeighbors(...)", "fileIndex": 0, "line": 67,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
     "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Assister", "reportPath": "Meryel.CodeAssist.Editor_Assister.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.Assister::SendTagsAndLayers()", "methodShortName": "SendTagsAndLayers()", "fileIndex": 0, "line": 245,
     "metrics": [
       { "value": 8, "exceeded": false },
@@ -489,7 +509,7 @@ var riskHotspots = [
       { "value": 72, "exceeded": true },
     ]},
   {
-    "assembly": "FrostfallSaga.Grid", "class": "FrostfallSaga.Grid.Cells.Cell", "reportPath": "FrostfallSaga.Grid_Cell.html", "methodName": "System.Void FrostfallSaga.Grid.Cells.Cell::SetPositionForCellHeight(FrostfallSaga.Grid.Cells.ECellHeight)", "methodShortName": "SetPositionForCellHeight(...)", "fileIndex": 0, "line": 60,
+    "assembly": "FrostfallSaga.Grid", "class": "FrostfallSaga.Grid.Cells.Cell", "reportPath": "FrostfallSaga.Grid_Cell.html", "methodName": "System.Void FrostfallSaga.Grid.Cells.Cell::SetPositionForCellHeight(FrostfallSaga.Grid.Cells.ECellHeight)", "methodShortName": "SetPositionForCellHeight(...)", "fileIndex": 0, "line": 94,
     "metrics": [
       { "value": 7, "exceeded": false },
       { "value": 0, "exceeded": false },
@@ -567,6 +587,13 @@ var riskHotspots = [
     ]},
   {
     "assembly": "FrostfallSaga.Core", "class": "FrostfallSaga.Core.MouseController", "reportPath": "FrostfallSaga.Core_MouseController.html", "methodName": "System.Void FrostfallSaga.Core.MouseController::Update()", "methodShortName": "Update()", "fileIndex": 0, "line": 61,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Grid", "class": "FrostfallSaga.Grid.CellsPathFinding", "reportPath": "FrostfallSaga.Grid_CellsPathFinding.html", "methodName": "static FrostfallSaga.Grid.Cells.Cell[] FrostfallSaga.Grid.CellsPathFinding::GetShorterPath(FrostfallSaga.Grid.HexGrid, FrostfallSaga.Grid.Cells.Cell, FrostfallSaga.Grid.Cells.Cell)", "methodShortName": "GetShorterPath(...)", "fileIndex": 0, "line": 20,
     "metrics": [
       { "value": 6, "exceeded": false },
       { "value": 0, "exceeded": false },

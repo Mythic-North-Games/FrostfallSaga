@@ -1,39 +1,46 @@
 ﻿# Summary
 |||
 |:---|:---|
-| Generated on: | 05/28/2024 - 14:33:51 |
+| Generated on: | 05/28/2024 - 20:23:39 |
 | Parser: | MultiReportParser (3x OpenCoverParser) |
-| Assemblies: | 5 |
-| Classes: | 54 |
-| Files: | 43 |
+| Assemblies: | 7 |
+| Classes: | 59 |
+| Files: | 48 |
 | Covered lines: | 120 |
-| Uncovered lines: | 2942 |
-| Coverable lines: | 3062 |
-| Total lines: | 6584 |
-| Line coverage: | 3.9% (120 of 3062) |
+| Uncovered lines: | 3051 |
+| Coverable lines: | 3171 |
+| Total lines: | 6812 |
+| Line coverage: | 3.7% (120 of 3171) |
 | Covered branches: | 0 |
 | Total branches: | 0 |
 | Covered methods: | 21 |
-| Total methods: | 401 |
-| Method coverage: | 5.2% (21 of 401) |
+| Total methods: | 425 |
+| Method coverage: | 4.9% (21 of 425) |
 
 |**Name**|**Covered**|**Uncovered**|**Coverable**|**Total**|**Line coverage**|**Covered**|**Total**|**Branch coverage**|**Covered**|**Total**|**Method coverage**|
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 |**EditModeTests**|**18**|**0**|**18**|**50**|**100%**|**0**|**0**|****|**3**|**3**|**100%**|
 |FrostfallSaga.EditModeTests.HexMetricsTests|18|0|18|50|100%|0|0||3|3|100%|
-|**FrostfallSaga.Core**|**0**|**99**|**99**|**188**|**0%**|**0**|**0**|****|**0**|**14**|**0%**|
+|**FrostfallSaga.Core**|**0**|**122**|**122**|**224**|**0%**|**0**|**0**|****|**0**|**18**|**0%**|
 |FrostfallSaga.Core.MonoBehaviourPersistingSingleton[T]|0|32|32|53|0%|0|0||0|5|0%|
 |FrostfallSaga.Core.MouseController|0|64|64|122|0%|0|0||0|8|0%|
 |FrostfallSaga.Core.SceneChanger|0|3|3|13|0%|0|0||0|1|0%|
-|**FrostfallSaga.Grid**|**7**|**238**|**245**|**465**|**2.8%**|**0**|**0**|****|**3**|**55**|**5.4%**|
-|FrostfallSaga.Grid.Cells.Cell|0|51|51|90|0%|0|0||0|16|0%|
-|FrostfallSaga.Grid.Cells.CellEditor|0|8|8|21|0%|0|0||0|1|0%|
+|PriorityQueue[T]|0|23|23|36|0%|0|0||0|4|0%|
+|**FrostfallSaga.FFSEditor**|**0**|**45**|**45**|**89**|**0%**|**0**|**0**|****|**0**|**3**|**0%**|
+|FrostfallSaga.FFSEditor.Grid.CellEditor|0|16|16|31|0%|0|0||0|1|0%|
+|FrostfallSaga.FFSEditor.Grid.HexGridEditor|0|13|13|26|0%|0|0||0|1|0%|
+|FrostfallSaga.FFSEditor.Grid.HexGridGeneratorEditor|0|16|16|32|0%|0|0||0|1|0%|
+|**FrostfallSaga.Fight**|**0**|**8**|**8**|**49**|**0%**|**0**|**0**|****|**0**|**10**|**0%**|
+|FrostfallSaga.Fight.Effects.AEffect|0|2|2|15|0%|0|0||0|4|0%|
+|FrostfallSaga.Fight.Effects.DamageEffect|0|3|3|17|0%|0|0||0|3|0%|
+|FrostfallSaga.Fight.Effects.HealEffect|0|3|3|17|0%|0|0||0|3|0%|
+|**FrostfallSaga.Grid**|**7**|**271**|**278**|**519**|**2.5%**|**0**|**0**|****|**3**|**62**|**4.8%**|
+|FrostfallSaga.Grid.Cells.Cell|0|65|65|124|0%|0|0||0|17|0%|
 |FrostfallSaga.Grid.Cells.CellMouseEventsController|0|28|28|56|0%|0|0||0|5|0%|
 |FrostfallSaga.Grid.Cells.CellVisual|0|10|10|40|0%|0|0||0|5|0%|
-|FrostfallSaga.Grid.GridCellsGenerator|0|57|57|95|0%|0|0||0|7|0%|
-|FrostfallSaga.Grid.HexGrid|0|21|21|41|0%|0|0||0|12|0%|
-|FrostfallSaga.Grid.HexGridEditor|0|13|13|25|0%|0|0||0|1|0%|
-|FrostfallSaga.Grid.HexGridGeneratorEditor|0|16|16|31|0%|0|0||0|1|0%|
+|FrostfallSaga.Grid.CellsPathFinding|0|45|45|80|0%|0|0||0|4|0%|
+|FrostfallSaga.Grid.GridCellsGenerator|0|58|58|97|0%|0|0||0|7|0%|
+|FrostfallSaga.Grid.HexGrid|0|31|31|56|0%|0|0||0|17|0%|
 |FrostfallSaga.Grid.HexMetrics|7|34|41|66|17%|0|0||3|7|42.8%|
 |**FrostfallSaga.Kingdom**|**0**|**41**|**41**|**71**|**0%**|**0**|**0**|****|**0**|**5**|**0%**|
 |FrostfallSaga.Kingdom.KingdomManager|0|41|41|71|0%|0|0||0|5|0%|

@@ -1,40 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CoverageReport scope="Summary">
   <Summary>
-    <Generatedon>05/28/2024 - 14:33:51</Generatedon>
+    <Generatedon>05/28/2024 - 20:23:39</Generatedon>
     <Parser>MultiReportParser (3x OpenCoverParser)</Parser>
-    <Assemblies>5</Assemblies>
-    <Classes>54</Classes>
-    <Files>43</Files>
+    <Assemblies>7</Assemblies>
+    <Classes>59</Classes>
+    <Files>48</Files>
     <Coveredlines>120</Coveredlines>
-    <Uncoveredlines>2942</Uncoveredlines>
-    <Coverablelines>3062</Coverablelines>
-    <Totallines>6584</Totallines>
-    <Linecoverage>3.9</Linecoverage>
+    <Uncoveredlines>3051</Uncoveredlines>
+    <Coverablelines>3171</Coverablelines>
+    <Totallines>6812</Totallines>
+    <Linecoverage>3.7</Linecoverage>
     <Coveredbranches>0</Coveredbranches>
     <Totalbranches>0</Totalbranches>
     <Coveredmethods>21</Coveredmethods>
-    <Totalmethods>401</Totalmethods>
-    <Methodcoverage>5.2</Methodcoverage>
+    <Totalmethods>425</Totalmethods>
+    <Methodcoverage>4.9</Methodcoverage>
   </Summary>
   <Coverage>
     <Assembly name="EditModeTests" classes="1" coverage="100" coveredlines="18" coverablelines="18" totallines="50" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100">
       <Class name="FrostfallSaga.EditModeTests.HexMetricsTests" coverage="100" coveredlines="18" coverablelines="18" totallines="50" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="3" methodcoverage="100" />
     </Assembly>
-    <Assembly name="FrostfallSaga.Core" classes="3" coverage="0" coveredlines="0" coverablelines="99" totallines="188" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="14" methodcoverage="0">
+    <Assembly name="FrostfallSaga.Core" classes="4" coverage="0" coveredlines="0" coverablelines="122" totallines="224" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="18" methodcoverage="0">
       <Class name="FrostfallSaga.Core.MonoBehaviourPersistingSingleton[T]" coverage="0" coveredlines="0" coverablelines="32" totallines="53" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="5" methodcoverage="0" />
       <Class name="FrostfallSaga.Core.MouseController" coverage="0" coveredlines="0" coverablelines="64" totallines="122" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="8" methodcoverage="0" />
       <Class name="FrostfallSaga.Core.SceneChanger" coverage="0" coveredlines="0" coverablelines="3" totallines="13" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+      <Class name="PriorityQueue[T]" coverage="0" coveredlines="0" coverablelines="23" totallines="36" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
     </Assembly>
-    <Assembly name="FrostfallSaga.Grid" classes="9" coverage="2.8" coveredlines="7" coverablelines="245" totallines="465" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="55" methodcoverage="5.4">
-      <Class name="FrostfallSaga.Grid.Cells.Cell" coverage="0" coveredlines="0" coverablelines="51" totallines="90" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="16" methodcoverage="0" />
-      <Class name="FrostfallSaga.Grid.Cells.CellEditor" coverage="0" coveredlines="0" coverablelines="8" totallines="21" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+    <Assembly name="FrostfallSaga.FFSEditor" classes="3" coverage="0" coveredlines="0" coverablelines="45" totallines="89" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0">
+      <Class name="FrostfallSaga.FFSEditor.Grid.CellEditor" coverage="0" coveredlines="0" coverablelines="16" totallines="31" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+      <Class name="FrostfallSaga.FFSEditor.Grid.HexGridEditor" coverage="0" coveredlines="0" coverablelines="13" totallines="26" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+      <Class name="FrostfallSaga.FFSEditor.Grid.HexGridGeneratorEditor" coverage="0" coveredlines="0" coverablelines="16" totallines="32" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+    </Assembly>
+    <Assembly name="FrostfallSaga.Fight" classes="3" coverage="0" coveredlines="0" coverablelines="8" totallines="49" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="10" methodcoverage="0">
+      <Class name="FrostfallSaga.Fight.Effects.AEffect" coverage="0" coveredlines="0" coverablelines="2" totallines="15" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
+      <Class name="FrostfallSaga.Fight.Effects.DamageEffect" coverage="0" coveredlines="0" coverablelines="3" totallines="17" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="FrostfallSaga.Fight.Effects.HealEffect" coverage="0" coveredlines="0" coverablelines="3" totallines="17" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+    </Assembly>
+    <Assembly name="FrostfallSaga.Grid" classes="7" coverage="2.5" coveredlines="7" coverablelines="278" totallines="519" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="62" methodcoverage="4.8">
+      <Class name="FrostfallSaga.Grid.Cells.Cell" coverage="0" coveredlines="0" coverablelines="65" totallines="124" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="17" methodcoverage="0" />
       <Class name="FrostfallSaga.Grid.Cells.CellMouseEventsController" coverage="0" coveredlines="0" coverablelines="28" totallines="56" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="5" methodcoverage="0" />
       <Class name="FrostfallSaga.Grid.Cells.CellVisual" coverage="0" coveredlines="0" coverablelines="10" totallines="40" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="5" methodcoverage="0" />
-      <Class name="FrostfallSaga.Grid.GridCellsGenerator" coverage="0" coveredlines="0" coverablelines="57" totallines="95" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="7" methodcoverage="0" />
-      <Class name="FrostfallSaga.Grid.HexGrid" coverage="0" coveredlines="0" coverablelines="21" totallines="41" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="12" methodcoverage="0" />
-      <Class name="FrostfallSaga.Grid.HexGridEditor" coverage="0" coveredlines="0" coverablelines="13" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
-      <Class name="FrostfallSaga.Grid.HexGridGeneratorEditor" coverage="0" coveredlines="0" coverablelines="16" totallines="31" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+      <Class name="FrostfallSaga.Grid.CellsPathFinding" coverage="0" coveredlines="0" coverablelines="45" totallines="80" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
+      <Class name="FrostfallSaga.Grid.GridCellsGenerator" coverage="0" coveredlines="0" coverablelines="58" totallines="97" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="7" methodcoverage="0" />
+      <Class name="FrostfallSaga.Grid.HexGrid" coverage="0" coveredlines="0" coverablelines="31" totallines="56" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="17" methodcoverage="0" />
       <Class name="FrostfallSaga.Grid.HexMetrics" coverage="17" coveredlines="7" coverablelines="41" totallines="66" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="3" totalmethods="7" methodcoverage="42.8" />
     </Assembly>
     <Assembly name="FrostfallSaga.Kingdom" classes="1" coverage="0" coveredlines="0" coverablelines="41" totallines="71" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="5" methodcoverage="0">
