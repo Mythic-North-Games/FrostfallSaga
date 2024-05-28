@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FrostfallSaga.Grid.Cells
@@ -54,6 +55,39 @@ namespace FrostfallSaga.Grid.Cells
         {
             CellHeight = newCellHeight;
             SetPositionForCellHeight(CellHeight);
+        }
+
+        /// <summary>
+        /// Compute and returns the current cell neighbors in the given grid.
+        /// </summary>
+        /// <param name="hexGrid">The grid the current cell is considered inside.</param>
+        /// <param name="onlyAccessibleNeighbors">If only the accessible cells should be returned.</param>
+        /// <returns>The current cell neighbors in the given grid.</returns>
+        public Cell[] GetNeighbors(HexGrid hexGrid, bool onlyAccessibleNeighbors = true)
+        {
+            List<Cell> neighbors = new();
+            Vector2Int[] directionsToCheck = new Vector2Int[]
+            {
+                new(1, 0), new(-1, 0),
+                new(0, 1), new(0, -1),
+                new(1, -1), new(-1, 1)
+            };
+
+            foreach (Vector2Int direction in directionsToCheck)
+            {
+                Vector2Int neighborCoord = Coordinates + direction;
+                Dictionary<Vector2Int, Cell> cellsByCoordinates = hexGrid.CellsByCoordinates;
+                if (
+                    cellsByCoordinates.ContainsKey(neighborCoord) && (
+                        !onlyAccessibleNeighbors || onlyAccessibleNeighbors && cellsByCoordinates[neighborCoord].IsAccessible
+                    )
+                )
+                {
+                    neighbors.Add(cellsByCoordinates[neighborCoord]);
+                }
+            }
+
+            return neighbors.ToArray();
         }
 
         private void SetPositionForCellHeight(ECellHeight cellHeight)

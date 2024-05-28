@@ -1,5 +1,6 @@
 using UnityEngine;
 using FrostfallSaga.Grid.Cells;
+using System.Collections.Generic;
 
 namespace FrostfallSaga.Grid
 {
@@ -47,6 +48,7 @@ namespace FrostfallSaga.Grid
                     SetupCellForInstanciatedCellPrefab(newHex, x, z);
                 }
             }
+            HexGrid.FindAndSetCellsByCoordinates();
         }
 
         /// <summary>

@@ -18,12 +18,12 @@ namespace FrostfallSaga.FFSEditor.Grid
                 hexGridMeshGenerator.GenerateCells();
             }
 
-            if (GUILayout.Button("Clear Hex Mesh"))
+            else if (GUILayout.Button("Clear Hex Mesh"))
             {
                 hexGridMeshGenerator.ClearCells();
             }
 
-            if (GUILayout.Button("Generate Random High"))
+            else if (GUILayout.Button("Generate Random High"))
             {
                 hexGridMeshGenerator.GenerateRandomHeight();
             }

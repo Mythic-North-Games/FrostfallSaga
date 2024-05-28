@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 
 namespace FrostfallSaga.FFSEditor.Grid
@@ -16,6 +17,14 @@ namespace FrostfallSaga.FFSEditor.Grid
             if (GUILayout.Button("Update High"))
             {
                 cell.UpdateHeight(cell.CellHeight);
+            }
+            else if (GUILayout.Button("Get Neighbors"))
+            {
+                Cell[] cellList = cell.GetNeighbors(cell.GetComponentInParent<HexGrid>());
+                foreach (var item in cellList)
+                {
+                    Debug.Log(item.transform.name);
+                }
             }
         }
     }
