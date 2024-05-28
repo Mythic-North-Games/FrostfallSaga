@@ -1,87 +1,95 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using FrostfallSaga.Grid.Cells;
 
-[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshCollider))]
-public class HexGridGenerator : MonoBehaviour
+namespace FrostfallSaga.Grid
 {
-    [field:SerializeField] public HexGrid HexGrid { get; private set; }
-    [SerializeField] private Material AlternativeMaterial;
-
-    private void Awake()
+    /// <summary>
+    /// Expose methods for generating cells inside a given grid.
+    /// </summary>
+    [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshCollider))]
+    public class GridCellsGenerator : MonoBehaviour
     {
-        if (HexGrid == null)
+        [field: SerializeField] public HexGrid HexGrid { get; private set; }
+        [SerializeField] private Material AlternativeMaterial;
+
+        private void Awake()
         {
-            HexGrid = GetComponentInParent<HexGrid>();
-        }
-        if (HexGrid == null)
-        {
-            Debug.LogError("HexGridGenerator could not find HexGrid component in its parent or itself");
-        }
-    }
-
-    public void CreateHexMesh()
-    {
-        CreateHexMesh(HexGrid.Width, HexGrid.Height, HexGrid.HexSize, HexGrid.HexOrientation);
-    }
-
-    private void CreateHexMesh(HexGrid hexGrid)
-    {
-        this.HexGrid = hexGrid;
-        CreateHexMesh(HexGrid.Width, HexGrid.Height, HexGrid.HexSize, HexGrid.HexOrientation);
-    }
-
-    private void CreateHexMesh(int width, int height, float hexSize, HexOrientation orientation)
-    {
-        var rotation = Quaternion.identity;
-        ClearHexGridMesh();
-        if (orientation.Equals(HexOrientation.FlatTop)) {
-            rotation = Quaternion.Euler(new Vector3(0f , -30f, 0f));
-        }
-
-        for (int z = 0; z < height; z++)
-        {
-            for (int x = 0; x < width; x++)
+            if (HexGrid == null)
             {
-                Vector3 centerPosition = HexMetrics.Center(hexSize, x, z, orientation);
-                GameObject newHex = Instantiate<GameObject>(HexGrid.HexPrefab, centerPosition, rotation, HexGrid.transform);
-                
-                newHex.transform.name = "Cell[" + x + ";" + z + "]";
-                newHex.GetComponent<Cell>().Coordinate = new Vector2Int(x, z);
-                newHex.GetComponent<Cell>().Accessible = true;
-                newHex.GetComponent<Cell>().CellHigh = CellHigh.LOW;
-                var childVisual = newHex.transform.GetComponentInChildren<CellVisual>();
-                childVisual.transform.localScale = Vector3.one * hexSize / 2.68f;
+                HexGrid = GetComponentInParent<HexGrid>();
+            }
+            if (HexGrid == null)
+            {
+                Debug.LogError("HexGridGenerator could not find HexGrid component in its parent or itself");
+            }
+        }
 
-                if (x % 2 == 0)
+        /// <summary>
+        /// Clears existing cells of the grid if any then generate new ones.
+        /// </summary>
+        public void GenerateCells()
+        {
+            // Don't generate cells over existing cells
+            ClearCells();
+
+            Quaternion rotation = Quaternion.identity;
+            if (HexGrid.HexOrientation.Equals(CellOrientation.FlatTop))
+            {
+                rotation = Quaternion.Euler(new Vector3(0f, -30f, 0f));
+            }
+
+            for (int z = 0; z < HexGrid.Height; z++)
+            {
+                for (int x = 0; x < HexGrid.Width; x++)
                 {
-                    childVisual.GetComponent<Renderer>().material = AlternativeMaterial;
+                    Vector3 centerPosition = HexMetrics.Center(HexGrid.HexSize, x, z, HexGrid.HexOrientation);
+                    GameObject newHex = Instantiate(HexGrid.HexPrefab, centerPosition, rotation, HexGrid.transform);
+                    SetupCellForInstanciatedCellPrefab(newHex, x, z);
                 }
-
             }
         }
-    }
-    public void ClearHexGridMesh()
-    {
 
-        GameObject[] cells = GameObject.FindGameObjectsWithTag("Cell");
-        if( cells != null )
+        /// <summary>
+        /// Destroys all the cells of the grid.
+        /// </summary>
+        public void ClearCells()
         {
-            foreach (var cell in cells)
+
+            GameObject[] cells = GameObject.FindGameObjectsWithTag("Cell");
+            if (cells != null)
             {
-                DestroyImmediate(cell.gameObject);
+                foreach (GameObject cell in cells)
+                {
+                    DestroyImmediate(cell);
+                }
             }
         }
-    }
 
-    public void GenerateRandomHigh()
-    {
-        int childCount = HexGrid.transform.childCount;
-        for (int i = 0; i < childCount; i++)
+        /// <summary>
+        /// Updates the height of existing cells with a random height.
+        /// </summary>
+        public void GenerateRandomHeight()
         {
-            var child = HexGrid.transform.GetChild(i).GetComponent<Cell>();
-            child.CellHigh = (CellHigh)Random.Range(0, 3);
-            child.OnHighChanged();
+            int childCount = HexGrid.transform.childCount;
+            for (int i = 0; i < childCount; i++)
+            {
+                Cell cell = HexGrid.transform.GetChild(i).GetComponent<Cell>();
+                ECellHeight randomCellHeight = (ECellHeight)Random.Range(0, 3);
+                cell.UpdateHeight(randomCellHeight);
+            }
+        }
+
+        private void SetupCellForInstanciatedCellPrefab(GameObject cellPrefab, int x, int z)
+        {
+            cellPrefab.transform.name = "Cell[" + x + ";" + z + "]";
+            Cell newCell = cellPrefab.GetComponent<Cell>();
+            newCell.Setup(new Vector2Int(x, z), ECellHeight.LOW, true, HexGrid.HexSize);
+
+            if (x % 2 == 0)
+            {
+                newCell.CellVisual.UpdateDefaultMaterial(AlternativeMaterial);
+                newCell.CellVisual.ResetMaterial();
+            }
         }
     }
 }

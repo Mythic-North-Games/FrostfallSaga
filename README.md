@@ -1,6 +1,7 @@
 # FrostFall-Saga
+<img src="https://mythic-north-games.github.io/FrostfallSaga/coverage/Report/badge_shieldsio_linecoverage_orange.svg">
 
-The latest development version of the game can be played here: <https://mythic-north-games.gitlab.io/games/frostfall-saga/>
+The latest development version of the game can be played here: <https://mythic-north-games.github.io/FrostfallSaga/main>
 
 ## Setup project
 
@@ -18,7 +19,32 @@ The latest development version of the game can be played here: <https://mythic-n
 
 > Now, every time you want to commit, a formatter will automatically format the staged `.cs` files for you before commiting, then a commit linter applying the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) convention will prevent you from writing bad formatted commits.
 
+## Documentation
+
+- [🗃️ Organisation du code (Assemblies & Namespaces)](https://frostfall-saga.atlassian.net/wiki/spaces/FUSYB/pages/34603009/Organisation+du+code+Assemblies+Namespaces)
+
 ## Contributing
+
+### Conventions to read and follow
+
+- [Architecture, code and development Guidelines](https://frostfall-saga.atlassian.net/wiki/spaces/FUSYB/pages/23298453/Architecture+code+and+development+Guidelines)
+
+#### Architecture
+
+- [SOLID](https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
+- [KISS](https://medium.com/@symflower/programming-principle-kiss-keep-it-simple-stupid-c428784acb71)
+
+#### Naming and coding conventions
+
+- [Microsoft C# naming conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/identifier-names)
+- [Microsoft C# coding conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
+- [Unity naming and coding conventions](https://unity.com/how-to/naming-and-code-style-tips-c-scripting-unity)
+- [Unity scene structure conventions](https://github.com/justinwasilenko/Unity-Style-Guide?tab=readme-ov-file#29-scene-structure)
+- [Unity resources naming conventions](https://github.com/justinwasilenko/Unity-Style-Guide?tab=readme-ov-file#4-asset-naming-conventions)
+
+### Guides
+
+- [Create tests in Unity](https://frostfall-saga.atlassian.net/wiki/spaces/FUSYB/pages/33456129/Cr+er+des+tests+sur+Unity)
 
 ### Use the Github workflows to test your development
 
@@ -27,4 +53,8 @@ If you want to test the builds, you need to manually trigger one of these two jo
 - [Only build for Windows 🏗️](https://github.com/Mythic-North-Games/FrostallSaga/actions/workflows/build-windows.yml) if you don't want to deploy your version to GitHub pages
 - [Build WebGL and Deploy to GitHub Pages 🚀](https://github.com/Mythic-North-Games/FrostallSaga/actions/workflows/build-webgl-and-deploy.yml) if you want to deploy your version to GitHub Pages.
 
-> ⚠️ Only one version of Github Pages can live at a given time. Deploying to Github Pages will **override** the existing deployed version.
+> Each WebGL version deployed will be located at `https://mythic-north-games.github.io/FrostfallSaga/<your_branch_name>`
+
+## Miscellaneous
+
+- [Latest full test coverage report](https://mythic-north-games.github.io/FrostfallSaga/coverage/Report/)

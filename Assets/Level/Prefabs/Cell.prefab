@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -7511558181221131132}
   - component: {fileID: 560751657728923135}
   - component: {fileID: 6858096247790698953}
+  - component: {fileID: 4262082406833181986}
   m_Layer: 0
   m_Name: CellVisual
   m_TagString: Untagged
@@ -97,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HighlightMaterial: {fileID: 2100000, guid: 1317001a5366be047821b25e2a15c957, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
 --- !u!64 &6858096247790698953
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -120,6 +121,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5264201581553841347, guid: 8aaf0a3f3237af6408cd90e485a85978, type: 3}
+--- !u!114 &4262082406833181986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149155446097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb2fc893cf276b4c93f210a14678fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6338246483437390999
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,6 +178,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa14bb0348272243b807403ad622a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Coordinate: {x: 0, y: 0}
-  Accessible: 0
-  CellHigh: 0
