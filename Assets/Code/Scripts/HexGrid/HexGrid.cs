@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FrostfallSaga.Grid.Cells;
 using UnityEngine;
 
@@ -13,10 +14,24 @@ namespace FrostfallSaga.Grid
         [field: SerializeField] public float HexSize { get; private set; }
         [field: SerializeField] public GameObject HexPrefab { get; private set; }
         [field: SerializeField] public ECellOrientation HexOrientation { get; private set; }
+        public Dictionary<Vector2Int, Cell> CellsByCoordinates { get; private set; } = new();
 
         public Cell[] GetCells()
         {
             return GetComponentsInChildren<Cell>();
+        }
+
+        public void FindAndSetCellsByCoordinates()
+        {
+            foreach (Cell cell in GetCells())
+            {
+                CellsByCoordinates.Add(cell.Coordinates, cell);
+            }
+        }
+
+        private void Awake()
+        {
+            FindAndSetCellsByCoordinates();
         }
 
         private void OnDrawGizmos()
