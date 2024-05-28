@@ -771,11 +771,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: FrostfallSaga
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: 
+  metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: DefaultCompany
+  metroCertificateIssuer: DefaultCompany
+  metroCertificateNotAfter: 0082403933d0db01
   metroApplicationDescription: FrostfallSaga
   wsaImages: {}
   metroTileShortName: FrostfallSaga

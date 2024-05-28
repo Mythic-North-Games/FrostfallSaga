@@ -7,11 +7,11 @@ namespace FrostfallSaga.Grid.Cells
     /// </summary>
     public class Cell : MonoBehaviour
     {
-        public Vector2Int Coordinates { get; private set; }
-        public ECellHeight CellHeight { get; private set; }
-        public bool IsAccessible { get; private set; }
-        public CellVisual CellVisual { get; private set; }
-        public CellMouseEventsController CellMouseEventsController { get; private set; }
+        [field: SerializeField] public Vector2Int Coordinates { get; private set; }
+        [field: SerializeField] public ECellHeight CellHeight { get; private set; }
+        [field: SerializeField] public bool IsAccessible { get; private set; }
+        [field: SerializeField] public CellVisual CellVisual { get; private set; }
+        [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
 
         private void Awake()
         {

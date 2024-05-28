@@ -1,7 +1,8 @@
 using UnityEditor;
 using UnityEngine;
+using FrostfallSaga.Grid.Cells;
 
-namespace FrostfallSaga.Grid.Cells
+namespace FrostfallSaga.FFSEditor.Grid
 {
     [CustomEditor(typeof(Cell))]
     public class CellEditor : Editor

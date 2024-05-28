@@ -5,7 +5,7 @@ namespace FrostfallSaga.Grid.Cells
     /// <summary>
     /// Responsible for managing the visual aspects of the cell.
     /// </summary>
-    [RequireComponent(typeof(Renderer))]
+    [RequireComponent(typeof(MeshRenderer))]
     public class CellVisual : MonoBehaviour
     {
         [field: SerializeField] public Material DefaultMaterial { get; private set; }
@@ -26,7 +26,7 @@ namespace FrostfallSaga.Grid.Cells
         /// <param name="highlightMaterial">The material to set.</param>
         public void Highlight(Material highlightMaterial)
         {
-            GetComponent<Renderer>().material = highlightMaterial;
+            GetComponent<MeshRenderer>().material = highlightMaterial;
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace FrostfallSaga.Grid.Cells
         /// </summary>
         public void ResetMaterial()
         {
-            GetComponent<Renderer>().material = DefaultMaterial;
+            GetComponent<MeshRenderer>().material = DefaultMaterial;
         }
     }
 }

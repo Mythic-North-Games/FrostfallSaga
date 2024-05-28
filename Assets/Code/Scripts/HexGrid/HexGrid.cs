@@ -12,7 +12,7 @@ namespace FrostfallSaga.Grid
         [field: SerializeField] public int Height { get; private set; }
         [field: SerializeField] public float HexSize { get; private set; }
         [field: SerializeField] public GameObject HexPrefab { get; private set; }
-        [field: SerializeField] public CellOrientation HexOrientation { get; private set; }
+        [field: SerializeField] public ECellOrientation HexOrientation { get; private set; }
 
         public Cell[] GetCells()
         {
