@@ -83,6 +83,6 @@ crashlytics-build.properties
 node_modules/
 
 # Assets Package import
-Assets/PolygonVikings/
-Assets/PolygonParticleFX/
+Assets/**/PolygonVikings/
+Assets/**/PolygonParticleFX/
 .idea
