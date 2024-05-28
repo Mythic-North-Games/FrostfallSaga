@@ -4,12 +4,7 @@ namespace Code.Scripts.Effect
 {
     public class DamageEffect : AEffect
     {
-        [SerializeField] private int _damageAmount;
-
-        public int DamageAmount
-        {
-            get => _damageAmount;
-        }
+        [SerializeField] public int DamageAmount { get; private set; }
 
         public override void ApplyEffect()
         {
