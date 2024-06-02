@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FrostfallSaga.Grid.Cells
@@ -9,7 +8,7 @@ namespace FrostfallSaga.Grid.Cells
     public class Cell : MonoBehaviour
     {
         [field: SerializeField] public Vector2Int Coordinates { get; private set; }
-        [field: SerializeField] public ECellHeight CellHeight { get; private set; }
+        [field: SerializeField] public ECellHeight Height { get; private set; }
         [field: SerializeField] public bool IsAccessible { get; private set; }
         [field: SerializeField] public CellVisual CellVisual { get; private set; }
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
@@ -31,9 +30,9 @@ namespace FrostfallSaga.Grid.Cells
         public void Setup(Vector2Int coordinates, ECellHeight cellHeight, bool isAccessible, float hexGridSize)
         {
             Coordinates = coordinates;
-            CellHeight = cellHeight;
+            Height = cellHeight;
             IsAccessible = isAccessible;
-            SetPositionForCellHeight(CellHeight);
+            SetPositionForCellHeight(Height);
             SetCellMouseEventsControllerFromGameObjectTree();
 
             CellVisual = GetComponentInChildren<CellVisual>();
@@ -53,54 +52,13 @@ namespace FrostfallSaga.Grid.Cells
         /// <param name="newCellHeight">The new cell height.</param>
         public void UpdateHeight(ECellHeight newCellHeight)
         {
-            CellHeight = newCellHeight;
-            SetPositionForCellHeight(CellHeight);
-        }
-
-        /// <summary>
-        /// Compute and returns the current cell neighbors in the given grid.
-        /// </summary>
-        /// <param name="hexGrid">The grid the current cell is considered inside.</param>
-        /// <param name="onlyAccessibleNeighbors">If only the accessible cells should be returned.</param>
-        /// <returns>The current cell neighbors in the given grid.</returns>
-        public Cell[] GetNeighbors(HexGrid hexGrid, bool onlyAccessibleNeighbors = true)
-        {
-            List<Cell> neighbors = new();
-            Vector2Int[] directionsToCheck = new Vector2Int[]
-            {
-                new(1, 0), new(-1, 0),
-                new(0, 1), new(0, -1),
-                new(1, -1), new(-1, 1)
-            };
-
-            foreach (Vector2Int direction in directionsToCheck)
-            {
-                Vector2Int neighborCoord = Coordinates + direction;
-                Dictionary<Vector2Int, Cell> cellsByCoordinates = hexGrid.CellsByCoordinates;
-                if (
-                    cellsByCoordinates.ContainsKey(neighborCoord) && (
-                        !onlyAccessibleNeighbors || onlyAccessibleNeighbors && cellsByCoordinates[neighborCoord].IsAccessible
-                    )
-                )
-                {
-                    neighbors.Add(cellsByCoordinates[neighborCoord]);
-                }
-            }
-
-            return neighbors.ToArray();
+            Height = newCellHeight;
+            SetPositionForCellHeight(Height);
         }
 
         private void SetPositionForCellHeight(ECellHeight cellHeight)
         {
-            Vector3 updatedPosition = transform.position;
-            updatedPosition.y = cellHeight switch
-            {
-                ECellHeight.LOW => -1f,
-                ECellHeight.MEDIUM => 0f,
-                ECellHeight.HIGH => 1f,
-                _ => -1f,
-            };
-            transform.position = updatedPosition;
+            transform.position = new Vector3(transform.position.x, (float)cellHeight, transform.position.z);
         }
 
         private void SetCellVisualFromGameObjectTree()

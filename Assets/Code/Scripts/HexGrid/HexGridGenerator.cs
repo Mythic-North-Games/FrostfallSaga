@@ -1,6 +1,5 @@
 using UnityEngine;
 using FrostfallSaga.Grid.Cells;
-using System.Collections.Generic;
 
 namespace FrostfallSaga.Grid
 {

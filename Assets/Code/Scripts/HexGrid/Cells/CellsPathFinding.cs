@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using FrostfallSaga.Grid.Cells;
 
-namespace FrostfallSaga.Grid
+namespace FrostfallSaga.Grid.Cells
 {
     /// <summary>
     /// Expose methods for pathfinding between Cell in an HexGrid.
@@ -36,7 +35,7 @@ namespace FrostfallSaga.Grid
                     break;
                 }
 
-                foreach (Cell neighbor in currentCell.GetNeighbors(hexGrid))
+                foreach (Cell neighbor in CellsNeighbors.GetNeighbors(hexGrid, currentCell))
                 {
                     float newCost = costSoFar[currentCell] + GetCost(currentCell, neighbor);
                     if (!costSoFar.ContainsKey(neighbor) || newCost < costSoFar[neighbor])
@@ -49,7 +48,14 @@ namespace FrostfallSaga.Grid
                 }
             }
 
-            return ReconstructPath(cameFrom, startCell, endCell);
+            try
+            {
+                return ReconstructPath(cameFrom, startCell, endCell);
+            }
+            catch (KeyNotFoundException)
+            {
+                return new Cell[0];
+            }
         }
 
         private static float GetCost(Cell a, Cell b)
