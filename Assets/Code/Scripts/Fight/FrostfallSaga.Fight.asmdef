@@ -1,7 +1,9 @@
 {
     "name": "FrostfallSaga.Fight",
     "rootNamespace": "FrostfallSaga.Fight",
-    "references": [],
+    "references": [
+        "FrostfallSaga.Core"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
