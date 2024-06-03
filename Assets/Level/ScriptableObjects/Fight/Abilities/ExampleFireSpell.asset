@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: ExampleFireSpell
   <Description>k__BackingField: Apply fire on cell
+  <IconSprite>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
+  <Effects>k__BackingField:
+  - {fileID: 0}
   <Targeter>k__BackingField: {fileID: 11400000, guid: 746b690491598604fb94654191358c9d, type: 2}
   <ActionPointsCost>k__BackingField: 2

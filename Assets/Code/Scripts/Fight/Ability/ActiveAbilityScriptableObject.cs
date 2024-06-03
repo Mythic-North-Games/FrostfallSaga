@@ -11,6 +11,6 @@ namespace FrostfallSaga.Fight.Abilities
     public class ActiveAbilityScriptableObject : BaseAbilityScriptableObject
     {
         [field: SerializeField] public TargeterScriptableObject Targeter { get; private set; }
-        [field: SerializeField] public int ActionPointsCost { get; private set; }
+        [field: SerializeField, Range(0, 9999)] public int ActionPointsCost { get; private set; }
     }
 }
