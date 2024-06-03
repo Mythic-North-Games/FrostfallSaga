@@ -1,6 +1,6 @@
+using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
-using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -24,9 +24,9 @@ namespace FrostfallSaga.Kingdom
 
             foreach (Cell cell in _kingdomGrid.GetCells())
             {
-                cell.CellMouseEventsController.OnCellHover += OnCellHovered;
-                cell.CellMouseEventsController.OnCellUnhover += OnCellUnhovered;
-                cell.CellMouseEventsController.OnCellClick += OnCellClicked;
+                cell.CellMouseEventsController.OnElementHover += OnCellHovered;
+                cell.CellMouseEventsController.OnElementUnhover += OnCellUnhovered;
+                cell.CellMouseEventsController.OnLeftMouseUp += OnCellClicked;
             }
         }
 
@@ -61,9 +61,9 @@ namespace FrostfallSaga.Kingdom
             {
                 foreach (Cell cell in _kingdomGrid.GetCells())
                 {
-                    cell.CellMouseEventsController.OnCellHover -= OnCellHovered;
-                    cell.CellMouseEventsController.OnCellUnhover -= OnCellUnhovered;
-                    cell.CellMouseEventsController.OnCellClick -= OnCellClicked;
+                    cell.CellMouseEventsController.OnElementHover -= OnCellHovered;
+                    cell.CellMouseEventsController.OnElementUnhover -= OnCellUnhovered;
+                    cell.CellMouseEventsController.OnLeftMouseDown -= OnCellClicked;
                 }
             }
         }

@@ -2,6 +2,7 @@
     "name": "FrostfallSaga.Kingdom",
     "rootNamespace": "FrostfallSaga.Kingdom",
     "references": [
+        "FrostfallSaga.Core",
         "FrostfallSaga.Grid"
     ],
     "includePlatforms": [],
