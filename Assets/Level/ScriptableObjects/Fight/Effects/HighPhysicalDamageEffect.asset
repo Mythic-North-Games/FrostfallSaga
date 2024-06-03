@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c782967071fb45dd9770fc3321c31fff, type: 3}
-  m_Name: HighDamageEffect
+  m_Name: HighPhysicalDamageEffect
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: High damage
-  <Description>k__BackingField: Inflict a lot of damage
-  <DamageAmount>k__BackingField: 9999
+  <Name>k__BackingField: High physical damages
+  <Description>k__BackingField: Inflicts a lot of physical damages
+  <PhysicalDamageAmount>k__BackingField: 9999
