@@ -12,6 +12,6 @@ namespace FrostfallSaga.Fight.Abilities
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string Description { get; private set; }
         [field: SerializeField] public Sprite IconSprite { get; private set; }
-        [field: SerializeField] public AEffect[] Effects { get; private set; }
+        [field: SerializeField] public AEffectScriptableObject[] Effects { get; private set; }
     }
 }
