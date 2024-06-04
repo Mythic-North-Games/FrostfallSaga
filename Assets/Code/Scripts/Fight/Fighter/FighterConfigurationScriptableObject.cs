@@ -1,3 +1,4 @@
+using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Targeters;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace FrostfallSaga.Fight.Fighters
     {
         [field: SerializeField] public ActiveAbilitiesToAnimation[] ActiveAbilities { get; private set; }
         [field: SerializeField] public TargeterScriptableObject DirectAttackTargeter { get; private set; }
-        [field: SerializeField] public int DirectAttackDamageAmount { get; private set; }
+        [field: SerializeField] public AEffectScriptableObject[] DirectAttackEffects { get; private set; }
 
         #region Base stats
         [field: SerializeField, Range(1, 9999)] public int MaxHealth { get; private set; }
