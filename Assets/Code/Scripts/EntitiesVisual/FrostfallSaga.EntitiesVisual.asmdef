@@ -1,6 +1,6 @@
 {
-    "name": "FrostfallSaga.Entities",
-    "rootNamespace": "FrostfallSaga.Entities",
+    "name": "FrostfallSaga.EntitiesVisual",
+    "rootNamespace": "FrostfallSaga.EntitiesVisual",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

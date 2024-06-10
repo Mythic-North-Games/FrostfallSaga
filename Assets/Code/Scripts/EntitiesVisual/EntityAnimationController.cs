@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
 
-namespace FrostfallSaga.Entities
+namespace FrostfallSaga.EntitiesVisual
 {
     /// <summary>
     /// Controls the animation of the visible entity.
     /// </summary>
     public class EntityAnimationController : MonoBehaviour
     {
-        [field: SerializeField] public EntitySO EntityConfiguration { get; private set; }
+        [field: SerializeField] public string DefaultAnimationState { get; private set; } = "Idle";
         private Animator _animator;
         public string CurrentStateName { get; private set; }
 
@@ -22,12 +22,12 @@ namespace FrostfallSaga.Entities
             try
             {
                 Debug.Log("startiub");
-                _animator.Play(EntityConfiguration.DefaultAnimationState);
-                CurrentStateName = EntityConfiguration.DefaultAnimationState;
+                _animator.Play(DefaultAnimationState);
+                CurrentStateName = DefaultAnimationState;
             }
             catch (Exception)
             {
-                Debug.LogError("Default animation state: " + EntityConfiguration.DefaultAnimationState + " does not exists on animator of entity " + name);
+                Debug.LogError("Default animation state: " + DefaultAnimationState + " does not exists on animator of entity " + name);
             }
         }
 
@@ -48,12 +48,12 @@ namespace FrostfallSaga.Entities
         {
             try
             {
-                _animator.Play(EntityConfiguration.DefaultAnimationState);
-                CurrentStateName = EntityConfiguration.DefaultAnimationState;
+                _animator.Play(DefaultAnimationState);
+                CurrentStateName = DefaultAnimationState;
             }
             catch (Exception)
             {
-                Debug.LogError("Default animation state: " + EntityConfiguration.DefaultAnimationState + " does not exists on animator of entity " + name);
+                Debug.LogError("Default animation state: " + DefaultAnimationState + " does not exists on animator of entity " + name);
             }
         }
     }
