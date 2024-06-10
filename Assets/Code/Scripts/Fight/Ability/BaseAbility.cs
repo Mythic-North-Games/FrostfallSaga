@@ -5,7 +5,7 @@ namespace FrostfallSaga.Fight.Abilities
     [RequireComponent(typeof(SpriteRenderer))]
     public class BaseAbility : MonoBehaviour
     {
-        [field: SerializeField] public BaseAbilityScriptableObject AbilityData { get; private set; }
+        [field: SerializeField] public BaseAbilitySO AbilityData { get; private set; }
 
         private void Reset()
         {

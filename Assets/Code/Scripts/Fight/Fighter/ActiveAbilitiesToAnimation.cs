@@ -7,7 +7,7 @@ namespace FrostfallSaga.Fight.Fighters
     [Serializable]
     public class ActiveAbilitiesToAnimation
     {
-        public ActiveAbilityScriptableObject activeAbility;
+        public ActiveAbilitySO activeAbility;
         public Animation animation;
     }
 }
