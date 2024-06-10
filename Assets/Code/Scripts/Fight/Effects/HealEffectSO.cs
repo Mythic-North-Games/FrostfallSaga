@@ -6,7 +6,7 @@ namespace FrostfallSaga.Fight.Effects
     /// Effect that applies heal to the target fighter.
     /// </summary>
     [CreateAssetMenu(fileName = "HealEffect", menuName = "ScriptableObjects/Fight/Effects/HealEffect", order = 0)]
-    public class HealEffectScriptableObject : AEffectScriptableObject
+    public class HealEffectSO : AEffectSO
     {
         [field: SerializeField, Range(0, 9999)] public int HealAmount { get; private set; }
 
