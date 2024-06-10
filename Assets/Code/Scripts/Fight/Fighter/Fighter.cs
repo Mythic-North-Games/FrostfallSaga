@@ -4,7 +4,7 @@ namespace FrostfallSaga.Fight.Fighters
 {
     public class Fighter : MonoBehaviour
     {
-        [field: SerializeField] public FighterConfigurationScriptableObject FighterConfiguration { get; private set; }
+        [field: SerializeField] public FighterConfigurationSO FighterConfiguration { get; private set; }
         private FighterStats _stats;
 
         private void Awake()
