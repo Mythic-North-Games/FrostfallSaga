@@ -7,6 +7,8 @@ namespace FrostfallSaga.Grid.Cells
     /// </summary>
     public class Cell : MonoBehaviour
     {
+        private float _size;
+        private ECellOrientation _orientation;
         [field: SerializeField] public Vector2Int Coordinates { get; private set; }
         [field: SerializeField] public ECellHeight Height { get; private set; }
         [field: SerializeField] public bool IsAccessible { get; private set; }
@@ -26,9 +28,15 @@ namespace FrostfallSaga.Grid.Cells
         /// <param name="coordinates">The cell coordinates on the grid.</param>
         /// <param name="cellHeight">The cell height.</param>
         /// <param name="isAccessible">The accessibility of the cell.</param>
-        /// <param name="hexGridSize">The size of the grid to setup the cell into (used for cell visual local scale).</param>
-        public void Setup(Vector2Int coordinates, ECellHeight cellHeight, bool isAccessible, float hexGridSize)
+        /// <param name="hexSize">The size of a cell inside the grid.</param>
+        public void Setup(
+            Vector2Int coordinates,
+            ECellHeight cellHeight,
+            bool isAccessible,
+            float hexSize
+        )
         {
+
             Coordinates = coordinates;
             Height = cellHeight;
             IsAccessible = isAccessible;
@@ -38,7 +46,7 @@ namespace FrostfallSaga.Grid.Cells
             CellVisual = GetComponentInChildren<CellVisual>();
             if (CellVisual != null)
             {
-                CellVisual.transform.localScale = Vector3.one * hexGridSize / 2.68f;
+                CellVisual.transform.localScale = Vector3.one * hexSize / 2.68f;
             }
             else
             {
@@ -54,6 +62,12 @@ namespace FrostfallSaga.Grid.Cells
         {
             Height = newCellHeight;
             SetPositionForCellHeight(Height);
+        }
+
+        public Vector3 GetCenter()
+        {
+            HexGrid grid = GetComponentInParent<HexGrid>();
+            return HexMetrics.Center(grid.HexSize, Coordinates.x, Coordinates.y, grid.HexOrientation);
         }
 
         private void SetPositionForCellHeight(ECellHeight cellHeight)
