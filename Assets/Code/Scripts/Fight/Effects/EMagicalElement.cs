@@ -6,7 +6,7 @@ namespace FrostfallSaga.Fight.Effects
         WATER,
         ICE,
         WIND,
-        LIGHTING,
+        LIGHTNING,
         EARTH,
     }
 }

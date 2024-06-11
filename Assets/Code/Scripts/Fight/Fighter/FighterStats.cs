@@ -12,7 +12,12 @@ namespace FrostfallSaga.Fight.Fighters
         public int dexterity;
         public int magicalStrength;
         public int physicalResistance;
-        public int magicalResistance;
+        public int fireResistance;
+        public int waterResistance;
+        public int iceResistance;
+        public int windResistance;
+        public int lightningResistance;
+        public int earthResistance;
         public int initiative;
     }
 }
