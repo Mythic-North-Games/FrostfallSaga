@@ -34,7 +34,7 @@ namespace FrostfallSaga.Grid
             FindAndSetCellsByCoordinates();
         }
 
-        private void OnDrawGizmos()
+        private void DrawCellsGuizmos()
         {
             for (int z = 0; z < Height; z++)
             {
