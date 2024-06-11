@@ -59,7 +59,10 @@ namespace FrostfallSaga.Core
             {
                 Debug.LogError("Target of type " + typeof(T).ToString() + " not found in parent, current or children components. Will not send events.");
             }
+        }
 
+        private void Start()
+        {
             if (_target != null)
             {
                 _clickEventsByMouseButtonAndDirection.Add(new(MouseButton.LeftMouse, MouseButtonDirection.DOWN), OnLeftMouseDown);
