@@ -4,6 +4,7 @@ using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
+using System;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -16,8 +17,11 @@ namespace FrostfallSaga.Kingdom
         [field: SerializeField] public Material CellInaccessibleHighlightMaterial { get; private set; }
         [field: SerializeField] public HexGrid KingdomGrid { get; private set; }
         [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
-        [field: SerializeField] public EnemiesGroup[] EnemiesGroups { get; private set; } = { };        
+        [field: SerializeField] public EnemiesGroup[] EnemiesGroups { get; private set; } = { };
         public bool ShowEnemiesGroupsMovePath = false;
+        
+        // Parameters are: Hero group, encountered enemies group, player going ?
+        public Action<EntitiesGroup, EnemiesGroup, bool> OnEnemiesGroupEncountered;
 
         private Cell[] _currentShorterPath;
         private bool _entitiesAreMoving;
@@ -55,10 +59,18 @@ namespace FrostfallSaga.Kingdom
         #region Entities movements handling
         private IEnumerator MakeHeroGroupThenEnemiesGroupsMove()
         {
-            foreach (Cell cell in _currentShorterPath)
+            foreach (Cell cellToMoveTo in _currentShorterPath)
             {
-                HeroGroup.MoveToCell(cell);
-                yield return new WaitForSeconds(1); // TODO: Will change with real animation
+                EnemiesGroup collidingEnemiesGroup = GetEnemiesGroupThatWillCollide(cellToMoveTo);
+                if (collidingEnemiesGroup != null)
+                {
+                    OnEnemiesGroupEncountered?.Invoke(HeroGroup, collidingEnemiesGroup, true);
+                }
+                else
+                {
+                    HeroGroup.MoveToCell(cellToMoveTo);
+                    yield return new WaitForSeconds(1); // TODO: Will change with real animation
+                }
             }
             MakeAllEnemiesGroupsMoveSimultaneously();
         }
@@ -84,13 +96,32 @@ namespace FrostfallSaga.Kingdom
 
             foreach (Cell cellOfPath in movePath)
             {
-                enemiesGroup.MoveToCell(cellOfPath);
-                yield return new WaitForSeconds(1); // TODO: Will change with real animation
-                if (ShowEnemiesGroupsMovePath)
+                if (cellOfPath == HeroGroup.Cell)
                 {
-                    cellOfPath.CellVisual.ResetMaterial();
+                    OnEnemiesGroupEncountered?.Invoke(HeroGroup, enemiesGroup, false);
+                }
+                else
+                {
+                    enemiesGroup.MoveToCell(cellOfPath);
+                    yield return new WaitForSeconds(1); // TODO: Will change with real animation
+                    if (ShowEnemiesGroupsMovePath)
+                    {
+                        cellOfPath.CellVisual.ResetMaterial();
+                    }
                 }
             }
+        }
+
+        private EnemiesGroup GetEnemiesGroupThatWillCollide(Cell targetCell)
+        {
+            foreach(EnemiesGroup enemiesGroup in EnemiesGroups)
+            {
+                if (enemiesGroup.Cell == targetCell)
+                {
+                    return enemiesGroup;
+                }
+            }
+            return null;
         }
         #endregion
 

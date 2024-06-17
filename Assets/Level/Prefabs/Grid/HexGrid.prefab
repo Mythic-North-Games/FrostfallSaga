@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4225675484487770367}
   - component: {fileID: 7977177436284894363}
   - component: {fileID: 1609156983569824365}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HexGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
