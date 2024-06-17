@@ -10,20 +10,20 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
     /// Represents a group of entities inside the kingdom grid.
     /// It has one entity displayed that can be changed and it can move.
     /// </summary>
-    public class EntityGroup : MonoBehaviour
+    public class EntitiesGroup : MonoBehaviour
     {
-        [field: SerializeField] public Entity[] Entities { get; private set; }
-        [field: SerializeField] public int MovePoints { get; private set; }
+        public int MovePoints;
         public Cell Cell;
-        public Action<EntityGroup> OnEntityGroupHovered;
-        public Action<EntityGroup> OnEntityGroupUnhovered;
-        public Action<EntityGroup, Cell> OnEntityGroupMoved;
+        public Action<EntitiesGroup> OnEntityGroupHovered;
+        public Action<EntitiesGroup> OnEntityGroupUnhovered;
+        public Action<EntitiesGroup, Cell> OnEntityGroupMoved;
+        private Entity[] entities;
         private Entity _displayedEntity;
 
         private void Start()
         {
-            Entities = GetComponentsInChildren<Entity>();
-            if (Entities == null || Entities.Length == 0)
+            entities = GetComponentsInChildren<Entity>();
+            if (entities == null || entities.Length == 0)
             {
                 Debug.LogError("Entity group " + name + " does not have entities");
                 gameObject.SetActive(false);
@@ -38,15 +38,15 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
 
             if (_displayedEntity == null)
             {
-                for (int i = 0; i < Entities.Length; i++)
+                for (int i = 0; i < entities.Length; i++)
                 {
                     if (i == 0)
                     {
-                        UpdateDisplayedEntity(Entities[i]);
+                        UpdateDisplayedEntity(entities[i]);
                     }
                     else
                     {
-                        Entities[i].HideVisual();
+                        entities[i].HideVisual();
                     }
                 }
             }
@@ -69,7 +69,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
 
         public void UpdateDisplayedEntity(Entity newDisplayedEntity)
         {
-            if (!Entities.Contains(newDisplayedEntity))
+            if (!entities.Contains(newDisplayedEntity))
             {
                 Debug.LogError("Given entity is not part of the group of the entity group " + name);
                 return;

@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "FrostfallSaga.Core",
-        "FrostfallSaga.Grid"
+        "FrostfallSaga.Grid",
+        "FrostfallSaga.Kingdom"
     ],
     "includePlatforms": [
         "Editor"
