@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using FrostfallSaga.Grid;
 
-namespace FrostfallSaga.EditModeTests
+namespace FrostfallSaga.EditModeTests.Grid
 {
     public class HexMetricsTests
     {
