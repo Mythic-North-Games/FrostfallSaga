@@ -17,14 +17,17 @@ namespace FrostfallSaga.Fight.Fighters
         [field: SerializeField, Range(1, 9999)] public int MaxMovePoints { get; private set; }
         [field: SerializeField, Range(1, 9999)] public int Strength { get; private set; }
         [field: SerializeField, Range(1, 9999)] public int Dexterity { get; private set; }
-        [field: SerializeField, Range(1, 9999)] public int MagicalStrength { get; private set; }
         [field: SerializeField, Range(1, 9999)] public int PhysicalResistance { get; private set; }
-        [field: SerializeField, Range(1, 9999)] public int FireResistance { get; private set; }
-        [field: SerializeField, Range(1, 9999)] public int WaterResistance { get; private set; }
-        [field: SerializeField, Range(1, 9999)] public int IceResistance { get; private set; }
-        [field: SerializeField, Range(1, 9999)] public int WindResistance { get; private set; }
-        [field: SerializeField, Range(1, 9999)] public int LightningResistance { get; private set; }
-        [field: SerializeField, Range(1, 9999)] public int EarthResistance { get; private set; }
+        [field: SerializeField]
+        public MagicalElementToValue[] MagicalResistances
+        {
+            get; private set;
+        }
+        [field: SerializeField]
+        public MagicalElementToValue[] MagicalStrengths
+        {
+            get; private set;
+        }
         [field: SerializeField, Range(1, 9999)] public int Initiative { get; private set; }
         #endregion
     }
