@@ -31,16 +31,6 @@ namespace FrostfallSaga.Kingdom.Entities
             }
         }
 
-        private void OnEnable()
-        {
-            EntityMouseEventsController.OnElementHover += LogEntityName;
-        }
-
-        private void LogEntityName(Entity entity)
-        {
-            Debug.Log(entity.name);
-        }
-
         public void ShowVisual()
         {
             if (EntityAnimationController == null)

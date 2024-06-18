@@ -1,6 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Kingdom.EntitiesGroups;
+using System;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -9,20 +13,174 @@ namespace FrostfallSaga.Kingdom
     /// </summary>
     public class KingdomManager : MonoBehaviour
     {
-        private HexGrid _kingdomGrid;
-        [field: SerializeField] Material _cellHighlightMaterial;
+        [field: SerializeField] public Material CellHighlightMaterial { get; private set; }
+        [field: SerializeField] public Material CellInaccessibleHighlightMaterial { get; private set; }
+        [field: SerializeField] public HexGrid KingdomGrid { get; private set; }
+        [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
+        [field: SerializeField] public EnemiesGroup[] EnemiesGroups { get; private set; } = { };
+        public bool ShowEnemiesGroupsMovePath = false;
+        
+        // Parameters are: Hero group, encountered enemies group, player going ?
+        public Action<EntitiesGroup, EnemiesGroup, bool> OnEnemiesGroupEncountered;
 
-        private void OnEnable()
+        private Cell[] _currentShorterPath;
+        private bool _entitiesAreMoving;
+
+        private void Awake()
         {
-            _kingdomGrid = FindObjectOfType<HexGrid>();
-            if (_kingdomGrid == null)
+            if (KingdomGrid == null)
+            {
+                KingdomGrid = FindObjectOfType<HexGrid>();
+            }
+            if (KingdomGrid == null)
             {
                 Debug.LogError("No HexGrid found in the scene. The Kingdom manager can't work.");
                 gameObject.SetActive(false);
                 return;
             }
 
-            foreach (Cell cell in _kingdomGrid.GetCells())
+            BindCellMouseEvents();
+        }
+
+        // It's inside this function that the magic happens. It makes the hero group then the enemies move.
+        private void OnCellClicked(Cell clickedCell)
+        {
+            if (_entitiesAreMoving || _currentShorterPath.Length > HeroGroup.MovePoints)
+            {
+                return;
+            }
+
+            _entitiesAreMoving = true;
+            ResetShorterPathCellsDefaultMaterial();
+            StartCoroutine(MakeHeroGroupThenEnemiesGroupsMove());
+            _entitiesAreMoving = false;
+        }
+
+        #region Entities movements handling
+        private IEnumerator MakeHeroGroupThenEnemiesGroupsMove()
+        {
+            foreach (Cell cellToMoveTo in _currentShorterPath)
+            {
+                EnemiesGroup collidingEnemiesGroup = GetEnemiesGroupThatWillCollide(cellToMoveTo);
+                if (collidingEnemiesGroup != null)
+                {
+                    OnEnemiesGroupEncountered?.Invoke(HeroGroup, collidingEnemiesGroup, true);
+                }
+                else
+                {
+                    HeroGroup.MoveToCell(cellToMoveTo);
+                    yield return new WaitForSeconds(1); // TODO: Will change with real animation
+                }
+            }
+            MakeAllEnemiesGroupsMoveSimultaneously();
+        }
+
+        private void MakeAllEnemiesGroupsMoveSimultaneously()
+        {
+            Dictionary<EntitiesGroup, Cell[]> movePathPerEnemiesGroup = EntitiesGroupsMovementController.GenerateRandomMovePathPerEntitiesGroup(KingdomGrid, EnemiesGroups);
+            foreach (KeyValuePair<EntitiesGroup, Cell[]> item in movePathPerEnemiesGroup)
+            {
+                StartCoroutine(MakeEnemiesGroupMove((EnemiesGroup)item.Key, item.Value));
+            }
+        }
+
+        private IEnumerator MakeEnemiesGroupMove(EnemiesGroup enemiesGroup, Cell[] movePath)
+        {
+            if (ShowEnemiesGroupsMovePath)
+            {
+                foreach (Cell cellOfPath in movePath)
+                {
+                    cellOfPath.CellVisual.Highlight(CellHighlightMaterial);
+                }
+            }
+
+            foreach (Cell cellOfPath in movePath)
+            {
+                if (cellOfPath == HeroGroup.Cell)
+                {
+                    OnEnemiesGroupEncountered?.Invoke(HeroGroup, enemiesGroup, false);
+                }
+                else
+                {
+                    enemiesGroup.MoveToCell(cellOfPath);
+                    yield return new WaitForSeconds(1); // TODO: Will change with real animation
+                    if (ShowEnemiesGroupsMovePath)
+                    {
+                        cellOfPath.CellVisual.ResetMaterial();
+                    }
+                }
+            }
+        }
+
+        private EnemiesGroup GetEnemiesGroupThatWillCollide(Cell targetCell)
+        {
+            foreach(EnemiesGroup enemiesGroup in EnemiesGroups)
+            {
+                if (enemiesGroup.Cell == targetCell)
+                {
+                    return enemiesGroup;
+                }
+            }
+            return null;
+        }
+        #endregion
+
+        #region Cells hovering and highlighting
+        private void OnCellHovered(Cell hoveredCell)
+        {
+            if (_entitiesAreMoving) // To prevent the player from spaming movements
+            {
+                return;
+            }
+
+            if (CellHighlightMaterial == null)
+            {
+                Debug.LogError("No highlight material provided. Can't highlight hovered cell.");
+                return;
+            }
+
+            _currentShorterPath = CellsPathFinding.GetShorterPath(KingdomGrid, HeroGroup.Cell, hoveredCell);
+            HighlightShorterPathCells();
+        }
+
+        private void OnCellUnhovered(Cell hoveredCell)
+        {
+            foreach (Cell cell in _currentShorterPath)
+            {
+                cell.CellVisual.ResetMaterial();
+            }
+        }
+
+        private void HighlightShorterPathCells()
+        {
+            int i = 0;
+            foreach (Cell cell in _currentShorterPath)
+            {
+                if (i < HeroGroup.MovePoints)
+                {
+                    cell.CellVisual.Highlight(CellHighlightMaterial);
+                }
+                else
+                {
+                    cell.CellVisual.Highlight(CellInaccessibleHighlightMaterial);
+                }
+                i++;
+            }
+        }
+
+        private void ResetShorterPathCellsDefaultMaterial()
+        {
+            foreach (Cell cell in _currentShorterPath)
+            {
+                cell.CellVisual.ResetMaterial();
+            }
+        }
+        #endregion
+
+        #region Cell mouse events binding and unbinding
+        private void BindCellMouseEvents()
+        {
+            foreach (Cell cell in KingdomGrid.GetCells())
             {
                 cell.CellMouseEventsController.OnElementHover += OnCellHovered;
                 cell.CellMouseEventsController.OnElementUnhover += OnCellUnhovered;
@@ -30,36 +188,15 @@ namespace FrostfallSaga.Kingdom
             }
         }
 
-        private void OnCellHovered(Cell hoveredCell)
+        private void UnbindCellMouseEvents()
         {
-            if (_cellHighlightMaterial == null)
-            {
-                Debug.LogError("No highlight material provided. Can't highlight hovered cell.");
-                return;
-            }
-
-            hoveredCell.CellVisual.Highlight(_cellHighlightMaterial);
-        }
-
-        private void OnCellUnhovered(Cell hoveredCell)
-        {
-            hoveredCell.CellVisual.ResetMaterial();
-        }
-
-        private void OnCellClicked(Cell clickedCell)
-        {
-            Debug.Log("Clicked on cell with coordinates: " + clickedCell.Coordinates);
-        }
-
-        private void OnDisable()
-        {
-            if (_kingdomGrid == null)
+            if (KingdomGrid == null)
             {
                 Debug.Log("Grid already disabled or destroyed.");
             }
             else
             {
-                foreach (Cell cell in _kingdomGrid.GetCells())
+                foreach (Cell cell in KingdomGrid.GetCells())
                 {
                     cell.CellMouseEventsController.OnElementHover -= OnCellHovered;
                     cell.CellMouseEventsController.OnElementUnhover -= OnCellUnhovered;
@@ -67,5 +204,11 @@ namespace FrostfallSaga.Kingdom
                 }
             }
         }
+
+        private void OnDisable()
+        {
+            UnbindCellMouseEvents();
+        }
+        #endregion
     }
 }

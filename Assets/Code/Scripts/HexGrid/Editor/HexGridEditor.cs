@@ -7,7 +7,7 @@ namespace FrostfallSaga.FFSEditor.Grid
     [CustomEditor(typeof(HexGrid))]
     public class HexGridEditor : Editor
     {
-        private void OnSceneGUI()
+        private void DrawDebugCellNames()
         {
             HexGrid hexGrid = (HexGrid)target;
 

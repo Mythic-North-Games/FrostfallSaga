@@ -21,7 +21,6 @@ namespace FrostfallSaga.EntitiesVisual
         {
             try
             {
-                Debug.Log("startiub");
                 _animator.Play(DefaultAnimationState);
                 CurrentStateName = DefaultAnimationState;
             }
