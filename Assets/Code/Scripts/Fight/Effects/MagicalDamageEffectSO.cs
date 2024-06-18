@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+using FrostfallSaga.Fight.Fighters;
+
 namespace FrostfallSaga.Fight.Effects
 {
     /// <summary>
@@ -11,9 +13,9 @@ namespace FrostfallSaga.Fight.Effects
         [field: SerializeField, Range(0, 9999)] public int MagicalDamageAmount { get; private set; }
         [field: SerializeField] public EMagicalElement MagicalElement { get; private set; }
 
-        public override void ApplyEffect()
+        public override void ApplyEffect(Fighter fighter)
         {
-            throw new System.NotImplementedException();
+            fighter.MagicalWhistand(MagicalDamageAmount, MagicalElement);
         }
     }
 }
