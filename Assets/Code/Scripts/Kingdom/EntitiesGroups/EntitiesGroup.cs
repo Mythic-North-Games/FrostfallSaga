@@ -57,7 +57,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         public void MoveToCell(Cell targetCell)
         {
             // TODO: Use movement controller of displayed entity to animate movement
-            transform.position = targetCell.GetCenter();
+            _displayedEntity.EntityVisualMovementController.Move(targetCell);
             Cell = targetCell;
             OnEntityGroupMoved?.Invoke(this, targetCell);
         }

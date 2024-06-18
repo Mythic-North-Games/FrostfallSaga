@@ -41,7 +41,7 @@ namespace FrostfallSaga.Kingdom
 
             BindCellMouseEvents();
         }
-
+       
         // It's inside this function that the magic happens. It makes the hero group then the enemies move.
         private void OnCellClicked(Cell clickedCell)
         {
