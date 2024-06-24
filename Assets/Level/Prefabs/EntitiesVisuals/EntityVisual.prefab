@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8732000017295926818}
   - component: {fileID: 163358067756540733}
   - component: {fileID: 742316938595284430}
+  - component: {fileID: 2667158917194503322}
   m_Layer: 0
   m_Name: EntityVisual
   m_TagString: Untagged
@@ -73,7 +74,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d174d4157a07344097224a708d411db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <EntityConfiguration>k__BackingField: {fileID: 0}
+  <DefaultAnimationState>k__BackingField: Idle
+--- !u!114 &2667158917194503322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3487487366102243370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 395e31fe06f423c429c6df683a903ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EntityVisualAnimationController>k__BackingField: {fileID: 742316938595284430}
+  <MoveSpeed>k__BackingField: 5
+  <RotationSpeed>k__BackingField: 6
+  <ReachedDistanceOffset>k__BackingField: 0.01
+  parentToMove: {fileID: 0}
 --- !u!1 &7574100290436128938
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ namespace FrostfallSaga.EntitiesVisual
     /// <summary>
     /// Controls the animation of the visible entity.
     /// </summary>
-    public class EntityAnimationController : MonoBehaviour
+    public class EntityVisualAnimationController : MonoBehaviour
     {
         [field: SerializeField] public string DefaultAnimationState { get; private set; } = "Idle";
         private Animator _animator;

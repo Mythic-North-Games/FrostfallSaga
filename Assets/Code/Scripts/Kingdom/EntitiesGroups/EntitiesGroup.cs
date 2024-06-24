@@ -54,12 +54,15 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             transform.position = Cell.GetCenter();
         }
 
-        public void MoveToCell(Cell targetCell)
+        public void MoveToCell(Cell targetCell, bool isLastMove)
         {
-            // TODO: Use movement controller of displayed entity to animate movement
-            _displayedEntity.EntityVisualMovementController.Move(targetCell);
-            Cell = targetCell;
-            OnEntityGroupMoved?.Invoke(this, targetCell);
+            _displayedEntity.EntityVisualMovementController.Move(Cell, targetCell, isLastMove);
+        }
+
+        private void OnMoveEnded(Cell destinationCell)
+        {
+            Cell = destinationCell;
+            OnEntityGroupMoved?.Invoke(this, destinationCell);
         }
 
         public Entity GetDisplayedEntity()
@@ -81,11 +84,13 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
                 {
                     _displayedEntity.EntityMouseEventsController.OnElementHover -= OnDisplayedEntityHovered;
                     _displayedEntity.EntityMouseEventsController.OnElementUnhover -= OnDisplayedEntityUnhovered;
+                    _displayedEntity.EntityVisualMovementController.onMoveEnded -= OnMoveEnded;
                     _displayedEntity.HideVisual();
                 }
 
                 newDisplayedEntity.EntityMouseEventsController.OnElementHover += OnDisplayedEntityHovered;
                 newDisplayedEntity.EntityMouseEventsController.OnElementUnhover += OnDisplayedEntityUnhovered;
+                newDisplayedEntity.EntityVisualMovementController.onMoveEnded += OnMoveEnded;
                 newDisplayedEntity.ShowVisual();
                 _displayedEntity = newDisplayedEntity;
             }

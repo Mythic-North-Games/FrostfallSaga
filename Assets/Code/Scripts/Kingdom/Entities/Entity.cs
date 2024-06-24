@@ -7,14 +7,14 @@ namespace FrostfallSaga.Kingdom.Entities
     public class Entity : MonoBehaviour
     {
         [field: SerializeField] public EntityConfigurationSO EntityConfiguration { get; private set; }
-        [field: SerializeField] public EntityAnimationController EntityAnimationController { get; private set; }
+        [field: SerializeField] public EntityVisualAnimationController EntityAnimationController { get; private set; }
         [field: SerializeField] public EntityVisualMovementController EntityVisualMovementController { get; private set; }
         [field: SerializeField] public EntityMouseEventsController EntityMouseEventsController { get; private set; }
         [field: SerializeField] public bool IsDead { get; private set; }
 
         private void Awake()
         {
-            EntityAnimationController = GetComponentInChildren<EntityAnimationController>();
+            EntityAnimationController = GetComponentInChildren<EntityVisualAnimationController>();
             if (EntityAnimationController == null)
             {
                 Debug.LogWarning("Entity " + name + " does not have an animation controller and a visual.");

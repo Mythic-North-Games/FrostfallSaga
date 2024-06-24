@@ -7,13 +7,12 @@ namespace FrostfallSaga.Grid.Cells
     /// </summary>
     public class Cell : MonoBehaviour
     {
-        private float _size;
-        private ECellOrientation _orientation;
         [field: SerializeField] public Vector2Int Coordinates { get; private set; }
         [field: SerializeField] public ECellHeight Height { get; private set; }
         [field: SerializeField] public bool IsAccessible { get; private set; }
         [field: SerializeField] public CellVisual CellVisual { get; private set; }
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
+        [field:SerializeField] public float WorldHeightPerUnit { get; private set; } = 0.8f;
 
         private void Awake()
         {
@@ -67,7 +66,14 @@ namespace FrostfallSaga.Grid.Cells
         public Vector3 GetCenter()
         {
             HexGrid grid = GetComponentInParent<HexGrid>();
-            return HexMetrics.Center(grid.HexSize, Coordinates.x, Coordinates.y, grid.HexOrientation);
+            Vector3 center = HexMetrics.Center(grid.HexSize, Coordinates.x, Coordinates.y, grid.HexOrientation);
+            center.y = GetYPosition();
+            return center;
+        }
+
+        public float GetYPosition()
+        {
+            return WorldHeightPerUnit + ((int)Height + 1);
         }
 
         private void SetPositionForCellHeight(ECellHeight cellHeight)
