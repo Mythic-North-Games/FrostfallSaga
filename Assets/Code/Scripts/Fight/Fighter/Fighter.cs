@@ -15,6 +15,8 @@ namespace FrostfallSaga.Fight.Fighters
             {
                 Debug.LogError("No fighter configuration for " + name);
             }
+
+            _stats = new();
             ResetStatsToDefaultConfiguration();
         }
 
