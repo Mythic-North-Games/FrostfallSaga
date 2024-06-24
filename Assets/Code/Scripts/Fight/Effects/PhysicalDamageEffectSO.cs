@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.Effects
 {
@@ -10,9 +11,10 @@ namespace FrostfallSaga.Fight.Effects
     {
         [field: SerializeField, Range(0, 9999)] public int PhysicalDamageAmount { get; private set; }
 
-        public override void ApplyEffect()
+         public override void ApplyEffect(Fighter fighter)
         {
-            throw new System.NotImplementedException();
+            fighter.PhysicalWhistand(PhysicalDamageAmount);
         }
+        
     }
 }
