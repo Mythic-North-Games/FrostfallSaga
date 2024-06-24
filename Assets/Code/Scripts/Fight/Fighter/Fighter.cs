@@ -1,6 +1,7 @@
 using UnityEngine;
 using FrostfallSaga.Fight.Effects;
 using System;
+using System.Collections.Generic;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -8,16 +9,6 @@ namespace FrostfallSaga.Fight.Fighters
     {
         [field: SerializeField] public FighterConfigurationSO FighterConfiguration { get; private set; }
         private FighterStats _stats;
-        private Dict<EMagicalElement, int> magicElements = new Dictionary<EMagicalElement, int>
-        {
-            { EMagicalElement.FIRE, _stats.fireResistance },
-            { EMagicalElement.WATER, _stats.waterResistance },
-            { EMagicalElement.ICE, _stats.iceResistance },
-            { EMagicalElement.WIND, _stats.windResistance },
-            { EMagicalElement.LIGHTNING, _stats.lightningResistance },
-            { EMagicalElement.EARTH, _stats.earthResistance }
-        };
-
         private void Awake()
         {
             if (FighterConfiguration == null)
@@ -37,14 +28,9 @@ namespace FrostfallSaga.Fight.Fighters
             _stats.movePoints = FighterConfiguration.MaxMovePoints;
             _stats.strength = FighterConfiguration.Strength;
             _stats.dexterity = FighterConfiguration.Dexterity;
-            _stats.magicalStrength = FighterConfiguration.MagicalStrength;
-            _stats.fireResistance = FighterConfiguration.FireResistance;
-            _stats.waterResistance = FighterConfiguration.WaterResistance;
-            _stats.iceResistance = FighterConfiguration.IceResistance;
-            _stats.windResistance = FighterConfiguration.WindResistance;
-            _stats.lightningResistance = FighterConfiguration.LightningResistance;
-            _stats.earthResistance = FighterConfiguration.EarthResistance;
             _stats.physicalResistance = FighterConfiguration.PhysicalResistance;
+            _stats.magicalResistances = MagicalElementToValue.GetDictionaryFromArray(FighterConfiguration.MagicalResistances);
+            _stats.magicalStrengths = MagicalElementToValue.GetDictionaryFromArray(FighterConfiguration.MagicalStrengths);
             _stats.initiative = FighterConfiguration.Initiative;
         }
 
@@ -60,7 +46,7 @@ namespace FrostfallSaga.Fight.Fighters
         {
             int inflictedMagicalDamageAmount = 0;
 
-            if (myDictionary.TryGetValue(magicalElement, out int value))
+            if (_stats.magicalResistances.TryGetValue(magicalElement, out int value))
             {
                 inflictedMagicalDamageAmount = Math.Max(0, magicalDamageAmount - value);
             }
