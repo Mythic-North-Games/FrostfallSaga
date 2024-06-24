@@ -2,7 +2,9 @@
     "name": "FrostfallSaga.Fight",
     "rootNamespace": "FrostfallSaga.Fight",
     "references": [
-        "FrostfallSaga.Core"
+        "FrostfallSaga.Core",
+        "FrostfallSaga.Grid",
+        "FrostfallSaga.EntitiesVisual"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
