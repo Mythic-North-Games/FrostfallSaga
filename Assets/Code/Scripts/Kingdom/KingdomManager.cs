@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
-using System;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -18,12 +16,12 @@ namespace FrostfallSaga.Kingdom
         [field: SerializeField] public HexGrid KingdomGrid { get; private set; }
         [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
         [field: SerializeField] public EnemiesGroup[] EnemiesGroups { get; private set; } = { };
-        public bool ShowEnemiesGroupsMovePath = false;
-        
-        // Parameters are: Hero group, encountered enemies group, player going ?
+
+        // Parameters are: Hero group, encountered enemies group, hero group initiating ?
         public Action<EntitiesGroup, EnemiesGroup, bool> OnEnemiesGroupEncountered;
 
-        private Cell[] _currentShorterPath;
+        private EntitiesGroupsMovementController _entitiesGroupsMovementController;
+        private MovePath _currentHeroGroupMovePath;
         private bool _entitiesAreMoving;
 
         private void Awake()
@@ -39,91 +37,41 @@ namespace FrostfallSaga.Kingdom
                 return;
             }
 
+            _entitiesGroupsMovementController = new();
+            _entitiesGroupsMovementController.OnAllEntitiesMoved += OnAllEntitiesMoved;
+            _entitiesGroupsMovementController.OnEnemiesGroupEncountered += OnEnemiesGroupEncounteredDuringMovement;
             BindCellMouseEvents();
         }
 
         // It's inside this function that the magic happens. It makes the hero group then the enemies move.
         private void OnCellClicked(Cell clickedCell)
         {
-            if (_entitiesAreMoving || _currentShorterPath.Length > HeroGroup.MovePoints)
+            if (_entitiesAreMoving || _currentHeroGroupMovePath.PathLength > HeroGroup.MovePoints)
             {
                 return;
             }
 
             _entitiesAreMoving = true;
             ResetShorterPathCellsDefaultMaterial();
-            StartCoroutine(MakeHeroGroupThenEnemiesGroupsMove());
+
+            // Ask the movement controller to make the groups do the movements and listen to when it finishes.
+            _entitiesGroupsMovementController.MakeHeroGroupThenEnemiesGroupMove(
+                KingdomGrid,
+                HeroGroup,
+                _currentHeroGroupMovePath,
+                EnemiesGroups
+            );
+        }
+
+        private void OnEnemiesGroupEncounteredDuringMovement(EnemiesGroup encounteredEnemiesGroup, bool heroGroupHasInitiated)
+        {
+            OnEnemiesGroupEncountered?.Invoke(HeroGroup, encounteredEnemiesGroup, heroGroupHasInitiated);
+        }
+
+        private void OnAllEntitiesMoved()
+        {
             _entitiesAreMoving = false;
         }
-
-        #region Entities movements handling
-        private IEnumerator MakeHeroGroupThenEnemiesGroupsMove()
-        {
-            foreach (Cell cellToMoveTo in _currentShorterPath)
-            {
-                EnemiesGroup collidingEnemiesGroup = GetEnemiesGroupThatWillCollide(cellToMoveTo);
-                if (collidingEnemiesGroup != null)
-                {
-                    OnEnemiesGroupEncountered?.Invoke(HeroGroup, collidingEnemiesGroup, true);
-                }
-                else
-                {
-                    HeroGroup.MoveToCell(cellToMoveTo);
-                    yield return new WaitForSeconds(1); // TODO: Will change with real animation
-                }
-            }
-            MakeAllEnemiesGroupsMoveSimultaneously();
-        }
-
-        private void MakeAllEnemiesGroupsMoveSimultaneously()
-        {
-            Dictionary<EntitiesGroup, Cell[]> movePathPerEnemiesGroup = EntitiesGroupsMovementController.GenerateRandomMovePathPerEntitiesGroup(KingdomGrid, EnemiesGroups);
-            foreach (KeyValuePair<EntitiesGroup, Cell[]> item in movePathPerEnemiesGroup)
-            {
-                StartCoroutine(MakeEnemiesGroupMove((EnemiesGroup)item.Key, item.Value));
-            }
-        }
-
-        private IEnumerator MakeEnemiesGroupMove(EnemiesGroup enemiesGroup, Cell[] movePath)
-        {
-            if (ShowEnemiesGroupsMovePath)
-            {
-                foreach (Cell cellOfPath in movePath)
-                {
-                    cellOfPath.CellVisual.Highlight(CellHighlightMaterial);
-                }
-            }
-
-            foreach (Cell cellOfPath in movePath)
-            {
-                if (cellOfPath == HeroGroup.Cell)
-                {
-                    OnEnemiesGroupEncountered?.Invoke(HeroGroup, enemiesGroup, false);
-                }
-                else
-                {
-                    enemiesGroup.MoveToCell(cellOfPath);
-                    yield return new WaitForSeconds(1); // TODO: Will change with real animation
-                    if (ShowEnemiesGroupsMovePath)
-                    {
-                        cellOfPath.CellVisual.ResetMaterial();
-                    }
-                }
-            }
-        }
-
-        private EnemiesGroup GetEnemiesGroupThatWillCollide(Cell targetCell)
-        {
-            foreach(EnemiesGroup enemiesGroup in EnemiesGroups)
-            {
-                if (enemiesGroup.Cell == targetCell)
-                {
-                    return enemiesGroup;
-                }
-            }
-            return null;
-        }
-        #endregion
 
         #region Cells hovering and highlighting
         private void OnCellHovered(Cell hoveredCell)
@@ -139,22 +87,19 @@ namespace FrostfallSaga.Kingdom
                 return;
             }
 
-            _currentShorterPath = CellsPathFinding.GetShorterPath(KingdomGrid, HeroGroup.Cell, hoveredCell);
+            _currentHeroGroupMovePath = new(CellsPathFinding.GetShorterPath(KingdomGrid, HeroGroup.Cell, hoveredCell));
             HighlightShorterPathCells();
         }
 
         private void OnCellUnhovered(Cell hoveredCell)
         {
-            foreach (Cell cell in _currentShorterPath)
-            {
-                cell.CellVisual.ResetMaterial();
-            }
+            ResetShorterPathCellsDefaultMaterial();
         }
 
         private void HighlightShorterPathCells()
         {
             int i = 0;
-            foreach (Cell cell in _currentShorterPath)
+            foreach (Cell cell in _currentHeroGroupMovePath.path)
             {
                 if (i < HeroGroup.MovePoints)
                 {
@@ -170,7 +115,7 @@ namespace FrostfallSaga.Kingdom
 
         private void ResetShorterPathCellsDefaultMaterial()
         {
-            foreach (Cell cell in _currentShorterPath)
+            foreach (Cell cell in _currentHeroGroupMovePath.path)
             {
                 cell.CellVisual.ResetMaterial();
             }
@@ -204,11 +149,13 @@ namespace FrostfallSaga.Kingdom
                 }
             }
         }
+        #endregion
 
         private void OnDisable()
         {
             UnbindCellMouseEvents();
+            _entitiesGroupsMovementController.OnAllEntitiesMoved -= OnAllEntitiesMoved;
+            _entitiesGroupsMovementController.OnEnemiesGroupEncountered -= OnEnemiesGroupEncounteredDuringMovement;
         }
-        #endregion
     }
 }

@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using UnityEngine;
 
 namespace FrostfallSaga.EditModeTests.Grid.Cells
 {
@@ -15,7 +16,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(0, 4)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 0)],
                 grid.CellsByCoordinates[new(0, 1)],
                 grid.CellsByCoordinates[new(0, 2)],
                 grid.CellsByCoordinates[new(0, 3)],
@@ -36,8 +36,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(3, 0)];
-            Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 0)],
+            Cell[] expectedShorterPath = {                
                 grid.CellsByCoordinates[new(1, 0)],
                 grid.CellsByCoordinates[new(2, 0)],
                 grid.CellsByCoordinates[new(3, 0)],
@@ -57,8 +56,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
             Cell startCell = grid.CellsByCoordinates[new(4, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 1)];
-            Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(4, 4)],
+            Cell[] expectedShorterPath = {                
                 grid.CellsByCoordinates[new(3, 3)],
                 grid.CellsByCoordinates[new(3, 2)],
                 grid.CellsByCoordinates[new(2, 1)],
@@ -79,7 +77,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(1, 1)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 4)],
                 grid.CellsByCoordinates[new(0, 3)],
                 grid.CellsByCoordinates[new(1, 2)],
                 grid.CellsByCoordinates[new(1, 1)],
@@ -100,7 +97,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(1, 3)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 0)],
                 grid.CellsByCoordinates[new(0, 1)],
                 grid.CellsByCoordinates[new(1, 2)],
                 grid.CellsByCoordinates[new(1, 3)],
@@ -121,7 +117,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(4, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 3)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(4, 0)],
                 grid.CellsByCoordinates[new(3, 1)],
                 grid.CellsByCoordinates[new(3, 2)],
                 grid.CellsByCoordinates[new(2, 3)],
@@ -142,7 +137,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 0)],
                 grid.CellsByCoordinates[new(0, 1)],
                 grid.CellsByCoordinates[new(1, 2)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -163,7 +157,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(4, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(4, 0)],
                 grid.CellsByCoordinates[new(3, 1)],
                 grid.CellsByCoordinates[new(2, 1)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -184,7 +177,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 4)],
                 grid.CellsByCoordinates[new(0, 3)],
                 grid.CellsByCoordinates[new(1, 2)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -205,7 +197,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(4, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(4, 4)],
                 grid.CellsByCoordinates[new(3, 3)],
                 grid.CellsByCoordinates[new(2, 3)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -230,7 +221,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(0, 3)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 0)],
                 grid.CellsByCoordinates[new(0, 1)],
                 grid.CellsByCoordinates[new(1, 2)],
                 grid.CellsByCoordinates[new(0, 3)],
@@ -253,7 +243,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(3, 0)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 0)],
                 grid.CellsByCoordinates[new(1, 0)],
                 grid.CellsByCoordinates[new(1, 1)],
                 grid.CellsByCoordinates[new(2, 1)],
@@ -277,7 +266,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(4, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 1)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(4, 4)],
                 grid.CellsByCoordinates[new(3, 4)],
                 grid.CellsByCoordinates[new(2, 3)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -301,7 +289,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(1, 1)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 4)],
                 grid.CellsByCoordinates[new(1, 4)],
                 grid.CellsByCoordinates[new(1, 3)],
                 grid.CellsByCoordinates[new(1, 2)],
@@ -325,7 +312,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(1, 3)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 0)],
                 grid.CellsByCoordinates[new(1, 0)],
                 grid.CellsByCoordinates[new(1, 1)],
                 grid.CellsByCoordinates[new(1, 2)],
@@ -349,7 +335,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(4, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 3)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(4, 0)],
                 grid.CellsByCoordinates[new(3, 0)],
                 grid.CellsByCoordinates[new(2, 1)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -373,7 +358,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 0)],
                 grid.CellsByCoordinates[new(1, 0)],
                 grid.CellsByCoordinates[new(1, 1)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -396,7 +380,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(4, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(4, 0)],
                 grid.CellsByCoordinates[new(3, 0)],
                 grid.CellsByCoordinates[new(2, 1)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -419,7 +402,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 4)],
                 grid.CellsByCoordinates[new(1, 4)],
                 grid.CellsByCoordinates[new(1, 3)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -442,7 +424,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(4, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(4, 4)],
                 grid.CellsByCoordinates[new(3, 3)],
                 grid.CellsByCoordinates[new(3, 2)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -467,7 +448,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(0, 3)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 0)],
                 grid.CellsByCoordinates[new(0, 1)],
                 grid.CellsByCoordinates[new(1, 2)],
                 grid.CellsByCoordinates[new(0, 3)],
@@ -490,7 +470,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(3, 0)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 0)],
                 grid.CellsByCoordinates[new(1, 0)],
                 grid.CellsByCoordinates[new(1, 1)],
                 grid.CellsByCoordinates[new(2, 1)],
@@ -514,7 +493,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(4, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 1)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(4, 4)],
                 grid.CellsByCoordinates[new(3, 4)],
                 grid.CellsByCoordinates[new(2, 3)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -538,7 +516,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(1, 1)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 4)],
                 grid.CellsByCoordinates[new(1, 4)],
                 grid.CellsByCoordinates[new(1, 3)],
                 grid.CellsByCoordinates[new(1, 2)],
@@ -562,7 +539,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(1, 3)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 0)],
                 grid.CellsByCoordinates[new(1, 0)],
                 grid.CellsByCoordinates[new(1, 1)],
                 grid.CellsByCoordinates[new(1, 2)],
@@ -586,7 +562,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(4, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 3)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(4, 0)],
                 grid.CellsByCoordinates[new(3, 0)],
                 grid.CellsByCoordinates[new(2, 1)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -610,7 +585,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 0)],
                 grid.CellsByCoordinates[new(1, 0)],
                 grid.CellsByCoordinates[new(1, 1)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -633,7 +607,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(4, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(4, 0)],
                 grid.CellsByCoordinates[new(3, 0)],
                 grid.CellsByCoordinates[new(2, 1)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -656,7 +629,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 4)],
                 grid.CellsByCoordinates[new(1, 4)],
                 grid.CellsByCoordinates[new(1, 3)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -679,7 +651,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(4, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(4, 4)],
                 grid.CellsByCoordinates[new(3, 3)],
                 grid.CellsByCoordinates[new(3, 2)],
                 grid.CellsByCoordinates[new(2, 2)],
@@ -708,7 +679,6 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
             Cell[] expectedShorterPath = {
-                grid.CellsByCoordinates[new(0, 0)],
                 grid.CellsByCoordinates[new(1, 0)],
                 grid.CellsByCoordinates[new(2, 0)],
                 grid.CellsByCoordinates[new(3, 0)],

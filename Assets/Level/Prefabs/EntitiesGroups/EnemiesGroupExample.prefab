@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652515b0162356b498ca7cbce71cac61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MovePoints>k__BackingField: 5
+  MovePoints: 0
   Cell: {fileID: 0}
 --- !u!1001 &2467629555327405230
 PrefabInstance:
@@ -202,6 +202,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3569215896855199795, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
+      propertyPath: parentToMove
+      value: 
+      objectReference: {fileID: 2373063617049297155}
+    - target: {fileID: 3569215896855199795, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
+      propertyPath: <EntityVisualAnimationController>k__BackingField
+      value: 
+      objectReference: {fileID: 4393320014509125065}
+    - target: {fileID: 3671533088005351255, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
+      propertyPath: <EntityVisualMovementController>k__BackingField
+      value: 
+      objectReference: {fileID: 1420515091990760605}
     - target: {fileID: 4179958532800742833, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
       propertyPath: m_Name
       value: HeavyWarriorEntityExample
@@ -216,6 +228,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3108754762468580218, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
   m_PrefabInstance: {fileID: 2467629555327405230}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1420515091990760605 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3569215896855199795, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
+  m_PrefabInstance: {fileID: 2467629555327405230}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 395e31fe06f423c429c6df683a903ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4393320014509125065 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2217738349721264487, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
+  m_PrefabInstance: {fileID: 2467629555327405230}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d174d4157a07344097224a708d411db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7885682335326535469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -264,6 +298,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3569215896855199795, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
+      propertyPath: parentToMove
+      value: 
+      objectReference: {fileID: 2373063617049297155}
+    - target: {fileID: 3569215896855199795, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
+      propertyPath: <EntityVisualAnimationController>k__BackingField
+      value: 
+      objectReference: {fileID: 8334314676906122826}
+    - target: {fileID: 3671533088005351255, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
+      propertyPath: <EntityVisualMovementController>k__BackingField
+      value: 
+      objectReference: {fileID: 6694588473662160670}
     - target: {fileID: 4179958532800742833, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
       propertyPath: m_Name
       value: HeavyWarriorEntityExample (1)
@@ -278,3 +324,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3108754762468580218, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
   m_PrefabInstance: {fileID: 7885682335326535469}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6694588473662160670 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3569215896855199795, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
+  m_PrefabInstance: {fileID: 7885682335326535469}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 395e31fe06f423c429c6df683a903ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8334314676906122826 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2217738349721264487, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
+  m_PrefabInstance: {fileID: 7885682335326535469}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d174d4157a07344097224a708d411db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

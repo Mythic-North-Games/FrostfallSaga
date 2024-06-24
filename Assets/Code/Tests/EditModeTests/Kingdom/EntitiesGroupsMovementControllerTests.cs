@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using NUnit.Framework;
@@ -5,7 +6,6 @@ using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom;
 using FrostfallSaga.Kingdom.EntitiesGroups;
-using System;
 
 namespace FrostfallSaga.EditModeTests.Kingdom
 {

@@ -78,7 +78,6 @@ namespace FrostfallSaga.Grid.Cells
                 path.Add(current);
                 current = cameFrom[current];
             }
-            path.Add(start);
             path.Reverse();
             return path.ToArray();
         }
