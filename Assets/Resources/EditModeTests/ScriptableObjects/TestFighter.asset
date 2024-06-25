@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50862a0fc6cf7d64c9f705ea8e91f54b, type: 3}
-  m_Name: SkeletonExample
+  m_Name: TestFighter
   m_EditorClassIdentifier: 
   <AvailableActiveAbilities>k__BackingField: []
   <DirectAttackTargeter>k__BackingField: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
@@ -20,12 +20,12 @@ MonoBehaviour:
   <DirectAttackAnimationStateName>k__BackingField: 
   <HealSelfAnimationStateName>k__BackingField: 
   <ReceiveDamageAnimationStateName>k__BackingField: 
-  <MaxHealth>k__BackingField: 1
-  <MaxActionPoints>k__BackingField: 1
-  <MaxMovePoints>k__BackingField: 1
-  <Strength>k__BackingField: 1
-  <Dexterity>k__BackingField: 1
-  <PhysicalResistance>k__BackingField: 1
+  <MaxHealth>k__BackingField: 100
+  <MaxActionPoints>k__BackingField: 5
+  <MaxMovePoints>k__BackingField: 5
+  <Strength>k__BackingField: 10
+  <Dexterity>k__BackingField: 10
+  <PhysicalResistance>k__BackingField: 10
   <MagicalResistances>k__BackingField: []
   <MagicalStrengths>k__BackingField: []
   <Initiative>k__BackingField: 1
