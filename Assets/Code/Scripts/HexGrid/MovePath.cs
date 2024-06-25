@@ -1,6 +1,6 @@
 using FrostfallSaga.Grid.Cells;
 
-namespace FrostfallSaga.Kingdom
+namespace FrostfallSaga.Grid
 {
 	public class MovePath
 	{
