@@ -10,9 +10,13 @@ namespace FrostfallSaga.Fight.Fighters
     public class Fighter : MonoBehaviour
     {
         [field: SerializeField] public FighterConfigurationSO FighterConfiguration { get; private set; }
-        [field: SerializeField] public Cell Cell { get; private set; }
+        public Cell cell;
         public Action<Fighter> OnFighterMoved;
+        public Action<Fighter> OnFighterDirectAttackEnded;
 
+        public Cell[] directAttackCells;
+
+        [SerializeField] private EntityVisualAnimationController _animationController;
         [SerializeField] private EntityVisualMovementController _movementController;
         private MovePath _currentMovePath;
         private FighterStats _stats;
@@ -23,13 +27,22 @@ namespace FrostfallSaga.Fight.Fighters
             {
                 Debug.LogError("No fighter configuration for " + name);
             }
-            if (!TrySetupEntitiyVisyualMoveController())
+            if (!TrySetupEntitiyVisualMoveController())
             {
                 Debug.LogError("No entity visual move controller found for fighter " + name);
+            }
+            if (!TrySetupEntitiyVisualAnimationController())
+            {
+                Debug.LogError("No entity visual animation controller found for fighter " + name);
             }
 
             _stats = new();
             ResetStatsToDefaultConfiguration();
+
+            if (directAttackCells.Length > 0)
+            {
+                UseDirectAttack(directAttackCells);
+            }
         }
 
         private void ResetStatsToDefaultConfiguration()
@@ -64,11 +77,43 @@ namespace FrostfallSaga.Fight.Fighters
             MakeNextMove();
         }
 
+        public void UseDirectAttack(Cell[] targetedCells)
+        {
+            if (targetedCells.Length == 0)
+            {
+                throw new ArgumentException("A direct attack can't be used without one or more target cells");
+            }
+
+            if (FighterConfiguration.DirectAttackActionPointsCost > _stats.actionPoints)
+            {
+                throw new ArgumentOutOfRangeException("Fighter " + name + " does not have enough actions points to use its direct attack.");
+            }
+
+            PlayAnimationIfAny(FighterConfiguration.DirectAttackAnimationStateName);
+            _stats.actionPoints -= FighterConfiguration.DirectAttackActionPointsCost;
+            foreach (Cell targetedCell in targetedCells)
+            {
+                Fighter targetedCellFighter = targetedCell.GetComponent<CellFightBehaviour>().Fighter;
+                if (targetedCellFighter != null)
+                {
+                    ApplyDirectAttackEffectsToFighter(targetedCellFighter);
+                }
+            }
+        }
+
+        private void ApplyDirectAttackEffectsToFighter(Fighter fighter)
+        {
+            foreach (AEffectSO effect in FighterConfiguration.DirectAttackEffects)
+            {
+                effect.ApplyEffect(fighter);
+            }
+        }
+
         public void PhysicalWhistand(int physicalDamageAmount)
         {
 
             int inflictedPhysicalDamageAmount = Math.Max(0, physicalDamageAmount - _stats.physicalResistance);
-            PlayDamageAnimationIfAny();
+            PlayAnimationIfAny(FighterConfiguration.ReceiveDamageAnimationStateName);
             _stats.health = Math.Max(0, _stats.health - inflictedPhysicalDamageAmount);
         }
 
@@ -85,38 +130,44 @@ namespace FrostfallSaga.Fight.Fighters
                 Debug.LogError("Magical element is not bind to any value!");
             }
 
-            PlayDamageAnimationIfAny();
+            PlayAnimationIfAny(FighterConfiguration.ReceiveDamageAnimationStateName);
             _stats.health = Math.Max(0, _stats.health - inflictedMagicalDamageAmount);
         }
 
         public void Heal(int healAmount)
         {
-            PlayHealAnimationIfAny();
+            PlayAnimationIfAny(FighterConfiguration.HealSelfAnimationStateName);
             _stats.health = Math.Min(_stats.health + healAmount, _stats.maxHealth);
-
         }
 
-        private void PlayDamageAnimationIfAny()
+        private void PlayAnimationIfAny(string animationStateName)
         {
-            
-        }
-
-        private void PlayHealAnimationIfAny()
-        {
-            
+            try
+            {
+                _animationController.PlayAnimationState(animationStateName);
+            }
+            catch (Exception)
+            {
+                if (animationStateName != null)
+                {
+                    Debug.LogWarning("Animation named: " + animationStateName + " not found for fighter " + name);
+                }
+            }
         }
 
         #region Movement handling
         private void MakeNextMove()
         {
             Cell cellToMoveTo = _currentMovePath.GetNextCellInPath();
-            _movementController.Move(Cell, cellToMoveTo, _currentMovePath.IsLastMove);
+            cell.GetComponent<CellFightBehaviour>().Fighter = null;
+            _movementController.Move(cell, cellToMoveTo, _currentMovePath.IsLastMove);
         }
 
         private void OnFighterArrivedAtCell(Cell destinationCell)
         {
             _stats.movePoints -= 1;
-            Cell = destinationCell;
+            cell = destinationCell;
+            cell.GetComponent<CellFightBehaviour>().Fighter = this;
             if (!_currentMovePath.IsLastMove)
             {
                 MakeNextMove();
@@ -129,7 +180,7 @@ namespace FrostfallSaga.Fight.Fighters
         #endregion
 
         #region Getting children & bindings setup
-        private bool TrySetupEntitiyVisyualMoveController()
+        private bool TrySetupEntitiyVisualMoveController()
         {
             _movementController = GetComponentInChildren<EntityVisualMovementController>();
             if (_movementController == null)
@@ -141,6 +192,16 @@ namespace FrostfallSaga.Fight.Fighters
             return true;
         }
 
+        private bool TrySetupEntitiyVisualAnimationController()
+        {
+            _animationController = GetComponentInChildren<EntityVisualAnimationController>();
+            if (_animationController == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
         private void OnDisable()
         {
             if (_movementController != null)
@@ -149,5 +210,30 @@ namespace FrostfallSaga.Fight.Fighters
             }
         }
         #endregion
+
+        #if UNITY_EDITOR
+            public void SetFighterConfigurationForTests(FighterConfigurationSO fighterConfiguration)
+            {
+                FighterConfiguration = fighterConfiguration;
+            }
+
+            public void SetStatsForTests(FighterStats newStats = null)
+            {
+                if (newStats != null)
+                {
+                    _stats = newStats;
+                }
+                else
+                {
+                    _stats = new();
+                    ResetStatsToDefaultConfiguration();
+                }
+            }
+
+            public FighterStats GetStatsForTests()
+            {
+                return _stats;
+            }
+        #endif
     }
 }
