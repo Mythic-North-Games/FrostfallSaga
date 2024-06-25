@@ -4579,26 +4579,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3129224377450789127, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
-      propertyPath: cellPath.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3129224377450789127, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
-      propertyPath: <Cell>k__BackingField
-      value: 
-      objectReference: {fileID: 1039966331}
-    - target: {fileID: 3129224377450789127, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
-      propertyPath: cellPath.Array.data[0]
-      value: 
-      objectReference: {fileID: 1264801962}
-    - target: {fileID: 3129224377450789127, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
-      propertyPath: cellPath.Array.data[1]
-      value: 
-      objectReference: {fileID: 1954608790}
-    - target: {fileID: 3129224377450789127, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
-      propertyPath: cellPath.Array.data[2]
-      value: 
-      objectReference: {fileID: 671352191}
-    - target: {fileID: 3129224377450789127, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
       propertyPath: <FighterConfiguration>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 6cc53fffb81ce5f4f931c9aaa677e913, type: 2}
