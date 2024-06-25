@@ -13,7 +13,7 @@ namespace FrostfallSaga.EntitiesVisual
         public Action onRotationEnded;
         public Action<Cell> onMoveEnded;
 
-        [SerializeField] private GameObject parentToMove;
+        [SerializeField] private GameObject _parentToMove;
         private bool _isMoving = false;
         private bool _isRotating = false;
         private bool _isLastMove = false;
@@ -25,9 +25,9 @@ namespace FrostfallSaga.EntitiesVisual
         private void Start()
         {
             EntityVisualAnimationController = GetComponent<EntityVisualAnimationController>();
-            if (parentToMove == null)
+            if (_parentToMove == null)
             {
-                parentToMove = gameObject;
+                _parentToMove = gameObject;
             }
         }
 
@@ -92,18 +92,18 @@ namespace FrostfallSaga.EntitiesVisual
         private void MakeParentRotateTowardsTarget()
         {
             Vector3 nextRotation = Vector3.RotateTowards(
-                parentToMove.transform.forward,
-                new Vector3(_targetCellPosition.x, 0, _targetCellPosition.z) - new Vector3(parentToMove.transform.position.x, 0, parentToMove.transform.position.z),
+                _parentToMove.transform.forward,
+                new Vector3(_targetCellPosition.x, 0, _targetCellPosition.z) - new Vector3(_parentToMove.transform.position.x, 0, _parentToMove.transform.position.z),
                 RotationSpeed * Time.deltaTime, 0.0f
             );
-            parentToMove.transform.rotation = Quaternion.LookRotation(nextRotation);
+            _parentToMove.transform.rotation = Quaternion.LookRotation(nextRotation);
             _lastRotationStep = Quaternion.LookRotation(nextRotation);
         }
 
         private void MakeParentMoveTowardsTarget()
         {
-            parentToMove.transform.position = Vector3.MoveTowards(
-                parentToMove.transform.position, _targetCellPosition, MoveSpeed * Time.deltaTime
+            _parentToMove.transform.position = Vector3.MoveTowards(
+                _parentToMove.transform.position, _targetCellPosition, MoveSpeed * Time.deltaTime
             );
         }
 
@@ -114,12 +114,19 @@ namespace FrostfallSaga.EntitiesVisual
 
         private bool HasReachedTargetRotation()
         {
-            return _isRotating && parentToMove.transform.rotation == _targetRotation;
+            return _isRotating && _parentToMove.transform.rotation == _targetRotation;
         }
 
         private bool HasReachedTargetLocation()
         {
-            return _isMoving && parentToMove.transform.position == _targetCellPosition;
+            return _isMoving && _parentToMove.transform.position == _targetCellPosition;
         }
+
+        #if UNITY_EDITOR
+            public void SetParentToMoveForTests(GameObject parentToMove)
+            {
+                _parentToMove = parentToMove;
+            }
+        #endif
     }
 }

@@ -10,6 +10,10 @@ namespace FrostfallSaga.Fight.Fighters
         [field: SerializeField] public ActiveAbilitiesToAnimation[] AvailableActiveAbilities { get; private set; }
         [field: SerializeField] public TargeterSO DirectAttackTargeter { get; private set; }
         [field: SerializeField] public AEffectSO[] DirectAttackEffects { get; private set; }
+        [field: SerializeField] public int DirectAttackActionPointsCost { get; private set; }
+        [field: SerializeField] public string DirectAttackAnimationStateName { get; private set; }
+        [field: SerializeField] public string HealSelfAnimationStateName { get; private set; }
+        [field: SerializeField] public string ReceiveDamageAnimationStateName { get; private set; }
 
         #region Base stats
         [field: SerializeField, Range(1, 9999)] public int MaxHealth { get; private set; }
