@@ -4,6 +4,8 @@ using FrostfallSaga.Grid;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Fight.Controllers;
+using System.Collections.Generic;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -38,11 +40,6 @@ namespace FrostfallSaga.Fight.Fighters
 
             _stats = new();
             ResetStatsToDefaultConfiguration();
-
-            if (directAttackCells.Length > 0)
-            {
-                UseDirectAttack(directAttackCells);
-            }
         }
 
         private void ResetStatsToDefaultConfiguration()
@@ -134,6 +131,13 @@ namespace FrostfallSaga.Fight.Fighters
             PlayAnimationIfAny(FighterConfiguration.HealSelfAnimationStateName);
             _stats.health = Math.Clamp(_stats.health + healAmount, 0, _stats.maxHealth);
         }
+
+        #region Stats getter
+        public int GetMovePoints()
+        {
+            return _stats.movePoints;
+        }
+        #endregion
 
         private void PlayAnimationIfAny(string animationStateName)
         {
