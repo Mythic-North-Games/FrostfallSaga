@@ -26,6 +26,10 @@ MonoBehaviour:
   <Strength>k__BackingField: 10
   <Dexterity>k__BackingField: 10
   <PhysicalResistance>k__BackingField: 10
-  <MagicalResistances>k__BackingField: []
+  <MagicalResistances>k__BackingField:
+  - magicalElement: 0
+    value: 0
+  - magicalElement: 1
+    value: 0
   <MagicalStrengths>k__BackingField: []
   <Initiative>k__BackingField: 1

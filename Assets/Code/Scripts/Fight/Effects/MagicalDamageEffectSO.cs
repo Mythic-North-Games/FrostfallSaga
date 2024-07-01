@@ -15,7 +15,7 @@ namespace FrostfallSaga.Fight.Effects
 
         public override void ApplyEffect(Fighter fighter)
         {
-            fighter.MagicalWhistand(MagicalDamageAmount, MagicalElement);
+            fighter.MagicalWithstand(MagicalDamageAmount, MagicalElement);
         }
     }
 }
