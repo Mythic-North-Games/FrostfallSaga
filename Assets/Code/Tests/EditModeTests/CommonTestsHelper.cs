@@ -1,4 +1,5 @@
 using UnityEngine;
+using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 
@@ -38,7 +39,7 @@ namespace FrostfallSaga.EditModeTests
             cellVisualGameObject.transform.SetParent(cellGameObject.transform);
             cellVisualGameObject.AddComponent<MeshCollider>();
             cellVisualGameObject.AddComponent<CellMouseEventsController>();
-            cellVisualGameObject.AddComponent<CellVisual>();
+            cellVisualGameObject.AddComponent<MaterialHighlightable>();
 
             Cell newCell = cellGameObject.GetComponent<Cell>();
             newCell.Setup(coordinates, height, isAccessible, hexGridSize);
