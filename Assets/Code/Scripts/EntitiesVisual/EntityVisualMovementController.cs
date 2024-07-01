@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using FrostfallSaga.Core;
+using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 
 namespace FrostfallSaga.EntitiesVisual

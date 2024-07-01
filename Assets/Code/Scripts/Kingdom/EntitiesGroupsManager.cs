@@ -9,7 +9,7 @@ namespace FrostfallSaga.Kingdom
     /// <summary>
     /// Responsible for managing entities movements and encounters.
     /// </summary>
-    public class KingdomManager : MonoBehaviour
+    public class EntitiesGroupsManager : MonoBehaviour
     {
         [field: SerializeField] public Material CellHighlightMaterial { get; private set; }
         [field: SerializeField] public Material CellInaccessibleHighlightMaterial { get; private set; }
@@ -103,11 +103,11 @@ namespace FrostfallSaga.Kingdom
             {
                 if (i < HeroGroup.MovePoints)
                 {
-                    cell.CellVisual.Highlight(CellHighlightMaterial);
+                    cell.HighlightController.Highlight(CellHighlightMaterial);
                 }
                 else
                 {
-                    cell.CellVisual.Highlight(CellInaccessibleHighlightMaterial);
+                    cell.HighlightController.Highlight(CellInaccessibleHighlightMaterial);
                 }
                 i++;
             }
@@ -117,7 +117,7 @@ namespace FrostfallSaga.Kingdom
         {
             foreach (Cell cell in _currentHeroGroupMovePath.path)
             {
-                cell.CellVisual.ResetMaterial();
+                cell.HighlightController.ResetMaterial();
             }
         }
         #endregion

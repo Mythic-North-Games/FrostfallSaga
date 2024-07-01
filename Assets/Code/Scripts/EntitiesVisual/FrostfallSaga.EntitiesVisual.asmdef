@@ -2,6 +2,7 @@
     "name": "FrostfallSaga.EntitiesVisual",
     "rootNamespace": "FrostfallSaga.EntitiesVisual",
     "references": [
+        "FrostfallSaga.Core",
         "FrostfallSaga.Grid"
     ],
     "includePlatforms": [],
