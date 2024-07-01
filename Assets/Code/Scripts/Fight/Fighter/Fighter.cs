@@ -109,35 +109,30 @@ namespace FrostfallSaga.Fight.Fighters
             }
         }
 
-        public void PhysicalWhistand(int physicalDamageAmount)
+        public void PhysicalWithstand(int physicalDamageAmount)
         {
 
-            int inflictedPhysicalDamageAmount = Math.Max(0, physicalDamageAmount - _stats.physicalResistance);
             PlayAnimationIfAny(FighterConfiguration.ReceiveDamageAnimationStateName);
-            _stats.health = Math.Max(0, _stats.health - inflictedPhysicalDamageAmount);
+            int inflictedPhysicalDamageAmount = Math.Max(0, physicalDamageAmount - _stats.physicalResistance);
+            _stats.health = Math.Clamp(_stats.health - inflictedPhysicalDamageAmount, 0, _stats.maxHealth);
         }
 
-        public void MagicalWhistand(int magicalDamageAmount, EMagicalElement magicalElement)
+        public void MagicalWithstand(int magicalDamageAmount, EMagicalElement magicalElement)
         {
-            int inflictedMagicalDamageAmount = 0;
-
-            if (_stats.magicalResistances.TryGetValue(magicalElement, out int value))
+            if (!_stats.magicalResistances.ContainsKey(magicalElement))
             {
-                inflictedMagicalDamageAmount = Math.Max(0, magicalDamageAmount - value);
-            }
-            else
-            {
-                Debug.LogError("Magical element is not bind to any value!");
+                throw new NullReferenceException("Magical resistance element " + magicalElement + " is not set for fighter " + name);
             }
 
             PlayAnimationIfAny(FighterConfiguration.ReceiveDamageAnimationStateName);
-            _stats.health = Math.Max(0, _stats.health - inflictedMagicalDamageAmount);
+            int inflictedMagicalDamageAmount = Math.Max(0, magicalDamageAmount - _stats.magicalResistances[magicalElement]);
+            _stats.health = Math.Clamp(_stats.health - inflictedMagicalDamageAmount, 0, _stats.maxHealth);
         }
 
         public void Heal(int healAmount)
         {
             PlayAnimationIfAny(FighterConfiguration.HealSelfAnimationStateName);
-            _stats.health = Math.Min(_stats.health + healAmount, _stats.maxHealth);
+            _stats.health = Math.Clamp(_stats.health + healAmount, 0, _stats.maxHealth);
         }
 
         private void PlayAnimationIfAny(string animationStateName)
