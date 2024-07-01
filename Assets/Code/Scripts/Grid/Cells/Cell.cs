@@ -1,4 +1,5 @@
 using UnityEngine;
+using FrostfallSaga.Core;
 
 namespace FrostfallSaga.Grid.Cells
 {
@@ -10,7 +11,7 @@ namespace FrostfallSaga.Grid.Cells
         [field: SerializeField] public Vector2Int Coordinates { get; private set; }
         [field: SerializeField] public ECellHeight Height { get; private set; }
         [field: SerializeField] public bool IsAccessible { get; private set; }
-        [field: SerializeField] public CellVisual CellVisual { get; private set; }
+        [field: SerializeField] public MaterialHighlightable HighlightController { get; private set; }
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
         [field:SerializeField] public float WorldHeightPerUnit { get; private set; } = 0.8f;
 
@@ -42,10 +43,10 @@ namespace FrostfallSaga.Grid.Cells
             SetPositionForCellHeight(Height);
             SetCellMouseEventsControllerFromGameObjectTree();
 
-            CellVisual = GetComponentInChildren<CellVisual>();
-            if (CellVisual != null)
+            HighlightController = GetComponentInChildren<MaterialHighlightable>();
+            if (HighlightController != null)
             {
-                CellVisual.transform.localScale = Vector3.one * hexSize / 2.68f;
+                HighlightController.transform.localScale = Vector3.one * hexSize / 2.68f;
             }
             else
             {
@@ -83,8 +84,8 @@ namespace FrostfallSaga.Grid.Cells
 
         private void SetCellVisualFromGameObjectTree()
         {
-            CellVisual = GetComponentInChildren<CellVisual>();
-            if (CellVisual == null)
+            HighlightController = GetComponentInChildren<MaterialHighlightable>();
+            if (HighlightController == null)
             {
                 Debug.LogError("Cell " + name + " doesn't have a cell visual as child.");
             }

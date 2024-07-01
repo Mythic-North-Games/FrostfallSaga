@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using FrostfallSaga.Grid.Cells;
 
-namespace FrostfallSaga.Grid.Cells
+namespace FrostfallSaga.Grid
 {
     /// <summary>
     /// Expose methods for getting neighbors of a Cell in an HexGrid.

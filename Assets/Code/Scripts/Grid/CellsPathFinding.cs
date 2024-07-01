@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using FrostfallSaga.Grid.Cells;
 
-namespace FrostfallSaga.Grid.Cells
+namespace FrostfallSaga.Grid
 {
     /// <summary>
     /// Expose methods for pathfinding between Cell in an HexGrid.

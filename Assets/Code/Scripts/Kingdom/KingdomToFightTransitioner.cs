@@ -8,7 +8,7 @@ namespace FrostfallSaga.Kingdom
 {
 	public class KingdomToFightTransitioner : MonoBehaviour
 	{
-		[SerializeField] private KingdomManager _kingdomManager;
+		[SerializeField] private EntitiesGroupsManager _kingdomManager;
 		[SerializeField] private SceneTransitioner _sceneTransitioner;
 		[SerializeField] private float _readyToFightAnimationDuration = 2f;
 		[SerializeField] private float _delayBeforeLoadingSceneAfterReadyAnimation = 2f;

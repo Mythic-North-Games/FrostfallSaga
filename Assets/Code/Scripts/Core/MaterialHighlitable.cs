@@ -1,12 +1,12 @@
 using UnityEngine;
 
-namespace FrostfallSaga.Grid.Cells
+namespace FrostfallSaga.Core
 {
     /// <summary>
     /// Responsible for managing the visual aspects of the cell.
     /// </summary>
     [RequireComponent(typeof(MeshRenderer))]
-    public class CellVisual : MonoBehaviour
+    public class MaterialHighlightable : MonoBehaviour
     {
         [field: SerializeField] public Material DefaultMaterial { get; private set; }
 
