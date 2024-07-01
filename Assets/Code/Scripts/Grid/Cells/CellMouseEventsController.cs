@@ -2,7 +2,7 @@ using FrostfallSaga.Core;
 
 namespace FrostfallSaga.Grid.Cells
 {
-    public class CellMouseEventsController : MouseEventsController<Cell>
+    public class CellMouseEventsController : BaseMouseEventsController<Cell>
     {
 
     }

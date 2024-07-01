@@ -10,7 +10,7 @@ namespace FrostfallSaga.Core
     /// Check mouse actions related to the ability visual and send events when an action has happened.
     /// </summary>
 	[RequireComponent(typeof(Collider))]
-    public class MouseEventsController<T> : MonoBehaviour where T : MonoBehaviour
+    public class BaseMouseEventsController<T> : MonoBehaviour where T : MonoBehaviour
     {
         #region Mouse hover actions
         public Action<T> OnElementHover;
