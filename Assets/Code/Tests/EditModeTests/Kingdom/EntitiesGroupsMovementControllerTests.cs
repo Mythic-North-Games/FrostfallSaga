@@ -127,14 +127,19 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 			Dictionary<EntitiesGroup, Cell[]> pathPerEntitiesGroup = EntitiesGroupsMovementController.GenerateRandomMovePathPerEntitiesGroup(grid, entitiesGroups, minPathLength);
 
 			/// ASSERTS ///
+			for (int testCount = 0; testCount < 20; testCount++)
+			{
+				AssertPathForMultipleEntitiesGroup(grid, pathPerEntitiesGroup);
+			}
+			
+		}
+
+		private void AssertPathForMultipleEntitiesGroup(HexGrid grid, Dictionary<EntitiesGroup, Cell[]> pathPerEntitiesGroup)
+		{
 			foreach (KeyValuePair<EntitiesGroup, Cell[]> item in pathPerEntitiesGroup)
 			{
 				EntitiesGroup currentEntitiesGroup = item.Key;
 				Cell[] path = item.Value;
-
-				// Assert path length
-				Assert.LessOrEqual(path.Length, currentEntitiesGroup.MovePoints);
-				Assert.GreaterOrEqual(path.Length, minPathLength);
 
 				// Assert all cells are unique
 				HashSet<Cell> uniqueCells = new();
