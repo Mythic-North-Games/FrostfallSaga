@@ -35,8 +35,10 @@ namespace FrostfallSaga.EntitiesVisual
 
         public void Move(Cell currentCell, Cell newTargetCell, bool isLastMove)
         {
+            Debug.Log(newTargetCell);
             _targetCell = newTargetCell;
             _targetCellPosition = newTargetCell.GetCenter();
+    
             RotateTowardsCell(newTargetCell);
             _isMoving = true;
             _isLastMove = isLastMove;
@@ -50,7 +52,7 @@ namespace FrostfallSaga.EntitiesVisual
                 EntityVisualAnimationController.PlayAnimationState("Jump");
             }
         }
-
+        
         public void RotateTowardsCell(Cell targetCell)
         {
             _targetRotation = Quaternion.LookRotation(targetCell.GetCenter());
