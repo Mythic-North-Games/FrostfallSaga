@@ -335,6 +335,10 @@ namespace FrostfallSaga.Fight.Controllers
             {
                 StopTargetingActiveActiveAbility();
             }
+            if (_currentMovePath.Length > 0)
+            {
+                ResetShorterPathCellsDefaultMaterial();
+            }
 
             EndPossessedFighterTurn();
         }
