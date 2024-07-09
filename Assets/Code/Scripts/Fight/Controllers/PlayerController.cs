@@ -17,6 +17,7 @@ namespace FrostfallSaga.Fight.Controllers
         public Action<Fighter> onFighterActionEnded;
         public Action<Fighter> onFighterTurnEnded;
 
+        private FighterActionPanel _actionPanel;
         private HexGrid _currentFightGrid;
         private Fighter _possessedFighter;
 
@@ -37,10 +38,7 @@ namespace FrostfallSaga.Fight.Controllers
             Material cellInaccessibleHighlightMaterial
         )
         {
-            actionPanel.onDirectAttackClicked += OnDirectAttackClicked;
-            actionPanel.onActiveAbilityClicked += OnActiveAbilityClicked;
-            actionPanel.onEndTurnClicked += OnEndTurnClicked;
-
+            _actionPanel = actionPanel;
             _cellHighlightMaterial = cellHighlightMaterial;
             _cellActionableHighlightMaterial = cellActionableHighlightMaterial;
             _cellInaccessibleHighlightMaterial = cellInaccessibleHighlightMaterial;
@@ -51,7 +49,8 @@ namespace FrostfallSaga.Fight.Controllers
             _currentFightGrid = fightGrid;
             _possessedFighter = fighterToPlay;
             BindFighterEventsForTurn(fighterToPlay);
-            BindCellMouseEvents(fightGrid);
+            BindUIEventsForTurn();
+            BindCellMouseEventsForTurn(fightGrid);
         }
 
         private void OnCellClicked(Cell clickedCell)
@@ -69,7 +68,7 @@ namespace FrostfallSaga.Fight.Controllers
             {
                 TryTriggerActiveAbility(clickedCell);
             }
-            else if (_currentMovePath.Length > 0)
+            else if (_currentMovePath != null && _currentMovePath.Length > 0 && clickedCell != _possessedFighter.cell)
             {
                 MakeFighterMove(clickedCell);
             }
@@ -200,8 +199,6 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void TryTriggerDirectAttack(Cell clickedCell)
         {
-            StopTargetingForDirectAttack();
-
             try
             {
                 Cell[] targetedCells = _possessedFighter.FighterConfiguration.DirectAttackTargeter.Resolve(
@@ -209,6 +206,8 @@ namespace FrostfallSaga.Fight.Controllers
                     clickedCell,
                     _possessedFighter.cell
                 );
+
+                StopTargetingForDirectAttack();
                 _fighterIsActing = true;
                 _possessedFighter.UseDirectAttack(targetedCells);
                 onFighterActionStarted?.Invoke(_possessedFighter);
@@ -273,12 +272,12 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void TryTriggerActiveAbility(Cell clickedCell)
         {
-            ResetTargeterCellsMaterial(_currentActiveAbility.Targeter, clickedCell);
-            StopTargetingActiveActiveAbility();
-
             try
             {
                 Cell[] targetedCells = _currentActiveAbility.Targeter.Resolve(_currentFightGrid, clickedCell, _possessedFighter.cell);
+
+                ResetTargeterCellsMaterial(_currentActiveAbility.Targeter, clickedCell);
+                StopTargetingActiveActiveAbility();
                 _fighterIsActing = true;
                 // TODO : Launch active ability when Alexis is done
                 OnFighterActiveAbilityEnded(_possessedFighter);
@@ -330,6 +329,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             UnbindFighterEventsForTurn();
             UnbindCellMouseEvents(_currentFightGrid);
+            UnbindUIEventsForTurn();
             onFighterTurnEnded?.Invoke(_possessedFighter);
         }
 
@@ -384,6 +384,24 @@ namespace FrostfallSaga.Fight.Controllers
 
         #endregion
 
+        #region UI events binding
+
+        private void BindUIEventsForTurn()
+        {
+            _actionPanel.onDirectAttackClicked += OnDirectAttackClicked;
+            _actionPanel.onActiveAbilityClicked += OnActiveAbilityClicked;
+            _actionPanel.onEndTurnClicked += OnEndTurnClicked;
+        }
+
+        private void UnbindUIEventsForTurn()
+        {
+            _actionPanel.onDirectAttackClicked -= OnDirectAttackClicked;
+            _actionPanel.onActiveAbilityClicked -= OnActiveAbilityClicked;
+            _actionPanel.onEndTurnClicked -= OnEndTurnClicked;
+        }
+
+        #endregion
+
         #region Possessed fighter events binding
 
         private void BindFighterEventsForTurn(Fighter _possessedFighter)
@@ -404,7 +422,7 @@ namespace FrostfallSaga.Fight.Controllers
 
         #region Cells mouse events binding
 
-        private void BindCellMouseEvents(HexGrid fightGrid)
+        private void BindCellMouseEventsForTurn(HexGrid fightGrid)
         {
             foreach (Cell cell in fightGrid.GetCells())
             {
