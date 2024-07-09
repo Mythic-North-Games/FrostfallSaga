@@ -35,7 +35,6 @@ namespace FrostfallSaga.EntitiesVisual
 
         public void Move(Cell currentCell, Cell newTargetCell, bool isLastMove)
         {
-            Debug.Log(newTargetCell);
             _targetCell = newTargetCell;
             _targetCellPosition = newTargetCell.GetCenter();
     
