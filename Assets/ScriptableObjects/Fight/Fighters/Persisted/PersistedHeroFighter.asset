@@ -15,14 +15,18 @@ MonoBehaviour:
   <AvailableActiveAbilities>k__BackingField: []
   <DirectAttackTargeter>k__BackingField: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
   <DirectAttackEffects>k__BackingField: []
+  <DirectAttackActionPointsCost>k__BackingField: 3
+  <DirectAttackAnimationStateName>k__BackingField: 
+  <HealSelfAnimationStateName>k__BackingField: 
+  <ReceiveDamageAnimationStateName>k__BackingField: 
   <MaxHealth>k__BackingField: 100
   <MaxActionPoints>k__BackingField: 5
-  <MaxMovePoints>k__BackingField: 5
+  <MaxMovePoints>k__BackingField: 3
   <Strength>k__BackingField: 10
   <Dexterity>k__BackingField: 10
-  <MagicalStrength>k__BackingField: 10
   <PhysicalResistance>k__BackingField: 10
-  <MagicalResistance>k__BackingField: 10
+  <MagicalResistances>k__BackingField: []
+  <MagicalStrengths>k__BackingField: []
   <Initiative>k__BackingField: 3
   <EquipedActiveAbilities>k__BackingField:
   - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}

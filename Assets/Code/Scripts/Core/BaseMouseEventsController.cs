@@ -37,7 +37,6 @@ namespace FrostfallSaga.Core
             DOWN = 1,
         }
 
-        protected readonly Dictionary<Tuple<MouseButton, MouseButtonDirection>, Action<T>> _clickEventsByMouseButtonAndDirection = new();
         protected bool _isMouseInside = false;
         protected T _target;
 
@@ -58,21 +57,6 @@ namespace FrostfallSaga.Core
             else
             {
                 Debug.LogError("Target of type " + typeof(T).ToString() + " not found in parent, current or children components. Will not send events.");
-            }
-        }
-
-        private void Start()
-        {
-            if (_target != null)
-            {
-                _clickEventsByMouseButtonAndDirection.Add(new(MouseButton.LeftMouse, MouseButtonDirection.DOWN), OnLeftMouseDown);
-                _clickEventsByMouseButtonAndDirection.Add(new(MouseButton.LeftMouse, MouseButtonDirection.UP), OnLeftMouseUp);
-
-                _clickEventsByMouseButtonAndDirection.Add(new(MouseButton.RightMouse, MouseButtonDirection.DOWN), OnRightMouseDown);
-                _clickEventsByMouseButtonAndDirection.Add(new(MouseButton.RightMouse, MouseButtonDirection.UP), OnRightMouseUp);
-
-                _clickEventsByMouseButtonAndDirection.Add(new(MouseButton.MiddleMouse, MouseButtonDirection.DOWN), OnMiddleMouseDown);
-                _clickEventsByMouseButtonAndDirection.Add(new(MouseButton.MiddleMouse, MouseButtonDirection.UP), OnMiddleMouseUp);
             }
         }
 
@@ -110,10 +94,29 @@ namespace FrostfallSaga.Core
 
         private void TriggerMouseClickEvent(MouseButton mouseButton, MouseButtonDirection mouseButtonDirection)
         {
-            Tuple<MouseButton, MouseButtonDirection> actionIdentifier = new(mouseButton, mouseButtonDirection);
-            if (_clickEventsByMouseButtonAndDirection.TryGetValue(actionIdentifier, out Action<T> actionToTrigger))
+            if (mouseButton == MouseButton.LeftMouse && mouseButtonDirection == MouseButtonDirection.UP)
             {
-                actionToTrigger?.Invoke(_target);
+                OnLeftMouseUp?.Invoke(_target);
+            }
+            else if (mouseButton == MouseButton.LeftMouse && mouseButtonDirection == MouseButtonDirection.DOWN)
+            {
+                OnLeftMouseDown?.Invoke(_target);
+            }
+            else if (mouseButton == MouseButton.RightMouse && mouseButtonDirection == MouseButtonDirection.UP)
+            {
+                OnRightMouseUp?.Invoke(_target);
+            }
+            else if (mouseButton == MouseButton.RightMouse && mouseButtonDirection == MouseButtonDirection.DOWN)
+            {
+                OnRightMouseDown?.Invoke(_target);
+            }
+            else if (mouseButton == MouseButton.MiddleMouse && mouseButtonDirection == MouseButtonDirection.UP)
+            {
+                OnMiddleMouseUp?.Invoke(_target);
+            }
+            else if (mouseButton == MouseButton.MiddleMouse && mouseButtonDirection == MouseButtonDirection.DOWN)
+            {
+                OnMiddleMouseDown?.Invoke(_target);
             }
         }
     }

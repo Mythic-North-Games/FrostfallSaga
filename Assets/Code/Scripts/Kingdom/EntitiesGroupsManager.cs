@@ -117,7 +117,7 @@ namespace FrostfallSaga.Kingdom
         {
             foreach (Cell cell in _currentHeroGroupMovePath.path)
             {
-                cell.HighlightController.ResetMaterial();
+                cell.HighlightController.ResetToDefaultMaterial();
             }
         }
         #endregion
