@@ -17,7 +17,7 @@ namespace FrostfallSaga.Fight.Controllers
         public Action<Fighter> onFighterActionEnded;
         public Action<Fighter> onFighterTurnEnded;
 
-        private FighterActionPanel _actionPanel;
+        private readonly FighterActionPanel _actionPanel;
         private HexGrid _currentFightGrid;
         private Fighter _possessedFighter;
 
@@ -269,6 +269,8 @@ namespace FrostfallSaga.Fight.Controllers
             );
             cellsAvailableForTargeting.ToList().ForEach(cell => cell.HighlightController.UpdateCurrentDefaultMaterial(_cellHighlightMaterial));
             cellsAvailableForTargeting.ToList().ForEach(cell => cell.HighlightController.Highlight(_cellHighlightMaterial));
+            _possessedFighter.cell.HighlightController.UpdateCurrentDefaultMaterial(_cellHighlightMaterial);
+            _possessedFighter.cell.HighlightController.Highlight(_cellHighlightMaterial);
 
             _fighterIsTargetingForActiveAbility = true;
         }
@@ -299,6 +301,7 @@ namespace FrostfallSaga.Fight.Controllers
         private void StopTargetingActiveActiveAbility()
         {
             _fighterIsTargetingForActiveAbility = false;
+            _possessedFighter.cell.HighlightController.ResetToInitialMaterial();
             _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
                 _currentFightGrid,
                 _possessedFighter.cell
