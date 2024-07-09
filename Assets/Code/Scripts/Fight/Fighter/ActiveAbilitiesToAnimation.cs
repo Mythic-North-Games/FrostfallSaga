@@ -8,6 +8,6 @@ namespace FrostfallSaga.Fight.Fighters
     public class ActiveAbilitiesToAnimation
     {
         public ActiveAbilitySO activeAbility;
-        public Animation animation;
+        public string animationState;
     }
 }
