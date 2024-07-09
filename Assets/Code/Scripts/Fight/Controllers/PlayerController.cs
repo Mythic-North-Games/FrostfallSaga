@@ -83,27 +83,24 @@ namespace FrostfallSaga.Fight.Controllers
             }
 
             if (
-                _fighterIsTargetingForDirectAttack && 
-                hoveredCell != _possessedFighter.cell && 
+                _fighterIsTargetingForDirectAttack &&
+                hoveredCell != _possessedFighter.cell &&
                 _possessedFighter.FighterConfiguration.DirectAttackTargeter.IsCellInRange(_currentFightGrid, _possessedFighter.cell, hoveredCell)
             )
             {
                 HighlightTargeterCells(_possessedFighter.FighterConfiguration.DirectAttackTargeter, hoveredCell);
             }
-            else if (_fighterIsTargetingForActiveAbility)
+            else if (
+                _fighterIsTargetingForActiveAbility &&
+                _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
+                    _currentFightGrid,
+                    _possessedFighter.cell
+                ).Contains(hoveredCell)
+            )
             {
-                if (
-                    !_currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
-                        _currentFightGrid,
-                        _possessedFighter.cell
-                    ).Contains(hoveredCell)
-                )
-                {
-                    return;
-                }
                 HighlightTargeterCells(_currentActiveAbility.Targeter, hoveredCell);
             }
-            else if (hoveredCell != _possessedFighter.cell)
+            else if (!_fighterIsTargetingForActiveAbility && !_fighterIsTargetingForDirectAttack && hoveredCell != _possessedFighter.cell)
             {
                 _currentMovePath = FightCellsPathFinding.GetShorterPath(_currentFightGrid, _possessedFighter.cell, hoveredCell);
                 HighlightShorterPathCells();
@@ -125,10 +122,21 @@ namespace FrostfallSaga.Fight.Controllers
             {
                 ResetTargeterCellsMaterial(_currentActiveAbility.Targeter, unhoveredCell);
             }
-            else
+            else if (
+                !_fighterIsTargetingForActiveAbility &&
+                !_fighterIsTargetingForDirectAttack &&
+                _currentMovePath != null &&
+                _currentMovePath.Length > 0
+            )
             {
                 ResetShorterPathCellsDefaultMaterial();
             }
+        }
+
+        private void EndFighterAction()
+        {
+            _fighterIsActing = false;
+            onFighterActionEnded?.Invoke(_possessedFighter);
         }
 
         #region Movement handling
@@ -159,6 +167,11 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void OnDirectAttackClicked()
         {
+            if (_fighterIsActing)
+            {
+                Debug.Log("Fighter " + _possessedFighter.name + " is doing something else. Wait for it to finish.");
+                return;
+            }
             if (_fighterIsTargetingForDirectAttack)
             {
                 StopTargetingForDirectAttack();
@@ -183,38 +196,31 @@ namespace FrostfallSaga.Fight.Controllers
             cellsAvailableForTargeting.ToList().ForEach(cell => cell.HighlightController.Highlight(_cellHighlightMaterial));
 
             _fighterIsTargetingForDirectAttack = true;
-            onFighterActionStarted?.Invoke(_possessedFighter);
         }
 
         private void TryTriggerDirectAttack(Cell clickedCell)
         {
-            Cell[] cellsAvailableForTargeting = _possessedFighter.FighterConfiguration.DirectAttackTargeter.GetAllCellsAvailableForTargeting(
-                _currentFightGrid,
-                _possessedFighter.cell
-            );
-            cellsAvailableForTargeting.ToList().ForEach(cell => cell.HighlightController.ResetToInitialMaterial());
+            StopTargetingForDirectAttack();
 
             try
             {
-                _fighterIsActing = true;
                 Cell[] targetedCells = _possessedFighter.FighterConfiguration.DirectAttackTargeter.Resolve(
                     _currentFightGrid,
                     clickedCell,
                     _possessedFighter.cell
                 );
+                _fighterIsActing = true;
                 _possessedFighter.UseDirectAttack(targetedCells);
+                onFighterActionStarted?.Invoke(_possessedFighter);
             }
             catch (TargeterUnresolvableException)
             {
                 Debug.Log("Fighter " + _possessedFighter.name + " can't use its direct attack from cell " + _possessedFighter.cell.name);
-                _fighterIsTargetingForDirectAttack = false;
-                EndFighterAction();
             }
         }
 
         private void OnFighterDirectAttackEnded(Fighter _possessedFighter)
         {
-            _fighterIsTargetingForDirectAttack = false;
             EndFighterAction();
         }
 
@@ -233,6 +239,11 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void OnActiveAbilityClicked(ActiveAbilitySO clickedAbility)
         {
+            if (_fighterIsActing)
+            {
+                Debug.Log("Fighter " + _possessedFighter.name + " is doing something else. Wait for it to finish.");
+                return;
+            }
             if (_fighterIsTargetingForActiveAbility)
             {
                 StopTargetingActiveActiveAbility();
@@ -258,35 +269,28 @@ namespace FrostfallSaga.Fight.Controllers
             cellsAvailableForTargeting.ToList().ForEach(cell => cell.HighlightController.Highlight(_cellHighlightMaterial));
 
             _fighterIsTargetingForActiveAbility = true;
-            onFighterActionStarted?.Invoke(_possessedFighter);
         }
 
         private void TryTriggerActiveAbility(Cell clickedCell)
         {
-            Cell[] cellsAvailableForTargeting = _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
-                _currentFightGrid,
-                _possessedFighter.cell
-            );
-            cellsAvailableForTargeting.ToList().ForEach(cell => cell.HighlightController.ResetToInitialMaterial());
+            ResetTargeterCellsMaterial(_currentActiveAbility.Targeter, clickedCell);
+            StopTargetingActiveActiveAbility();
 
             try
             {
-                _fighterIsActing = true;
                 Cell[] targetedCells = _currentActiveAbility.Targeter.Resolve(_currentFightGrid, clickedCell, _possessedFighter.cell);
+                _fighterIsActing = true;
                 // TODO : Launch active ability when Alexis is done
                 OnFighterActiveAbilityEnded(_possessedFighter);
             }
             catch (TargeterUnresolvableException)
             {
                 Debug.Log("Fighter " + _possessedFighter.name + " can't use its active ability from cell " + _possessedFighter.cell.name);
-                _fighterIsTargetingForActiveAbility = false;
-                EndFighterAction();
             }
         }
 
         private void OnFighterActiveAbilityEnded(Fighter _possessedFighter)
         {
-            _fighterIsTargetingForActiveAbility = false;
             EndFighterAction();
         }
 
@@ -297,8 +301,6 @@ namespace FrostfallSaga.Fight.Controllers
                 _currentFightGrid,
                 _possessedFighter.cell
             ).ToList().ForEach(cell => cell.HighlightController.ResetToInitialMaterial());
-            _currentActiveAbility = null;
-            return;
         }
 
         #endregion
@@ -307,6 +309,11 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void OnEndTurnClicked()
         {
+            if (_fighterIsActing)
+            {
+                Debug.Log("Fighter " + _possessedFighter.name + " is doing something else. Wait for it to finish.");
+                return;
+            }
             if (_fighterIsTargetingForDirectAttack)
             {
                 StopTargetingForDirectAttack();
@@ -327,11 +334,6 @@ namespace FrostfallSaga.Fight.Controllers
         }
 
         #endregion
-        private void EndFighterAction()
-        {
-            _fighterIsActing = false;
-            onFighterActionEnded?.Invoke(_possessedFighter);
-        }
 
         #region Cells highlighting for player feedback
 
