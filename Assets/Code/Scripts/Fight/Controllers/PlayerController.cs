@@ -189,6 +189,10 @@ namespace FrostfallSaga.Fight.Controllers
             {
                 StopTargetingActiveActiveAbility();
             }
+            if (_currentMovePath.Length > 0)
+            {
+                ResetShorterPathCellsDefaultMaterial();
+            }
 
             Cell[] cellsAvailableForTargeting = _possessedFighter.FighterConfiguration.DirectAttackTargeter.GetAllCellsAvailableForTargeting(
                 _currentFightGrid,
@@ -260,6 +264,10 @@ namespace FrostfallSaga.Fight.Controllers
             if (_fighterIsTargetingForDirectAttack)
             {
                 StopTargetingForDirectAttack();
+            }
+            if (_currentMovePath.Length > 0)
+            {
+                ResetShorterPathCellsDefaultMaterial();
             }
 
             _currentActiveAbility = clickedAbility;
