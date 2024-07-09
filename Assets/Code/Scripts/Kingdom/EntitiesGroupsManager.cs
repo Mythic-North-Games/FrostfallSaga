@@ -46,7 +46,7 @@ namespace FrostfallSaga.Kingdom
         // It's inside this function that the magic happens. It makes the hero group then the enemies move.
         private void OnCellClicked(Cell clickedCell)
         {
-            if (_entitiesAreMoving || _currentHeroGroupMovePath.PathLength > HeroGroup.MovePoints || !_currentHeroGroupMovePath.IfNextCellExists() )
+            if (_entitiesAreMoving || _currentHeroGroupMovePath.PathLength > HeroGroup.MovePoints || !_currentHeroGroupMovePath.DoesNextCellExists() )
             {
                 return;
             }
