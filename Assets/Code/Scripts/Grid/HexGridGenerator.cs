@@ -88,8 +88,9 @@ namespace FrostfallSaga.Grid
 
             if (x % 2 == 0)
             {
-                newCell.HighlightController.UpdateDefaultMaterial(AlternativeMaterial);
-                newCell.HighlightController.ResetMaterial();
+                newCell.HighlightController.SetupInitialMaterial(AlternativeMaterial);
+                newCell.HighlightController.UpdateCurrentDefaultMaterial(AlternativeMaterial);
+                newCell.HighlightController.ResetToDefaultMaterial();
             }
         }
     }

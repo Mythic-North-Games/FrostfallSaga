@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353b893bc3f298f438b48b8795817c64, type: 3}
   m_Name: LargeRangeTargeter
   m_EditorClassIdentifier: 
-  <OriginCellRange>k__BackingField: 10
+  <OriginCellRange>k__BackingField: 1
   <CellsSequence>k__BackingField:
-  - {x: 0, y: 0, z: 0}
-  <FighterMandatory>k__BackingField: 1
+  - {x: 0, y: 0}
+  - {x: 1, y: 0}
+  - {x: 2, y: 0}
+  - {x: -1, y: 0}
+  - {x: -2, y: 0}
+  <FighterMandatory>k__BackingField: 0

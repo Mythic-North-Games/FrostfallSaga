@@ -4,6 +4,8 @@ using FrostfallSaga.Grid;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Fight.Controllers;
+using FrostfallSaga.Fight.UI;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -14,12 +16,14 @@ namespace FrostfallSaga.Fight.Fighters
         public Action<Fighter> OnFighterMoved;
         public Action<Fighter> OnFighterDirectAttackEnded;
 
-        public Cell[] directAttackCells;
-
         [SerializeField] private EntityVisualAnimationController _animationController;
         [SerializeField] private EntityVisualMovementController _movementController;
         private MovePath _currentMovePath;
         private FighterStats _stats;
+
+        [SerializeField] private Material highlightMaterial;
+        [SerializeField] private Material actionableHighlightMaterial;
+        [SerializeField] private Material wrongHighlightMaterial;
 
         private void Awake()
         {
@@ -39,9 +43,10 @@ namespace FrostfallSaga.Fight.Fighters
             _stats = new();
             ResetStatsToDefaultConfiguration();
 
-            if (directAttackCells.Length > 0)
+            if (name == "Fighter")
             {
-                UseDirectAttack(directAttackCells);
+                PlayerController controller = new(FindObjectOfType<FighterActionPanel>(), highlightMaterial, actionableHighlightMaterial, wrongHighlightMaterial);
+                controller.PlayTurn(this, new(), FindFirstObjectByType<HexGrid>());
             }
         }
 
@@ -99,6 +104,8 @@ namespace FrostfallSaga.Fight.Fighters
                     ApplyDirectAttackEffectsToFighter(targetedCellFighter);
                 }
             }
+
+            OnFighterDirectAttackEnded?.Invoke(this);
         }
 
         private void ApplyDirectAttackEffectsToFighter(Fighter fighter)
@@ -134,6 +141,20 @@ namespace FrostfallSaga.Fight.Fighters
             PlayAnimationIfAny(FighterConfiguration.HealSelfAnimationStateName);
             _stats.health = Math.Clamp(_stats.health + healAmount, 0, _stats.maxHealth);
         }
+
+        #region Stats getter
+
+        public int GetMovePoints()
+        {
+            return _stats.movePoints;
+        }
+
+        public int GetActionPoints()
+        {
+            return _stats.actionPoints;
+        }
+
+        #endregion
 
         private void PlayAnimationIfAny(string animationStateName)
         {
@@ -182,7 +203,7 @@ namespace FrostfallSaga.Fight.Fighters
             {
                 return false;
             }
-            
+
             _movementController.onMoveEnded += OnFighterArrivedAtCell;
             return true;
         }
@@ -206,29 +227,29 @@ namespace FrostfallSaga.Fight.Fighters
         }
         #endregion
 
-        #if UNITY_EDITOR
-            public void SetFighterConfigurationForTests(FighterConfigurationSO fighterConfiguration)
-            {
-                FighterConfiguration = fighterConfiguration;
-            }
+#if UNITY_EDITOR
+        public void SetFighterConfigurationForTests(FighterConfigurationSO fighterConfiguration)
+        {
+            FighterConfiguration = fighterConfiguration;
+        }
 
-            public void SetStatsForTests(FighterStats newStats = null)
+        public void SetStatsForTests(FighterStats newStats = null)
+        {
+            if (newStats != null)
             {
-                if (newStats != null)
-                {
-                    _stats = newStats;
-                }
-                else
-                {
-                    _stats = new();
-                    ResetStatsToDefaultConfiguration();
-                }
+                _stats = newStats;
             }
+            else
+            {
+                _stats = new();
+                ResetStatsToDefaultConfiguration();
+            }
+        }
 
-            public FighterStats GetStatsForTests()
-            {
-                return _stats;
-            }
-        #endif
+        public FighterStats GetStatsForTests()
+        {
+            return _stats;
+        }
+#endif
     }
 }
