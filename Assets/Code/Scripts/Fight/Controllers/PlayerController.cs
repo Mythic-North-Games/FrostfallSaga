@@ -91,10 +91,13 @@ namespace FrostfallSaga.Fight.Controllers
             }
             else if (
                 _fighterIsTargetingForActiveAbility &&
-                _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
-                    _currentFightGrid,
-                    _possessedFighter.cell
-                ).Contains(hoveredCell)
+                (
+                    _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
+                        _currentFightGrid,
+                        _possessedFighter.cell
+                    ).Contains(hoveredCell) ||
+                    hoveredCell == _possessedFighter.cell
+                )
             )
             {
                 HighlightTargeterCells(_currentActiveAbility.Targeter, hoveredCell);
