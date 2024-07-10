@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Grid.Cells;
-using System.Linq;
+using FrostfallSaga.Fight.Controllers;
+using FrostfallSaga.Fight.UI;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -20,6 +22,10 @@ namespace FrostfallSaga.Fight.Fighters
         [SerializeField] private EntityVisualMovementController _movementController;
         private MovePath _currentMovePath;
         private FighterStats _stats;
+
+        [SerializeField] private Material highlightMaterial;
+        [SerializeField] private Material actionableHighlightMaterial;
+        [SerializeField] private Material wrongHighlightMaterial;
 
         private void Awake()
         {
@@ -84,6 +90,7 @@ namespace FrostfallSaga.Fight.Fighters
                     ApplyEffectsOnFighter(FighterConfiguration.DirectAttackEffects, targetedCellFighter);
                 }
             }
+            
             OnFighterDirectAttackEnded?.Invoke(this);
         }
 
@@ -162,6 +169,20 @@ namespace FrostfallSaga.Fight.Fighters
             PlayAnimationIfAny(FighterConfiguration.HealSelfAnimationStateName);
             _stats.health = Math.Clamp(_stats.health + healAmount, 0, _stats.maxHealth);
         }
+
+        #region Stats getter
+
+        public int GetMovePoints()
+        {
+            return _stats.movePoints;
+        }
+
+        public int GetActionPoints()
+        {
+            return _stats.actionPoints;
+        }
+
+        #endregion
 
         /// <summary>
         /// Play an animation if the given state name exists.
