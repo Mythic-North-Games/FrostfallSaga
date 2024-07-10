@@ -6,11 +6,13 @@ using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
-using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.UI;
 
 namespace FrostfallSaga.Fight.Controllers
 {
+    /// <summary>
+    /// Make the fighter do what the player indicates through the UI.
+    /// </summary>
     public class PlayerController : AFighterController
     {
         private readonly FighterActionPanel _actionPanel;
