@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &72913043
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -500,7 +500,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 5, y: 5}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 1692259582}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 1692259580}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &129212138
@@ -585,7 +585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &129212143
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -698,7 +698,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 4, y: 2}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 1907727312}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 1907727310}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &133589254
@@ -783,7 +783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &133589259
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -916,7 +916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &159882146
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -975,6 +975,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3129224377450789127, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
+      propertyPath: <FighterConfiguration>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 2b3b16b23ed336b4b946fd2e57c435f1, type: 2}
     - target: {fileID: 4021286207069794502, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14
@@ -1125,7 +1129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &320131145
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1238,7 +1242,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 3, y: 5}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 726375525}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 726375523}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &376213762
@@ -1303,7 +1307,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 5, y: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 1201360698}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 1201360696}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &395674253
@@ -1388,7 +1392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &395674258
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1521,7 +1525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &424552423
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1654,7 +1658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &448486246
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1767,7 +1771,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 1, y: 4}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 842569249}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 842569247}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &481185706
@@ -1852,7 +1856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &481185711
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1965,7 +1969,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 0, y: 3}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 493496470}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 493496468}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &493496466
@@ -2050,7 +2054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &493496471
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2163,7 +2167,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 4, y: 5}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 840341537}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 840341535}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &593688171
@@ -2228,7 +2232,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 4, y: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 2068145695}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 2068145693}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &668178188
@@ -2426,7 +2430,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 1, y: 3}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 1788370869}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 1788370867}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &684405754
@@ -2491,7 +2495,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 2, y: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 481185710}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 481185708}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &715584720
@@ -2556,7 +2560,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 4, y: 1}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 1590528048}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 1590528046}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &726375521
@@ -2641,7 +2645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &726375526
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2754,7 +2758,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 1, y: 5}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 448486245}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 448486243}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &818099968
@@ -2839,7 +2843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &818099973
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2972,7 +2976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &831228410
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3085,7 +3089,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 3, y: 2}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 884211566}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 884211564}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &840341533
@@ -3170,7 +3174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &840341538
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3303,7 +3307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &842569250
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3608,7 +3612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &884211567
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3741,7 +3745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &904971904
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3854,7 +3858,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 0, y: 2}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 818099972}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 818099970}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &956521095
@@ -3919,7 +3923,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 2, y: 4}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 1525834673}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 1525834671}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &964795342
@@ -4004,7 +4008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &964795347
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4304,7 +4308,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 5, y: 2}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 904971903}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 904971901}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1039966328
@@ -4369,7 +4373,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 0, y: 1}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 831228409}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 831228407}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1050542030
@@ -4454,7 +4458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &1050542035
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4567,7 +4571,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 4, y: 4}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 964795346}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 964795344}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1001 &1156711547
@@ -4959,7 +4963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &1201360699
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5140,7 +5144,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 5, y: 3}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 133589258}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 133589256}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1264801959
@@ -5205,7 +5209,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 1, y: 1}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 1882281352}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 1882281350}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1284214174
@@ -5270,7 +5274,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 3, y: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 1050542034}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 1050542032}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1286065080
@@ -5335,7 +5339,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 4, y: 3}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 2031118211}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 2031118209}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1289225336
@@ -5400,7 +5404,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 2, y: 1}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 1363503864}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 1363503862}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1363503860
@@ -5485,7 +5489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &1363503865
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5598,7 +5602,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 5, y: 4}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 395674257}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 395674255}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1392258814
@@ -5683,7 +5687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &1392258819
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5796,7 +5800,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 0, y: 5}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 424552422}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 424552420}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1504492090
@@ -5881,7 +5885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &1504492095
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6014,7 +6018,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &1525834674
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6147,7 +6151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &1590528049
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6378,7 +6382,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 3, y: 1}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 1782242798}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 1782242796}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1692259578
@@ -6463,7 +6467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &1692259583
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6576,7 +6580,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 1, y: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 2046413478}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 2046413476}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1782242794
@@ -6661,7 +6665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &1782242799
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6794,7 +6798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &1788370870
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6927,7 +6931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &1812271184
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7128,7 +7132,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 2, y: 5}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 320131144}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 320131142}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1872288379
@@ -7193,7 +7197,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 3, y: 4}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 2016310213}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 2016310211}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1882281348
@@ -7278,7 +7282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &1882281353
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7391,7 +7395,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 0, y: 4}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 1392258818}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 1392258816}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1907727308
@@ -7476,7 +7480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &1907727313
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7589,7 +7593,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 2, y: 2}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 1812271183}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 1812271181}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1935028503
@@ -7654,7 +7658,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 3, y: 3}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 2016228727}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 2016228725}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1954608787
@@ -7719,7 +7723,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 1, y: 2}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 1504492094}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 1504492092}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1963673181
@@ -7833,7 +7837,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 0, y: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 129212142}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 129212140}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1998576376
@@ -7898,7 +7902,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 5, y: 1}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 72913042}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 72913040}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &2016228723
@@ -7983,7 +7987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &2016228728
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8116,7 +8120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &2016310214
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8249,7 +8253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &2031118212
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8530,7 +8534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &2046413479
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8663,7 +8667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <DefaultMaterial>k__BackingField: {fileID: 0}
 --- !u!23 &2068145696
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8776,7 +8780,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 2, y: 3}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
-  <CellVisual>k__BackingField: {fileID: 159882145}
+  <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 159882143}
   <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &2112874532

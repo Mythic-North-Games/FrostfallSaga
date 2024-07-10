@@ -4,18 +4,17 @@ using FrostfallSaga.Grid;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Grid.Cells;
+using System.Linq;
 
 namespace FrostfallSaga.Fight.Fighters
 {
     public class Fighter : MonoBehaviour
     {
-        [SerializeField] private EntityVisualAnimationController _entityVisualAnimationController;
         [field: SerializeField] public FighterConfigurationSO FighterConfiguration { get; private set; }
         public Cell cell;
         public Action<Fighter> OnFighterMoved;
         public Action<Fighter> OnFighterDirectAttackEnded;
-
-        public Cell[] directAttackCells;
+        public Action<Fighter> OnFighterActiveAbilityEnded;
 
         [SerializeField] private EntityVisualAnimationController _animationController;
         [SerializeField] private EntityVisualMovementController _movementController;
@@ -41,22 +40,6 @@ namespace FrostfallSaga.Fight.Fighters
             ResetStatsToDefaultConfiguration();
         }
 
-        private void ResetStatsToDefaultConfiguration()
-        {
-            _stats.maxHealth = FighterConfiguration.MaxHealth;
-            _stats.health = FighterConfiguration.MaxHealth;
-            _stats.maxActionPoints = FighterConfiguration.MaxActionPoints;
-            _stats.actionPoints = FighterConfiguration.MaxActionPoints;
-            _stats.maxMovePoints = FighterConfiguration.MaxMovePoints;
-            _stats.movePoints = FighterConfiguration.MaxMovePoints;
-            _stats.strength = FighterConfiguration.Strength;
-            _stats.dexterity = FighterConfiguration.Dexterity;
-            _stats.physicalResistance = FighterConfiguration.PhysicalResistance;
-            _stats.magicalResistances = MagicalElementToValue.GetDictionaryFromArray(FighterConfiguration.MagicalResistances);
-            _stats.magicalStrengths = MagicalElementToValue.GetDictionaryFromArray(FighterConfiguration.MagicalStrengths);
-            _stats.initiative = FighterConfiguration.Initiative;
-        }
-
         /// <summary>
         /// Makes the fighter move along the given cells path.
         /// If fighter does not have enough move points, an ArgumentOutOfRangeException is thrown.
@@ -72,12 +55,13 @@ namespace FrostfallSaga.Fight.Fighters
             _currentMovePath = new(cellsPath);
             MakeNextMove();
         }
+
         /// <summary>
-        /// Use a simple attack to the targeted cell(s)
+        /// Makes the fighter attack the given targeted cells with its weapon.
         /// </summary>
-        /// <param name="targetedCells"></param>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <param name="targetedCells">The cells to use the direct attack on.</param>
+        /// <exception cref="ArgumentException">Raised if targeted cells are empty.</exception>
+        /// <exception cref="InvalidOperationException">Raised if not enough action points.</exception>
         public void UseDirectAttack(Cell[] targetedCells)
         {
             if (targetedCells.Length == 0)
@@ -87,7 +71,7 @@ namespace FrostfallSaga.Fight.Fighters
 
             if (FighterConfiguration.DirectAttackActionPointsCost > _stats.actionPoints)
             {
-                throw new ArgumentOutOfRangeException("Fighter " + name + " does not have enough actions points to use its direct attack.");
+                throw new InvalidOperationException("Fighter " + name + " does not have enough actions points to use its direct attack.");
             }
 
             PlayAnimationIfAny(FighterConfiguration.DirectAttackAnimationStateName);
@@ -97,21 +81,48 @@ namespace FrostfallSaga.Fight.Fighters
                 Fighter targetedCellFighter = targetedCell.GetComponent<CellFightBehaviour>().Fighter;
                 if (targetedCellFighter != null)
                 {
-                    ApplyDirectAttackEffectsToFighter(targetedCellFighter);
+                    ApplyEffectsOnFighter(FighterConfiguration.DirectAttackEffects, targetedCellFighter);
                 }
             }
+            OnFighterDirectAttackEnded?.Invoke(this);
         }
+
         /// <summary>
-        /// Apply the simple attack effect(s) to the targeted fighter
+        /// Makes the fighter use the given active ability on the given cells.
         /// </summary>
-        /// <param name="fighter"></param>
-        private void ApplyDirectAttackEffectsToFighter(Fighter fighter)
+        /// <param name="activeAbilityToAnimation">The active ability to use.</param>
+        /// <param name="targetedCells">The target cells for the ability.</param>
+        /// <exception cref="ArgumentException">Raised if targeted cells are empty.</exception>
+        /// <exception cref="InvalidOperationException">Raised if not enough action points.</exception>
+        public void UseActiveAbility(ActiveAbilitiesToAnimation activeAbilityToAnimation, Cell[] targetedCells)
         {
-            foreach (AEffectSO effect in FighterConfiguration.DirectAttackEffects)
+            if (targetedCells.Length == 0)
             {
-                effect.ApplyEffect(fighter);
+                throw new ArgumentException("An active ability can't be used without one or more target cells");
             }
+
+            if (_stats.actionPoints < activeAbilityToAnimation.activeAbility.ActionPointsCost)
+            {
+                throw new InvalidOperationException(
+                    "Fighter : " + name + " does not have enough action points to use its ability " 
+                    + activeAbilityToAnimation.activeAbility.Name
+                );
+            }
+
+            PlayAnimationIfAny(activeAbilityToAnimation.animationState);
+            _stats.actionPoints -= activeAbilityToAnimation.activeAbility.ActionPointsCost;
+            foreach (Cell cell in targetedCells)
+            {
+                Fighter target = cell.GetComponent<CellFightBehaviour>().Fighter;
+                if (target != null)
+                {
+                    ApplyEffectsOnFighter(activeAbilityToAnimation.activeAbility.Effects, target);
+                }
+            }
+
+            OnFighterActiveAbilityEnded?.Invoke(this);
         }
+
         /// <summary>
         /// Method to withstand a physical attack
         /// </summary>
@@ -123,11 +134,12 @@ namespace FrostfallSaga.Fight.Fighters
             int inflictedPhysicalDamageAmount = Math.Max(0, physicalDamageAmount - _stats.physicalResistance);
             _stats.health = Math.Clamp(_stats.health - inflictedPhysicalDamageAmount, 0, _stats.maxHealth);
         }
+
         /// <summary>
-        /// Method to withstand a magical attack
+        /// Method to withstand a magical attack.
         /// </summary>
-        /// <param name="magicalDamageAmount"></param>
-        /// <param name="magicalElement"></param>
+        /// <param name="magicalDamageAmount">The damage amount to resist to.</param>
+        /// <param name="magicalElement">The magical element to resist.</param>
         /// <exception cref="NullReferenceException"></exception>
         public void MagicalWithstand(int magicalDamageAmount, EMagicalElement magicalElement)
         {
@@ -140,11 +152,11 @@ namespace FrostfallSaga.Fight.Fighters
             int inflictedMagicalDamageAmount = Math.Max(0, magicalDamageAmount - _stats.magicalResistances[magicalElement]);
             _stats.health = Math.Clamp(_stats.health - inflictedMagicalDamageAmount, 0, _stats.maxHealth);
         }
-        /// <summary>
-        /// Heal the fighter
-        /// </summary>
-        /// <param name="healAmount"></param>
 
+        /// <summary>
+        /// Heals the fighter by the given amount.
+        /// </summary>
+        /// <param name="healAmount">The amount of health to restore.</param>
         public void Heal(int healAmount)
         {
             PlayAnimationIfAny(FighterConfiguration.HealSelfAnimationStateName);
@@ -152,9 +164,9 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
         /// <summary>
-        /// Play an animation
+        /// Play an animation if the given state name exists.
         /// </summary>
-        /// <param name="animationStateName"></param>
+        /// <param name="animationStateName">The animation state to launch.</param>
         private void PlayAnimationIfAny(string animationStateName)
         {
             try
@@ -171,56 +183,13 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
         /// <summary>
-        /// Applies an active ability of a fighter to a series of cells
+        /// Apply a list of effects to the targeted fighter.
         /// </summary>
-        /// <param name="activeAbilityToAnimation"></param>
-        /// <param name="cells"></param>
-        public void UseActiveAbility(ActiveAbilitiesToAnimation activeAbilityToAnimation, Cell[] cells)
+        /// <param name="effectsToApply">The effects to apply.</param>
+        /// <param name="target">The fighter to apply the effects to.</param>
+        private void ApplyEffectsOnFighter(AEffectSO[] effectsToApply, Fighter target)
         {
-            PlayAnimationIfAny(activeAbilityToAnimation.animationState);
-            if (_stats.actionPoints < activeAbilityToAnimation.activeAbility.ActionPointsCost)
-            {
-                throw new InvalidOperationException("Fighter : " + name + " does not have enough action points");
-            }
-            _stats.actionPoints = _stats.actionPoints - activeAbilityToAnimation.activeAbility.ActionPointsCost;
-
-            foreach (Cell cell in cells)
-            {
-                Fighter target = cell.GetComponent<CellFightBehaviour>().Fighter;
-                if (target) 
-                {
-                    ApplyEffectsOnFighter(activeAbilityToAnimation.activeAbility.Effects, target);
-                }
-            }
-        }
-        /// <summary>
-        /// Apply an effect to the targeted fighter 
-        /// </summary>
-        /// <param name="aEffects"></param>
-        /// <param name="target"></param>
-        private void ApplyEffectsOnFighter(AEffectSO[] aEffects, Fighter target)
-        {
-            
-            foreach (var effect in aEffects)
-            {
-                effect.ApplyEffect(target);
-            }
-        }
-        /// <summary>
-        /// Play the active ability animation
-        /// </summary>
-        /// <param name="animationState"></param>
-        private void PlayActiveAbilityAnimationIfAny(string animationState)
-        {
-            try
-            {
-                _entityVisualAnimationController.PlayAnimationState(animationState);
-
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning("Error " + animationState + " : " + e.Message);
-            }
+            effectsToApply.ToList().ForEach(effect => effect.ApplyEffect(target));
         }
 
         #region Movement handling
@@ -247,6 +216,22 @@ namespace FrostfallSaga.Fight.Fighters
         }
         #endregion
 
+        private void ResetStatsToDefaultConfiguration()
+        {
+            _stats.maxHealth = FighterConfiguration.MaxHealth;
+            _stats.health = FighterConfiguration.MaxHealth;
+            _stats.maxActionPoints = FighterConfiguration.MaxActionPoints;
+            _stats.actionPoints = FighterConfiguration.MaxActionPoints;
+            _stats.maxMovePoints = FighterConfiguration.MaxMovePoints;
+            _stats.movePoints = FighterConfiguration.MaxMovePoints;
+            _stats.strength = FighterConfiguration.Strength;
+            _stats.dexterity = FighterConfiguration.Dexterity;
+            _stats.physicalResistance = FighterConfiguration.PhysicalResistance;
+            _stats.magicalResistances = MagicalElementToValue.GetDictionaryFromArray(FighterConfiguration.MagicalResistances);
+            _stats.magicalStrengths = MagicalElementToValue.GetDictionaryFromArray(FighterConfiguration.MagicalStrengths);
+            _stats.initiative = FighterConfiguration.Initiative;
+        }
+
         #region Getting children & bindings setup
         private bool TrySetupEntitiyVisualMoveController()
         {
@@ -255,7 +240,7 @@ namespace FrostfallSaga.Fight.Fighters
             {
                 return false;
             }
-            
+
             _movementController.onMoveEnded += OnFighterArrivedAtCell;
             return true;
         }
@@ -279,29 +264,29 @@ namespace FrostfallSaga.Fight.Fighters
         }
         #endregion
 
-        #if UNITY_EDITOR
-            public void SetFighterConfigurationForTests(FighterConfigurationSO fighterConfiguration)
-            {
-                FighterConfiguration = fighterConfiguration;
-            }
+#if UNITY_EDITOR
+        public void SetFighterConfigurationForTests(FighterConfigurationSO fighterConfiguration)
+        {
+            FighterConfiguration = fighterConfiguration;
+        }
 
-            public void SetStatsForTests(FighterStats newStats = null)
+        public void SetStatsForTests(FighterStats newStats = null)
+        {
+            if (newStats != null)
             {
-                if (newStats != null)
-                {
-                    _stats = newStats;
-                }
-                else
-                {
-                    _stats = new();
-                    ResetStatsToDefaultConfiguration();
-                }
+                _stats = newStats;
             }
+            else
+            {
+                _stats = new();
+                ResetStatsToDefaultConfiguration();
+            }
+        }
 
-            public FighterStats GetStatsForTests()
-            {
-                return _stats;
-            }
-        #endif
+        public FighterStats GetStatsForTests()
+        {
+            return _stats;
+        }
+#endif
     }
 }
