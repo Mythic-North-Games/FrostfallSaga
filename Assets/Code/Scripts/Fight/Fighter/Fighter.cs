@@ -6,7 +6,6 @@ using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Abilities;
-using FrostfallSaga.Fight.Controllers;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -39,11 +38,6 @@ namespace FrostfallSaga.Fight.Fighters
             }
 
             ResetStatsToDefaultConfiguration();
-
-            if (name == "Fighter")
-            {
-                new RandomController().PlayTurn(this, new(), FindAnyObjectByType<HexGrid>());
-            }
         }
 
         /// <summary>
