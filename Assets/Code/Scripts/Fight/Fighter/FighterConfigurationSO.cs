@@ -1,13 +1,13 @@
+using UnityEngine;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Targeters;
-using UnityEngine;
 
 namespace FrostfallSaga.Fight.Fighters
 {
     [CreateAssetMenu(fileName = "Fighter", menuName = "ScriptableObjects/Fight/Fighter", order = 0)]
     public class FighterConfigurationSO : ScriptableObject
     {
-        [field: SerializeField] public ActiveAbilitiesToAnimation[] AvailableActiveAbilities { get; private set; }
+        [field: SerializeField] public ActiveAbilityToAnimation[] AvailableActiveAbilities { get; private set; }
         [field: SerializeField] public TargeterSO DirectAttackTargeter { get; private set; }
         [field: SerializeField] public AEffectSO[] DirectAttackEffects { get; private set; }
         [field: SerializeField] public int DirectAttackActionPointsCost { get; private set; }
