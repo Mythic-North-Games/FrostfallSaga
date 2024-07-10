@@ -4,6 +4,7 @@ using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Fight.Targeters;
 
 namespace FrostfallSaga.Fight.Controllers
 {
@@ -100,37 +101,44 @@ namespace FrostfallSaga.Fight.Controllers
 
         private Cell[] GetRandomMovePath(Fighter fighterThatWillMove, HexGrid fightGrid)
         {
-			List<Cell> randomMovePath = new();
-			int numberOfCellsInPath = _randomizer.Next(1, fighterThatWillMove.GetMovePoints());
+            List<Cell> randomMovePath = new();
+            int numberOfCellsInPath = _randomizer.Next(1, fighterThatWillMove.GetMovePoints());
 
-			Cell currentCellOfPath = fighterThatWillMove.cell;
-			for (int i = 0; i < numberOfCellsInPath; i++)
-			{
-				List<Cell> currentCellOfPathNeighbors = new(FightCellNeighbors.GetNeighbors(fightGrid, currentCellOfPath));
-				currentCellOfPathNeighbors.Remove(fighterThatWillMove.cell);
-				currentCellOfPathNeighbors.RemoveAll(cell => randomMovePath.Contains(cell));
+            Cell currentCellOfPath = fighterThatWillMove.cell;
+            for (int i = 0; i < numberOfCellsInPath; i++)
+            {
+                List<Cell> currentCellOfPathNeighbors = new(FightCellNeighbors.GetNeighbors(fightGrid, currentCellOfPath));
+                currentCellOfPathNeighbors.Remove(fighterThatWillMove.cell);
+                currentCellOfPathNeighbors.RemoveAll(cell => randomMovePath.Contains(cell));
 
-				if (currentCellOfPathNeighbors.Count == 0)	// Stop generating path if no cell is available to move.
-				{
-					break;
-				}
-				
-				Cell neighborCellToAdd = currentCellOfPathNeighbors[_randomizer.Next(0, currentCellOfPathNeighbors.Count)];
-				randomMovePath.Add(neighborCellToAdd);
-				currentCellOfPath = neighborCellToAdd;
-			}
+                if (currentCellOfPathNeighbors.Count == 0)  // Stop generating path if no cell is available to move.
+                {
+                    break;
+                }
 
-			return randomMovePath.ToArray();
+                Cell neighborCellToAdd = currentCellOfPathNeighbors[_randomizer.Next(0, currentCellOfPathNeighbors.Count)];
+                randomMovePath.Add(neighborCellToAdd);
+                currentCellOfPath = neighborCellToAdd;
+            }
+
+            return randomMovePath.ToArray();
         }
         #endregion
 
         #region Direct attack handling
         private void MakeFighterDirectAttack(Fighter fighter, HexGrid fightGrid)
         {
-            Debug.Log("Fighter " + fighter.name + " is direct attacking.");
-            Cell[] targetCells = fighter.FighterConfiguration.DirectAttackTargeter.GetRandomTargetCells(fightGrid, fighter.cell);
-            fighter.UseDirectAttack(targetCells);
-            onFighterActionStarted?.Invoke(fighter);
+            try
+            {
+                Cell[] targetCells = fighter.FighterConfiguration.DirectAttackTargeter.GetRandomTargetCells(fightGrid, fighter.cell);
+                Debug.Log("Fighter " + fighter.name + " is direct attacking.");
+                fighter.UseDirectAttack(targetCells);
+                onFighterActionStarted?.Invoke(fighter);
+            }
+            catch (TargeterUnresolvableException)
+            {
+                Debug.LogError("Fighter " + fighter.name + " can't use its direct attack. It should not have been triggered.");
+            }
         }
 
         private void OnFighterDirectAttackEnded(Fighter fighterThatDirectAttacked)
@@ -145,12 +153,23 @@ namespace FrostfallSaga.Fight.Controllers
         private void MakeFighterUseActiveAbility(Fighter fighter, HexGrid fightGrid)
         {
             ActiveAbilityToAnimation activeAbilityToUse = GetRandomUsableActiveAbility(fighter, fightGrid);
-            Cell[] targetCells = activeAbilityToUse.activeAbility.Targeter.GetRandomTargetCells(fightGrid, fighter.cell);
+            try
+            {
+                Cell[] targetCells = activeAbilityToUse.activeAbility.Targeter.GetRandomTargetCells(fightGrid, fighter.cell);
 
-            Debug.Log("Fighter " + fighter.name + " is using its active ability " + activeAbilityToUse.activeAbility.Name);
+                Debug.Log("Fighter " + fighter.name + " is using its active ability " + activeAbilityToUse.activeAbility.Name);
 
-            fighter.UseActiveAbility(activeAbilityToUse, targetCells);
-            onFighterActionStarted?.Invoke(fighter);
+                fighter.UseActiveAbility(activeAbilityToUse, targetCells);
+                onFighterActionStarted?.Invoke(fighter);
+            }
+            catch (TargeterUnresolvableException)
+            {
+                Debug.LogError(
+                    "Fighter " + fighter.name + " can't use the active ability " +
+                    activeAbilityToUse.activeAbility.Name + ". It should not have been triggered."
+                );
+            }
+
         }
 
         private void OnFighterActiveAbilityEnded(Fighter fighter)
@@ -164,7 +183,8 @@ namespace FrostfallSaga.Fight.Controllers
         {
             List<ActiveAbilityToAnimation> usableActiveAbilities = new();
             fighter.FighterConfiguration.AvailableActiveAbilities.ToList().ForEach(
-                (activeAbilityToAnimation) => {
+                (activeAbilityToAnimation) =>
+                {
                     if (fighter.CanUseActiveAbility(fightGrid, activeAbilityToAnimation.activeAbility))
                     {
                         usableActiveAbilities.Add(activeAbilityToAnimation);

@@ -44,6 +44,13 @@ namespace FrostfallSaga.Fight.Targeters
             return targetedCells;
         }
 
+        /// <summary>
+        /// Get one random resolved targeter cell sequence for the given context if it does exist.
+        /// </summary>
+        /// <param name="fightGrid">The current fight grid.</param>
+        /// <param name="initiatorCell">The cell where the targeter's initiator is located.</param>
+        /// <returns>One random resolved targeter cell sequence for the given context if it does exist.</returns>
+        /// <exception cref="TargeterUnresolvableException">If the targeter can't be resolved around the initiator.</exception>
         public Cell[] GetRandomTargetCells(HexGrid fightGrid, Cell initiatorCell)
         {
             List<Cell[]> resolvedTargeterSequences = new();
@@ -58,6 +65,12 @@ namespace FrostfallSaga.Fight.Targeters
                     continue;
                 }
             }
+
+            if (resolvedTargeterSequences.Count == 0)
+            {
+                throw new TargeterUnresolvableException("Targeter unresolvable around initiator.");
+            }
+
             return resolvedTargeterSequences[_randomizer.Next(0, resolvedTargeterSequences.Count)];
         }
 
