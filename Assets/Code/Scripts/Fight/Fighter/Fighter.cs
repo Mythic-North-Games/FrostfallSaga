@@ -5,8 +5,6 @@ using FrostfallSaga.Grid;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.Fight.Controllers;
-using FrostfallSaga.Fight.UI;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -14,18 +12,14 @@ namespace FrostfallSaga.Fight.Fighters
     {
         [field: SerializeField] public FighterConfigurationSO FighterConfiguration { get; private set; }
         public Cell cell;
-        public Action<Fighter> OnFighterMoved;
-        public Action<Fighter> OnFighterDirectAttackEnded;
-        public Action<Fighter> OnFighterActiveAbilityEnded;
+        public Action<Fighter> onFighterMoved;
+        public Action<Fighter> onFighterDirectAttackEnded;
+        public Action<Fighter> onFighterActiveAbilityEnded;
 
         [SerializeField] private EntityVisualAnimationController _animationController;
         [SerializeField] private EntityVisualMovementController _movementController;
         private MovePath _currentMovePath;
-        private FighterStats _stats;
-
-        [SerializeField] private Material highlightMaterial;
-        [SerializeField] private Material actionableHighlightMaterial;
-        [SerializeField] private Material wrongHighlightMaterial;
+        private FighterStats _stats = new();
 
         private void Awake()
         {
@@ -42,7 +36,6 @@ namespace FrostfallSaga.Fight.Fighters
                 Debug.LogError("No entity visual animation controller found for fighter " + name);
             }
 
-            _stats = new();
             ResetStatsToDefaultConfiguration();
         }
 
@@ -51,6 +44,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// If fighter does not have enough move points, an ArgumentOutOfRangeException is thrown.
         /// </summary>
         /// <param name="cellsPath">The cells path to follow.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Raised if the fighter does not have enough move points.</exception>
         public void Move(Cell[] cellsPath)
         {
             if (cellsPath.Length > _stats.movePoints)
@@ -91,7 +85,7 @@ namespace FrostfallSaga.Fight.Fighters
                 }
             }
             
-            OnFighterDirectAttackEnded?.Invoke(this);
+            onFighterDirectAttackEnded?.Invoke(this);
         }
 
         /// <summary>
@@ -101,7 +95,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="targetedCells">The target cells for the ability.</param>
         /// <exception cref="ArgumentException">Raised if targeted cells are empty.</exception>
         /// <exception cref="InvalidOperationException">Raised if not enough action points.</exception>
-        public void UseActiveAbility(ActiveAbilitiesToAnimation activeAbilityToAnimation, Cell[] targetedCells)
+        public void UseActiveAbility(ActiveAbilityToAnimation activeAbilityToAnimation, Cell[] targetedCells)
         {
             if (targetedCells.Length == 0)
             {
@@ -127,7 +121,7 @@ namespace FrostfallSaga.Fight.Fighters
                 }
             }
 
-            OnFighterActiveAbilityEnded?.Invoke(this);
+            onFighterActiveAbilityEnded?.Invoke(this);
         }
 
         /// <summary>
@@ -232,7 +226,7 @@ namespace FrostfallSaga.Fight.Fighters
             }
             else
             {
-                OnFighterMoved?.Invoke(this);
+                onFighterMoved?.Invoke(this);
             }
         }
         #endregion

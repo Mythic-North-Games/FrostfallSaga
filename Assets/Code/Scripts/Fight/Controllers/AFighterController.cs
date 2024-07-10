@@ -7,8 +7,9 @@ namespace FrostfallSaga.Fight.Controllers
 {
     public abstract class AFighterController
     {
-        public Action<Fighter> OnActionEnded;
-        public Action<Fighter> OnTurnEnded;
+        public Action<Fighter> onFighterActionStarted;
+        public Action<Fighter> onFighterActionEnded;
+        public Action<Fighter> onFighterTurnEnded;
 
         /// <summary>
         /// Make the given fighter play its turn and send an event when it's done.
