@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid;
@@ -14,7 +15,8 @@ namespace FrostfallSaga.Fight.Controllers
     public class RandomController : AFighterController
     {
         private static readonly System.Random _randomizer = new();
-        public int maxActionsPerTurn = 3;
+        public int maxActionsPerTurn = 4;
+        public int timeBetweenActionsInSec = 2;
 
         private Fighter _possessedFighter;
         private HexGrid _fightGrid;
@@ -31,7 +33,7 @@ namespace FrostfallSaga.Fight.Controllers
             _numberOfActionsDoneForTurn = 0;
             Debug.Log("Fighter " + fighterToPlay.name + " will do " + _numberOfActionsToDoForTurn + " actions this turn.");
 
-            DoNextAction();
+            _possessedFighter.StartCoroutine(DoNextAction());
         }
 
         private FighterAction GetRandomDoableAction(Fighter fighterThatWillAct, HexGrid fightGrid)
@@ -56,15 +58,17 @@ namespace FrostfallSaga.Fight.Controllers
         /// If fighter can no longer act or he has done its maximum number of actions, end its turn, 
         /// otherwise do a random doable action.
         /// </summary>
-        private void DoNextAction()
+        private IEnumerator DoNextAction()
         {
             if (!_possessedFighter.CanAct(_fightGrid) || _numberOfActionsDoneForTurn == _numberOfActionsToDoForTurn)
             {
                 Debug.Log("Fighter " + _possessedFighter.name + " has finished its turn.");
                 UnbindFighterEventsForTurn(_possessedFighter);
                 onFighterTurnEnded?.Invoke(_possessedFighter);
-                return;
+                yield break;
             }
+
+            yield return new WaitForSeconds(timeBetweenActionsInSec);
 
             switch (GetRandomDoableAction(_possessedFighter, _fightGrid))
             {
@@ -96,7 +100,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             Debug.Log("Fighter " + fighterThatMoved.name + " has finished its movement.");
             onFighterActionEnded?.Invoke(fighterThatMoved);
-            DoNextAction();
+            _possessedFighter.StartCoroutine(DoNextAction());
         }
 
         private Cell[] GetRandomMovePath(Fighter fighterThatWillMove, HexGrid fightGrid)
@@ -145,7 +149,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             Debug.Log("Fighter " + fighterThatDirectAttacked.name + " has direct attacked.");
             onFighterActionEnded?.Invoke(fighterThatDirectAttacked);
-            DoNextAction();
+            _possessedFighter.StartCoroutine(DoNextAction());
         }
         #endregion
 
@@ -176,7 +180,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             Debug.Log("Fighter " + fighter.name + " has finished using its active ability.");
             onFighterActionEnded?.Invoke(fighter);
-            DoNextAction();
+            _possessedFighter.StartCoroutine(DoNextAction());
         }
 
         private ActiveAbilityToAnimation GetRandomUsableActiveAbility(Fighter fighter, HexGrid fightGrid)
