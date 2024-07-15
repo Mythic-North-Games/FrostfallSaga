@@ -17,6 +17,7 @@ namespace FrostfallSaga.Fight
         public Action<Fighter, bool> onFighterTurnBegan; // <the fighter that plays, if he's an ally>
         public Action<Fighter, bool> onFighterTurnEnded; // <the fighter that plays, if he's an ally>
         public Action<Fighter[]> onFightersTurnOrderUpdated;
+        public Action<bool> onFightEnded;   // If the allies won or not
 
         [SerializeField] private HexGrid _fightGrid;
 
@@ -59,7 +60,11 @@ namespace FrostfallSaga.Fight
 
         private void OnFighterTurnEnded(Fighter fighterThatPlayed)
         {
-            onFighterTurnEnded?.Invoke(fighterThatPlayed, _allies.Contains(fighterThatPlayed));
+            if (CheckForFightEnd())
+            {
+                return;
+            }
+
             fighterThatPlayed.ResetMovementAndActionPoints();
             _fightersTurnOrder.Enqueue(fighterThatPlayed);
             onFightersTurnOrderUpdated?.Invoke(_fightersTurnOrder.ToArray());
@@ -68,6 +73,11 @@ namespace FrostfallSaga.Fight
 
         private void OnFighterActionEnded(Fighter fighterThatAct)
         {
+            if (CheckForFightEnd())
+            {
+                return;
+            }
+            
             Queue<Fighter> updatedFighterTurnsOrder = GetFightersTurnOrder(_allies.Concat(_enemies).ToArray());
             if (!CompareFighterTurnOrder(updatedFighterTurnsOrder.ToArray(), _initialFightersTurnOrder))
             {
@@ -80,6 +90,17 @@ namespace FrostfallSaga.Fight
             _fightersTurnOrder = newFightersTurnOrder;
             _initialFightersTurnOrder = newFightersTurnOrder.ToArray();
             onFightersTurnOrderUpdated?.Invoke(_fightersTurnOrder.ToArray());
+        }
+
+        private bool CheckForFightEnd()
+        {
+            EWinner possibleWinner = GetWinner(_allies, _enemies);
+            if (possibleWinner == EWinner.NO_ONE)
+            {
+                return false;
+            }
+            onFightEnded?.Invoke(possibleWinner == EWinner.ALLIES);
+            return true;
         }
 
         #region Fight manager components setup and tear down
@@ -168,6 +189,25 @@ namespace FrostfallSaga.Fight
             }
         }
 
+        private static EWinner GetWinner(Fighter[] allies, Fighter[] enemies)
+        {
+            int teamHealth = 0;
+            allies.ToList().ForEach(ally => teamHealth += ally.GetHealth());
+            if (teamHealth <= 0)  // Should be equal to zero at minimum, but just in case, we check for negative values
+            {
+                return EWinner.ENEMIES;
+            }
+
+            teamHealth = 0;
+            enemies.ToList().ForEach(enemy => teamHealth += enemy.GetHealth());
+            if (teamHealth <= 0)  // Should be equal to zero at minimum, but just in case, we check for negative values
+            {
+                return EWinner.ALLIES;
+            }
+
+            return EWinner.NO_ONE;
+        }
+
         private static Queue<Fighter> GetFightersTurnOrder(Fighter[] fighters)
         {
             return new(fighters.OrderByDescending(fighter => fighter.GetActionPoints()));
@@ -177,7 +217,6 @@ namespace FrostfallSaga.Fight
         {
             if (order1.Length != order2.Length)
             {
-                Debug.Log("here");
                 return false;
             }
 
@@ -192,5 +231,12 @@ namespace FrostfallSaga.Fight
             return true;
         }
         #endregion
+
+        private enum EWinner
+        {
+            ALLIES,
+            ENEMIES,
+            NO_ONE
+        }
     }
 }
