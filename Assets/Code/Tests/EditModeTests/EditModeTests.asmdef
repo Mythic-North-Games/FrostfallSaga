@@ -8,8 +8,8 @@
         "FrostfallSaga.Grid",
         "FrostfallSaga.Kingdom",
         "FrostfallSaga.Fight",
-        "FrostfallSaga.EntitiesVisual",
-        ""
+        "FrostfallSaga.KingdomToFight",
+        "FrostfallSaga.EntitiesVisual"
     ],
     "includePlatforms": [
         "Editor"

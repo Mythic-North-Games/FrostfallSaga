@@ -17,13 +17,13 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         public Action<EntitiesGroup> OnEntityGroupHovered;
         public Action<EntitiesGroup> OnEntityGroupUnhovered;
         public Action<EntitiesGroup, Cell> OnEntityGroupMoved;
-        private Entity[] entities;
+        public Entity[] Entities { get; private set; }
         private Entity _displayedEntity;
 
         private void Start()
         {
-            entities = GetComponentsInChildren<Entity>();
-            if (entities == null || entities.Length == 0)
+            Entities = GetComponentsInChildren<Entity>();
+            if (Entities == null || Entities.Length == 0)
             {
                 Debug.LogError("Entity group " + name + " does not have entities");
                 gameObject.SetActive(false);
@@ -38,15 +38,15 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
 
             if (_displayedEntity == null)
             {
-                for (int i = 0; i < entities.Length; i++)
+                for (int i = 0; i < Entities.Length; i++)
                 {
                     if (i == 0)
                     {
-                        UpdateDisplayedEntity(entities[i]);
+                        UpdateDisplayedEntity(Entities[i]);
                     }
                     else
                     {
-                        entities[i].HideVisual();
+                        Entities[i].HideVisual();
                     }
                 }
             }
@@ -72,7 +72,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
 
         public void UpdateDisplayedEntity(Entity newDisplayedEntity)
         {
-            if (!entities.Contains(newDisplayedEntity))
+            if (!Entities.Contains(newDisplayedEntity))
             {
                 Debug.LogError("Given entity is not part of the group of the entity group " + name);
                 return;

@@ -74230,6 +74230,54 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383399304}
   m_Mesh: {fileID: 5264201581553841347, guid: 8aaf0a3f3237af6408cd90e485a85978, type: 3}
+--- !u!1 &1385638130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1385638131}
+  - component: {fileID: 1385638132}
+  m_Layer: 0
+  m_Name: FightersGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1385638131
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385638130}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.7100003, y: 1.6956995, z: 2.7407036}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1385638132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385638130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 164c5103b607fa94d9228dadfc76299a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fighterPrefab: {fileID: 4700538115128749028, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
+  _entityToFighterDB: {fileID: 11400000, guid: 5b59511f8282269448cd76048dc19e4a, type: 2}
+  _preFightData: {fileID: 11400000, guid: 04c5351ee75a07946b88b4758739fc4a, type: 2}
+  _entitiesGroupsManager: {fileID: 899991118}
 --- !u!1 &1388617228
 GameObject:
   m_ObjectHideFlags: 0
@@ -119024,6 +119072,7 @@ SceneRoots:
   - {fileID: 2047304807}
   - {fileID: 899991117}
   - {fileID: 1446529809}
+  - {fileID: 1385638131}
   - {fileID: 1130391597}
   - {fileID: 1268217345}
   - {fileID: 26075751}

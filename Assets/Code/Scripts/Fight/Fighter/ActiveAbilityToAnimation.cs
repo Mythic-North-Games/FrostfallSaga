@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Fight.Abilities;
 
 namespace FrostfallSaga.Fight.Fighters
