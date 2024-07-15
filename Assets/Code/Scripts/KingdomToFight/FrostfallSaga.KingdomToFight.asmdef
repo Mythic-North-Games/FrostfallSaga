@@ -1,0 +1,17 @@
+{
+    "name": "FrostfallSaga.KingdomToFight",
+    "rootNamespace": "FrostfallSaga.KingdomToFight",
+    "references": [
+        "FrostfallSaga.Kingdom",
+        "FrostfallSaga.Fight"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

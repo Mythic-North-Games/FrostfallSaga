@@ -2,7 +2,7 @@ using FrostfallSaga.Core;
 
 namespace FrostfallSaga.Kingdom.Entities
 {
-    public class EntityMouseEventsController : MouseEventsController<Entity>
+    public class EntityMouseEventsController : BaseMouseEventsController<Entity>
     {
 
     }

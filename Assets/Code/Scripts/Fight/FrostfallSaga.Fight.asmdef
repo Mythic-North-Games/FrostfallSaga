@@ -4,7 +4,8 @@
     "references": [
         "FrostfallSaga.Core",
         "FrostfallSaga.Grid",
-        "FrostfallSaga.EntitiesVisual"
+        "FrostfallSaga.EntitiesVisual",
+        "Cinemachine"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

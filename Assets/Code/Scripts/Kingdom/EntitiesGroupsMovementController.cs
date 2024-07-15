@@ -223,6 +223,12 @@ namespace FrostfallSaga.Kingdom
 				currentCellOfPathNeighbors.Remove(entitiesGroup.Cell);
 				currentCellOfPathNeighbors.RemoveAll(cell => randomMovePath.Contains(cell));
 				currentCellOfPathNeighbors.RemoveAll(cell => prohibitedCells.Contains(cell));
+
+				if (currentCellOfPathNeighbors.Count == 0)	// Stop generating path if no cell is available to move.
+				{
+					break;
+				}
+				
 				Cell neighborCellToAdd = currentCellOfPathNeighbors[randomizer.Next(0, currentCellOfPathNeighbors.Count)];
 				randomMovePath.Add(neighborCellToAdd);
 				currentCellOfPath = neighborCellToAdd;

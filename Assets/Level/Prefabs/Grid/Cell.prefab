@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <InitialMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
+  <CurrentDefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
 --- !u!64 &6858096247790698953
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -178,3 +179,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa14bb0348272243b807403ad622a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Coordinates>k__BackingField: {x: 0, y: 0}
+  <Height>k__BackingField: 0
+  <IsAccessible>k__BackingField: 0
+  <HighlightController>k__BackingField: {fileID: 0}
+  <CellMouseEventsController>k__BackingField: {fileID: 0}
+  <WorldHeightPerUnit>k__BackingField: 0.8
