@@ -15,7 +15,11 @@ namespace FrostfallSaga.Fight.Controllers
     /// </summary>
     public class PlayerController : AFighterController
     {
-        private readonly FighterActionPanel _actionPanel;
+        [SerializeField] private FighterActionPanel _actionPanel;
+        [SerializeField] private Material _cellHighlightMaterial;
+        [SerializeField] private Material _cellActionableHighlightMaterial;
+        [SerializeField] private Material _cellInaccessibleHighlightMaterial;
+
         private HexGrid _currentFightGrid;
         private Fighter _possessedFighter;
 
@@ -25,27 +29,14 @@ namespace FrostfallSaga.Fight.Controllers
         private ActiveAbilityToAnimation _currentActiveAbility;
         private bool _fighterIsTargetingForActiveAbility;
 
-        private readonly Material _cellHighlightMaterial;
-        private readonly Material _cellActionableHighlightMaterial;
-        private readonly Material _cellInaccessibleHighlightMaterial;
-
-        public PlayerController(
-            FighterActionPanel actionPanel,
-            Material cellHighlightMaterial,
-            Material cellActionableHighlightMaterial,
-            Material cellInaccessibleHighlightMaterial
-        )
-        {
-            _actionPanel = actionPanel;
-            _cellHighlightMaterial = cellHighlightMaterial;
-            _cellActionableHighlightMaterial = cellActionableHighlightMaterial;
-            _cellInaccessibleHighlightMaterial = cellInaccessibleHighlightMaterial;
-        }
-
-        public override void PlayTurn(Fighter fighterToPlay, Dictionary<Fighter, string> fighterTeams, HexGrid fightGrid)
+        public override void PlayTurn(Fighter fighterToPlay, Dictionary<Fighter, bool> fighterTeams, HexGrid fightGrid)
         {
             _currentFightGrid = fightGrid;
             _possessedFighter = fighterToPlay;
+            _fighterIsActing = false;
+            _fighterIsTargetingForActiveAbility = false;
+            _fighterIsTargetingForDirectAttack = false;
+
             BindFighterEventsForTurn(fighterToPlay);
             BindUIEventsForTurn();
             BindCellMouseEventsForTurn(fightGrid);
@@ -136,6 +127,7 @@ namespace FrostfallSaga.Fight.Controllers
         private void EndFighterAction()
         {
             _fighterIsActing = false;
+            Debug.Log("Ended " + _possessedFighter.name);
             onFighterActionEnded?.Invoke(_possessedFighter);
         }
 
@@ -402,6 +394,11 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void BindUIEventsForTurn()
         {
+            if (_actionPanel == null)
+            {
+                Debug.LogError("Player controller has no action panel to work with.");
+            }
+
             _actionPanel.onDirectAttackClicked += OnDirectAttackClicked;
             _actionPanel.onActiveAbilityClicked += OnActiveAbilityClicked;
             _actionPanel.onEndTurnClicked += OnEndTurnClicked;
@@ -409,6 +406,11 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void UnbindUIEventsForTurn()
         {
+            if (_actionPanel == null)
+            {
+                Debug.LogError("Player controller has no action panel to work with.");
+            }
+
             _actionPanel.onDirectAttackClicked -= OnDirectAttackClicked;
             _actionPanel.onActiveAbilityClicked -= OnActiveAbilityClicked;
             _actionPanel.onEndTurnClicked -= OnEndTurnClicked;
@@ -457,5 +459,25 @@ namespace FrostfallSaga.Fight.Controllers
         }
 
         #endregion
+
+        private void Awake()
+        {
+            if (_actionPanel == null)
+            {
+                Debug.LogError("Player controller has no action panel to work with.");
+            }
+            if (_cellHighlightMaterial == null)
+            {
+                Debug.LogError("Player controller has no cell highlight material to work with.");
+            }
+            if (_cellActionableHighlightMaterial == null)
+            {
+                Debug.LogError("Player controller has no cell highlight material to work with.");
+            }
+            if (_cellInaccessibleHighlightMaterial == null)
+            {
+                Debug.LogError("Player controller has no cell highlight material to work with.");
+            }
+        }
     }
 }

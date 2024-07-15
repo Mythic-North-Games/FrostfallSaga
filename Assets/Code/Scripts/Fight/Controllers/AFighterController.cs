@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
 
 namespace FrostfallSaga.Fight.Controllers
 {
-    public abstract class AFighterController
+    public abstract class AFighterController : MonoBehaviour
     {
         public Action<Fighter> onFighterActionStarted;
         public Action<Fighter> onFighterActionEnded;
@@ -14,6 +15,6 @@ namespace FrostfallSaga.Fight.Controllers
         /// <summary>
         /// Make the given fighter play its turn and send an event when it's done.
         /// </summary>
-        public abstract void PlayTurn(Fighter fighterToPlay, Dictionary<Fighter, string> fighterTeams, HexGrid fightGrid);
+        public abstract void PlayTurn(Fighter fighterToPlay, Dictionary<Fighter, bool> fighterTeams, HexGrid fightGrid);
     }
 }

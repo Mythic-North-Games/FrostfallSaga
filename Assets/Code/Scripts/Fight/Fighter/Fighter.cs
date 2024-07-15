@@ -12,13 +12,13 @@ namespace FrostfallSaga.Fight.Fighters
     public class Fighter : MonoBehaviour
     {
         [field: SerializeField] public FighterConfigurationSO FighterConfiguration { get; private set; }
+        [field: SerializeField] public EntityVisualMovementController MovementController { get; private set; }
         public Cell cell;
         public Action<Fighter> onFighterMoved;
         public Action<Fighter> onFighterDirectAttackEnded;
         public Action<Fighter> onFighterActiveAbilityEnded;
 
         [SerializeField] private EntityVisualAnimationController _animationController;
-        [SerializeField] private EntityVisualMovementController _movementController;
         private MovePath _currentMovePath;
         private FighterStats _stats = new();
 
@@ -166,7 +166,7 @@ namespace FrostfallSaga.Fight.Fighters
             _stats.health = Math.Clamp(_stats.health + healAmount, 0, _stats.maxHealth);
         }
 
-        #region Stats getter
+        #region Stats getter & manipulation
 
         public int GetMovePoints()
         {
@@ -176,6 +176,12 @@ namespace FrostfallSaga.Fight.Fighters
         public int GetActionPoints()
         {
             return _stats.actionPoints;
+        }
+
+        public void ResetMovementAndActionPoints()
+        {
+            _stats.actionPoints = _stats.maxActionPoints;
+            _stats.movePoints = _stats.maxMovePoints;
         }
 
         #endregion
@@ -273,7 +279,7 @@ namespace FrostfallSaga.Fight.Fighters
         {
             Cell cellToMoveTo = _currentMovePath.GetNextCellInPath();
             cell.GetComponent<CellFightBehaviour>().Fighter = null;
-            _movementController.Move(cell, cellToMoveTo, _currentMovePath.IsLastMove);
+            MovementController.Move(cell, cellToMoveTo, _currentMovePath.IsLastMove);
         }
 
         private void OnFighterArrivedAtCell(Cell destinationCell)
@@ -311,13 +317,13 @@ namespace FrostfallSaga.Fight.Fighters
         #region Getting children & bindings setup
         private bool TrySetupEntitiyVisualMoveController()
         {
-            _movementController = GetComponentInChildren<EntityVisualMovementController>();
-            if (_movementController == null)
+            MovementController = GetComponentInChildren<EntityVisualMovementController>();
+            if (MovementController == null)
             {
                 return false;
             }
 
-            _movementController.onMoveEnded += OnFighterArrivedAtCell;
+            MovementController.onMoveEnded += OnFighterArrivedAtCell;
             return true;
         }
 
@@ -333,9 +339,9 @@ namespace FrostfallSaga.Fight.Fighters
 
         private void OnDisable()
         {
-            if (_movementController != null)
+            if (MovementController != null)
             {
-                _movementController.onMoveEnded -= OnFighterArrivedAtCell;
+                MovementController.onMoveEnded -= OnFighterArrivedAtCell;
             }
         }
         #endregion

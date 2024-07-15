@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 
@@ -22,7 +21,6 @@ namespace FrostfallSaga.EntitiesVisual
         private Cell _targetCell;
         private Vector3 _targetCellPosition;
         private Quaternion _targetRotation;
-        private Quaternion _lastRotationStep;
 
         private void Start()
         {
@@ -57,6 +55,11 @@ namespace FrostfallSaga.EntitiesVisual
             _targetRotation = Quaternion.LookRotation(targetCell.GetCenter());
             _targetCellPosition = targetCell.GetCenter();
             _isRotating = true;
+        }
+
+        public void TeleportToCell(Cell targetCell)
+        {
+            _parentToMove.transform.position = targetCell.GetCenter();
         }
 
         private void Update()
@@ -100,7 +103,6 @@ namespace FrostfallSaga.EntitiesVisual
                 RotationSpeed * Time.deltaTime, 0.0f
             );
             _parentToMove.transform.rotation = Quaternion.LookRotation(nextRotation);
-            _lastRotationStep = Quaternion.LookRotation(nextRotation);
         }
 
         private void MakeParentMoveTowardsTarget()

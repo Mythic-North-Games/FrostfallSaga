@@ -27,8 +27,8 @@ MonoBehaviour:
   <PhysicalResistance>k__BackingField: 10
   <MagicalResistances>k__BackingField: []
   <MagicalStrengths>k__BackingField: []
-  <Initiative>k__BackingField: 3
+  <Initiative>k__BackingField: 5
   <EquipedActiveAbilities>k__BackingField:
   - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-    animation: {fileID: 0}
+    animationState: 
   <Health>k__BackingField: 100
