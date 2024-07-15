@@ -22,9 +22,9 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             receiver.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, receiver, new Vector2Int(0, 1));
 
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.FighterConfiguration.DirectAttackActionPointsCost;
+            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.DirectAttackActionPointsCost;
 
-            int attackerDamages = ((PhysicalDamageEffectSO)attacker.FighterConfiguration.DirectAttackEffects[0]).PhysicalDamageAmount;
+            int attackerDamages = ((PhysicalDamageEffectSO)attacker.DirectAttackEffects[0]).PhysicalDamageAmount;
             int expectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - attackerDamages);
 
             Cell[] targetedCells = { receiver.cell };
@@ -59,9 +59,9 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             FightTestsHelper.SetupFighterPositionOnGrid(grid, receiver2, new Vector2Int(1, 0));
             receiver2.name = "Receiver 2";
 
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.FighterConfiguration.DirectAttackActionPointsCost;
+            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.DirectAttackActionPointsCost;
 
-            int attackerDamages = ((PhysicalDamageEffectSO)attacker.FighterConfiguration.DirectAttackEffects[0]).PhysicalDamageAmount;
+            int attackerDamages = ((PhysicalDamageEffectSO)attacker.DirectAttackEffects[0]).PhysicalDamageAmount;
             int expectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - attackerDamages);
             int expectedReceiverHealth2 = Math.Max(0, receiver2.GetStatsForTests().health - attackerDamages);
 
@@ -94,7 +94,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             Fighter notTargetedFighter = FightTestsHelper.CreateFighter();
             notTargetedFighter.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, notTargetedFighter, new Vector2Int(0, 1));
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.FighterConfiguration.DirectAttackActionPointsCost;
+            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.DirectAttackActionPointsCost;
             int expectedNotTargetedFighterHealth = notTargetedFighter.GetStatsForTests().health;
 
             Cell[] targetedCells = { grid.CellsByCoordinates[new(1, 1)] };

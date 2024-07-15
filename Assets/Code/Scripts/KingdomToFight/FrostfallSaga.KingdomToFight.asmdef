@@ -1,10 +1,9 @@
 {
-    "name": "FrostfallSaga.Kingdom",
-    "rootNamespace": "FrostfallSaga.Kingdom",
+    "name": "FrostfallSaga.KingdomToFight",
+    "rootNamespace": "FrostfallSaga.KingdomToFight",
     "references": [
-        "FrostfallSaga.Core",
-        "FrostfallSaga.Grid",
-        "FrostfallSaga.EntitiesVisual"
+        "FrostfallSaga.Kingdom",
+        "FrostfallSaga.Fight"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

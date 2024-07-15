@@ -19,8 +19,8 @@ namespace FrostfallSaga.Fight
         public Action<Fighter[]> onFightersTurnOrderUpdated;
         public Action<bool> onFightEnded;   // If the allies won or not
 
+        [SerializeField] private FightersGenerator _fightersGenerator;
         [SerializeField] private HexGrid _fightGrid;
-
         [SerializeField] private AFighterController _alliesController;
         [SerializeField] private AFighterController _enemiesController;
 
@@ -28,17 +28,6 @@ namespace FrostfallSaga.Fight
         private Fighter[] _enemies;
         private Queue<Fighter> _fightersTurnOrder;
         private Fighter[] _initialFightersTurnOrder;
-
-        [SerializeField] Fighter[] testAllies;
-        [SerializeField] Fighter[] testEnemies;
-
-        /// <summary>
-        /// Used to start the fight waiting for the fighters generator to be developed.
-        /// </summary>
-        private void Start()
-        {
-            OnFightersGenerated(testAllies, testEnemies);
-        }
 
         private void OnFightersGenerated(Fighter[] allies, Fighter[] enemies)
         {
@@ -116,6 +105,15 @@ namespace FrostfallSaga.Fight
                 return;
             }
 
+            if (_fightersGenerator == null)
+            {
+                _fightersGenerator = FindObjectOfType<FightersGenerator>();
+            }
+            if (_fightersGenerator == null)
+            {
+                Debug.LogError("No fighters generator found. Can't start fight.");
+            }
+
             if (_alliesController == null)
             {
                 Debug.LogError("No controller for allies set.");
@@ -127,6 +125,8 @@ namespace FrostfallSaga.Fight
                 return;
             }
 
+            _fightersGenerator.onFightersGenerated += OnFightersGenerated;
+
             _alliesController.onFighterTurnEnded += OnFighterTurnEnded;
             _alliesController.onFighterActionEnded += OnFighterActionEnded;
 
@@ -136,6 +136,15 @@ namespace FrostfallSaga.Fight
 
         private void OnDisable()
         {
+            if (_fightersGenerator == null)
+            {
+                _fightersGenerator = FindObjectOfType<FightersGenerator>();
+            }
+            if (_fightersGenerator == null)
+            {
+                Debug.LogWarning("No fighters generator found. Can't tear down properly.");
+            }
+
             if (_alliesController == null)
             {
                 Debug.LogWarning("No controller for allies set.");
@@ -146,6 +155,8 @@ namespace FrostfallSaga.Fight
                 Debug.LogWarning("No controller for enemies set.");
                 return;
             }
+
+            _fightersGenerator.onFightersGenerated -= OnFightersGenerated;
 
             _alliesController.onFighterTurnEnded -= OnFighterTurnEnded;
             _alliesController.onFighterActionEnded += OnFighterActionEnded;

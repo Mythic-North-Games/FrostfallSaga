@@ -133,7 +133,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             try
             {
-                Cell[] targetCells = fighter.FighterConfiguration.DirectAttackTargeter.GetRandomTargetCells(fightGrid, fighter.cell);
+                Cell[] targetCells = fighter.DirectAttackTargeter.GetRandomTargetCells(fightGrid, fighter.cell);
                 Debug.Log("Fighter " + fighter.name + " is direct attacking.");
                 fighter.UseDirectAttack(targetCells);
                 onFighterActionStarted?.Invoke(fighter);
@@ -185,7 +185,7 @@ namespace FrostfallSaga.Fight.Controllers
         private ActiveAbilityToAnimation GetRandomUsableActiveAbility(Fighter fighter, HexGrid fightGrid)
         {
             List<ActiveAbilityToAnimation> usableActiveAbilities = new();
-            fighter.FighterConfiguration.AvailableActiveAbilities.ToList().ForEach(
+            fighter.ActiveAbilities.ToList().ForEach(
                 (activeAbilityToAnimation) =>
                 {
                     if (fighter.CanUseActiveAbility(fightGrid, activeAbilityToAnimation.activeAbility))

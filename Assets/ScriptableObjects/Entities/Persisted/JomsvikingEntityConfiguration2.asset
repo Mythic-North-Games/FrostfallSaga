@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc562c7cdab31240b6e99c3650435c8, type: 3}
   m_Name: JomsvikingEntityConfiguration2
   m_EditorClassIdentifier: 
+  <EntityID>k__BackingField: 2
   <Name>k__BackingField: "Bot num\xE9ro 2"
   <Icon>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
-  <FighterConfiguration>k__BackingField: {fileID: 11400000, guid: be2a59e2c4ba3c543bde83ebbd0b85f3, type: 2}
