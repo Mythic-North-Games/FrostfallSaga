@@ -77652,7 +77652,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e823463cf38a754a8520874f3d6c08d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _kingdomManager: {fileID: 899991118}
+  _entitiesGroupsManager: {fileID: 899991118}
+  _kingdomData: {fileID: 11400000, guid: ac5e333e2b50f47429757a255117b179, type: 2}
   _sceneTransitioner: {fileID: 26075752}
   _readyToFightAnimationDuration: 2
   _delayBeforeLoadingSceneAfterReadyAnimation: 1
