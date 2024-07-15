@@ -178,6 +178,11 @@ namespace FrostfallSaga.Fight.Fighters
             return _stats.actionPoints;
         }
 
+        public int GetHealth()
+        {
+            return _stats.health;
+        }
+
         public void ResetMovementAndActionPoints()
         {
             _stats.actionPoints = _stats.maxActionPoints;
