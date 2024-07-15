@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace FrostfallSaga.Fight.Targeters
         [field: SerializeField] public int OriginCellRange { get; private set; }
         [field: SerializeField] public Vector2Int[] CellsSequence { get; private set; }
         [field: SerializeField] public bool FighterMandatory { get; private set; }
+
+        private static readonly System.Random _randomizer = new();
 
         /// <summary>
         /// Extract the cells corresponding to the targeter from the given context.
@@ -39,6 +42,36 @@ namespace FrostfallSaga.Fight.Targeters
             }
 
             return targetedCells;
+        }
+
+        /// <summary>
+        /// Get one random resolved targeter cell sequence for the given context if it does exist.
+        /// </summary>
+        /// <param name="fightGrid">The current fight grid.</param>
+        /// <param name="initiatorCell">The cell where the targeter's initiator is located.</param>
+        /// <returns>One random resolved targeter cell sequence for the given context if it does exist.</returns>
+        /// <exception cref="TargeterUnresolvableException">If the targeter can't be resolved around the initiator.</exception>
+        public Cell[] GetRandomTargetCells(HexGrid fightGrid, Cell initiatorCell)
+        {
+            List<Cell[]> resolvedTargeterSequences = new();
+            foreach (Cell cellThatCanBeTargeted in GetAllCellsAvailableForTargeting(fightGrid, initiatorCell))
+            {
+                try
+                {
+                    resolvedTargeterSequences.Add(Resolve(fightGrid, cellThatCanBeTargeted, initiatorCell));
+                }
+                catch (TargeterUnresolvableException)
+                {
+                    continue;
+                }
+            }
+
+            if (resolvedTargeterSequences.Count == 0)
+            {
+                throw new TargeterUnresolvableException("Targeter unresolvable around initiator.");
+            }
+
+            return resolvedTargeterSequences[_randomizer.Next(0, resolvedTargeterSequences.Count)];
         }
 
         /// <summary>
@@ -86,15 +119,40 @@ namespace FrostfallSaga.Fight.Targeters
         }
 
         /// <summary>
-        /// Returns wether the given target cell is in the targeter range depending on the context.
+        /// Returns whether the given target cell is in the targeter range depending on the context.
         /// </summary>
-        /// <param name="grid">The grid where the initiator is located.</param>
-        /// <param name="initiatorCell">The targeter initiator's cell</param>
+        /// <param name="fightGrid">The grid where the initiator is located.</param>
+        /// <param name="initiatorCell">The targeter initiator's cell.</param>
         /// <param name="targetCell">The cell you want to know if it's in range.</param>
         /// <returns>True if the target cell is in range, false otherwise.</returns>
-        public bool IsCellInRange(HexGrid grid, Cell initiatorCell, Cell targetCell)
+        public bool IsCellInRange(HexGrid fightGrid, Cell initiatorCell, Cell targetCell)
         {
-            return GetAllCellsAvailableForTargeting(grid, initiatorCell).Contains(targetCell);
+            return GetAllCellsAvailableForTargeting(fightGrid, initiatorCell).Contains(targetCell);
+        }
+
+        /// <summary>
+        /// Returns whether the targeter resolves at least for one cell in the available cells around the given initiator cell.
+        /// </summary>
+        /// <param name="fightGrid">The fight grid where the initiator is located.</param>
+        /// <param name="initiatorCell">The targeter initiator's cell.</param>
+        /// <returns>True if the targeter resolves at least for one cell in the available cells around the given initiator cell, false otherwise.</returns>
+        public bool AtLeastOneCellResolvable(HexGrid fightGrid, Cell initiatorCell)
+        {
+            foreach (Cell cellThatCanBeTargeted in GetAllCellsAvailableForTargeting(fightGrid, initiatorCell))
+            {
+                try
+                {
+                    if (Resolve(fightGrid, cellThatCanBeTargeted, initiatorCell).Length > 0)
+                    {
+                        return true;
+                    }
+                }
+                catch (TargeterUnresolvableException)
+                {
+                    continue;
+                }
+            }
+            return false;
         }
     }
 }

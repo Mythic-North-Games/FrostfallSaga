@@ -2,9 +2,10 @@ using System;
 using System.Linq;
 using UnityEngine;
 using FrostfallSaga.Grid;
+using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Effects;
-using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Fight.Abilities;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -42,6 +43,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <summary>
         /// Makes the fighter move along the given cells path.
         /// If fighter does not have enough move points, an ArgumentOutOfRangeException is thrown.
+        /// Don't forget to listen to `onFighterMoved` event if you want to know when he's done moving.
         /// </summary>
         /// <param name="cellsPath">The cells path to follow.</param>
         /// <exception cref="ArgumentOutOfRangeException">Raised if the fighter does not have enough move points.</exception>
@@ -84,7 +86,7 @@ namespace FrostfallSaga.Fight.Fighters
                     ApplyEffectsOnFighter(FighterConfiguration.DirectAttackEffects, targetedCellFighter);
                 }
             }
-            
+
             onFighterDirectAttackEnded?.Invoke(this);
         }
 
@@ -105,7 +107,7 @@ namespace FrostfallSaga.Fight.Fighters
             if (_stats.actionPoints < activeAbilityToAnimation.activeAbility.ActionPointsCost)
             {
                 throw new InvalidOperationException(
-                    "Fighter : " + name + " does not have enough action points to use its ability " 
+                    "Fighter : " + name + " does not have enough action points to use its ability "
                     + activeAbilityToAnimation.activeAbility.Name
                 );
             }
@@ -177,6 +179,65 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
         #endregion
+
+        /// <summary>
+        /// Returns whether the fighter can move in the given context or not.
+        /// </summary>
+        /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
+        /// <returns>True if he has enough move points and if there is at least on cell free around him.</returns>
+        public bool CanMove(HexGrid fightGrid)
+        {
+            return _stats.movePoints > 0 && FightCellNeighbors.GetNeighbors(fightGrid, cell).Length > 0;
+        }
+
+        /// <summary>
+        /// Returns whether the fighter can use its direct attack in the given context or not.
+        /// </summary>
+        /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
+        /// <returns>True if he has enough actions points and if the direct attack targeter can be resolved around him.</returns>
+        public bool CanDirectAttack(HexGrid fightGrid)
+        {
+            return (
+                FighterConfiguration.DirectAttackActionPointsCost <= _stats.actionPoints &&
+                FighterConfiguration.DirectAttackTargeter.AtLeastOneCellResolvable(fightGrid, cell)
+            );
+        }
+
+        /// <summary>
+        /// Returns whether the fighter can use one if its active ability in the given context or not.
+        /// </summary>
+        /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
+        /// <returns>True if he has enough actions points and if an active ability targeter can be resolved around him.</returns>
+        public bool CanUseAtLeastOneActiveAbility(HexGrid fightGrid)
+        {
+            return FighterConfiguration.AvailableActiveAbilities.Any(
+                activeAbilityToAnimation => CanUseActiveAbility(fightGrid, activeAbilityToAnimation.activeAbility)
+            );
+        }
+
+        /// <summary>
+        /// Returns whether the fighter can use the given active ability in the given context or not.
+        /// </summary>
+        /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
+        /// <param name="activeAbility">The active ability to check if it can be used.</param>
+        /// <returns>True if he has enough actions points and if the active ability targeter can be resolved around him.</returns>
+        public bool CanUseActiveAbility(HexGrid fightGrid, ActiveAbilitySO activeAbility)
+        {
+            return (
+                activeAbility.ActionPointsCost <= _stats.actionPoints &&
+                activeAbility.Targeter.AtLeastOneCellResolvable(fightGrid, cell)
+            );
+        }
+
+        /// <summary>
+        /// Returns whether the fighter can act in the given context or not.
+        /// </summary>
+        /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
+        /// <returns>True if he can move, direct attack or use one of its active ability.</returns>
+        public bool CanAct(HexGrid fightGrid)
+        {
+            return CanMove(fightGrid) || CanDirectAttack(fightGrid) || CanUseAtLeastOneActiveAbility(fightGrid);
+        }
 
         /// <summary>
         /// Play an animation if the given state name exists.
