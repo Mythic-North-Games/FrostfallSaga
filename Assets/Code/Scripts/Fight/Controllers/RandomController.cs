@@ -23,7 +23,7 @@ namespace FrostfallSaga.Fight.Controllers
         private int _numberOfActionsToDoForTurn;
         private int _numberOfActionsDoneForTurn;
 
-        public override void PlayTurn(Fighter fighterToPlay, Dictionary<Fighter, string> fighterTeams, HexGrid fightGrid)
+        public override void PlayTurn(Fighter fighterToPlay, Dictionary<Fighter, bool> fighterTeams, HexGrid fightGrid)
         {
             _possessedFighter = fighterToPlay;
             _fightGrid = fightGrid;
@@ -62,7 +62,6 @@ namespace FrostfallSaga.Fight.Controllers
         {
             if (!_possessedFighter.CanAct(_fightGrid) || _numberOfActionsDoneForTurn == _numberOfActionsToDoForTurn)
             {
-                Debug.Log("Fighter " + _possessedFighter.name + " has finished its turn.");
                 UnbindFighterEventsForTurn(_possessedFighter);
                 onFighterTurnEnded?.Invoke(_possessedFighter);
                 yield break;

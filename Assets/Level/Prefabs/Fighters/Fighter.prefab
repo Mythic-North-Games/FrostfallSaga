@@ -46,12 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <FighterConfiguration>k__BackingField: {fileID: 11400000, guid: 25a85d710d7b0da4e9814f23b3973a2b, type: 2}
+  <MovementController>k__BackingField: {fileID: 657706748130425352}
   cell: {fileID: 0}
   _animationController: {fileID: 2769220607419489116}
-  _movementController: {fileID: 657706748130425352}
-  highlightMaterial: {fileID: 0}
-  actionableHighlightMaterial: {fileID: 0}
-  wrongHighlightMaterial: {fileID: 0}
 --- !u!1001 &1381870417433118493
 PrefabInstance:
   m_ObjectHideFlags: 0
