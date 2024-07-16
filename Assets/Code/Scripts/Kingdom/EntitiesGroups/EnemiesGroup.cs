@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using FrostfallSaga.Kingdom.Entities;
+
 namespace FrostfallSaga.Kingdom.EntitiesGroups
 {
     /// <summary>
@@ -5,7 +9,31 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
     /// </summary>
     public class EnemiesGroup : EntitiesGroup
     {
-        // * Will surely have specific code for the enemies group. For now the class
-        // * is created to differenciate an enemy group and a hero group.
+        private void Start()
+        {
+
+        }
+
+        public void UpdateEntities(Entity[] newMembers)
+        {
+            Entities = new List<Entity>(newMembers).ToArray();
+            
+            for (int i = 0; i < Entities.Length; i++)
+            {
+                if (i == 0)
+                {
+                    UpdateDisplayedEntity(Entities[i]);
+                }
+                else
+                {
+                    Entities[i].HideVisual();
+                }
+
+                Entities[i].name = Enum.GetName(typeof(EntityID), Entities[i].EntityConfiguration.EntityID) + i;
+                Entities[i].transform.parent = transform;
+                Entities[i].transform.localPosition = new(0, 0, 0);
+            }
+            
+        }
     }
 }

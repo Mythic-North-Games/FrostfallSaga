@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
@@ -16,8 +18,6 @@ namespace FrostfallSaga.Kingdom
 		private MovePath _currentHeroGroupMovePath;
 		private EnemiesGroup[] _enemiesGroupsToMove;
 		private readonly Dictionary<EnemiesGroup, MovePath> _currentPathPerEnemiesGroup = new();
-
-		private static readonly Random randomizer = new();
 
 		public void MakeHeroGroupThenEnemiesGroupMove(
 			HexGrid kingdomGrid,
@@ -95,7 +95,7 @@ namespace FrostfallSaga.Kingdom
         {
             MovePath enemiesGroupMovePath = _currentPathPerEnemiesGroup[enemiesGroup];
             Cell cellToMoveTo = enemiesGroupMovePath.GetNextCellInPath();
-            if (cellToMoveTo == _heroGroup.Cell)
+            if (cellToMoveTo == _heroGroup.cell)
             {
 				UnbindEntitiesGroupsMovementEvents();
                 OnEnemiesGroupEncountered?.Invoke(enemiesGroup, false);
@@ -123,7 +123,7 @@ namespace FrostfallSaga.Kingdom
         {
             foreach (EnemiesGroup enemiesGroup in _enemiesGroupsToMove)
             {
-                if (enemiesGroup.Cell == targetCell)
+                if (enemiesGroup.cell == targetCell)
                 {
                     return enemiesGroup;
                 }
@@ -141,19 +141,20 @@ namespace FrostfallSaga.Kingdom
 		#region Entities movements event binding and unbinding
         private void BindEntitiesGroupsMovementEvents()
         {
-            _heroGroup.OnEntityGroupMoved += OnHeroGroupMoved;
+            _heroGroup.onEntityGroupMoved += OnHeroGroupMoved;
             foreach (EntitiesGroup entitiesGroup in _enemiesGroupsToMove)
             {
-                entitiesGroup.OnEntityGroupMoved += OnEnemiesGroupMoved;
+				Debug.Log(entitiesGroup.name);
+                entitiesGroup.onEntityGroupMoved += OnEnemiesGroupMoved;
             }
         }
 
         private void UnbindEntitiesGroupsMovementEvents()
         {
-            _heroGroup.OnEntityGroupMoved -= OnHeroGroupMoved;
+            _heroGroup.onEntityGroupMoved -= OnHeroGroupMoved;
             foreach (EntitiesGroup entitiesGroup in _enemiesGroupsToMove)
             {
-                entitiesGroup.OnEntityGroupMoved -= OnEnemiesGroupMoved;
+                entitiesGroup.onEntityGroupMoved -= OnEnemiesGroupMoved;
             }
         }
         #endregion
@@ -176,7 +177,7 @@ namespace FrostfallSaga.Kingdom
 			HashSet<Cell> cellsCoveredByEntitiesGroups = new();
 			foreach (EntitiesGroup entitiesGroup in entitiesGroups)
 			{
-				cellsCoveredByEntitiesGroups.Add(entitiesGroup.Cell);
+				cellsCoveredByEntitiesGroups.Add(entitiesGroup.cell);
 			}
 
 			foreach (EntitiesGroup entitiesGroup in entitiesGroups)
@@ -204,9 +205,9 @@ namespace FrostfallSaga.Kingdom
 		)
 		{
 			// To ensure the maximum path length is the entities group move points.
-			if (minPathLength > entitiesGroup.MovePoints)
+			if (minPathLength > entitiesGroup.movePoints)
 			{
-				minPathLength = entitiesGroup.MovePoints;
+				minPathLength = entitiesGroup.movePoints;
 			}
 			else if (minPathLength < 0)
 			{
@@ -214,13 +215,13 @@ namespace FrostfallSaga.Kingdom
 			}
 
 			List<Cell> randomMovePath = new();
-			int numberOfCellsInPath = randomizer.Next(minPathLength, entitiesGroup.MovePoints);
+			int numberOfCellsInPath = Randomizer.GetRandomIntBetween(minPathLength, entitiesGroup.movePoints);
 
-			Cell currentCellOfPath = entitiesGroup.Cell;
+			Cell currentCellOfPath = entitiesGroup.cell;
 			for (int i = 0; i < numberOfCellsInPath; i++)
 			{
 				List<Cell> currentCellOfPathNeighbors = new(CellsNeighbors.GetNeighbors(kingdomGrid, currentCellOfPath));
-				currentCellOfPathNeighbors.Remove(entitiesGroup.Cell);
+				currentCellOfPathNeighbors.Remove(entitiesGroup.cell);
 				currentCellOfPathNeighbors.RemoveAll(cell => randomMovePath.Contains(cell));
 				currentCellOfPathNeighbors.RemoveAll(cell => prohibitedCells.Contains(cell));
 
@@ -229,7 +230,7 @@ namespace FrostfallSaga.Kingdom
 					break;
 				}
 				
-				Cell neighborCellToAdd = currentCellOfPathNeighbors[randomizer.Next(0, currentCellOfPathNeighbors.Count)];
+				Cell neighborCellToAdd = Randomizer.GetRandomElementFromArray(currentCellOfPathNeighbors.ToArray());
 				randomMovePath.Add(neighborCellToAdd);
 				currentCellOfPath = neighborCellToAdd;
 			}
