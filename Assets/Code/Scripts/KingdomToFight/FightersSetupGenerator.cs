@@ -113,7 +113,7 @@ namespace FrostfallSaga.KingdomToFight
                 return;
             }
 
-            _entitiesGroupsManager.OnEnemiesGroupEncountered += OnEnemiesGroupEncountered;
+            _entitiesGroupsManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
         }
 
         private void OnDisable()
@@ -128,7 +128,7 @@ namespace FrostfallSaga.KingdomToFight
                 return;
             }
 
-            _entitiesGroupsManager.OnEnemiesGroupEncountered -= OnEnemiesGroupEncountered;
+            _entitiesGroupsManager.onEnemiesGroupEncountered -= OnEnemiesGroupEncountered;
         }
         #endregion
 

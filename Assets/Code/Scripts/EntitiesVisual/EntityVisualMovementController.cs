@@ -62,6 +62,11 @@ namespace FrostfallSaga.EntitiesVisual
             _parentToMove.transform.position = targetCell.GetCenter();
         }
 
+        public void UpdateParentToMove(GameObject newParentToMove)
+        {
+            _parentToMove = newParentToMove;
+        }
+
         private void Update()
         {
             if (!IsMovingOrRotating())
