@@ -4,8 +4,7 @@
     "references": [
         "FrostfallSaga.Core",
         "FrostfallSaga.Grid",
-        "FrostfallSaga.EntitiesVisual",
-        "FrostfallSaga.Fight"
+        "FrostfallSaga.EntitiesVisual"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,13 +1,12 @@
 using System;
 using FrostfallSaga.Fight.Abilities;
-using UnityEngine;
 
 namespace FrostfallSaga.Fight.Fighters
 {
     [Serializable]
-    public class ActiveAbilitiesToAnimation
+    public class ActiveAbilityToAnimation
     {
         public ActiveAbilitySO activeAbility;
-        public Animation animation;
+        public string animationState;
     }
 }

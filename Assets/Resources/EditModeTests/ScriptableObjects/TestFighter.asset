@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50862a0fc6cf7d64c9f705ea8e91f54b, type: 3}
   m_Name: TestFighter
   m_EditorClassIdentifier: 
-  <AvailableActiveAbilities>k__BackingField: []
+  <AvailableActiveAbilities>k__BackingField:
+  - activeAbility: {fileID: 11400000, guid: 96b49d2c6e60f09488401b8474900905, type: 2}
+    animationState: 
   <DirectAttackTargeter>k__BackingField: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
   <DirectAttackEffects>k__BackingField:
   - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
@@ -28,7 +30,7 @@ MonoBehaviour:
   <PhysicalResistance>k__BackingField: 10
   <MagicalResistances>k__BackingField:
   - magicalElement: 0
-    value: 0
+    value: 3
   - magicalElement: 1
     value: 0
   <MagicalStrengths>k__BackingField: []

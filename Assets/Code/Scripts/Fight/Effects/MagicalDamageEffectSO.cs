@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Abilities;
+using System;
 
 namespace FrostfallSaga.Fight.Effects
 {

@@ -38,5 +38,14 @@ namespace FrostfallSaga.Grid
 			_currentCellDestinationIndex += 1;
 			return CurrentDestinationCell;
 		}
+		public bool DoesNextCellExists()
+		{
+			if (IsLastMove || PathLength == 0)
+			{
+				return false;
+			}
+
+			return true;
+		}
 	}
 }

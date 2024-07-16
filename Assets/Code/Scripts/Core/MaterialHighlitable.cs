@@ -3,25 +3,35 @@ using UnityEngine;
 namespace FrostfallSaga.Core
 {
     /// <summary>
-    /// Responsible for managing the visual aspects of the cell.
+    /// Add the possibility to highlight the visual aspects of the element through materials.
     /// </summary>
     [RequireComponent(typeof(MeshRenderer))]
     public class MaterialHighlightable : MonoBehaviour
     {
-        [field: SerializeField] public Material DefaultMaterial { get; private set; }
+        [field: SerializeField] public Material InitialMaterial { get; private set; }
+        [field: SerializeField] public Material CurrentDefaultMaterial { get; private set; }
 
         /// <summary>
-        /// Change the default material to the one given.
-        /// The default material is the material set when the cell is not highlighted.
+        /// Meant to be used only once during set up, sets the initial material of the element.
         /// </summary>
-        /// <param name="newDefaultMaterial">The new default material of the cell.</param>
-        public void UpdateDefaultMaterial(Material newDefaultMaterial)
+        /// <param name="initialMaterial">The initial material of the element that should not change after.</param>
+        public void SetupInitialMaterial(Material initialMaterial)
         {
-            DefaultMaterial = newDefaultMaterial;
+            InitialMaterial = initialMaterial;
         }
 
         /// <summary>
-        /// Updates the current cell's renderer material to highlight the cell.
+        /// Change the current default material to the one given.
+        /// The current default material is the material set when the element is not highlighted.
+        /// </summary>
+        /// <param name="newDefaultMaterial">The new default material of the element.</param>
+        public void UpdateCurrentDefaultMaterial(Material newDefaultMaterial)
+        {
+            CurrentDefaultMaterial = newDefaultMaterial;
+        }
+
+        /// <summary>
+        /// Updates the current element's renderer material to highlight the element.
         /// </summary>
         /// <param name="highlightMaterial">The material to set.</param>
         public void Highlight(Material highlightMaterial)
@@ -30,11 +40,20 @@ namespace FrostfallSaga.Core
         }
 
         /// <summary>
-        /// Resets the cell's renderer material to the default material of the cell.
+        /// Resets the element's renderer material to the current default material of the element.
         /// </summary>
-        public void ResetMaterial()
+        public void ResetToDefaultMaterial()
         {
-            GetComponent<MeshRenderer>().material = DefaultMaterial;
+            GetComponent<MeshRenderer>().material = CurrentDefaultMaterial;
+        }
+
+        /// <summary>
+        /// Resets the element's renderer material to the initial material of the element.
+        /// </summary>
+        public void ResetToInitialMaterial()
+        {
+            GetComponent<MeshRenderer>().material = InitialMaterial;
+            CurrentDefaultMaterial = InitialMaterial;
         }
     }
 }

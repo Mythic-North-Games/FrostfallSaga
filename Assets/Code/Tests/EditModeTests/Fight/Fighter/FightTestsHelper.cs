@@ -5,6 +5,7 @@ using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.KingdomToFight;
 
 namespace FrostfallSaga.EditModeTests.FightTests
 {
@@ -20,11 +21,16 @@ namespace FrostfallSaga.EditModeTests.FightTests
             return grid;
         }
 
-        public static Fighter CreateFighter(FighterConfigurationSO fighterConfiguration = null)
+        public static Fighter CreateFighter()
         {
             GameObject fighterGameObject = new();
             fighterGameObject.AddComponent<Fighter>();
             Fighter fighter = fighterGameObject.GetComponent<Fighter>();
+            SetupFighterFromNonPersistingConfiguration(
+                fighter,
+                Resources.Load<FighterConfigurationSO>("EditModeTests/ScriptableObjects/TestFighter")
+            );
+
 
             GameObject fighterEntitiesVisualGameObject = new();
             fighterEntitiesVisualGameObject.transform.SetParent(fighterGameObject.transform);
@@ -33,12 +39,23 @@ namespace FrostfallSaga.EditModeTests.FightTests
             EntityVisualMovementController movementController = fighterEntitiesVisualGameObject.GetComponent<EntityVisualMovementController>();
             movementController.SetParentToMoveForTests(fighterGameObject);
 
-            fighter.SetFighterConfigurationForTests(
-                fighterConfiguration != null ?
-                    fighterConfiguration :
-                    Resources.Load<FighterConfigurationSO>("EditModeTests/ScriptableObjects/TestFighter")
-            );
             return fighter;
+        }
+
+        private static void SetupFighterFromNonPersistingConfiguration(Fighter fighter, FighterConfigurationSO fighterConfiguration)
+        {
+            fighter.Setup(
+                new(
+                    fighterConfiguration.ExtractFighterStats(),
+                    fighterConfiguration.DirectAttackTargeter,
+                    fighterConfiguration.DirectAttackActionPointsCost,
+                    fighterConfiguration.DirectAttackEffects,
+                    fighterConfiguration.DirectAttackAnimationStateName,
+                    fighterConfiguration.AvailableActiveAbilities,
+                    fighterConfiguration.ReceiveDamageAnimationStateName,
+                    fighterConfiguration.HealSelfAnimationStateName
+                )
+            );
         }
 
         public static void SetupFighterPositionOnGrid(HexGrid grid, Fighter fighter, Vector2Int cellCoordinates)

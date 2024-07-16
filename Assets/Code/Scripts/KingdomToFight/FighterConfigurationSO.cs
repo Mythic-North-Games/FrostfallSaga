@@ -1,13 +1,15 @@
+using UnityEngine;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Targeters;
-using UnityEngine;
+using FrostfallSaga.Fight.Fighters;
 
-namespace FrostfallSaga.Fight.Fighters
+namespace FrostfallSaga.KingdomToFight
 {
     [CreateAssetMenu(fileName = "Fighter", menuName = "ScriptableObjects/Fight/Fighter", order = 0)]
     public class FighterConfigurationSO : ScriptableObject
     {
-        [field: SerializeField] public ActiveAbilitiesToAnimation[] AvailableActiveAbilities { get; private set; }
+        [field: SerializeField] public ActiveAbilityToAnimation[] AvailableActiveAbilities { get; private set; }
+        [field: SerializeField] public int ActiveAbilitiesCapacity = 5;
         [field: SerializeField] public TargeterSO DirectAttackTargeter { get; private set; }
         [field: SerializeField] public AEffectSO[] DirectAttackEffects { get; private set; }
         [field: SerializeField] public int DirectAttackActionPointsCost { get; private set; }
@@ -34,5 +36,24 @@ namespace FrostfallSaga.Fight.Fighters
         }
         [field: SerializeField, Range(1, 9999)] public int Initiative { get; private set; }
         #endregion
+
+        public virtual FighterStats ExtractFighterStats()
+        {
+            return new()
+            {
+                maxHealth = MaxHealth,
+                health = MaxHealth,
+                maxMovePoints = MaxMovePoints,
+                movePoints = MaxMovePoints,
+                maxActionPoints = MaxActionPoints,
+                actionPoints = MaxActionPoints,
+                strength = Strength,
+                dexterity = Dexterity,
+                physicalResistance = PhysicalResistance,
+                magicalResistances = MagicalElementToValue.GetDictionaryFromArray(MagicalResistances),
+                magicalStrengths = MagicalElementToValue.GetDictionaryFromArray(MagicalStrengths),
+                initiative = Initiative
+            };
+        }
     }
 }

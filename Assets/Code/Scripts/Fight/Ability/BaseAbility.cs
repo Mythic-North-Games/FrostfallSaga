@@ -6,6 +6,7 @@ namespace FrostfallSaga.Fight.Abilities
     public class BaseAbility : MonoBehaviour
     {
         [field: SerializeField] public BaseAbilitySO AbilityData { get; private set; }
+        [field: SerializeField] public AbilityMouseEventsController MouseEventsController { get; private set; }
 
         private void Reset()
         {
@@ -41,6 +42,19 @@ namespace FrostfallSaga.Fight.Abilities
             }
 
             GetComponent<SpriteRenderer>().sprite = AbilityData.IconSprite;
+        }
+
+        private void Start()
+        {
+            if (MouseEventsController == null)
+            {
+                MouseEventsController = GetComponent<AbilityMouseEventsController>();
+            }
+
+            if (MouseEventsController == null)
+            {
+                Debug.LogError("No mouse controller set for ability " + name);
+            }
         }
     }
 }
