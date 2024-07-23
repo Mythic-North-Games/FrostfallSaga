@@ -5,6 +5,7 @@ using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
+using System.Threading.Tasks;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -19,6 +20,8 @@ namespace FrostfallSaga.Kingdom
 		private EnemiesGroup[] _enemiesGroupsToMove;
 		private readonly Dictionary<EnemiesGroup, MovePath> _currentPathPerEnemiesGroup = new();
 
+
+		
 		public void MakeHeroGroupThenEnemiesGroupMove(
 			HexGrid kingdomGrid,
 			EntitiesGroup heroGroup,
@@ -91,6 +94,11 @@ namespace FrostfallSaga.Kingdom
             }
         }
 
+		public async Task MyMethodAsync()
+    {
+        await Task.Delay(1000); // Attendre 1 secondes
+		EndMovementProcess();
+    }
         private void MakeEnemiesGroupMove(EnemiesGroup enemiesGroup)
         {
             MovePath enemiesGroupMovePath = _currentPathPerEnemiesGroup[enemiesGroup];
@@ -115,9 +123,9 @@ namespace FrostfallSaga.Kingdom
             }
             else
             {
-                EndMovementProcess();
+				MyMethodAsync();
             }
-        }
+        }	
 
 		private EnemiesGroup GetEnemiesGroupThatWillCollide(Cell targetCell)
         {
