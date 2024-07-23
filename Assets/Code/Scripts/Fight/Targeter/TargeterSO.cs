@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Core;
 
 namespace FrostfallSaga.Fight.Targeters
 {
@@ -16,8 +17,6 @@ namespace FrostfallSaga.Fight.Targeters
         [field: SerializeField] public int OriginCellRange { get; private set; }
         [field: SerializeField] public Vector2Int[] CellsSequence { get; private set; }
         [field: SerializeField] public bool FighterMandatory { get; private set; }
-
-        private static readonly System.Random _randomizer = new();
 
         /// <summary>
         /// Extract the cells corresponding to the targeter from the given context.
@@ -71,7 +70,7 @@ namespace FrostfallSaga.Fight.Targeters
                 throw new TargeterUnresolvableException("Targeter unresolvable around initiator.");
             }
 
-            return resolvedTargeterSequences[_randomizer.Next(0, resolvedTargeterSequences.Count)];
+            return Randomizer.GetRandomElementFromArray(resolvedTargeterSequences.ToArray());
         }
 
         /// <summary>

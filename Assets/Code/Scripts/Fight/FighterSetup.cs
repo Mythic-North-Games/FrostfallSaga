@@ -6,6 +6,7 @@ namespace FrostfallSaga.Fight
 {
     public class FighterSetup
     {
+        public string name;
         public FighterStats initialStats;
         public TargeterSO directAttackTargeter;
         public int directAttackActionPointsCost;
@@ -20,6 +21,7 @@ namespace FrostfallSaga.Fight
         }
 
         public FighterSetup(
+            string name,
             FighterStats initialStats,
             TargeterSO directAttackTargeter,
             int directAttackActionPointsCost,
@@ -30,6 +32,7 @@ namespace FrostfallSaga.Fight
             string healSelfAnimationStateName
         )
         {
+            this.name = name;
             this.initialStats = initialStats;
             this.directAttackTargeter = directAttackTargeter;
             this.directAttackActionPointsCost = directAttackActionPointsCost;
