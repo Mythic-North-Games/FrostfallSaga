@@ -30,25 +30,28 @@ namespace FrostfallSaga.Fight
         private void Start()
         {
             List<Fighter> allies = new();
-            _preFightData.alliesFighterSetup.ToList().ForEach(allyFighterSetup => {
-                GameObject fighterGameObject = Instantiate(_fighterPrefab);
-                Fighter fighter = fighterGameObject.GetComponent<Fighter>();
-                fighter.Setup(allyFighterSetup);
-                allies.Add(fighter);
-            });
+            _preFightData.alliesFighterSetup.ToList().ForEach(allyFighterSetup =>
+                allies.Add(SpawnAndSetupFighter(allyFighterSetup))
+            );
 
             List<Fighter> enemies = new();
-            _preFightData.enemiesFighterSetup.ToList().ForEach(enemyFighterSetup => {
-                GameObject fighterGameObject = Instantiate(_fighterPrefab);
-                Fighter fighter = fighterGameObject.GetComponent<Fighter>();
-                fighter.Setup(enemyFighterSetup);
-                enemies.Add(fighter);
-            });
+            _preFightData.enemiesFighterSetup.ToList().ForEach(enemyFighterSetup =>
+                enemies.Add(SpawnAndSetupFighter(enemyFighterSetup))
+            );
 
             onFightersGenerated?.Invoke(allies.ToArray(), enemies.ToArray());
 
             _preFightData.alliesFighterSetup = null;
             _preFightData.enemiesFighterSetup = null;
+        }
+
+        private Fighter SpawnAndSetupFighter(FighterSetup fighterSetup)
+        {
+            GameObject fighterGameObject = Instantiate(_fighterPrefab);
+            fighterGameObject.name = fighterSetup.name;
+            Fighter fighter = fighterGameObject.GetComponent<Fighter>();
+            fighter.Setup(fighterSetup);
+            return fighter;
         }
 
         private void OnDisable()
