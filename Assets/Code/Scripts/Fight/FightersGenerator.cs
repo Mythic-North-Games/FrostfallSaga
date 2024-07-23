@@ -36,7 +36,7 @@ namespace FrostfallSaga.Fight
 
             List<Fighter> enemies = new();
             _preFightData.enemiesFighterSetup.ToList().ForEach(enemyFighterSetup =>
-                enemies.Add(SpawnAndSetupFighter(enemyFighterSetup))
+                enemies.Add(SpawnAndSetupFighter(enemyFighterSetup, $"{enemies.Count}"))
             );
 
             onFightersGenerated?.Invoke(allies.ToArray(), enemies.ToArray());
@@ -45,10 +45,10 @@ namespace FrostfallSaga.Fight
             _preFightData.enemiesFighterSetup = null;
         }
 
-        private Fighter SpawnAndSetupFighter(FighterSetup fighterSetup)
+        private Fighter SpawnAndSetupFighter(FighterSetup fighterSetup, string nameSuffix = "")
         {
             GameObject fighterGameObject = Instantiate(_fighterPrefab);
-            fighterGameObject.name = fighterSetup.name;
+            fighterGameObject.name = new($"{fighterSetup.name}{nameSuffix}");
             Fighter fighter = fighterGameObject.GetComponent<Fighter>();
             fighter.Setup(fighterSetup);
             return fighter;
