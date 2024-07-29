@@ -12,6 +12,7 @@ namespace FrostfallSaga.Fight.Fighters
 {
     public class Fighter : MonoBehaviour
     {
+        [field: SerializeField] public EntityVisualAnimationController AnimationController { get; private set; }
         [field: SerializeField] public EntityVisualMovementController MovementController { get; private set; }
         public Cell cell;
         public Action<Fighter> onFighterMoved;
@@ -19,7 +20,6 @@ namespace FrostfallSaga.Fight.Fighters
         public Action<Fighter> onFighterActiveAbilityEnded;
 
 
-        [SerializeField] private EntityVisualAnimationController _animationController;
         private MovePath _currentMovePath;
         private FighterStats _stats = new();
         private FighterStats _initialStats = new();
@@ -59,6 +59,8 @@ namespace FrostfallSaga.Fight.Fighters
             
             ResetStatsToDefaultConfiguration();
         }
+
+        #region Concrete actions
 
         /// <summary>
         /// Makes the fighter move along the given cells path.
@@ -186,7 +188,9 @@ namespace FrostfallSaga.Fight.Fighters
             _stats.health = Math.Clamp(_stats.health + healAmount, 0, _stats.maxHealth);
         }
 
-        #region Stats getter & manipulation
+        #endregion
+
+        #region Stats getters & manipulation
 
         public int GetMovePoints()
         {
@@ -203,6 +207,11 @@ namespace FrostfallSaga.Fight.Fighters
             return _stats.health;
         }
 
+        public FighterCollider GetWeaponCollider()
+        {
+            return GetComponentInChildren<FighterCollider>();
+        }
+
         public void ResetMovementAndActionPoints()
         {
             _stats.actionPoints = _stats.maxActionPoints;
@@ -210,6 +219,8 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
         #endregion
+
+        #region Actions feasability
 
         /// <summary>
         /// Returns whether the fighter can move in the given context or not.
@@ -270,6 +281,8 @@ namespace FrostfallSaga.Fight.Fighters
             return CanMove(fightGrid) || CanDirectAttack(fightGrid) || CanUseAtLeastOneActiveAbility(fightGrid);
         }
 
+        #endregion
+
         /// <summary>
         /// Play an animation if the given state name exists.
         /// </summary>
@@ -278,7 +291,7 @@ namespace FrostfallSaga.Fight.Fighters
         {
             try
             {
-                _animationController.PlayAnimationState(animationStateName);
+                AnimationController.PlayAnimationState(animationStateName);
             }
             catch (Exception)
             {
@@ -340,7 +353,7 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
         #region Getting children & bindings setup
-        private bool TrySetupEntitiyVisualMoveController()
+        public bool TrySetupEntitiyVisualMoveController()
         {
             MovementController = GetComponentInChildren<EntityVisualMovementController>();
             if (MovementController == null)
@@ -354,20 +367,25 @@ namespace FrostfallSaga.Fight.Fighters
 
         private bool TrySetupEntitiyVisualAnimationController()
         {
-            _animationController = GetComponentInChildren<EntityVisualAnimationController>();
-            if (_animationController == null)
+            AnimationController = GetComponentInChildren<EntityVisualAnimationController>();
+            if (AnimationController == null)
             {
                 return false;
             }
             return true;
         }
 
-        private void OnDisable()
+        public void UnsubscribeToMovementControllerEvents()
         {
             if (MovementController != null)
             {
                 MovementController.onMoveEnded -= OnFighterArrivedAtCell;
             }
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeToMovementControllerEvents();
         }
         #endregion
 

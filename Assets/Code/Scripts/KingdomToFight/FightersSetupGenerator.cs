@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using FrostfallSaga.Core;
 using FrostfallSaga.Kingdom;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
@@ -15,7 +16,6 @@ namespace FrostfallSaga.KingdomToFight
         [SerializeField] private EntityToFighterDBSO _entityToFighterDB;
         [SerializeField] private PreFightDataSO _preFightData;
         [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
-        private static readonly System.Random _randomizer = new();
 
         private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EnemiesGroup enemiesGroup, bool heroGroupInitiating)
         {
@@ -61,6 +61,7 @@ namespace FrostfallSaga.KingdomToFight
         private FighterSetup GenerateFighterSetupFromNonPersistingConfiguration(FighterConfigurationSO fighterConfiguration)
         {
             return new(
+                fighterConfiguration.name,
                 fighterConfiguration.ExtractFighterStats(),
                 fighterConfiguration.DirectAttackTargeter,
                 fighterConfiguration.DirectAttackActionPointsCost,
@@ -78,6 +79,7 @@ namespace FrostfallSaga.KingdomToFight
         private FighterSetup GenerateFighterSetupFromPersistingConfiguration(PersistedFighterConfigurationSO fighterConfiguration)
         {
             return new(
+                fighterConfiguration.name,
                 fighterConfiguration.ExtractFighterStats(),
                 fighterConfiguration.DirectAttackTargeter,
                 fighterConfiguration.DirectAttackActionPointsCost,
@@ -138,7 +140,7 @@ namespace FrostfallSaga.KingdomToFight
             List<ActiveAbilityToAnimation> equipedActiveAbilities = new();
             while (equipedActiveAbilities.Count < count && availableActiveAbilities.Count > 0)
             {
-                int randomActiveAbilityIndex = _randomizer.Next(0, availableActiveAbilities.Count);
+                int randomActiveAbilityIndex = Randomizer.GetRandomIntBetween(0, availableActiveAbilities.Count);
                 equipedActiveAbilities.Add(availableActiveAbilities[randomActiveAbilityIndex]);
                 availableActiveAbilities.RemoveAt(randomActiveAbilityIndex);
             }
