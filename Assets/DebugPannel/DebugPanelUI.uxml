@@ -9,19 +9,13 @@
         </ui:VisualElement>
         <ui:VisualElement name="listsGroup" style="flex-grow: 1; flex-direction: row; justify-content: space-between;">
             <ui:VisualElement style="flex-grow: 1; max-height: 100%; min-height: 100%;">
-                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="CmdList1" style="max-height: 100%; min-height: 100%; height: auto;">
-                    <ui:Button text="Kill all enemies" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: middle-left; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; border-left-color: rgb(76, 76, 76); border-right-color: rgb(76, 76, 76); border-top-color: rgb(76, 76, 76); border-bottom-color: rgb(76, 76, 76); white-space: normal;" />
-                </ui:ScrollView>
+                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="ActionCmdList" style="max-height: 100%; min-height: 100%; height: auto;" />
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; max-height: 100%; min-height: 100%;">
-                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" style="max-height: 100%; min-height: 100%;">
-                    <ui:Button text="Open item pannel" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: middle-left; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; border-left-color: rgb(76, 76, 76); border-right-color: rgb(76, 76, 76); border-top-color: rgb(76, 76, 76); border-bottom-color: rgb(76, 76, 76); white-space: normal;" />
-                </ui:ScrollView>
+                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="BaseCmdList" style="max-height: 100%; min-height: 100%;" />
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; max-height: 100%; min-height: 100%;">
-                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" style="max-height: 100%; min-height: 100%;">
-                    <ui:Button text="RefreshUI" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: middle-left; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; border-left-color: rgb(76, 76, 76); border-right-color: rgb(76, 76, 76); border-top-color: rgb(76, 76, 76); border-bottom-color: rgb(76, 76, 76); white-space: normal;" />
-                </ui:ScrollView>
+                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="MiscCmdList" style="max-height: 100%; min-height: 100%;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
