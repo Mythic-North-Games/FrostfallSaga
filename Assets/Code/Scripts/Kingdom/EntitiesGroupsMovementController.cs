@@ -5,7 +5,6 @@ using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
-using System.Threading.Tasks;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -110,10 +109,7 @@ namespace FrostfallSaga.Kingdom
             }
         }
 
-        private void OnEnemiesGroupMoved(EntitiesGroup enemiesGroup, Cell _destinationCell)
-        {
-            MovePath enemiesGroupMovePath = _currentPathPerEnemiesGroup[(EnemiesGroup)enemiesGroup];
-
+		private bool CheckIfAllEnnemiesGroupMoved(Dictionary<EnemiesGroup, MovePath> _currentPathPerEnemiesGroup){
 			bool allEnnemiesGroupMoved =true;
 			foreach (KeyValuePair<EnemiesGroup, MovePath> item in _currentPathPerEnemiesGroup)
 			{
@@ -122,7 +118,13 @@ namespace FrostfallSaga.Kingdom
 					break;
 				}
 			}
+		return allEnnemiesGroupMoved;
+		}
 
+        private void OnEnemiesGroupMoved(EntitiesGroup enemiesGroup, Cell _destinationCell)
+        {
+            MovePath enemiesGroupMovePath = _currentPathPerEnemiesGroup[(EnemiesGroup)enemiesGroup];
+			bool allEnnemiesGroupMoved = CheckIfAllEnnemiesGroupMoved(_currentPathPerEnemiesGroup);
             if (!enemiesGroupMovePath.IsLastMove)
             {
                 MakeEnemiesGroupMove((EnemiesGroup)enemiesGroup);
