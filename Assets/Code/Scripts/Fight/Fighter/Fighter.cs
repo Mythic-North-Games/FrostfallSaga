@@ -60,6 +60,8 @@ namespace FrostfallSaga.Fight.Fighters
             ResetStatsToDefaultConfiguration();
         }
 
+        #region Concrete actions
+
         /// <summary>
         /// Makes the fighter move along the given cells path.
         /// If fighter does not have enough move points, an ArgumentOutOfRangeException is thrown.
@@ -186,7 +188,9 @@ namespace FrostfallSaga.Fight.Fighters
             _stats.health = Math.Clamp(_stats.health + healAmount, 0, _stats.maxHealth);
         }
 
-        #region Stats getter & manipulation
+        #endregion
+
+        #region Stats getters & manipulation
 
         public int GetMovePoints()
         {
@@ -203,6 +207,11 @@ namespace FrostfallSaga.Fight.Fighters
             return _stats.health;
         }
 
+        public FighterCollider GetWeaponCollider()
+        {
+            return GetComponentInChildren<FighterCollider>();
+        }
+
         public void ResetMovementAndActionPoints()
         {
             _stats.actionPoints = _stats.maxActionPoints;
@@ -210,6 +219,8 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
         #endregion
+
+        #region Actions feasability
 
         /// <summary>
         /// Returns whether the fighter can move in the given context or not.
@@ -269,6 +280,8 @@ namespace FrostfallSaga.Fight.Fighters
         {
             return CanMove(fightGrid) || CanDirectAttack(fightGrid) || CanUseAtLeastOneActiveAbility(fightGrid);
         }
+
+        #endregion
 
         /// <summary>
         /// Play an animation if the given state name exists.
