@@ -6,7 +6,10 @@
         "UnityEditor.TestRunner",
         "FrostfallSaga.Core",
         "FrostfallSaga.Grid",
-        "FrostfallSaga.Kingdom"
+        "FrostfallSaga.Kingdom",
+        "FrostfallSaga.Fight",
+        "FrostfallSaga.KingdomToFight",
+        "FrostfallSaga.EntitiesVisual"
     ],
     "includePlatforms": [
         "Editor"
@@ -15,7 +18,8 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll"
+        "nunit.framework.dll",
+        ""
     ],
     "autoReferenced": false,
     "defineConstraints": [

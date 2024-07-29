@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 
 namespace FrostfallSaga.EntitiesVisual
@@ -13,21 +14,20 @@ namespace FrostfallSaga.EntitiesVisual
         public Action onRotationEnded;
         public Action<Cell> onMoveEnded;
 
-        [SerializeField] private GameObject parentToMove;
+        [SerializeField] private GameObject _parentToMove;
         private bool _isMoving = false;
         private bool _isRotating = false;
         private bool _isLastMove = false;
         private Cell _targetCell;
         private Vector3 _targetCellPosition;
         private Quaternion _targetRotation;
-        private Quaternion _lastRotationStep;
 
         private void Start()
         {
             EntityVisualAnimationController = GetComponent<EntityVisualAnimationController>();
-            if (parentToMove == null)
+            if (_parentToMove == null)
             {
-                parentToMove = gameObject;
+                _parentToMove = gameObject;
             }
         }
 
@@ -35,6 +35,7 @@ namespace FrostfallSaga.EntitiesVisual
         {
             _targetCell = newTargetCell;
             _targetCellPosition = newTargetCell.GetCenter();
+    
             RotateTowardsCell(newTargetCell);
             _isMoving = true;
             _isLastMove = isLastMove;
@@ -48,12 +49,22 @@ namespace FrostfallSaga.EntitiesVisual
                 EntityVisualAnimationController.PlayAnimationState("Jump");
             }
         }
-
+        
         public void RotateTowardsCell(Cell targetCell)
         {
             _targetRotation = Quaternion.LookRotation(targetCell.GetCenter());
             _targetCellPosition = targetCell.GetCenter();
             _isRotating = true;
+        }
+
+        public void TeleportToCell(Cell targetCell)
+        {
+            _parentToMove.transform.position = targetCell.GetCenter();
+        }
+
+        public void UpdateParentToMove(GameObject newParentToMove)
+        {
+            _parentToMove = newParentToMove;
         }
 
         private void Update()
@@ -92,18 +103,17 @@ namespace FrostfallSaga.EntitiesVisual
         private void MakeParentRotateTowardsTarget()
         {
             Vector3 nextRotation = Vector3.RotateTowards(
-                parentToMove.transform.forward,
-                new Vector3(_targetCellPosition.x, 0, _targetCellPosition.z) - new Vector3(parentToMove.transform.position.x, 0, parentToMove.transform.position.z),
+                _parentToMove.transform.forward,
+                new Vector3(_targetCellPosition.x, 0, _targetCellPosition.z) - new Vector3(_parentToMove.transform.position.x, 0, _parentToMove.transform.position.z),
                 RotationSpeed * Time.deltaTime, 0.0f
             );
-            parentToMove.transform.rotation = Quaternion.LookRotation(nextRotation);
-            _lastRotationStep = Quaternion.LookRotation(nextRotation);
+            _parentToMove.transform.rotation = Quaternion.LookRotation(nextRotation);
         }
 
         private void MakeParentMoveTowardsTarget()
         {
-            parentToMove.transform.position = Vector3.MoveTowards(
-                parentToMove.transform.position, _targetCellPosition, MoveSpeed * Time.deltaTime
+            _parentToMove.transform.position = Vector3.MoveTowards(
+                _parentToMove.transform.position, _targetCellPosition, MoveSpeed * Time.deltaTime
             );
         }
 
@@ -114,12 +124,19 @@ namespace FrostfallSaga.EntitiesVisual
 
         private bool HasReachedTargetRotation()
         {
-            return _isRotating && parentToMove.transform.rotation == _targetRotation;
+            return _isRotating && _parentToMove.transform.rotation == _targetRotation;
         }
 
         private bool HasReachedTargetLocation()
         {
-            return _isMoving && parentToMove.transform.position == _targetCellPosition;
+            return _isMoving && _parentToMove.transform.position == _targetCellPosition;
         }
+
+        #if UNITY_EDITOR
+            public void SetParentToMoveForTests(GameObject parentToMove)
+            {
+                _parentToMove = parentToMove;
+            }
+        #endif
     }
 }

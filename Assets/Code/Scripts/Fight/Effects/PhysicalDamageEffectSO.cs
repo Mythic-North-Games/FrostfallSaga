@@ -13,7 +13,7 @@ namespace FrostfallSaga.Fight.Effects
 
          public override void ApplyEffect(Fighter fighter)
         {
-            fighter.PhysicalWhistand(PhysicalDamageAmount);
+            fighter.PhysicalWithstand(PhysicalDamageAmount);
         }
         
     }

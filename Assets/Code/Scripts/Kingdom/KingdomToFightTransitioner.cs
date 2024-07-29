@@ -8,7 +8,7 @@ namespace FrostfallSaga.Kingdom
 {
 	public class KingdomToFightTransitioner : MonoBehaviour
 	{
-		[SerializeField] private KingdomManager _kingdomManager;
+		[SerializeField] private EntitiesGroupsManager _kingdomManager;
 		[SerializeField] private SceneTransitioner _sceneTransitioner;
 		[SerializeField] private float _readyToFightAnimationDuration = 2f;
 		[SerializeField] private float _delayBeforeLoadingSceneAfterReadyAnimation = 2f;
@@ -16,7 +16,7 @@ namespace FrostfallSaga.Kingdom
 
 		public void OnEnable()
 		{
-			_kingdomManager.OnEnemiesGroupEncountered += OnEnemiesGroupEncountered;
+			_kingdomManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
 		}
 
 		private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EnemiesGroup enemiesGroup, bool heroGroupInitiating)
@@ -33,8 +33,8 @@ namespace FrostfallSaga.Kingdom
 			Entity enemyEntity = enemiesGroup.GetDisplayedEntity();
 
 			// Make groups rotate to watch each other
-			heroEntity.EntityVisualMovementController.RotateTowardsCell(enemiesGroup.Cell);
-			enemyEntity.EntityVisualMovementController.RotateTowardsCell(heroGroup.Cell);
+			heroEntity.EntityVisualMovementController.RotateTowardsCell(enemiesGroup.cell);
+			enemyEntity.EntityVisualMovementController.RotateTowardsCell(heroGroup.cell);
 
 			// Play ready to fight animation for a while
 			heroEntity.EntityAnimationController.PlayAnimationState("ReadyToFight");
@@ -44,11 +44,11 @@ namespace FrostfallSaga.Kingdom
 			// Make initiator group go to the cell of its enemy
 			if (heroGroupInitiating)
 			{
-				heroGroup.MoveToCell(enemiesGroup.Cell, true);
+				heroGroup.MoveToCell(enemiesGroup.cell, true);
 			}
 			else
 			{
-				enemiesGroup.MoveToCell(heroGroup.Cell, true);
+				enemiesGroup.MoveToCell(heroGroup.cell, true);
 			}
 			yield return new WaitForSeconds(_delayBeforeLoadingSceneAfterReadyAnimation);
 
@@ -58,7 +58,7 @@ namespace FrostfallSaga.Kingdom
 
 		private void OnDisable()
 		{
-			_kingdomManager.OnEnemiesGroupEncountered -= OnEnemiesGroupEncountered;
+			_kingdomManager.onEnemiesGroupEncountered -= OnEnemiesGroupEncountered;
 		}
 	}
 }

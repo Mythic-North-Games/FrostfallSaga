@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Abilities;
+using System;
 
 namespace FrostfallSaga.Fight.Effects
 {
@@ -15,7 +17,7 @@ namespace FrostfallSaga.Fight.Effects
 
         public override void ApplyEffect(Fighter fighter)
         {
-            fighter.MagicalWhistand(MagicalDamageAmount, MagicalElement);
+            fighter.MagicalWithstand(MagicalDamageAmount, MagicalElement);
         }
     }
 }

@@ -675,8 +675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIDInstance: {fileID: 0}
   myTreeAssetMember: {fileID: 9197481963319205126, guid: 66874587b861a4a4c956b84f07abd248, type: 3}
-  myPanelSetting: {fileID: 11400000, guid: 305762d3c94e6984e976f2f5bd99c26c, type: 2}
-  buttonTemplate: {fileID: 9197481963319205126, guid: 5832890b1c2f1df438e1554d84661ab8, type: 3}
+  myPanelSetting: {fileID: 11400000, guid: c9372fe107bbfe94892b6360924cc721, type: 2}
 --- !u!1 &1505302825
 GameObject:
   m_ObjectHideFlags: 0
