@@ -2,6 +2,7 @@ using UnityEngine;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 
 namespace FrostfallSaga.KingdomToFight
 {
@@ -13,7 +14,7 @@ namespace FrostfallSaga.KingdomToFight
         [field: SerializeField] public TargeterSO DirectAttackTargeter { get; private set; }
         [field: SerializeField] public AEffectSO[] DirectAttackEffects { get; private set; }
         [field: SerializeField] public int DirectAttackActionPointsCost { get; private set; }
-        [field: SerializeField] public string DirectAttackAnimationStateName { get; private set; }
+        [field: SerializeField] public AAbilityAnimationSO DirectAttackAnimation { get; private set; }
         [field: SerializeField] public string HealSelfAnimationStateName { get; private set; }
         [field: SerializeField] public string ReceiveDamageAnimationStateName { get; private set; }
 

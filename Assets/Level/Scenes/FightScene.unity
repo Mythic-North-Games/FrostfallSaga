@@ -6357,7 +6357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ability:
     activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-    animationState: 
+    animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
 --- !u!1 &1546599451
 GameObject:
   m_ObjectHideFlags: 0
