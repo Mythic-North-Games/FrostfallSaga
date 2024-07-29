@@ -284,7 +284,7 @@ namespace FrostfallSaga.Fight.Controllers
             }
             catch (TargeterUnresolvableException)
             {
-                Debug.Log("Fighter " + _possessedFighter.name + " can't use its active ability from cell " + _possessedFighter.cell.name);
+                Debug.Log($"Fighter {_possessedFighter.name} can't use its active ability from cell {_possessedFighter.cell.name}");
             }
         }
 

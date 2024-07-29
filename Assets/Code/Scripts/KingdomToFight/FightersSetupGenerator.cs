@@ -66,7 +66,7 @@ namespace FrostfallSaga.KingdomToFight
                 fighterConfiguration.DirectAttackTargeter,
                 fighterConfiguration.DirectAttackActionPointsCost,
                 fighterConfiguration.DirectAttackEffects,
-                fighterConfiguration.DirectAttackAnimationStateName,
+                fighterConfiguration.DirectAttackAnimation,
                 GetRandomActiveAbilities(
                     fighterConfiguration.AvailableActiveAbilities,
                     fighterConfiguration.ActiveAbilitiesCapacity
@@ -84,7 +84,7 @@ namespace FrostfallSaga.KingdomToFight
                 fighterConfiguration.DirectAttackTargeter,
                 fighterConfiguration.DirectAttackActionPointsCost,
                 fighterConfiguration.DirectAttackEffects,
-                fighterConfiguration.DirectAttackAnimationStateName,
+                fighterConfiguration.DirectAttackAnimation,
                 fighterConfiguration.EquipedActiveAbilities,
                 fighterConfiguration.ReceiveDamageAnimationStateName,
                 fighterConfiguration.HealSelfAnimationStateName

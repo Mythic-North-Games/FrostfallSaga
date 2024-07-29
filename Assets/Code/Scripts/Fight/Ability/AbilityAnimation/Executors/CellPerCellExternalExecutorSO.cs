@@ -12,7 +12,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 
     [CreateAssetMenu(
         fileName = "CellPerCellExternalExecutor",
-        menuName = "ScriptableObjects/Fight/Abililties/Animations/Executors/External/CellPerCellExternalExecutor",
+        menuName = "ScriptableObjects/Fight/Abilities/Animations/Executors/External/CellPerCellExternalExecutor",
         order = 0
     )]
     public class CellPerCellExternalExecutorSO : AExternalAbilityAnimationExecutorSO

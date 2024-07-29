@@ -51,7 +51,7 @@ namespace FrostfallSaga.EditModeTests.FightTests
                     fighterConfiguration.DirectAttackTargeter,
                     fighterConfiguration.DirectAttackActionPointsCost,
                     fighterConfiguration.DirectAttackEffects,
-                    fighterConfiguration.DirectAttackAnimationStateName,
+                    fighterConfiguration.DirectAttackAnimation,
                     fighterConfiguration.AvailableActiveAbilities,
                     fighterConfiguration.ReceiveDamageAnimationStateName,
                     fighterConfiguration.HealSelfAnimationStateName

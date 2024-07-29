@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50da862e24b03964abcde389b85aa82f, type: 3}
   m_Name: CellPerCellExternalExecutorExample
   m_EditorClassIdentifier: 
-  <PrefabToInstanciate>k__BackingField: {fileID: 1435735026039513003, guid: b9833b7cd81df9c4c84090c19e05c49c, type: 3}
-  <StartLocation>k__BackingField: {x: 7, y: 3, z: 0}
-  <EndLocation>k__BackingField: {x: 0, y: 3, z: 0}
+  <StartLocation>k__BackingField: {x: 0, y: 10, z: 0}
+  <EndLocation>k__BackingField: {x: 0, y: 0, z: 0}
   <StartRotation>k__BackingField: {x: 0, y: 0, z: 0, w: 0}
   <EndRotation>k__BackingField: {x: 0, y: 0, z: 0, w: 0}
   <MoveSpeed>k__BackingField: 15
