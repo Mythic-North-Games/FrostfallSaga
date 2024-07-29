@@ -8,7 +8,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 
     [CreateAssetMenu(
         fileName = "ReturnToOriginCellInternalExecutor",
-        menuName = "ScriptableObjects/Fight/Abililties/Animations/Executors/Internal/ReturnToOriginCellInternalExecutor",
+        menuName = "ScriptableObjects/Fight/Abilities/Animations/Executors/Internal/ReturnToOriginCellInternalExecutor",
         order = 0
     )]
     public class ReturnToOriginCellInternalExecutorSO : AInternalAbilityAnimationExecutorSO

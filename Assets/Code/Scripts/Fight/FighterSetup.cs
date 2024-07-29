@@ -1,6 +1,7 @@
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
+using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 
 namespace FrostfallSaga.Fight
 {
@@ -11,7 +12,7 @@ namespace FrostfallSaga.Fight
         public TargeterSO directAttackTargeter;
         public int directAttackActionPointsCost;
         public AEffectSO[] directAttackEffects;
-        public string directAttackAnimationStateName;
+        public AAbilityAnimationSO directAttackAnimation;
         public ActiveAbilityToAnimation[] activeAbilities;
         public string receiveDamageAnimationStateName;
         public string healSelfAnimationStateName;
@@ -26,7 +27,7 @@ namespace FrostfallSaga.Fight
             TargeterSO directAttackTargeter,
             int directAttackActionPointsCost,
             AEffectSO[] directAttackEffects,
-            string directAttackAnimationStateName,
+            AAbilityAnimationSO directAttackAnimation,
             ActiveAbilityToAnimation[] activeAbilities,
             string receiveDamageAnimationStateName,
             string healSelfAnimationStateName
@@ -37,7 +38,7 @@ namespace FrostfallSaga.Fight
             this.directAttackTargeter = directAttackTargeter;
             this.directAttackActionPointsCost = directAttackActionPointsCost;
             this.directAttackEffects = directAttackEffects;
-            this.directAttackAnimationStateName = directAttackAnimationStateName;
+            this.directAttackAnimation = directAttackAnimation;
             this.activeAbilities = activeAbilities;
             this.receiveDamageAnimationStateName = receiveDamageAnimationStateName;
             this.healSelfAnimationStateName = healSelfAnimationStateName;

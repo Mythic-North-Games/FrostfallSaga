@@ -1,5 +1,6 @@
 using System;
 using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -7,6 +8,6 @@ namespace FrostfallSaga.Fight.Fighters
     public class ActiveAbilityToAnimation
     {
         public ActiveAbilitySO activeAbility;
-        public string animationState;
+        public AAbilityAnimationSO animation;
     }
 }

@@ -144,7 +144,6 @@ namespace FrostfallSaga.Kingdom
             _heroGroup.onEntityGroupMoved += OnHeroGroupMoved;
             foreach (EntitiesGroup entitiesGroup in _enemiesGroupsToMove)
             {
-				Debug.Log(entitiesGroup.name);
                 entitiesGroup.onEntityGroupMoved += OnEnemiesGroupMoved;
             }
         }

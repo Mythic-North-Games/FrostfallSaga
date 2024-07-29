@@ -6,7 +6,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
     [CreateAssetMenu(
         fileName = "InternalAbilityAnimation",
-        menuName = "ScriptableObjects/Fight/Abililties/Animations/InternalAbilityAnimation",
+        menuName = "ScriptableObjects/Fight/Abilities/Animations/InternalAbilityAnimation",
         order = 0
     )]
     public class InternalAbilityAnimationSO : AAbilityAnimationSO

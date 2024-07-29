@@ -7,6 +7,7 @@ using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Targeters;
+using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -26,10 +27,11 @@ namespace FrostfallSaga.Fight.Fighters
         public TargeterSO DirectAttackTargeter { get; private set; }
         public int DirectAttackActionPointsCost { get; private set; }
         public AEffectSO[] DirectAttackEffects { get; private set; }
-        private string _directAttackAnimationStateName;
         public ActiveAbilityToAnimation[] ActiveAbilities { get; private set; }
+        private AAbilityAnimationSO _directAttackAnimation;
         private string _receiveDamageAnimationStateName;
         private string _healSelfAnimationStateName;
+        private ActiveAbilityToAnimation _currentActiveAbility;
 
         private void Awake()
         {
@@ -52,7 +54,7 @@ namespace FrostfallSaga.Fight.Fighters
             DirectAttackTargeter = fighterSetup.directAttackTargeter;
             DirectAttackActionPointsCost = fighterSetup.directAttackActionPointsCost;
             DirectAttackEffects = fighterSetup.directAttackEffects;
-            _directAttackAnimationStateName = fighterSetup.directAttackAnimationStateName;
+            _directAttackAnimation = fighterSetup.directAttackAnimation;
             ActiveAbilities = fighterSetup.activeAbilities;
             _receiveDamageAnimationStateName = fighterSetup.receiveDamageAnimationStateName;
             _healSelfAnimationStateName = fighterSetup.healSelfAnimationStateName;
@@ -98,18 +100,11 @@ namespace FrostfallSaga.Fight.Fighters
                 throw new InvalidOperationException("Fighter " + name + " does not have enough actions points to use its direct attack.");
             }
 
-            PlayAnimationIfAny(_directAttackAnimationStateName);
-            _stats.actionPoints -= DirectAttackActionPointsCost;
-            foreach (Cell targetedCell in targetedCells)
-            {
-                Fighter targetedCellFighter = targetedCell.GetComponent<CellFightBehaviour>().Fighter;
-                if (targetedCellFighter != null)
-                {
-                    ApplyEffectsOnFighter(DirectAttackEffects, targetedCellFighter);
-                }
-            }
+            _directAttackAnimation.onFighterTouched += OnDirectAttackTouchedFighter;
+            _directAttackAnimation.onAnimationEnded += OnDirectAttackAnimationEnded;
 
-            onFighterDirectAttackEnded?.Invoke(this);
+            _directAttackAnimation.Execute(this, targetedCells);
+            _stats.actionPoints -= DirectAttackActionPointsCost;
         }
 
         /// <summary>
@@ -134,18 +129,12 @@ namespace FrostfallSaga.Fight.Fighters
                 );
             }
 
-            PlayAnimationIfAny(activeAbilityToAnimation.animationState);
-            _stats.actionPoints -= activeAbilityToAnimation.activeAbility.ActionPointsCost;
-            foreach (Cell cell in targetedCells)
-            {
-                Fighter target = cell.GetComponent<CellFightBehaviour>().Fighter;
-                if (target != null)
-                {
-                    ApplyEffectsOnFighter(activeAbilityToAnimation.activeAbility.Effects, target);
-                }
-            }
+            _currentActiveAbility = activeAbilityToAnimation;
+            _currentActiveAbility.animation.onFighterTouched += OnActiveAbilityTouchedFighter;
+            _currentActiveAbility.animation.onAnimationEnded += OnActiveAbilityAnimationEnded;
 
-            onFighterActiveAbilityEnded?.Invoke(this);
+            _currentActiveAbility.animation.Execute(this, targetedCells);
+            _stats.actionPoints -= _currentActiveAbility.activeAbility.ActionPointsCost;
         }
 
         /// <summary>
@@ -157,6 +146,7 @@ namespace FrostfallSaga.Fight.Fighters
 
             PlayAnimationIfAny(_receiveDamageAnimationStateName);
             int inflictedPhysicalDamageAmount = Math.Max(0, physicalDamageAmount - _stats.physicalResistance);
+            Debug.Log($"{name} + received {inflictedPhysicalDamageAmount} physical damages");
             _stats.health = Math.Clamp(_stats.health - inflictedPhysicalDamageAmount, 0, _stats.maxHealth);
         }
 
@@ -170,11 +160,12 @@ namespace FrostfallSaga.Fight.Fighters
         {
             if (!_stats.magicalResistances.ContainsKey(magicalElement))
             {
-                throw new NullReferenceException("Magical resistance element " + magicalElement + " is not set for fighter " + name);
+                throw new NullReferenceException($"Magical resistance element {magicalElement} is not set for fighter {name}");
             }
 
             PlayAnimationIfAny(_receiveDamageAnimationStateName);
             int inflictedMagicalDamageAmount = Math.Max(0, magicalDamageAmount - _stats.magicalResistances[magicalElement]);
+            Debug.Log($"{name} + received {inflictedMagicalDamageAmount} {magicalElement} magical damages");
             _stats.health = Math.Clamp(_stats.health - inflictedMagicalDamageAmount, 0, _stats.maxHealth);
         }
 
@@ -186,6 +177,36 @@ namespace FrostfallSaga.Fight.Fighters
         {
             PlayAnimationIfAny(_healSelfAnimationStateName);
             _stats.health = Math.Clamp(_stats.health + healAmount, 0, _stats.maxHealth);
+        }
+
+        #endregion
+
+        #region Actions process management
+
+        public void OnDirectAttackTouchedFighter(Fighter touchedFighter)
+        {
+            ApplyEffectsOnFighter(DirectAttackEffects, touchedFighter);
+        }
+
+        public void OnDirectAttackAnimationEnded(Fighter initiator)
+        {
+            _directAttackAnimation.onFighterTouched -= OnDirectAttackTouchedFighter;
+            _directAttackAnimation.onAnimationEnded -= OnDirectAttackAnimationEnded;
+
+            onFighterDirectAttackEnded?.Invoke(initiator);
+        }
+
+        public void OnActiveAbilityTouchedFighter(Fighter touchedFighter)
+        {
+            ApplyEffectsOnFighter(_currentActiveAbility.activeAbility.Effects, touchedFighter);
+        }
+
+        public void OnActiveAbilityAnimationEnded(Fighter initiator)
+        {
+            _currentActiveAbility.animation.onFighterTouched -= OnActiveAbilityTouchedFighter;
+            _currentActiveAbility.animation.onAnimationEnded -= OnActiveAbilityAnimationEnded;
+
+            onFighterActiveAbilityEnded?.Invoke(initiator);
         }
 
         #endregion
@@ -205,6 +226,11 @@ namespace FrostfallSaga.Fight.Fighters
         public int GetHealth()
         {
             return _stats.health;
+        }
+
+        public int GetInitiative()
+        {
+            return _stats.initiative;
         }
 
         public FighterCollider GetWeaponCollider()
@@ -297,7 +323,7 @@ namespace FrostfallSaga.Fight.Fighters
             {
                 if (animationStateName != null)
                 {
-                    Debug.LogWarning("Animation named: " + animationStateName + " not found for fighter " + name);
+                    Debug.LogWarning($"Animation named: {animationStateName} not found for fighter {name}");
                 }
             }
         }
