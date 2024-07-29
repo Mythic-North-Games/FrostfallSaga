@@ -58,7 +58,7 @@ namespace FrostfallSaga.Fight.Fighters
             ActiveAbilities = fighterSetup.activeAbilities;
             _receiveDamageAnimationStateName = fighterSetup.receiveDamageAnimationStateName;
             _healSelfAnimationStateName = fighterSetup.healSelfAnimationStateName;
-            
+
             ResetStatsToDefaultConfiguration();
         }
 
@@ -100,10 +100,26 @@ namespace FrostfallSaga.Fight.Fighters
                 throw new InvalidOperationException("Fighter " + name + " does not have enough actions points to use its direct attack.");
             }
 
-            _directAttackAnimation.onFighterTouched += OnDirectAttackTouchedFighter;
-            _directAttackAnimation.onAnimationEnded += OnDirectAttackAnimationEnded;
-
-            _directAttackAnimation.Execute(this, targetedCells);
+            if (_directAttackAnimation == null)
+            {
+                Debug.LogWarning($"No animation attached to direct attack for fighter {name}");
+                targetedCells.ToList()
+                    .Where(cell => cell.GetComponent<CellFightBehaviour>().Fighter != null).ToList()
+                    .ForEach(cell =>
+                    {
+                        ApplyEffectsOnFighter(
+                            DirectAttackEffects,
+                            cell.GetComponent<CellFightBehaviour>().Fighter
+                        );
+                    });
+                onFighterDirectAttackEnded?.Invoke(this);
+            }
+            else
+            {
+                _directAttackAnimation.onFighterTouched += OnDirectAttackTouchedFighter;
+                _directAttackAnimation.onAnimationEnded += OnDirectAttackAnimationEnded;
+                _directAttackAnimation.Execute(this, targetedCells);
+            }
             _stats.actionPoints -= DirectAttackActionPointsCost;
         }
 
@@ -129,12 +145,28 @@ namespace FrostfallSaga.Fight.Fighters
                 );
             }
 
-            _currentActiveAbility = activeAbilityToAnimation;
-            _currentActiveAbility.animation.onFighterTouched += OnActiveAbilityTouchedFighter;
-            _currentActiveAbility.animation.onAnimationEnded += OnActiveAbilityAnimationEnded;
-
-            _currentActiveAbility.animation.Execute(this, targetedCells);
-            _stats.actionPoints -= _currentActiveAbility.activeAbility.ActionPointsCost;
+            if (activeAbilityToAnimation.animation == null)
+            {
+                Debug.LogWarning($"No animation attached to active ability {activeAbilityToAnimation.activeAbility.Name} for fighter {name}");
+                targetedCells.ToList()
+                    .Where(cell => cell.GetComponent<CellFightBehaviour>().Fighter != null).ToList()
+                    .ForEach(cell =>
+                    {
+                        ApplyEffectsOnFighter(
+                            activeAbilityToAnimation.activeAbility.Effects,
+                            cell.GetComponent<CellFightBehaviour>().Fighter
+                        );
+                    });
+                onFighterActiveAbilityEnded?.Invoke(this);
+            }
+            else
+            {
+                _currentActiveAbility = activeAbilityToAnimation;
+                _currentActiveAbility.animation.onFighterTouched += OnActiveAbilityTouchedFighter;
+                _currentActiveAbility.animation.onAnimationEnded += OnActiveAbilityAnimationEnded;
+                _currentActiveAbility.animation.Execute(this, targetedCells);
+            }
+            _stats.actionPoints -= activeAbilityToAnimation.activeAbility.ActionPointsCost;
         }
 
         /// <summary>
