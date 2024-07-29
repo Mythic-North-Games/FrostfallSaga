@@ -94,11 +94,7 @@ namespace FrostfallSaga.Kingdom
             }
         }
 
-		public async Task MyMethodAsync()
-    {
-        await Task.Delay(1000); // Attendre 1 secondes
-		EndMovementProcess();
-    }
+		
         private void MakeEnemiesGroupMove(EnemiesGroup enemiesGroup)
         {
             MovePath enemiesGroupMovePath = _currentPathPerEnemiesGroup[enemiesGroup];
@@ -117,13 +113,23 @@ namespace FrostfallSaga.Kingdom
         private void OnEnemiesGroupMoved(EntitiesGroup enemiesGroup, Cell _destinationCell)
         {
             MovePath enemiesGroupMovePath = _currentPathPerEnemiesGroup[(EnemiesGroup)enemiesGroup];
+
+			bool allEnnemiesGroupMoved =true;
+			foreach (KeyValuePair<EnemiesGroup, MovePath> item in _currentPathPerEnemiesGroup)
+			{
+				if (item.Value.DoesNextCellExists()){
+					allEnnemiesGroupMoved = false;
+					break;
+				}
+			}
+
             if (!enemiesGroupMovePath.IsLastMove)
             {
                 MakeEnemiesGroupMove((EnemiesGroup)enemiesGroup);
             }
-            else
+            else if (allEnnemiesGroupMoved)
             {
-				MyMethodAsync();
+                EndMovementProcess();
             }
         }	
 
@@ -152,7 +158,6 @@ namespace FrostfallSaga.Kingdom
             _heroGroup.onEntityGroupMoved += OnHeroGroupMoved;
             foreach (EntitiesGroup entitiesGroup in _enemiesGroupsToMove)
             {
-				Debug.Log(entitiesGroup.name);
                 entitiesGroup.onEntityGroupMoved += OnEnemiesGroupMoved;
             }
         }
