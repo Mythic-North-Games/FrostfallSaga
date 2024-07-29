@@ -12,6 +12,7 @@ namespace FrostfallSaga.Fight.Fighters
 {
     public class Fighter : MonoBehaviour
     {
+        [field: SerializeField] public EntityVisualAnimationController AnimationController { get; private set; }
         [field: SerializeField] public EntityVisualMovementController MovementController { get; private set; }
         public Cell cell;
         public Action<Fighter> onFighterMoved;
@@ -19,7 +20,6 @@ namespace FrostfallSaga.Fight.Fighters
         public Action<Fighter> onFighterActiveAbilityEnded;
 
 
-        [SerializeField] private EntityVisualAnimationController _animationController;
         private MovePath _currentMovePath;
         private FighterStats _stats = new();
         private FighterStats _initialStats = new();
@@ -278,7 +278,7 @@ namespace FrostfallSaga.Fight.Fighters
         {
             try
             {
-                _animationController.PlayAnimationState(animationStateName);
+                AnimationController.PlayAnimationState(animationStateName);
             }
             catch (Exception)
             {
@@ -340,7 +340,7 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
         #region Getting children & bindings setup
-        private bool TrySetupEntitiyVisualMoveController()
+        public bool TrySetupEntitiyVisualMoveController()
         {
             MovementController = GetComponentInChildren<EntityVisualMovementController>();
             if (MovementController == null)
@@ -354,20 +354,25 @@ namespace FrostfallSaga.Fight.Fighters
 
         private bool TrySetupEntitiyVisualAnimationController()
         {
-            _animationController = GetComponentInChildren<EntityVisualAnimationController>();
-            if (_animationController == null)
+            AnimationController = GetComponentInChildren<EntityVisualAnimationController>();
+            if (AnimationController == null)
             {
                 return false;
             }
             return true;
         }
 
-        private void OnDisable()
+        public void UnsubscribeToMovementControllerEvents()
         {
             if (MovementController != null)
             {
                 MovementController.onMoveEnded -= OnFighterArrivedAtCell;
             }
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeToMovementControllerEvents();
         }
         #endregion
 
