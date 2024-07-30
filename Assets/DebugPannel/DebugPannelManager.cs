@@ -63,7 +63,7 @@ namespace FrostfallSaga
             }
         }
 
-        [DebugPanelAttribute("Refresh lists")]
+        [DebugPanelAttribute("Refresh lists", "Misc")]
         public void MapMethodsToButtons()
         {
             // Trouver tous les composants dans la scène
@@ -108,6 +108,7 @@ namespace FrostfallSaga
                 button.AddToClassList("btnCmd");
                 // Définir le text du boutton a la description de l'annotation
                 button.text = methodInfo.Attribute.Description;
+                string category = methodInfo.Attribute.Category;
                 button.clicked += () =>
                 {
                     Component targetComponent = FindObjectsOfType(methodInfo.Method.DeclaringType).FirstOrDefault() as Component;
@@ -120,8 +121,20 @@ namespace FrostfallSaga
                         Debug.LogWarning($"No instance of component {methodInfo.Method.DeclaringType.Name} found.");
                     }
                 };
+                switch(category.ToLower())
+                {
+                    case "action":
+                        ActionButtonCont.Add(button);
+                        break;
+                    case "base":
+                        BaseButtonCont.Add(button);
+                        break;
+                    default:
+                        MiscButtonCont.Add(button);
+                        break;
+                }
                 // Ajouter le bouton au conteneur
-                ActionButtonCont.Add(button);
+                
                 button.MarkDirtyRepaint();
                 if (ActionButtonCont.parent == null)
                 {

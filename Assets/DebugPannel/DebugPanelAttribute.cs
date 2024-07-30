@@ -4,9 +4,11 @@ using System;
 sealed class DebugPanelAttribute : Attribute
 {
     public string Description { get; }
+    public string Category { get; }
 
-    public DebugPanelAttribute(string info)
+    public DebugPanelAttribute(string info, string categoryName)
     {
         Description = info;
+        Category = categoryName;
     }
 }
