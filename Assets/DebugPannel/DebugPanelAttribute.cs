@@ -1,14 +1,18 @@
 using System;
 
-[AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
-sealed class DebugPanelAttribute : Attribute
+namespace FrostfallSaga.DebugPanel
 {
-    public string Description { get; }
-    public string Category { get; }
-
-    public DebugPanelAttribute(string info, string categoryName)
+    [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
+    public class DebugPanelAttribute : Attribute
     {
-        Description = info;
-        Category = categoryName;
+        public string Description { get; }
+        public string Category { get; }
+
+        public DebugPanelAttribute(string info, string categoryName)
+        {
+            Description = info;
+            Category = categoryName;
+        }
+
     }
 }

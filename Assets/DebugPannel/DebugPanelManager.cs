@@ -1,16 +1,16 @@
+using System;
+using System.Linq;
+using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.Linq;
-using System.Reflection;
-using System;
 
-namespace FrostfallSaga
+namespace FrostfallSaga.DebugPanel
 {
-    public class DebugPannelManager : MonoBehaviour
+    public class DebugPanelManager : MonoBehaviour
     {
-        public static DebugPannelManager Instance { get; private set; }
+        public static DebugPanelManager Instance { get; private set; }
         // Start is called before the first frame update
         public UIDocument UIDInstance;
         private GameObject uiDocumentObject;
