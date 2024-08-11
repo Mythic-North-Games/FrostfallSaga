@@ -7079,6 +7079,7 @@ GameObject:
   - component: {fileID: 1952024163}
   - component: {fileID: 1952024162}
   - component: {fileID: 1952024164}
+  - component: {fileID: 1952024165}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -7127,6 +7128,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 986898043375ad243a34adb1c02109b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDoc: {fileID: 1952024162}
+  _fightManager: {fileID: 1678739252}
+--- !u!114 &1952024165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952024161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 141f192dfb2ef6f42bd5b8babb364c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}

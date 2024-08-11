@@ -47,6 +47,7 @@ namespace FrostfallSaga.EditModeTests.FightTests
             fighter.Setup(
                 new(
                     fighterConfiguration.name,
+                    null,
                     fighterConfiguration.ExtractFighterStats(),
                     fighterConfiguration.DirectAttackTargeter,
                     fighterConfiguration.DirectAttackActionPointsCost,

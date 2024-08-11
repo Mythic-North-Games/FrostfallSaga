@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <EntityID>k__BackingField: 3
   <Name>k__BackingField: Vulkan
-  <Icon>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
+  <EntityIcon>k__BackingField: {fileID: 21300000, guid: f6fc899a423eacb4a87e6c0bb5acb040, type: 3}

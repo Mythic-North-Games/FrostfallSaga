@@ -15,11 +15,13 @@ namespace FrostfallSaga.Fight.Fighters
     {
         [field: SerializeField] public EntityVisualAnimationController AnimationController { get; private set; }
         [field: SerializeField] public EntityVisualMovementController MovementController { get; private set; }
+        public Sprite FighterIcon { get; private set; }
         public Cell cell;
+
         public Action<Fighter> onFighterMoved;
         public Action<Fighter> onFighterDirectAttackEnded;
         public Action<Fighter> onFighterActiveAbilityEnded;
-
+        public Action<Fighter> onFighterDied;
 
         private MovePath _currentMovePath;
         private FighterStats _stats = new();
@@ -50,6 +52,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         public void Setup(FighterSetup fighterSetup)
         {
+            FighterIcon = fighterSetup.icon;
             _initialStats = fighterSetup.initialStats;
             DirectAttackTargeter = fighterSetup.directAttackTargeter;
             DirectAttackActionPointsCost = fighterSetup.directAttackActionPointsCost;
@@ -170,16 +173,16 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
         /// <summary>
-        /// Method to withstand a physical attack
+        /// Method to withstand a physical attack.
         /// </summary>
-        /// <param name="physicalDamageAmount"></param>
+        /// <param name="physicalDamageAmount">The damage taken before withstanding.</param>
         public void PhysicalWithstand(int physicalDamageAmount)
         {
 
             PlayAnimationIfAny(_receiveDamageAnimationStateName);
             int inflictedPhysicalDamageAmount = Math.Max(0, physicalDamageAmount - _stats.physicalResistance);
             Debug.Log($"{name} + received {inflictedPhysicalDamageAmount} physical damages");
-            _stats.health = Math.Clamp(_stats.health - inflictedPhysicalDamageAmount, 0, _stats.maxHealth);
+            DecreaseHealth(inflictedPhysicalDamageAmount);
         }
 
         /// <summary>
@@ -198,7 +201,7 @@ namespace FrostfallSaga.Fight.Fighters
             PlayAnimationIfAny(_receiveDamageAnimationStateName);
             int inflictedMagicalDamageAmount = Math.Max(0, magicalDamageAmount - _stats.magicalResistances[magicalElement]);
             Debug.Log($"{name} + received {inflictedMagicalDamageAmount} {magicalElement} magical damages");
-            _stats.health = Math.Clamp(_stats.health - inflictedMagicalDamageAmount, 0, _stats.maxHealth);
+            DecreaseHealth(inflictedMagicalDamageAmount);
         }
 
         /// <summary>
@@ -208,7 +211,7 @@ namespace FrostfallSaga.Fight.Fighters
         public void Heal(int healAmount)
         {
             PlayAnimationIfAny(_healSelfAnimationStateName);
-            _stats.health = Math.Clamp(_stats.health + healAmount, 0, _stats.maxHealth);
+            IncreaseHealth(healAmount);
         }
 
         #endregion
@@ -341,6 +344,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         #endregion
 
+        #region Private helpers
         /// <summary>
         /// Play an animation if the given state name exists.
         /// </summary>
@@ -369,6 +373,25 @@ namespace FrostfallSaga.Fight.Fighters
         {
             effectsToApply.ToList().ForEach(effect => effect.ApplyEffect(target));
         }
+
+        private void DecreaseHealth(int amount)
+        {
+            _stats.health = Math.Clamp(_stats.health - amount, 0, _stats.maxHealth);
+            if (_stats.health == 0)
+            {
+                onFighterDied?.Invoke(this);
+            }
+        }
+
+        private void IncreaseHealth(int amount)
+        {
+            _stats.health = Math.Clamp(_stats.health + amount, 0, _stats.maxHealth);
+            if (_stats.health == 0)
+            {
+                onFighterDied?.Invoke(this);
+            }
+        }
+        #endregion
 
         #region Movement handling
         private void MakeNextMove()

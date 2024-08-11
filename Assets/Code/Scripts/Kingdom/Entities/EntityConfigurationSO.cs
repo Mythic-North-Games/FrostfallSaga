@@ -8,6 +8,6 @@ namespace FrostfallSaga.Kingdom.Entities
     {
         [field: SerializeField] public EntityID EntityID { get; private set; }
         [field: SerializeField] public string Name { get; private set; }
-        [field: SerializeField] public Sprite Icon { get; private set; }
+        [field: SerializeField] public Sprite EntityIcon { get; private set; }
     }
 }

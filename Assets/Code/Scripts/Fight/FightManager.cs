@@ -223,6 +223,7 @@ namespace FrostfallSaga.Fight
 
         private static Queue<Fighter> GetFightersTurnOrder(Fighter[] fighters)
         {
+            Debug.Log(fighters.Where(fighter => fighter.GetHealth() > 0).ToArray().Length);
             return new(
                 fighters
                     .Where(fighter => fighter.GetHealth() > 0)
