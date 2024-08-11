@@ -1,3 +1,4 @@
+using UnityEngine;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
@@ -8,6 +9,7 @@ namespace FrostfallSaga.Fight
     public class FighterSetup
     {
         public string name;
+        public Sprite icon;
         public FighterStats initialStats;
         public TargeterSO directAttackTargeter;
         public int directAttackActionPointsCost;
@@ -17,12 +19,9 @@ namespace FrostfallSaga.Fight
         public string receiveDamageAnimationStateName;
         public string healSelfAnimationStateName;
 
-        public FighterSetup()
-        {
-        }
-
         public FighterSetup(
             string name,
+            Sprite fighterIcon,
             FighterStats initialStats,
             TargeterSO directAttackTargeter,
             int directAttackActionPointsCost,
@@ -34,6 +33,7 @@ namespace FrostfallSaga.Fight
         )
         {
             this.name = name;
+            this.icon = fighterIcon;
             this.initialStats = initialStats;
             this.directAttackTargeter = directAttackTargeter;
             this.directAttackActionPointsCost = directAttackActionPointsCost;

@@ -37,31 +37,45 @@ namespace FrostfallSaga.KingdomToFight
             }
 
             List<FighterSetup> alliesFighterSetup = new();
-            foreach (EntityConfigurationSO allyEntity in allies)
+            foreach (EntityConfigurationSO allyEntityConfiguration in allies)
             {
                 PersistedFighterConfigurationSO allyFighterConfiguration = (PersistedFighterConfigurationSO)_entityToFighterDB.DB.First(
-                    entityToFighter => entityToFighter.entityID == allyEntity.EntityID
+                    entityToFighter => entityToFighter.entityID == allyEntityConfiguration.EntityID
                 ).fighterConfiguration;
-                alliesFighterSetup.Add(GenerateFighterSetupFromPersistingConfiguration(allyFighterConfiguration));
+                alliesFighterSetup.Add(
+                    GenerateFighterSetupFromPersistingConfiguration(
+                        allyEntityConfiguration,
+                        allyFighterConfiguration
+                    )
+                );
             }
 
             List<FighterSetup> enemiesFighterSetup = new();
-            foreach (EntityConfigurationSO enemyEntity in enemies)
+            foreach (EntityConfigurationSO enemyEntityConfiguration in enemies)
             {
                 FighterConfigurationSO enemyFighterConfiguration = _entityToFighterDB.DB.First(
-                    entityToFighter => entityToFighter.entityID == enemyEntity.EntityID
+                    entityToFighter => entityToFighter.entityID == enemyEntityConfiguration.EntityID
                 ).fighterConfiguration;
-                enemiesFighterSetup.Add(GenerateFighterSetupFromNonPersistingConfiguration(enemyFighterConfiguration));
+                enemiesFighterSetup.Add(
+                    GenerateFighterSetupFromNonPersistingConfiguration(
+                        enemyEntityConfiguration,
+                        enemyFighterConfiguration
+                    )
+                );
             }
 
             _preFightData.alliesFighterSetup = alliesFighterSetup.ToArray();
             _preFightData.enemiesFighterSetup = enemiesFighterSetup.ToArray();
         }
 
-        private FighterSetup GenerateFighterSetupFromNonPersistingConfiguration(FighterConfigurationSO fighterConfiguration)
+        private FighterSetup GenerateFighterSetupFromNonPersistingConfiguration(
+            EntityConfigurationSO entityConfiguration,
+            FighterConfigurationSO fighterConfiguration
+        )
         {
             return new(
                 fighterConfiguration.name,
+                entityConfiguration.EntityIcon,
                 fighterConfiguration.ExtractFighterStats(),
                 fighterConfiguration.DirectAttackTargeter,
                 fighterConfiguration.DirectAttackActionPointsCost,
@@ -76,10 +90,14 @@ namespace FrostfallSaga.KingdomToFight
             );
         }
 
-        private FighterSetup GenerateFighterSetupFromPersistingConfiguration(PersistedFighterConfigurationSO fighterConfiguration)
+        private FighterSetup GenerateFighterSetupFromPersistingConfiguration(
+            EntityConfigurationSO entityConfiguration,
+            PersistedFighterConfigurationSO fighterConfiguration
+        )
         {
             return new(
                 fighterConfiguration.name,
+                entityConfiguration.EntityIcon,
                 fighterConfiguration.ExtractFighterStats(),
                 fighterConfiguration.DirectAttackTargeter,
                 fighterConfiguration.DirectAttackActionPointsCost,
