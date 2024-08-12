@@ -33,6 +33,7 @@ namespace FrostfallSaga.Fight
         {
             _allies = allies;
             _enemies = enemies;
+            SubscribeToFightersEvents();
             PositionFightersOnGrid(_fightGrid, _allies, _enemies);
             UpdateFightersTurnOrder(GetFightersTurnOrder(_allies.Concat(_enemies).ToArray()));
             PlayNextFighterTurn();
@@ -76,6 +77,16 @@ namespace FrostfallSaga.Fight
             }
         }
 
+        private void OnFighterDied(Fighter fighterThatDied)
+        {
+            Destroy(fighterThatDied.gameObject);
+            Queue<Fighter> updatedFighterTurnsOrder = GetFightersTurnOrder(_allies.Concat(_enemies).ToArray());
+            if (!CompareFighterTurnOrder(updatedFighterTurnsOrder.ToArray(), _initialFightersTurnOrder))
+            {
+                UpdateFightersTurnOrder(updatedFighterTurnsOrder);
+            }
+        }
+
         private void UpdateFightersTurnOrder(Queue<Fighter> newFightersTurnOrder)
         {
             _fightersTurnOrder = newFightersTurnOrder;
@@ -95,6 +106,11 @@ namespace FrostfallSaga.Fight
         }
 
         #region Fight manager components setup and tear down
+        private void SubscribeToFightersEvents()
+        {
+            _allies.Union(_enemies).ToList().ForEach(fighter => fighter.onFighterDied += OnFighterDied);
+        }
+
         private void OnEnable()
         {
             if (_fightGrid == null)
@@ -223,7 +239,6 @@ namespace FrostfallSaga.Fight
 
         private static Queue<Fighter> GetFightersTurnOrder(Fighter[] fighters)
         {
-            Debug.Log(fighters.Where(fighter => fighter.GetHealth() > 0).ToArray().Length);
             return new(
                 fighters
                     .Where(fighter => fighter.GetHealth() > 0)
