@@ -46,11 +46,13 @@ namespace FrostfallSaga.EditModeTests.FightTests
         {
             fighter.Setup(
                 new(
+                    fighterConfiguration.name,
+                    null,
                     fighterConfiguration.ExtractFighterStats(),
                     fighterConfiguration.DirectAttackTargeter,
                     fighterConfiguration.DirectAttackActionPointsCost,
                     fighterConfiguration.DirectAttackEffects,
-                    fighterConfiguration.DirectAttackAnimationStateName,
+                    fighterConfiguration.DirectAttackAnimation,
                     fighterConfiguration.AvailableActiveAbilities,
                     fighterConfiguration.ReceiveDamageAnimationStateName,
                     fighterConfiguration.HealSelfAnimationStateName

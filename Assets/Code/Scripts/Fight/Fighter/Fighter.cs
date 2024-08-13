@@ -7,29 +7,33 @@ using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Targeters;
+using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 
 namespace FrostfallSaga.Fight.Fighters
 {
     public class Fighter : MonoBehaviour
     {
+        [field: SerializeField] public EntityVisualAnimationController AnimationController { get; private set; }
         [field: SerializeField] public EntityVisualMovementController MovementController { get; private set; }
+        public Sprite FighterIcon { get; private set; }
         public Cell cell;
+
         public Action<Fighter> onFighterMoved;
         public Action<Fighter> onFighterDirectAttackEnded;
         public Action<Fighter> onFighterActiveAbilityEnded;
+        public Action<Fighter> onFighterDied;
 
-
-        [SerializeField] private EntityVisualAnimationController _animationController;
         private MovePath _currentMovePath;
         private FighterStats _stats = new();
         private FighterStats _initialStats = new();
         public TargeterSO DirectAttackTargeter { get; private set; }
         public int DirectAttackActionPointsCost { get; private set; }
         public AEffectSO[] DirectAttackEffects { get; private set; }
-        private string _directAttackAnimationStateName;
         public ActiveAbilityToAnimation[] ActiveAbilities { get; private set; }
+        private AAbilityAnimationSO _directAttackAnimation;
         private string _receiveDamageAnimationStateName;
         private string _healSelfAnimationStateName;
+        private ActiveAbilityToAnimation _currentActiveAbility;
 
         private void Awake()
         {
@@ -48,17 +52,20 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         public void Setup(FighterSetup fighterSetup)
         {
+            FighterIcon = fighterSetup.icon;
             _initialStats = fighterSetup.initialStats;
             DirectAttackTargeter = fighterSetup.directAttackTargeter;
             DirectAttackActionPointsCost = fighterSetup.directAttackActionPointsCost;
             DirectAttackEffects = fighterSetup.directAttackEffects;
-            _directAttackAnimationStateName = fighterSetup.directAttackAnimationStateName;
+            _directAttackAnimation = fighterSetup.directAttackAnimation;
             ActiveAbilities = fighterSetup.activeAbilities;
             _receiveDamageAnimationStateName = fighterSetup.receiveDamageAnimationStateName;
             _healSelfAnimationStateName = fighterSetup.healSelfAnimationStateName;
-            
+
             ResetStatsToDefaultConfiguration();
         }
+
+        #region Concrete actions
 
         /// <summary>
         /// Makes the fighter move along the given cells path.
@@ -96,18 +103,27 @@ namespace FrostfallSaga.Fight.Fighters
                 throw new InvalidOperationException("Fighter " + name + " does not have enough actions points to use its direct attack.");
             }
 
-            PlayAnimationIfAny(_directAttackAnimationStateName);
-            _stats.actionPoints -= DirectAttackActionPointsCost;
-            foreach (Cell targetedCell in targetedCells)
+            if (_directAttackAnimation == null)
             {
-                Fighter targetedCellFighter = targetedCell.GetComponent<CellFightBehaviour>().Fighter;
-                if (targetedCellFighter != null)
-                {
-                    ApplyEffectsOnFighter(DirectAttackEffects, targetedCellFighter);
-                }
+                Debug.LogWarning($"No animation attached to direct attack for fighter {name}");
+                targetedCells.ToList()
+                    .Where(cell => cell.GetComponent<CellFightBehaviour>().Fighter != null).ToList()
+                    .ForEach(cell =>
+                    {
+                        ApplyEffectsOnFighter(
+                            DirectAttackEffects,
+                            cell.GetComponent<CellFightBehaviour>().Fighter
+                        );
+                    });
+                onFighterDirectAttackEnded?.Invoke(this);
             }
-
-            onFighterDirectAttackEnded?.Invoke(this);
+            else
+            {
+                _directAttackAnimation.onFighterTouched += OnDirectAttackTouchedFighter;
+                _directAttackAnimation.onAnimationEnded += OnDirectAttackAnimationEnded;
+                _directAttackAnimation.Execute(this, targetedCells);
+            }
+            _stats.actionPoints -= DirectAttackActionPointsCost;
         }
 
         /// <summary>
@@ -132,30 +148,41 @@ namespace FrostfallSaga.Fight.Fighters
                 );
             }
 
-            PlayAnimationIfAny(activeAbilityToAnimation.animationState);
-            _stats.actionPoints -= activeAbilityToAnimation.activeAbility.ActionPointsCost;
-            foreach (Cell cell in targetedCells)
+            if (activeAbilityToAnimation.animation == null)
             {
-                Fighter target = cell.GetComponent<CellFightBehaviour>().Fighter;
-                if (target != null)
-                {
-                    ApplyEffectsOnFighter(activeAbilityToAnimation.activeAbility.Effects, target);
-                }
+                Debug.LogWarning($"No animation attached to active ability {activeAbilityToAnimation.activeAbility.Name} for fighter {name}");
+                targetedCells.ToList()
+                    .Where(cell => cell.GetComponent<CellFightBehaviour>().Fighter != null).ToList()
+                    .ForEach(cell =>
+                    {
+                        ApplyEffectsOnFighter(
+                            activeAbilityToAnimation.activeAbility.Effects,
+                            cell.GetComponent<CellFightBehaviour>().Fighter
+                        );
+                    });
+                onFighterActiveAbilityEnded?.Invoke(this);
             }
-
-            onFighterActiveAbilityEnded?.Invoke(this);
+            else
+            {
+                _currentActiveAbility = activeAbilityToAnimation;
+                _currentActiveAbility.animation.onFighterTouched += OnActiveAbilityTouchedFighter;
+                _currentActiveAbility.animation.onAnimationEnded += OnActiveAbilityAnimationEnded;
+                _currentActiveAbility.animation.Execute(this, targetedCells);
+            }
+            _stats.actionPoints -= activeAbilityToAnimation.activeAbility.ActionPointsCost;
         }
 
         /// <summary>
-        /// Method to withstand a physical attack
+        /// Method to withstand a physical attack.
         /// </summary>
-        /// <param name="physicalDamageAmount"></param>
+        /// <param name="physicalDamageAmount">The damage taken before withstanding.</param>
         public void PhysicalWithstand(int physicalDamageAmount)
         {
 
             PlayAnimationIfAny(_receiveDamageAnimationStateName);
             int inflictedPhysicalDamageAmount = Math.Max(0, physicalDamageAmount - _stats.physicalResistance);
-            _stats.health = Math.Clamp(_stats.health - inflictedPhysicalDamageAmount, 0, _stats.maxHealth);
+            Debug.Log($"{name} + received {inflictedPhysicalDamageAmount} physical damages");
+            DecreaseHealth(inflictedPhysicalDamageAmount);
         }
 
         /// <summary>
@@ -168,12 +195,13 @@ namespace FrostfallSaga.Fight.Fighters
         {
             if (!_stats.magicalResistances.ContainsKey(magicalElement))
             {
-                throw new NullReferenceException("Magical resistance element " + magicalElement + " is not set for fighter " + name);
+                throw new NullReferenceException($"Magical resistance element {magicalElement} is not set for fighter {name}");
             }
 
             PlayAnimationIfAny(_receiveDamageAnimationStateName);
             int inflictedMagicalDamageAmount = Math.Max(0, magicalDamageAmount - _stats.magicalResistances[magicalElement]);
-            _stats.health = Math.Clamp(_stats.health - inflictedMagicalDamageAmount, 0, _stats.maxHealth);
+            Debug.Log($"{name} + received {inflictedMagicalDamageAmount} {magicalElement} magical damages");
+            DecreaseHealth(inflictedMagicalDamageAmount);
         }
 
         /// <summary>
@@ -183,10 +211,42 @@ namespace FrostfallSaga.Fight.Fighters
         public void Heal(int healAmount)
         {
             PlayAnimationIfAny(_healSelfAnimationStateName);
-            _stats.health = Math.Clamp(_stats.health + healAmount, 0, _stats.maxHealth);
+            IncreaseHealth(healAmount);
         }
 
-        #region Stats getter & manipulation
+        #endregion
+
+        #region Actions process management
+
+        public void OnDirectAttackTouchedFighter(Fighter touchedFighter)
+        {
+            ApplyEffectsOnFighter(DirectAttackEffects, touchedFighter);
+        }
+
+        public void OnDirectAttackAnimationEnded(Fighter initiator)
+        {
+            _directAttackAnimation.onFighterTouched -= OnDirectAttackTouchedFighter;
+            _directAttackAnimation.onAnimationEnded -= OnDirectAttackAnimationEnded;
+
+            onFighterDirectAttackEnded?.Invoke(initiator);
+        }
+
+        public void OnActiveAbilityTouchedFighter(Fighter touchedFighter)
+        {
+            ApplyEffectsOnFighter(_currentActiveAbility.activeAbility.Effects, touchedFighter);
+        }
+
+        public void OnActiveAbilityAnimationEnded(Fighter initiator)
+        {
+            _currentActiveAbility.animation.onFighterTouched -= OnActiveAbilityTouchedFighter;
+            _currentActiveAbility.animation.onAnimationEnded -= OnActiveAbilityAnimationEnded;
+
+            onFighterActiveAbilityEnded?.Invoke(initiator);
+        }
+
+        #endregion
+
+        #region Stats getters & manipulation
 
         public int GetMovePoints()
         {
@@ -203,6 +263,16 @@ namespace FrostfallSaga.Fight.Fighters
             return _stats.health;
         }
 
+        public int GetInitiative()
+        {
+            return _stats.initiative;
+        }
+
+        public FighterCollider GetWeaponCollider()
+        {
+            return GetComponentInChildren<FighterCollider>();
+        }
+
         public void ResetMovementAndActionPoints()
         {
             _stats.actionPoints = _stats.maxActionPoints;
@@ -210,6 +280,8 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
         #endregion
+
+        #region Actions feasability
 
         /// <summary>
         /// Returns whether the fighter can move in the given context or not.
@@ -270,6 +342,9 @@ namespace FrostfallSaga.Fight.Fighters
             return CanMove(fightGrid) || CanDirectAttack(fightGrid) || CanUseAtLeastOneActiveAbility(fightGrid);
         }
 
+        #endregion
+
+        #region Private helpers
         /// <summary>
         /// Play an animation if the given state name exists.
         /// </summary>
@@ -278,13 +353,13 @@ namespace FrostfallSaga.Fight.Fighters
         {
             try
             {
-                _animationController.PlayAnimationState(animationStateName);
+                AnimationController.PlayAnimationState(animationStateName);
             }
             catch (Exception)
             {
                 if (animationStateName != null)
                 {
-                    Debug.LogWarning("Animation named: " + animationStateName + " not found for fighter " + name);
+                    Debug.LogWarning($"Animation named: {animationStateName} not found for fighter {name}");
                 }
             }
         }
@@ -298,6 +373,25 @@ namespace FrostfallSaga.Fight.Fighters
         {
             effectsToApply.ToList().ForEach(effect => effect.ApplyEffect(target));
         }
+
+        private void DecreaseHealth(int amount)
+        {
+            _stats.health = Math.Clamp(_stats.health - amount, 0, _stats.maxHealth);
+            if (_stats.health == 0)
+            {
+                onFighterDied?.Invoke(this);
+            }
+        }
+
+        private void IncreaseHealth(int amount)
+        {
+            _stats.health = Math.Clamp(_stats.health + amount, 0, _stats.maxHealth);
+            if (_stats.health == 0)
+            {
+                onFighterDied?.Invoke(this);
+            }
+        }
+        #endregion
 
         #region Movement handling
         private void MakeNextMove()
@@ -340,7 +434,7 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
         #region Getting children & bindings setup
-        private bool TrySetupEntitiyVisualMoveController()
+        public bool TrySetupEntitiyVisualMoveController()
         {
             MovementController = GetComponentInChildren<EntityVisualMovementController>();
             if (MovementController == null)
@@ -354,20 +448,25 @@ namespace FrostfallSaga.Fight.Fighters
 
         private bool TrySetupEntitiyVisualAnimationController()
         {
-            _animationController = GetComponentInChildren<EntityVisualAnimationController>();
-            if (_animationController == null)
+            AnimationController = GetComponentInChildren<EntityVisualAnimationController>();
+            if (AnimationController == null)
             {
                 return false;
             }
             return true;
         }
 
-        private void OnDisable()
+        public void UnsubscribeToMovementControllerEvents()
         {
             if (MovementController != null)
             {
                 MovementController.onMoveEnded -= OnFighterArrivedAtCell;
             }
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeToMovementControllerEvents();
         }
         #endregion
 

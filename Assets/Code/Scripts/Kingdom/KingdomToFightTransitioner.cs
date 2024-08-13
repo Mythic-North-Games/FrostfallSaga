@@ -8,14 +8,14 @@ using FrostfallSaga.Kingdom.EntitiesGroups;
 
 namespace FrostfallSaga.Kingdom
 {
-	public class KingdomToFightTransitioner : MonoBehaviour
-	{
-		[SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
+    public class KingdomToFightTransitioner : MonoBehaviour
+    {
+        [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
         [SerializeField] private KingdomDataSO _kingdomData;
-		[SerializeField] private SceneTransitioner _sceneTransitioner;
-		[SerializeField] private float _readyToFightAnimationDuration = 2f;
-		[SerializeField] private float _delayBeforeLoadingSceneAfterReadyAnimation = 2f;
-		[SerializeField] private string _fightSceneName;
+        [SerializeField] private SceneTransitioner _sceneTransitioner;
+        [SerializeField] private float _readyToFightAnimationDuration = 2f;
+        [SerializeField] private float _delayBeforeLoadingSceneAfterReadyAnimation = 2f;
+        [SerializeField] private string _fightSceneName;
 
         private Action _onEncounterAnimationEnded;
 
@@ -26,16 +26,16 @@ namespace FrostfallSaga.Kingdom
         /// <param name="enemiesGroup">The encountered enemies group.</param>
         /// <param name="heroGroupInitiating">True if the hero group is initiating the fight, false otherwise.</param>
 		private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EnemiesGroup enemiesGroup, bool heroGroupInitiating)
-		{
-			StartCoroutine(StartEncounterAnimation(heroGroup, enemiesGroup, heroGroupInitiating));
-		}
+        {
+            StartCoroutine(StartEncounterAnimation(heroGroup, enemiesGroup, heroGroupInitiating));
+        }
 
         /// <summary>
         /// Once the group has moved, some other animation can be done, but for now, end it and start the fight.
         /// </summary>
         private void OnInitiatorGroupMoved(EntitiesGroup groupThatMoved, Cell destinationCell)
         {
-            groupThatMoved.OnEntityGroupMoved -= OnInitiatorGroupMoved;
+            groupThatMoved.onEntityGroupMoved -= OnInitiatorGroupMoved;
             _onEncounterAnimationEnded?.Invoke();
         }
 
@@ -48,8 +48,8 @@ namespace FrostfallSaga.Kingdom
             Entity enemyEntity = enemiesGroup.GetDisplayedEntity();
 
             // Make groups rotate to watch each other
-            heroEntity.EntityVisualMovementController.RotateTowardsCell(enemiesGroup.Cell);
-            enemyEntity.EntityVisualMovementController.RotateTowardsCell(heroGroup.Cell);
+            heroEntity.EntityVisualMovementController.RotateTowardsCell(enemiesGroup.cell);
+            enemyEntity.EntityVisualMovementController.RotateTowardsCell(heroGroup.cell);
 
             // Play ready to fight animation for a while
             heroEntity.EntityAnimationController.PlayAnimationState("ReadyToFight");
@@ -58,8 +58,8 @@ namespace FrostfallSaga.Kingdom
 
             // Make initiator group go to the cell of its enemy
             EntitiesGroup initiatorGroup = heroGroupInitiating ? heroGroup : enemiesGroup;
-            initiatorGroup.OnEntityGroupMoved += OnInitiatorGroupMoved;
-            initiatorGroup.MoveToCell(enemiesGroup.Cell, true);
+            initiatorGroup.onEntityGroupMoved += OnInitiatorGroupMoved;
+            initiatorGroup.MoveToCell(enemiesGroup.cell, true);
         }
 
         private void OnEncounterAnimationEnded()
@@ -78,13 +78,13 @@ namespace FrostfallSaga.Kingdom
         {
             _kingdomData.hexGrid = _entitiesGroupsManager.KingdomGrid;
             _kingdomData.heroGroup = _entitiesGroupsManager.HeroGroup;
-            _kingdomData.enemiesGroups = _entitiesGroupsManager.EnemiesGroups;
+            _kingdomData.enemiesGroups = _entitiesGroupsManager.EnemiesGroups.ToArray();
             Debug.Log("KingdomConfiguration Saved !");
         }
 
         #region Setup and teardown
         private void OnEnable()
-		{
+        {
             if (_entitiesGroupsManager == null)
             {
                 _entitiesGroupsManager = FindObjectOfType<EntitiesGroupsManager>();
@@ -101,21 +101,21 @@ namespace FrostfallSaga.Kingdom
                 return;
             }
 
-			_entitiesGroupsManager.OnEnemiesGroupEncountered += OnEnemiesGroupEncountered;
+            _entitiesGroupsManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
             _onEncounterAnimationEnded += OnEncounterAnimationEnded;
-		}
+        }
 
         private void OnDisable()
-		{
+        {
             if (_entitiesGroupsManager == null)
             {
                 Debug.LogWarning("No entities groups manager found. Can't tear down properly.");
                 return;
             }
 
-			_entitiesGroupsManager.OnEnemiesGroupEncountered -= OnEnemiesGroupEncountered;
+            _entitiesGroupsManager.onEnemiesGroupEncountered -= OnEnemiesGroupEncountered;
             _onEncounterAnimationEnded -= OnEncounterAnimationEnded;
-		}
+        }
         #endregion
-	}
+    }
 }

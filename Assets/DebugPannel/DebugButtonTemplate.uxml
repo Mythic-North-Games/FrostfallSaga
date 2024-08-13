@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Button text="Kill all enemies" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: middle-left; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; border-left-color: rgb(76, 76, 76); border-right-color: rgb(76, 76, 76); border-top-color: rgb(76, 76, 76); border-bottom-color: rgb(76, 76, 76); white-space: normal;" />
+</ui:UXML>

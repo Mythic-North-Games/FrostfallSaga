@@ -12,13 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf9b68cef373954fa0d8e82209c712d, type: 3}
   m_Name: PersistedJomsvikingFighter1
   m_EditorClassIdentifier: 
-  <AvailableActiveAbilities>k__BackingField: []
+  <AvailableActiveAbilities>k__BackingField:
+  - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+    animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+  ActiveAbilitiesCapacity: 5
   <DirectAttackTargeter>k__BackingField: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
-  <DirectAttackEffects>k__BackingField: []
+  <DirectAttackEffects>k__BackingField:
+  - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
   <DirectAttackActionPointsCost>k__BackingField: 0
-  <DirectAttackAnimationStateName>k__BackingField: 
+  <DirectAttackAnimation>k__BackingField: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
   <HealSelfAnimationStateName>k__BackingField: 
-  <ReceiveDamageAnimationStateName>k__BackingField: 
+  <ReceiveDamageAnimationStateName>k__BackingField: Hurt
   <MaxHealth>k__BackingField: 100
   <MaxActionPoints>k__BackingField: 5
   <MaxMovePoints>k__BackingField: 5
@@ -32,5 +36,5 @@ MonoBehaviour:
   <Initiative>k__BackingField: 2
   <EquipedActiveAbilities>k__BackingField:
   - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-    animationState: 
+    animation: {fileID: 0}
   <Health>k__BackingField: 100

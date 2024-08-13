@@ -12,8 +12,8 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 			entitiesGroupGameObject.AddComponent<EntitiesGroup>();
 			EntitiesGroup entitiesGroup = entitiesGroupGameObject.GetComponent<EntitiesGroup>();
 
-            entitiesGroup.Cell = currentCell;
-			entitiesGroup.MovePoints = movePoints;
+            entitiesGroup.cell = currentCell;
+			entitiesGroup.movePoints = movePoints;
             
 			return entitiesGroup;
         }

@@ -3,7 +3,8 @@
     "rootNamespace": "FrostfallSaga.KingdomToFight",
     "references": [
         "FrostfallSaga.Kingdom",
-        "FrostfallSaga.Fight"
+        "FrostfallSaga.Fight",
+        "FrostfallSaga.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

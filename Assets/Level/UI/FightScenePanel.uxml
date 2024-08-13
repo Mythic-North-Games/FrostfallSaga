@@ -1,0 +1,46 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/FightScenePanel.uss?fileID=7433441132597879392&amp;guid=e5eb9d2bf6d4bff42afd0f1a4c723e76&amp;type=3#FightScenePanel" />
+    <ui:VisualElement name="RootActionPanel" style="flex-grow: 1; position: absolute; width: 100%; height: 15%; justify-content: flex-start; top: auto; -unity-background-image-tint-color: rgba(213, 0, 0, 0.31); background-color: rgba(213, 0, 0, 0); flex-direction: row; align-self: auto; align-items: auto; bottom: 0; display: flex;">
+        <ui:VisualElement name="TeamInfoPanel" style="flex-grow: 1; width: 40%; height: 200%; position: absolute; bottom: 0; background-color: rgba(0, 0, 255, 0); flex-direction: row; display: none; visibility: visible;">
+            <ui:VisualElement name="VisualButtomPanelLeft" style="flex-grow: 1; height: 50%; flex-direction: column; flex-wrap: nowrap; align-self: flex-end; background-image: url(&quot;project://database/Assets/Art/UI/Panels/BottomLeftPanel.png?fileID=2800000&amp;guid=6cf7398f35b6f44418e8e2ba2efa59d8&amp;type=3#BottomLeftPanel&quot;); background-color: rgba(0, 0, 0, 0);" />
+            <ui:VisualElement name="TeamRotationSystem" style="flex-grow: 1; position: absolute; width: 75%; height: 100%; background-color: rgba(36, 228, 38, 0);">
+                <ui:VisualElement name="TeamMatePanel1" style="flex-grow: 1; background-color: rgba(200, 0, 255, 0.59); position: absolute; bottom: 0; left: 10%; width: 80%; height: 65%;" />
+                <ui:VisualElement name="TeamMatePanel2Background" class="TeamMatePanelBackgroundStyle" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/CharacterParts/TeamBackground.png?fileID=2800000&amp;guid=79b0441b51852244fa74bd121bd0822e&amp;type=3#TeamBackground&quot;); -unity-background-scale-mode: stretch-to-fill; -unity-background-image-tint-color: rgb(255, 255, 255); display: flex; visibility: visible; overflow: visible; position: absolute; left: 5%; top: 5%; width: 60px; height: 60px;">
+                    <ui:VisualElement name="TeamMatePanel2" class="TeamMatePanelStyle" style="top: 0; left: 0;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TeamMatePanel3Background" class="TeamMatePanelBackgroundStyle" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/CharacterParts/TeamBackground.png?fileID=2800000&amp;guid=79b0441b51852244fa74bd121bd0822e&amp;type=3#TeamBackground&quot;); -unity-background-scale-mode: stretch-to-fill; -unity-background-image-tint-color: rgb(255, 255, 255); display: flex; visibility: visible; overflow: visible; position: absolute; left: 35%; top: 5%; width: 60px; height: 60px;">
+                    <ui:VisualElement name="TeamMatePanel3" class="TeamMatePanelStyle" style="flex-grow: 1; position: absolute; top: 0; height: 60px; left: 0; width: 60px; background-color: rgba(200, 0, 255, 0);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="RadarChart" style="flex-grow: 1; position: absolute; bottom: -3%; right: 4%; height: 50%; width: 20%; background-color: rgba(36, 228, 39, 0); background-image: url(&quot;project://database/Assets/Art/UI/CharacterPanel/RadarChart.png?fileID=2800000&amp;guid=b2ced5442ad65364e8f047ba74dddbec&amp;type=3#RadarChart&quot;);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ActionPanel" style="flex-grow: 1; position: absolute; bottom: 0; right: 0; width: 60%; height: 100%; background-color: rgba(0, 0, 255, 0); align-items: stretch; flex-direction: column; background-image: none;">
+            <ui:VisualElement name="VisualBottomPanelRight" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Panels/BottomRightPanel.png?fileID=2800000&amp;guid=01dcc0978b473724c887b353868d5bef&amp;type=3#BottomRightPanel&quot;);" />
+            <ui:VisualElement name="AbilitiesPanel" style="flex-grow: 1; position: absolute; top: 20%; width: 60%; height: 70%; background-color: rgba(199, 0, 255, 0); left: 5%; flex-direction: row; align-items: stretch; justify-content: space-around; align-self: auto;">
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="true" name="AbilityButton0" class="AbilitiesBackgroundStyle" />
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="AbilityButton1" class="AbilitiesBackgroundStyle" />
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="AbilityButton2" class="AbilitiesBackgroundStyle" />
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="AbilityButton3" class="AbilitiesBackgroundStyle" />
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="AbilityButton4" class="AbilitiesBackgroundStyle" />
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="AbilityButton5" class="AbilitiesBackgroundStyle" />
+            </ui:VisualElement>
+            <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="InventoryButton" class="InventoryBoutonStyle" style="background-image: url(&quot;project://database/Assets/Art/UI/Inventory.png?fileID=2800000&amp;guid=5570796a58cba7a4693feb794131adb7&amp;type=3#Inventory&quot;);" />
+        </ui:VisualElement>
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="EndTurnButton" class="SettingBouton" style="margin-right: 0; background-color: rgba(207, 34, 34, 0); left: 95%; overflow: hidden; width: 10%; height: auto; align-items: stretch; align-self: auto; top: -110%; right: 0; bottom: 0;">
+            <ui:VisualElement name="IconHourglass" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/icon_global/hourglass.png?fileID=2800000&amp;guid=59698b652a80ef84c855c4138a8296d7&amp;type=3#hourglass&quot;); width: 20px; height: 20px; left: 10%;" />
+        </ui:Button>
+    </ui:VisualElement>
+    <ui:VisualElement name="TimelinePanel" style="background-image: none; background-color: rgba(238, 30, 38, 0); -unity-background-image-tint-color: rgba(213, 0, 0, 0); align-self: flex-end; top: 20%; justify-content: center;">
+        <ui:VisualElement name="TimelineCharacterContainer0" class="TimelineCharacter" />
+        <ui:VisualElement name="TimelineCharacterContainer1" class="TimelineCharacter" />
+        <ui:VisualElement name="TimelineCharacterContainer2" class="TimelineCharacter" />
+        <ui:VisualElement name="TimelineCharacterContainer3" class="TimelineCharacter" />
+        <ui:VisualElement name="TimelineCharacterContainer4" class="TimelineCharacter" />
+        <ui:VisualElement name="TimelineCharacterContainer5" class="TimelineCharacter" />
+    </ui:VisualElement>
+    <ui:VisualElement name="SettingsPanel" style="width: 10%; height: 10%; align-self: flex-end; background-color: rgba(0, 0, 44, 0); -unity-background-image-tint-color: rgba(0, 0, 0, 0); -unity-background-scale-mode: stretch-to-fill; justify-content: center; align-items: stretch; visibility: visible; overflow: visible; opacity: 1; display: none; left: auto; background-image: none; right: auto;">
+        <ui:Button parse-escape-sequences="false" display-tooltip-when-elided="true" name="SettingBouton" enable-rich-text="true" focusable="true" class="SettingBouton" style="left: 50%; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;">
+            <ui:VisualElement name="SettingSharpIcon" class="Setting_Sharp_Icon" />
+        </ui:Button>
+    </ui:VisualElement>
+</ui:UXML>

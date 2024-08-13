@@ -33,6 +33,7 @@ namespace FrostfallSaga.Fight
         {
             _allies = allies;
             _enemies = enemies;
+            SubscribeToFightersEvents();
             PositionFightersOnGrid(_fightGrid, _allies, _enemies);
             UpdateFightersTurnOrder(GetFightersTurnOrder(_allies.Concat(_enemies).ToArray()));
             PlayNextFighterTurn();
@@ -51,6 +52,7 @@ namespace FrostfallSaga.Fight
         {
             if (CheckForFightEnd())
             {
+                Debug.Log($"Winner is {GetWinner(_allies, _enemies)}");
                 return;
             }
 
@@ -64,9 +66,20 @@ namespace FrostfallSaga.Fight
         {
             if (CheckForFightEnd())
             {
+                Debug.Log($"Winner is {GetWinner(_allies, _enemies)}");
                 return;
             }
-            
+
+            Queue<Fighter> updatedFighterTurnsOrder = GetFightersTurnOrder(_allies.Concat(_enemies).ToArray());
+            if (!CompareFighterTurnOrder(updatedFighterTurnsOrder.ToArray(), _initialFightersTurnOrder))
+            {
+                UpdateFightersTurnOrder(updatedFighterTurnsOrder);
+            }
+        }
+
+        private void OnFighterDied(Fighter fighterThatDied)
+        {
+            Destroy(fighterThatDied.gameObject);
             Queue<Fighter> updatedFighterTurnsOrder = GetFightersTurnOrder(_allies.Concat(_enemies).ToArray());
             if (!CompareFighterTurnOrder(updatedFighterTurnsOrder.ToArray(), _initialFightersTurnOrder))
             {
@@ -93,6 +106,11 @@ namespace FrostfallSaga.Fight
         }
 
         #region Fight manager components setup and tear down
+        private void SubscribeToFightersEvents()
+        {
+            _allies.Union(_enemies).ToList().ForEach(fighter => fighter.onFighterDied += OnFighterDied);
+        }
+
         private void OnEnable()
         {
             if (_fightGrid == null)
@@ -221,7 +239,11 @@ namespace FrostfallSaga.Fight
 
         private static Queue<Fighter> GetFightersTurnOrder(Fighter[] fighters)
         {
-            return new(fighters.OrderByDescending(fighter => fighter.GetActionPoints()));
+            return new(
+                fighters
+                    .Where(fighter => fighter.GetHealth() > 0)
+                    .OrderByDescending(fighter => fighter.GetInitiative())
+            );
         }
 
         private static bool CompareFighterTurnOrder(Fighter[] order1, Fighter[] order2)

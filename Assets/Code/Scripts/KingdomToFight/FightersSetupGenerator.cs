@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using FrostfallSaga.Core;
 using FrostfallSaga.Kingdom;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
@@ -15,7 +16,6 @@ namespace FrostfallSaga.KingdomToFight
         [SerializeField] private EntityToFighterDBSO _entityToFighterDB;
         [SerializeField] private PreFightDataSO _preFightData;
         [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
-        private static readonly System.Random _randomizer = new();
 
         private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EnemiesGroup enemiesGroup, bool heroGroupInitiating)
         {
@@ -37,35 +37,50 @@ namespace FrostfallSaga.KingdomToFight
             }
 
             List<FighterSetup> alliesFighterSetup = new();
-            foreach (EntityConfigurationSO allyEntity in allies)
+            foreach (EntityConfigurationSO allyEntityConfiguration in allies)
             {
                 PersistedFighterConfigurationSO allyFighterConfiguration = (PersistedFighterConfigurationSO)_entityToFighterDB.DB.First(
-                    entityToFighter => entityToFighter.entityID == allyEntity.EntityID
+                    entityToFighter => entityToFighter.entityID == allyEntityConfiguration.EntityID
                 ).fighterConfiguration;
-                alliesFighterSetup.Add(GenerateFighterSetupFromPersistingConfiguration(allyFighterConfiguration));
+                alliesFighterSetup.Add(
+                    GenerateFighterSetupFromPersistingConfiguration(
+                        allyEntityConfiguration,
+                        allyFighterConfiguration
+                    )
+                );
             }
 
             List<FighterSetup> enemiesFighterSetup = new();
-            foreach (EntityConfigurationSO enemyEntity in enemies)
+            foreach (EntityConfigurationSO enemyEntityConfiguration in enemies)
             {
                 FighterConfigurationSO enemyFighterConfiguration = _entityToFighterDB.DB.First(
-                    entityToFighter => entityToFighter.entityID == enemyEntity.EntityID
+                    entityToFighter => entityToFighter.entityID == enemyEntityConfiguration.EntityID
                 ).fighterConfiguration;
-                enemiesFighterSetup.Add(GenerateFighterSetupFromNonPersistingConfiguration(enemyFighterConfiguration));
+                enemiesFighterSetup.Add(
+                    GenerateFighterSetupFromNonPersistingConfiguration(
+                        enemyEntityConfiguration,
+                        enemyFighterConfiguration
+                    )
+                );
             }
 
             _preFightData.alliesFighterSetup = alliesFighterSetup.ToArray();
             _preFightData.enemiesFighterSetup = enemiesFighterSetup.ToArray();
         }
 
-        private FighterSetup GenerateFighterSetupFromNonPersistingConfiguration(FighterConfigurationSO fighterConfiguration)
+        private FighterSetup GenerateFighterSetupFromNonPersistingConfiguration(
+            EntityConfigurationSO entityConfiguration,
+            FighterConfigurationSO fighterConfiguration
+        )
         {
             return new(
+                fighterConfiguration.name,
+                entityConfiguration.EntityIcon,
                 fighterConfiguration.ExtractFighterStats(),
                 fighterConfiguration.DirectAttackTargeter,
                 fighterConfiguration.DirectAttackActionPointsCost,
                 fighterConfiguration.DirectAttackEffects,
-                fighterConfiguration.DirectAttackAnimationStateName,
+                fighterConfiguration.DirectAttackAnimation,
                 GetRandomActiveAbilities(
                     fighterConfiguration.AvailableActiveAbilities,
                     fighterConfiguration.ActiveAbilitiesCapacity
@@ -75,14 +90,19 @@ namespace FrostfallSaga.KingdomToFight
             );
         }
 
-        private FighterSetup GenerateFighterSetupFromPersistingConfiguration(PersistedFighterConfigurationSO fighterConfiguration)
+        private FighterSetup GenerateFighterSetupFromPersistingConfiguration(
+            EntityConfigurationSO entityConfiguration,
+            PersistedFighterConfigurationSO fighterConfiguration
+        )
         {
             return new(
+                fighterConfiguration.name,
+                entityConfiguration.EntityIcon,
                 fighterConfiguration.ExtractFighterStats(),
                 fighterConfiguration.DirectAttackTargeter,
                 fighterConfiguration.DirectAttackActionPointsCost,
                 fighterConfiguration.DirectAttackEffects,
-                fighterConfiguration.DirectAttackAnimationStateName,
+                fighterConfiguration.DirectAttackAnimation,
                 fighterConfiguration.EquipedActiveAbilities,
                 fighterConfiguration.ReceiveDamageAnimationStateName,
                 fighterConfiguration.HealSelfAnimationStateName
@@ -113,7 +133,7 @@ namespace FrostfallSaga.KingdomToFight
                 return;
             }
 
-            _entitiesGroupsManager.OnEnemiesGroupEncountered += OnEnemiesGroupEncountered;
+            _entitiesGroupsManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
         }
 
         private void OnDisable()
@@ -128,7 +148,7 @@ namespace FrostfallSaga.KingdomToFight
                 return;
             }
 
-            _entitiesGroupsManager.OnEnemiesGroupEncountered -= OnEnemiesGroupEncountered;
+            _entitiesGroupsManager.onEnemiesGroupEncountered -= OnEnemiesGroupEncountered;
         }
         #endregion
 
@@ -138,7 +158,7 @@ namespace FrostfallSaga.KingdomToFight
             List<ActiveAbilityToAnimation> equipedActiveAbilities = new();
             while (equipedActiveAbilities.Count < count && availableActiveAbilities.Count > 0)
             {
-                int randomActiveAbilityIndex = _randomizer.Next(0, availableActiveAbilities.Count);
+                int randomActiveAbilityIndex = Randomizer.GetRandomIntBetween(0, availableActiveAbilities.Count);
                 equipedActiveAbilities.Add(availableActiveAbilities[randomActiveAbilityIndex]);
                 availableActiveAbilities.RemoveAt(randomActiveAbilityIndex);
             }

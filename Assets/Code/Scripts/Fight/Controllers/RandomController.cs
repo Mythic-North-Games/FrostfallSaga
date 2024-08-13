@@ -2,9 +2,10 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
 
 namespace FrostfallSaga.Fight.Controllers
@@ -14,7 +15,6 @@ namespace FrostfallSaga.Fight.Controllers
     /// </summary>
     public class RandomController : AFighterController
     {
-        private static readonly System.Random _randomizer = new();
         public int maxActionsPerTurn = 4;
         public int timeBetweenActionsInSec = 2;
 
@@ -29,9 +29,9 @@ namespace FrostfallSaga.Fight.Controllers
             _fightGrid = fightGrid;
             BindFighterEventsForTurn(fighterToPlay);
 
-            _numberOfActionsToDoForTurn = _randomizer.Next(1, maxActionsPerTurn);
+            _numberOfActionsToDoForTurn = Randomizer.GetRandomIntBetween(1, maxActionsPerTurn);
             _numberOfActionsDoneForTurn = 0;
-            Debug.Log("Fighter " + fighterToPlay.name + " will do " + _numberOfActionsToDoForTurn + " actions this turn.");
+            Debug.Log($"Fighter {fighterToPlay.name} will do {_numberOfActionsToDoForTurn} actions this turn.");
 
             _possessedFighter.StartCoroutine(DoNextAction());
         }
@@ -51,7 +51,7 @@ namespace FrostfallSaga.Fight.Controllers
             {
                 doableActions.Add(FighterAction.ACTIVE_ABILITY);
             }
-            return doableActions[_randomizer.Next(0, doableActions.Count)];
+            return doableActions[Randomizer.GetRandomIntBetween(0, doableActions.Count)];
         }
 
         /// <summary>
@@ -90,14 +90,14 @@ namespace FrostfallSaga.Fight.Controllers
         #region Movement handling
         private void MakeFighterMove(Fighter fighter, HexGrid fightGrid)
         {
-            Debug.Log("Fighter " + fighter.name + " is randomly moving.");
+            Debug.Log($"Fighter {fighter.name} is randomly moving.");
             fighter.Move(GetRandomMovePath(fighter, fightGrid));
             onFighterActionStarted?.Invoke(fighter);
         }
 
         private void OnFighterMoved(Fighter fighterThatMoved)
         {
-            Debug.Log("Fighter " + fighterThatMoved.name + " has finished its movement.");
+            Debug.Log($"Fighter {fighterThatMoved.name} has finished its movement.");
             onFighterActionEnded?.Invoke(fighterThatMoved);
             _possessedFighter.StartCoroutine(DoNextAction());
         }
@@ -105,7 +105,7 @@ namespace FrostfallSaga.Fight.Controllers
         private Cell[] GetRandomMovePath(Fighter fighterThatWillMove, HexGrid fightGrid)
         {
             List<Cell> randomMovePath = new();
-            int numberOfCellsInPath = _randomizer.Next(1, fighterThatWillMove.GetMovePoints());
+            int numberOfCellsInPath = Randomizer.GetRandomIntBetween(1, fighterThatWillMove.GetMovePoints());
 
             Cell currentCellOfPath = fighterThatWillMove.cell;
             for (int i = 0; i < numberOfCellsInPath; i++)
@@ -119,7 +119,7 @@ namespace FrostfallSaga.Fight.Controllers
                     break;
                 }
 
-                Cell neighborCellToAdd = currentCellOfPathNeighbors[_randomizer.Next(0, currentCellOfPathNeighbors.Count)];
+                Cell neighborCellToAdd = Randomizer.GetRandomElementFromArray(currentCellOfPathNeighbors.ToArray());
                 randomMovePath.Add(neighborCellToAdd);
                 currentCellOfPath = neighborCellToAdd;
             }
@@ -134,19 +134,19 @@ namespace FrostfallSaga.Fight.Controllers
             try
             {
                 Cell[] targetCells = fighter.DirectAttackTargeter.GetRandomTargetCells(fightGrid, fighter.cell);
-                Debug.Log("Fighter " + fighter.name + " is direct attacking.");
+                Debug.Log($"Fighter {fighter.name} is direct attacking.");
                 fighter.UseDirectAttack(targetCells);
                 onFighterActionStarted?.Invoke(fighter);
             }
             catch (TargeterUnresolvableException)
             {
-                Debug.LogError("Fighter " + fighter.name + " can't use its direct attack. It should not have been triggered.");
+                Debug.LogError($"Fighter {fighter.name} can't use its direct attack. It should not have been triggered.");
             }
         }
 
         private void OnFighterDirectAttackEnded(Fighter fighterThatDirectAttacked)
         {
-            Debug.Log("Fighter " + fighterThatDirectAttacked.name + " has direct attacked.");
+            Debug.Log($"Fighter {fighterThatDirectAttacked.name} has direct attacked.");
             onFighterActionEnded?.Invoke(fighterThatDirectAttacked);
             _possessedFighter.StartCoroutine(DoNextAction());
         }
@@ -160,7 +160,7 @@ namespace FrostfallSaga.Fight.Controllers
             {
                 Cell[] targetCells = activeAbilityToUse.activeAbility.Targeter.GetRandomTargetCells(fightGrid, fighter.cell);
 
-                Debug.Log("Fighter " + fighter.name + " is using its active ability " + activeAbilityToUse.activeAbility.Name);
+                Debug.Log($"Fighter {fighter.name} is using its active ability {activeAbilityToUse.activeAbility.Name}");
 
                 fighter.UseActiveAbility(activeAbilityToUse, targetCells);
                 onFighterActionStarted?.Invoke(fighter);
@@ -168,8 +168,8 @@ namespace FrostfallSaga.Fight.Controllers
             catch (TargeterUnresolvableException)
             {
                 Debug.LogError(
-                    "Fighter " + fighter.name + " can't use the active ability " +
-                    activeAbilityToUse.activeAbility.Name + ". It should not have been triggered."
+                    $"Fighter {fighter.name} can't use the active ability {activeAbilityToUse.activeAbility.Name}. " +
+                    "It should not have been triggered."
                 );
             }
 
@@ -177,7 +177,7 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void OnFighterActiveAbilityEnded(Fighter fighter)
         {
-            Debug.Log("Fighter " + fighter.name + " has finished using its active ability.");
+            Debug.Log($"Fighter {fighter.name} has finished using its active ability.");
             onFighterActionEnded?.Invoke(fighter);
             _possessedFighter.StartCoroutine(DoNextAction());
         }
@@ -185,16 +185,10 @@ namespace FrostfallSaga.Fight.Controllers
         private ActiveAbilityToAnimation GetRandomUsableActiveAbility(Fighter fighter, HexGrid fightGrid)
         {
             List<ActiveAbilityToAnimation> usableActiveAbilities = new();
-            fighter.ActiveAbilities.ToList().ForEach(
-                (activeAbilityToAnimation) =>
-                {
-                    if (fighter.CanUseActiveAbility(fightGrid, activeAbilityToAnimation.activeAbility))
-                    {
-                        usableActiveAbilities.Add(activeAbilityToAnimation);
-                    }
-                }
-            );
-            return usableActiveAbilities[_randomizer.Next(0, usableActiveAbilities.Count)];
+            fighter.ActiveAbilities.ToList()
+                .FindAll(activeAbilityToAnimation => fighter.CanUseActiveAbility(fightGrid, activeAbilityToAnimation.activeAbility))
+                .ForEach(activeAbilityToAnimation => usableActiveAbilities.Add(activeAbilityToAnimation));
+            return Randomizer.GetRandomElementFromArray(usableActiveAbilities.ToArray());
         }
         #endregion
 

@@ -1,7 +1,7 @@
 # FrostFall-Saga
 <img src="https://mythic-north-games.github.io/FrostfallSaga/coverage/Report/badge_shieldsio_linecoverage_orange.svg">
 
-The latest development version of the game can be played here: <https://mythic-north-games.github.io/FrostfallSaga/main>
+The latest development version of the game can be played here: <a href="https://mythic-north-games.github.io/FrostfallSaga/main"  target="_blank">https://mythic-north-games.github.io/FrostfallSaga/main</a>
 
 ## Setup project
 

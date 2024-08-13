@@ -15,7 +15,7 @@ namespace FrostfallSaga.Fight.Controllers
     /// </summary>
     public class PlayerController : AFighterController
     {
-        [SerializeField] private FighterActionPanel _actionPanel;
+        [SerializeField] private FighterActionPanelController _actionPanel;
         [SerializeField] private Material _cellHighlightMaterial;
         [SerializeField] private Material _cellActionableHighlightMaterial;
         [SerializeField] private Material _cellInaccessibleHighlightMaterial;
@@ -284,7 +284,7 @@ namespace FrostfallSaga.Fight.Controllers
             }
             catch (TargeterUnresolvableException)
             {
-                Debug.Log("Fighter " + _possessedFighter.name + " can't use its active ability from cell " + _possessedFighter.cell.name);
+                Debug.Log($"Fighter {_possessedFighter.name} can't use its active ability from cell {_possessedFighter.cell.name}");
             }
         }
 
@@ -464,18 +464,22 @@ namespace FrostfallSaga.Fight.Controllers
             if (_actionPanel == null)
             {
                 Debug.LogError("Player controller has no action panel to work with.");
+                return;
             }
             if (_cellHighlightMaterial == null)
             {
                 Debug.LogError("Player controller has no cell highlight material to work with.");
+                return;
             }
             if (_cellActionableHighlightMaterial == null)
             {
                 Debug.LogError("Player controller has no cell highlight material to work with.");
+                return;
             }
             if (_cellInaccessibleHighlightMaterial == null)
             {
                 Debug.LogError("Player controller has no cell highlight material to work with.");
+                return;
             }
         }
     }
