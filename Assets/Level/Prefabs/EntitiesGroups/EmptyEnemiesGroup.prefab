@@ -147,8 +147,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2373063617049297155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 652515b0162356b498ca7cbce71cac61, type: 3}
+  m_Script: {fileID: 11500000, guid: 861661c4898c2a04d89eba7a411a2c3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movePoints: 5
+  movePoints: 0
   cell: {fileID: 0}

@@ -1,6 +1,7 @@
+using System.Linq;
 using System.Collections.Generic;
-using FrostfallSaga.Grid.Cells;
 using UnityEngine;
+using FrostfallSaga.Grid.Cells;
 
 namespace FrostfallSaga.Grid
 {
@@ -23,10 +24,8 @@ namespace FrostfallSaga.Grid
 
         public void FindAndSetCellsByCoordinates()
         {
-            foreach (Cell cell in GetCells())
-            {
-                CellsByCoordinates.Add(cell.Coordinates, cell);
-            }
+            CellsByCoordinates.Clear();
+            GetCells().ToList().ForEach(cell => CellsByCoordinates.Add(cell.Coordinates, cell));
         }
 
         private void Awake()

@@ -11,7 +11,7 @@ namespace FrostfallSaga.Kingdom.EnemiesGroupsSpawner
 {
     public class EnemiesGroupsSpawner : MonoBehaviour
     {
-        public Action<EnemiesGroup> onEnemiesGroupSpawned;
+        public Action<EntitiesGroup> onEnemiesGroupSpawned;
 
         [field: SerializeField] public GameObject EnemiesGroupPrefab { get; private set; }
         [field: SerializeField] public EnemyEntitiesListSO SpawnableEntities { get; private set; }
@@ -21,7 +21,7 @@ namespace FrostfallSaga.Kingdom.EnemiesGroupsSpawner
 
         [SerializeField] private HexGrid _grid;
         private int _noSpawnInARow;
-        private List<EnemiesGroup> _spawnedEnemiesGroups;
+        private List<EntitiesGroup> _spawnedEnemiesGroups;
 
         private void Start()
         {
@@ -46,7 +46,7 @@ namespace FrostfallSaga.Kingdom.EnemiesGroupsSpawner
             }
         }
 
-        public void OnEnemiesGroupDestroyed(EnemiesGroup destroyedEnemiesGroup)
+        public void OnEnemiesGroupDestroyed(EntitiesGroup destroyedEnemiesGroup)
         {
             _spawnedEnemiesGroups.Remove(destroyedEnemiesGroup);
         }
@@ -61,8 +61,8 @@ namespace FrostfallSaga.Kingdom.EnemiesGroupsSpawner
 
             Cell cellToSpawnTo = Randomizer.GetRandomElementFromArray(availableCellsForSpawn);
             GameObject spawnedEnemiesGroupPrefab = Instantiate(EnemiesGroupPrefab);
-            spawnedEnemiesGroupPrefab.name = "EnemiesGroup" + _spawnedEnemiesGroups.Count;
-            EnemiesGroup spawnedEnemiesGroup = spawnedEnemiesGroupPrefab.GetComponent<EnemiesGroup>();
+            spawnedEnemiesGroupPrefab.name = "EntitiesGroup" + _spawnedEnemiesGroups.Count;
+            EntitiesGroup spawnedEnemiesGroup = spawnedEnemiesGroupPrefab.GetComponent<EntitiesGroup>();
             spawnedEnemiesGroup.UpdateEntities(EntitiesGroup.GenerateRandomEntities(SpawnableEntities.AvailableEnemyEntities));
             spawnedEnemiesGroup.TeleportToCell(cellToSpawnTo);
             _spawnedEnemiesGroups.Add(spawnedEnemiesGroup);
