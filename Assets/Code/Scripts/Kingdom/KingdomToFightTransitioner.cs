@@ -5,12 +5,14 @@ using FrostfallSaga.Core;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
+using System.Collections.Generic;
 
 namespace FrostfallSaga.Kingdom
 {
     public class KingdomToFightTransitioner : MonoBehaviour
     {
         [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
+        [SerializeField] private EntitiesGroupBuilder _entitiesGroupBuilder;
         [SerializeField] private KingdomDataSO _kingdomData;
         [SerializeField] private SceneTransitioner _sceneTransitioner;
         [SerializeField] private float _readyToFightAnimationDuration = 2f;
@@ -23,11 +25,11 @@ namespace FrostfallSaga.Kingdom
         /// Start the encounter animation before saving the kingdom state and launching the fight scene.
         /// </summary>
         /// <param name="heroGroup">The hero group.</param>
-        /// <param name="enemiesGroup">The encountered enemies group.</param>
+        /// <param name="EntitiesGroup">The encountered enemies group.</param>
         /// <param name="heroGroupInitiating">True if the hero group is initiating the fight, false otherwise.</param>
-		private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EnemiesGroup enemiesGroup, bool heroGroupInitiating)
+		private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup EntitiesGroup, bool heroGroupInitiating)
         {
-            StartCoroutine(StartEncounterAnimation(heroGroup, enemiesGroup, heroGroupInitiating));
+            StartCoroutine(StartEncounterAnimation(heroGroup, EntitiesGroup, heroGroupInitiating));
         }
 
         /// <summary>
@@ -42,13 +44,13 @@ namespace FrostfallSaga.Kingdom
         /// <summary>
 		/// Plays a ready to fight animation then make the initiating group move to the targeted group.
 		/// </summary>
-		private IEnumerator StartEncounterAnimation(EntitiesGroup heroGroup, EnemiesGroup enemiesGroup, bool heroGroupInitiating)
+		private IEnumerator StartEncounterAnimation(EntitiesGroup heroGroup, EntitiesGroup EntitiesGroup, bool heroGroupInitiating)
         {
             Entity heroEntity = heroGroup.GetDisplayedEntity();
-            Entity enemyEntity = enemiesGroup.GetDisplayedEntity();
+            Entity enemyEntity = EntitiesGroup.GetDisplayedEntity();
 
             // Make groups rotate to watch each other
-            heroEntity.EntityVisualMovementController.RotateTowardsCell(enemiesGroup.cell);
+            heroEntity.EntityVisualMovementController.RotateTowardsCell(EntitiesGroup.cell);
             enemyEntity.EntityVisualMovementController.RotateTowardsCell(heroGroup.cell);
 
             // Play ready to fight animation for a while
@@ -57,9 +59,9 @@ namespace FrostfallSaga.Kingdom
             yield return new WaitForSeconds(_readyToFightAnimationDuration);
 
             // Make initiator group go to the cell of its enemy
-            EntitiesGroup initiatorGroup = heroGroupInitiating ? heroGroup : enemiesGroup;
+            EntitiesGroup initiatorGroup = heroGroupInitiating ? heroGroup : EntitiesGroup;
             initiatorGroup.onEntityGroupMoved += OnInitiatorGroupMoved;
-            initiatorGroup.MoveToCell(enemiesGroup.cell, true);
+            initiatorGroup.MoveToCell(EntitiesGroup.cell, true);
         }
 
         private void OnEncounterAnimationEnded()
@@ -76,9 +78,15 @@ namespace FrostfallSaga.Kingdom
 
         private void SaveKingdomData()
         {
-            _kingdomData.hexGrid = _entitiesGroupsManager.KingdomGrid;
-            _kingdomData.heroGroup = _entitiesGroupsManager.HeroGroup;
-            _kingdomData.enemiesGroups = _entitiesGroupsManager.EnemiesGroups.ToArray();
+            _kingdomData.heroGroupData = _entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(_entitiesGroupsManager.HeroGroup);
+
+            List<EntitiesGroupData> enemiesGroupsData = new();
+            _entitiesGroupsManager.EnemiesGroups.ForEach(group =>
+            {
+                enemiesGroupsData.Add(_entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(group));
+            });
+            _kingdomData.enemiesGroupsData = enemiesGroupsData.ToArray();
+
             Debug.Log("KingdomConfiguration Saved !");
         }
 

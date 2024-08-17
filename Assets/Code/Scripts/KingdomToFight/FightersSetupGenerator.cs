@@ -17,13 +17,13 @@ namespace FrostfallSaga.KingdomToFight
         [SerializeField] private PreFightDataSO _preFightData;
         [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
 
-        private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EnemiesGroup enemiesGroup, bool heroGroupInitiating)
+        private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup EntitiesGroup, bool heroGroupInitiating)
         {
             List<EntityConfigurationSO> allies = new();
             heroGroup.Entities.ToList().ForEach(entity => allies.Add(entity.EntityConfiguration));
 
             List<EntityConfigurationSO> enemies = new();
-            enemiesGroup.Entities.ToList().ForEach(entity => enemies.Add(entity.EntityConfiguration));
+            EntitiesGroup.Entities.ToList().ForEach(entity => enemies.Add(entity.EntityConfiguration));
 
             GenerateAndSaveFightersForFight(allies.ToArray(), enemies.ToArray());
         }
@@ -40,7 +40,7 @@ namespace FrostfallSaga.KingdomToFight
             foreach (EntityConfigurationSO allyEntityConfiguration in allies)
             {
                 PersistedFighterConfigurationSO allyFighterConfiguration = (PersistedFighterConfigurationSO)_entityToFighterDB.DB.First(
-                    entityToFighter => entityToFighter.entityID == allyEntityConfiguration.EntityID
+                    entityToFighter => entityToFighter.entityType == allyEntityConfiguration.EntityType
                 ).fighterConfiguration;
                 alliesFighterSetup.Add(
                     GenerateFighterSetupFromPersistingConfiguration(
@@ -54,7 +54,7 @@ namespace FrostfallSaga.KingdomToFight
             foreach (EntityConfigurationSO enemyEntityConfiguration in enemies)
             {
                 FighterConfigurationSO enemyFighterConfiguration = _entityToFighterDB.DB.First(
-                    entityToFighter => entityToFighter.entityID == enemyEntityConfiguration.EntityID
+                    entityToFighter => entityToFighter.entityType == enemyEntityConfiguration.EntityType
                 ).fighterConfiguration;
                 enemiesFighterSetup.Add(
                     GenerateFighterSetupFromNonPersistingConfiguration(

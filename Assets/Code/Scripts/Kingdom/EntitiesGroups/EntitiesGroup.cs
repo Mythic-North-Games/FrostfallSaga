@@ -79,6 +79,28 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             return _displayedEntity;
         }
 
+        public void UpdateEntities(Entity[] newMembers)
+        {
+            Entities = new List<Entity>(newMembers).ToArray();
+            
+            for (int i = 0; i < Entities.Length; i++)
+            {
+                if (i == 0)
+                {
+                    UpdateDisplayedEntity(Entities[i]);
+                }
+                else
+                {
+                    Entities[i].HideVisual();
+                }
+
+                Entities[i].name = Enum.GetName(typeof(EntityType), Entities[i].EntityConfiguration.EntityType) + i;
+                Entities[i].transform.parent = transform;
+                Entities[i].transform.localPosition = new(0, 0, 0);
+            }
+            
+        }
+
         public void UpdateDisplayedEntity(Entity newDisplayedEntity)
         {
             if (!Entities.Contains(newDisplayedEntity))

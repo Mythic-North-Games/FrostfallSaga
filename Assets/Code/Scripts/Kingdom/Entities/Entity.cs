@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using FrostfallSaga.EntitiesVisual;
 
@@ -11,6 +12,14 @@ namespace FrostfallSaga.Kingdom.Entities
         [field: SerializeField] public EntityVisualMovementController EntityVisualMovementController { get; private set; }
         [field: SerializeField] public EntityMouseEventsController EntityMouseEventsController { get; private set; }
         [field: SerializeField] public bool IsDead { get; private set; }
+        public string sessionId = Guid.NewGuid().ToString();
+
+        public void Setup(EntityData entityData)
+        {
+            sessionId = entityData.sessionId;
+            IsDead = entityData.isDead;
+            EntityConfiguration = Resources.Load<EntityConfigurationSO>(entityData.entityConfigurationResourcePath);
+        }
 
         private void Awake()
         {
@@ -33,7 +42,7 @@ namespace FrostfallSaga.Kingdom.Entities
 
             if (EntityConfiguration == null)
             {
-                Debug.LogError("Entity " + name + " does not have an entity configuration.");
+                Debug.LogWarning("Entity " + name + " does not have an entity configuration.");
             }
         }
 

@@ -15,13 +15,13 @@ namespace FrostfallSaga.Kingdom
     public class EntitiesGroupsManager : MonoBehaviour
     {
         // Parameters are: Hero group, encountered enemies group, hero group initiating ?
-        public Action<EntitiesGroup, EnemiesGroup, bool> onEnemiesGroupEncountered;
+        public Action<EntitiesGroup, EntitiesGroup, bool> onEnemiesGroupEncountered;
 
         [field: SerializeField] public Material CellHighlightMaterial { get; private set; }
         [field: SerializeField] public Material CellInaccessibleHighlightMaterial { get; private set; }
         [field: SerializeField] public HexGrid KingdomGrid { get; private set; }
         [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
-        [field: SerializeField] public List<EnemiesGroup> EnemiesGroups { get; private set; } = new();
+        [field: SerializeField] public List<EntitiesGroup> EnemiesGroups { get; private set; } = new();
 
         [SerializeField] private EnemiesGroupsSpawner.EnemiesGroupsSpawner _enemiesGroupSpawner;
         private EntitiesGroupsMovementController _entitiesGroupsMovementController;
@@ -49,7 +49,7 @@ namespace FrostfallSaga.Kingdom
             
         }
 
-        private void OnEnemiesGroupEncounteredDuringMovement(EnemiesGroup encounteredEnemiesGroup, bool heroGroupHasInitiated)
+        private void OnEnemiesGroupEncounteredDuringMovement(EntitiesGroup encounteredEnemiesGroup, bool heroGroupHasInitiated)
         {
             onEnemiesGroupEncountered?.Invoke(HeroGroup, encounteredEnemiesGroup, heroGroupHasInitiated);
         }
@@ -67,7 +67,7 @@ namespace FrostfallSaga.Kingdom
             }
         }
 
-        private void OnEnemiesGroupSpawned(EnemiesGroup spawnedEnemiesGroup)
+        private void OnEnemiesGroupSpawned(EntitiesGroup spawnedEnemiesGroup)
         {
             EnemiesGroups.Add(spawnedEnemiesGroup);
         }

@@ -11,13 +11,13 @@ namespace FrostfallSaga.Kingdom
 	public class EntitiesGroupsMovementController
 	{
 		public Action OnAllEntitiesMoved;
-		public Action<EnemiesGroup, bool> OnEnemiesGroupEncountered;
+		public Action<EntitiesGroup, bool> OnEnemiesGroupEncountered;
 
 		private HexGrid _kingdomGrid;
 		private EntitiesGroup _heroGroup;
 		private MovePath _currentHeroGroupMovePath;
-		private EnemiesGroup[] _enemiesGroupsToMove;
-		private readonly Dictionary<EnemiesGroup, MovePath> _currentPathPerEnemiesGroup = new();
+		private EntitiesGroup[] _enemiesGroupsToMove;
+		private readonly Dictionary<EntitiesGroup, MovePath> _currentPathPerEnemiesGroup = new();
 
 
 
@@ -25,7 +25,7 @@ namespace FrostfallSaga.Kingdom
 			HexGrid kingdomGrid,
 			EntitiesGroup heroGroup,
 			MovePath heroGroupMovePath,
-			EnemiesGroup[] enemiesGroupsToMove
+			EntitiesGroup[] enemiesGroupsToMove
 		)
 		{
 			_kingdomGrid = kingdomGrid;
@@ -42,7 +42,7 @@ namespace FrostfallSaga.Kingdom
 			Cell cellToMoveTo = _currentHeroGroupMovePath.GetNextCellInPath();
 
 			// Check if collide with enemies group
-			EnemiesGroup collidingEnemiesGroup = GetEnemiesGroupThatWillCollide(cellToMoveTo);
+			EntitiesGroup collidingEnemiesGroup = GetEnemiesGroupThatWillCollide(cellToMoveTo);
 			if (collidingEnemiesGroup != null)
 			{
 				UnbindEntitiesGroupsMovementEvents();
@@ -74,11 +74,11 @@ namespace FrostfallSaga.Kingdom
 			);
 			foreach (KeyValuePair<EntitiesGroup, Cell[]> item in movePathPerEnemiesGroup)
 			{
-				_currentPathPerEnemiesGroup.Add((EnemiesGroup)item.Key, new(item.Value));
+				_currentPathPerEnemiesGroup.Add((EntitiesGroup)item.Key, new(item.Value));
 			}
 
 			bool atLeastOneEnemiesGroupMoved = false;
-			foreach (KeyValuePair<EnemiesGroup, MovePath> item in _currentPathPerEnemiesGroup)
+			foreach (KeyValuePair<EntitiesGroup, MovePath> item in _currentPathPerEnemiesGroup)
 			{
 				if (item.Value.PathLength > 0)  // Sometimes enemies groups don't move :)
 				{
@@ -94,27 +94,27 @@ namespace FrostfallSaga.Kingdom
 		}
 
 
-		private void MakeEnemiesGroupMove(EnemiesGroup enemiesGroup)
+		private void MakeEnemiesGroupMove(EntitiesGroup EntitiesGroup)
 		{
-			MovePath enemiesGroupMovePath = _currentPathPerEnemiesGroup[enemiesGroup];
+			MovePath enemiesGroupMovePath = _currentPathPerEnemiesGroup[EntitiesGroup];
 			Cell cellToMoveTo = enemiesGroupMovePath.GetNextCellInPath();
 			if (cellToMoveTo == _heroGroup.cell)
 			{
 				UnbindEntitiesGroupsMovementEvents();
-				OnEnemiesGroupEncountered?.Invoke(enemiesGroup, false);
+				OnEnemiesGroupEncountered?.Invoke(EntitiesGroup, false);
 			}
 			else
 			{
-				enemiesGroup.MoveToCell(cellToMoveTo, enemiesGroupMovePath.IsLastMove);
+				EntitiesGroup.MoveToCell(cellToMoveTo, enemiesGroupMovePath.IsLastMove);
 			}
 		}
 
-		private void OnEnemiesGroupMoved(EntitiesGroup enemiesGroup, Cell _destinationCell)
+		private void OnEnemiesGroupMoved(EntitiesGroup EntitiesGroup, Cell _destinationCell)
 		{
-			MovePath enemiesGroupMovePath = _currentPathPerEnemiesGroup[(EnemiesGroup)enemiesGroup];
+			MovePath enemiesGroupMovePath = _currentPathPerEnemiesGroup[(EntitiesGroup)EntitiesGroup];
 			if (!enemiesGroupMovePath.IsLastMove)
 			{
-				MakeEnemiesGroupMove((EnemiesGroup)enemiesGroup);
+				MakeEnemiesGroupMove((EntitiesGroup)EntitiesGroup);
 			}
 			else if (HaveAllEnnemiesGroupMoved())
 			{
@@ -129,7 +129,7 @@ namespace FrostfallSaga.Kingdom
 				return true;
 			}
 			
-			foreach (KeyValuePair<EnemiesGroup, MovePath> item in _currentPathPerEnemiesGroup)
+			foreach (KeyValuePair<EntitiesGroup, MovePath> item in _currentPathPerEnemiesGroup)
 			{
 				if (item.Value.DoesNextCellExists())
 				{
@@ -139,13 +139,13 @@ namespace FrostfallSaga.Kingdom
 			return true;
 		}
 
-		private EnemiesGroup GetEnemiesGroupThatWillCollide(Cell targetCell)
+		private EntitiesGroup GetEnemiesGroupThatWillCollide(Cell targetCell)
 		{
-			foreach (EnemiesGroup enemiesGroup in _enemiesGroupsToMove)
+			foreach (EntitiesGroup EntitiesGroup in _enemiesGroupsToMove)
 			{
-				if (enemiesGroup.cell == targetCell)
+				if (EntitiesGroup.cell == targetCell)
 				{
-					return enemiesGroup;
+					return EntitiesGroup;
 				}
 			}
 			return null;

@@ -1,6 +1,6 @@
 namespace FrostfallSaga.Kingdom.Entities
 {
-    public enum EntityID
+    public enum EntityType
     {
         HERO,
         JOMSVIKING1,
