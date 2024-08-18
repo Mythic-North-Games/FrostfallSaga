@@ -9,6 +9,7 @@ namespace FrostfallSaga.Fight
     public class FighterSetup
     {
         public string name;
+        public string sessionId;
         public Sprite icon;
         public FighterStats initialStats;
         public TargeterSO directAttackTargeter;
@@ -21,6 +22,7 @@ namespace FrostfallSaga.Fight
 
         public FighterSetup(
             string name,
+            string sessionId,
             Sprite fighterIcon,
             FighterStats initialStats,
             TargeterSO directAttackTargeter,
@@ -33,6 +35,7 @@ namespace FrostfallSaga.Fight
         )
         {
             this.name = name;
+            this.sessionId = sessionId;
             this.icon = fighterIcon;
             this.initialStats = initialStats;
             this.directAttackTargeter = directAttackTargeter;

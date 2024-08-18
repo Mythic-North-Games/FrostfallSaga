@@ -17,18 +17,12 @@ namespace FrostfallSaga.KingdomToFight
         [SerializeField] private PreFightDataSO _preFightData;
         [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
 
-        private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup EntitiesGroup, bool heroGroupInitiating)
+        private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
-            List<EntityConfigurationSO> allies = new();
-            heroGroup.Entities.ToList().ForEach(entity => allies.Add(entity.EntityConfiguration));
-
-            List<EntityConfigurationSO> enemies = new();
-            EntitiesGroup.Entities.ToList().ForEach(entity => enemies.Add(entity.EntityConfiguration));
-
-            GenerateAndSaveFightersForFight(allies.ToArray(), enemies.ToArray());
+            GenerateAndSaveFightersForFight(heroGroup.Entities, enemiesGroup.Entities);
         }
 
-        private void GenerateAndSaveFightersForFight(EntityConfigurationSO[] allies, EntityConfigurationSO[] enemies)
+        private void GenerateAndSaveFightersForFight(Entity[] heroGroupEntities, Entity[] enemiesGroupEntities)
         {
             if (_preFightData == null)
             {
@@ -37,29 +31,31 @@ namespace FrostfallSaga.KingdomToFight
             }
 
             List<FighterSetup> alliesFighterSetup = new();
-            foreach (EntityConfigurationSO allyEntityConfiguration in allies)
+            foreach (Entity allyEntity in heroGroupEntities)
             {
                 PersistedFighterConfigurationSO allyFighterConfiguration = (PersistedFighterConfigurationSO)_entityToFighterDB.DB.First(
-                    entityToFighter => entityToFighter.entityType == allyEntityConfiguration.EntityType
+                    entityToFighter => entityToFighter.entityType == allyEntity.EntityConfiguration.EntityType
                 ).fighterConfiguration;
                 alliesFighterSetup.Add(
                     GenerateFighterSetupFromPersistingConfiguration(
-                        allyEntityConfiguration,
-                        allyFighterConfiguration
+                        allyEntity.EntityConfiguration,
+                        allyFighterConfiguration,
+                        allyEntity.sessionId
                     )
                 );
             }
 
             List<FighterSetup> enemiesFighterSetup = new();
-            foreach (EntityConfigurationSO enemyEntityConfiguration in enemies)
+            foreach (Entity enemyEntity in enemiesGroupEntities)
             {
                 FighterConfigurationSO enemyFighterConfiguration = _entityToFighterDB.DB.First(
-                    entityToFighter => entityToFighter.entityType == enemyEntityConfiguration.EntityType
+                    entityToFighter => entityToFighter.entityType == enemyEntity.EntityConfiguration.EntityType
                 ).fighterConfiguration;
                 enemiesFighterSetup.Add(
                     GenerateFighterSetupFromNonPersistingConfiguration(
-                        enemyEntityConfiguration,
-                        enemyFighterConfiguration
+                        enemyEntity.EntityConfiguration,
+                        enemyFighterConfiguration,
+                        enemyEntity.sessionId
                     )
                 );
             }
@@ -70,11 +66,13 @@ namespace FrostfallSaga.KingdomToFight
 
         private FighterSetup GenerateFighterSetupFromNonPersistingConfiguration(
             EntityConfigurationSO entityConfiguration,
-            FighterConfigurationSO fighterConfiguration
+            FighterConfigurationSO fighterConfiguration,
+            string entitySessionId
         )
         {
             return new(
                 fighterConfiguration.name,
+                entitySessionId,
                 entityConfiguration.EntityIcon,
                 fighterConfiguration.ExtractFighterStats(),
                 fighterConfiguration.DirectAttackTargeter,
@@ -92,11 +90,13 @@ namespace FrostfallSaga.KingdomToFight
 
         private FighterSetup GenerateFighterSetupFromPersistingConfiguration(
             EntityConfigurationSO entityConfiguration,
-            PersistedFighterConfigurationSO fighterConfiguration
+            PersistedFighterConfigurationSO fighterConfiguration,
+            string entitySessionId
         )
         {
             return new(
                 fighterConfiguration.name,
+                entitySessionId,
                 entityConfiguration.EntityIcon,
                 fighterConfiguration.ExtractFighterStats(),
                 fighterConfiguration.DirectAttackTargeter,

@@ -12,39 +12,7 @@ namespace FrostfallSaga.Kingdom.Entities
         [field: SerializeField] public EntityVisualMovementController EntityVisualMovementController { get; private set; }
         [field: SerializeField] public EntityMouseEventsController EntityMouseEventsController { get; private set; }
         [field: SerializeField] public bool IsDead { get; private set; }
-        public string sessionId = Guid.NewGuid().ToString();
-
-        public void Setup(EntityData entityData)
-        {
-            sessionId = entityData.sessionId;
-            IsDead = entityData.isDead;
-            EntityConfiguration = Resources.Load<EntityConfigurationSO>(entityData.entityConfigurationResourcePath);
-        }
-
-        private void Awake()
-        {
-            EntityAnimationController = GetComponentInChildren<EntityVisualAnimationController>();
-            if (EntityAnimationController == null)
-            {
-                Debug.LogWarning("Entity " + name + " does not have an animation controller and a visual.");
-            }
-              EntityVisualMovementController = GetComponentInChildren<EntityVisualMovementController>();
-            if (EntityVisualMovementController == null)
-            {
-                Debug.LogWarning("Entity " + name + " does not have a movement controller and a visual.");
-            }
-
-            EntityMouseEventsController = GetComponent<EntityMouseEventsController>();
-            if (EntityMouseEventsController == null)
-            {
-                Debug.LogWarning("Entity " + name + " does not have a mouse events controller.");
-            }
-
-            if (EntityConfiguration == null)
-            {
-                Debug.LogWarning("Entity " + name + " does not have an entity configuration.");
-            }
-        }
+        public string sessionId;
 
         public void ShowVisual()
         {
@@ -78,5 +46,43 @@ namespace FrostfallSaga.Kingdom.Entities
 
             return EntityAnimationController.gameObject.activeSelf;
         }
+    
+        public void Setup(EntityData entityData)
+        {
+            sessionId = entityData.sessionId;
+            IsDead = entityData.isDead;
+            EntityConfiguration = Resources.Load<EntityConfigurationSO>(entityData.entityConfigurationResourcePath);
+        }
+    
+        #region Components setup
+
+        private void Awake()
+        {
+            EntityAnimationController = GetComponentInChildren<EntityVisualAnimationController>();
+            if (EntityAnimationController == null)
+            {
+                Debug.LogWarning("Entity " + name + " does not have an animation controller and a visual.");
+            }
+              EntityVisualMovementController = GetComponentInChildren<EntityVisualMovementController>();
+            if (EntityVisualMovementController == null)
+            {
+                Debug.LogWarning("Entity " + name + " does not have a movement controller and a visual.");
+            }
+
+            EntityMouseEventsController = GetComponent<EntityMouseEventsController>();
+            if (EntityMouseEventsController == null)
+            {
+                Debug.LogWarning("Entity " + name + " does not have a mouse events controller.");
+            }
+
+            if (EntityConfiguration == null)
+            {
+                Debug.LogWarning("Entity " + name + " does not have an entity configuration.");
+            }
+
+            sessionId = Guid.NewGuid().ToString();
+        }
+
+        #endregion
     }
 }
