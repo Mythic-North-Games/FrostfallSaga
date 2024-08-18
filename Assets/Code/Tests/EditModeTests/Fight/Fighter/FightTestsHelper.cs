@@ -6,6 +6,7 @@ using FrostfallSaga.Fight;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.KingdomToFight;
+using System;
 
 namespace FrostfallSaga.EditModeTests.FightTests
 {
@@ -47,6 +48,7 @@ namespace FrostfallSaga.EditModeTests.FightTests
             fighter.Setup(
                 new(
                     fighterConfiguration.name,
+                    Guid.NewGuid().ToString(),
                     null,
                     fighterConfiguration.ExtractFighterStats(),
                     fighterConfiguration.DirectAttackTargeter,

@@ -17,7 +17,7 @@ namespace FrostfallSaga.Fight
         public Action<Fighter, bool> onFighterTurnBegan; // <the fighter that plays, if he's an ally>
         public Action<Fighter, bool> onFighterTurnEnded; // <the fighter that plays, if he's an ally>
         public Action<Fighter[]> onFightersTurnOrderUpdated;
-        public Action<bool> onFightEnded;   // If the allies won or not
+        public Action<Fighter[], Fighter[]> onFightEnded;   // <allies, enemies>
 
         [SerializeField] private FightersGenerator _fightersGenerator;
         [SerializeField] private HexGrid _fightGrid;
@@ -79,7 +79,8 @@ namespace FrostfallSaga.Fight
 
         private void OnFighterDied(Fighter fighterThatDied)
         {
-            Destroy(fighterThatDied.gameObject);
+            fighterThatDied.gameObject.SetActive(false);
+            fighterThatDied.cell.GetComponent<CellFightBehaviour>().Fighter = null;
             Queue<Fighter> updatedFighterTurnsOrder = GetFightersTurnOrder(_allies.Concat(_enemies).ToArray());
             if (!CompareFighterTurnOrder(updatedFighterTurnsOrder.ToArray(), _initialFightersTurnOrder))
             {
@@ -101,7 +102,7 @@ namespace FrostfallSaga.Fight
             {
                 return false;
             }
-            onFightEnded?.Invoke(possibleWinner == EWinner.ALLIES);
+            onFightEnded?.Invoke(_allies, _enemies);
             return true;
         }
 
@@ -154,33 +155,21 @@ namespace FrostfallSaga.Fight
 
         private void OnDisable()
         {
-            if (_fightersGenerator == null)
+            if (_fightersGenerator != null)
             {
-                _fightersGenerator = FindObjectOfType<FightersGenerator>();
-            }
-            if (_fightersGenerator == null)
-            {
-                Debug.LogWarning("No fighters generator found. Can't tear down properly.");
+                _fightersGenerator.onFightersGenerated -= OnFightersGenerated;
             }
 
-            if (_alliesController == null)
+            if (_alliesController != null)
             {
-                Debug.LogWarning("No controller for allies set.");
-                return;
+                _alliesController.onFighterTurnEnded -= OnFighterTurnEnded;
+                _alliesController.onFighterActionEnded += OnFighterActionEnded;
             }
-            if (_enemiesController == null)
+            if (_enemiesController != null)
             {
-                Debug.LogWarning("No controller for enemies set.");
-                return;
+                _enemiesController.onFighterTurnEnded -= OnFighterTurnEnded;
+                _enemiesController.onFighterActionEnded -= OnFighterActionEnded;
             }
-
-            _fightersGenerator.onFightersGenerated -= OnFightersGenerated;
-
-            _alliesController.onFighterTurnEnded -= OnFighterTurnEnded;
-            _alliesController.onFighterActionEnded += OnFighterActionEnded;
-
-            _enemiesController.onFighterTurnEnded -= OnFighterTurnEnded;
-            _enemiesController.onFighterActionEnded -= OnFighterActionEnded;
         }
         #endregion
 

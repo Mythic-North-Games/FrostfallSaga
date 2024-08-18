@@ -16,6 +16,7 @@ namespace FrostfallSaga.Fight.Fighters
         [field: SerializeField] public EntityVisualAnimationController AnimationController { get; private set; }
         [field: SerializeField] public EntityVisualMovementController MovementController { get; private set; }
         public Sprite FighterIcon { get; private set; }
+        public string EntitySessionId { get; private set; }
         public Cell cell;
 
         public Action<Fighter> onFighterMoved;
@@ -52,6 +53,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         public void Setup(FighterSetup fighterSetup)
         {
+            EntitySessionId = fighterSetup.sessionId;
             FighterIcon = fighterSetup.icon;
             _initialStats = fighterSetup.initialStats;
             DirectAttackTargeter = fighterSetup.directAttackTargeter;

@@ -144,27 +144,22 @@ namespace FrostfallSaga.Fight.UI
 
         private void OnDisable()
         {
-            if (_fightManager == null)
+            if (_uiDoc != null && _uiDoc.rootVisualElement != null)
             {
-                _fightManager = FindObjectOfType<FightManager>();
+                Button directAttackButton = _uiDoc.rootVisualElement.Q(DIRECT_ATTACK_BUTTON_UI_NAME) as Button;
+                Button endTurnButton = _uiDoc.rootVisualElement.Q(END_TURN_BUTTON_UI_NAME) as Button;
+
+                directAttackButton.UnregisterCallback<ClickEvent>(OnDirectAttackButtonClicked);
+                GetAbilitiesButtons().ToList().ForEach(
+                    abilityButton => abilityButton.UnregisterCallback<ClickEvent>(OnActiveAbilityButtonClicked)
+                );
+                endTurnButton.UnregisterCallback<ClickEvent>(OnEndTurnButtonClicked);
             }
-            if (_fightManager == null)
+            if (_fightManager != null)
             {
-                Debug.LogError("No FightManager found. Can't tear down properly.");
-                return;
+                _fightManager.onFighterTurnBegan -= OnFighterTurnBegan;
+                _fightManager.onFighterTurnEnded -= OnFighterTurnEnded;
             }
-
-            Button directAttackButton = _uiDoc.rootVisualElement.Q(DIRECT_ATTACK_BUTTON_UI_NAME) as Button;
-            Button endTurnButton = _uiDoc.rootVisualElement.Q(END_TURN_BUTTON_UI_NAME) as Button;
-
-            directAttackButton.UnregisterCallback<ClickEvent>(OnDirectAttackButtonClicked);
-            GetAbilitiesButtons().ToList().ForEach(
-                abilityButton => abilityButton.UnregisterCallback<ClickEvent>(OnActiveAbilityButtonClicked)
-            );
-            endTurnButton.UnregisterCallback<ClickEvent>(OnEndTurnButtonClicked);
-
-            _fightManager.onFighterTurnBegan -= OnFighterTurnBegan;
-            _fightManager.onFighterTurnEnded -= OnFighterTurnEnded;
         }
 
         #endregion
