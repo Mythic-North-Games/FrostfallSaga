@@ -340,6 +340,17 @@ namespace FrostfallSaga.Fight.Controllers
 
         #endregion
 
+        #region Suicide handling
+
+        private void OnPossessedFighterDied(Fighter _fighterThatDied)
+        {
+            UnbindFighterEventsForTurn();
+            UnbindCellMouseEvents(_currentFightGrid);
+            UnbindUIEventsForTurn();
+        }
+
+        #endregion
+
         #region Cells highlighting for player feedback
 
         private void HighlightShorterPathCells()
@@ -424,6 +435,7 @@ namespace FrostfallSaga.Fight.Controllers
             _possessedFighter.onFighterMoved += OnFighterMoved;
             _possessedFighter.onFighterDirectAttackEnded += OnFighterDirectAttackEnded;
             _possessedFighter.onFighterActiveAbilityEnded += OnFighterActiveAbilityEnded;
+            _possessedFighter.onFighterDied += OnPossessedFighterDied;
         }
 
         private void UnbindFighterEventsForTurn()
@@ -431,6 +443,7 @@ namespace FrostfallSaga.Fight.Controllers
             _possessedFighter.onFighterMoved -= OnFighterMoved;
             _possessedFighter.onFighterDirectAttackEnded -= OnFighterDirectAttackEnded;
             _possessedFighter.onFighterActiveAbilityEnded -= OnFighterActiveAbilityEnded;
+            _possessedFighter.onFighterDied -= OnPossessedFighterDied;
         }
 
         #endregion

@@ -24,17 +24,17 @@ namespace FrostfallSaga.Fight
         [SerializeField] private AFighterController _alliesController;
         [SerializeField] private AFighterController _enemiesController;
 
-        private Fighter[] _allies;
-        private Fighter[] _enemies;
+        private List<Fighter> _allies;
+        private List<Fighter> _enemies;
         private Queue<Fighter> _fightersTurnOrder;
         private Fighter[] _initialFightersTurnOrder;
 
         private void OnFightersGenerated(Fighter[] allies, Fighter[] enemies)
         {
-            _allies = allies;
-            _enemies = enemies;
+            _allies = new(allies);
+            _enemies = new(enemies);
             SubscribeToFightersEvents();
-            PositionFightersOnGrid(_fightGrid, _allies, _enemies);
+            PositionFightersOnGrid(_fightGrid, _allies.ToArray(), _enemies.ToArray());
             UpdateFightersTurnOrder(GetFightersTurnOrder(_allies.Concat(_enemies).ToArray()));
             PlayNextFighterTurn();
         }
@@ -61,7 +61,7 @@ namespace FrostfallSaga.Fight
             if (HasFightEnded())
             {
                 Debug.Log($"Winner is {GetWinner(_allies, _enemies)}");
-                onFightEnded?.Invoke(_allies, _enemies);
+                onFightEnded?.Invoke(_allies.ToArray(), _enemies.ToArray());
                 return;
             }
 
@@ -76,11 +76,20 @@ namespace FrostfallSaga.Fight
         {
             fighterThatDied.gameObject.SetActive(false);
             fighterThatDied.cell.GetComponent<CellFightBehaviour>().Fighter = null;
+
+            if (HasFightEnded())
+            {
+                Debug.Log($"Winner is {GetWinner(_allies, _enemies)}");
+                onFightEnded?.Invoke(_allies.ToArray(), _enemies.ToArray());
+                return;
+            }
+
             Queue<Fighter> updatedFighterTurnsOrder = GetFightersTurnOrder(_allies.Concat(_enemies).ToArray());
             if (!CompareFighterTurnOrder(updatedFighterTurnsOrder.ToArray(), _initialFightersTurnOrder))
             {
                 UpdateFightersTurnOrder(updatedFighterTurnsOrder);
             }
+            PlayNextFighterTurn();
         }
 
         private void UpdateFightersTurnOrder(Queue<Fighter> newFightersTurnOrder)
@@ -92,8 +101,7 @@ namespace FrostfallSaga.Fight
 
         private bool HasFightEnded()
         {
-            EWinner possibleWinner = GetWinner(_allies, _enemies);
-            return possibleWinner != EWinner.NO_ONE;
+            return GetWinner(_allies, _enemies) != EWinner.NO_ONE;
         }
 
         #region Fight manager components setup and tear down
@@ -164,11 +172,11 @@ namespace FrostfallSaga.Fight
         #endregion
 
         #region Static helper methods
-        private static Dictionary<Fighter, bool> GetFighterTeamsAsDict(Fighter[] allies, Fighter[] enemies)
+        private static Dictionary<Fighter, bool> GetFighterTeamsAsDict(List<Fighter> allies, List<Fighter> enemies)
         {
             Dictionary<Fighter, bool> teams = new();
-            allies.ToList().ForEach(ally => teams.Add(ally, true));
-            enemies.ToList().ForEach(enemy => teams.Add(enemy, false));
+            allies.ForEach(ally => teams.Add(ally, true));
+            enemies.ForEach(enemy => teams.Add(enemy, false));
             return teams;
         }
 
@@ -197,17 +205,17 @@ namespace FrostfallSaga.Fight
             }
         }
 
-        private static EWinner GetWinner(Fighter[] allies, Fighter[] enemies)
+        private static EWinner GetWinner(List<Fighter> allies, List<Fighter> enemies)
         {
             int teamHealth = 0;
-            allies.ToList().ForEach(ally => teamHealth += ally.GetHealth());
+            allies.ForEach(ally => teamHealth += ally.GetHealth());
             if (teamHealth <= 0)  // Should be equal to zero at minimum, but just in case, we check for negative values
             {
                 return EWinner.ENEMIES;
             }
 
             teamHealth = 0;
-            enemies.ToList().ForEach(enemy => teamHealth += enemy.GetHealth());
+            enemies.ForEach(enemy => teamHealth += enemy.GetHealth());
             if (teamHealth <= 0)  // Should be equal to zero at minimum, but just in case, we check for negative values
             {
                 return EWinner.ALLIES;
