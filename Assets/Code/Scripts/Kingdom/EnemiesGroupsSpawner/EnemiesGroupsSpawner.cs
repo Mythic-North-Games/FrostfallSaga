@@ -73,7 +73,7 @@ namespace FrostfallSaga.Kingdom.EnemiesGroupsSpawner
             GameObject spawnedEnemiesGroupPrefab = Instantiate(EnemiesGroupPrefab);
             spawnedEnemiesGroupPrefab.name = "EnemiesGroup" + _spawnedEnemiesGroups.Count;
             EntitiesGroup spawnedEnemiesGroup = spawnedEnemiesGroupPrefab.GetComponent<EntitiesGroup>();
-            spawnedEnemiesGroup.UpdateEntities(EntitiesGroup.GenerateRandomEntities(SpawnableEntities.AvailableEnemyEntities, 1, 1));
+            spawnedEnemiesGroup.UpdateEntities(EntitiesGroup.GenerateRandomEntities(SpawnableEntities.AvailableEnemyEntities));
             spawnedEnemiesGroup.TeleportToCell(cellToSpawnTo);
             _spawnedEnemiesGroups.Add(spawnedEnemiesGroup);
             _noSpawnInARow = 0;
