@@ -192,6 +192,15 @@ namespace FrostfallSaga.Fight.Controllers
         }
         #endregion
 
+        #region Suicide handling
+
+        private void OnPossessedFighterDied(Fighter fighterThatDied)
+        {
+            UnbindFighterEventsForTurn(fighterThatDied);
+        }
+
+        #endregion
+
         #region Possessed fighter events binding
 
         private void BindFighterEventsForTurn(Fighter fighterToPlay)
@@ -199,6 +208,7 @@ namespace FrostfallSaga.Fight.Controllers
             fighterToPlay.onFighterMoved += OnFighterMoved;
             fighterToPlay.onFighterDirectAttackEnded += OnFighterDirectAttackEnded;
             fighterToPlay.onFighterActiveAbilityEnded += OnFighterActiveAbilityEnded;
+            fighterToPlay.onFighterDied += OnPossessedFighterDied;
         }
 
         private void UnbindFighterEventsForTurn(Fighter fighterToPlay)
@@ -206,6 +216,7 @@ namespace FrostfallSaga.Fight.Controllers
             fighterToPlay.onFighterMoved -= OnFighterMoved;
             fighterToPlay.onFighterDirectAttackEnded -= OnFighterDirectAttackEnded;
             fighterToPlay.onFighterActiveAbilityEnded -= OnFighterActiveAbilityEnded;
+            fighterToPlay.onFighterDied -= OnPossessedFighterDied;
         }
 
         #endregion
