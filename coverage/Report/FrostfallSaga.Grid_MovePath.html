@@ -18,15 +18,15 @@
 <tr><th>Assembly:</th><td>FrostfallSaga.Grid</td></tr>
 <tr><th>File(s):</th><td><a href="#githubworkspaceAssetsCodeScriptsGridMovePathcs" class="navigatetohash">/github/workspace/Assets/Code/Scripts/Grid/MovePath.cs</a></td></tr>
 <tr><th>Covered lines:</th><td>0</td></tr>
-<tr><th>Uncovered lines:</th><td>15</td></tr>
-<tr><th>Coverable lines:</th><td>15</td></tr>
-<tr><th>Total lines:</th><td>42</td></tr>
-<tr><th>Line coverage:</th><td>0% (0 of 15)</td></tr>
+<tr><th>Uncovered lines:</th><td>21</td></tr>
+<tr><th>Coverable lines:</th><td>21</td></tr>
+<tr><th>Total lines:</th><td>51</td></tr>
+<tr><th>Line coverage:</th><td>0% (0 of 21)</td></tr>
 <tr><th>Covered branches:</th><td>0</td></tr>
 <tr><th>Total branches:</th><td>0</td></tr>
 <tr><th>Covered methods:</th><td>0</td></tr>
-<tr><th>Total methods:</th><td>5</td></tr>
-<tr><th>Method coverage:</th><td>0% (0 of 5)</td></tr>
+<tr><th>Total methods:</th><td>6</td></tr>
+<tr><th>Method coverage:</th><td>0% (0 of 6)</td></tr>
 </tbody>
 </table>
 <h1>Metrics</h1>
@@ -35,6 +35,7 @@
 <tbody>
 <tr><td title="FrostfallSaga.Grid.MovePath::MovePath(FrostfallSaga.Grid.Cells.Cell[])"><a href="#file0_line10" class="navigatetohash">MovePath(...)</a></td><td>0%</td><td>2</td><td>1</td><td>0</td><td>0%</td></tr>
 <tr><td title="FrostfallSaga.Grid.Cells.Cell FrostfallSaga.Grid.MovePath::GetNextCellInPath()"><a href="#file0_line32" class="navigatetohash">GetNextCellInPath()</a></td><td>0%</td><td>12</td><td>3</td><td>0</td><td>0%</td></tr>
+<tr><td title="System.Boolean FrostfallSaga.Grid.MovePath::DoesNextCellExists()"><a href="#file0_line42" class="navigatetohash">DoesNextCellExists()</a></td><td>0%</td><td>12</td><td>3</td><td>0</td><td>0%</td></tr>
 </tbody>
 </table>
 <h1>File(s)</h1>
@@ -82,11 +83,20 @@
 <tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line38"></a><code>38</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_currentCellDestinationIndex&nbsp;+=&nbsp;1;</code></td></tr>
 <tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line39"></a><code>39</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;CurrentDestinationCell;</code></td></tr>
 <tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line40"></a><code>40</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
-<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line41"></a><code>41</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;}</code></td></tr>
-<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line42"></a><code>42</code></td><td></td><td class="lightgray"><code>}</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line41"></a><code>41</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;bool&nbsp;DoesNextCellExists()</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line42"></a><code>42</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line43"></a><code>43</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(IsLastMove&nbsp;||&nbsp;PathLength&nbsp;==&nbsp;0)</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line44"></a><code>44</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line45"></a><code>45</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;false;</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line46"></a><code>46</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line47"></a><code>47</code></td><td></td><td class="lightgray"><code></code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line48"></a><code>48</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;true;</code></td></tr>
+<tr class="coverableline" title="Not covered (0 visits)" data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><a id="file0_line49"></a><code>49</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line50"></a><code>50</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;}</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line51"></a><code>51</code></td><td></td><td class="lightgray"><code>}</code></td></tr>
 </tbody>
 </table>
-<div class="footer">Generated by: ReportGenerator 5.0.4.0<br />07/01/2024 - 17:52:24<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="http://www.palmmedia.de">www.palmmedia.de</a></div></div>
+<div class="footer">Generated by: ReportGenerator 5.0.4.0<br />08/26/2024 - 13:01:29<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="http://www.palmmedia.de">www.palmmedia.de</a></div></div>
 <div class="containerright">
 <div class="containerrightfixed">
 <h1>Methods/Properties</h1>
@@ -95,6 +105,7 @@
 <a href="#file0_line23" class="navigatetohash percentagebar percentagebar0" title="Line coverage: 0% - CurrentDestinationCell()"><i class="icon-wrench"></i>CurrentDestinationCell()</a><br />
 <a href="#file0_line28" class="navigatetohash percentagebar percentagebar0" title="Line coverage: 0% - IsLastMove()"><i class="icon-wrench"></i>IsLastMove()</a><br />
 <a href="#file0_line32" class="navigatetohash percentagebar percentagebar0" title="Line coverage: 0% - GetNextCellInPath()"><i class="icon-cube"></i>GetNextCellInPath()</a><br />
+<a href="#file0_line42" class="navigatetohash percentagebar percentagebar0" title="Line coverage: 0% - DoesNextCellExists()"><i class="icon-cube"></i>DoesNextCellExists()</a><br />
 <br/></div>
 </div></div>
 <script type="text/javascript">

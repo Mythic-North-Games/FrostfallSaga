@@ -222,14 +222,21 @@ for (i = 0, l = charts.length; i < l; i++) {
 
 var assemblies = [
   {
+    "name": "DebugPanel",
+    "classes": [
+      { "name": "FrostfallSaga.DebugPanel.DebugPanelAttribute", "rp": "DebugPanel_DebugPanelAttribute.html", "cl": 0, "ucl": 7, "cal": 7, "tl": 18, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.DebugPanel.DebugPanelManager", "rp": "DebugPanel_DebugPanelManager.html", "cl": 0, "ucl": 96, "cal": 96, "tl": 164, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+    ]},
+  {
     "name": "EditModeTests",
     "classes": [
       { "name": "FrostfallSaga.EditModeTests.CommonTestsHelper", "rp": "EditModeTests_CommonTestsHelper.html", "cl": 27, "ucl": 0, "cal": 27, "tl": 49, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.EditModeTests.FightTests.FighterTests.FighterHealTests", "rp": "EditModeTests_FighterHealTests.html", "cl": 50, "ucl": 0, "cal": 50, "tl": 105, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.EditModeTests.FightTests.FighterTests.FighterMagicalWithstandTests", "rp": "EditModeTests_FighterMagicalWithstandTests.html", "cl": 89, "ucl": 0, "cal": 89, "tl": 160, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.EditModeTests.FightTests.FighterTests.FighterMagicalWithstandTests", "rp": "EditModeTests_FighterMagicalWithstandTests.html", "cl": 90, "ucl": 0, "cal": 90, "tl": 161, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.EditModeTests.FightTests.FighterTests.FighterPhysicalWithstandTests", "rp": "EditModeTests_FighterPhysicalWithstandTests.html", "cl": 60, "ucl": 0, "cal": 60, "tl": 113, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.EditModeTests.FightTests.FighterTests.FighterUseActiveAbilityTests", "rp": "EditModeTests_FighterUseActiveAbilityTests.html", "cl": 76, "ucl": 0, "cal": 76, "tl": 161, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.EditModeTests.FightTests.FighterTests.FighterUseDirectAttackTests", "rp": "EditModeTests_FighterUseDirectAttackTests.html", "cl": 71, "ucl": 0, "cal": 71, "tl": 142, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.EditModeTests.FightTests.FightTestsHelper", "rp": "EditModeTests_FightTestsHelper.html", "cl": 25, "ucl": 0, "cal": 25, "tl": 50, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.EditModeTests.FightTests.FightTestsHelper", "rp": "EditModeTests_FightTestsHelper.html", "cl": 28, "ucl": 0, "cal": 28, "tl": 71, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.EditModeTests.Grid.Cells.GetNeighborsTests", "rp": "EditModeTests_GetNeighborsTests.html", "cl": 231, "ucl": 0, "cal": 231, "tl": 495, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.EditModeTests.Grid.Cells.GetShorterPathTests", "rp": "EditModeTests_GetShorterPathTests.html", "cl": 287, "ucl": 0, "cal": 287, "tl": 721, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.EditModeTests.Grid.HexMetricsTests", "rp": "EditModeTests_HexMetricsTests.html", "cl": 18, "ucl": 0, "cal": 18, "tl": 50, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
@@ -239,16 +246,18 @@ var assemblies = [
   {
     "name": "FrostfallSaga.Core",
     "classes": [
-      { "name": "FrostfallSaga.Core.BaseMouseEventsController[T]", "rp": "FrostfallSaga.Core_BaseMouseEventsController_T_.html", "cl": 2, "ucl": 59, "cal": 61, "tl": 120, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Core.MaterialHighlightable", "rp": "FrostfallSaga.Core_MaterialHighlightable.html", "cl": 0, "ucl": 10, "cal": 10, "tl": 40, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Core.BaseMouseEventsController[T]", "rp": "FrostfallSaga.Core_BaseMouseEventsController_T_.html", "cl": 1, "ucl": 67, "cal": 68, "tl": 123, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Core.GameObjectTranslator", "rp": "FrostfallSaga.Core_GameObjectTranslator.html", "cl": 0, "ucl": 56, "cal": 56, "tl": 103, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Core.MaterialHighlightable", "rp": "FrostfallSaga.Core_MaterialHighlightable.html", "cl": 0, "ucl": 18, "cal": 18, "tl": 59, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Core.MonoBehaviourPersistingSingleton[T]", "rp": "FrostfallSaga.Core_MonoBehaviourPersistingSingleton_T_.html", "cl": 0, "ucl": 32, "cal": 32, "tl": 53, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Core.Randomizer", "rp": "FrostfallSaga.Core_Randomizer.html", "cl": 7, "ucl": 3, "cal": 10, "tl": 24, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Core.SceneTransitioner", "rp": "FrostfallSaga.Core_SceneTransitioner.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 17, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
     ]},
   {
     "name": "FrostfallSaga.EntitiesVisual",
     "classes": [
       { "name": "FrostfallSaga.EntitiesVisual.EntityVisualAnimationController", "rp": "FrostfallSaga.EntitiesVisual_EntityVisualAnimationController.html", "cl": 1, "ucl": 34, "cal": 35, "tl": 59, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.EntitiesVisual.EntityVisualMovementController", "rp": "FrostfallSaga.EntitiesVisual_EntityVisualMovementController.html", "cl": 9, "ucl": 71, "cal": 80, "tl": 134, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.EntitiesVisual.EntityVisualMovementController", "rp": "FrostfallSaga.EntitiesVisual_EntityVisualMovementController.html", "cl": 9, "ucl": 76, "cal": 85, "tl": 142, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
     ]},
   {
     "name": "FrostfallSaga.FFSEditor",
@@ -260,19 +269,37 @@ var assemblies = [
   {
     "name": "FrostfallSaga.Fight",
     "classes": [
-      { "name": "FrostfallSaga.Fight.Abilities.ActiveAbilitySO", "rp": "FrostfallSaga.Fight_ActiveAbilitySO.html", "cl": 0, "ucl": 2, "cal": 2, "tl": 16, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Fight.Abilities.BaseAbility", "rp": "FrostfallSaga.Fight_BaseAbility.html", "cl": 0, "ucl": 23, "cal": 23, "tl": 46, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Fight.Abilities.BaseAbilitySO", "rp": "FrostfallSaga.Fight_BaseAbilitySO.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 17, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Abilities.AbilityAnimation.AAbilityAnimationSO", "rp": "FrostfallSaga.Fight_AAbilityAnimationSO.html", "cl": 0, "ucl": 6, "cal": 6, "tl": 28, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Abilities.AbilityAnimation.AExternalAbilityAnimationExecutorSO", "rp": "FrostfallSaga.Fight_AExternalAbilityAnimationExecutorSO.html", "cl": 0, "ucl": 9, "cal": 9, "tl": 39, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Abilities.AbilityAnimation.AInternalAbilityAnimationExecutorSO", "rp": "FrostfallSaga.Fight_AInternalAbilityAnimationExecutorSO.html", "cl": 0, "ucl": 9, "cal": 9, "tl": 48, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Abilities.AbilityAnimation.CellPerCellExternalExecutorSO", "rp": "FrostfallSaga.Fight_CellPerCellExternalExecutorSO.html", "cl": 0, "ucl": 41, "cal": 41, "tl": 77, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Abilities.AbilityAnimation.ExternalAbilityAnimationSO", "rp": "FrostfallSaga.Fight_ExternalAbilityAnimationSO.html", "cl": 0, "ucl": 12, "cal": 12, "tl": 35, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Abilities.AbilityAnimation.InternalAbilityAnimationSO", "rp": "FrostfallSaga.Fight_InternalAbilityAnimationSO.html", "cl": 0, "ucl": 14, "cal": 14, "tl": 37, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Abilities.AbilityAnimation.ReturnToOriginCellInternalExecutorSO", "rp": "FrostfallSaga.Fight_ReturnToOriginCellInternalExecutorSO.html", "cl": 0, "ucl": 39, "cal": 39, "tl": 80, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Abilities.AbilityAnimation.TestAbilityAnimationLauncher", "rp": "FrostfallSaga.Fight_TestAbilityAnimationLauncher.html", "cl": 0, "ucl": 11, "cal": 11, "tl": 36, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Abilities.ActiveAbilitySO", "rp": "FrostfallSaga.Fight_ActiveAbilitySO.html", "cl": 1, "ucl": 1, "cal": 2, "tl": 16, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Abilities.BaseAbility", "rp": "FrostfallSaga.Fight_BaseAbility.html", "cl": 0, "ucl": 34, "cal": 34, "tl": 60, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Abilities.BaseAbilitySO", "rp": "FrostfallSaga.Fight_BaseAbilitySO.html", "cl": 2, "ucl": 2, "cal": 4, "tl": 17, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Fight.CellFightBehaviour", "rp": "FrostfallSaga.Fight_CellFightBehaviour.html", "cl": 1, "ucl": 3, "cal": 4, "tl": 15, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Controllers.PlayerController", "rp": "FrostfallSaga.Fight_PlayerController.html", "cl": 0, "ucl": 302, "cal": 302, "tl": 486, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Controllers.RandomController", "rp": "FrostfallSaga.Fight_RandomController.html", "cl": 0, "ucl": 124, "cal": 124, "tl": 220, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Fight.Effects.AEffectSO", "rp": "FrostfallSaga.Fight_AEffectSO.html", "cl": 0, "ucl": 2, "cal": 2, "tl": 16, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Fight.Effects.HealEffectSO", "rp": "FrostfallSaga.Fight_HealEffectSO.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 19, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Fight.Effects.MagicalDamageEffectSO", "rp": "FrostfallSaga.Fight_MagicalDamageEffectSO.html", "cl": 0, "ucl": 5, "cal": 5, "tl": 21, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Effects.MagicalDamageEffectSO", "rp": "FrostfallSaga.Fight_MagicalDamageEffectSO.html", "cl": 5, "ucl": 0, "cal": 5, "tl": 23, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Fight.Effects.PhysicalDamageEffectSO", "rp": "FrostfallSaga.Fight_PhysicalDamageEffectSO.html", "cl": 4, "ucl": 0, "cal": 4, "tl": 20, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Fight.Fighters.Fighter", "rp": "FrostfallSaga.Fight_Fighter.html", "cl": 80, "ucl": 69, "cal": 149, "tl": 234, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Fight.Fighters.FighterConfigurationSO", "rp": "FrostfallSaga.Fight_FighterConfigurationSO.html", "cl": 14, "ucl": 2, "cal": 16, "tl": 38, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.FightCamera", "rp": "FrostfallSaga.Fight_FightCamera.html", "cl": 0, "ucl": 29, "cal": 29, "tl": 56, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.FightCellNeighbors", "rp": "FrostfallSaga.Fight_FightCellNeighbors.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 33, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.FightCellsPathFinding", "rp": "FrostfallSaga.Fight_FightCellsPathFinding.html", "cl": 0, "ucl": 48, "cal": 48, "tl": 87, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Fighters.Fighter", "rp": "FrostfallSaga.Fight_Fighter.html", "cl": 131, "ucl": 125, "cal": 256, "tl": 495, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Fighters.FighterCollider", "rp": "FrostfallSaga.Fight_FighterCollider.html", "cl": 0, "ucl": 6, "cal": 6, "tl": 26, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Fight.Fighters.MagicalElementToValue", "rp": "FrostfallSaga.Fight_MagicalElementToValue.html", "cl": 8, "ucl": 0, "cal": 8, "tl": 24, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Fight.Fighters.PersistedFighterConfigurationSO", "rp": "FrostfallSaga.Fight_PersistedFighterConfigurationSO.html", "cl": 0, "ucl": 2, "cal": 2, "tl": 11, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Fight.Targeters.TargeterSO", "rp": "FrostfallSaga.Fight_TargeterSO.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 15, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.FighterSetup", "rp": "FrostfallSaga.Fight_FighterSetup.html", "cl": 14, "ucl": 0, "cal": 14, "tl": 50, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.FightersGenerator", "rp": "FrostfallSaga.Fight_FightersGenerator.html", "cl": 0, "ucl": 38, "cal": 38, "tl": 71, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.FightManager", "rp": "FrostfallSaga.Fight_FightManager.html", "cl": 0, "ucl": 159, "cal": 159, "tl": 254, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Targeters.TargeterSO", "rp": "FrostfallSaga.Fight_TargeterSO.html", "cl": 0, "ucl": 69, "cal": 69, "tl": 157, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.Targeters.TargeterUnresolvableException", "rp": "FrostfallSaga.Fight_TargeterUnresolvableException.html", "cl": 0, "ucl": 9, "cal": 9, "tl": 19, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.UI.FighterActionPanelController", "rp": "FrostfallSaga.Fight_FighterActionPanelController.html", "cl": 0, "ucl": 104, "cal": 104, "tl": 167, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Fight.UI.FightersOrderTimelineController", "rp": "FrostfallSaga.Fight_FightersOrderTimelineController.html", "cl": 0, "ucl": 71, "cal": 71, "tl": 115, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
     ]},
   {
     "name": "FrostfallSaga.Grid",
@@ -280,22 +307,82 @@ var assemblies = [
       { "name": "FrostfallSaga.Grid.Cells.Cell", "rp": "FrostfallSaga.Grid_Cell.html", "cl": 25, "ucl": 30, "cal": 55, "tl": 103, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Grid.CellsNeighbors", "rp": "FrostfallSaga.Grid_CellsNeighbors.html", "cl": 23, "ucl": 0, "cal": 23, "tl": 76, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Grid.CellsPathFinding", "rp": "FrostfallSaga.Grid_CellsPathFinding.html", "cl": 48, "ucl": 0, "cal": 48, "tl": 86, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Grid.GridCellsGenerator", "rp": "FrostfallSaga.Grid_GridCellsGenerator.html", "cl": 0, "ucl": 58, "cal": 58, "tl": 96, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Grid.HexGrid", "rp": "FrostfallSaga.Grid_HexGrid.html", "cl": 1, "ucl": 30, "cal": 31, "tl": 56, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.GridCellsGenerator", "rp": "FrostfallSaga.Grid_GridCellsGenerator.html", "cl": 0, "ucl": 59, "cal": 59, "tl": 97, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.HexGrid", "rp": "FrostfallSaga.Grid_HexGrid.html", "cl": 1, "ucl": 28, "cal": 29, "tl": 55, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Grid.HexMetrics", "rp": "FrostfallSaga.Grid_HexMetrics.html", "cl": 7, "ucl": 34, "cal": 41, "tl": 66, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Grid.MovePath", "rp": "FrostfallSaga.Grid_MovePath.html", "cl": 0, "ucl": 15, "cal": 15, "tl": 42, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Grid.MovePath", "rp": "FrostfallSaga.Grid_MovePath.html", "cl": 0, "ucl": 21, "cal": 21, "tl": 51, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Grid.PriorityQueue[T]", "rp": "FrostfallSaga.Grid_PriorityQueue_T_.html", "cl": 22, "ucl": 1, "cal": 23, "tl": 39, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
     ]},
   {
     "name": "FrostfallSaga.Kingdom",
     "classes": [
-      { "name": "FrostfallSaga.Kingdom.Entities.Entity", "rp": "FrostfallSaga.Kingdom_Entity.html", "cl": 0, "ucl": 47, "cal": 47, "tl": 73, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Kingdom.Entities.EntityConfigurationSO", "rp": "FrostfallSaga.Kingdom_EntityConfigurationSO.html", "cl": 0, "ucl": 3, "cal": 3, "tl": 14, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Kingdom.EnemiesGroupsSpawner.EnemiesGroupsSpawner", "rp": "FrostfallSaga.Kingdom_EnemiesGroupsSpawner.html", "cl": 0, "ucl": 72, "cal": 72, "tl": 121, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Kingdom.EnemiesGroupsSpawner.ImpossibleSpawnException", "rp": "FrostfallSaga.Kingdom_ImpossibleSpawnException.html", "cl": 0, "ucl": 9, "cal": 9, "tl": 19, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Kingdom.Entities.Entity", "rp": "FrostfallSaga.Kingdom_Entity.html", "cl": 0, "ucl": 53, "cal": 53, "tl": 88, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Kingdom.Entities.EntityBuilder", "rp": "FrostfallSaga.Kingdom_EntityBuilder.html", "cl": 0, "ucl": 9, "cal": 9, "tl": 31, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Kingdom.Entities.EntityConfigurationSO", "rp": "FrostfallSaga.Kingdom_EntityConfigurationSO.html", "cl": 0, "ucl": 2, "cal": 2, "tl": 12, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
       { "name": "FrostfallSaga.Kingdom.EntitiesGroups.EnemyEntitiesListSO", "rp": "FrostfallSaga.Kingdom_EnemyEntitiesListSO.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 14, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Kingdom.EntitiesGroups.EntitiesGroup", "rp": "FrostfallSaga.Kingdom_EntitiesGroup.html", "cl": 0, "ucl": 71, "cal": 71, "tl": 118, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Kingdom.EntitiesGroupsManager", "rp": "FrostfallSaga.Kingdom_EntitiesGroupsManager.html", "cl": 0, "ucl": 95, "cal": 95, "tl": 161, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Kingdom.EntitiesGroupsMovementController", "rp": "FrostfallSaga.Kingdom_EntitiesGroupsMovementController.html", "cl": 37, "ucl": 105, "cal": 142, "tl": 240, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
-      { "name": "FrostfallSaga.Kingdom.KingdomToFightTransitioner", "rp": "FrostfallSaga.Kingdom_KingdomToFightTransitioner.html", "cl": 0, "ucl": 29, "cal": 29, "tl": 64, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Kingdom.EntitiesGroups.EntitiesGroup", "rp": "FrostfallSaga.Kingdom_EntitiesGroup.html", "cl": 0, "ucl": 97, "cal": 97, "tl": 162, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Kingdom.EntitiesGroups.EntitiesGroupBuilder", "rp": "FrostfallSaga.Kingdom_EntitiesGroupBuilder.html", "cl": 0, "ucl": 29, "cal": 29, "tl": 67, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Kingdom.EntitiesGroupsManager", "rp": "FrostfallSaga.Kingdom_EntitiesGroupsManager.html", "cl": 0, "ucl": 133, "cal": 133, "tl": 221, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Kingdom.EntitiesGroupsMovementController", "rp": "FrostfallSaga.Kingdom_EntitiesGroupsMovementController.html", "cl": 36, "ucl": 118, "cal": 154, "tl": 260, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Kingdom.KingdomLoader", "rp": "FrostfallSaga.Kingdom_KingdomLoader.html", "cl": 0, "ucl": 75, "cal": 75, "tl": 127, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Kingdom.KingdomToFightTransitioner", "rp": "FrostfallSaga.Kingdom_KingdomToFightTransitioner.html", "cl": 0, "ucl": 64, "cal": 64, "tl": 130, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Kingdom.PostFightDataSO", "rp": "FrostfallSaga.Kingdom_PostFightDataSO.html", "cl": 0, "ucl": 13, "cal": 13, "tl": 31, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.Kingdom.PostFightFighterState", "rp": "FrostfallSaga.Kingdom_PostFightFighterState.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 15, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+    ]},
+  {
+    "name": "FrostfallSaga.KingdomToFight",
+    "classes": [
+      { "name": "FrostfallSaga.KingdomToFight.EntityToFighterDBSO", "rp": "FrostfallSaga.KingdomToFight_EntityToFighterDBSO.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 10, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.KingdomToFight.FighterConfigurationSO", "rp": "FrostfallSaga.KingdomToFight_FighterConfigurationSO.html", "cl": 20, "ucl": 0, "cal": 20, "tl": 60, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.KingdomToFight.FightersGenerator", "rp": "FrostfallSaga.KingdomToFight_FightersGenerator.html", "cl": 0, "ucl": 72, "cal": 72, "tl": 168, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.KingdomToFight.FightToKingdomTransitioner", "rp": "FrostfallSaga.KingdomToFight_FightToKingdomTransitioner.html", "cl": 0, "ucl": 42, "cal": 42, "tl": 78, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "FrostfallSaga.KingdomToFight.PersistedFighterConfigurationSO", "rp": "FrostfallSaga.KingdomToFight_PersistedFighterConfigurationSO.html", "cl": 0, "ucl": 7, "cal": 7, "tl": 19, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+    ]},
+  {
+    "name": "Meryel.CodeAssist.Editor",
+    "classes": [
+      { "name": "Meryel.UnityCodeAssist.Editor.AboutWindow", "rp": "Meryel.CodeAssist.Editor_AboutWindow.html", "cl": 0, "ucl": 22, "cal": 22, "tl": 65, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Assister", "rp": "Meryel.CodeAssist.Editor_Assister.html", "cl": 0, "ucl": 45, "cal": 45, "tl": 263, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.CommonTools", "rp": "Meryel.CodeAssist.Editor_CommonTools.html", "cl": 0, "ucl": 37, "cal": 37, "tl": 115, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine", "rp": "Meryel.CodeAssist.Editor_EditorCoroutine.html", "cl": 0, "ucl": 85, "cal": 85, "tl": 157, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutineUtility", "rp": "Meryel.CodeAssist.Editor_EditorCoroutineUtility.html", "cl": 0, "ucl": 13, "cal": 13, "tl": 128, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorWaitForSeconds", "rp": "Meryel.CodeAssist.Editor_EditorWaitForSeconds.html", "cl": 0, "ucl": 5, "cal": 5, "tl": 49, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorWindowCoroutineExtension", "rp": "Meryel.CodeAssist.Editor_EditorWindowCoroutineExtension.html", "cl": 0, "ucl": 21, "cal": 21, "tl": 109, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.FeedbackWindow", "rp": "Meryel.CodeAssist.Editor_FeedbackWindow.html", "cl": 0, "ucl": 55, "cal": 55, "tl": 105, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.Binary2TextExec", "rp": "Meryel.CodeAssist.Editor_Binary2TextExec.html", "cl": 0, "ucl": 15, "cal": 15, "tl": 141, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.Class13Mapper", "rp": "Meryel.CodeAssist.Editor_Class13Mapper.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 405, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.EditorToolExec", "rp": "Meryel.CodeAssist.Editor_EditorToolExec.html", "cl": 0, "ucl": 32, "cal": 32, "tl": 141, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.Extensions", "rp": "Meryel.CodeAssist.Editor_Extensions.html", "cl": 0, "ucl": 45, "cal": 45, "tl": 356, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.InputAxis", "rp": "Meryel.CodeAssist.Editor_InputAxis.html", "cl": 0, "ucl": 21, "cal": 21, "tl": 405, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.InputAxisMapper", "rp": "Meryel.CodeAssist.Editor_InputAxisMapper.html", "cl": 0, "ucl": 16, "cal": 16, "tl": 405, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.InputManager", "rp": "Meryel.CodeAssist.Editor_InputManager.html", "cl": 0, "ucl": 18, "cal": 18, "tl": 405, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.InputManagerMapper", "rp": "Meryel.CodeAssist.Editor_InputManagerMapper.html", "cl": 0, "ucl": 4, "cal": 4, "tl": 405, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.InputManagerMonitor", "rp": "Meryel.CodeAssist.Editor_InputManagerMonitor.html", "cl": 0, "ucl": 35, "cal": 35, "tl": 146, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.Text2Yaml", "rp": "Meryel.CodeAssist.Editor_Text2Yaml.html", "cl": 0, "ucl": 115, "cal": 115, "tl": 210, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Input.UnityInputManager", "rp": "Meryel.CodeAssist.Editor_UnityInputManager.html", "cl": 0, "ucl": 151, "cal": 151, "tl": 405, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Logger.DomainHashEnricher", "rp": "Meryel.CodeAssist.Editor_DomainHashEnricher.html", "cl": 3, "ucl": 4, "cal": 7, "tl": 31, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Logger.ELogger", "rp": "Meryel.CodeAssist.Editor_ELogger.html", "cl": 0, "ucl": 73, "cal": 73, "tl": 186, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Logger.MemorySink", "rp": "Meryel.CodeAssist.Editor_MemorySink.html", "cl": 7, "ucl": 70, "cal": 77, "tl": 131, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Logger.MyDestructuringPolicy", "rp": "Meryel.CodeAssist.Editor_MyDestructuringPolicy.html", "cl": 5, "ucl": 4, "cal": 9, "tl": 186, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Logger.UnityOutputWindowSink", "rp": "Meryel.CodeAssist.Editor_UnityOutputWindowSink.html", "cl": 0, "ucl": 15, "cal": 15, "tl": 47, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.MainThreadDispatcher", "rp": "Meryel.CodeAssist.Editor_MainThreadDispatcher.html", "cl": 3, "ucl": 8, "cal": 11, "tl": 35, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Monitor", "rp": "Meryel.CodeAssist.Editor_Monitor.html", "cl": 22, "ucl": 123, "cal": 145, "tl": 256, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.NetMQInitializer", "rp": "Meryel.CodeAssist.Editor_NetMQInitializer.html", "cl": 0, "ucl": 43, "cal": 43, "tl": 95, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.NetMQPublisher", "rp": "Meryel.CodeAssist.Editor_NetMQPublisher.html", "cl": 19, "ucl": 358, "cal": 377, "tl": 792, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.OSPath", "rp": "Meryel.CodeAssist.Editor_OSPath.html", "cl": 0, "ucl": 23, "cal": 23, "tl": 115, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Preferences.LinuxPrefStorage", "rp": "Meryel.CodeAssist.Editor_LinuxPrefStorage.html", "cl": 0, "ucl": 27, "cal": 27, "tl": 287, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Preferences.PreferanceStorageAccessor", "rp": "Meryel.CodeAssist.Editor_PreferanceStorageAccessor.html", "cl": 0, "ucl": 23, "cal": 23, "tl": 287, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Preferences.PreferenceEntry", "rp": "Meryel.CodeAssist.Editor_PreferenceEntry.html", "cl": 0, "ucl": 7, "cal": 7, "tl": 60, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Preferences.PreferenceEntryHolder", "rp": "Meryel.CodeAssist.Editor_PreferenceEntryHolder.html", "cl": 0, "ucl": 9, "cal": 9, "tl": 60, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Preferences.PreferenceMonitor", "rp": "Meryel.CodeAssist.Editor_PreferenceMonitor.html", "cl": 0, "ucl": 187, "cal": 187, "tl": 370, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor", "rp": "Meryel.CodeAssist.Editor_RegistryMonitor.html", "cl": 0, "ucl": 138, "cal": 138, "tl": 339, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.ScriptFinder", "rp": "Meryel.CodeAssist.Editor_ScriptFinder.html", "cl": 4, "ucl": 157, "cal": 161, "tl": 307, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.StatusWindow", "rp": "Meryel.CodeAssist.Editor_StatusWindow.html", "cl": 0, "ucl": 33, "cal": 33, "tl": 81, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser", "rp": "Meryel.CodeAssist.Editor_JsonParser.html", "cl": 0, "ucl": 255, "cal": 255, "tl": 376, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonWriter", "rp": "Meryel.CodeAssist.Editor_JsonWriter.html", "cl": 31, "ucl": 125, "cal": 156, "tl": 202, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
+      { "name": "Meryel.UnityCodeAssist.Editor.UnityClassExtensions", "rp": "Meryel.CodeAssist.Editor_UnityClassExtensions.html", "cl": 0, "ucl": 147, "cal": 147, "tl": 322, "ct": "LineCoverage", "mc": "-", "cb": 0, "tb": 0, "lch": [], "bch": [], "hc": [] },
     ]},
 ];
 
@@ -309,28 +396,413 @@ var riskHotspotMetrics = [
 
 var riskHotspots = [
   {
-    "assembly": "FrostfallSaga.EntitiesVisual", "class": "FrostfallSaga.EntitiesVisual.EntityVisualMovementController", "reportPath": "FrostfallSaga.EntitiesVisual_EntityVisualMovementController.html", "methodName": "System.Void FrostfallSaga.EntitiesVisual.EntityVisualMovementController::Update()", "methodShortName": "Update()", "fileIndex": 0, "line": 62,
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser", "reportPath": "Meryel.CodeAssist.Editor_JsonParser.html", "methodName": "static System.Object Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser::ParseValue(System.Type, System.String)", "methodShortName": "ParseValue(...)", "fileIndex": 0, "line": 134,
+    "metrics": [
+      { "value": 36, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 1332, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Input.Text2Yaml", "reportPath": "Meryel.CodeAssist.Editor_Text2Yaml.html", "methodName": "static System.String Meryel.UnityCodeAssist.Editor.Input.Text2Yaml::Convert(System.Collections.Generic.IEnumerable[String])", "methodShortName": "Convert(...)", "fileIndex": 0, "line": 18,
+    "metrics": [
+      { "value": 33, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 1122, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonWriter", "reportPath": "Meryel.CodeAssist.Editor_JsonWriter.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.TinyJson.JsonWriter::AppendValue(System.Text.StringBuilder, System.Object)", "methodShortName": "AppendValue(...)", "fileIndex": 0, "line": 30,
+    "metrics": [
+      { "value": 43, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 1051.33, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Input.Extensions", "reportPath": "Meryel.CodeAssist.Editor_Extensions.html", "methodName": "static System.String Meryel.UnityCodeAssist.Editor.Input.Extensions::GetInfo(System.Collections.Generic.List[InputAxis], System.String)", "methodShortName": "GetInfo(...)", "fileIndex": 0, "line": 92,
+    "metrics": [
+      { "value": 26, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 702, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor", "reportPath": "Meryel.CodeAssist.Editor_RegistryMonitor.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor::InitRegistryKey(System.String)", "methodShortName": "InitRegistryKey(...)", "fileIndex": 0, "line": 187,
+    "metrics": [
+      { "value": 20, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 420, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Core", "class": "FrostfallSaga.Core.BaseMouseEventsController[T]", "reportPath": "FrostfallSaga.Core_BaseMouseEventsController_T_.html", "methodName": "System.Void FrostfallSaga.Core.BaseMouseEventsController[T]::TriggerMouseClickEvent(UnityEngine.UIElements.MouseButton, FrostfallSaga.Core.MouseButtonDirection)", "methodShortName": "TriggerMouseClickEvent(...)", "fileIndex": 0, "line": 96,
+    "metrics": [
+      { "value": 19, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 380, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Preferences.PreferenceMonitor", "reportPath": "Meryel.CodeAssist.Editor_PreferenceMonitor.html", "methodName": "System.String[] Meryel.UnityCodeAssist.Editor.Preferences.PreferenceMonitor::GetKeyValues(System.Boolean, System.String[], System.String[]&, System.String[]&, System.String[]&, System.String[]&)", "methodShortName": "GetKeyValues(...)", "fileIndex": 0, "line": 214,
+    "metrics": [
+      { "value": 19, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 380, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser", "reportPath": "Meryel.CodeAssist.Editor_JsonParser.html", "methodName": "static System.Object Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser::ParseAnonymousValue(System.String)", "methodShortName": "ParseAnonymousValue(...)", "fileIndex": 0, "line": 268,
+    "metrics": [
+      { "value": 16, "exceeded": true },
+      { "value": 0, "exceeded": false },
+      { "value": 272, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Input.UnityInputManager", "reportPath": "Meryel.CodeAssist.Editor_UnityInputManager.html", "methodName": "System.Boolean Meryel.UnityCodeAssist.Editor.Input.UnityInputManager::CreateBindingsMap(System.String[]&, System.String[]&)", "methodShortName": "CreateBindingsMap(...)", "fileIndex": 0, "line": 168,
+    "metrics": [
+      { "value": 14, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 210, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser", "reportPath": "Meryel.CodeAssist.Editor_JsonParser.html", "methodName": "static System.Collections.Generic.List[String] Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser::Split(System.String)", "methodShortName": "Split(...)", "fileIndex": 0, "line": 92,
+    "metrics": [
+      { "value": 14, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 210, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.UnityClassExtensions", "reportPath": "Meryel.CodeAssist.Editor_UnityClassExtensions.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.UnityClassExtensions::ShowFieldInfo(System.Type, UnityEngine.Object, System.Collections.Generic.List[ValueTuple`2])", "methodShortName": "ShowFieldInfo(...)", "fileIndex": 0, "line": 262,
+    "metrics": [
+      { "value": 14, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 210, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.ScriptFinder", "reportPath": "Meryel.CodeAssist.Editor_ScriptFinder.html", "methodName": "static UnityEngine.Object Meryel.UnityCodeAssist.Editor.ScriptFinder::GetObjectOfType(System.Type, System.Boolean&)", "methodShortName": "GetObjectOfType(...)", "fileIndex": 0, "line": 117,
+    "metrics": [
+      { "value": 13, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 182, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Fight", "class": "FrostfallSaga.Fight.Controllers.PlayerController", "reportPath": "FrostfallSaga.Fight_PlayerController.html", "methodName": "System.Void FrostfallSaga.Fight.Controllers.PlayerController::OnCellHovered(FrostfallSaga.Grid.Cells.Cell)", "methodShortName": "OnCellHovered(...)", "fileIndex": 0, "line": 67,
+    "metrics": [
+      { "value": 12, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 156, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Logger.MemorySink", "reportPath": "Meryel.CodeAssist.Editor_MemorySink.html", "methodName": "System.String Meryel.UnityCodeAssist.Editor.Logger.MemorySink::Export()", "methodShortName": "Export()", "fileIndex": 0, "line": 73,
+    "metrics": [
+      { "value": 12, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 156, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.NetMQPublisher", "reportPath": "Meryel.CodeAssist.Editor_NetMQPublisher.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.NetMQPublisher::Clear()", "methodShortName": "Clear()", "fileIndex": 0, "line": 244,
+    "metrics": [
+      { "value": 12, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 156, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Core", "class": "FrostfallSaga.Core.GameObjectTranslator", "reportPath": "FrostfallSaga.Core_GameObjectTranslator.html", "methodName": "System.Void FrostfallSaga.Core.GameObjectTranslator::Update()", "methodShortName": "Update()", "fileIndex": 0, "line": 41,
+    "metrics": [
+      { "value": 11, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 132, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.FeedbackWindow", "reportPath": "Meryel.CodeAssist.Editor_FeedbackWindow.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.FeedbackWindow::OnGUI()", "methodShortName": "OnGUI()", "fileIndex": 0, "line": 40,
+    "metrics": [
+      { "value": 11, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 132, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.NetMQPublisher", "reportPath": "Meryel.CodeAssist.Editor_NetMQPublisher.html", "methodName": "PullAsync()", "methodShortName": "PullAsync()", "fileIndex": 0, "line": 203,
+    "metrics": [
+      { "value": 11, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 132, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor", "reportPath": "Meryel.CodeAssist.Editor_RegistryMonitor.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor::InitRegistryKey(Microsoft.Win32.RegistryHive, System.String)", "methodShortName": "InitRegistryKey(...)", "fileIndex": 0, "line": 171,
+    "metrics": [
+      { "value": 11, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 132, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.UnityClassExtensions", "reportPath": "Meryel.CodeAssist.Editor_UnityClassExtensions.html", "methodName": "static Meryel.UnityCodeAssist.Synchronizer.Model.GameObject[] Meryel.UnityCodeAssist.Editor.UnityClassExtensions::ToSyncModelOfHierarchy(UnityEngine.GameObject)", "methodShortName": "ToSyncModelOfHierarchy(...)", "fileIndex": 0, "line": 108,
+    "metrics": [
+      { "value": 11, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 132, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Fight", "class": "FrostfallSaga.Fight.Controllers.RandomController", "reportPath": "FrostfallSaga.Fight_RandomController.html", "methodName": "DoNextAction()", "methodShortName": "DoNextAction()", "fileIndex": 0, "line": 62,
+    "metrics": [
+      { "value": 10, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 110, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.UnityClassExtensions", "reportPath": "Meryel.CodeAssist.Editor_UnityClassExtensions.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.UnityClassExtensions::ShowFieldInfo(System.Type)", "methodShortName": "ShowFieldInfo(...)", "fileIndex": 0, "line": 219,
+    "metrics": [
+      { "value": 10, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 110, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.EntitiesVisual", "class": "FrostfallSaga.EntitiesVisual.EntityVisualMovementController", "reportPath": "FrostfallSaga.EntitiesVisual_EntityVisualMovementController.html", "methodName": "System.Void FrostfallSaga.EntitiesVisual.EntityVisualMovementController::Update()", "methodShortName": "Update()", "fileIndex": 0, "line": 71,
     "metrics": [
       { "value": 9, "exceeded": false },
       { "value": 0, "exceeded": false },
       { "value": 90, "exceeded": true },
     ]},
   {
-    "assembly": "FrostfallSaga.Kingdom", "class": "FrostfallSaga.Kingdom.EntitiesGroups.EntitiesGroup", "reportPath": "FrostfallSaga.Kingdom_EntitiesGroup.html", "methodName": "System.Void FrostfallSaga.Kingdom.EntitiesGroups.EntitiesGroup::Start()", "methodShortName": "Start()", "fileIndex": 0, "line": 24,
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Assister", "reportPath": "Meryel.CodeAssist.Editor_Assister.html", "methodName": "SyncAux()", "methodShortName": "SyncAux()", "fileIndex": 0, "line": 74,
+    "metrics": [
+      { "value": 9, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 90, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Fight", "class": "FrostfallSaga.Fight.Controllers.PlayerController", "reportPath": "FrostfallSaga.Fight_PlayerController.html", "methodName": "System.Void FrostfallSaga.Fight.Controllers.PlayerController::OnCellClicked(FrostfallSaga.Grid.Cells.Cell)", "methodShortName": "OnCellClicked(...)", "fileIndex": 0, "line": 46,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Fight", "class": "FrostfallSaga.Fight.Controllers.PlayerController", "reportPath": "FrostfallSaga.Fight_PlayerController.html", "methodName": "System.Void FrostfallSaga.Fight.Controllers.PlayerController::OnCellUnhovered(FrostfallSaga.Grid.Cells.Cell)", "methodShortName": "OnCellUnhovered(...)", "fileIndex": 0, "line": 102,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Assister", "reportPath": "Meryel.CodeAssist.Editor_Assister.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.Assister::SendTagsAndLayers()", "methodShortName": "SendTagsAndLayers()", "fileIndex": 0, "line": 245,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine", "reportPath": "Meryel.CodeAssist.Editor_EditorCoroutine.html", "methodName": "System.Boolean Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine/YieldProcessor::MoveNext(System.Collections.IEnumerator)", "methodShortName": "MoveNext(...)", "fileIndex": 0, "line": 65,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorWindowCoroutineExtension", "reportPath": "Meryel.CodeAssist.Editor_EditorWindowCoroutineExtension.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorWindowCoroutineExtension::StopCoroutine(UnityEditor.EditorWindow, Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine)", "methodShortName": "StopCoroutine(...)", "fileIndex": 0, "line": 82,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.NetMQPublisher", "reportPath": "Meryel.CodeAssist.Editor_NetMQPublisher.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.NetMQPublisher::LogContext()", "methodShortName": "LogContext()", "fileIndex": 0, "line": 63,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.ScriptFinder", "reportPath": "Meryel.CodeAssist.Editor_ScriptFinder.html", "methodName": "static System.Boolean Meryel.UnityCodeAssist.Editor.ScriptFinder::FindInstanceOfType(System.String, System.String, UnityEngine.GameObject&, UnityEngine.ScriptableObject&)", "methodShortName": "FindInstanceOfType(...)", "fileIndex": 0, "line": 82,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser", "reportPath": "Meryel.CodeAssist.Editor_JsonParser.html", "methodName": "static T Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser::FromJson[T](System.String)", "methodShortName": "FromJson[T](...)", "fileIndex": 0, "line": 40,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser", "reportPath": "Meryel.CodeAssist.Editor_JsonParser.html", "methodName": "static System.Object Meryel.UnityCodeAssist.Editor.TinyJson.JsonParser::ParseObject(System.Type, System.String)", "methodShortName": "ParseObject(...)", "fileIndex": 0, "line": 339,
+    "metrics": [
+      { "value": 8, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 72, "exceeded": true },
+    ]},
+  {
+    "assembly": "DebugPanel", "class": "FrostfallSaga.DebugPanel.DebugPanelManager", "reportPath": "DebugPanel_DebugPanelManager.html", "methodName": "System.Boolean FrostfallSaga.DebugPanel.DebugPanelManager::IsUserDefinedType(System.Type)", "methodShortName": "IsUserDefinedType(...)", "fileIndex": 0, "line": 146,
     "metrics": [
       { "value": 7, "exceeded": false },
       { "value": 0, "exceeded": false },
       { "value": 56, "exceeded": true },
     ]},
   {
-    "assembly": "FrostfallSaga.Core", "class": "FrostfallSaga.Core.BaseMouseEventsController[T]", "reportPath": "FrostfallSaga.Core_BaseMouseEventsController_T_.html", "methodName": "System.Void FrostfallSaga.Core.BaseMouseEventsController[T]::Update()", "methodShortName": "Update()", "fileIndex": 0, "line": 86,
+    "assembly": "FrostfallSaga.Fight", "class": "FrostfallSaga.Fight.FightManager", "reportPath": "FrostfallSaga.Fight_FightManager.html", "methodName": "System.Void FrostfallSaga.Fight.FightManager::OnEnable()", "methodShortName": "OnEnable()", "fileIndex": 0, "line": 106,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Kingdom", "class": "FrostfallSaga.Kingdom.EntitiesGroupsManager", "reportPath": "FrostfallSaga.Kingdom_EntitiesGroupsManager.html", "methodName": "System.Void FrostfallSaga.Kingdom.EntitiesGroupsManager::OnEnable()", "methodShortName": "OnEnable()", "fileIndex": 0, "line": 172,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Kingdom", "class": "FrostfallSaga.Kingdom.KingdomLoader", "reportPath": "FrostfallSaga.Kingdom_KingdomLoader.html", "methodName": "System.Void FrostfallSaga.Kingdom.KingdomLoader::Awake()", "methodShortName": "Awake()", "fileIndex": 0, "line": 91,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Kingdom", "class": "FrostfallSaga.Kingdom.PostFightDataSO", "reportPath": "FrostfallSaga.Kingdom_PostFightDataSO.html", "methodName": "System.Boolean FrostfallSaga.Kingdom.PostFightDataSO::AlliesHaveWon()", "methodShortName": "AlliesHaveWon()", "fileIndex": 0, "line": 15,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine", "reportPath": "Meryel.CodeAssist.Editor_EditorCoroutine.html", "methodName": "System.Boolean Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine::ProcessIEnumeratorRecursive(System.Collections.IEnumerator)", "methodShortName": "ProcessIEnumeratorRecursive(...)", "fileIndex": 0, "line": 120,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Input.UnityInputManager", "reportPath": "Meryel.CodeAssist.Editor_UnityInputManager.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.Input.UnityInputManager::ReadFromPath(System.String)", "methodShortName": "ReadFromPath(...)", "fileIndex": 0, "line": 29,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Logger.ELogger", "reportPath": "Meryel.CodeAssist.Editor_ELogger.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.Logger.ELogger::OnOptionsChanged()", "methodShortName": "OnOptionsChanged()", "fileIndex": 0, "line": 151,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Monitor", "reportPath": "Meryel.CodeAssist.Editor_Monitor.html", "methodName": "static System.Void Meryel.UnityCodeAssist.Editor.Monitor::SetDirty(UnityEngine.Object)", "methodShortName": "SetDirty(...)", "fileIndex": 0, "line": 181,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.NetMQPublisher", "reportPath": "Meryel.CodeAssist.Editor_NetMQPublisher.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.NetMQPublisher::SendGameObject(UnityEngine.GameObject)", "methodShortName": "SendGameObject(...)", "fileIndex": 0, "line": 533,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.NetMQPublisher", "reportPath": "Meryel.CodeAssist.Editor_NetMQPublisher.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.NetMQPublisher.Meryel.UnityCodeAssist.Synchronizer.Model.IProcessor::Process(Meryel.UnityCodeAssist.Synchronizer.Model.RequestScript)", "methodShortName": "Process(...)", "fileIndex": 0, "line": 723,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Preferences.PreferenceEntry", "reportPath": "Meryel.CodeAssist.Editor_PreferenceEntry.html", "methodName": "System.String Meryel.UnityCodeAssist.Editor.Preferences.PreferenceEntry::ValueAsString()", "methodShortName": "ValueAsString()", "fileIndex": 0, "line": 50,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Preferences.PreferenceMonitor", "reportPath": "Meryel.CodeAssist.Editor_PreferenceMonitor.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.Preferences.PreferenceMonitor::LoadKeys(System.String[]&, System.String[]&, System.Boolean)", "methodShortName": "LoadKeys(...)", "fileIndex": 0, "line": 321,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.ScriptFinder", "reportPath": "Meryel.CodeAssist.Editor_ScriptFinder.html", "methodName": "static System.Type Meryel.UnityCodeAssist.Editor.ScriptFinder::GetType123(System.String)", "methodShortName": "GetType123(...)", "fileIndex": 0, "line": 21,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.StatusWindow", "reportPath": "Meryel.CodeAssist.Editor_StatusWindow.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.StatusWindow::OnGUI()", "methodShortName": "OnGUI()", "fileIndex": 0, "line": 39,
+    "metrics": [
+      { "value": 7, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 56, "exceeded": true },
+    ]},
+  {
+    "assembly": "DebugPanel", "class": "FrostfallSaga.DebugPanel.DebugPanelManager", "reportPath": "DebugPanel_DebugPanelManager.html", "methodName": "System.Void FrostfallSaga.DebugPanel.DebugPanelManager::MapMethodsToButtons()", "methodShortName": "MapMethodsToButtons()", "fileIndex": 0, "line": 68,
     "metrics": [
       { "value": 6, "exceeded": false },
       { "value": 0, "exceeded": false },
       { "value": 42, "exceeded": true },
     ]},
   {
-    "assembly": "FrostfallSaga.Kingdom", "class": "FrostfallSaga.Kingdom.KingdomToFightTransitioner", "reportPath": "FrostfallSaga.Kingdom_KingdomToFightTransitioner.html", "methodName": "PlayReadyAnimationThenLoadScene()", "methodShortName": "PlayReadyAnimationThenLoadScene()", "fileIndex": 0, "line": 31,
+    "assembly": "FrostfallSaga.Core", "class": "FrostfallSaga.Core.BaseMouseEventsController[T]", "reportPath": "FrostfallSaga.Core_BaseMouseEventsController_T_.html", "methodName": "System.Void FrostfallSaga.Core.BaseMouseEventsController[T]::Update()", "methodShortName": "Update()", "fileIndex": 0, "line": 70,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Fight", "class": "FrostfallSaga.Fight.Controllers.PlayerController", "reportPath": "FrostfallSaga.Fight_PlayerController.html", "methodName": "System.Void FrostfallSaga.Fight.Controllers.PlayerController::OnDirectAttackClicked()", "methodShortName": "OnDirectAttackClicked()", "fileIndex": 0, "line": 160,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Fight", "class": "FrostfallSaga.Fight.Controllers.PlayerController", "reportPath": "FrostfallSaga.Fight_PlayerController.html", "methodName": "System.Void FrostfallSaga.Fight.Controllers.PlayerController::OnActiveAbilityClicked(FrostfallSaga.Fight.Fighters.ActiveAbilityToAnimation)", "methodShortName": "OnActiveAbilityClicked(...)", "fileIndex": 0, "line": 235,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Fight", "class": "FrostfallSaga.Fight.FightCellsPathFinding", "reportPath": "FrostfallSaga.Fight_FightCellsPathFinding.html", "methodName": "static FrostfallSaga.Grid.Cells.Cell[] FrostfallSaga.Fight.FightCellsPathFinding::GetShorterPath(FrostfallSaga.Grid.HexGrid, FrostfallSaga.Grid.Cells.Cell, FrostfallSaga.Grid.Cells.Cell)", "methodShortName": "GetShorterPath(...)", "fileIndex": 0, "line": 21,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.Kingdom", "class": "FrostfallSaga.Kingdom.EnemiesGroupsSpawner.EnemiesGroupsSpawner", "reportPath": "FrostfallSaga.Kingdom_EnemiesGroupsSpawner.html", "methodName": "System.Void FrostfallSaga.Kingdom.EnemiesGroupsSpawner.EnemiesGroupsSpawner::OnEnable()", "methodShortName": "OnEnable()", "fileIndex": 0, "line": 90,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
+    ]},
+  {
+    "assembly": "FrostfallSaga.KingdomToFight", "class": "FrostfallSaga.KingdomToFight.FightToKingdomTransitioner", "reportPath": "FrostfallSaga.KingdomToFight_FightToKingdomTransitioner.html", "methodName": "System.Void FrostfallSaga.KingdomToFight.FightToKingdomTransitioner::Awake()", "methodShortName": "Awake()", "fileIndex": 0, "line": 41,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine", "reportPath": "Meryel.CodeAssist.Editor_EditorCoroutine.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.EditorCoroutines.EditorCoroutine/YieldProcessor::Set(System.Object)", "methodShortName": "Set(...)", "fileIndex": 0, "line": 39,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Input.UnityInputManager", "reportPath": "Meryel.CodeAssist.Editor_UnityInputManager.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.Input.UnityInputManager::ReadAux(System.Boolean, System.Boolean&)", "methodShortName": "ReadAux(...)", "fileIndex": 0, "line": 84,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Input.UnityInputManager", "reportPath": "Meryel.CodeAssist.Editor_UnityInputManager.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.Input.UnityInputManager::SendData()", "methodShortName": "SendData()", "fileIndex": 0, "line": 131,
+    "metrics": [
+      { "value": 6, "exceeded": false },
+      { "value": 0, "exceeded": false },
+      { "value": 42, "exceeded": true },
+    ]},
+  {
+    "assembly": "Meryel.CodeAssist.Editor", "class": "Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor", "reportPath": "Meryel.CodeAssist.Editor_RegistryMonitor.html", "methodName": "System.Void Meryel.UnityCodeAssist.Editor.Preferences.RegistryMonitor::ThreadLoop()", "methodShortName": "ThreadLoop()", "fileIndex": 0, "line": 286,
     "metrics": [
       { "value": 6, "exceeded": false },
       { "value": 0, "exceeded": false },
