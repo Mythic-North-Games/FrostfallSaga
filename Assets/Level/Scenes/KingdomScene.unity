@@ -1155,12 +1155,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbda01616bb129b41ae2bffe78d3f92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <EnemiesGroupPrefab>k__BackingField: {fileID: 2373063617049297155, guid: f9e865b9881c3fb40849619aac6166c7, type: 3}
+  <EnemiesGroupPrefab>k__BackingField: {fileID: 3450558515000110669, guid: 63221ca6dadc41d4f8fb43e41ec3f9f1, type: 3}
   <SpawnableEntities>k__BackingField: {fileID: 11400000, guid: 95f0f95dad381394cb30104b1459300d, type: 2}
   <SpawnChance>k__BackingField: 0.5
   <MaxNoSpawnInARow>k__BackingField: 0
   <MaxEnemiesGroupsOnMap>k__BackingField: 3
   _grid: {fileID: 1557595608}
+  _kingdomLoader: {fileID: 483864513}
 --- !u!1 &133289593
 GameObject:
   m_ObjectHideFlags: 0
@@ -3721,6 +3722,55 @@ MonoBehaviour:
   <HighlightController>k__BackingField: {fileID: 583746553}
   <CellMouseEventsController>k__BackingField: {fileID: 583746551}
   <WorldHeightPerUnit>k__BackingField: 0.8
+--- !u!1 &483864511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 483864512}
+  - component: {fileID: 483864513}
+  m_Layer: 0
+  m_Name: KingdomLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &483864512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483864511}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.3228564, y: -26.202719, z: 414.11813}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &483864513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483864511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3946d9a5339a31e4585616736b70c96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _kingdomData: {fileID: 11400000, guid: ac5e333e2b50f47429757a255117b179, type: 2}
+  _postFightData: {fileID: 11400000, guid: 11997465224c89947953d44a521acb97, type: 2}
+  _grid: {fileID: 1557595608}
+  _entitiesGroupBuilder: {fileID: 8585752689716226892}
+  _camera: {fileID: 2047304806}
 --- !u!1 &488870086
 GameObject:
   m_ObjectHideFlags: 0
@@ -8693,7 +8743,8 @@ MonoBehaviour:
   <KingdomGrid>k__BackingField: {fileID: 1557595608}
   <HeroGroup>k__BackingField: {fileID: 1136193420971682425}
   <EnemiesGroups>k__BackingField: []
-  _enemiesGroupSpawner: {fileID: 0}
+  _enemiesGroupSpawner: {fileID: 106982315}
+  _kingdomLoader: {fileID: 483864513}
 --- !u!1 &904278097
 GameObject:
   m_ObjectHideFlags: 0
@@ -20324,6 +20375,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EntitiesGroupBuilder
       objectReference: {fileID: 0}
+    - target: {fileID: 7404352440744502259, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
+      propertyPath: BlankEntityPrefab
+      value: 
+      objectReference: {fileID: 4179958532800742833, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20352,9 +20407,10 @@ SceneRoots:
   - {fileID: 2047304807}
   - {fileID: 106982314}
   - {fileID: 899991117}
-  - {fileID: 1446529809}
   - {fileID: 1385638131}
   - {fileID: 8585752689716226891}
+  - {fileID: 1446529809}
+  - {fileID: 483864512}
   - {fileID: 1130391597}
   - {fileID: 1268217345}
   - {fileID: 26075751}

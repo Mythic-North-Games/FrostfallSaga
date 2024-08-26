@@ -5770,9 +5770,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fightManager: {fileID: 1678739252}
-  _postFightData: {fileID: 11400000, guid: 11997465224c89947953d44a521acb97, type: 2}
   _sceneTransitioner: {fileID: 999864228}
+  _postFightData: {fileID: 11400000, guid: 11997465224c89947953d44a521acb97, type: 2}
   _kingdomSceneName: KingdomScene
+  kingdomData: {fileID: 11400000, guid: ac5e333e2b50f47429757a255117b179, type: 2}
 --- !u!1 &1656804053
 GameObject:
   m_ObjectHideFlags: 0

@@ -103,7 +103,7 @@ namespace FrostfallSaga.Fight.UI
             }
             if (_fightManager == null)
             {
-                Debug.LogError("No FightManager found. Can't tear down properly.");
+                Debug.LogWarning("No FightManager found. Can't tear down properly.");
                 return;
             }
 

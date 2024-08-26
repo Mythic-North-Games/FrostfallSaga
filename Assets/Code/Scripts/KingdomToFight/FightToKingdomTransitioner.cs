@@ -2,34 +2,40 @@ using System.Linq;
 using UnityEngine;
 using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight;
+using FrostfallSaga.Kingdom;
 
-namespace FrostfallSaga.Fight
+namespace FrostfallSaga.KingdomToFight
 {
     public class FightToKingdomTransitioner : MonoBehaviour
     {
         [SerializeField] private FightManager _fightManager;
-        [SerializeField] private PostFightDataSO _postFightData;
         [SerializeField] private SceneTransitioner _sceneTransitioner;
+        [SerializeField] private PostFightDataSO _postFightData;
         [SerializeField] private string _kingdomSceneName;
+
+        [SerializeField] private KingdomDataSO kingdomData;
 
         private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
         {
             SavePostFightData(allies, enemies);
+            Debug.Log("Post fight data saved!");
+            Debug.Log("Transitioning to kingdom...");
             _sceneTransitioner.FadeInToScene(_kingdomSceneName);
         }
 
         private void SavePostFightData(Fighter[] allies, Fighter[] enemies)
         {
             _postFightData.alliesState = new();
-            allies.ToList().ForEach(ally => _postFightData.alliesState.Add(ally.EntitySessionId, new(ally)));
+            allies.ToList().ForEach(ally => _postFightData.alliesState.Add(ally.EntitySessionId, new(ally.GetHealth())));
 
             _postFightData.enemiesState = new();
-            enemies.ToList().ForEach(enemy => _postFightData.alliesState.Add(enemy.EntitySessionId, new(enemy)));
+            enemies.ToList().ForEach(enemy => _postFightData.enemiesState.Add(enemy.EntitySessionId, new(enemy.GetHealth())));
 
-            Debug.Log("Post fight data saved!");
+            _postFightData.enabled = true;
         }
 
-        #region Setup & teardown
+        #region Setup & tear down
 
         private void Awake()
         {
@@ -53,7 +59,7 @@ namespace FrostfallSaga.Fight
 
             if (_postFightData == null)
             {
-                Debug.LogError("Post fight data not found. Can't save the need post fight data.");
+                Debug.LogError("No fight data given. Can't properly transition to kingdom scene.");
             }
 
             _fightManager.onFightEnded += OnFightEnded;

@@ -11,7 +11,7 @@ namespace FrostfallSaga.Kingdom.Entities
         [field: SerializeField] public EntityVisualAnimationController EntityAnimationController { get; private set; }
         [field: SerializeField] public EntityVisualMovementController EntityVisualMovementController { get; private set; }
         [field: SerializeField] public EntityMouseEventsController EntityMouseEventsController { get; private set; }
-        [field: SerializeField] public bool IsDead { get; private set; }
+        public bool IsDead { get; set; }
         public string sessionId;
 
         public void ShowVisual()
@@ -46,14 +46,14 @@ namespace FrostfallSaga.Kingdom.Entities
 
             return EntityAnimationController.gameObject.activeSelf;
         }
-    
+
         public void Setup(EntityData entityData)
         {
             sessionId = entityData.sessionId;
             IsDead = entityData.isDead;
             EntityConfiguration = Resources.Load<EntityConfigurationSO>(entityData.entityConfigurationResourcePath);
         }
-    
+
         #region Components setup
 
         private void Awake()
@@ -63,7 +63,7 @@ namespace FrostfallSaga.Kingdom.Entities
             {
                 Debug.LogWarning("Entity " + name + " does not have an animation controller and a visual.");
             }
-              EntityVisualMovementController = GetComponentInChildren<EntityVisualMovementController>();
+            EntityVisualMovementController = GetComponentInChildren<EntityVisualMovementController>();
             if (EntityVisualMovementController == null)
             {
                 Debug.LogWarning("Entity " + name + " does not have a movement controller and a visual.");

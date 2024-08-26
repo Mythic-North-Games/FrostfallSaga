@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Kingdom.Entities;
+using FrostfallSaga.Grid.Cells;
 
 namespace FrostfallSaga.Kingdom.EntitiesGroups
 {
@@ -21,7 +22,8 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             List<Entity> entities = new();
             entitiesGroupData.entitiesData.ToList().ForEach(entityData => entities.Add(_entityBuilder.BuildEntity(entityData)));
             entitiesGroup.UpdateEntities(entities.ToArray());
-            entitiesGroup.UpdateDisplayedEntity(entities.First(entity => entity.sessionId == entitiesGroupData.displayedEntitySessionId));
+            entitiesGroup.UpdateDisplayedEntity(entities.Find(entity => entity.sessionId == entitiesGroupData.displayedEntitySessionId));
+            entitiesGroup.movePoints = entitiesGroupData.movePoints;
             entitiesGroup.TeleportToCell(grid.CellsByCoordinates[new(entitiesGroupData.cellX, entitiesGroupData.cellY)]);
             return entitiesGroup;
         }
@@ -45,7 +47,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             return entitiesData.ToArray();
         }
 
-        #region Setup & teardown
+        #region Setup & tear down
 
         private void Start()
         {
