@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FrostfallSaga.Fight
+namespace FrostfallSaga.Kingdom
 {
     [CreateAssetMenu(fileName = "PostFightData", menuName = "ScriptableObjects/Fight/PostFightData", order = 0)]
     public class PostFightDataSO : ScriptableObject
     {
         public Dictionary<string, PostFightFighterState> alliesState;
         public Dictionary<string, PostFightFighterState> enemiesState;
+        public bool enabled = false;
 
         public bool AlliesHaveWon()
         {

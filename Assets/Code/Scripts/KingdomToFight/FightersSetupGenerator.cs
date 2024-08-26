@@ -109,7 +109,7 @@ namespace FrostfallSaga.KingdomToFight
             );
         }
 
-        #region Setup and teardown
+        #region Setup and tear down
         private void OnEnable()
         {
             if (_preFightData == null)
@@ -144,7 +144,7 @@ namespace FrostfallSaga.KingdomToFight
             }
             if (_entitiesGroupsManager == null)
             {
-                Debug.LogWarning("No entities groups manager found. Can't teardown properly.");
+                Debug.LogWarning("No entities groups manager found. Can't tear down properly.");
                 return;
             }
 

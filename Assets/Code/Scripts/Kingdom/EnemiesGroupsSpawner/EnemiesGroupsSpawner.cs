@@ -20,6 +20,7 @@ namespace FrostfallSaga.Kingdom.EnemiesGroupsSpawner
         [field: SerializeField] public int MaxEnemiesGroupsOnMap { get; private set; }
 
         [SerializeField] private HexGrid _grid;
+        [SerializeField] private KingdomLoader _kingdomLoader;
         private int _noSpawnInARow;
         private List<EntitiesGroup> _spawnedEnemiesGroups;
 
@@ -27,6 +28,15 @@ namespace FrostfallSaga.Kingdom.EnemiesGroupsSpawner
         {
             _noSpawnInARow = 0;
             _spawnedEnemiesGroups = new();
+        }
+
+        private void OnKingdomLoaded()
+        {
+            _spawnedEnemiesGroups = FindObjectsOfType<EntitiesGroup>().ToList().FindAll(entitiesGroup => entitiesGroup.name != "HeroGroup");
+            for (int i = 0; i < _spawnedEnemiesGroups.Count; i++)
+            {
+                _spawnedEnemiesGroups[i].name = "EnemiesGroup" + i;
+            }
         }
 
         public void TrySpawnEnemiesGroup(Cell[] prohibitedCells)
@@ -61,9 +71,9 @@ namespace FrostfallSaga.Kingdom.EnemiesGroupsSpawner
 
             Cell cellToSpawnTo = Randomizer.GetRandomElementFromArray(availableCellsForSpawn);
             GameObject spawnedEnemiesGroupPrefab = Instantiate(EnemiesGroupPrefab);
-            spawnedEnemiesGroupPrefab.name = "EntitiesGroup" + _spawnedEnemiesGroups.Count;
+            spawnedEnemiesGroupPrefab.name = "EnemiesGroup" + _spawnedEnemiesGroups.Count;
             EntitiesGroup spawnedEnemiesGroup = spawnedEnemiesGroupPrefab.GetComponent<EntitiesGroup>();
-            spawnedEnemiesGroup.UpdateEntities(EntitiesGroup.GenerateRandomEntities(SpawnableEntities.AvailableEnemyEntities));
+            spawnedEnemiesGroup.UpdateEntities(EntitiesGroup.GenerateRandomEntities(SpawnableEntities.AvailableEnemyEntities, 1, 1));
             spawnedEnemiesGroup.TeleportToCell(cellToSpawnTo);
             _spawnedEnemiesGroups.Add(spawnedEnemiesGroup);
             _noSpawnInARow = 0;
@@ -85,12 +95,26 @@ namespace FrostfallSaga.Kingdom.EnemiesGroupsSpawner
             if (_grid == null)
             {
                 Debug.LogError("No hex grid found on scene. Can't spawn objects.");
+                return;
             }
 
             if (EnemiesGroupPrefab == null)
             {
                 Debug.LogError("No prefab to spawn given.");
+                return;
             }
+
+            if (_kingdomLoader == null)
+            {
+                _kingdomLoader = FindObjectOfType<KingdomLoader>();
+            }
+            if (_kingdomLoader == null)
+            {
+                Debug.LogError("No kingdom loader found. Won't be able to correctly configure spawner after fight.");
+                return;
+            }
+
+            _kingdomLoader.onKingdomLoaded += OnKingdomLoaded;
         }
         #endregion
     }

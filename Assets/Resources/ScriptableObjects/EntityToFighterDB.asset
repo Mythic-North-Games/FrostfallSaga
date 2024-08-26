@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: EntityToFighterDB
   m_EditorClassIdentifier: 
   <DB>k__BackingField:
-  - entityID: 0
+  - entityType: 0
     fighterConfiguration: {fileID: 11400000, guid: 6cc53fffb81ce5f4f931c9aaa677e913, type: 2}
-  - entityID: 1
+  - entityType: 1
     fighterConfiguration: {fileID: 11400000, guid: be2a59e2c4ba3c543bde83ebbd0b85f3, type: 2}
-  - entityID: 2
+  - entityType: 2
     fighterConfiguration: {fileID: 11400000, guid: df382171cf8a1ba4db6687dbbef384ff, type: 2}
-  - entityID: 3
+  - entityType: 3
     fighterConfiguration: {fileID: 11400000, guid: 25a85d710d7b0da4e9814f23b3973a2b, type: 2}

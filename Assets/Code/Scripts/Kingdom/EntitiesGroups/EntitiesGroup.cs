@@ -29,29 +29,17 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             if (Entities == null || Entities.Length == 0)
             {
                 Debug.LogError("Entity group " + name + " does not have entities");
-                gameObject.SetActive(false);
                 return;
             }
             if (cell == null)
             {
                 Debug.LogError("Entity group " + name + " does not have a cell.");
-                gameObject.SetActive(false);
                 return;
             }
 
             if (_displayedEntity == null)
             {
-                for (int i = 0; i < Entities.Length; i++)
-                {
-                    if (i == 0)
-                    {
-                        UpdateDisplayedEntity(Entities[i]);
-                    }
-                    else
-                    {
-                        Entities[i].HideVisual();
-                    }
-                }
+                UpdateDisplayedEntity(GetRandomAliveEntity());
             }
 
             transform.position = cell.GetCenter();
@@ -82,23 +70,13 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         public void UpdateEntities(Entity[] newMembers)
         {
             Entities = new List<Entity>(newMembers).ToArray();
-            
-            for (int i = 0; i < Entities.Length; i++)
+            Entities.ToList().ForEach(entity =>
             {
-                if (i == 0)
-                {
-                    UpdateDisplayedEntity(Entities[i]);
-                }
-                else
-                {
-                    Entities[i].HideVisual();
-                }
-
-                Entities[i].name = Enum.GetName(typeof(EntityType), Entities[i].EntityConfiguration.EntityType) + i;
-                Entities[i].transform.parent = transform;
-                Entities[i].transform.localPosition = new(0, 0, 0);
-            }
-            
+                entity.name = Enum.GetName(typeof(EntityType), entity.EntityConfiguration.EntityType) + entity.sessionId;
+                entity.transform.parent = transform;
+                entity.transform.localPosition = new(0, 0, 0);
+            });
+            UpdateDisplayedEntity(GetRandomAliveEntity());
         }
 
         public void UpdateDisplayedEntity(Entity newDisplayedEntity)
@@ -109,23 +87,25 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
                 return;
             }
 
-            if (newDisplayedEntity != _displayedEntity)
+            Entities.ToList().ForEach(entity => entity.HideVisual());
+            if (_displayedEntity != null)
             {
-                if (_displayedEntity != null)
-                {
-                    _displayedEntity.EntityMouseEventsController.OnElementHover -= OnDisplayedEntityHovered;
-                    _displayedEntity.EntityMouseEventsController.OnElementUnhover -= OnDisplayedEntityUnhovered;
-                    _displayedEntity.EntityVisualMovementController.onMoveEnded -= OnMoveEnded;
-                    _displayedEntity.HideVisual();
-                }
-
-                newDisplayedEntity.GetComponentInChildren<EntityVisualMovementController>().UpdateParentToMove(gameObject);
-                newDisplayedEntity.EntityMouseEventsController.OnElementHover += OnDisplayedEntityHovered;
-                newDisplayedEntity.EntityMouseEventsController.OnElementUnhover += OnDisplayedEntityUnhovered;
-                newDisplayedEntity.EntityVisualMovementController.onMoveEnded += OnMoveEnded;
-                newDisplayedEntity.ShowVisual();
-                _displayedEntity = newDisplayedEntity;
+                _displayedEntity.EntityMouseEventsController.OnElementHover -= OnDisplayedEntityHovered;
+                _displayedEntity.EntityMouseEventsController.OnElementUnhover -= OnDisplayedEntityUnhovered;
+                _displayedEntity.EntityVisualMovementController.onMoveEnded -= OnMoveEnded;
             }
+
+            newDisplayedEntity.ShowVisual();
+            newDisplayedEntity.GetComponentInChildren<EntityVisualMovementController>().UpdateParentToMove(gameObject);
+            newDisplayedEntity.EntityMouseEventsController.OnElementHover += OnDisplayedEntityHovered;
+            newDisplayedEntity.EntityMouseEventsController.OnElementUnhover += OnDisplayedEntityUnhovered;
+            newDisplayedEntity.EntityVisualMovementController.onMoveEnded += OnMoveEnded;
+            _displayedEntity = newDisplayedEntity;
+        }
+
+        public Entity GetRandomAliveEntity()
+        {
+            return Randomizer.GetRandomElementFromArray(Entities.Where(entity => !entity.IsDead).ToArray());
         }
 
         private void OnDisplayedEntityHovered(Entity hoveredEntity)
@@ -148,14 +128,14 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         }
 
         public static Entity[] GenerateRandomEntities(
-            GameObject[] availableEntitiesPrefab, 
-            int minNumberOfEntities = 1, 
+            GameObject[] availableEntitiesPrefab,
+            int minNumberOfEntities = 1,
             int maxNumberOfEntities = 3
         )
         {
             List<Entity> entities = new();
 
-            while(entities.Count < minNumberOfEntities)
+            while (entities.Count < minNumberOfEntities)
             {
                 GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntitiesPrefab));
                 entities.Add(entityPrefab.GetComponent<Entity>());

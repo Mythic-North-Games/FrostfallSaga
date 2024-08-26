@@ -74,7 +74,7 @@ namespace FrostfallSaga.Kingdom
 			);
 			foreach (KeyValuePair<EntitiesGroup, Cell[]> item in movePathPerEnemiesGroup)
 			{
-				_currentPathPerEnemiesGroup.Add((EntitiesGroup)item.Key, new(item.Value));
+				_currentPathPerEnemiesGroup.Add(item.Key, new(item.Value));
 			}
 
 			bool atLeastOneEnemiesGroupMoved = false;

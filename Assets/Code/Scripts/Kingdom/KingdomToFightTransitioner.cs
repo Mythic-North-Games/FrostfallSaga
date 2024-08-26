@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Core;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
-using System.Collections.Generic;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -73,6 +73,7 @@ namespace FrostfallSaga.Kingdom
         private IEnumerator StartFightScene()
         {
             yield return new WaitForSeconds(_delayBeforeLoadingSceneAfterReadyAnimation);
+            Debug.Log("Transitioning to fight");
             _sceneTransitioner.FadeInToScene(_fightSceneName);
         }
 
@@ -90,7 +91,7 @@ namespace FrostfallSaga.Kingdom
             Debug.Log("KingdomConfiguration Saved !");
         }
 
-        #region Setup and teardown
+        #region Setup and tear down
         private void OnEnable()
         {
             if (_entitiesGroupsManager == null)

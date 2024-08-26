@@ -50,12 +50,6 @@ namespace FrostfallSaga.Fight
 
         private void OnFighterTurnEnded(Fighter fighterThatPlayed)
         {
-            if (CheckForFightEnd())
-            {
-                Debug.Log($"Winner is {GetWinner(_allies, _enemies)}");
-                return;
-            }
-
             fighterThatPlayed.ResetMovementAndActionPoints();
             _fightersTurnOrder.Enqueue(fighterThatPlayed);
             onFightersTurnOrderUpdated?.Invoke(_fightersTurnOrder.ToArray());
@@ -64,9 +58,10 @@ namespace FrostfallSaga.Fight
 
         private void OnFighterActionEnded(Fighter fighterThatAct)
         {
-            if (CheckForFightEnd())
+            if (HasFightEnded())
             {
                 Debug.Log($"Winner is {GetWinner(_allies, _enemies)}");
+                onFightEnded?.Invoke(_allies, _enemies);
                 return;
             }
 
@@ -95,15 +90,10 @@ namespace FrostfallSaga.Fight
             onFightersTurnOrderUpdated?.Invoke(_fightersTurnOrder.ToArray());
         }
 
-        private bool CheckForFightEnd()
+        private bool HasFightEnded()
         {
             EWinner possibleWinner = GetWinner(_allies, _enemies);
-            if (possibleWinner == EWinner.NO_ONE)
-            {
-                return false;
-            }
-            onFightEnded?.Invoke(_allies, _enemies);
-            return true;
+            return possibleWinner != EWinner.NO_ONE;
         }
 
         #region Fight manager components setup and tear down
