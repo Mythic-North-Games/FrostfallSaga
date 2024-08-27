@@ -6894,7 +6894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e1437369a964c4c8c7c54d4cdb92d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fightersGenerator: {fileID: 0}
+  _fightersGenerator: {fileID: 1644039837}
   _fightGrid: {fileID: 1914315112}
   _alliesController: {fileID: 134175710}
   _enemiesController: {fileID: 1789584864}

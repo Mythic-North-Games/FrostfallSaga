@@ -24,6 +24,7 @@ namespace FrostfallSaga.Fight
         [SerializeField] private AFighterController _alliesController;
         [SerializeField] private AFighterController _enemiesController;
 
+
         private Fighter[] _allies;
         private Fighter[] _enemies;
         private Queue<Fighter> _fightersTurnOrder;

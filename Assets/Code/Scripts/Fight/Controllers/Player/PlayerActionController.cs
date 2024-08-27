@@ -25,7 +25,9 @@ namespace FrostfallSaga.Fight.Controllers
 		public abstract void OnCellClicked(Cell clickedCell);
 		public abstract void OnCellHovered(Cell hoveredCell);
 		public abstract void OnCellUnhovered(Cell unhoveredCell);
-		public abstract void StopTargeting();
+		public abstract void ResetShorterPathCellsDefaultMaterial();
+
+        public abstract void StopTargeting();
 
 	}
 }

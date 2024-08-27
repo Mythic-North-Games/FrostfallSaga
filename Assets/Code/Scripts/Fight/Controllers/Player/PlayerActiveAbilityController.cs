@@ -13,7 +13,9 @@ namespace FrostfallSaga.Fight.Controllers
     public class PlayerActiveAbilityController : PlayerActionController
     {
         private bool _isTargeting;
+        private bool _fighterIsTargetingForActiveAbility;
         private ActiveAbilityToAnimation _currentActiveAbility;
+        private Cell[] _currentMovePath = { };
 
         public PlayerActiveAbilityController(Fighter fighter, HexGrid fightGrid, Material highlightMaterial, Material actionableHighlightMaterial, Material inaccessibleHighlightMaterial)
             : base(fighter, fightGrid, highlightMaterial, actionableHighlightMaterial, inaccessibleHighlightMaterial) { }
@@ -44,13 +46,34 @@ namespace FrostfallSaga.Fight.Controllers
         public override void OnCellHovered(Cell hoveredCell)
         {
             if (!_isTargeting) return;
-            // Add specific hover logic if needed
+            if (_isTargeting || hoveredCell == _possessedFighter.cell) return;
+            if (_fighterIsTargetingForActiveAbility)
+            {
+                TargeterSO targeter = _currentActiveAbility.activeAbility.Targeter;
+                if (targeter.GetAllCellsAvailableForTargeting(_currentFightGrid, _possessedFighter.cell).Contains(hoveredCell) ||
+                    hoveredCell == _possessedFighter.cell)
+                {
+                    HighlightTargeterCells(_currentActiveAbility.activeAbility.Targeter, hoveredCell);
+                }
+            }
+
+            else if (_currentMovePath.Length > 0)
+            {
+                ResetShorterPathCellsDefaultMaterial();
+            }
+
+            Debug.Log("test pcq ça s'affiche pas");
         }
 
         public override void OnCellUnhovered(Cell unhoveredCell)
         {
             if (!_isTargeting) return;
-            // Add specific unhover logic if needed
+            if (_fighterIsTargetingForActiveAbility)
+            {
+                ResetTargeterCellsMaterial(_currentActiveAbility.activeAbility.Targeter, unhoveredCell);
+            }
+            Debug.Log("test pcq ça s'affiche pas");
+            
         }
 
         public override void StopTargeting()
@@ -74,6 +97,28 @@ namespace FrostfallSaga.Fight.Controllers
             {
                 cell.HighlightController.ResetToInitialMaterial();
             }
+        }
+        public override void ResetShorterPathCellsDefaultMaterial()
+        {
+            _currentMovePath.ToList().ForEach(cell => cell.HighlightController.ResetToDefaultMaterial());
+        }
+        private void HighlightTargeterCells(TargeterSO targeter, Cell originCell)
+        {
+            try
+            {
+                Cell[] targetedCells = targeter.Resolve(_currentFightGrid, originCell, _possessedFighter.cell);
+                targetedCells.ToList().ForEach(cell => cell.HighlightController.Highlight(_actionableHighlightMaterial));
+            }
+            catch (TargeterUnresolvableException)
+            {
+                Cell[] targetedCells = targeter.GetCellsFromSequence(_currentFightGrid, originCell);
+                targetedCells.ToList().ForEach(cell => cell.HighlightController.Highlight(_inaccessibleHighlightMaterial));
+            }
+        }
+        private void ResetTargeterCellsMaterial(TargeterSO targeter, Cell originCell)
+        {
+            Cell[] targetedCells = targeter.GetCellsFromSequence(_currentFightGrid, originCell);
+            targetedCells.ToList().ForEach(cell => cell.HighlightController.ResetToDefaultMaterial());
         }
 
     }

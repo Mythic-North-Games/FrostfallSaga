@@ -29,6 +29,7 @@ namespace FrostfallSaga.Fight.Controllers
 
         public PlayerEndTurnController(PlayerController playerController, PlayerDirectAttackController attackController, PlayerActiveAbilityController abilityController)
         {
+            Debug.Log("PLAYER END TURN CONTROLLER");
             _playerController = playerController;
             _directAttackController = attackController;
             _activeAbilityController = abilityController;
