@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
@@ -6,6 +7,7 @@ using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 
 namespace FrostfallSaga.Fight
 {
+    [Serializable]
     public class FighterSetup
     {
         public string name;
