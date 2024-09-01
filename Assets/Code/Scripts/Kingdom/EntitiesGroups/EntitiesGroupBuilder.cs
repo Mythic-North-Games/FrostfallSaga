@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Kingdom.Entities;
-using FrostfallSaga.Grid.Cells;
 
 namespace FrostfallSaga.Kingdom.EntitiesGroups
 {

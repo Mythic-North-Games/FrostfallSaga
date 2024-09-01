@@ -23,7 +23,7 @@ namespace FrostfallSaga.Fight.Controllers
         private HexGrid _currentFightGrid;
         private Fighter _possessedFighter;
 
-        private Cell[] _currentMovePath = {};
+        private Cell[] _currentMovePath = { };
         private bool _fighterIsActing;
         private bool _fighterIsTargetingForDirectAttack;
         private ActiveAbilityToAnimation _currentActiveAbility;
@@ -344,6 +344,10 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void OnPossessedFighterDied(Fighter _fighterThatDied)
         {
+            if (_fighterThatDied != _possessedFighter)
+            {
+                return;
+            }
             UnbindFighterEventsForTurn();
             UnbindCellMouseEvents(_currentFightGrid);
             UnbindUIEventsForTurn();

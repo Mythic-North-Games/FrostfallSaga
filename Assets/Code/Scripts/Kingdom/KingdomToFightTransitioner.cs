@@ -44,13 +44,13 @@ namespace FrostfallSaga.Kingdom
         /// <summary>
 		/// Plays a ready to fight animation then make the initiating group move to the targeted group.
 		/// </summary>
-		private IEnumerator StartEncounterAnimation(EntitiesGroup heroGroup, EntitiesGroup EntitiesGroup, bool heroGroupInitiating)
+		private IEnumerator StartEncounterAnimation(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
             Entity heroEntity = heroGroup.GetDisplayedEntity();
-            Entity enemyEntity = EntitiesGroup.GetDisplayedEntity();
+            Entity enemyEntity = enemiesGroup.GetDisplayedEntity();
 
             // Make groups rotate to watch each other
-            heroEntity.EntityVisualMovementController.RotateTowardsCell(EntitiesGroup.cell);
+            heroEntity.EntityVisualMovementController.RotateTowardsCell(enemiesGroup.cell);
             enemyEntity.EntityVisualMovementController.RotateTowardsCell(heroGroup.cell);
 
             // Play ready to fight animation for a while
@@ -59,9 +59,10 @@ namespace FrostfallSaga.Kingdom
             yield return new WaitForSeconds(_readyToFightAnimationDuration);
 
             // Make initiator group go to the cell of its enemy
-            EntitiesGroup initiatorGroup = heroGroupInitiating ? heroGroup : EntitiesGroup;
+            EntitiesGroup initiatorGroup = heroGroupInitiating ? heroGroup : enemiesGroup;
+            EntitiesGroup attackedGroup = heroGroupInitiating ? enemiesGroup : heroGroup;
             initiatorGroup.onEntityGroupMoved += OnInitiatorGroupMoved;
-            initiatorGroup.MoveToCell(EntitiesGroup.cell, true);
+            initiatorGroup.MoveToCell(attackedGroup.cell, true);
         }
 
         private void OnEncounterAnimationEnded()

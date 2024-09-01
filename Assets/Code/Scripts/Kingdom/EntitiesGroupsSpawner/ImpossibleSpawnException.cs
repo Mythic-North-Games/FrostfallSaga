@@ -1,6 +1,6 @@
 using System;
 
-namespace FrostfallSaga.Kingdom.EnemiesGroupsSpawner
+namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
 {
     public class ImpossibleSpawnException : Exception
     {

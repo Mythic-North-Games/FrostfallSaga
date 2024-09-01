@@ -28,9 +28,11 @@ namespace FrostfallSaga.Fight
         private List<Fighter> _enemies;
         private Queue<Fighter> _fightersTurnOrder;
         private Fighter[] _initialFightersTurnOrder;
+        private Fighter _playingFighter;
 
         private void OnFightersGenerated(Fighter[] allies, Fighter[] enemies)
         {
+            _playingFighter = null;
             _allies = new(allies);
             _enemies = new(enemies);
             SubscribeToFightersEvents();
@@ -41,11 +43,11 @@ namespace FrostfallSaga.Fight
 
         private void PlayNextFighterTurn()
         {
-            Fighter fighterToPlay = _fightersTurnOrder.Dequeue();
-            bool isAlly = _allies.Contains(fighterToPlay);
+            _playingFighter = _fightersTurnOrder.Dequeue();
+            bool isAlly = _allies.Contains(_playingFighter);
             AFighterController controller = isAlly ? _alliesController : _enemiesController;
-            onFighterTurnBegan(fighterToPlay, isAlly);
-            controller.PlayTurn(fighterToPlay, GetFighterTeamsAsDict(_allies, _enemies), _fightGrid);
+            onFighterTurnBegan(_playingFighter, isAlly);
+            controller.PlayTurn(_playingFighter, GetFighterTeamsAsDict(_allies, _enemies), _fightGrid);
         }
 
         private void OnFighterTurnEnded(Fighter fighterThatPlayed)
@@ -74,22 +76,22 @@ namespace FrostfallSaga.Fight
 
         private void OnFighterDied(Fighter fighterThatDied)
         {
+            // Deactivate dead fighter
             fighterThatDied.gameObject.SetActive(false);
             fighterThatDied.cell.GetComponent<CellFightBehaviour>().Fighter = null;
 
-            if (HasFightEnded())
-            {
-                Debug.Log($"Winner is {GetWinner(_allies, _enemies)}");
-                onFightEnded?.Invoke(_allies.ToArray(), _enemies.ToArray());
-                return;
-            }
-
+            // Update order
             Queue<Fighter> updatedFighterTurnsOrder = GetFightersTurnOrder(_allies.Concat(_enemies).ToArray());
             if (!CompareFighterTurnOrder(updatedFighterTurnsOrder.ToArray(), _initialFightersTurnOrder))
             {
                 UpdateFightersTurnOrder(updatedFighterTurnsOrder);
             }
-            PlayNextFighterTurn();
+
+            // Next fighter is suicide
+            if (fighterThatDied == _playingFighter)
+            {
+                PlayNextFighterTurn();
+            }
         }
 
         private void UpdateFightersTurnOrder(Queue<Fighter> newFightersTurnOrder)

@@ -1155,11 +1155,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbda01616bb129b41ae2bffe78d3f92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <EnemiesGroupPrefab>k__BackingField: {fileID: 3450558515000110669, guid: 63221ca6dadc41d4f8fb43e41ec3f9f1, type: 3}
+  <EntitiesGroupPrefab>k__BackingField: {fileID: 3450558515000110669, guid: 63221ca6dadc41d4f8fb43e41ec3f9f1, type: 3}
   <SpawnableEntities>k__BackingField: {fileID: 11400000, guid: 95f0f95dad381394cb30104b1459300d, type: 2}
   <SpawnChance>k__BackingField: 0.5
   <MaxNoSpawnInARow>k__BackingField: 0
-  <MaxEnemiesGroupsOnMap>k__BackingField: 3
+  <MaxEntitiesGroupsOnMap>k__BackingField: 3
+  <BaseGroupName>k__BackingField: EnemiesGroup
   _grid: {fileID: 1557595608}
   _kingdomLoader: {fileID: 483864513}
 --- !u!1 &133289593

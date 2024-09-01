@@ -7,48 +7,49 @@ using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Core;
 
-namespace FrostfallSaga.Kingdom.EnemiesGroupsSpawner
+namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
 {
-    public class EnemiesGroupsSpawner : MonoBehaviour
+    public class EntitiesGroupsSpawner : MonoBehaviour
     {
-        public Action<EntitiesGroup> onEnemiesGroupSpawned;
+        public Action<EntitiesGroup> onEntitiesGroupSpawned;
 
-        [field: SerializeField] public GameObject EnemiesGroupPrefab { get; private set; }
-        [field: SerializeField] public EnemyEntitiesListSO SpawnableEntities { get; private set; }
+        [field: SerializeField] public GameObject EntitiesGroupPrefab { get; private set; }
+        [field: SerializeField] public EntitiesListSO SpawnableEntities { get; private set; }
         [field: SerializeField, Range(0, 1)] public float SpawnChance { get; private set; }
         [field: SerializeField] public int MaxNoSpawnInARow { get; private set; }
-        [field: SerializeField] public int MaxEnemiesGroupsOnMap { get; private set; }
+        [field: SerializeField] public int MaxEntitiesGroupsOnMap { get; private set; }
+        [field: SerializeField] public string BaseGroupName { get; private set; }
 
         [SerializeField] private HexGrid _grid;
         [SerializeField] private KingdomLoader _kingdomLoader;
         private int _noSpawnInARow;
-        private List<EntitiesGroup> _spawnedEnemiesGroups;
+        private List<EntitiesGroup> _spawnedEntitiesGroups;
 
         private void Start()
         {
             _noSpawnInARow = 0;
-            _spawnedEnemiesGroups = new();
+            _spawnedEntitiesGroups = new();
         }
 
         private void OnKingdomLoaded()
         {
-            _spawnedEnemiesGroups = FindObjectsOfType<EntitiesGroup>().ToList().FindAll(entitiesGroup => entitiesGroup.name != "HeroGroup");
-            for (int i = 0; i < _spawnedEnemiesGroups.Count; i++)
+            _spawnedEntitiesGroups = FindObjectsOfType<EntitiesGroup>().ToList().FindAll(entitiesGroup => entitiesGroup.name != "HeroGroup");
+            for (int i = 0; i < _spawnedEntitiesGroups.Count; i++)
             {
-                _spawnedEnemiesGroups[i].name = "EnemiesGroup" + i;
+                _spawnedEntitiesGroups[i].name = $"{BaseGroupName}{i}";
             }
         }
 
-        public void TrySpawnEnemiesGroup(Cell[] prohibitedCells)
+        public void TrySpawnEntitiesGroup(Cell[] prohibitedCells)
         {
-            if (_spawnedEnemiesGroups.Count == MaxEnemiesGroupsOnMap)
+            if (_spawnedEntitiesGroups.Count == MaxEntitiesGroupsOnMap)
             {
                 throw new ImpossibleSpawnException("Max objects on map reached.");
             }
 
             if (_noSpawnInARow == MaxNoSpawnInARow)
             {
-                SpawnEnemiesGroup(prohibitedCells);
+                SpawnEntitiesGroup(prohibitedCells);
             }
             else
             {
@@ -56,12 +57,12 @@ namespace FrostfallSaga.Kingdom.EnemiesGroupsSpawner
             }
         }
 
-        public void OnEnemiesGroupDestroyed(EntitiesGroup destroyedEnemiesGroup)
+        public void OnEntitiesGroupDestroyed(EntitiesGroup destroyedEntitiesGroup)
         {
-            _spawnedEnemiesGroups.Remove(destroyedEnemiesGroup);
+            _spawnedEntitiesGroups.Remove(destroyedEntitiesGroup);
         }
 
-        private void SpawnEnemiesGroup(Cell[] prohibitedCells)
+        private void SpawnEntitiesGroup(Cell[] prohibitedCells)
         {
             Cell[] availableCellsForSpawn = GetAvailableCellsForSpawn(prohibitedCells);
             if (availableCellsForSpawn.Length == 0)
@@ -70,14 +71,14 @@ namespace FrostfallSaga.Kingdom.EnemiesGroupsSpawner
             }
 
             Cell cellToSpawnTo = Randomizer.GetRandomElementFromArray(availableCellsForSpawn);
-            GameObject spawnedEnemiesGroupPrefab = Instantiate(EnemiesGroupPrefab);
-            spawnedEnemiesGroupPrefab.name = "EnemiesGroup" + _spawnedEnemiesGroups.Count;
-            EntitiesGroup spawnedEnemiesGroup = spawnedEnemiesGroupPrefab.GetComponent<EntitiesGroup>();
-            spawnedEnemiesGroup.UpdateEntities(EntitiesGroup.GenerateRandomEntities(SpawnableEntities.AvailableEnemyEntities));
-            spawnedEnemiesGroup.TeleportToCell(cellToSpawnTo);
-            _spawnedEnemiesGroups.Add(spawnedEnemiesGroup);
+            GameObject spawnedEntitiesGroupPrefab = Instantiate(EntitiesGroupPrefab);
+            spawnedEntitiesGroupPrefab.name = $"{BaseGroupName}{_spawnedEntitiesGroups.Count}";
+            EntitiesGroup spawnedEtitiesGroup = spawnedEntitiesGroupPrefab.GetComponent<EntitiesGroup>();
+            spawnedEtitiesGroup.UpdateEntities(EntitiesGroup.GenerateRandomEntities(SpawnableEntities.AvailableEntities));
+            spawnedEtitiesGroup.TeleportToCell(cellToSpawnTo);
+            _spawnedEntitiesGroups.Add(spawnedEtitiesGroup);
             _noSpawnInARow = 0;
-            onEnemiesGroupSpawned?.Invoke(spawnedEnemiesGroup);
+            onEntitiesGroupSpawned?.Invoke(spawnedEtitiesGroup);
         }
 
         private Cell[] GetAvailableCellsForSpawn(Cell[] prohibitedCells)
@@ -98,7 +99,7 @@ namespace FrostfallSaga.Kingdom.EnemiesGroupsSpawner
                 return;
             }
 
-            if (EnemiesGroupPrefab == null)
+            if (EntitiesGroupPrefab == null)
             {
                 Debug.LogError("No prefab to spawn given.");
                 return;

@@ -5,7 +5,7 @@ using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
-using FrostfallSaga.Kingdom.EnemiesGroupsSpawner;
+using FrostfallSaga.Kingdom.EntitiesGroupsSpawner;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -23,7 +23,7 @@ namespace FrostfallSaga.Kingdom
         [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
         [field: SerializeField] public List<EntitiesGroup> EnemiesGroups { get; private set; } = new();
 
-        [SerializeField] private EnemiesGroupsSpawner.EnemiesGroupsSpawner _enemiesGroupSpawner;
+        [SerializeField] private EntitiesGroupsSpawner.EntitiesGroupsSpawner _enemiesGroupSpawner;
         [SerializeField] private KingdomLoader _kingdomLoader;
         private EntitiesGroupsMovementController _entitiesGroupsMovementController;
         private MovePath _currentHeroGroupMovePath;
@@ -66,7 +66,7 @@ namespace FrostfallSaga.Kingdom
             _entitiesAreMoving = false;
             try
             {
-                _enemiesGroupSpawner.TrySpawnEnemiesGroup(GetOccupiedCells());
+                _enemiesGroupSpawner.TrySpawnEntitiesGroup(GetOccupiedCells());
             }
             catch (ImpossibleSpawnException)
             {
@@ -183,7 +183,7 @@ namespace FrostfallSaga.Kingdom
 
             if (_enemiesGroupSpawner == null)
             {
-                _enemiesGroupSpawner = FindObjectOfType<EnemiesGroupsSpawner.EnemiesGroupsSpawner>();
+                _enemiesGroupSpawner = FindObjectOfType<EntitiesGroupsSpawner.EntitiesGroupsSpawner>();
             }
             if (_enemiesGroupSpawner == null)
             {
@@ -201,7 +201,7 @@ namespace FrostfallSaga.Kingdom
                 return;
             }
 
-            _enemiesGroupSpawner.onEnemiesGroupSpawned += OnEnemiesGroupSpawned;
+            _enemiesGroupSpawner.onEntitiesGroupSpawned += OnEnemiesGroupSpawned;
             _kingdomLoader.onKingdomLoaded += OnKingdomLoaded;
             _entitiesGroupsMovementController = new();
             _entitiesGroupsMovementController.OnAllEntitiesMoved += OnAllEntitiesMoved;
@@ -213,7 +213,7 @@ namespace FrostfallSaga.Kingdom
         {
             _entitiesGroupsMovementController.OnAllEntitiesMoved -= OnAllEntitiesMoved;
             _entitiesGroupsMovementController.OnEnemiesGroupEncountered -= OnEnemiesGroupEncounteredDuringMovement;
-            _enemiesGroupSpawner.onEnemiesGroupSpawned -= OnEnemiesGroupSpawned;
+            _enemiesGroupSpawner.onEntitiesGroupSpawned -= OnEnemiesGroupSpawned;
             UnbindCellMouseEvents();
         }
         #endregion
