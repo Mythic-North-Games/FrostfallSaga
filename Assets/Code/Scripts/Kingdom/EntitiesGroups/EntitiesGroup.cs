@@ -72,7 +72,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             Entities = new List<Entity>(newMembers).ToArray();
             Entities.ToList().ForEach(entity =>
             {
-                entity.name = Enum.GetName(typeof(EntityType), entity.EntityConfiguration.EntityType) + entity.sessionId;
+                entity.name = Enum.GetName(typeof(EntityID), entity.EntityConfiguration.EntityID) + entity.sessionId;
                 entity.transform.parent = transform;
                 entity.transform.localPosition = new(0, 0, 0);
             });

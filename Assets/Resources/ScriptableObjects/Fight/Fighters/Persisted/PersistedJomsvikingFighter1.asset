@@ -36,5 +36,5 @@ MonoBehaviour:
   <Initiative>k__BackingField: 2
   <EquipedActiveAbilities>k__BackingField:
   - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-    animation: {fileID: 0}
+    animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
   <Health>k__BackingField: 100

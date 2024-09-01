@@ -24,7 +24,7 @@ namespace FrostfallSaga.Kingdom.Entities
             {
                 sessionId = entity.sessionId,
                 isDead = entity.IsDead,
-                entityConfigurationResourcePath = $"{EntityConfigurationsBaseResourcePath}/{entity.EntityConfiguration.EntityType}"
+                entityConfigurationResourcePath = $"{EntityConfigurationsBaseResourcePath}/{entity.EntityConfiguration.EntityID}"
             };
         }
     }

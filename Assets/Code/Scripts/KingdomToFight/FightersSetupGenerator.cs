@@ -34,7 +34,7 @@ namespace FrostfallSaga.KingdomToFight
             foreach (Entity allyEntity in heroGroupEntities)
             {
                 PersistedFighterConfigurationSO allyFighterConfiguration = (PersistedFighterConfigurationSO)_entityToFighterDB.DB.First(
-                    entityToFighter => entityToFighter.entityType == allyEntity.EntityConfiguration.EntityType
+                    entityToFighter => entityToFighter.entityID == allyEntity.EntityConfiguration.EntityID
                 ).fighterConfiguration;
                 alliesFighterSetup.Add(
                     GenerateFighterSetupFromPersistingConfiguration(
@@ -49,7 +49,7 @@ namespace FrostfallSaga.KingdomToFight
             foreach (Entity enemyEntity in enemiesGroupEntities)
             {
                 FighterConfigurationSO enemyFighterConfiguration = _entityToFighterDB.DB.First(
-                    entityToFighter => entityToFighter.entityType == enemyEntity.EntityConfiguration.EntityType
+                    entityToFighter => entityToFighter.entityID == enemyEntity.EntityConfiguration.EntityID
                 ).fighterConfiguration;
                 enemiesFighterSetup.Add(
                     GenerateFighterSetupFromNonPersistingConfiguration(

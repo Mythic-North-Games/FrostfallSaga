@@ -196,6 +196,10 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void OnPossessedFighterDied(Fighter fighterThatDied)
         {
+            if (fighterThatDied != _possessedFighter)
+            {
+                return;
+            }
             UnbindFighterEventsForTurn(fighterThatDied);
         }
 

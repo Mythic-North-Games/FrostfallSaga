@@ -14,8 +14,6 @@ namespace FrostfallSaga.KingdomToFight
         [SerializeField] private PostFightDataSO _postFightData;
         [SerializeField] private string _kingdomSceneName;
 
-        [SerializeField] private KingdomDataSO kingdomData;
-
         private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
         {
             SavePostFightData(allies, enemies);
