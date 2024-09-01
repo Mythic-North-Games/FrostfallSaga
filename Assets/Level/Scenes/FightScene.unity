@@ -5725,6 +5725,104 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fighterPrefab: {fileID: 4700538115128749028, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
   _preFightData: {fileID: 11400000, guid: 04c5351ee75a07946b88b4758739fc4a, type: 2}
+  _devAlliesFighterSetup:
+  - name: Hero
+    sessionId: 
+    icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
+    initialStats:
+      health: 100
+      maxHealth: 100
+      actionPoints: 3
+      maxActionPoints: 3
+      movePoints: 4
+      maxMovePoints: 4
+      strength: 10
+      dexterity: 10
+      physicalResistance: 10
+      initiative: 5
+    directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
+    directAttackActionPointsCost: 3
+    directAttackEffects:
+    - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
+    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
+    activeAbilities:
+    - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+    receiveDamageAnimationStateName: Hurt
+    healSelfAnimationStateName: 
+  - name: Jomsviking1
+    sessionId: 
+    icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
+    initialStats:
+      health: 100
+      maxHealth: 100
+      actionPoints: 3
+      maxActionPoints: 3
+      movePoints: 4
+      maxMovePoints: 4
+      strength: 10
+      dexterity: 10
+      physicalResistance: 10
+      initiative: 3
+    directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
+    directAttackActionPointsCost: 3
+    directAttackEffects:
+    - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
+    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
+    activeAbilities:
+    - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+    receiveDamageAnimationStateName: Hurt
+    healSelfAnimationStateName: 
+  - name: Jomsviking2
+    sessionId: 
+    icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
+    initialStats:
+      health: 100
+      maxHealth: 100
+      actionPoints: 3
+      maxActionPoints: 3
+      movePoints: 4
+      maxMovePoints: 4
+      strength: 10
+      dexterity: 10
+      physicalResistance: 10
+      initiative: 3
+    directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
+    directAttackActionPointsCost: 3
+    directAttackEffects:
+    - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
+    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
+    activeAbilities:
+    - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+    receiveDamageAnimationStateName: Hurt
+    healSelfAnimationStateName: 
+  _devEnemiesFighterSetup:
+  - name: Skeleton
+    sessionId: 
+    icon: {fileID: 21300000, guid: f6fc899a423eacb4a87e6c0bb5acb040, type: 3}
+    initialStats:
+      health: 100
+      maxHealth: 100
+      actionPoints: 3
+      maxActionPoints: 3
+      movePoints: 4
+      maxMovePoints: 4
+      strength: 10
+      dexterity: 10
+      physicalResistance: 10
+      initiative: 4
+    directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
+    directAttackActionPointsCost: 3
+    directAttackEffects:
+    - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
+    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
+    activeAbilities:
+    - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+    receiveDamageAnimationStateName: Hurt
+    healSelfAnimationStateName: 
 --- !u!1 &1656478350
 GameObject:
   m_ObjectHideFlags: 0
@@ -5773,7 +5871,6 @@ MonoBehaviour:
   _sceneTransitioner: {fileID: 999864228}
   _postFightData: {fileID: 11400000, guid: 11997465224c89947953d44a521acb97, type: 2}
   _kingdomSceneName: KingdomScene
-  kingdomData: {fileID: 11400000, guid: ac5e333e2b50f47429757a255117b179, type: 2}
 --- !u!1 &1656804053
 GameObject:
   m_ObjectHideFlags: 0

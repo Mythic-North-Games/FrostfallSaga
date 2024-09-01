@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using FrostfallSaga.Fight.Effects;
 
 namespace FrostfallSaga.Fight.Fighters
 {
+    [Serializable]
     public class FighterStats
     {
         public int health;

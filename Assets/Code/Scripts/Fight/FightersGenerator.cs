@@ -12,6 +12,8 @@ namespace FrostfallSaga.Fight
 
         [SerializeField] private GameObject _fighterPrefab;
         [SerializeField] private PreFightDataSO _preFightData;
+        [SerializeField] private FighterSetup[] _devAlliesFighterSetup;
+        [SerializeField] private FighterSetup[] _devEnemiesFighterSetup;
 
         private void OnEnable()
         {
@@ -29,20 +31,29 @@ namespace FrostfallSaga.Fight
 
         private void Start()
         {
+            FighterSetup[] alliesFighterSetup = _preFightData.alliesFighterSetup ?? _devAlliesFighterSetup;
+            FighterSetup[] enemiesFighterSetup = _preFightData.enemiesFighterSetup ?? _devEnemiesFighterSetup;
+
             List<Fighter> allies = new();
-            _preFightData.alliesFighterSetup.ToList().ForEach(allyFighterSetup =>
+            alliesFighterSetup.ToList().ForEach(allyFighterSetup =>
                 allies.Add(SpawnAndSetupFighter(allyFighterSetup))
             );
 
             List<Fighter> enemies = new();
-            _preFightData.enemiesFighterSetup.ToList().ForEach(enemyFighterSetup =>
+            enemiesFighterSetup.ToList().ForEach(enemyFighterSetup =>
                 enemies.Add(SpawnAndSetupFighter(enemyFighterSetup, $"{enemies.Count}"))
             );
 
             onFightersGenerated?.Invoke(allies.ToArray(), enemies.ToArray());
 
-            _preFightData.alliesFighterSetup = null;
-            _preFightData.enemiesFighterSetup = null;
+            if (alliesFighterSetup == _preFightData.alliesFighterSetup)
+            {
+                _preFightData.alliesFighterSetup = null;
+                _preFightData.enemiesFighterSetup = null;
+                return;
+            }
+
+            Debug.Log("Fight launched in dev mode. Not went through kingdom first.");
         }
 
         private Fighter SpawnAndSetupFighter(FighterSetup fighterSetup, string nameSuffix = "")

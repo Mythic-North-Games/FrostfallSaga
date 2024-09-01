@@ -16,8 +16,11 @@ namespace FrostfallSaga.KingdomToFight
 
         private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
         {
-            SavePostFightData(allies, enemies);
-            Debug.Log("Post fight data saved!");
+            if (allies[0].EntitySessionId != null && allies[0].EntitySessionId.Length > 0)
+            {
+                SavePostFightData(allies, enemies);
+                Debug.Log("Post fight data saved!");
+            }
             Debug.Log("Transitioning to kingdom...");
             _sceneTransitioner.FadeInToScene(_kingdomSceneName);
         }
