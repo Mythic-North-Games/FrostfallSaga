@@ -3580,6 +3580,7 @@ GameObject:
   - component: {fileID: 985944593}
   - component: {fileID: 985944592}
   - component: {fileID: 985944594}
+  - component: {fileID: 985944595}
   m_Layer: 0
   m_Name: FightCamera
   m_TagString: Untagged
@@ -3656,6 +3657,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 985944592}
   _fightManager: {fileID: 1678739252}
+--- !u!114 &985944595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985944591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d35a478368f4274d8b13489ab237cb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 985944592}
+  _minFOV: 10
+  _maxFOV: 100
+  _zoomMultiplier: 10
 --- !u!1 &994195121
 GameObject:
   m_ObjectHideFlags: 0

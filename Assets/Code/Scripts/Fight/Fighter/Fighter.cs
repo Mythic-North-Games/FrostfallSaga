@@ -15,6 +15,7 @@ namespace FrostfallSaga.Fight.Fighters
     {
         [field: SerializeField] public EntityVisualAnimationController AnimationController { get; private set; }
         [field: SerializeField] public EntityVisualMovementController MovementController { get; private set; }
+        [field:SerializeField] public Transform CameraAnchor { get; private set; }
         public Sprite FighterIcon { get; private set; }
         public string EntitySessionId { get; private set; }
         public Cell cell;

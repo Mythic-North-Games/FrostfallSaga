@@ -17,11 +17,12 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
     {
         public int movePoints;
         public Cell cell;
+        [field:SerializeField] public Transform CameraAnchor { get; private set; }
         public Action<EntitiesGroup> onEntityGroupHovered;
         public Action<EntitiesGroup> onEntityGroupUnhovered;
         public Action<EntitiesGroup, Cell> onEntityGroupMoved;
         public Entity[] Entities { get; protected set; }
-        protected Entity _displayedEntity;
+        private Entity _displayedEntity;
 
         private void Start()
         {

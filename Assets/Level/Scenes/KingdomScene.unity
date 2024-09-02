@@ -2782,7 +2782,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35710162, y: -0.02679279, z: 0.010247956, w: 0.933625}
-  m_LocalPosition: {x: 0.64064574, y: 10.010207, z: -11.152818}
+  m_LocalPosition: {x: 0.6406457, y: 12.260206, z: -11.152817}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19095,8 +19095,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2047304807}
   - component: {fileID: 2047304806}
+  - component: {fileID: 2047304808}
   m_Layer: 0
-  m_Name: Virtual Camera
+  m_Name: KingdomCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19120,8 +19121,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 5443527682534269662}
-  m_Follow: {fileID: 5443527682534269662}
+  m_LookAt: {fileID: 2076130734290203427}
+  m_Follow: {fileID: 2076130734290203427}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -19150,13 +19151,30 @@ Transform:
   m_GameObject: {fileID: 2047304805}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35710162, y: -0.02679279, z: 0.010247956, w: 0.933625}
-  m_LocalPosition: {x: 0.64064574, y: 10.010207, z: -11.152818}
+  m_LocalPosition: {x: 0.6406457, y: 12.260206, z: -11.152817}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1449699358}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 41.863, y: -1.816, z: 0.038}
+--- !u!114 &2047304808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047304805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d35a478368f4274d8b13489ab237cb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 2047304806}
+  _minFOV: 20
+  _maxFOV: 120
+  _baseFOV: 75
+  _zoomMultiplier: 10
 --- !u!1 &2049436667
 GameObject:
   m_ObjectHideFlags: 0
@@ -20319,9 +20337,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
---- !u!4 &5443527682534269662 stripped
+--- !u!4 &2076130734290203427 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3903848515127741966, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2442371137979863262, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
   m_PrefabInstance: {fileID: 2076130734290203426}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8585752689716226891
