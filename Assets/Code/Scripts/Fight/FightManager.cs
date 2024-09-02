@@ -87,9 +87,15 @@ namespace FrostfallSaga.Fight
                 UpdateFightersTurnOrder(updatedFighterTurnsOrder);
             }
 
-            // Next fighter is suicide
+            // If suicide, end fight if needed, otherwise go to next fight
             if (fighterThatDied == _playingFighter)
             {
+                if (HasFightEnded())
+                {
+                    Debug.Log($"Winner is {GetWinner(_allies, _enemies)}");
+                    onFightEnded?.Invoke(_allies.ToArray(), _enemies.ToArray());
+                    return;
+                }
                 PlayNextFighterTurn();
             }
         }

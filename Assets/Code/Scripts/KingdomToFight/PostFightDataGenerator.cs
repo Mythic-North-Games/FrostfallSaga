@@ -1,28 +1,26 @@
 using System.Linq;
 using UnityEngine;
-using FrostfallSaga.Core;
-using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight;
 using FrostfallSaga.Kingdom;
+using FrostfallSaga.Fight;
+using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.KingdomToFight
 {
-    public class FightToKingdomTransitioner : MonoBehaviour
+    public class PostFightDataGenerator : MonoBehaviour
     {
         [SerializeField] private FightManager _fightManager;
-        [SerializeField] private SceneTransitioner _sceneTransitioner;
         [SerializeField] private PostFightDataSO _postFightData;
-        [SerializeField] private string _kingdomSceneName;
 
         private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
         {
-            if (allies[0].EntitySessionId != null && allies[0].EntitySessionId.Length > 0)
+            if (allies[0].EntitySessionId == null || allies[0].EntitySessionId.Length == 0)
             {
-                SavePostFightData(allies, enemies);
-                Debug.Log("Post fight data saved!");
+                Debug.Log("No session ID on fighters. Dev mod assumed. No post fight data saved.");
+                _postFightData.enabled = false;
+                return;
             }
-            Debug.Log("Transitioning to kingdom...");
-            _sceneTransitioner.FadeInToScene(_kingdomSceneName);
+            SavePostFightData(allies, enemies);
+            Debug.Log("Post fight data saved!");
         }
 
         private void SavePostFightData(Fighter[] allies, Fighter[] enemies)
@@ -48,16 +46,6 @@ namespace FrostfallSaga.KingdomToFight
             {
                 Debug.LogError("Fight manager not found. Can't know when to transition to kingdom.");
             }
-
-            if (_sceneTransitioner == null)
-            {
-                _sceneTransitioner = FindObjectOfType<SceneTransitioner>();
-            }
-            if (_sceneTransitioner == null)
-            {
-                Debug.LogError("Scene transitioner not found. Can't transition to kingdom.");
-            }
-
             if (_postFightData == null)
             {
                 Debug.LogError("No fight data given. Can't properly transition to kingdom scene.");
