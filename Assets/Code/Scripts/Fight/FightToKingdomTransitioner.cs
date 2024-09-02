@@ -39,7 +39,7 @@ namespace FrostfallSaga.Fight
                 Debug.LogError("Scene transitioner not found. Can't transition to kingdom.");
             }
 
-           _fightEndMenuController.onContinueClicked += OnContinueClicked;
+            _fightEndMenuController.onContinueClicked += OnContinueClicked;
         }
 
         private void OnDisable()

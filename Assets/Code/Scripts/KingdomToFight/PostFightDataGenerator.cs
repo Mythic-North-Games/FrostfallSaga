@@ -45,7 +45,7 @@ namespace FrostfallSaga.KingdomToFight
                 Debug.LogError("No fight data given. Can't properly transition to kingdom scene.");
             }
 
-           _fightManager.onFightEnded += OnFightEnded;
+            _fightManager.onFightEnded += OnFightEnded;
         }
 
         private void OnDisable()
