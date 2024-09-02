@@ -52,7 +52,8 @@ namespace FrostfallSaga.Kingdom
         {
             _respawnedHeroGroup = _entitiesGroupBuilder.BuildEntitiesGroup(_kingdomData.heroGroupData, _grid);
             _respawnedHeroGroup.name = "HeroGroup";
-            _camera.Follow = _respawnedHeroGroup.transform;
+            _camera.Follow = _respawnedHeroGroup.CameraAnchor;
+            _camera.LookAt = _respawnedHeroGroup.CameraAnchor;
             foreach (EntitiesGroupData enemiesGroupData in _kingdomData.enemiesGroupsData)
             {
                 _respawnedEnemiesGroups.Add(_entitiesGroupBuilder.BuildEntitiesGroup(enemiesGroupData, _grid));

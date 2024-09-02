@@ -39,7 +39,7 @@ namespace FrostfallSaga.Fight
 
         private void OnFighterTurnBegan(Fighter fighter, bool _isAlly)
         {
-            _camera.Follow = fighter.transform;
+            _camera.Follow = fighter.CameraAnchor;
         }
 
         private void OnDisable()
