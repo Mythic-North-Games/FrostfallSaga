@@ -2741,6 +2741,69 @@ MonoBehaviour:
   <HighlightController>k__BackingField: {fileID: 1043014756}
   <CellMouseEventsController>k__BackingField: {fileID: 1043014754}
   <WorldHeightPerUnit>k__BackingField: 0.8
+--- !u!1 &793609178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 793609183}
+  - component: {fileID: 793609182}
+  - component: {fileID: 793609179}
+  m_Layer: 5
+  m_Name: FightEndUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &793609179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793609178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd7547c7a0de1b844a1c274da276dd7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDoc: {fileID: 793609182}
+  _fightManager: {fileID: 1678739252}
+--- !u!114 &793609182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793609178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: c9372fe107bbfe94892b6360924cc721, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 1f430c148c5e66f4aae84cda2c9de4d3, type: 3}
+  m_SortingOrder: 0
+--- !u!4 &793609183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793609178}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &845748028
 GameObject:
   m_ObjectHideFlags: 0
@@ -5431,6 +5494,53 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499778988}
   m_Mesh: {fileID: 5264201581553841347, guid: 8aaf0a3f3237af6408cd90e485a85978, type: 3}
+--- !u!1 &1541036563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1541036564}
+  - component: {fileID: 1541036565}
+  m_Layer: 0
+  m_Name: FightToKingdomTransitioner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1541036564
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541036563}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1541036565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541036563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb0e5a37acdc104a9a2c026c99ab8b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fightEndMenuController: {fileID: 793609179}
+  _sceneTransitioner: {fileID: 999864228}
+  _kingdomSceneName: KingdomScene
 --- !u!1 &1546599451
 GameObject:
   m_ObjectHideFlags: 0
@@ -5834,7 +5944,7 @@ GameObject:
   - component: {fileID: 1656478351}
   - component: {fileID: 1656478352}
   m_Layer: 0
-  m_Name: FightToKingdomTransitioner
+  m_Name: PostFightDataGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5868,9 +5978,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fightManager: {fileID: 1678739252}
-  _sceneTransitioner: {fileID: 999864228}
   _postFightData: {fileID: 11400000, guid: 11997465224c89947953d44a521acb97, type: 2}
-  _kingdomSceneName: KingdomScene
+  kingdomData: {fileID: 11400000, guid: ac5e333e2b50f47429757a255117b179, type: 2}
 --- !u!1 &1656804053
 GameObject:
   m_ObjectHideFlags: 0
@@ -8535,3 +8644,5 @@ SceneRoots:
   - {fileID: 985944593}
   - {fileID: 1242875532}
   - {fileID: 1952024163}
+  - {fileID: 793609183}
+  - {fileID: 1541036564}
