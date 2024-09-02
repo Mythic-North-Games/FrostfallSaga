@@ -5842,61 +5842,13 @@ MonoBehaviour:
     initialStats:
       health: 100
       maxHealth: 100
-      actionPoints: 3
-      maxActionPoints: 3
+      actionPoints: 5
+      maxActionPoints: 5
       movePoints: 4
       maxMovePoints: 4
-      strength: 10
-      dexterity: 10
-      physicalResistance: 10
-      initiative: 5
-    directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
-    directAttackActionPointsCost: 3
-    directAttackEffects:
-    - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
-    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
-    activeAbilities:
-    - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
-    receiveDamageAnimationStateName: Hurt
-    healSelfAnimationStateName: 
-  - name: Jomsviking1
-    sessionId: 
-    icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
-    initialStats:
-      health: 100
-      maxHealth: 100
-      actionPoints: 3
-      maxActionPoints: 3
-      movePoints: 4
-      maxMovePoints: 4
-      strength: 10
-      dexterity: 10
-      physicalResistance: 10
-      initiative: 3
-    directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
-    directAttackActionPointsCost: 3
-    directAttackEffects:
-    - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
-    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
-    activeAbilities:
-    - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
-    receiveDamageAnimationStateName: Hurt
-    healSelfAnimationStateName: 
-  - name: Jomsviking2
-    sessionId: 
-    icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
-    initialStats:
-      health: 100
-      maxHealth: 100
-      actionPoints: 3
-      maxActionPoints: 3
-      movePoints: 4
-      maxMovePoints: 4
-      strength: 10
-      dexterity: 10
-      physicalResistance: 10
+      strength: 1
+      dexterity: 1
+      physicalResistance: 1
       initiative: 3
     directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
     directAttackActionPointsCost: 3
@@ -5915,14 +5867,14 @@ MonoBehaviour:
     initialStats:
       health: 100
       maxHealth: 100
-      actionPoints: 3
-      maxActionPoints: 3
+      actionPoints: 5
+      maxActionPoints: 5
       movePoints: 4
       maxMovePoints: 4
-      strength: 10
-      dexterity: 10
-      physicalResistance: 10
-      initiative: 4
+      strength: 1
+      dexterity: 1
+      physicalResistance: 1
+      initiative: 1
     directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
     directAttackActionPointsCost: 3
     directAttackEffects:
@@ -5979,7 +5931,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fightManager: {fileID: 1678739252}
   _postFightData: {fileID: 11400000, guid: 11997465224c89947953d44a521acb97, type: 2}
-  kingdomData: {fileID: 11400000, guid: ac5e333e2b50f47429757a255117b179, type: 2}
 --- !u!1 &1656804053
 GameObject:
   m_ObjectHideFlags: 0

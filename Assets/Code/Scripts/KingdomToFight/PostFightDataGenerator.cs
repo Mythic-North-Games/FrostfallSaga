@@ -13,6 +13,12 @@ namespace FrostfallSaga.KingdomToFight
 
         private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
         {
+            if (allies[0].EntitySessionId == null || allies[0].EntitySessionId.Length == 0)
+            {
+                Debug.Log("No session ID on fighters. Dev mod assumed. No post fight data saved.");
+                _postFightData.enabled = false;
+                return;
+            }
             SavePostFightData(allies, enemies);
             Debug.Log("Post fight data saved!");
         }

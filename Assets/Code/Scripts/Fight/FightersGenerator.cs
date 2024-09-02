@@ -31,8 +31,12 @@ namespace FrostfallSaga.Fight
 
         private void Start()
         {
-            FighterSetup[] alliesFighterSetup = _preFightData.alliesFighterSetup ?? _devAlliesFighterSetup;
-            FighterSetup[] enemiesFighterSetup = _preFightData.enemiesFighterSetup ?? _devEnemiesFighterSetup;
+            FighterSetup[] alliesFighterSetup = _preFightData.alliesFighterSetup != null && _preFightData.alliesFighterSetup.Length > 0 ?
+                _preFightData.alliesFighterSetup :
+                _devAlliesFighterSetup;
+            FighterSetup[] enemiesFighterSetup = _preFightData.enemiesFighterSetup != null && _preFightData.enemiesFighterSetup.Length > 0 ?
+                _preFightData.enemiesFighterSetup :
+                _devEnemiesFighterSetup;
 
             List<Fighter> allies = new();
             alliesFighterSetup.ToList().ForEach(allyFighterSetup =>
