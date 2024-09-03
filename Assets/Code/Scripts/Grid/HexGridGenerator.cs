@@ -1,5 +1,7 @@
 using UnityEngine;
 using FrostfallSaga.Grid.Cells;
+using System.Linq;
+using FrostfallSaga.Core;
 
 namespace FrostfallSaga.Grid
 {
@@ -11,6 +13,7 @@ namespace FrostfallSaga.Grid
     {
         [field: SerializeField] public HexGrid HexGrid { get; private set; }
         [SerializeField] private Material AlternativeMaterial;
+        [field: SerializeField, Header("Biome caracteristics"), Tooltip("Biome's type")] public BiomeTypeSO BiomeType { get; private set; }
 
         private void Awake()
         {
@@ -84,8 +87,8 @@ namespace FrostfallSaga.Grid
         {
             cellPrefab.transform.name = "Cell[" + x + ";" + z + "]";
             Cell newCell = cellPrefab.GetComponent<Cell>();
-            newCell.Setup(new Vector2Int(x, z), ECellHeight.LOW, true, HexGrid.HexSize);
-
+            TerrainTypeSO _terrain = Randomizer.GetRandomElementFromArray(BiomeType.TerrainTypeSO);
+            newCell.Setup(new Vector2Int(x, z), ECellHeight.LOW, true, HexGrid.HexSize, _terrain);
             if (x % 2 == 0)
             {
                 newCell.HighlightController.SetupInitialMaterial(AlternativeMaterial);

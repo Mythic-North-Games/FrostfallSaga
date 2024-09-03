@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d19874b5c3d4b48bb202016a3e0c19, type: 3}
   m_Name: BiomeTypeSnow
   m_EditorClassIdentifier: 
-  <TypeName>k__BackingField: 
-  <TypeDescription>k__BackingField: 
-  <TerrainTypeSO>k__BackingField: []
+  <TypeName>k__BackingField: Snow
+  <TypeDescription>k__BackingField: Similar to the valley biome, but all cells are
+    snow-covered. Courtyards and water points are covered in ice.
+  <TerrainTypeSO>k__BackingField:
+  - {fileID: 11400000, guid: 8938c5d5577b725409e564ab9665711a, type: 2}
+  - {fileID: 11400000, guid: 71154e6d5c4d2f747a762437383b347e, type: 2}
+  - {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
+  - {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
