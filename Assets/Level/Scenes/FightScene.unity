@@ -3655,7 +3655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bacbaad432c19f49aae0f3e215f01af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
+  _camera: {fileID: 985944592}
   _fightManager: {fileID: 1678739252}
 --- !u!114 &985944595
 MonoBehaviour:
@@ -3674,12 +3674,12 @@ MonoBehaviour:
   _minFOV: 20
   _maxFOV: 120
   _baseFOV: 75
-  _zoomMultiplier: 10
+  _zoomMultiplier: 5
   _allowTranslation: 1
   _mouseFollowTarget: {fileID: 2086321100}
   _mouseTargetOffset: {x: 0.1, y: 0.1}
   _smoothing: 5
-  _maxTranslationSpeed: 40
+  _maxTranslationSpeed: 30
   _minY: 2
   _maxY: 10
 --- !u!1 &994195121

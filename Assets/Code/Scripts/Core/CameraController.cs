@@ -13,13 +13,13 @@ namespace FrostfallSaga.Core
         [SerializeField, Tooltip("Min FOV possible for zoom.")] private float _minFOV = 20.0f;
         [SerializeField, Tooltip("Max FOV possible for zoom.")] private float _maxFOV = 120.0f;
         [SerializeField, Tooltip("Base FOV.")] private float _baseFOV = 75.0f;
-        [SerializeField, Tooltip("Multiplier added to the scroll delta.")] private float _zoomMultiplier = 10.0f;
+        [SerializeField, Tooltip("Multiplier added to the scroll delta.")] private float _zoomMultiplier = 5.0f;
 
         [SerializeField, Header("Translation"), Tooltip("To activate or deactivate translation.")] private bool _allowTranslation = true;
         [SerializeField, Tooltip("The invisible target that the camera will follow.")] private Transform _mouseFollowTarget;
         [SerializeField, Tooltip("Offset to keep camera away from edges.")] private Vector2 _mouseTargetOffset = new(0.1f, 0.1f);
         [SerializeField, Tooltip("The amount of smoothing to apply to the camera movement")] private float _smoothing = 5f;
-        [SerializeField, Tooltip("The maximum translation speed for the follow target.")] private float _maxTranslationSpeed = 10f;
+        [SerializeField, Tooltip("The maximum translation speed for the follow target.")] private float _maxTranslationSpeed = 30f;
 
         [SerializeField, Tooltip("Min Y position for the follow target (zoomed in).")] private float _minY = 2f;
         [SerializeField, Tooltip("Max Y position for the follow target (zoomed out).")] private float _maxY = 10f;
@@ -101,11 +101,6 @@ namespace FrostfallSaga.Core
                 // Smoothly move the follow target to the mouse position, clamped by max speed
                 _mouseFollowTarget.position += direction;
             }
-        }
-
-        public void SetInitialTarget(Transform target)
-        {
-            _initialTarget = target;
         }
 
         #region Setup & teardown
