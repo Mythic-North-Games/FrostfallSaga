@@ -1,6 +1,7 @@
-using UnityEngine;
-using Cinemachine;
 using System;
+using UnityEngine;
+using UnityEngine.UIElements;
+using Cinemachine;
 
 namespace FrostfallSaga.Core
 {
@@ -12,18 +13,22 @@ namespace FrostfallSaga.Core
         [SerializeField, Tooltip("Min FOV possible for zoom.")] private float _minFOV = 20.0f;
         [SerializeField, Tooltip("Max FOV possible for zoom.")] private float _maxFOV = 120.0f;
         [SerializeField, Tooltip("Base FOV.")] private float _baseFOV = 75.0f;
-        [SerializeField, Tooltip("Multiplier added to the scroll delta.")] private float _zoomMultiplier = 10.0f;
+        [SerializeField, Tooltip("Multiplier added to the scroll delta.")] private float _zoomMultiplier = 5.0f;
 
         [SerializeField, Header("Translation"), Tooltip("To activate or deactivate translation.")] private bool _allowTranslation = true;
-        [SerializeField, Tooltip("Edge border detection width.")] private Vector2 _edgeBorderWidthRatio = new(0.05f, 0.05f);
-        [SerializeField, Tooltip("Translation speed.")] private float _translationSpeed = 15.0f;
+        [SerializeField, Tooltip("The invisible target that the camera will follow.")] private Transform _mouseFollowTarget;
+        [SerializeField, Tooltip("Offset to keep camera away from edges.")] private Vector2 _mouseTargetOffset = new(0.1f, 0.1f);
+        [SerializeField, Tooltip("The amount of smoothing to apply to the camera movement")] private float _smoothing = 5f;
+        [SerializeField, Tooltip("The maximum translation speed for the follow target.")] private float _maxTranslationSpeed = 30f;
 
-        private Vector2 _edgeBorderWidth;
+        [SerializeField, Tooltip("Min Y position for the follow target (zoomed in).")] private float _minY = 2f;
+        [SerializeField, Tooltip("Max Y position for the follow target (zoomed out).")] private float _maxY = 10f;
+
+        private Transform _initialTarget;
 
         private void Start()
         {
             SetFOV(_baseFOV);
-            _edgeBorderWidth = new(Screen.width * _edgeBorderWidthRatio.x, Screen.height * _edgeBorderWidthRatio.y);
         }
 
         private void Update()
@@ -34,97 +39,68 @@ namespace FrostfallSaga.Core
             }
             if (_allowTranslation)
             {
-                UpdateCameraPosition();
+                if (Input.GetMouseButtonUp((int)MouseButton.MiddleMouse))
+                {
+                    _camera.Follow = _initialTarget;
+                }
+                else if (Input.GetMouseButtonDown((int)MouseButton.RightMouse) && _camera.Follow != null && _camera.Follow != _mouseFollowTarget)
+                {
+                    _initialTarget = _camera.Follow;
+                    _mouseFollowTarget.position = _camera.transform.position = _initialTarget.position;
+                    _camera.Follow = _mouseFollowTarget;
+                }
+                else if (Input.GetMouseButton((int)MouseButton.RightMouse))
+                {
+                    UpdateMouseFollowTargetPosition();
+                }
             }
         }
 
         private void SetFOV(float newFOV)
         {
             _camera.m_Lens.FieldOfView = Math.Clamp(newFOV, _minFOV, _maxFOV);
+
+            // Normalize the FOV value between 0 and 1
+            float zoomFactor = Mathf.InverseLerp(_minFOV, _maxFOV, _camera.m_Lens.FieldOfView);
+
+            // Linearly interpolate the Y position based on the FOV
+            float targetY = Mathf.Lerp(_minY, _maxY, zoomFactor);
+
+            // Apply the calculated Y position to the mouse follow target
+            Vector3 targetPosition = _mouseFollowTarget.position;
+            targetPosition.y = targetY;
+            _mouseFollowTarget.position = targetPosition;
         }
 
-        private void UpdateCameraPosition()
+        private void UpdateMouseFollowTargetPosition()
         {
-            Vector3 currentPosition = _camera.transform.position;
-            Vector3 targetPosition = currentPosition;
-            float horizontalSpeedFactor = 0;
-            float verticalSpeedFactor = 0;
+            // Raycast from the mouse position into the world, using the plane at the Y position of the target
+            Plane plane = new(Vector3.up, new Vector3(0, _mouseFollowTarget.position.y, 0));
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            // Check horizontal edges and adjust target position accordingly
-            if (Input.mousePosition.x >= Screen.width - _edgeBorderWidth.x)
+            // Raycast to find where the mouse hits the plane
+            if (plane.Raycast(ray, out float distance))
             {
-                DetachIfFollowing();
-                horizontalSpeedFactor = GetSpeedFactor(Input.mousePosition.x, _edgeBorderWidth.x, Screen.width);
-                targetPosition.x += _translationSpeed * horizontalSpeedFactor;
-            }
-            else if (Input.mousePosition.x <= _edgeBorderWidth.x)
-            {
-                DetachIfFollowing();
-                horizontalSpeedFactor = GetSpeedFactor(Input.mousePosition.x, _edgeBorderWidth.x, Screen.width);
-                targetPosition.x -= _translationSpeed * horizontalSpeedFactor;
-            }
+                Vector3 mouseWorldPos = ray.GetPoint(distance);
 
-            // Check vertical edges and adjust target position accordingly
-            if (Input.mousePosition.y >= Screen.height - _edgeBorderWidth.y)
-            {
-                DetachIfFollowing();
-                verticalSpeedFactor = GetSpeedFactor(Input.mousePosition.y, _edgeBorderWidth.y, Screen.height);
-                targetPosition.z += _translationSpeed * verticalSpeedFactor;
-            }
-            else if (Input.mousePosition.y <= _edgeBorderWidth.y)
-            {
-                DetachIfFollowing();
-                verticalSpeedFactor = GetSpeedFactor(Input.mousePosition.y, _edgeBorderWidth.y, Screen.height);
-                targetPosition.z -= _translationSpeed * verticalSpeedFactor;
-            }
+                // Offset the mouse position so the camera doesn't center exactly on the mouse
+                mouseWorldPos += new Vector3(_mouseTargetOffset.x, 0, _mouseTargetOffset.y);
 
-            // Compute max distance delta
-            float maxDistanceDelta = Time.deltaTime * _translationSpeed;
-            if (horizontalSpeedFactor > 1)
-            {
-                maxDistanceDelta *= horizontalSpeedFactor;
+                // Move the follow target to the new position (only X and Z axes are affected)
+                Vector3 nextTargetPosition = new(mouseWorldPos.x, _mouseFollowTarget.position.y, mouseWorldPos.z);
+
+                // Calculate the distance the follow target would move
+                Vector3 direction = nextTargetPosition - _mouseFollowTarget.position;
+
+                // Clamp the magnitude of the direction vector to the maximum speed
+                if (direction.magnitude > _maxTranslationSpeed * Time.deltaTime)
+                {
+                    direction = _maxTranslationSpeed * Time.deltaTime * direction.normalized;
+                }
+
+                // Smoothly move the follow target to the mouse position, clamped by max speed
+                _mouseFollowTarget.position += direction;
             }
-            else if (verticalSpeedFactor > 1)
-            {
-                maxDistanceDelta *= verticalSpeedFactor;
-            }
-
-            // Move the camera towards the target position
-            _camera.transform.position = Vector3.MoveTowards(currentPosition, targetPosition, maxDistanceDelta);
-        }
-
-        private void DetachIfFollowing()
-        {
-            if (_camera.Follow != null)
-            {
-                DetachTarget();
-            }
-        }
-
-        private float GetSpeedFactor(float mousePosition, float edgeBorderWidth, float screenSize)
-        {
-            // Determine how close the mouse is to the screen edge
-            float distanceToEdge = 0f;
-
-            if (mousePosition >= screenSize - edgeBorderWidth)
-            {
-                distanceToEdge = screenSize - mousePosition; // Distance from right or top edge
-            }
-            else if (mousePosition <= edgeBorderWidth)
-            {
-                distanceToEdge = mousePosition; // Distance from left or bottom edge
-            }
-
-            // Calculate speed factor based on distance to edge
-            float maxDistance = edgeBorderWidth; // Maximum distance within the edge border to start speeding up
-            float speedFactor = 1f + (1f - (distanceToEdge / maxDistance)); // Scale speed factor from 1 to 2 as it approaches the edge
-            return Mathf.Clamp(speedFactor, 1f, 2f); // Ensure the factor is between 1 and 2
-        }
-
-        private void DetachTarget()
-        {
-            _camera.Follow = null;
-            _camera.LookAt = null;
         }
 
         #region Setup & teardown
