@@ -22,6 +22,7 @@ namespace FrostfallSaga.Fight.Controllers
 
         private HexGrid _currentFightGrid;
         private Fighter _possessedFighter;
+        private Dictionary<Fighter, bool> _fighterTeams;
 
         private Cell[] _currentMovePath = { };
         private bool _fighterIsActing;
@@ -33,11 +34,13 @@ namespace FrostfallSaga.Fight.Controllers
         {
             _currentFightGrid = fightGrid;
             _possessedFighter = fighterToPlay;
+            _fighterTeams = fighterTeams;
             _fighterIsActing = false;
             _fighterIsTargetingForActiveAbility = false;
             _fighterIsTargetingForDirectAttack = false;
 
-            BindFighterEventsForTurn(fighterToPlay);
+            BindPossessedFighterEventsForTurn(fighterToPlay);
+            BindFightersMouseEvents(fighterTeams.Keys.ToList());
             BindUIEventsForTurn();
             BindCellMouseEventsForTurn(fightGrid);
         }
@@ -122,6 +125,21 @@ namespace FrostfallSaga.Fight.Controllers
             {
                 ResetShorterPathCellsDefaultMaterial();
             }
+        }
+
+        private void OnFighterHovered(Fighter hoveredFighter)
+        {
+            OnCellHovered(hoveredFighter.cell);
+        }
+
+        private void OnFighterUnhovered(Fighter unhoveredFighter)
+        {
+            OnCellUnhovered(unhoveredFighter.cell);
+        }
+
+        private void OnFighterClicked(Fighter clickedFighter)
+        {
+            OnCellClicked(clickedFighter.cell);
         }
 
         private void EndFighterAction()
@@ -335,6 +353,7 @@ namespace FrostfallSaga.Fight.Controllers
             UnbindFighterEventsForTurn();
             UnbindCellMouseEvents(_currentFightGrid);
             UnbindUIEventsForTurn();
+            UnbindEntitiesGroupsMouseEvents(_fighterTeams.Keys.ToList());
             onFighterTurnEnded?.Invoke(_possessedFighter);
         }
 
@@ -351,6 +370,7 @@ namespace FrostfallSaga.Fight.Controllers
             UnbindFighterEventsForTurn();
             UnbindCellMouseEvents(_currentFightGrid);
             UnbindUIEventsForTurn();
+            UnbindEntitiesGroupsMouseEvents(_fighterTeams.Keys.ToList());
         }
 
         #endregion
@@ -434,7 +454,7 @@ namespace FrostfallSaga.Fight.Controllers
 
         #region Possessed fighter events binding
 
-        private void BindFighterEventsForTurn(Fighter _possessedFighter)
+        private void BindPossessedFighterEventsForTurn(Fighter _possessedFighter)
         {
             _possessedFighter.onFighterMoved += OnFighterMoved;
             _possessedFighter.onFighterDirectAttackEnded += OnFighterDirectAttackEnded;
@@ -473,6 +493,28 @@ namespace FrostfallSaga.Fight.Controllers
                 cell.CellMouseEventsController.OnLeftMouseUp -= OnCellClicked;
             }
         }
+
+        #endregion
+
+        #region Fighters mouse events binding
+
+        private void BindFightersMouseEvents(List<Fighter> fighters)
+        {
+            fighters.ForEach(fighter => {
+                fighter.FighterMouseEventsController.OnElementHover += OnFighterHovered;
+                fighter.FighterMouseEventsController.OnElementUnhover += OnFighterUnhovered;
+                fighter.FighterMouseEventsController.OnLeftMouseUp += OnFighterClicked;
+            });
+        }
+
+        private void UnbindEntitiesGroupsMouseEvents(List<Fighter> fighters)
+        {
+            fighters.ForEach(fighter => {
+                fighter.FighterMouseEventsController.OnElementHover += OnFighterHovered;
+                fighter.FighterMouseEventsController.OnElementUnhover += OnFighterUnhovered;
+                fighter.FighterMouseEventsController.OnLeftMouseUp += OnFighterClicked;
+            });
+        }        
 
         #endregion
 

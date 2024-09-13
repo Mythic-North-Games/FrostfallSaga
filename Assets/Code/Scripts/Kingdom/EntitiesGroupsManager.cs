@@ -192,10 +192,10 @@ namespace FrostfallSaga.Kingdom
             HeroGroup.onEntityGroupHovered += OnEntitiesGroupHovered;
             HeroGroup.onEntityGroupUnhovered += OnEntitiesGroupUnhovered;
             HeroGroup.onEntityGroupClicked += OnEntitiesGroupClicked;
-            EnemiesGroups.ForEach(EnemiesGroup => {
-                EnemiesGroup.onEntityGroupHovered += OnEntitiesGroupHovered;
-                EnemiesGroup.onEntityGroupUnhovered += OnEntitiesGroupUnhovered;
-                EnemiesGroup.onEntityGroupClicked += OnEntitiesGroupClicked;
+            EnemiesGroups.ForEach(enemiesGroup => {
+                enemiesGroup.onEntityGroupHovered += OnEntitiesGroupHovered;
+                enemiesGroup.onEntityGroupUnhovered += OnEntitiesGroupUnhovered;
+                enemiesGroup.onEntityGroupClicked += OnEntitiesGroupClicked;
             });
         }
 
@@ -204,10 +204,10 @@ namespace FrostfallSaga.Kingdom
             HeroGroup.onEntityGroupHovered -= OnEntitiesGroupHovered;
             HeroGroup.onEntityGroupUnhovered -= OnEntitiesGroupUnhovered;
             HeroGroup.onEntityGroupClicked -= OnEntitiesGroupClicked;
-            EnemiesGroups.ForEach(EnemiesGroup => {
-                EnemiesGroup.onEntityGroupHovered -= OnEntitiesGroupHovered;
-                EnemiesGroup.onEntityGroupUnhovered -= OnEntitiesGroupUnhovered;
-                EnemiesGroup.onEntityGroupClicked -= OnEntitiesGroupClicked;
+            EnemiesGroups.ForEach(enemiesGroup => {
+                enemiesGroup.onEntityGroupHovered -= OnEntitiesGroupHovered;
+                enemiesGroup.onEntityGroupUnhovered -= OnEntitiesGroupUnhovered;
+                enemiesGroup.onEntityGroupClicked -= OnEntitiesGroupClicked;
             });
         }
         #endregion
