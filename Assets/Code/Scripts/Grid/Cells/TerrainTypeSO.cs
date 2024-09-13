@@ -14,6 +14,6 @@ namespace FrostfallSaga.Grid
         [field:SerializeField, Range(-5, 5), Tooltip("Add or remove Range point to the entity")] public int RangePoint { get; private set; }
         [field:SerializeField, Range(-5, 5), Tooltip("Add or remove Initiative point to the entity")] public int InitiativePoint { get; private set; }
         [field:SerializeField, Header("Cells Stats"), Tooltip("Define if the cell is accessible or not")] public bool IsAccessible { get; private set; }
-        
+        [field: SerializeField, Header("Cell visual"), Tooltip("Define the terrain's color")] public Material CellMaterial { get; private set; }
     }
 }
