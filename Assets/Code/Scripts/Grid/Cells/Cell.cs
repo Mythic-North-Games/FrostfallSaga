@@ -8,12 +8,13 @@ namespace FrostfallSaga.Grid.Cells
     /// </summary>
     public class Cell : MonoBehaviour
     {
-        [field: SerializeField] public Vector2Int Coordinates { get; private set; }
+        [field: SerializeField, Header("Coordinates"), Tooltip("Contain coordinates")] public Vector2Int Coordinates { get; private set; }
+        [field:SerializeField] public float WorldHeightPerUnit { get; private set; } = 0.8f;
+        [field: SerializeField, Header("Cell characteristics"), Tooltip("Contain cell characteristics")] public TerrainTypeSO TerrainType{ get; private set; }
         [field: SerializeField] public ECellHeight Height { get; private set; }
         [field: SerializeField] public bool IsAccessible { get; private set; }
-        [field: SerializeField] public MaterialHighlightable HighlightController { get; private set; }
+        [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")] public MaterialHighlightable HighlightController { get; private set; }
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
-        [field:SerializeField] public float WorldHeightPerUnit { get; private set; } = 0.8f;
 
         private void Awake()
         {
@@ -33,13 +34,15 @@ namespace FrostfallSaga.Grid.Cells
             Vector2Int coordinates,
             ECellHeight cellHeight,
             bool isAccessible,
-            float hexSize
+            float hexSize,
+            TerrainTypeSO terrainType
         )
         {
 
             Coordinates = coordinates;
             Height = cellHeight;
             IsAccessible = isAccessible;
+            TerrainType = terrainType;
             SetPositionForCellHeight(Height);
             SetCellMouseEventsControllerFromGameObjectTree();
 
