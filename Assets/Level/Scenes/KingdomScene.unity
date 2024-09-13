@@ -20177,7 +20177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d35a478368f4274d8b13489ab237cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
+  _camera: {fileID: 2047304806}
   _allowZoom: 1
   _minFOV: 20
   _maxFOV: 120
