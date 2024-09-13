@@ -1,14 +1,14 @@
-using UnityEngine;
-using UnityEngine.UIElements;
-using FrostfallSaga.Fight.Fighters;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.UIElements;
+using FrostfallSaga.Core;
+using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.UI
 {
-    public class FightersOrderTimelineController : MonoBehaviour
+    public class FightersOrderTimelineController : BaseUIController
     {
-        [SerializeField] private UIDocument _uiDoc;
         [SerializeField] private FightManager _fightManager;
 
         private static readonly string TIMELINE_UI_NAME = "TimelinePanel";
