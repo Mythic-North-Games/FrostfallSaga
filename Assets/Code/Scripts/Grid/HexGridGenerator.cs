@@ -2,6 +2,7 @@ using UnityEngine;
 using FrostfallSaga.Grid.Cells;
 using System.Linq;
 using FrostfallSaga.Core;
+using System;
 
 namespace FrostfallSaga.Grid
 {
@@ -78,7 +79,7 @@ namespace FrostfallSaga.Grid
             for (int i = 0; i < childCount; i++)
             {
                 Cell cell = HexGrid.transform.GetChild(i).GetComponent<Cell>();
-                ECellHeight randomCellHeight = (ECellHeight)Random.Range(0, 3);
+                ECellHeight randomCellHeight = (ECellHeight) Randomizer.GetRandomIntBetween(-1, 2);
                 cell.UpdateHeight(randomCellHeight);
             }
         }
@@ -89,12 +90,9 @@ namespace FrostfallSaga.Grid
             Cell newCell = cellPrefab.GetComponent<Cell>();
             TerrainTypeSO _terrain = Randomizer.GetRandomElementFromArray(BiomeType.TerrainTypeSO);
             newCell.Setup(new Vector2Int(x, z), ECellHeight.LOW, true, HexGrid.HexSize, _terrain);
-            if (x % 2 == 0)
-            {
-                newCell.HighlightController.SetupInitialMaterial(AlternativeMaterial);
-                newCell.HighlightController.UpdateCurrentDefaultMaterial(AlternativeMaterial);
-                newCell.HighlightController.ResetToDefaultMaterial();
-            }
+            newCell.HighlightController.SetupInitialMaterial(_terrain.CellMaterial);
+            newCell.HighlightController.UpdateCurrentDefaultMaterial(_terrain.CellMaterial);
+            newCell.HighlightController.ResetToInitialMaterial();
         }
     }
 }
