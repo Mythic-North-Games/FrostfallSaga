@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -39,6 +40,8 @@ namespace FrostfallSaga.Core
 
         protected bool _isMouseInside = false;
         protected T _target;
+        protected List<BaseUIController> _scenesUIControllers = new();
+        protected bool _mouseWasInsideUI = false;
 
         private void Awake()
         {
@@ -58,6 +61,8 @@ namespace FrostfallSaga.Core
             {
                 Debug.LogError("Target of type " + typeof(T).ToString() + " not found in parent, current or children components. Will not send events.");
             }
+
+            _scenesUIControllers = FindObjectsOfType<BaseUIController>().ToList();
         }
 
         private void OnMouseEnter()
@@ -68,9 +73,32 @@ namespace FrostfallSaga.Core
 
         private void Update()
         {
+            // If any of the UI controllers has mouse inside, do nothing
+            if (_scenesUIControllers.Any(uiController => uiController.IsMouseOverUIDocument())) // * If performance problem one day, this could be an improvement.
+            {
+                if (!_mouseWasInsideUI)
+                {
+                    _mouseWasInsideUI = true;
+                }
+                if (_isMouseInside)
+                {
+                    OnElementUnhover?.Invoke(_target);
+                }
+                return;
+            }
+
             if (!_isMouseInside)
             {
                 return;
+            }
+
+            if (_mouseWasInsideUI)
+            {
+                _mouseWasInsideUI = false;
+                if (_isMouseInside)
+                {
+                    OnElementHover?.Invoke(_target);
+                }
             }
 
             foreach (MouseButton mouseButton in Enum.GetValues(typeof(MouseButton)))
