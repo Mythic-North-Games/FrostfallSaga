@@ -18,4 +18,4 @@ MonoBehaviour:
   <MovePoint>k__BackingField: 0
   <RangePoint>k__BackingField: 0
   <InitiativePoint>k__BackingField: 0
-  <IsAccessible>k__BackingField: 0
+  <IsAccessible>k__BackingField: 1

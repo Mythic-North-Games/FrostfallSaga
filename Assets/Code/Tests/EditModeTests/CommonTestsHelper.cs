@@ -42,7 +42,7 @@ namespace FrostfallSaga.EditModeTests
             cellVisualGameObject.AddComponent<MaterialHighlightable>();
 
             Cell newCell = cellGameObject.GetComponent<Cell>();
-            newCell.Setup(coordinates, height, isAccessible, hexGridSize);
+            newCell.Setup(coordinates, height, isAccessible, hexGridSize, Resources.LoadAll<TerrainTypeSO>("ScriptableObjects/Grid/Terrain/")[4]);
             return newCell;
         }
     }

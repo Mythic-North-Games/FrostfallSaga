@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4b7b5c8e0aa1840a7d59aefe73981f, type: 3}
   m_Name: TerrainTypeDarkForest
   m_EditorClassIdentifier: 
-  <TypeName>k__BackingField: 
-  <TypeDescription>k__BackingField: 
+  <TypeName>k__BackingField: Dark Forest
+  <TypeDescription>k__BackingField: dark wood forest. It decrease your vigilance.
   <HealthPoint>k__BackingField: 0
   <MovePoint>k__BackingField: 0
   <RangePoint>k__BackingField: 0
-  <InitiativePoint>k__BackingField: 0
-  <IsAccessible>k__BackingField: 0
+  <InitiativePoint>k__BackingField: -1
+  <IsAccessible>k__BackingField: 1
