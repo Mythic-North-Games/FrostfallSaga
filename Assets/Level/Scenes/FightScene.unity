@@ -365,11 +365,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 3, y: 3}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1986683529}
   <CellMouseEventsController>k__BackingField: {fileID: 1986683527}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &37520792
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,11 +565,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 5, y: 5}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 866175840}
   <CellMouseEventsController>k__BackingField: {fileID: 866175838}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &134175708
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,11 +947,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 0, y: 5}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 570700678}
   <CellMouseEventsController>k__BackingField: {fileID: 570700676}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &314046869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,11 +1147,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 0, y: 3}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 37520796}
   <CellMouseEventsController>k__BackingField: {fileID: 37520794}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &342066382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,11 +1615,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 2, y: 5}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 584514045}
   <CellMouseEventsController>k__BackingField: {fileID: 584514043}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &456061298
 GameObject:
   m_ObjectHideFlags: 0
@@ -1676,11 +1681,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 5, y: 2}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 2115084178}
   <CellMouseEventsController>k__BackingField: {fileID: 2115084176}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &479011835
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,11 +1747,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 2, y: 0}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1722226920}
   <CellMouseEventsController>k__BackingField: {fileID: 1722226918}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &535277469
 GameObject:
   m_ObjectHideFlags: 0
@@ -2208,11 +2215,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 3, y: 2}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1265694510}
   <CellMouseEventsController>k__BackingField: {fileID: 1265694508}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &687502305
 GameObject:
   m_ObjectHideFlags: 0
@@ -2407,11 +2415,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 5, y: 3}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1295643820}
   <CellMouseEventsController>k__BackingField: {fileID: 1295643818}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &720492270
 GameObject:
   m_ObjectHideFlags: 0
@@ -2472,11 +2481,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 3, y: 1}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 748952128}
   <CellMouseEventsController>k__BackingField: {fileID: 748952126}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &738693675
 GameObject:
   m_ObjectHideFlags: 0
@@ -2537,11 +2547,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 2, y: 3}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 2055546260}
   <CellMouseEventsController>k__BackingField: {fileID: 2055546258}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &748952124
 GameObject:
   m_ObjectHideFlags: 0
@@ -2736,11 +2747,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 5, y: 1}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1043014756}
   <CellMouseEventsController>k__BackingField: {fileID: 1043014754}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &793609178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2864,11 +2876,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 4, y: 0}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1796828250}
   <CellMouseEventsController>k__BackingField: {fileID: 1796828248}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &866175836
 GameObject:
   m_ObjectHideFlags: 0
@@ -3369,11 +3382,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 5, y: 4}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1104862869}
   <CellMouseEventsController>k__BackingField: {fileID: 1104862867}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &931663291
 GameObject:
   m_ObjectHideFlags: 0
@@ -3434,11 +3448,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 1, y: 5}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1776609680}
   <CellMouseEventsController>k__BackingField: {fileID: 1776609678}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &946654144
 GameObject:
   m_ObjectHideFlags: 0
@@ -3499,11 +3514,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 3, y: 5}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 147799438}
   <CellMouseEventsController>k__BackingField: {fileID: 147799436}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &963633766
 GameObject:
   m_ObjectHideFlags: 0
@@ -3564,11 +3580,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 4, y: 2}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 2111354830}
   <CellMouseEventsController>k__BackingField: {fileID: 2111354828}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &985944591
 GameObject:
   m_ObjectHideFlags: 0
@@ -3678,7 +3695,6 @@ MonoBehaviour:
   _allowTranslation: 1
   _mouseFollowTarget: {fileID: 2086321100}
   _mouseTargetOffset: {x: 0.1, y: 0.1}
-  _smoothing: 5
   _maxTranslationSpeed: 30
   _minY: 2
   _maxY: 10
@@ -3742,11 +3758,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 3, y: 4}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1246562302}
   <CellMouseEventsController>k__BackingField: {fileID: 1246562300}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &999864226
 GameObject:
   m_ObjectHideFlags: 0
@@ -3851,11 +3868,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 4, y: 5}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1984798117}
   <CellMouseEventsController>k__BackingField: {fileID: 1984798115}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1043014752
 GameObject:
   m_ObjectHideFlags: 0
@@ -4184,11 +4202,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 0, y: 1}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 346147662}
   <CellMouseEventsController>k__BackingField: {fileID: 346147660}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1190963121
 GameObject:
   m_ObjectHideFlags: 0
@@ -4249,11 +4268,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 3, y: 0}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1998620355}
   <CellMouseEventsController>k__BackingField: {fileID: 1998620353}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1218282185
 GameObject:
   m_ObjectHideFlags: 0
@@ -4650,11 +4670,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 4, y: 1}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1390659955}
   <CellMouseEventsController>k__BackingField: {fileID: 1390659953}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1265694506
 GameObject:
   m_ObjectHideFlags: 0
@@ -4849,11 +4870,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 1, y: 0}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1877691311}
   <CellMouseEventsController>k__BackingField: {fileID: 1877691309}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1295643816
 GameObject:
   m_ObjectHideFlags: 0
@@ -5048,11 +5070,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 1, y: 3}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 165454696}
   <CellMouseEventsController>k__BackingField: {fileID: 165454694}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1390659951
 GameObject:
   m_ObjectHideFlags: 0
@@ -5381,11 +5404,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 2, y: 2}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 535277473}
   <CellMouseEventsController>k__BackingField: {fileID: 535277471}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1499778988
 GameObject:
   m_ObjectHideFlags: 0
@@ -5627,11 +5651,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 1, y: 1}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 2026750798}
   <CellMouseEventsController>k__BackingField: {fileID: 2026750796}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1576297603
 GameObject:
   m_ObjectHideFlags: 0
@@ -5692,11 +5717,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 4, y: 4}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 894651328}
   <CellMouseEventsController>k__BackingField: {fileID: 894651326}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1597044135
 GameObject:
   m_ObjectHideFlags: 0
@@ -5886,6 +5912,30 @@ MonoBehaviour:
       animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
     receiveDamageAnimationStateName: Hurt
     healSelfAnimationStateName: 
+  - name: Jomsviking1
+    sessionId: 
+    icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
+    initialStats:
+      health: 100
+      maxHealth: 100
+      actionPoints: 5
+      maxActionPoints: 5
+      movePoints: 4
+      maxMovePoints: 4
+      strength: 1
+      dexterity: 1
+      physicalResistance: 1
+      initiative: 3
+    directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
+    directAttackActionPointsCost: 3
+    directAttackEffects:
+    - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
+    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
+    activeAbilities:
+    - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+    receiveDamageAnimationStateName: Hurt
+    healSelfAnimationStateName: 
   _devEnemiesFighterSetup:
   - name: Skeleton
     sessionId: 
@@ -6017,11 +6067,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 1, y: 4}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1218282189}
   <CellMouseEventsController>k__BackingField: {fileID: 1218282187}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1678739250
 GameObject:
   m_ObjectHideFlags: 0
@@ -6398,11 +6449,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 0, y: 0}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 314046873}
   <CellMouseEventsController>k__BackingField: {fileID: 314046871}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1746806271
 GameObject:
   m_ObjectHideFlags: 0
@@ -6463,11 +6515,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 0, y: 2}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1499778992}
   <CellMouseEventsController>k__BackingField: {fileID: 1499778990}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1771485337
 GameObject:
   m_ObjectHideFlags: 0
@@ -6528,11 +6581,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 0, y: 4}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1779265467}
   <CellMouseEventsController>k__BackingField: {fileID: 1779265465}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1776609676
 GameObject:
   m_ObjectHideFlags: 0
@@ -6907,11 +6961,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 2, y: 4}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 342066386}
   <CellMouseEventsController>k__BackingField: {fileID: 342066384}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1796828246
 GameObject:
   m_ObjectHideFlags: 0
@@ -7328,11 +7383,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 5, y: 0}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1418863561}
   <CellMouseEventsController>k__BackingField: {fileID: 1418863559}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!114 &1914315112 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7936790293927368877, guid: 3be7973bb46ad214d995adfc136b8c4c, type: 3}
@@ -7482,11 +7538,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 4, y: 3}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 687502309}
   <CellMouseEventsController>k__BackingField: {fileID: 687502307}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1957974554
 GameObject:
   m_ObjectHideFlags: 0
@@ -7547,11 +7604,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 2, y: 1}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1712704114}
   <CellMouseEventsController>k__BackingField: {fileID: 1712704112}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &1963673181
 GameObject:
   m_ObjectHideFlags: 0
@@ -8331,11 +8389,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 1, y: 2}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 358119287}
   <CellMouseEventsController>k__BackingField: {fileID: 358119285}
-  <WorldHeightPerUnit>k__BackingField: 0.8
 --- !u!1 &2086321099
 GameObject:
   m_ObjectHideFlags: 0
