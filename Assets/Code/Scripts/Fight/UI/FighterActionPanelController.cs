@@ -3,17 +3,17 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.UI
 {
-    public class FighterActionPanelController : MonoBehaviour
+    public class FighterActionPanelController : BaseUIController
     {
         public Action onDirectAttackClicked;
         public Action<ActiveAbilityToAnimation> onActiveAbilityClicked;
         public Action onEndTurnClicked;
 
-        [SerializeField] private UIDocument _uiDoc;
         [SerializeField] private FightManager _fightManager;
         private readonly Dictionary<Button, ActiveAbilityToAnimation> _buttonToActiveAbility = new();
 

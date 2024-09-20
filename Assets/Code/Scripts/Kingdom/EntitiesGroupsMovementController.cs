@@ -111,10 +111,10 @@ namespace FrostfallSaga.Kingdom
 
 		private void OnEnemiesGroupMoved(EntitiesGroup EntitiesGroup, Cell _destinationCell)
 		{
-			MovePath enemiesGroupMovePath = _currentPathPerEnemiesGroup[(EntitiesGroup)EntitiesGroup];
+			MovePath enemiesGroupMovePath = _currentPathPerEnemiesGroup[EntitiesGroup];
 			if (!enemiesGroupMovePath.IsLastMove)
 			{
-				MakeEnemiesGroupMove((EntitiesGroup)EntitiesGroup);
+				MakeEnemiesGroupMove(EntitiesGroup);
 			}
 			else if (HaveAllEnnemiesGroupMoved())
 			{
