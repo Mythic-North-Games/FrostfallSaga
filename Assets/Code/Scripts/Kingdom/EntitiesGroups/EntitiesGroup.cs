@@ -35,8 +35,19 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             }
             if (cell == null)
             {
-                Debug.LogError("Entity group " + name + " does not have a cell.");
-                return;
+                try
+                {
+                    Cell _tryToGetStartCell = GameObject.Find("Cell[0;0]").GetComponent<Cell>();
+                    if (_tryToGetStartCell.IsAccessible)
+                    {
+                        cell = _tryToGetStartCell;
+                    }
+                }
+                catch
+                {
+                    Debug.LogError("Entity group " + name + " does not have a cell.");
+                    return;
+                }
             }
 
             if (_displayedEntity == null)
