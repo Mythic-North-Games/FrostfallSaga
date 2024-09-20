@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <OriginCellRange>k__BackingField: 1
   <CellsSequence>k__BackingField:
-  - {x: 0, y: 0, z: 0}
-  <FighterMandatory>k__BackingField: 1
+  - {x: 0, y: 0}
+  <TargetsToExclude>k__BackingField: 
+  <TargetHeightsToExclude>k__BackingField: feffffff

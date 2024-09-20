@@ -15,9 +15,17 @@ namespace FrostfallSaga.Fight.Targeters
     [CreateAssetMenu(fileName = "Targeter", menuName = "ScriptableObjects/Fight/Targeter", order = 0)]
     public class TargeterSO : ScriptableObject
     {
-        [field: SerializeField, Tooltip("The available range from the intiator's cell available for targeting.")] public int OriginCellRange { get; private set; }
-        [field: SerializeField, Tooltip("The coordinates of the cells to target (ex: line would be [0,0], [0,1], [0,2]).")] public Vector2Int[] CellsSequence { get; private set; }
-        [field: SerializeField, Tooltip("Can target all fighter types by default. Add options to restrain who can be targeted.")] public ETarget[] TargetsToExclude { get; private set; }
+        [field: SerializeField, Tooltip("The available range from the intiator's cell available for targeting.")]
+        public int OriginCellRange { get; private set; }
+
+        [field: SerializeField, Tooltip("The coordinates of the cells to target (ex: line would be [0,0], [0,1], [0,2]).")]
+        public Vector2Int[] CellsSequence { get; private set; }
+
+        [field: SerializeField, Tooltip("Can target all fighter types by default. Add options to restrain who can be targeted.")]
+        public ETarget[] TargetsToExclude { get; private set; }
+
+        [field: SerializeField, Tooltip("Can target all heights by default. Add options to restrain which heights can be targeted."), Range(-2, 2)]
+        public int[] TargetHeightsToExclude { get; private set; }
 
         /// <summary>
         /// Extract the cells corresponding to the targeter from the given context.
@@ -35,39 +43,8 @@ namespace FrostfallSaga.Fight.Targeters
             }
 
             Cell[] targetedCells = GetCellsFromSequence(fightGrid, originCell);
-            bool initiatorIsAlly = fightersTeams.First(fighterTeam => fighterTeam.Key.cell == initiatorCell).Value;
-            foreach (ETarget target in TargetsToExclude)
-            {
-                switch (target)
-                {
-                    case ETarget.SELF:
-                        if (targetedCells.Contains(initiatorCell))
-                        {
-                            throw new TargeterUnresolvableException("Self exluded from available targets.");
-                        }
-                        break;
-                    case ETarget.ALLIES:
-                        List<Cell> alliesCells = fightersTeams.Where(fighterTeam =>
-                            fighterTeam.Value == initiatorIsAlly && fighterTeam.Key.cell != initiatorCell
-                        ).Select(fighterTeam => fighterTeam.Key.cell).ToList();
-                        if (targetedCells.Any(cell => alliesCells.Contains(cell)))
-                        {
-                            throw new TargeterUnresolvableException("Allies exluded from available targets.");
-                        }
-                        break;
-                    case ETarget.OPONENTS:
-                        List<Cell> oponentsCells = fightersTeams.Where(fighterTeam => 
-                            fighterTeam.Value != initiatorIsAlly
-                        ).Select(fighterTeam => fighterTeam.Key.cell).ToList();
-                        if (targetedCells.Any(cell => oponentsCells.Contains(cell)))
-                        {
-                            throw new TargeterUnresolvableException("Oponents exluded from available targets.");
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
+            CheckExcludedTargets(targetedCells, initiatorCell, fightersTeams);
+            CheckExcludedTargetHeights(targetedCells, initiatorCell, fightersTeams);
 
             return targetedCells;
         }
@@ -138,7 +115,8 @@ namespace FrostfallSaga.Fight.Targeters
             List<Cell> availableCells = new();
             foreach (Cell cell in fightGrid.GetCells().Where(cell => cell != initiatorCell))
             {
-                if (CellsPathFinding.GetShorterPath(fightGrid, initiatorCell, cell).Length <= OriginCellRange)
+                int distanceToInitiatorCell = CellsPathFinding.GetShorterPath(fightGrid, initiatorCell, cell, includeHeightInaccessibleNeighbors: true).Length;
+                if (distanceToInitiatorCell <= OriginCellRange && distanceToInitiatorCell > 0)
                 {
                     availableCells.Add(cell);
                 }
@@ -181,6 +159,60 @@ namespace FrostfallSaga.Fight.Targeters
                 }
             }
             return false;
+        }
+
+        private bool CheckExcludedTargets(Cell[] targetedCells, Cell initiatorCell, Dictionary<Fighter, bool> fightersTeams)
+        {
+            bool initiatorIsAlly = fightersTeams.First(fighterTeam => fighterTeam.Key.cell == initiatorCell).Value;
+            foreach (ETarget target in TargetsToExclude)
+            {
+                switch (target)
+                {
+                    case ETarget.SELF:
+                        if (targetedCells.Contains(initiatorCell))
+                        {
+                            throw new TargeterUnresolvableException("Self exluded from available targets.");
+                        }
+                        break;
+                    case ETarget.ALLIES:
+                        List<Cell> alliesCells = fightersTeams.Where(fighterTeam =>
+                            fighterTeam.Value == initiatorIsAlly && fighterTeam.Key.cell != initiatorCell
+                        ).Select(fighterTeam => fighterTeam.Key.cell).ToList();
+                        if (targetedCells.Any(cell => alliesCells.Contains(cell)))
+                        {
+                            throw new TargeterUnresolvableException("Allies exluded from available targets.");
+                        }
+                        break;
+                    case ETarget.OPONENTS:
+                        List<Cell> oponentsCells = fightersTeams.Where(fighterTeam =>
+                            fighterTeam.Value != initiatorIsAlly
+                        ).Select(fighterTeam => fighterTeam.Key.cell).ToList();
+                        if (targetedCells.Any(cell => oponentsCells.Contains(cell)))
+                        {
+                            throw new TargeterUnresolvableException("Oponents exluded from available targets.");
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return true;
+        }
+
+        private bool CheckExcludedTargetHeights(Cell[] targetedCells, Cell initiatorCell, Dictionary<Fighter, bool> fightersTeams)
+        {
+            foreach (int excludedHeight in TargetHeightsToExclude)
+            {
+                if (targetedCells.Any(cell =>
+                {
+                    int relativeHeight = (int)cell.Height - (int)initiatorCell.Height;
+                    return relativeHeight == excludedHeight;
+                }))
+                {
+                    throw new TargeterUnresolvableException("Height exluded from available targets.");
+                }
+            }
+            return true;
         }
     }
 }
