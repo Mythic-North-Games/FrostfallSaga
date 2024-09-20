@@ -27,6 +27,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         private MovePath _currentMovePath;
         private FighterStats _stats = new();
+        public FighterStats Stats => _stats; 
         private FighterStats _initialStats = new();
         public TargeterSO DirectAttackTargeter { get; private set; }
         public int DirectAttackActionPointsCost { get; private set; }
@@ -94,40 +95,40 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="targetedCells">The cells to use the direct attack on.</param>
         /// <exception cref="ArgumentException">Raised if targeted cells are empty.</exception>
         /// <exception cref="InvalidOperationException">Raised if not enough action points.</exception>
-        public void UseDirectAttack(Cell[] targetedCells)
+    public void UseDirectAttack(Cell[] targetedCells)
+    {
+        if (targetedCells.Length == 0)
         {
-            if (targetedCells.Length == 0)
-            {
-                throw new ArgumentException("A direct attack can't be used without one or more target cells");
-            }
-
-            if (DirectAttackActionPointsCost > _stats.actionPoints)
-            {
-                throw new InvalidOperationException("Fighter " + name + " does not have enough actions points to use its direct attack.");
-            }
-
-            if (_directAttackAnimation == null)
-            {
-                Debug.LogWarning($"No animation attached to direct attack for fighter {name}");
-                targetedCells.ToList()
-                    .Where(cell => cell.GetComponent<CellFightBehaviour>().Fighter != null).ToList()
-                    .ForEach(cell =>
-                    {
-                        ApplyEffectsOnFighter(
-                            DirectAttackEffects,
-                            cell.GetComponent<CellFightBehaviour>().Fighter
-                        );
-                    });
-                onFighterDirectAttackEnded?.Invoke(this);
-            }
-            else
-            {
-                _directAttackAnimation.onFighterTouched += OnDirectAttackTouchedFighter;
-                _directAttackAnimation.onAnimationEnded += OnDirectAttackAnimationEnded;
-                _directAttackAnimation.Execute(this, targetedCells);
-            }
-            _stats.actionPoints -= DirectAttackActionPointsCost;
+            throw new ArgumentException("A direct attack can't be used without one or more target cells");
         }
+
+        if (DirectAttackActionPointsCost > _stats.actionPoints)
+        {
+            throw new InvalidOperationException("Fighter " + name + " does not have enough actions points to use its direct attack.");
+        }
+
+        if (_directAttackAnimation == null)
+        {
+            Debug.LogWarning($"No animation attached to direct attack for fighter {name}");
+            targetedCells.ToList()
+                .Where(cell => cell.GetComponent<CellFightBehaviour>().Fighter != null)
+                .ToList()
+                .ForEach(cell =>
+                {
+                    var targetFighter = cell.GetComponent<CellFightBehaviour>().Fighter;
+                    ApplyEffectsOnFighter(DirectAttackEffects, this, targetFighter);
+                });
+            onFighterDirectAttackEnded?.Invoke(this);
+        }
+        else
+        {
+            _directAttackAnimation.onFighterTouched += OnDirectAttackTouchedFighter;
+            _directAttackAnimation.onAnimationEnded += OnDirectAttackAnimationEnded;
+            _directAttackAnimation.Execute(this, targetedCells);
+        }
+
+        _stats.actionPoints -= DirectAttackActionPointsCost;
+    }
 
         /// <summary>
         /// Makes the fighter use the given active ability on the given cells.
@@ -136,44 +137,45 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="targetedCells">The target cells for the ability.</param>
         /// <exception cref="ArgumentException">Raised if targeted cells are empty.</exception>
         /// <exception cref="InvalidOperationException">Raised if not enough action points.</exception>
-        public void UseActiveAbility(ActiveAbilityToAnimation activeAbilityToAnimation, Cell[] targetedCells)
+    public void UseActiveAbility(ActiveAbilityToAnimation activeAbilityToAnimation, Cell[] targetedCells)
+    {
+        if (targetedCells.Length == 0)
         {
-            if (targetedCells.Length == 0)
-            {
-                throw new ArgumentException("An active ability can't be used without one or more target cells");
-            }
-
-            if (_stats.actionPoints < activeAbilityToAnimation.activeAbility.ActionPointsCost)
-            {
-                throw new InvalidOperationException(
-                    "Fighter : " + name + " does not have enough action points to use its ability "
-                    + activeAbilityToAnimation.activeAbility.Name
-                );
-            }
-
-            if (activeAbilityToAnimation.animation == null)
-            {
-                Debug.LogWarning($"No animation attached to active ability {activeAbilityToAnimation.activeAbility.Name} for fighter {name}");
-                targetedCells.ToList()
-                    .Where(cell => cell.GetComponent<CellFightBehaviour>().Fighter != null).ToList()
-                    .ForEach(cell =>
-                    {
-                        ApplyEffectsOnFighter(
-                            activeAbilityToAnimation.activeAbility.Effects,
-                            cell.GetComponent<CellFightBehaviour>().Fighter
-                        );
-                    });
-                onFighterActiveAbilityEnded?.Invoke(this);
-            }
-            else
-            {
-                _currentActiveAbility = activeAbilityToAnimation;
-                _currentActiveAbility.animation.onFighterTouched += OnActiveAbilityTouchedFighter;
-                _currentActiveAbility.animation.onAnimationEnded += OnActiveAbilityAnimationEnded;
-                _currentActiveAbility.animation.Execute(this, targetedCells);
-            }
-            _stats.actionPoints -= activeAbilityToAnimation.activeAbility.ActionPointsCost;
+            throw new ArgumentException("An active ability can't be used without one or more target cells");
         }
+
+        if (_stats.actionPoints < activeAbilityToAnimation.activeAbility.ActionPointsCost)
+        {
+            throw new InvalidOperationException(
+                "Fighter : " + name + " does not have enough action points to use its ability "
+                + activeAbilityToAnimation.activeAbility.Name
+            );
+        }
+
+        if (activeAbilityToAnimation.animation == null)
+        {
+            Debug.LogWarning($"No animation attached to active ability {activeAbilityToAnimation.activeAbility.Name} for fighter {name}");
+            targetedCells.ToList()
+                .Where(cell => cell.GetComponent<CellFightBehaviour>().Fighter != null)
+                .ToList()
+                .ForEach(cell =>
+                {
+                    var targetFighter = cell.GetComponent<CellFightBehaviour>().Fighter;
+                    ApplyEffectsOnFighter(activeAbilityToAnimation.activeAbility.Effects, this, targetFighter);
+                });
+            onFighterActiveAbilityEnded?.Invoke(this);
+        }
+        else
+        {
+            _currentActiveAbility = activeAbilityToAnimation;
+            _currentActiveAbility.animation.onFighterTouched += OnActiveAbilityTouchedFighter;
+            _currentActiveAbility.animation.onAnimationEnded += OnActiveAbilityAnimationEnded;
+            _currentActiveAbility.animation.Execute(this, targetedCells);
+        }
+
+        _stats.actionPoints -= activeAbilityToAnimation.activeAbility.ActionPointsCost;
+    }
+
 
         /// <summary>
         /// Method to withstand a physical attack.
@@ -223,7 +225,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         public void OnDirectAttackTouchedFighter(Fighter touchedFighter)
         {
-            ApplyEffectsOnFighter(DirectAttackEffects, touchedFighter);
+            ApplyEffectsOnFighter(DirectAttackEffects, this, touchedFighter);
         }
 
         public void OnDirectAttackAnimationEnded(Fighter initiator)
@@ -236,7 +238,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         public void OnActiveAbilityTouchedFighter(Fighter touchedFighter)
         {
-            ApplyEffectsOnFighter(_currentActiveAbility.activeAbility.Effects, touchedFighter);
+            ApplyEffectsOnFighter(_currentActiveAbility.activeAbility.Effects, this, touchedFighter);
         }
 
         public void OnActiveAbilityAnimationEnded(Fighter initiator)
@@ -372,10 +374,14 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="effectsToApply">The effects to apply.</param>
         /// <param name="target">The fighter to apply the effects to.</param>
-        private void ApplyEffectsOnFighter(AEffectSO[] effectsToApply, Fighter target)
+    private void ApplyEffectsOnFighter(AEffectSO[] effectsToApply, Fighter attacker, Fighter defender)
+    {
+        foreach (var effect in effectsToApply)
         {
-            effectsToApply.ToList().ForEach(effect => effect.ApplyEffect(target));
+            effect.ApplyEffect(attacker, defender);
         }
+    }
+
 
         private void DecreaseHealth(int amount)
         {
@@ -434,6 +440,7 @@ namespace FrostfallSaga.Fight.Fighters
             _stats.magicalResistances = _initialStats.magicalResistances;
             _stats.magicalStrengths = _initialStats.magicalStrengths;
             _stats.initiative = _initialStats.initiative;
+            
         }
 
         #region Getting children & bindings setup

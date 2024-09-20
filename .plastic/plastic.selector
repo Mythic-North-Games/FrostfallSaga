@@ -1,0 +1,4 @@
+repository "FrostfallSaga@Svelt@cloud"
+  path "/"
+    br "/main"
+    co "/main"

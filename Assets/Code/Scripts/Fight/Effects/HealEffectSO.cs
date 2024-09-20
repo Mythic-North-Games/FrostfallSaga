@@ -14,6 +14,12 @@ namespace FrostfallSaga.Fight.Effects
     public override void ApplyEffect(Fighter fighter)
         {
             fighter.Heal(HealAmount);
-        }       
+        }
+    public override void ApplyEffect(Fighter attacker, Fighter defender)  
+        {
+            defender.Heal(HealAmount);
+        }
+         
     }
+    
 }

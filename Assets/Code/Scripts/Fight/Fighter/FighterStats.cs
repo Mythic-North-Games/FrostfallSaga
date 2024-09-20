@@ -19,5 +19,6 @@ namespace FrostfallSaga.Fight.Fighters
         public Dictionary<EMagicalElement, int> magicalResistances;
         public Dictionary<EMagicalElement, int> magicalStrengths;
         public int initiative;
+        public float criticalStrikeChance; 
     }
 }

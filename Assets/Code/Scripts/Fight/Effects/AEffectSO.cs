@@ -11,6 +11,10 @@ namespace FrostfallSaga.Fight.Effects
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string Description { get; private set; }
 
+        // Apply effect to a single fighter (e.g., healing, buff, damage)
         public abstract void ApplyEffect(Fighter fighter); 
+
+        // Apply effect involving both attacker and defender (e.g., damage with crit / dodge)
+        public abstract void ApplyEffect(Fighter attacker, Fighter defender);
     }
 }
