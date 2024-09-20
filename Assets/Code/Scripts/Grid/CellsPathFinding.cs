@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid.Cells;
+using System.Linq;
 
 namespace FrostfallSaga.Grid
 {
@@ -15,8 +16,16 @@ namespace FrostfallSaga.Grid
         /// <param name="hexGrid">The grid that contains at least the two cells.</param>
         /// <param name="startCell">One of the two cell to find the shorter path between.</param>
         /// <param name="endCell">The other cell to find the shorter path between.</param>
+        /// <param name="includeInaccessibleNeighbors">If the inaccessible cells should be included.</param>
+        /// <param name="includeHeightInaccessibleNeighbors">If only the height inaccessible cells should be included.</param>
         /// <returns>An ordered array of Cell representing the shorter path from the startCell to the endCell.</returns>
-        public static Cell[] GetShorterPath(HexGrid hexGrid, Cell startCell, Cell endCell)
+        public static Cell[] GetShorterPath(
+            HexGrid hexGrid,
+            Cell startCell,
+            Cell endCell,
+            bool includeInaccessibleNeighbors = false,
+            bool includeHeightInaccessibleNeighbors = false
+        )
         {
             PriorityQueue<Cell> frontier = new();
             frontier.Enqueue(startCell, 0);
@@ -36,7 +45,7 @@ namespace FrostfallSaga.Grid
                     break;
                 }
 
-                foreach (Cell neighbor in CellsNeighbors.GetNeighbors(hexGrid, currentCell))
+                foreach (Cell neighbor in CellsNeighbors.GetNeighbors(hexGrid, currentCell, includeInaccessibleNeighbors, includeHeightInaccessibleNeighbors))
                 {
                     float newCost = costSoFar[currentCell] + GetCost(currentCell, neighbor);
                     if (!costSoFar.ContainsKey(neighbor) || newCost < costSoFar[neighbor])

@@ -218,7 +218,8 @@ namespace FrostfallSaga.Fight.Controllers
                 Cell[] targetedCells = _possessedFighter.DirectAttackTargeter.Resolve(
                     _currentFightGrid,
                     clickedCell,
-                    _possessedFighter.cell
+                    _possessedFighter.cell,
+                    _fighterTeams
                 );
                 StopTargetingForDirectAttack();
                 _fighterIsActing = true;
@@ -293,7 +294,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             try
             {
-                Cell[] targetedCells = _currentActiveAbility.activeAbility.Targeter.Resolve(_currentFightGrid, clickedCell, _possessedFighter.cell);
+                Cell[] targetedCells = _currentActiveAbility.activeAbility.Targeter.Resolve(_currentFightGrid, clickedCell, _possessedFighter.cell, _fighterTeams);
                 StopTargetingActiveActiveAbility();
                 ResetTargeterCellsMaterial(_currentActiveAbility.activeAbility.Targeter, clickedCell);
                 _fighterIsActing = true;
@@ -406,7 +407,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             try
             {
-                Cell[] targetedCells = targeter.Resolve(_currentFightGrid, originCell, _possessedFighter.cell);
+                Cell[] targetedCells = targeter.Resolve(_currentFightGrid, originCell, _possessedFighter.cell, _fighterTeams);
                 targetedCells.ToList().ForEach(cell => cell.HighlightController.Highlight(_cellActionableHighlightMaterial));
             }
             catch (TargeterUnresolvableException)
