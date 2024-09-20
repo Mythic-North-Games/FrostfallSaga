@@ -89,7 +89,7 @@ namespace FrostfallSaga.Grid
             cellPrefab.transform.name = "Cell[" + x + ";" + z + "]";
             Cell newCell = cellPrefab.GetComponent<Cell>();
             TerrainTypeSO _terrain = Randomizer.GetRandomElementFromArray(BiomeType.TerrainTypeSO);
-            newCell.Setup(new Vector2Int(x, z), ECellHeight.LOW, true, HexGrid.HexSize, _terrain);
+            newCell.Setup(new Vector2Int(x, z), ECellHeight.LOW, HexGrid.HexSize, _terrain);
             newCell.HighlightController.SetupInitialMaterial(_terrain.CellMaterial);
             newCell.HighlightController.UpdateCurrentDefaultMaterial(_terrain.CellMaterial);
             newCell.HighlightController.ResetToInitialMaterial();
