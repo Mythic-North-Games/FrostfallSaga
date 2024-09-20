@@ -8,12 +8,13 @@ namespace FrostfallSaga.Grid.Cells
     /// </summary>
     public class Cell : MonoBehaviour
     {
-        [field: SerializeField] public Vector2Int Coordinates { get; private set; }
+        [field: SerializeField, Header("Coordinates"), Tooltip("Contain coordinates")] public Vector2Int Coordinates { get; private set; }
+        [field:SerializeField] public float WorldHeightPerUnit { get; private set; } = 0.8f;
+        [field: SerializeField, Header("Cell characteristics"), Tooltip("Contain cell characteristics")] public TerrainTypeSO TerrainType{ get; private set; }
         [field: SerializeField] public ECellHeight Height { get; private set; }
         [field: SerializeField] public bool IsAccessible { get; private set; }
-        [field: SerializeField] public MaterialHighlightable HighlightController { get; private set; }
+        [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")] public MaterialHighlightable HighlightController { get; private set; }
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
-        [field:SerializeField] public float WorldHeightPerUnit { get; private set; } = 0.8f;
 
         private void Awake()
         {
@@ -32,16 +33,18 @@ namespace FrostfallSaga.Grid.Cells
         public void Setup(
             Vector2Int coordinates,
             ECellHeight cellHeight,
-            bool isAccessible,
-            float hexSize
+            float hexSize,
+            TerrainTypeSO terrainType
         )
         {
 
             Coordinates = coordinates;
             Height = cellHeight;
-            IsAccessible = isAccessible;
+            TerrainType = terrainType;
+            IsAccessible = terrainType.IsAccessible;
             SetPositionForCellHeight(Height);
             SetCellMouseEventsControllerFromGameObjectTree();
+            SetTerrainVisual();
 
             HighlightController = GetComponentInChildren<MaterialHighlightable>();
             if (HighlightController != null)
@@ -97,6 +100,19 @@ namespace FrostfallSaga.Grid.Cells
             if (CellMouseEventsController == null)
             {
                 Debug.LogError("Cell " + name + " doesn't have a cell mouse controller as child.");
+            }
+        }
+
+        private void SetTerrainVisual()
+        {
+            Renderer renderer = GetComponentInChildren<Renderer>();
+            if (renderer != null && TerrainType != null && TerrainType.CellMaterial != null)
+            {
+                renderer.material = TerrainType.CellMaterial;
+            }
+            else
+            {
+                Debug.LogError("Cell " + name + " doesn't have a renderer or a valid material.");
             }
         }
     }

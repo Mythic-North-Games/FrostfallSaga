@@ -1,8 +1,7 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.UI
@@ -10,11 +9,10 @@ namespace FrostfallSaga.Fight.UI
     /// <summary>
     /// Responsible for controlling the fight end menu.
     /// </summary>
-    public class FightEndMenuController : MonoBehaviour
+    public class FightEndMenuController : BaseUIController
     {
         public Action onContinueClicked;
 
-        [SerializeField] private UIDocument _uiDoc;
         [SerializeField] private FightManager _fightManager;
 
         private void Start()
