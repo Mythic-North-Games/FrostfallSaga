@@ -85,3 +85,7 @@ node_modules/
 # Assets Package import
 Assets/**/PolygonVikings/
 Assets/**/PolygonParticleFX/
+
+.plastic/
+ignore.conf
+
