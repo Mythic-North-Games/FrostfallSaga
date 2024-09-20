@@ -33,7 +33,6 @@ namespace FrostfallSaga.Grid.Cells
         public void Setup(
             Vector2Int coordinates,
             ECellHeight cellHeight,
-            bool isAccessible,
             float hexSize,
             TerrainTypeSO terrainType
         )
