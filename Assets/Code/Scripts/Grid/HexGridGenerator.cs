@@ -2,7 +2,6 @@ using UnityEngine;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Core;
 using FrostfallSaga.Procedural;
-using Codice.CM.Common;
 
 namespace FrostfallSaga.Grid
 {
@@ -15,7 +14,7 @@ namespace FrostfallSaga.Grid
         [field: SerializeField] public HexGrid HexGrid { get; private set; }
         [field: SerializeField] public Material AlternativeMaterial { get; private set; }
         [field: SerializeField, Header("Biome caracteristics"), Tooltip("Biome's type")] public BiomeTypeSO BiomeType { get; private set; }
-        [field: SerializeField, Header("Perlin Noise"), Tooltip("Statistics about Perlin Noise")] public PerlinNoiseGenerator PerlinNoiseGenerator {get; private set;}
+        [field: SerializeField, Header("Perlin Noise"), Tooltip("Statistics about Perlin Noise")] public PerlinNoiseGenerator PerlinNoiseGenerator { get; private set; }
         private float lastSeed;
 
         private void Awake()
@@ -28,8 +27,8 @@ namespace FrostfallSaga.Grid
             {
                 Debug.LogError("HexGridGenerator could not find HexGrid component in its parent or itself");
             }
-            PerlinNoiseGenerator = new PerlinNoiseGenerator(PerlinNoiseGenerator.noiseScale, PerlinNoiseGenerator.seed);
-            lastSeed = PerlinNoiseGenerator.seed;
+            PerlinNoiseGenerator = new PerlinNoiseGenerator(PerlinNoiseGenerator.NoiseScale, PerlinNoiseGenerator.Seed);
+            lastSeed = PerlinNoiseGenerator.Seed;
         }
 
         /// <summary>
@@ -39,10 +38,10 @@ namespace FrostfallSaga.Grid
         {
             ClearCells();
 
-            if (PerlinNoiseGenerator.seed != lastSeed)
+            if (PerlinNoiseGenerator.Seed != lastSeed)
             {
-                PerlinNoiseGenerator = new PerlinNoiseGenerator(PerlinNoiseGenerator.noiseScale, PerlinNoiseGenerator.seed);
-                lastSeed = PerlinNoiseGenerator.seed;
+                PerlinNoiseGenerator = new PerlinNoiseGenerator(PerlinNoiseGenerator.NoiseScale, PerlinNoiseGenerator.Seed);
+                lastSeed = PerlinNoiseGenerator.Seed;
             }
 
             Quaternion rotation = Quaternion.identity;
@@ -79,7 +78,7 @@ namespace FrostfallSaga.Grid
                 }
                 else
                 {
-                    randomCellHeight = (ECellHeight) Randomizer.GetRandomIntBetween(-1, 2);
+                    randomCellHeight = (ECellHeight)Randomizer.GetRandomIntBetween(-1, 2);
                 }
                 cell.UpdateHeight(randomCellHeight);
             }
