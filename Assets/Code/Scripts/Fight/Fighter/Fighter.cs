@@ -8,6 +8,7 @@ using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
+using FrostfallSaga.Fight.StatusEffects;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -18,6 +19,10 @@ namespace FrostfallSaga.Fight.Fighters
         [field: SerializeField] public FighterMouseEventsController FighterMouseEventsController { get; private set; }
         [field: SerializeField] public Transform CameraAnchor { get; private set; }
         public Sprite FighterIcon { get; private set; }
+        public string FighterName { get;  private set; }
+        public bool IsParalyzed { get; private set; }
+
+
         public string EntitySessionId { get; private set; }
         public Cell cell;
 
@@ -37,9 +42,13 @@ namespace FrostfallSaga.Fight.Fighters
         private string _receiveDamageAnimationStateName;
         private string _healSelfAnimationStateName;
         private ActiveAbilityToAnimation _currentActiveAbility;
+        private StatusEffectManager statusManager;
+
 
         private void Awake()
         {
+            statusManager = gameObject.AddComponent<StatusEffectManager>();
+
             if (!TrySetupEntitiyVisualMoveController())
             {
                 Debug.LogError("No entity visual move controller found for fighter " + name);
@@ -57,6 +66,7 @@ namespace FrostfallSaga.Fight.Fighters
         {
             EntitySessionId = fighterSetup.sessionId;
             FighterIcon = fighterSetup.icon;
+            FighterName = fighterSetup.name;
             _initialStats = fighterSetup.initialStats;
             DirectAttackTargeter = fighterSetup.directAttackTargeter;
             DirectAttackActionPointsCost = fighterSetup.directAttackActionPointsCost;
@@ -182,7 +192,6 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="physicalDamageAmount">The damage taken before withstanding.</param>
         public void PhysicalWithstand(int physicalDamageAmount)
         {
-
             PlayAnimationIfAny(_receiveDamageAnimationStateName);
             int inflictedPhysicalDamageAmount = Math.Max(0, physicalDamageAmount - _stats.physicalResistance);
             Debug.Log($"{name} + received {inflictedPhysicalDamageAmount} physical damages");
@@ -197,6 +206,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <exception cref="NullReferenceException"></exception>
         public void MagicalWithstand(int magicalDamageAmount, EMagicalElement magicalElement)
         {
+
             if (!_stats.magicalResistances.ContainsKey(magicalElement))
             {
                 throw new NullReferenceException($"Magical resistance element {magicalElement} is not set for fighter {name}");
@@ -473,6 +483,62 @@ namespace FrostfallSaga.Fight.Fighters
             UnsubscribeToMovementControllerEvents();
         }
         #endregion
+
+
+         public void inflictDamage(int EffectDamage, string animationStateName)
+        {
+            DecreaseHealth(EffectDamage);
+            PlayAnimationIfAny(animationStateName);
+        }
+
+        public void ReduceStats(StatusType statusType, int statReduction, string animationStateName)
+        {
+            switch (statusType)
+            {   
+                case StatusType.Slowed:  
+                    _stats.initiative -= statReduction;
+                    break;
+                case StatusType.Weakened:  
+                    _stats.strength -= statReduction;
+                    break;
+                default:
+                    Debug.LogWarning("Unknown status type: " + statusType);
+                    break;
+            }
+            PlayAnimationIfAny(animationStateName);
+
+        }
+
+        
+        public void IncreaseStats(StatusType statusType, int StatBoost, string animationStateName)
+        {
+            switch (statusType)
+            {   
+                case StatusType.Slowed:  
+                    _stats.initiative += StatBoost;
+                    break;
+                case StatusType.Weakened:  
+                    _stats.strength += StatBoost;
+                    break;
+                default:
+                    Debug.LogWarning("Unknown status type: " + statusType);
+                    break;
+            }
+            PlayAnimationIfAny(animationStateName);
+
+        }
+
+        public void SetParalyzed(bool value)
+        {
+            this.IsParalyzed = value;
+        }
+
+           public void ApplyStatusEffect(StatusEffect statusEffect)
+        {
+            statusManager.ApplyEffect(statusEffect);
+        }
+
+
 
 #if UNITY_EDITOR
         public void SetStatsForTests(FighterStats newStats = null)
