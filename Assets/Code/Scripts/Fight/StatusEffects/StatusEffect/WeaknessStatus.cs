@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using FrostfallSaga.Fight.Fighters;
 using System;
-using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.StatusEffects
 {

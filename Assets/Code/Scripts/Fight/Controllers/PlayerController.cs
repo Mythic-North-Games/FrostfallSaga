@@ -225,12 +225,7 @@ namespace FrostfallSaga.Fight.Controllers
                 _fighterIsActing = true;
                 _possessedFighter.UseDirectAttack(targetedCells);
                 onFighterActionStarted?.Invoke(_possessedFighter);
-                // Tests status effects
-                // StatusEffect bleedingEffect= new BleedingEffect();
-                // _possessedFighter.statusManager.ApplyEffect(bleedingEffect);
-                // Debug.Log($"Fighter {_possessedFighter.name} started bleeding.");
-                //   StatusEffect weaknessStatus= new WeaknessStatus();
-                // _possessedFighter.statusManager.ApplyEffect(weaknessStatus);
+
             }
             catch (TargeterUnresolvableException)
             {

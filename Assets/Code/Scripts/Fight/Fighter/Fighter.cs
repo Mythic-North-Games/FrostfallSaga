@@ -30,7 +30,6 @@ namespace FrostfallSaga.Fight.Fighters
         public Action<Fighter> onFighterDirectAttackEnded;
         public Action<Fighter> onFighterActiveAbilityEnded;
         public Action<Fighter> onFighterDied;
-
         private MovePath _currentMovePath;
         private FighterStats _stats = new();
         private FighterStats _initialStats = new();
@@ -509,9 +508,11 @@ namespace FrostfallSaga.Fight.Fighters
             {
                 case StatusType.Slowed:
                     _stats.initiative -= statReduction;
+                    if (_stats.initiative <0) _stats.initiative =0;
                     break;
                 case StatusType.Weakened:
                     _stats.strength -= statReduction;
+                    if (_stats.strength <0) _stats.strength =0;
                     break;
                 default:
                     Debug.LogWarning("Unknown status type: " + statusType);

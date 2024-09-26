@@ -17,8 +17,8 @@ namespace FrostfallSaga.Fight.StatusEffects
 
         public void UpdateStatusEffects()
         {
-            var statusesToRemove = new List<StatusEffect>();
-            var tempStatusEffects = new Dictionary<StatusEffect, (bool isActive, int duration)>();
+            List<StatusEffect> statusesToRemove = new List<StatusEffect>();
+            Dictionary<StatusEffect, (bool isActive, int duration)> tempStatusEffects = new Dictionary<StatusEffect, (bool, int)>();
 
             foreach (var status in statusEffects)
             {
