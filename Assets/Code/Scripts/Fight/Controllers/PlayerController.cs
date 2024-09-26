@@ -225,11 +225,12 @@ namespace FrostfallSaga.Fight.Controllers
                 _fighterIsActing = true;
                 _possessedFighter.UseDirectAttack(targetedCells);
                 onFighterActionStarted?.Invoke(_possessedFighter);
-                        // Tests status effects
-                StatusEffect bleedingEffect= new BleedingEffect();
-                _possessedFighter.statusManager.ApplyEffect(bleedingEffect);
-                Debug.Log($"Fighter {_possessedFighter.name} started bleeding.");
-              
+                // Tests status effects
+                // StatusEffect bleedingEffect= new BleedingEffect();
+                // _possessedFighter.statusManager.ApplyEffect(bleedingEffect);
+                // Debug.Log($"Fighter {_possessedFighter.name} started bleeding.");
+                //   StatusEffect weaknessStatus= new WeaknessStatus();
+                // _possessedFighter.statusManager.ApplyEffect(weaknessStatus);
             }
             catch (TargeterUnresolvableException)
             {
@@ -293,7 +294,7 @@ namespace FrostfallSaga.Fight.Controllers
             _possessedFighter.cell.HighlightController.Highlight(_cellHighlightMaterial);
 
             _fighterIsTargetingForActiveAbility = true;
-     
+
 
         }
 
@@ -307,7 +308,7 @@ namespace FrostfallSaga.Fight.Controllers
                 _fighterIsActing = true;
                 _possessedFighter.UseActiveAbility(_currentActiveAbility, targetedCells);
                 onFighterActionStarted?.Invoke(_possessedFighter);
-             
+
 
             }
             catch (TargeterUnresolvableException)
@@ -510,7 +511,8 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void BindFightersMouseEvents(List<Fighter> fighters)
         {
-            fighters.ForEach(fighter => {
+            fighters.ForEach(fighter =>
+            {
                 fighter.FighterMouseEventsController.OnElementHover += OnFighterHovered;
                 fighter.FighterMouseEventsController.OnElementUnhover += OnFighterUnhovered;
                 fighter.FighterMouseEventsController.OnLeftMouseUp += OnFighterClicked;
@@ -519,12 +521,13 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void UnbindEntitiesGroupsMouseEvents(List<Fighter> fighters)
         {
-            fighters.ForEach(fighter => {
+            fighters.ForEach(fighter =>
+            {
                 fighter.FighterMouseEventsController.OnElementHover += OnFighterHovered;
                 fighter.FighterMouseEventsController.OnElementUnhover += OnFighterUnhovered;
                 fighter.FighterMouseEventsController.OnLeftMouseUp += OnFighterClicked;
             });
-        }        
+        }
 
         #endregion
 

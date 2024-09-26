@@ -7,29 +7,38 @@ using FrostfallSaga.Fight.Fighters;
 namespace FrostfallSaga.Fight.StatusEffects
 {
 
-public class WeaknessStatus : StatusEffect {
-    private int strengthReduction;
+    public class WeaknessStatus : StatusEffect
+    {
+        private int strengthReduction;
 
-    public void SlowingStatus() {
-        StatusType = StatusType.Slowed;
-        Name = "Weakness";
-        Description = "Reduces attack power.";
-        Duration = 3;
-        animationStateName = "Weakness";
-        IsRecurring = false;
-        this.strengthReduction =5;
+        public WeaknessStatus()
+        {
+            StatusType = StatusType.Weakened;
+            Name = "Weakness";
+            Description = "Reduces attack power.";
+            Duration = 3;
+            animationStateName = "Weakness";
+            IsRecurring = false;
+            this.strengthReduction = 10;
 
+        }
+
+        public override void ApplyEffect(Fighter fighter)
+        {
+            fighter.ReduceStats(StatusType, strengthReduction, this.animationStateName);
+            Debug.Log($"{fighter.FighterName}'s strength is reduced by {strengthReduction} == > Strength : ${fighter.GetStrength()}.");
+        }
+
+        public override void RemoveEffect(Fighter fighter)
+        {
+            fighter.IncreaseStats(StatusType, strengthReduction, this.animationStateName);
+            Debug.Log($"{fighter.FighterName}'s strength is back to normal !");
+        }
+
+        public int getstrengthReduction()
+        {
+            return strengthReduction;
+        }
     }
-
-    public override void ApplyEffect(Fighter fighter) {
-        fighter.ReduceStats(StatusType, strengthReduction, this.animationStateName); 
-        Debug.Log($"{fighter.FighterName}'s strength is reduced by {strengthReduction}.");
-    }
-
-    public override void RemoveEffect(Fighter fighter) {
-        fighter.IncreaseStats(StatusType, strengthReduction, this.animationStateName); 
-        Debug.Log($"{fighter.FighterName}'s strength is back to normal.");
-    }
-}
 
 }

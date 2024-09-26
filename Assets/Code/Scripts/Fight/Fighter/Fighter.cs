@@ -19,7 +19,7 @@ namespace FrostfallSaga.Fight.Fighters
         [field: SerializeField] public FighterMouseEventsController FighterMouseEventsController { get; private set; }
         [field: SerializeField] public Transform CameraAnchor { get; private set; }
         public Sprite FighterIcon { get; private set; }
-        public string FighterName { get;  private set; }
+        public string FighterName { get; private set; }
         public bool IsParalyzed { get; private set; }
 
 
@@ -130,14 +130,14 @@ namespace FrostfallSaga.Fight.Fighters
                         );
                     });
                 onFighterDirectAttackEnded?.Invoke(this);
-               
+
             }
             else
             {
                 _directAttackAnimation.onFighterTouched += OnDirectAttackTouchedFighter;
                 _directAttackAnimation.onAnimationEnded += OnDirectAttackAnimationEnded;
                 _directAttackAnimation.Execute(this, targetedCells);
-              
+
 
             }
             _stats.actionPoints -= DirectAttackActionPointsCost;
@@ -279,6 +279,10 @@ namespace FrostfallSaga.Fight.Fighters
         {
             return _stats.health;
         }
+        public int GetStrength()
+        {
+            return _stats.strength;
+        }
 
         public int GetInitiative()
         {
@@ -288,6 +292,11 @@ namespace FrostfallSaga.Fight.Fighters
         public FighterCollider GetWeaponCollider()
         {
             return GetComponentInChildren<FighterCollider>();
+        }
+
+        public StatusEffectManager GetStatusEffectManager()
+        {
+            return statusManager;
         }
 
         public void ResetMovementAndActionPoints()
@@ -488,7 +497,7 @@ namespace FrostfallSaga.Fight.Fighters
         #endregion
 
 
-         public void inflictDamage(int EffectDamage, string animationStateName)
+        public void inflictDamage(int EffectDamage, string animationStateName)
         {
             DecreaseHealth(EffectDamage);
             // PlayAnimationIfAny(animationStateName);
@@ -497,11 +506,11 @@ namespace FrostfallSaga.Fight.Fighters
         public void ReduceStats(StatusType statusType, int statReduction, string animationStateName)
         {
             switch (statusType)
-            {   
-                case StatusType.Slowed:  
+            {
+                case StatusType.Slowed:
                     _stats.initiative -= statReduction;
                     break;
-                case StatusType.Weakened:  
+                case StatusType.Weakened:
                     _stats.strength -= statReduction;
                     break;
                 default:
@@ -512,15 +521,15 @@ namespace FrostfallSaga.Fight.Fighters
 
         }
 
-        
+
         public void IncreaseStats(StatusType statusType, int StatBoost, string animationStateName)
         {
             switch (statusType)
-            {   
-                case StatusType.Slowed:  
+            {
+                case StatusType.Slowed:
                     _stats.initiative += StatBoost;
                     break;
-                case StatusType.Weakened:  
+                case StatusType.Weakened:
                     _stats.strength += StatBoost;
                     break;
                 default:
@@ -536,7 +545,7 @@ namespace FrostfallSaga.Fight.Fighters
             this.IsParalyzed = value;
         }
 
-           public void ApplyStatusEffect(StatusEffect statusEffect)
+        public void ApplyStatusEffect(StatusEffect statusEffect)
         {
             statusManager.ApplyEffect(statusEffect);
         }
