@@ -17,19 +17,26 @@ public class StatusEffectManager : MonoBehaviour {
 
     public void UpdateStatusEffects() {
         var statusesToRemove = new List<StatusEffect>();
-        foreach (var status in statusEffects.Keys) {
-            var (isActive, duration) = statusEffects[status];
-            duration--;
-            if (isActive) {
-                status.ApplyEffect(GetComponent<Fighter>());
-                if (!status.IsRecurring) isActive = false;
-              }
-            statusEffects[status] = (isActive, duration);
-            if (duration <= 0) {
-                statusesToRemove.Add(status);
-            }
-            
+        var tempStatusEffects = new Dictionary<StatusEffect, (bool isActive, int duration)>();
+
+        foreach (var status in statusEffects) {
+            tempStatusEffects[status.Key] = (status.Value.isActive, status.Value.duration); 
         }
+        foreach (var status in statusEffects.Keys) {
+        var (isActive, duration) = tempStatusEffects[status];
+        duration--;
+        if (isActive) {
+            status.ApplyEffect(GetComponent<Fighter>());
+            if (!status.IsRecurring) isActive = false;
+            }
+            tempStatusEffects[status] = (isActive, duration); 
+        if (duration <= 0) {
+            statusesToRemove.Add(status);
+        }
+        
+        }
+    
+        statusEffects = tempStatusEffects;
         foreach (var status in statusesToRemove) {
             RemoveEffect(status);
             status.RemoveEffect(GetComponent<Fighter>());

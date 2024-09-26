@@ -48,6 +48,8 @@ namespace FrostfallSaga.Fight
             AFighterController controller = isAlly ? _alliesController : _enemiesController;
             onFighterTurnBegan(_playingFighter, isAlly);
             controller.PlayTurn(_playingFighter, GetFighterTeamsAsDict(_allies, _enemies), _fightGrid);
+            _playingFighter.statusManager.UpdateStatusEffects();
+
         }
 
         private void OnFighterTurnEnded(Fighter fighterThatPlayed)

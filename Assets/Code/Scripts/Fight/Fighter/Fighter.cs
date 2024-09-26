@@ -42,7 +42,7 @@ namespace FrostfallSaga.Fight.Fighters
         private string _receiveDamageAnimationStateName;
         private string _healSelfAnimationStateName;
         private ActiveAbilityToAnimation _currentActiveAbility;
-        private StatusEffectManager statusManager;
+        public StatusEffectManager statusManager;
 
 
         private void Awake()
@@ -130,12 +130,15 @@ namespace FrostfallSaga.Fight.Fighters
                         );
                     });
                 onFighterDirectAttackEnded?.Invoke(this);
+               
             }
             else
             {
                 _directAttackAnimation.onFighterTouched += OnDirectAttackTouchedFighter;
                 _directAttackAnimation.onAnimationEnded += OnDirectAttackAnimationEnded;
                 _directAttackAnimation.Execute(this, targetedCells);
+              
+
             }
             _stats.actionPoints -= DirectAttackActionPointsCost;
         }
@@ -488,7 +491,7 @@ namespace FrostfallSaga.Fight.Fighters
          public void inflictDamage(int EffectDamage, string animationStateName)
         {
             DecreaseHealth(EffectDamage);
-            PlayAnimationIfAny(animationStateName);
+            // PlayAnimationIfAny(animationStateName);
         }
 
         public void ReduceStats(StatusType statusType, int statReduction, string animationStateName)
@@ -505,7 +508,7 @@ namespace FrostfallSaga.Fight.Fighters
                     Debug.LogWarning("Unknown status type: " + statusType);
                     break;
             }
-            PlayAnimationIfAny(animationStateName);
+            // PlayAnimationIfAny(animationStateName);
 
         }
 
@@ -524,7 +527,7 @@ namespace FrostfallSaga.Fight.Fighters
                     Debug.LogWarning("Unknown status type: " + statusType);
                     break;
             }
-            PlayAnimationIfAny(animationStateName);
+            // PlayAnimationIfAny(animationStateName);
 
         }
 

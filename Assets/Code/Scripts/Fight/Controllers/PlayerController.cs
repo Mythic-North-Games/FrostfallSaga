@@ -7,6 +7,7 @@ using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.UI;
+using FrostfallSaga.Fight.StatusEffects;
 
 namespace FrostfallSaga.Fight.Controllers
 {
@@ -224,6 +225,11 @@ namespace FrostfallSaga.Fight.Controllers
                 _fighterIsActing = true;
                 _possessedFighter.UseDirectAttack(targetedCells);
                 onFighterActionStarted?.Invoke(_possessedFighter);
+                        // Tests status effects
+                StatusEffect bleedingEffect= new BleedingEffect();
+                _possessedFighter.statusManager.ApplyEffect(bleedingEffect);
+                Debug.Log($"Fighter {_possessedFighter.name} started bleeding.");
+              
             }
             catch (TargeterUnresolvableException)
             {
@@ -287,6 +293,8 @@ namespace FrostfallSaga.Fight.Controllers
             _possessedFighter.cell.HighlightController.Highlight(_cellHighlightMaterial);
 
             _fighterIsTargetingForActiveAbility = true;
+     
+
         }
 
         private void TryTriggerActiveAbility(Cell clickedCell)
@@ -299,6 +307,8 @@ namespace FrostfallSaga.Fight.Controllers
                 _fighterIsActing = true;
                 _possessedFighter.UseActiveAbility(_currentActiveAbility, targetedCells);
                 onFighterActionStarted?.Invoke(_possessedFighter);
+             
+
             }
             catch (TargeterUnresolvableException)
             {

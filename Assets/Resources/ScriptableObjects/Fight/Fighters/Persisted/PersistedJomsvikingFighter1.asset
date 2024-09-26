@@ -23,7 +23,7 @@ MonoBehaviour:
   <DirectAttackAnimation>k__BackingField: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
   <HealSelfAnimationStateName>k__BackingField: 
   <ReceiveDamageAnimationStateName>k__BackingField: Hurt
-  <MaxHealth>k__BackingField: 100
+  <MaxHealth>k__BackingField: 9999
   <MaxActionPoints>k__BackingField: 5
   <MaxMovePoints>k__BackingField: 5
   <Strength>k__BackingField: 10

@@ -22,7 +22,7 @@ public class BleedingEffect : StatusEffect {
 
     public override void ApplyEffect(Fighter fighter) {
         fighter.inflictDamage(bleedingReduction, this.animationStateName); 
-        Debug.Log($"{fighter.FighterName} is bleeding and loses ${bleedingReduction} HP!");
+        Debug.Log($"{fighter.FighterName} is bleeding and loses ${bleedingReduction} HP! ==> Health : ${fighter.GetHealth()}");
     }
 
     public override void RemoveEffect(Fighter fighter) {

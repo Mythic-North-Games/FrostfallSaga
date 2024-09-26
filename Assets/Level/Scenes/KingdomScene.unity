@@ -20421,7 +20421,7 @@ PrefabInstance:
     - target: {fileID: 1765852575463752276, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
       propertyPath: cell
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 640367397}
     - target: {fileID: 1765852575463752276, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
       propertyPath: MovePoints
       value: 10
