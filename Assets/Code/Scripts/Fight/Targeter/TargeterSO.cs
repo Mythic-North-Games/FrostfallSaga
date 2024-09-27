@@ -63,6 +63,7 @@ namespace FrostfallSaga.Fight.Targeters
         /// <param name="fightGrid">The fight grid that the targeter will extract the cells from.</param>
         /// <param name="initiatorCell">The cell of the targeter's initiator.</param>
         /// <param name="originCell">The starting cell of the sequence.</param>
+        /// <param name="fightersTeams">The fighters and their teams (true if ally, false if enemy).</param>
         /// <returns>The extracted cells in order if resolvable.</returns>
         /// <exception cref="TargeterUnresolvableException">If one of the targeter's condition is not respected.</exception>
         public Cell[] Resolve(HexGrid fightGrid, Cell initiatorCell, Cell originCell, Dictionary<Fighter, bool> fightersTeams)
@@ -94,6 +95,7 @@ namespace FrostfallSaga.Fight.Targeters
         /// </summary>
         /// <param name="fightGrid">The current fight grid.</param>
         /// <param name="initiatorCell">The cell where the targeter's initiator is located.</param>
+        /// <param name="fightersTeams">The fighters and their teams (true if ally, false if enemy).</param>
         /// <returns>One random resolved targeter cell sequence for the given context if it does exist.</returns>
         /// <exception cref="TargeterUnresolvableException">If the targeter can't be resolved around the initiator.</exception>
         public Cell[] GetRandomTargetCells(HexGrid fightGrid, Cell initiatorCell, Dictionary<Fighter, bool> fightersTeams)
@@ -123,6 +125,7 @@ namespace FrostfallSaga.Fight.Targeters
         /// Extract the cells corresponding the targeter's sequence from the given context.
         /// </summary>
         /// <param name="fightGrid">The fight grid that the targeter will extract the cells from.</param>
+        /// <param name="initiatorCell">The cell where the targeter's initiator is located.</param>
         /// <param name="originCell">The starting cell of the sequence.</param>
         /// <returns>The extracted cells in order, targeter's conditions are ignored.</returns>
         public Cell[] GetCellsFromSequence(HexGrid fightGrid, Cell initiatorCell, Cell originCell)
@@ -166,6 +169,7 @@ namespace FrostfallSaga.Fight.Targeters
         /// </summary>
         /// <param name="fightGrid">The fight grid to get the cells from.</param>
         /// <param name="initiatorCell">The cell the initiator occupies.</param>
+        /// <param name="fightersTeams">The fighters and their teams (true if ally, false if enemy).</param>
         /// <returns>All the cells that are in range depending on the initiator position and the targeter</returns>
         public Cell[] GetAllCellsAvailableForTargeting(HexGrid fightGrid, Cell initiatorCell, Dictionary<Fighter, bool> fightersTeams)
         {
@@ -193,6 +197,7 @@ namespace FrostfallSaga.Fight.Targeters
         /// <param name="fightGrid">The grid where the initiator is located.</param>
         /// <param name="initiatorCell">The targeter initiator's cell.</param>
         /// <param name="targetCell">The cell you want to know if it's in range.</param>
+        /// <param name="fightersTeams">The fighters and their teams (true if ally, false if enemy).</param>
         /// <returns>True if the target cell is in range, false otherwise.</returns>
         public bool IsCellTargetable(HexGrid fightGrid, Cell initiatorCell, Cell targetCell, Dictionary<Fighter, bool> fightersTeams)
         {
@@ -203,7 +208,8 @@ namespace FrostfallSaga.Fight.Targeters
         /// Returns whether the targeter resolves at least for one cell in the available cells around the given initiator cell.
         /// </summary>
         /// <param name="fightGrid">The fight grid where the initiator is located.</param>
-        /// <param name="initiatorCell">The targeter initiator's cell.</param>
+        /// <param name="initiatorCell">The targeter initiator's cell.</param>*
+        /// <param name="fightersTeams">The fighters and their teams (true if ally, false if enemy).</param>
         /// <returns>True if the targeter resolves at least for one cell in the available cells around the given initiator cell, false otherwise.</returns>
         public bool AtLeastOneCellResolvable(HexGrid fightGrid, Cell initiatorCell, Dictionary<Fighter, bool> fightersTeams)
         {
