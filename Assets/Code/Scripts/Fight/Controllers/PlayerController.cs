@@ -76,7 +76,7 @@ namespace FrostfallSaga.Fight.Controllers
             if (
                 _fighterIsTargetingForDirectAttack &&
                 hoveredCell != _possessedFighter.cell &&
-                _possessedFighter.DirectAttackTargeter.IsCellInRange(_currentFightGrid, _possessedFighter.cell, hoveredCell)
+                _possessedFighter.DirectAttackTargeter.IsCellTargetable(_currentFightGrid, _possessedFighter.cell, hoveredCell, _fighterTeams)
             )
             {
                 HighlightTargeterCells(_possessedFighter.DirectAttackTargeter, hoveredCell);
@@ -86,7 +86,8 @@ namespace FrostfallSaga.Fight.Controllers
                 (
                     _currentActiveAbility.activeAbility.Targeter.GetAllCellsAvailableForTargeting(
                         _currentFightGrid,
-                        _possessedFighter.cell
+                        _possessedFighter.cell,
+                        _fighterTeams
                     ).Contains(hoveredCell) ||
                     hoveredCell == _possessedFighter.cell
                 )
@@ -203,7 +204,8 @@ namespace FrostfallSaga.Fight.Controllers
 
             Cell[] cellsAvailableForTargeting = _possessedFighter.DirectAttackTargeter.GetAllCellsAvailableForTargeting(
                 _currentFightGrid,
-                _possessedFighter.cell
+                _possessedFighter.cell,
+                _fighterTeams
             );
             cellsAvailableForTargeting.ToList().ForEach(cell => cell.HighlightController.UpdateCurrentDefaultMaterial(_cellHighlightMaterial));
             cellsAvailableForTargeting.ToList().ForEach(cell => cell.HighlightController.Highlight(_cellHighlightMaterial));
@@ -242,7 +244,8 @@ namespace FrostfallSaga.Fight.Controllers
             _fighterIsTargetingForDirectAttack = false;
             _possessedFighter.DirectAttackTargeter.GetAllCellsAvailableForTargeting(
                 _currentFightGrid,
-                _possessedFighter.cell
+                _possessedFighter.cell,
+                _fighterTeams
             ).ToList().ForEach(cell => cell.HighlightController.ResetToInitialMaterial());
         }
 
@@ -280,7 +283,8 @@ namespace FrostfallSaga.Fight.Controllers
             _currentActiveAbility = clickedAbility;
             Cell[] cellsAvailableForTargeting = _currentActiveAbility.activeAbility.Targeter.GetAllCellsAvailableForTargeting(
                 _currentFightGrid,
-                _possessedFighter.cell
+                _possessedFighter.cell,
+                _fighterTeams
             );
             cellsAvailableForTargeting.ToList().ForEach(cell => cell.HighlightController.UpdateCurrentDefaultMaterial(_cellHighlightMaterial));
             cellsAvailableForTargeting.ToList().ForEach(cell => cell.HighlightController.Highlight(_cellHighlightMaterial));
@@ -318,7 +322,8 @@ namespace FrostfallSaga.Fight.Controllers
             _possessedFighter.cell.HighlightController.ResetToInitialMaterial();
             _currentActiveAbility.activeAbility.Targeter.GetAllCellsAvailableForTargeting(
                 _currentFightGrid,
-                _possessedFighter.cell
+                _possessedFighter.cell,
+                _fighterTeams
             ).ToList().ForEach(cell => cell.HighlightController.ResetToInitialMaterial());
         }
 
@@ -501,7 +506,8 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void BindFightersMouseEvents(List<Fighter> fighters)
         {
-            fighters.ForEach(fighter => {
+            fighters.ForEach(fighter =>
+            {
                 fighter.FighterMouseEventsController.OnElementHover += OnFighterHovered;
                 fighter.FighterMouseEventsController.OnElementUnhover += OnFighterUnhovered;
                 fighter.FighterMouseEventsController.OnLeftMouseUp += OnFighterClicked;
@@ -510,12 +516,13 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void UnbindEntitiesGroupsMouseEvents(List<Fighter> fighters)
         {
-            fighters.ForEach(fighter => {
+            fighters.ForEach(fighter =>
+            {
                 fighter.FighterMouseEventsController.OnElementHover += OnFighterHovered;
                 fighter.FighterMouseEventsController.OnElementUnhover += OnFighterUnhovered;
                 fighter.FighterMouseEventsController.OnLeftMouseUp += OnFighterClicked;
             });
-        }        
+        }
 
         #endregion
 

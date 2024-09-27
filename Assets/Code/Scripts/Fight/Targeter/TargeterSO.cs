@@ -15,17 +15,29 @@ namespace FrostfallSaga.Fight.Targeters
     [CreateAssetMenu(fileName = "Targeter", menuName = "ScriptableObjects/Fight/Targeter", order = 0)]
     public class TargeterSO : ScriptableObject
     {
-        [field: SerializeField, Tooltip("The available range from the intiator's cell available for targeting.")]
+        [field: SerializeField, Header("Definition"), Tooltip("The available range from the intiator's cell available for targeting.")]
         public int OriginCellRange { get; private set; }
 
         [field: SerializeField, Tooltip("The coordinates of the cells to target (ex: line would be [0,0], [0,1], [0,2]).")]
         public Vector2Int[] CellsSequence { get; private set; }
 
-        [field: SerializeField, Tooltip("Can target all fighter types by default. Add options to restrain who can be targeted.")]
+        [field: SerializeField, Header("Target conditions"), Tooltip("Can target all fighter types by default. Add options to restrain who can be targeted.")]
         public ETarget[] TargetsToExclude { get; private set; }
 
         [field: SerializeField, Tooltip("Can target all heights by default. Add options to restrain which heights can be targeted."), Range(-2, 2)]
         public int[] TargetHeightsToExclude { get; private set; }
+
+        [field: SerializeField, Header("Obstacles"), Tooltip("If true, the targeter will resolve cells until stoped by an inaccessible cell.")]
+        public bool StopedAtInacessibles { get; private set; }
+
+        [field: SerializeField, Tooltip("The targeter will resolve cells until stoped by a cell with at least X higher height difference. 0 means deactivated."), Range(0, 2)]
+        public int StopedAtXthHigherHeightDifference { get; private set; }
+
+        [field: SerializeField, Tooltip("The targeter will resolve cells until stoped by a cell with at least X lower height difference. 0 means deactivated."), Range(0, 2)]
+        public int StopedAtXthLowerHeightDifference { get; private set; }
+
+        [field: SerializeField, Tooltip("The targeter will resolve cells until stoped by the Xth fighter encountered."), Range(0, 999)]
+        public int StopedAtXthEncounteredFighters { get; private set; }
 
         /// <summary>
         /// Extract the cells corresponding to the targeter from the given context.
@@ -45,7 +57,6 @@ namespace FrostfallSaga.Fight.Targeters
             Cell[] targetedCells = GetCellsFromSequence(fightGrid, originCell);
             CheckExcludedTargets(targetedCells, initiatorCell, fightersTeams);
             CheckExcludedTargetHeights(targetedCells, initiatorCell, fightersTeams);
-
             return targetedCells;
         }
 
@@ -59,7 +70,7 @@ namespace FrostfallSaga.Fight.Targeters
         public Cell[] GetRandomTargetCells(HexGrid fightGrid, Cell initiatorCell, Dictionary<Fighter, bool> fightersTeams)
         {
             List<Cell[]> resolvedTargeterSequences = new();
-            foreach (Cell cellThatCanBeTargeted in GetAllCellsAvailableForTargeting(fightGrid, initiatorCell))
+            foreach (Cell cellThatCanBeTargeted in GetAllCellsAvailableForTargeting(fightGrid, initiatorCell, fightersTeams))
             {
                 try
                 {
@@ -101,6 +112,23 @@ namespace FrostfallSaga.Fight.Targeters
                 }
             }
 
+            if (StopedAtInacessibles)
+            {
+                targetedCells = GetCellsUntilStoppedByInaccessible(targetedCells);
+            }
+            if (StopedAtXthEncounteredFighters > 0)
+            {
+                targetedCells = GetCellsUntilStoppedByTheXthFighter(targetedCells);
+            }
+            if (StopedAtXthHigherHeightDifference > 0)
+            {
+                targetedCells = GetCellsUntilStoppedByTooHighCell(targetedCells, originCell);
+            }
+            if (StopedAtXthLowerHeightDifference > 0)
+            {
+                targetedCells = GetCellsUntilStoppedByTooLowCell(targetedCells, originCell);
+            }
+
             return targetedCells.ToArray();
         }
 
@@ -110,15 +138,32 @@ namespace FrostfallSaga.Fight.Targeters
         /// <param name="fightGrid">The fight grid to get the cells from.</param>
         /// <param name="initiatorCell">The cell the initiator occupies.</param>
         /// <returns>All the cells that are in range depending on the initiator position and the targeter</returns>
-        public Cell[] GetAllCellsAvailableForTargeting(HexGrid fightGrid, Cell initiatorCell)
+        public Cell[] GetAllCellsAvailableForTargeting(HexGrid fightGrid, Cell initiatorCell, Dictionary<Fighter, bool> fightersTeams)
         {
             List<Cell> availableCells = new();
             foreach (Cell cell in fightGrid.GetCells().Where(cell => cell != initiatorCell))
             {
                 int distanceToInitiatorCell = CellsPathFinding.GetShorterPath(fightGrid, initiatorCell, cell, includeHeightInaccessibleNeighbors: true).Length;
-                if (distanceToInitiatorCell <= OriginCellRange && distanceToInitiatorCell > 0)
+                Cell[] cellAsArray = new Cell[] { cell };
+
+                if (
+                    distanceToInitiatorCell <= OriginCellRange &&
+                    distanceToInitiatorCell > 0 &&
+                    (StopedAtXthEncounteredFighters != 1 || cell.GetComponent<CellFightBehaviour>().Fighter == null) &&
+                    (int)cell.Height - (int)initiatorCell.Height < StopedAtXthHigherHeightDifference &&
+                    (int)initiatorCell.Height - (int)cell.Height < StopedAtXthLowerHeightDifference
+                )
                 {
-                    availableCells.Add(cell);
+                    try
+                    {
+                        CheckExcludedTargets(cellAsArray, initiatorCell, fightersTeams);
+                        CheckExcludedTargetHeights(cellAsArray, initiatorCell, fightersTeams);
+                        availableCells.Add(cell);
+                    }
+                    catch (TargeterUnresolvableException)
+                    {
+                        continue;
+                    }
                 }
             }
             return availableCells.ToArray();
@@ -131,9 +176,9 @@ namespace FrostfallSaga.Fight.Targeters
         /// <param name="initiatorCell">The targeter initiator's cell.</param>
         /// <param name="targetCell">The cell you want to know if it's in range.</param>
         /// <returns>True if the target cell is in range, false otherwise.</returns>
-        public bool IsCellInRange(HexGrid fightGrid, Cell initiatorCell, Cell targetCell)
+        public bool IsCellTargetable(HexGrid fightGrid, Cell initiatorCell, Cell targetCell, Dictionary<Fighter, bool> fightersTeams)
         {
-            return GetAllCellsAvailableForTargeting(fightGrid, initiatorCell).Contains(targetCell);
+            return GetAllCellsAvailableForTargeting(fightGrid, initiatorCell, fightersTeams).Contains(targetCell);
         }
 
         /// <summary>
@@ -144,7 +189,7 @@ namespace FrostfallSaga.Fight.Targeters
         /// <returns>True if the targeter resolves at least for one cell in the available cells around the given initiator cell, false otherwise.</returns>
         public bool AtLeastOneCellResolvable(HexGrid fightGrid, Cell initiatorCell, Dictionary<Fighter, bool> fightersTeams)
         {
-            foreach (Cell cellThatCanBeTargeted in GetAllCellsAvailableForTargeting(fightGrid, initiatorCell))
+            foreach (Cell cellThatCanBeTargeted in GetAllCellsAvailableForTargeting(fightGrid, initiatorCell, fightersTeams))
             {
                 try
                 {
@@ -213,6 +258,55 @@ namespace FrostfallSaga.Fight.Targeters
                 }
             }
             return true;
+        }
+
+        private List<Cell> GetCellsUntilStoppedByInaccessible(List<Cell> targetedCells)
+        {
+            int indexOfFirstInaccessible = targetedCells.FindIndex(cell => !cell.IsAccessible);
+            if (indexOfFirstInaccessible != -1)
+            {
+                targetedCells = targetedCells.Take(indexOfFirstInaccessible).ToList();
+            }
+            return targetedCells;
+        }
+
+        private List<Cell> GetCellsUntilStoppedByTheXthFighter(List<Cell> targetedCells)
+        {
+            int fightersEncountered = 0;
+            for (int i = 0; i < targetedCells.Count; i++)
+            {
+                if (fightersEncountered == StopedAtXthEncounteredFighters && i > 0)
+                {
+                    targetedCells = targetedCells.Take(i - 1).ToList();
+                    break;
+                }
+
+                if (fightersEncountered < StopedAtXthEncounteredFighters && targetedCells[i].GetComponent<CellFightBehaviour>().Fighter != null)
+                {
+                    fightersEncountered++;
+                }
+            }
+            return targetedCells;
+        }
+
+        private List<Cell> GetCellsUntilStoppedByTooHighCell(List<Cell> targetedCells, Cell initiatorCell)
+        {
+            int indexOfFirstTooHigh = targetedCells.FindIndex(cell => (int)cell.Height - (int)initiatorCell.Height >= StopedAtXthHigherHeightDifference);
+            if (indexOfFirstTooHigh != -1)
+            {
+                targetedCells = targetedCells.Take(indexOfFirstTooHigh).ToList();
+            }
+            return targetedCells;
+        }
+
+        private List<Cell> GetCellsUntilStoppedByTooLowCell(List<Cell> targetedCells, Cell initiatorCell)
+        {
+            int indexOfFirstTooLow = targetedCells.FindIndex(cell => (int)initiatorCell.Height - (int)cell.Height >= StopedAtXthLowerHeightDifference);
+            if (indexOfFirstTooLow != -1)
+            {
+                targetedCells = targetedCells.Take(indexOfFirstTooLow).ToList();
+            }
+            return targetedCells;
         }
     }
 }
