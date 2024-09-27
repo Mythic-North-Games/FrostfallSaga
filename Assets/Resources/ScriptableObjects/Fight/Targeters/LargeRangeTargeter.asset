@@ -17,7 +17,10 @@ MonoBehaviour:
   - {x: 0, y: 0}
   - {x: 1, y: 0}
   - {x: 2, y: 0}
+  <FighterMandatory>k__BackingField: 0
   <TargetsToExclude>k__BackingField: 00000000
-  <TargetHeightsToExclude>k__BackingField: 
-  <StopedAtInacessibles>k__BackingField: 1
-  <StopedAtXEncounteredFighters>k__BackingField: 1
+  <RelativeHeightsToExclude>k__BackingField: 
+  <StopedAtInacessibles>k__BackingField: 0
+  <StopedAtXthHigherHeightDifference>k__BackingField: 0
+  <StopedAtXthLowerHeightDifference>k__BackingField: 0
+  <StopedAtXthEncounteredFighters>k__BackingField: 1

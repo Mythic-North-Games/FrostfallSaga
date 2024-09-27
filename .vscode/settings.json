@@ -56,6 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "frostfall-saga.sln",
+    "dotnet.defaultSolution": "FrostfallSaga.sln",
     "dotnet.preferCSharpExtension": true
 }
