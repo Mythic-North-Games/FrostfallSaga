@@ -15,9 +15,12 @@ namespace FrostfallSaga.Fight.Fighters
         public int maxMovePoints;
         public int strength;
         public int dexterity;
+        public float tenacity;
+        public float dodge;
         public int physicalResistance;
         public Dictionary<EMagicalElement, int> magicalResistances;
         public Dictionary<EMagicalElement, int> magicalStrengths;
+        public float masterstroke;
         public int initiative;
     }
 }

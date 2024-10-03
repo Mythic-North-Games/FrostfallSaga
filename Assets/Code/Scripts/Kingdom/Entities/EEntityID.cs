@@ -6,5 +6,7 @@ namespace FrostfallSaga.Kingdom.Entities
         JOMSVIKING1,
         JOMSVIKING2,
         SKELETON,
+        GOBELIN,
+
     }
 }
