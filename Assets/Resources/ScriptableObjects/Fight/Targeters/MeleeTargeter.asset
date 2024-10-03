@@ -9,11 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 353b893bc3f298f438b48b8795817c64, type: 3}
+  m_Script: {fileID: 0}
   m_Name: MeleeTargeter
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: FrostfallSaga.Fight:FrostfallSaga.Fight.Targeters:TargeterSO
   <OriginCellRange>k__BackingField: 1
   <CellsSequence>k__BackingField:
   - {x: 0, y: 0}
+  <StartFromInitiator>k__BackingField: 0
+  <FighterMandatory>k__BackingField: 1
   <TargetsToExclude>k__BackingField: 
-  <TargetHeightsToExclude>k__BackingField: feffffff
+  <RelativeHeightsToExclude>k__BackingField: 
+  <StopedAtInacessibles>k__BackingField: 0
+  <StopedAtXthHigherHeightDifference>k__BackingField: 0
+  <StopedAtXthLowerHeightDifference>k__BackingField: 0
+  <StopedAtXthEncounteredFighters>k__BackingField: 0
