@@ -6,7 +6,6 @@ using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.Fighters;
-using System.ComponentModel;
 
 namespace FrostfallSaga.Fight.Targeters
 {
@@ -24,6 +23,9 @@ namespace FrostfallSaga.Fight.Targeters
 
         [field: SerializeField, Tooltip("The coordinates of the cells to target (ex: line would be [0,0], [0,1], [0,2]).")]
         public Vector2Int[] CellsSequence { get; private set; }
+
+        [field: SerializeField, Tooltip("If true, the cell sequence will rotate towards fighter direction. It will also affect the obstacles checks.")]
+        public bool StartFromInitiator { get; private set; }
 
 
         /// <summary>
@@ -54,8 +56,6 @@ namespace FrostfallSaga.Fight.Targeters
         [field: SerializeField, Tooltip("The targeter will resolve cells until stoped by the Xth fighter encountered."), Range(0, 6)]
         public int StopedAtXthEncounteredFighters { get; private set; }
 
-        [field: SerializeField, Tooltip("If true, the targeter will start checking for obstacles from the initiator's cell, otherwise from the origin cell.")]
-        public bool StartFromInitiator { get; private set; }
 
         /// <summary>
         /// Extract the cells corresponding to the targeter from the given context.
@@ -134,13 +134,32 @@ namespace FrostfallSaga.Fight.Targeters
             {
                 originCell
             };
+            Vector2Int direction = GetClampedDirection(initiatorCell.Coordinates, originCell.Coordinates);
 
+            Debug.Log($"Next cells from {originCell.Coordinates} in direction {direction}");
             for (int i = 1; i < CellsSequence.Length; i++)
             {
-                Vector2Int nextCellCoordinates = targetedCells.First().Coordinates + CellsSequence[i];
-                if (fightGrid.CellsByCoordinates.TryGetValue(nextCellCoordinates, out Cell nextCell))
+                if (StartFromInitiator)
                 {
-                    targetedCells.Add(nextCell);
+                    Vector2Int nextCellCoordinates = GetNextCellCoordinatesToDirection(
+                        originCell.Coordinates,
+                        targetedCells.Last().Coordinates,
+                        CellsSequence[i],
+                        direction
+                    );
+                    Debug.Log(nextCellCoordinates);
+                    if (fightGrid.CellsByCoordinates.TryGetValue(nextCellCoordinates, out Cell nextCell))
+                    {
+                        targetedCells.Add(nextCell);
+                    }
+                }
+                else
+                {
+                    Vector2Int nextCellCoordinates = targetedCells.First().Coordinates + CellsSequence[i];
+                    if (fightGrid.CellsByCoordinates.TryGetValue(nextCellCoordinates, out Cell nextCell))
+                    {
+                        targetedCells.Add(nextCell);
+                    }
                 }
             }
 
@@ -178,7 +197,7 @@ namespace FrostfallSaga.Fight.Targeters
             {
                 try
                 {
-                    if (Resolve(fightGrid, initiatorCell, cell, fightersTeams).Length > 0)
+                    if (Resolve(fightGrid, initiatorCell, cell, fightersTeams).Length > 0 && (!StartFromInitiator || cell != initiatorCell))
                     {
                         availableCells.Add(cell);
                     }
@@ -352,6 +371,27 @@ namespace FrostfallSaga.Fight.Targeters
                 currentCompareCell = targetedCells[i];
             }
             return targetedCells;
+        }
+
+        private Vector2Int GetClampedDirection(Vector2Int initiatorCellCoordinates, Vector2Int originCellCoordinates)
+        {
+            Vector2Int direction = originCellCoordinates - initiatorCellCoordinates;
+            direction.x = direction.x == 0 ? 1 : Mathf.Clamp(direction.x, -1, 1);
+            direction.y = Mathf.Clamp(direction.y, -1, 1);
+            return direction;
+        }
+
+        private Vector2Int GetNextCellCoordinatesToDirection(
+            Vector2Int originCell,
+            Vector2Int currentCell,
+            Vector2Int baseNextCell,
+            Vector2Int direction
+        )
+        {
+            int directionOffset = direction.x == -1 && direction.y != 0 ? 1 : 0;
+            int nextCellX = currentCell.x + ((baseNextCell.x + directionOffset) % 2 * direction.x);
+            int nextCellY = originCell.y + baseNextCell.y + (baseNextCell.x * direction.y);
+            return new(nextCellX, nextCellY);
         }
     }
 }
