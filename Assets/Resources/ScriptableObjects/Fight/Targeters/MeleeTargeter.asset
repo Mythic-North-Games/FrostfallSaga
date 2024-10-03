@@ -15,5 +15,10 @@ MonoBehaviour:
   <OriginCellRange>k__BackingField: 1
   <CellsSequence>k__BackingField:
   - {x: 0, y: 0}
+  <FighterMandatory>k__BackingField: 1
   <TargetsToExclude>k__BackingField: 
-  <TargetHeightsToExclude>k__BackingField: feffffff
+  <RelativeHeightsToExclude>k__BackingField: 
+  <StopedAtInacessibles>k__BackingField: 0
+  <StopedAtXthHigherHeightDifference>k__BackingField: 0
+  <StopedAtXthLowerHeightDifference>k__BackingField: 0
+  <StopedAtXthEncounteredFighters>k__BackingField: 0
