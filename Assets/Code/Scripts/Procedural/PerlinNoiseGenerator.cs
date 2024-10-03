@@ -32,7 +32,7 @@ namespace FrostfallSaga.Procedural
         /// </summary>
         /// <param name="x">Coordinate x</param>
         /// <param name="z">Coordinate z</param>
-        /// <returns>Valeur de bruit de Perlin</returns>
+        /// <returns>Perlin noise value based on the given coordinates</returns>
         public float GetNoiseValue(int x, int z)
         {
             return Mathf.PerlinNoise((x + noiseOffset.x) * NoiseScale, (z + noiseOffset.y) * NoiseScale);
