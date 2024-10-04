@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2515,7 +2515,7 @@ Transform:
   m_GameObject: {fileID: 796642053}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.7320508, y: -1, z: 15}
+  m_LocalPosition: {x: 1.7320508, y: 1, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2550,7 +2550,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 0, y: 5}
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
-  <Height>k__BackingField: -1
+  <Height>k__BackingField: 1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1302360962}
   <CellMouseEventsController>k__BackingField: {fileID: 1302360960}
