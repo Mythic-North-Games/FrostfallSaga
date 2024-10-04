@@ -3,7 +3,10 @@ guid: c16e8489c5da7ed4b9ecbeeba449ff0b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - <HexGrid>k__BackingField: {instanceID: 0}
+  - AlternativeMaterial: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  - <BiomeType>k__BackingField: {fileID: 11400000, guid: 62807aa1d0cd21844b1e3eef85934555, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571328, b: 0.3069218, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6295,6 +6295,54 @@ MonoBehaviour:
   _preFightData: {fileID: 11400000, guid: 04c5351ee75a07946b88b4758739fc4a, type: 2}
   _devAlliesFighterSetup:
   - name: Hero
+    sessionId: 
+    icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
+    initialStats:
+      health: 100
+      maxHealth: 100
+      actionPoints: 5
+      maxActionPoints: 5
+      movePoints: 4
+      maxMovePoints: 4
+      strength: 1
+      dexterity: 1
+      physicalResistance: 1
+      initiative: 3
+    directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
+    directAttackActionPointsCost: 3
+    directAttackEffects:
+    - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
+    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
+    activeAbilities:
+    - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+    receiveDamageAnimationStateName: Hurt
+    healSelfAnimationStateName: 
+  - name: Pelo2
+    sessionId: 
+    icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
+    initialStats:
+      health: 100
+      maxHealth: 100
+      actionPoints: 5
+      maxActionPoints: 5
+      movePoints: 4
+      maxMovePoints: 4
+      strength: 1
+      dexterity: 1
+      physicalResistance: 1
+      initiative: 3
+    directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
+    directAttackActionPointsCost: 3
+    directAttackEffects:
+    - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
+    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
+    activeAbilities:
+    - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+    receiveDamageAnimationStateName: Hurt
+    healSelfAnimationStateName: 
+  - name: Pelo3
     sessionId: 
     icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
     initialStats:
