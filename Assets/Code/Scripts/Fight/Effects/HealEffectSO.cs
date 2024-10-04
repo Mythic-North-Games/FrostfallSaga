@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Utilities;
 
 namespace FrostfallSaga.Fight.Effects
 {
@@ -11,13 +12,14 @@ namespace FrostfallSaga.Fight.Effects
     {
     [field: SerializeField, Range(0, 9999)] public int HealAmount { get; private set; }
 
-    public override void ApplyEffect(Fighter fighter)
-        {
-            fighter.Heal(HealAmount);
-        }
     public override void ApplyEffect(Fighter attacker, Fighter defender)  
         {
-            defender.Heal(HealAmount);
+            // Calculate critical heal
+            int finalHealAmount = DamageUtils.TryCriticalHit(attacker, HealAmount);
+
+            // Apply the heal
+            defender.Heal(finalHealAmount);
+            Debug.Log($"Healed {defender.name} for {finalHealAmount} health.");
         }
          
     }

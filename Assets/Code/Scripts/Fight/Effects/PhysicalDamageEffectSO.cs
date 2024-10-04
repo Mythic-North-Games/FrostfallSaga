@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Utilities;
 
 namespace FrostfallSaga.Fight.Effects
 {
@@ -11,35 +12,26 @@ namespace FrostfallSaga.Fight.Effects
     {
         [field: SerializeField, Range(0, 9999)] public int PhysicalDamageAmount { get; private set; }
 
-        public override void ApplyEffect(Fighter fighter)
-        {
-            // No attacker involved, direct damage
-            fighter.PhysicalWithstand(PhysicalDamageAmount);
-        }
-
+        // Main ApplyEffect method (required override)
         public override void ApplyEffect(Fighter attacker, Fighter defender)
         {
-            // Dodge logic using dexterity
-            float dodgeChance = Mathf.Clamp01((defender.Stats.dexterity - attacker.Stats.dexterity) / 100f);
-            if (Random.value < dodgeChance)
+            ApplyEffect(attacker, defender, true, true);  // Call the overloaded method with default values
+        }
+
+        // Overloaded ApplyEffect with optional parameters for canCrit and canDodge
+        public void ApplyEffect(Fighter attacker, Fighter defender, bool canCrit = true, bool canDodge = true)
+        {
+            // Dodge logic if enabled
+            if (canDodge && DamageUtils.TryDodge(attacker, defender)) return;
+
+            // Critical hit logic if enabled
+            int finalDamage = PhysicalDamageAmount;
+            if (canCrit)
             {
-                Debug.Log($"{defender.name} dodged the attack from {attacker.name}!");
-                return;  // No damage applied if dodged
+                finalDamage = DamageUtils.TryCriticalHit(attacker, PhysicalDamageAmount);
             }
 
-            // Critical hit logic
-            bool isCritical = Random.value < attacker.Stats.criticalStrikeChance;
-            int finalDamage = PhysicalDamageAmount; // Base damage
-
-            if (isCritical)
-            {
-                // Random multiplier between 1.5 and 2.0 for critical hit damage
-                float criticalMultiplier = 1.5f + (Random.value * 0.5f);  // Random value from 1.5 to 2.0
-                finalDamage = Mathf.RoundToInt(PhysicalDamageAmount * criticalMultiplier);  // Apply multiplier
-                Debug.Log($"Critical hit! Damage multiplied by {criticalMultiplier:F2}, final damage: {finalDamage}");
-            }
-
-            // Apply final damage to defender
+            // Apply physical damage
             defender.PhysicalWithstand(finalDamage);
         }
     }

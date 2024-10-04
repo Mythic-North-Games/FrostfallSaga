@@ -441,7 +441,7 @@ namespace FrostfallSaga.Fight.Fighters
             _stats.magicalResistances = _initialStats.magicalResistances;
             _stats.magicalStrengths = _initialStats.magicalStrengths;
             _stats.initiative = _initialStats.initiative;
-            
+            _stats.criticalStrikeChance = _initialStats.criticalStrikeChance
         }
 
         #region Getting children & bindings setup
