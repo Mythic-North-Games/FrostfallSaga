@@ -91,8 +91,8 @@
 
 .AbilitiesBackgroundStyle {
     flex-grow: 1;
-    width: 15%;
-    height: 87%;
+    width: 50px;
+    height: 50px;
     -unity-slice-scale: 1px;
     position: relative;
     background-image: url("project://database/Assets/Art/UI/AbillityParts/EmptyAbilityBackground.png?fileID=2800000&guid=e317b3f3bbbe0444fb034ff574616f3f&type=3#EmptyAbilityBackground");
@@ -101,8 +101,8 @@
     margin-right: 0;
     margin-bottom: 0;
     margin-left: 0;
-    max-width: 14%;
-    max-height: 87%;
+    max-width: 50px;
+    max-height: 50px;
     background-color: rgba(0, 0, 0, 0);
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
@@ -147,10 +147,10 @@
 .InventoryBoutonStyle {
     position: absolute;
     right: 3%;
-    height: 60%;
+    height: 50px;
     justify-content: flex-start;
     align-items: stretch;
-    width: 8.5%;
+    width: 50px;
     top: 25%;
     background-image: url('project://database/Assets/AssetsUHD/AssetsUHD/Inventory.png?fileID=2800000&guid=253870dad2acb974d908bf96f9e389c6&type=3#Inventory');
     margin-top: 0;
@@ -170,8 +170,6 @@
     border-right-width: 0;
     border-bottom-width: 0;
     border-left-width: 0;
-    max-height: 60%;
-    max-width: 8.5%;
 }
 
 .InventoryBoutonStyle:hover {
@@ -203,18 +201,16 @@
 }
 
 .TimelineCharacter {
-    top: 0;
-    width: 100%;
+    top: auto;
+    width: 50px;
     position: relative;
     right: auto;
-    left: 0;
+    left: auto;
     background-color: rgba(0, 0, 220, 0);
-    height: 16.66%;
+    height: 50px;
     background-image: url("project://database/Assets/Art/UI/CharacterParts/CharBackground.png?fileID=2800000&guid=bc4a83db463c6254e9042aec6229f409&type=3#CharBackground");
-    min-width: auto;
-    min-height: auto;
-    max-width: 100%;
-    max-height: 16.66%;
+    min-width: 50px;
+    min-height: 50px;
 }
 
 .TimelineCharacter:hover {
@@ -229,25 +225,17 @@
     height: 50px;
 }
 
-.TeamMatePanelFrameStyle {
+.TeamMatePanelStyle {
     flex-grow: 1;
     position: absolute;
     top: 0;
-    height: 100%;
+    height: 60px;
     left: 0;
-    width: 100%;
+    width: 60px;
     background-color: rgba(200, 0, 255, 0);
     background-image: url("project://database/Assets/Art/UI/CharacterParts/TeamFrame.png?fileID=2800000&guid=25ff3775975c72b45bc91c2eb9fa1477&type=3#TeamFrame");
 }
 
 .TeamMatePanelBackgroundStyle {
     background-image: url("project://database/Assets/Art/UI/CharacterParts/TeamBackground.png?fileID=2800000&guid=79b0441b51852244fa74bd121bd0822e&type=3#TeamBackground");
-    position: absolute;
-    width: 38%;
-    height: 100%;
-    max-width: 38%;
-    max-height: 100%;
-}
-
-.unity-progress-bar {
 }

@@ -19,7 +19,6 @@ namespace FrostfallSaga.Fight.Controllers
         public int timeBetweenActionsInSec = 2;
 
         private Fighter _possessedFighter;
-        private Dictionary<Fighter, bool> _fighterTeams;
         private HexGrid _fightGrid;
         private int _numberOfActionsToDoForTurn;
         private int _numberOfActionsDoneForTurn;
@@ -27,7 +26,6 @@ namespace FrostfallSaga.Fight.Controllers
         public override void PlayTurn(Fighter fighterToPlay, Dictionary<Fighter, bool> fighterTeams, HexGrid fightGrid)
         {
             _possessedFighter = fighterToPlay;
-            _fighterTeams = fighterTeams;
             _fightGrid = fightGrid;
             BindFighterEventsForTurn(fighterToPlay);
 
@@ -45,11 +43,11 @@ namespace FrostfallSaga.Fight.Controllers
             {
                 doableActions.Add(FighterAction.MOVE);
             }
-            if (fighterThatWillAct.CanDirectAttack(fightGrid, _fighterTeams))
+            if (fighterThatWillAct.CanDirectAttack(fightGrid))
             {
                 doableActions.Add(FighterAction.DIRECT_ATTACK);
             }
-            if (fighterThatWillAct.CanUseAtLeastOneActiveAbility(fightGrid, _fighterTeams))
+            if (fighterThatWillAct.CanUseAtLeastOneActiveAbility(fightGrid))
             {
                 doableActions.Add(FighterAction.ACTIVE_ABILITY);
             }
@@ -62,7 +60,7 @@ namespace FrostfallSaga.Fight.Controllers
         /// </summary>
         private IEnumerator DoNextAction()
         {
-            if (!_possessedFighter.CanAct(_fightGrid, _fighterTeams) || _numberOfActionsDoneForTurn == _numberOfActionsToDoForTurn)
+            if (!_possessedFighter.CanAct(_fightGrid) || _numberOfActionsDoneForTurn == _numberOfActionsToDoForTurn)
             {
                 UnbindFighterEventsForTurn(_possessedFighter);
                 onFighterTurnEnded?.Invoke(_possessedFighter);
@@ -135,7 +133,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             try
             {
-                Cell[] targetCells = fighter.DirectAttackTargeter.GetRandomTargetCells(fightGrid, fighter.cell, _fighterTeams);
+                Cell[] targetCells = fighter.DirectAttackTargeter.GetRandomTargetCells(fightGrid, fighter.cell);
                 Debug.Log($"Fighter {fighter.name} is direct attacking.");
                 fighter.UseDirectAttack(targetCells);
                 onFighterActionStarted?.Invoke(fighter);
@@ -160,7 +158,7 @@ namespace FrostfallSaga.Fight.Controllers
             ActiveAbilityToAnimation activeAbilityToUse = GetRandomUsableActiveAbility(fighter, fightGrid);
             try
             {
-                Cell[] targetCells = activeAbilityToUse.activeAbility.Targeter.GetRandomTargetCells(fightGrid, fighter.cell, _fighterTeams);
+                Cell[] targetCells = activeAbilityToUse.activeAbility.Targeter.GetRandomTargetCells(fightGrid, fighter.cell);
 
                 Debug.Log($"Fighter {fighter.name} is using its active ability {activeAbilityToUse.activeAbility.Name}");
 
@@ -188,7 +186,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             List<ActiveAbilityToAnimation> usableActiveAbilities = new();
             fighter.ActiveAbilities.ToList()
-                .FindAll(activeAbilityToAnimation => fighter.CanUseActiveAbility(fightGrid, activeAbilityToAnimation.activeAbility, _fighterTeams))
+                .FindAll(activeAbilityToAnimation => fighter.CanUseActiveAbility(fightGrid, activeAbilityToAnimation.activeAbility))
                 .ForEach(activeAbilityToAnimation => usableActiveAbilities.Add(activeAbilityToAnimation));
             return Randomizer.GetRandomElementFromArray(usableActiveAbilities.ToArray());
         }
