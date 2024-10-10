@@ -5,31 +5,27 @@ using System;
 
 namespace FrostfallSaga.Fight.StatusEffects
 {
-
+    [CreateAssetMenu(fileName = "New Bleeding Status", menuName = "Status Effect/Bleeding")]
     public class BleedingStatus : StatusEffect
     {
-        private int bleedingReduction;
+        [SerializeField] private int bleedingReduction = 10;
 
-        public BleedingStatus()
+        public override void ApplyStatusEffect(Fighter fighter)
         {
-            StatusType = StatusType.Bleeding;
-            Name = "Bleeding";
-            Description = "Causes damage over time.";
-            Duration = 3;
-            animationStateName = "Bleed";
-            IsRecurring = true;
-            this.bleedingReduction = 5;
+            fighter.inflictDamage(bleedingReduction, this.AnimationStateName);
+            Debug.Log($"{fighter.name} is bleeding and loses ${bleedingReduction} HP! ==> Health : ${fighter.GetHealth()}");
         }
 
-        public override void ApplyEffect(Fighter fighter)
+        public override void RemoveStatusEffect(Fighter fighter)
         {
-            fighter.inflictDamage(bleedingReduction, this.animationStateName);
-            Debug.Log($"{fighter.FighterName} is bleeding and loses ${bleedingReduction} HP! ==> Health : ${fighter.GetHealth()}");
+            Debug.Log($"{fighter.name} stopped bleeding.");
         }
 
-        public override void RemoveEffect(Fighter fighter)
+
+        public int BleedingReduction
         {
-            Debug.Log($"{fighter.FighterName} stopped bleeding.");
+            get { return bleedingReduction; }
+            set { bleedingReduction = value; }
         }
     }
 

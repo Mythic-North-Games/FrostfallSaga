@@ -19,7 +19,6 @@ namespace FrostfallSaga.Fight.Fighters
         [field: SerializeField] public FighterMouseEventsController FighterMouseEventsController { get; private set; }
         [field: SerializeField] public Transform CameraAnchor { get; private set; }
         public Sprite FighterIcon { get; private set; }
-        public string FighterName { get; private set; }
         public bool IsParalyzed { get; private set; }
 
 
@@ -41,13 +40,11 @@ namespace FrostfallSaga.Fight.Fighters
         private string _receiveDamageAnimationStateName;
         private string _healSelfAnimationStateName;
         private ActiveAbilityToAnimation _currentActiveAbility;
-        public StatusEffectManager statusManager;
-
+        [field: SerializeField] public StatusEffectManager statusEffectManager { get; private set; }
 
         private void Awake()
         {
-            statusManager = gameObject.AddComponent<StatusEffectManager>();
-
+            StatusEffectManager statusEffectManager = new StatusEffectManager(this);
             if (!TrySetupEntitiyVisualMoveController())
             {
                 Debug.LogError("No entity visual move controller found for fighter " + name);
@@ -65,7 +62,6 @@ namespace FrostfallSaga.Fight.Fighters
         {
             EntitySessionId = fighterSetup.sessionId;
             FighterIcon = fighterSetup.icon;
-            FighterName = fighterSetup.name;
             _initialStats = fighterSetup.initialStats;
             DirectAttackTargeter = fighterSetup.directAttackTargeter;
             DirectAttackActionPointsCost = fighterSetup.directAttackActionPointsCost;
@@ -293,11 +289,6 @@ namespace FrostfallSaga.Fight.Fighters
             return GetComponentInChildren<FighterCollider>();
         }
 
-        public StatusEffectManager GetStatusEffectManager()
-        {
-            return statusManager;
-        }
-
         public void ResetMovementAndActionPoints()
         {
             _stats.actionPoints = _stats.maxActionPoints;
@@ -502,20 +493,20 @@ namespace FrostfallSaga.Fight.Fighters
             // PlayAnimationIfAny(animationStateName);
         }
 
-        public void ReduceStats(StatusType statusType, int statReduction, string animationStateName)
+        public void ReduceStats(StatusEffect statusEffect, int statReduction, string animationStateName)
         {
-            switch (statusType)
+            switch (statusEffect)
             {
-                case StatusType.Slowed:
+                case SlowingStatus slowingStatus:
                     _stats.initiative -= statReduction;
                     if (_stats.initiative <0) _stats.initiative =0;
                     break;
-                case StatusType.Weakened:
+                case WeaknessStatus weaknesStatus :
                     _stats.strength -= statReduction;
                     if (_stats.strength <0) _stats.strength =0;
                     break;
                 default:
-                    Debug.LogWarning("Unknown status type: " + statusType);
+                    Debug.LogWarning("Unknown status type: " + statusEffect);
                     break;
             }
             // PlayAnimationIfAny(animationStateName);
@@ -523,18 +514,18 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
 
-        public void IncreaseStats(StatusType statusType, int StatBoost, string animationStateName)
+        public void IncreaseStats(StatusEffect statusEffect, int StatBoost, string animationStateName)
         {
-            switch (statusType)
+            switch (statusEffect)
             {
-                case StatusType.Slowed:
+                case SlowingStatus slowingStatus :
                     _stats.initiative += StatBoost;
                     break;
-                case StatusType.Weakened:
+                case WeaknessStatus weaknesStatus :
                     _stats.strength += StatBoost;
                     break;
                 default:
-                    Debug.LogWarning("Unknown status type: " + statusType);
+                    Debug.LogWarning("Unknown status type: " + statusEffect);
                     break;
             }
             // PlayAnimationIfAny(animationStateName);
@@ -548,9 +539,12 @@ namespace FrostfallSaga.Fight.Fighters
 
         public void ApplyStatusEffect(StatusEffect statusEffect)
         {
-            statusManager.ApplyEffect(statusEffect);
+            statusEffectManager.ApplyEffect(statusEffect);
         }
 
+        public void SetStatusEffectManager(StatusEffectManager statusEffectManager){
+            this.statusEffectManager = statusEffectManager;
+        }
 
 
 #if UNITY_EDITOR

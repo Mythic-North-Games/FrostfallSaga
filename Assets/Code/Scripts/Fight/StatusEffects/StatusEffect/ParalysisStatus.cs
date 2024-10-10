@@ -5,30 +5,19 @@ using System;
 
 namespace FrostfallSaga.Fight.StatusEffects
 {
-
+    [CreateAssetMenu(fileName = "New paralysis Status", menuName = "Status Effect/Paralysis")]
     public class ParalysisStatus : StatusEffect
     {
-        public ParalysisStatus()
-        {
-            StatusType = StatusType.Paralysis;
-            Name = "Paralysis";
-            Description = "Prevents the fighter from performing actions.";
-            Duration = 2;
-            IsRecurring = false;
-            animationStateName = "paralysis";
-
-        }
-
-        public override void ApplyEffect(Fighter fighter)
+        public override void ApplyStatusEffect(Fighter fighter)
         {
             fighter.SetParalyzed(true);
-            Debug.Log($"{fighter.FighterName} is paralyzed!");
+            Debug.Log($"{fighter.name} is paralyzed!");
         }
 
-        public override void RemoveEffect(Fighter fighter)
+        public override void RemoveStatusEffect(Fighter fighter)
         {
             fighter.SetParalyzed(false);
-            Debug.Log($"{fighter.FighterName} is no longer paralyzed!");
+            Debug.Log($"{fighter.name} is no longer paralyzed!");
         }
     }
 

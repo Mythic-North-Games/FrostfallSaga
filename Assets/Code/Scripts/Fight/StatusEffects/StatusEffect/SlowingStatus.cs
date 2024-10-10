@@ -5,32 +5,28 @@ using System;
 
 namespace FrostfallSaga.Fight.StatusEffects
 {
-
+    [CreateAssetMenu(fileName = "New slowing Status", menuName = "Status Effect/Slowing")]
     public class SlowingStatus : StatusEffect
     {
-        private int speedReduction;
+        [SerializeField] private int speedReduction = 10;
 
-        public SlowingStatus()
+
+        public override void ApplyStatusEffect(Fighter fighter)
         {
-            StatusType = StatusType.Slowed;
-            Name = "Slowing";
-            Description = "Reduces movement speed.";
-            Duration = 3;
-            animationStateName = "Slow";
-            IsRecurring = false;
-            this.speedReduction = 5;
+            fighter.ReduceStats(this, speedReduction, this.AnimationStateName);
+            Debug.Log($"{fighter.name}'s speed is reduced by {speedReduction}.");
         }
 
-        public override void ApplyEffect(Fighter fighter)
+        public override void RemoveStatusEffect(Fighter fighter)
         {
-            fighter.ReduceStats(StatusType, speedReduction, this.animationStateName);
-            Debug.Log($"{fighter.FighterName}'s speed is reduced by {speedReduction}.");
+            fighter.IncreaseStats(this, speedReduction, this.AnimationStateName);
+            Debug.Log($"{fighter.name}'s speed is back to normal.");
         }
 
-        public override void RemoveEffect(Fighter fighter)
+        public int SpeedReduction
         {
-            fighter.IncreaseStats(StatusType, speedReduction, this.animationStateName);
-            Debug.Log($"{fighter.FighterName}'s speed is back to normal.");
+            get { return speedReduction; }
+            set { speedReduction = value; }
         }
     }
 

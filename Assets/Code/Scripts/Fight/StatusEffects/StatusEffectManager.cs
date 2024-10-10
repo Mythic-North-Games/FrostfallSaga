@@ -5,8 +5,15 @@ using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.StatusEffects
 {
-    public class StatusEffectManager : MonoBehaviour
+    public class StatusEffectManager
     {
+        Fighter fighter;
+
+        public StatusEffectManager(Fighter fighter)
+        {
+            this.fighter = fighter;
+        }
+
 
         private Dictionary<StatusEffect, (bool isActive, int duration)> statusEffects = new Dictionary<StatusEffect, (bool, int)>();
 
@@ -30,7 +37,7 @@ namespace FrostfallSaga.Fight.StatusEffects
                 duration--;
                 if (isActive)
                 {
-                    status.ApplyEffect(GetComponent<Fighter>());
+                    status.ApplyStatusEffect(fighter);
                     if (!status.IsRecurring) isActive = false;
                 }
                 tempStatusEffects[status] = (isActive, duration);
@@ -45,7 +52,7 @@ namespace FrostfallSaga.Fight.StatusEffects
             foreach (var status in statusesToRemove)
             {
                 RemoveEffect(status);
-                status.RemoveEffect(GetComponent<Fighter>());
+                status.RemoveStatusEffect(fighter);
 
             }
         }

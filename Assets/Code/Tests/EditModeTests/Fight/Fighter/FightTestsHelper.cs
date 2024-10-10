@@ -28,7 +28,7 @@ namespace FrostfallSaga.EditModeTests.FightTests
             GameObject fighterGameObject = new();
             fighterGameObject.AddComponent<Fighter>();
             Fighter fighter = fighterGameObject.GetComponent<Fighter>();
-            StatusEffectManager statusManager = fighterGameObject.AddComponent<StatusEffectManager>();
+            fighter.SetStatusEffectManager(new StatusEffectManager(fighter));
             SetupFighterFromNonPersistingConfiguration(
                 fighter,
                 Resources.Load<FighterConfigurationSO>("EditModeTests/ScriptableObjects/TestFighter")

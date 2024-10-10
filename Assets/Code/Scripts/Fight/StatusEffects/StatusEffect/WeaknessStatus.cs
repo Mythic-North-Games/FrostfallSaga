@@ -5,38 +5,27 @@ using System;
 
 namespace FrostfallSaga.Fight.StatusEffects
 {
-
+    [CreateAssetMenu(fileName = "New weakness Status", menuName = "Status Effect/Weakness")]
     public class WeaknessStatus : StatusEffect
     {
-        private int strengthReduction;
+        [SerializeField] private int strengthReduction = 3;
 
-        public WeaknessStatus()
+        public override void ApplyStatusEffect(Fighter fighter)
         {
-            StatusType = StatusType.Weakened;
-            Name = "Weakness";
-            Description = "Reduces attack power.";
-            Duration = 3;
-            animationStateName = "Weakness";
-            IsRecurring = false;
-            this.strengthReduction = 10;
-
+            fighter.ReduceStats(this, strengthReduction, this.AnimationStateName);
+            Debug.Log($"{fighter.name}'s strength is reduced by {strengthReduction} == > Strength : ${fighter.GetStrength()}.");
         }
 
-        public override void ApplyEffect(Fighter fighter)
+        public override void RemoveStatusEffect(Fighter fighter)
         {
-            fighter.ReduceStats(StatusType, strengthReduction, this.animationStateName);
-            Debug.Log($"{fighter.FighterName}'s strength is reduced by {strengthReduction} == > Strength : ${fighter.GetStrength()}.");
+            fighter.IncreaseStats(this, strengthReduction, this.AnimationStateName);
+            Debug.Log($"{fighter.name}'s strength is back to normal !");
         }
 
-        public override void RemoveEffect(Fighter fighter)
+        public int StrengthReduction
         {
-            fighter.IncreaseStats(StatusType, strengthReduction, this.animationStateName);
-            Debug.Log($"{fighter.FighterName}'s strength is back to normal !");
-        }
-
-        public int getstrengthReduction()
-        {
-            return strengthReduction;
+            get { return strengthReduction; }
+            set { strengthReduction = value; }
         }
     }
 

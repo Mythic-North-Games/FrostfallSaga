@@ -7,7 +7,6 @@ using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.UI;
-using FrostfallSaga.Fight.StatusEffects;
 
 namespace FrostfallSaga.Fight.Controllers
 {
