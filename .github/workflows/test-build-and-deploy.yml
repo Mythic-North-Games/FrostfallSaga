@@ -35,14 +35,14 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
       # Store tests results in artifact
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: Test results
           path: ${{ steps.testsStep.outputs.artifactsPath }}
 
       # Store tests results coverage in artifact
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: Coverage results
@@ -87,7 +87,7 @@ jobs:
           targetPlatform: StandaloneWindows64
 
       # Store build to build/Windows
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: build-Windows
           path: build/Windows
@@ -122,7 +122,7 @@ jobs:
           targetPlatform: WebGL
 
       # Store build to build/WebGL
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: build-WebGL
           path: build/WebGL
