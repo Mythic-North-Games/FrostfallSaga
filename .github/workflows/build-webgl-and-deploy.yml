@@ -34,7 +34,7 @@ jobs:
           targetPlatform: WebGL
 
       # Store build to build/WebGL
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: build-WebGL
           path: build/WebGL
