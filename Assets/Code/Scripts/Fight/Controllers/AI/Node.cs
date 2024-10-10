@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 
 namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.AI
 {
@@ -77,7 +75,7 @@ namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.AI
         /// by derived classes to provide specific evaluation logic.
         /// </summary>
         /// <returns>The state of the node (SUCCESS, FAILURE, or RUNNING).</returns>
-        protected virtual NodeState Evaluate() => NodeState.FAILURE;
+        public virtual NodeState Evaluate() => NodeState.FAILURE;
 
         /// <summary>
         /// Sets a piece of data in the node's context, associating it with the given key.
