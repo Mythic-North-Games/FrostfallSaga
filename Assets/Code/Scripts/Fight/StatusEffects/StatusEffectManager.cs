@@ -22,7 +22,7 @@ namespace FrostfallSaga.Fight.StatusEffects
             statusEffects[status] = (true, status.Duration);
         }
 
-        public void UpdateStatusEffects()
+        public void UpdateStatusEffects(EffectTriggerTime triggerTime)
         {
             List<StatusEffect> statusesToRemove = new List<StatusEffect>();
             Dictionary<StatusEffect, (bool isActive, int duration)> tempStatusEffects = new Dictionary<StatusEffect, (bool, int)>();
@@ -37,8 +37,13 @@ namespace FrostfallSaga.Fight.StatusEffects
                 duration--;
                 if (isActive)
                 {
-                    status.ApplyStatusEffect(fighter);
-                    if (!status.IsRecurring) isActive = false;
+                    if (triggerTime == status.TriggerTime){
+                        status.ApplyStatusEffect(fighter);
+                        if (!status.IsRecurring) isActive = false;
+                    } else
+                    {
+                        duration++;
+                    }
                 }
                 tempStatusEffects[status] = (isActive, duration);
                 if (duration <= 0)

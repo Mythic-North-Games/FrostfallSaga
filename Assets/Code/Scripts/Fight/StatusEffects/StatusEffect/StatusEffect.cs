@@ -13,6 +13,7 @@ namespace FrostfallSaga.Fight.StatusEffects
         [SerializeField] private int duration = 3;
         [SerializeField] private bool isRecurring = true;
         [SerializeField] private string animationStateName = "Animation";
+        [SerializeField] private EffectTriggerTime triggerTime = EffectTriggerTime.StartOfCombat; 
 
         public virtual void ApplyStatusEffect(Fighter fighter) { }
         public virtual void RemoveStatusEffect(Fighter fighter) { }
@@ -47,6 +48,12 @@ namespace FrostfallSaga.Fight.StatusEffects
         {
             get { return animationStateName; }
             set { animationStateName = value; }
+        }
+
+          public EffectTriggerTime TriggerTime
+        {
+            get { return triggerTime; }
+            set { triggerTime = value; }
         }
     }
 
