@@ -142,8 +142,6 @@ namespace FrostfallSaga.Fight.Fighters
                 _directAttackAnimation.onFighterTouched += OnDirectAttackTouchedFighter;
                 _directAttackAnimation.onAnimationEnded += OnDirectAttackAnimationEnded;
                 _directAttackAnimation.Execute(this, targetedCells);
-
-
             }
             _stats.actionPoints -= DirectAttackActionPointsCost;
         }
@@ -170,6 +168,7 @@ namespace FrostfallSaga.Fight.Fighters
                 );
             }
 
+            ActiveAbilitySO activeAbilityToUse = activeAbilityToAnimation.activeAbility;
             if (activeAbilityToAnimation.animation == null)
             {
                 Debug.LogWarning($"No animation attached to active ability {activeAbilityToAnimation.activeAbility.Name} for fighter {name}");
@@ -177,10 +176,9 @@ namespace FrostfallSaga.Fight.Fighters
                     .Where(cell => cell.GetComponent<CellFightBehaviour>().Fighter != null).ToList()
                     .ForEach(cell =>
                     {
-                        ApplyEffectsOnFighter(
-                            activeAbilityToAnimation.activeAbility.Effects,
-                            cell.GetComponent<CellFightBehaviour>().Fighter
-                        );
+                        Fighter targetedFighter = cell.GetComponent<CellFightBehaviour>().Fighter;
+                        ApplyStatusesOnFighter(activeAbilityToUse.Statuses, targetedFighter);
+                        ApplyEffectsOnFighter(activeAbilityToUse.Effects, targetedFighter);
                     });
                 onFighterActiveAbilityEnded?.Invoke(this);
             }
@@ -191,7 +189,7 @@ namespace FrostfallSaga.Fight.Fighters
                 _currentActiveAbility.animation.onAnimationEnded += OnActiveAbilityAnimationEnded;
                 _currentActiveAbility.animation.Execute(this, targetedCells);
             }
-            _stats.actionPoints -= activeAbilityToAnimation.activeAbility.ActionPointsCost;
+            _stats.actionPoints -= activeAbilityToUse.ActionPointsCost;
         }
 
         /// <summary>
@@ -355,6 +353,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         public void OnDirectAttackTouchedFighter(Fighter touchedFighter)
         {
+            Debug.Log(touchedFighter.name);
             ApplyEffectsOnFighter(DirectAttackEffects, touchedFighter);
         }
 
@@ -399,7 +398,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         public FighterCollider GetWeaponCollider()
         {
-            return GetComponentInChildren<FighterCollider>();
+            return GetComponent<FighterCollider>();
         }
 
         public void ResetMovementAndActionPoints()
@@ -525,6 +524,16 @@ namespace FrostfallSaga.Fight.Fighters
         private void ApplyEffectsOnFighter(AEffectSO[] effectsToApply, Fighter target)
         {
             effectsToApply.ToList().ForEach(effect => effect.ApplyEffect(this, target, effect.Masterstrokable, effect.Dodgable));
+        }
+
+        /// <summary>
+        /// Apply a list of statuses to the targeted fighter.
+        /// </summary>
+        /// <param name="statusesToApply">The statuses to apply.</param>
+        /// <param name="target">The fighter to apply the statuses to.</param>
+        private void ApplyStatusesOnFighter(Status[] statusesToApply, Fighter target)
+        {
+            statusesToApply.ToList().ForEach(status => target.ApplyStatus(status));
         }
 
         private void DecreaseHealth(int amount)

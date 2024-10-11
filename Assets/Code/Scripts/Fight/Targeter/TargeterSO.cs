@@ -136,7 +136,6 @@ namespace FrostfallSaga.Fight.Targeters
             };
             Vector2Int direction = GetClampedDirection(initiatorCell.Coordinates, originCell.Coordinates);
 
-            Debug.Log($"Next cells from {originCell.Coordinates} in direction {direction}");
             for (int i = 1; i < CellsSequence.Length; i++)
             {
                 if (StartFromInitiator)
@@ -147,7 +146,6 @@ namespace FrostfallSaga.Fight.Targeters
                         CellsSequence[i],
                         direction
                     );
-                    Debug.Log(nextCellCoordinates);
                     if (fightGrid.CellsByCoordinates.TryGetValue(nextCellCoordinates, out Cell nextCell))
                     {
                         targetedCells.Add(nextCell);
