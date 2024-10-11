@@ -29,6 +29,19 @@ namespace FrostfallSaga.Fight.Fighters
         public Action<Fighter> onFighterMoved;
         public Action<Fighter> onFighterDirectAttackEnded;
         public Action<Fighter> onFighterActiveAbilityEnded;
+
+        // <Fighter that dodged, Fighter that attacked, Effect that was dodged>
+        public Action<Fighter, Fighter, AEffectSO> onEffectDodged;
+
+        // <Fighter that received, Fighter that attacked, Effect that was received, If masterstroke>
+        public Action<Fighter, Fighter, AEffectSO, bool> onEffectReceived;
+
+        // <Fighter that received, Status that was applied>
+        public Action<Fighter, Status> onStatusApplied;
+
+        // <Fighter that received, Status that was removed>
+        public Action<Fighter, Status> onStatusRemoved;
+
         public Action<Fighter> onFighterDied;
 
         private MovePath _currentMovePath;

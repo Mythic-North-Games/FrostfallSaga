@@ -11,28 +11,32 @@ namespace FrostfallSaga.Fight.Effects
     {
         [field: SerializeField, Range(0, 9999)] public int PhysicalDamageAmount { get; private set; }
 
-        public override void ApplyEffect(Fighter initiator, Fighter target, bool canMasterstroke = true, bool canDodge = true)
+        public override void ApplyEffect(Fighter initiator, Fighter receiver, bool canMasterstroke = true, bool canDodge = true)
         {
             // Try dodge if enabled
-            if (canDodge && TryDodge(target))
+            if (canDodge && TryDodge(receiver))
             {
-                Debug.Log($"{target.name} dodged heal effect.");
+                Debug.Log($"{receiver.name} dodged heal effect.");
                 return;
             }
 
             int finalDamageAmount = PhysicalDamageAmount;
+            bool masterstrokeSucceeded = false;
 
             // Calculate masterstroke
             if (canMasterstroke)
             {
                 finalDamageAmount = TryMasterstroke(initiator, PhysicalDamageAmount);
-                if (finalDamageAmount != PhysicalDamageAmount)
+                masterstrokeSucceeded = finalDamageAmount != PhysicalDamageAmount;
+                if (masterstrokeSucceeded)
                 {
                     Debug.Log($"Masterstroke succeeded, damage amount increased to {finalDamageAmount}.");
                 }
             }
 
-            target.PhysicalWithstand(finalDamageAmount);
+            receiver.PhysicalWithstand(finalDamageAmount);
+            receiver.onEffectReceived?.Invoke(receiver, initiator, this, masterstrokeSucceeded);
+            Debug.Log($"Dealt {finalDamageAmount} physical damage to {receiver.name}.");
         }
     }
 }
