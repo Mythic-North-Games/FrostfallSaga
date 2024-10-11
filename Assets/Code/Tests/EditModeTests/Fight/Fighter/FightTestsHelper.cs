@@ -50,14 +50,16 @@ namespace FrostfallSaga.EditModeTests.FightTests
                     Guid.NewGuid().ToString(),
                     null,
                     fighterConfiguration.ExtractFighterStats(),
+                    fighterConfiguration.FighterClass,
                     fighterConfiguration.DirectAttackTargeter,
                     fighterConfiguration.DirectAttackActionPointsCost,
                     fighterConfiguration.DirectAttackEffects,
                     fighterConfiguration.DirectAttackAnimation,
                     fighterConfiguration.AvailableActiveAbilities,
-                    fighterConfiguration.ReceiveDamageAnimationStateName,
-                    fighterConfiguration.HealSelfAnimationStateName,
-                    fighterConfiguration.FighterClass
+                    fighterConfiguration.ReceiveDamageAnimationName,
+                    fighterConfiguration.HealSelfAnimationName,
+                    fighterConfiguration.ReduceStatAnimationName,
+                    fighterConfiguration.IncreaseStatAnimationName
                 )
             );
         }

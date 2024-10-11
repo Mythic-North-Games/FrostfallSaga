@@ -75,6 +75,7 @@ namespace FrostfallSaga.KingdomToFight
                 entitySessionId,
                 entityConfiguration.EntityIcon,
                 fighterConfiguration.ExtractFighterStats(),
+                fighterConfiguration.FighterClass,
                 fighterConfiguration.DirectAttackTargeter,
                 fighterConfiguration.DirectAttackActionPointsCost,
                 fighterConfiguration.DirectAttackEffects,
@@ -83,9 +84,10 @@ namespace FrostfallSaga.KingdomToFight
                     fighterConfiguration.AvailableActiveAbilities,
                     fighterConfiguration.ActiveAbilitiesCapacity
                 ),
-                fighterConfiguration.ReceiveDamageAnimationStateName,
-                fighterConfiguration.HealSelfAnimationStateName,
-                fighterConfiguration.FighterClass
+                fighterConfiguration.ReceiveDamageAnimationName,
+                fighterConfiguration.HealSelfAnimationName,
+                fighterConfiguration.ReduceStatAnimationName,
+                fighterConfiguration.IncreaseStatAnimationName
             );
         }
 
@@ -100,14 +102,16 @@ namespace FrostfallSaga.KingdomToFight
                 entitySessionId,
                 entityConfiguration.EntityIcon,
                 fighterConfiguration.ExtractFighterStats(),
+                fighterConfiguration.FighterClass,
                 fighterConfiguration.DirectAttackTargeter,
                 fighterConfiguration.DirectAttackActionPointsCost,
                 fighterConfiguration.DirectAttackEffects,
                 fighterConfiguration.DirectAttackAnimation,
                 fighterConfiguration.EquipedActiveAbilities,
-                fighterConfiguration.ReceiveDamageAnimationStateName,
-                fighterConfiguration.HealSelfAnimationStateName,
-                fighterConfiguration.FighterClass
+                fighterConfiguration.ReceiveDamageAnimationName,
+                fighterConfiguration.HealSelfAnimationName,
+                fighterConfiguration.ReduceStatAnimationName,
+                fighterConfiguration.IncreaseStatAnimationName
             );
         }
 
