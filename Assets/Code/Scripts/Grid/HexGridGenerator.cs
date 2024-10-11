@@ -1,5 +1,7 @@
 using UnityEngine;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Core;
+using FrostfallSaga.Procedural;
 
 namespace FrostfallSaga.Grid
 {
@@ -10,7 +12,10 @@ namespace FrostfallSaga.Grid
     public class GridCellsGenerator : MonoBehaviour
     {
         [field: SerializeField] public HexGrid HexGrid { get; private set; }
-        [SerializeField] private Material AlternativeMaterial;
+        [field: SerializeField] public Material AlternativeMaterial { get; private set; }
+        [field: SerializeField, Header("Biome caracteristics"), Tooltip("Biome's type")] public BiomeTypeSO BiomeType { get; private set; }
+        [field: SerializeField, Header("Perlin Noise"), Tooltip("Statistics about Perlin Noise")] public PerlinNoiseGenerator PerlinNoiseGenerator { get; private set; }
+        private float lastSeed;
 
         private void Awake()
         {
@@ -22,6 +27,8 @@ namespace FrostfallSaga.Grid
             {
                 Debug.LogError("HexGridGenerator could not find HexGrid component in its parent or itself");
             }
+            PerlinNoiseGenerator = new PerlinNoiseGenerator(PerlinNoiseGenerator.NoiseScale, PerlinNoiseGenerator.Seed);
+            lastSeed = PerlinNoiseGenerator.Seed;
         }
 
         /// <summary>
@@ -29,8 +36,13 @@ namespace FrostfallSaga.Grid
         /// </summary>
         public void GenerateCells()
         {
-            // Don't generate cells over existing cells
             ClearCells();
+
+            if (PerlinNoiseGenerator.Seed != lastSeed)
+            {
+                PerlinNoiseGenerator = new PerlinNoiseGenerator(PerlinNoiseGenerator.NoiseScale, PerlinNoiseGenerator.Seed);
+                lastSeed = PerlinNoiseGenerator.Seed;
+            }
 
             Quaternion rotation = Quaternion.identity;
             if (HexGrid.HexOrientation.Equals(ECellOrientation.FlatTop))
@@ -51,6 +63,71 @@ namespace FrostfallSaga.Grid
         }
 
         /// <summary>
+        /// Updates the height of existing cells with a random height.
+        /// </summary>
+        public void GenerateRandomHeight()
+        {
+            int childCount = HexGrid.transform.childCount;
+            for (int i = 0; i < childCount; i++)
+            {
+                Cell cell = HexGrid.transform.GetChild(i).GetComponent<Cell>();
+                ECellHeight randomCellHeight;
+                if (cell.TerrainType.name.Contains("Water"))
+                {
+                    randomCellHeight = ECellHeight.LOW;
+                }
+                else
+                {
+                    randomCellHeight = (ECellHeight)Randomizer.GetRandomIntBetween(-1, 2);
+                }
+                cell.UpdateHeight(randomCellHeight);
+            }
+        }
+
+        private void SetupCellForInstanciatedCellPrefab(GameObject cellPrefab, int x, int z)
+        {
+            cellPrefab.transform.name = "Cell[" + x + ";" + z + "]";
+            Cell newCell = cellPrefab.GetComponent<Cell>();
+
+            float perlinValue = PerlinNoiseGenerator.GetNoiseValue(x, z);
+            TerrainTypeSO terrainType = GetTerrainTypeFromPerlinValue(perlinValue);
+
+            newCell.Setup(new Vector2Int(x, z), ECellHeight.LOW, HexGrid.HexSize, terrainType);
+            newCell.HighlightController.SetupInitialMaterial(terrainType.CellMaterial);
+            newCell.HighlightController.UpdateCurrentDefaultMaterial(terrainType.CellMaterial);
+            newCell.HighlightController.ResetToInitialMaterial();
+        }
+
+        /// <summary>
+        /// Define with the perlinValue wich Terrain will be choose
+        /// </summary>
+        /// <param name="perlinValue">float value will determine wich terrain type</param>
+        /// <returns></returns>
+        private TerrainTypeSO GetTerrainTypeFromPerlinValue(float perlinValue)
+        {
+            TerrainTypeSO[] _availableTerrains = BiomeType.TerrainTypeSO;
+
+            if (_availableTerrains == null || _availableTerrains.Length == 0)
+            {
+                Debug.LogError("No terrain types available for the current biome.");
+                return null;
+            }
+
+            int _terrainCount = _availableTerrains.Length;
+            float _segmentSize = 1f / _terrainCount;
+
+            for (int i = 0; i < _terrainCount; i++)
+            {
+                if (perlinValue < (i + 1) * _segmentSize)
+                {
+                    return _availableTerrains[i];
+                }
+            }
+
+            return _availableTerrains[_terrainCount - 1];
+        }
+
+        /// <summary>
         /// Destroys all the cells of the grid.
         /// </summary>
         public void ClearCells()
@@ -63,34 +140,6 @@ namespace FrostfallSaga.Grid
                 {
                     DestroyImmediate(cell);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Updates the height of existing cells with a random height.
-        /// </summary>
-        public void GenerateRandomHeight()
-        {
-            int childCount = HexGrid.transform.childCount;
-            for (int i = 0; i < childCount; i++)
-            {
-                Cell cell = HexGrid.transform.GetChild(i).GetComponent<Cell>();
-                ECellHeight randomCellHeight = (ECellHeight)Random.Range(0, 3);
-                cell.UpdateHeight(randomCellHeight);
-            }
-        }
-
-        private void SetupCellForInstanciatedCellPrefab(GameObject cellPrefab, int x, int z)
-        {
-            cellPrefab.transform.name = "Cell[" + x + ";" + z + "]";
-            Cell newCell = cellPrefab.GetComponent<Cell>();
-            newCell.Setup(new Vector2Int(x, z), ECellHeight.LOW, true, HexGrid.HexSize);
-
-            if (x % 2 == 0)
-            {
-                newCell.HighlightController.SetupInitialMaterial(AlternativeMaterial);
-                newCell.HighlightController.UpdateCurrentDefaultMaterial(AlternativeMaterial);
-                newCell.HighlightController.ResetToDefaultMaterial();
             }
         }
     }

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d19874b5c3d4b48bb202016a3e0c19, type: 3}
   m_Name: BiomeTypeDarkForest
   m_EditorClassIdentifier: 
-  <TypeName>k__BackingField: 
-  <TypeDescription>k__BackingField: 
-  <TerrainTypeSO>k__BackingField: []
+  <TypeName>k__BackingField: Dark Forest
+  <TypeDescription>k__BackingField: Large, dark-looking forest. Few people dare to
+    venture there.
+  <TerrainTypeSO>k__BackingField:
+  - {fileID: 11400000, guid: 054bd73862e270d48a9d4ecffbaddc5a, type: 2}

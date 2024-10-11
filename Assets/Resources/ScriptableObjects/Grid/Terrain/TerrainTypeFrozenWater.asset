@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4b7b5c8e0aa1840a7d59aefe73981f, type: 3}
   m_Name: TerrainTypeFrozenWater
   m_EditorClassIdentifier: 
-  <TypeName>k__BackingField: 
-  <TypeDescription>k__BackingField: 
+  <TypeName>k__BackingField: Frozen Water
+  <TypeDescription>k__BackingField: The frozen water open the road, it's possible
+    to cross, but a movement penalty is applied.
   <HealthPoint>k__BackingField: 0
-  <MovePoint>k__BackingField: 0
+  <MovePoint>k__BackingField: -1
   <RangePoint>k__BackingField: 0
   <InitiativePoint>k__BackingField: 0
-  <IsAccessible>k__BackingField: 0
+  <IsAccessible>k__BackingField: 1
+  <CellMaterial>k__BackingField: {fileID: 2100000, guid: 2830df6e26a115f4d806dcd832f9fc18, type: 2}
