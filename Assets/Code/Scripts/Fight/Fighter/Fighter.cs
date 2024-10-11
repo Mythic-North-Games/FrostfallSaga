@@ -8,7 +8,7 @@ using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
-using FrostfallSaga.Fight.StatusEffects;
+using FrostfallSaga.Fight.Statuses;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -17,18 +17,19 @@ namespace FrostfallSaga.Fight.Fighters
         [field: SerializeField] public EntityVisualAnimationController AnimationController { get; private set; }
         [field: SerializeField] public EntityVisualMovementController MovementController { get; private set; }
         [field: SerializeField] public FighterMouseEventsController FighterMouseEventsController { get; private set; }
+        [field: SerializeField] public StatusesManager StatusesManager { get; private set; }
         [field: SerializeField] public Transform CameraAnchor { get; private set; }
         public Sprite FighterIcon { get; private set; }
-        public bool IsParalyzed { get; private set; }
-
 
         public string EntitySessionId { get; private set; }
         public Cell cell;
+        public bool IsParalyzed { get; private set; }
 
         public Action<Fighter> onFighterMoved;
         public Action<Fighter> onFighterDirectAttackEnded;
         public Action<Fighter> onFighterActiveAbilityEnded;
         public Action<Fighter> onFighterDied;
+
         private MovePath _currentMovePath;
         private FighterStats _stats = new();
         private FighterStats _initialStats = new();
@@ -37,14 +38,19 @@ namespace FrostfallSaga.Fight.Fighters
         public AEffectSO[] DirectAttackEffects { get; private set; }
         public ActiveAbilityToAnimation[] ActiveAbilities { get; private set; }
         private AAbilityAnimationSO _directAttackAnimation;
-        private string _receiveDamageAnimationStateName;
-        private string _healSelfAnimationStateName;
+        private string _receiveDamageAnimationName;
+        private string _healSelfAnimationName;
+        private string _reduceStatAnimationName;
+        private string _increaseStatAnimationName;
         private ActiveAbilityToAnimation _currentActiveAbility;
-        [field: SerializeField] public StatusEffectManager statusEffectManager { get; private set; }
+
+        public Fighter()
+        {
+            StatusesManager = new StatusesManager(this);
+        }
 
         private void Awake()
         {
-            StatusEffectManager statusEffectManager = new StatusEffectManager(this);
             if (!TrySetupEntitiyVisualMoveController())
             {
                 Debug.LogError("No entity visual move controller found for fighter " + name);
@@ -68,9 +74,10 @@ namespace FrostfallSaga.Fight.Fighters
             DirectAttackEffects = fighterSetup.directAttackEffects;
             _directAttackAnimation = fighterSetup.directAttackAnimation;
             ActiveAbilities = fighterSetup.activeAbilities;
-            _receiveDamageAnimationStateName = fighterSetup.receiveDamageAnimationStateName;
-            _healSelfAnimationStateName = fighterSetup.healSelfAnimationStateName;
-
+            _receiveDamageAnimationName = fighterSetup.receiveDamageAnimationName;
+            _healSelfAnimationName = fighterSetup.healSelfAnimationName;
+            _reduceStatAnimationName = fighterSetup.reduceStatAnimationName;
+            _increaseStatAnimationName = fighterSetup.increaseStatAnimationName;
             ResetStatsToDefaultConfiguration();
         }
 
@@ -190,7 +197,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="physicalDamageAmount">The damage taken before withstanding.</param>
         public void PhysicalWithstand(int physicalDamageAmount)
         {
-            PlayAnimationIfAny(_receiveDamageAnimationStateName);
+            PlayAnimationIfAny(_receiveDamageAnimationName);
             int inflictedPhysicalDamageAmount = Math.Max(0, physicalDamageAmount - _stats.physicalResistance);
             Debug.Log($"{name} + received {inflictedPhysicalDamageAmount} physical damages");
             DecreaseHealth(inflictedPhysicalDamageAmount);
@@ -201,7 +208,6 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="magicalDamageAmount">The damage amount to resist to.</param>
         /// <param name="magicalElement">The magical element to resist.</param>
-        /// <exception cref="NullReferenceException"></exception>
         public void MagicalWithstand(int magicalDamageAmount, EMagicalElement magicalElement)
         {
 
@@ -210,7 +216,7 @@ namespace FrostfallSaga.Fight.Fighters
                 throw new NullReferenceException($"Magical resistance element {magicalElement} is not set for fighter {name}");
             }
 
-            PlayAnimationIfAny(_receiveDamageAnimationStateName);
+            PlayAnimationIfAny(_receiveDamageAnimationName);
             int inflictedMagicalDamageAmount = Math.Max(0, magicalDamageAmount - _stats.magicalResistances[magicalElement]);
             Debug.Log($"{name} + received {inflictedMagicalDamageAmount} {magicalElement} magical damages");
             DecreaseHealth(inflictedMagicalDamageAmount);
@@ -222,8 +228,113 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="healAmount">The amount of health to restore.</param>
         public void Heal(int healAmount)
         {
-            PlayAnimationIfAny(_healSelfAnimationStateName);
+            PlayAnimationIfAny(_healSelfAnimationName);
             IncreaseHealth(healAmount);
+            Debug.Log($"{name} + has been healed by {healAmount}.");
+        }
+
+        /// <summary>
+        /// Receives raw damages without any resistance calculation.
+        /// </summary>
+        /// <param name="damages">The damages to receive.</param>
+        public void ReceiveRawDamages(int damages)
+        {
+            PlayAnimationIfAny(_receiveDamageAnimationName);
+            DecreaseHealth(damages);
+            Debug.Log($"{name} + received {damages} raw damages.");
+        }
+
+        /// <summary>
+        /// Updates a mutable stat by the given amount. For magical resistances and magical strengths use ReduceMagicalStat method instead.
+        /// </summary>
+        /// <param name="mutableStat">The mutable stat to increase or reduce.</param>
+        /// <param name="amount">The amount to increase or reduce.</param>
+        /// <param name="triggerAnimation">True to trigger the stat update animation, false otherwise.</param>
+        public void UpdateMutableStat(EFighterMutableStat mutableStat, int amount, bool triggerAnimation = true)
+        {
+            switch (mutableStat)
+            {
+                case EFighterMutableStat.MaxHealth:
+                    Math.Min(0, _stats.maxHealth += amount);
+                    break;
+                case EFighterMutableStat.MaxActionPoints:
+                    Math.Min(0, _stats.maxActionPoints += amount);
+                    break;
+                case EFighterMutableStat.MaxMovePoints:
+                    Math.Min(0, _stats.maxMovePoints += amount);
+                    break;
+                case EFighterMutableStat.Strength:
+                    Math.Min(0, _stats.strength += amount);
+                    break;
+                case EFighterMutableStat.Dexterity:
+                    Math.Min(0, _stats.dexterity += amount);
+                    break;
+                case EFighterMutableStat.PhysicalResistance:
+                    Math.Min(0, _stats.physicalResistance += amount);
+                    break;
+                case EFighterMutableStat.Initiative:
+                    Math.Min(0, _stats.initiative += amount);
+                    break;
+                default:
+                    Debug.LogWarning($"Unmanaged stat to reduce: {mutableStat}. If you want to modify a magical stat, use ReduceMagicalStat method instead.");
+                    return;
+            }
+
+            if (triggerAnimation)
+            {
+                PlayAnimationIfAny(amount > 0 ? _increaseStatAnimationName : _reduceStatAnimationName);
+            }
+            Debug.Log($"{name} {mutableStat} has been modified by {amount}.");
+        }
+
+        /// <summary>
+        /// Reduces or increases a magical stat by the given amount. To update other stats use UpdateMutableStat method instead.
+        /// </summary>
+        /// <param name="magicalElement">The related magical element.</param>
+        /// <param name="amount">The amount to increase or reduce.</param>
+        /// <param name="isResistance">True to update magical resistance stat, false to update magical strength</param>
+        /// <param name="triggerAnimation">True to trigger the stat update animation, false otherwise.</param>
+        public void UpdateMagicalStat(EMagicalElement magicalElement, int amount, bool isResistance, bool triggerAnimation = true)
+        {
+            try
+            {
+                if (isResistance)
+                {
+                    _stats.magicalResistances[magicalElement] = Math.Min(0, _stats.magicalResistances[magicalElement] += amount);
+                }
+                else
+                {
+                    _stats.magicalStrengths[magicalElement] = Math.Min(0, _stats.magicalStrengths[magicalElement] += amount);
+                }
+
+                if (triggerAnimation)
+                {
+                    PlayAnimationIfAny(amount > 0 ? _increaseStatAnimationName : _reduceStatAnimationName);
+                }
+                Debug.Log($"{name} {magicalElement} {(isResistance ? "resistance" : "strength")} has been modified by {amount}.");
+            }
+            catch (NullReferenceException)
+            {
+                Debug.LogError($"Magical element {magicalElement} is not set for fighter {name}");
+            }
+        }
+
+        /// <summary>
+        /// Set the fighter as paralyzed or not.
+        /// </summary>
+        /// <param name="isParalyzed">True if the fighter is paralized.</param>
+        public void SetIsParalyzed(bool isParalyzed)
+        {
+            IsParalyzed = isParalyzed;
+        }
+
+        /// <summary>
+        /// Apply a new status to the fighter.
+        /// </summary>
+        /// <param name="status">The new status to apply.</param>
+        public void ApplyStatus(Status status)
+        {
+            StatusesManager.ApplyStatus(status);
         }
 
         #endregion
@@ -293,6 +404,22 @@ namespace FrostfallSaga.Fight.Fighters
         {
             _stats.actionPoints = _stats.maxActionPoints;
             _stats.movePoints = _stats.maxMovePoints;
+        }
+
+        private void ResetStatsToDefaultConfiguration()
+        {
+            _stats.maxHealth = _initialStats.maxHealth;
+            _stats.health = _initialStats.maxHealth;
+            _stats.maxActionPoints = _initialStats.maxActionPoints;
+            _stats.actionPoints = _initialStats.maxActionPoints;
+            _stats.maxMovePoints = _initialStats.maxMovePoints;
+            _stats.movePoints = _initialStats.maxMovePoints;
+            _stats.strength = _initialStats.strength;
+            _stats.dexterity = _initialStats.dexterity;
+            _stats.physicalResistance = _initialStats.physicalResistance;
+            _stats.magicalResistances = _initialStats.magicalResistances;
+            _stats.magicalStrengths = _initialStats.magicalStrengths;
+            _stats.initiative = _initialStats.initiative;
         }
 
         #endregion
@@ -431,23 +558,7 @@ namespace FrostfallSaga.Fight.Fighters
                 onFighterMoved?.Invoke(this);
             }
         }
-        #endregion
-
-        private void ResetStatsToDefaultConfiguration()
-        {
-            _stats.maxHealth = _initialStats.maxHealth;
-            _stats.health = _initialStats.maxHealth;
-            _stats.maxActionPoints = _initialStats.maxActionPoints;
-            _stats.actionPoints = _initialStats.maxActionPoints;
-            _stats.maxMovePoints = _initialStats.maxMovePoints;
-            _stats.movePoints = _initialStats.maxMovePoints;
-            _stats.strength = _initialStats.strength;
-            _stats.dexterity = _initialStats.dexterity;
-            _stats.physicalResistance = _initialStats.physicalResistance;
-            _stats.magicalResistances = _initialStats.magicalResistances;
-            _stats.magicalStrengths = _initialStats.magicalStrengths;
-            _stats.initiative = _initialStats.initiative;
-        }
+        #endregion        
 
         #region Getting children & bindings setup
         public bool TrySetupEntitiyVisualMoveController()
@@ -485,66 +596,6 @@ namespace FrostfallSaga.Fight.Fighters
             UnsubscribeToMovementControllerEvents();
         }
         #endregion
-
-
-        public void inflictDamage(int EffectDamage, string animationStateName)
-        {
-            DecreaseHealth(EffectDamage);
-            // PlayAnimationIfAny(animationStateName);
-        }
-
-        public void ReduceStats(StatusEffect statusEffect, int statReduction, string animationStateName)
-        {
-            switch (statusEffect)
-            {
-                case SlowingStatus slowingStatus:
-                    _stats.initiative -= statReduction;
-                    if (_stats.initiative <0) _stats.initiative =0;
-                    break;
-                case WeaknessStatus weaknesStatus :
-                    _stats.strength -= statReduction;
-                    if (_stats.strength <0) _stats.strength =0;
-                    break;
-                default:
-                    Debug.LogWarning("Unknown status type: " + statusEffect);
-                    break;
-            }
-            // PlayAnimationIfAny(animationStateName);
-
-        }
-
-
-        public void IncreaseStats(StatusEffect statusEffect, int StatBoost, string animationStateName)
-        {
-            switch (statusEffect)
-            {
-                case SlowingStatus slowingStatus :
-                    _stats.initiative += StatBoost;
-                    break;
-                case WeaknessStatus weaknesStatus :
-                    _stats.strength += StatBoost;
-                    break;
-                default:
-                    Debug.LogWarning("Unknown status type: " + statusEffect);
-                    break;
-            }
-            // PlayAnimationIfAny(animationStateName);
-
-        }
-
-        public void SetParalyzed(bool value)
-        {
-            this.IsParalyzed = value;
-        }
-
-        public void ApplyStatusEffect(StatusEffect statusEffect)
-        {
-            statusEffectManager.ApplyEffect(statusEffect);
-        }
-
-        public void SetStatusEffectManager(StatusEffectManager statusEffectManager){
-            this.statusEffectManager = statusEffectManager;
-        }
 
 
 #if UNITY_EDITOR

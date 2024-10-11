@@ -83,8 +83,10 @@ namespace FrostfallSaga.KingdomToFight
                     fighterConfiguration.AvailableActiveAbilities,
                     fighterConfiguration.ActiveAbilitiesCapacity
                 ),
-                fighterConfiguration.ReceiveDamageAnimationStateName,
-                fighterConfiguration.HealSelfAnimationStateName
+                fighterConfiguration.ReceiveDamageAnimationName,
+                fighterConfiguration.HealSelfAnimationName,
+                fighterConfiguration.ReduceStatAnimationName,
+                fighterConfiguration.IncreaseStatAnimationName
             );
         }
 
@@ -104,8 +106,10 @@ namespace FrostfallSaga.KingdomToFight
                 fighterConfiguration.DirectAttackEffects,
                 fighterConfiguration.DirectAttackAnimation,
                 fighterConfiguration.EquipedActiveAbilities,
-                fighterConfiguration.ReceiveDamageAnimationStateName,
-                fighterConfiguration.HealSelfAnimationStateName
+                fighterConfiguration.ReceiveDamageAnimationName,
+                fighterConfiguration.HealSelfAnimationName,
+                fighterConfiguration.ReduceStatAnimationName,
+                fighterConfiguration.IncreaseStatAnimationName
             );
         }
 

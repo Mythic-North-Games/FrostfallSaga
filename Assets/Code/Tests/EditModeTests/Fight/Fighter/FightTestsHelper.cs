@@ -6,7 +6,6 @@ using FrostfallSaga.Fight;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.KingdomToFight;
-using FrostfallSaga.Fight.StatusEffects;
 using System;
 
 namespace FrostfallSaga.EditModeTests.FightTests
@@ -28,7 +27,6 @@ namespace FrostfallSaga.EditModeTests.FightTests
             GameObject fighterGameObject = new();
             fighterGameObject.AddComponent<Fighter>();
             Fighter fighter = fighterGameObject.GetComponent<Fighter>();
-            fighter.SetStatusEffectManager(new StatusEffectManager(fighter));
             SetupFighterFromNonPersistingConfiguration(
                 fighter,
                 Resources.Load<FighterConfigurationSO>("EditModeTests/ScriptableObjects/TestFighter")
@@ -58,8 +56,10 @@ namespace FrostfallSaga.EditModeTests.FightTests
                     fighterConfiguration.DirectAttackEffects,
                     fighterConfiguration.DirectAttackAnimation,
                     fighterConfiguration.AvailableActiveAbilities,
-                    fighterConfiguration.ReceiveDamageAnimationStateName,
-                    fighterConfiguration.HealSelfAnimationStateName
+                    fighterConfiguration.ReceiveDamageAnimationName,
+                    fighterConfiguration.HealSelfAnimationName,
+                    fighterConfiguration.ReduceStatAnimationName,
+                    fighterConfiguration.IncreaseStatAnimationName
                 )
             );
         }

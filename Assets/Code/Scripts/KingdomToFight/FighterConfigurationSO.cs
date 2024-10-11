@@ -15,8 +15,10 @@ namespace FrostfallSaga.KingdomToFight
         [field: SerializeField] public AEffectSO[] DirectAttackEffects { get; private set; }
         [field: SerializeField] public int DirectAttackActionPointsCost { get; private set; }
         [field: SerializeField] public AAbilityAnimationSO DirectAttackAnimation { get; private set; }
-        [field: SerializeField] public string HealSelfAnimationStateName { get; private set; }
-        [field: SerializeField] public string ReceiveDamageAnimationStateName { get; private set; }
+        [field: SerializeField] public string HealSelfAnimationName { get; private set; }
+        [field: SerializeField] public string ReceiveDamageAnimationName { get; private set; }
+        [field: SerializeField] public string ReduceStatAnimationName { get; private set; }
+        [field: SerializeField] public string IncreaseStatAnimationName { get; private set; }
 
         #region Base stats
         [field: SerializeField, Range(1, 9999)] public int MaxHealth { get; private set; }

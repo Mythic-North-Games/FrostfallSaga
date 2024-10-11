@@ -19,8 +19,10 @@ namespace FrostfallSaga.Fight
         public AEffectSO[] directAttackEffects;
         public AAbilityAnimationSO directAttackAnimation;
         public ActiveAbilityToAnimation[] activeAbilities;
-        public string receiveDamageAnimationStateName;
-        public string healSelfAnimationStateName;
+        public string receiveDamageAnimationName;
+        public string healSelfAnimationName;
+        public string reduceStatAnimationName;
+        public string increaseStatAnimationName;
 
         public FighterSetup(
             string name,
@@ -32,8 +34,10 @@ namespace FrostfallSaga.Fight
             AEffectSO[] directAttackEffects,
             AAbilityAnimationSO directAttackAnimation,
             ActiveAbilityToAnimation[] activeAbilities,
-            string receiveDamageAnimationStateName,
-            string healSelfAnimationStateName
+            string receiveDamageAnimationName,
+            string healSelfAnimationName,
+            string reduceStatAnimationName,
+            string increaseStatAnimationName
         )
         {
             this.name = name;
@@ -45,8 +49,10 @@ namespace FrostfallSaga.Fight
             this.directAttackEffects = directAttackEffects;
             this.directAttackAnimation = directAttackAnimation;
             this.activeAbilities = activeAbilities;
-            this.receiveDamageAnimationStateName = receiveDamageAnimationStateName;
-            this.healSelfAnimationStateName = healSelfAnimationStateName;
+            this.receiveDamageAnimationName = receiveDamageAnimationName;
+            this.healSelfAnimationName = healSelfAnimationName;
+            this.reduceStatAnimationName = reduceStatAnimationName;
+            this.increaseStatAnimationName = increaseStatAnimationName;
         }
     }
 }
