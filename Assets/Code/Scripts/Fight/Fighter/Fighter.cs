@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
@@ -441,11 +442,11 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
         /// <returns>True if he has enough actions points and if the direct attack targeter can be resolved around him.</returns>
-        public bool CanDirectAttack(HexGrid fightGrid)
+        public bool CanDirectAttack(HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
         {
             return (
                 DirectAttackActionPointsCost <= _stats.actionPoints &&
-                DirectAttackTargeter.AtLeastOneCellResolvable(fightGrid, cell)
+                DirectAttackTargeter.AtLeastOneCellResolvable(fightGrid, cell, fightersTeams)
             );
         }
 
@@ -454,10 +455,10 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
         /// <returns>True if he has enough actions points and if an active ability targeter can be resolved around him.</returns>
-        public bool CanUseAtLeastOneActiveAbility(HexGrid fightGrid)
+        public bool CanUseAtLeastOneActiveAbility(HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
         {
             return ActiveAbilities.Any(
-                activeAbilityToAnimation => CanUseActiveAbility(fightGrid, activeAbilityToAnimation.activeAbility)
+                activeAbilityToAnimation => CanUseActiveAbility(fightGrid, activeAbilityToAnimation.activeAbility, fightersTeams)
             );
         }
 
@@ -467,11 +468,11 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
         /// <param name="activeAbility">The active ability to check if it can be used.</param>
         /// <returns>True if he has enough actions points and if the active ability targeter can be resolved around him.</returns>
-        public bool CanUseActiveAbility(HexGrid fightGrid, ActiveAbilitySO activeAbility)
+        public bool CanUseActiveAbility(HexGrid fightGrid, ActiveAbilitySO activeAbility, Dictionary<Fighter, bool> fightersTeams)
         {
             return (
                 activeAbility.ActionPointsCost <= _stats.actionPoints &&
-                activeAbility.Targeter.AtLeastOneCellResolvable(fightGrid, cell)
+                activeAbility.Targeter.AtLeastOneCellResolvable(fightGrid, cell, fightersTeams)
             );
         }
 
@@ -480,9 +481,9 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
         /// <returns>True if he can move, direct attack or use one of its active ability.</returns>
-        public bool CanAct(HexGrid fightGrid)
+        public bool CanAct(HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
         {
-            return CanMove(fightGrid) || CanDirectAttack(fightGrid) || CanUseAtLeastOneActiveAbility(fightGrid);
+            return CanMove(fightGrid) || CanDirectAttack(fightGrid, fightersTeams) || CanUseAtLeastOneActiveAbility(fightGrid, fightersTeams);
         }
 
         #endregion

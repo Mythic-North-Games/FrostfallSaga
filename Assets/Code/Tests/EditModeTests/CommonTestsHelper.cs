@@ -7,6 +7,13 @@ namespace FrostfallSaga.EditModeTests
 {
     public static class CommonTestsHelper
     {
+
+        /// <summary>
+        /// AllTerrain[4] = Plain (Accessible)
+        /// AllTerrain[5] = Water (NOT Accessible)
+        /// </summary>
+        static TerrainTypeSO TerrainPlain = Resources.LoadAll<TerrainTypeSO>("ScriptableObjects/Grid/Terrain/")[4];
+
         public static HexGrid CreatePlainGridForTest(int gridWidth = 5, int gridHeight = 5)
         {
             GameObject gridGameObject = new();
@@ -27,7 +34,6 @@ namespace FrostfallSaga.EditModeTests
         public static Cell CreateCellForTest(
             Vector2Int coordinates,
             ECellHeight height = ECellHeight.LOW,
-            bool isAccessible = true,
             float hexGridSize = 2f
         )
         {
@@ -42,7 +48,7 @@ namespace FrostfallSaga.EditModeTests
             cellVisualGameObject.AddComponent<MaterialHighlightable>();
 
             Cell newCell = cellGameObject.GetComponent<Cell>();
-            newCell.Setup(coordinates, height, isAccessible, hexGridSize, Resources.LoadAll<TerrainTypeSO>("ScriptableObjects/Grid/Terrain/")[4]);
+            newCell.Setup(coordinates, height, hexGridSize, TerrainPlain);
             return newCell;
         }
     }
