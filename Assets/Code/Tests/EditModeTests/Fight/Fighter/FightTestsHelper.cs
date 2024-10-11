@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid;
@@ -6,7 +7,6 @@ using FrostfallSaga.Fight;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.KingdomToFight;
-using System;
 
 namespace FrostfallSaga.EditModeTests.FightTests
 {
@@ -31,7 +31,6 @@ namespace FrostfallSaga.EditModeTests.FightTests
                 fighter,
                 Resources.Load<FighterConfigurationSO>("EditModeTests/ScriptableObjects/TestFighter")
             );
-
 
             GameObject fighterEntitiesVisualGameObject = new();
             fighterEntitiesVisualGameObject.transform.SetParent(fighterGameObject.transform);

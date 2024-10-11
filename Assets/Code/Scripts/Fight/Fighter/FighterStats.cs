@@ -24,35 +24,22 @@ namespace FrostfallSaga.Fight.Fighters
         public float masterstroke;
         public int initiative;
 
-        public void AddMagicalResistances(MagicalElementToValue[] additionnalMagicalResistances) {
-            Dictionary<EMagicalElement, int> result = new Dictionary<EMagicalElement, int>();
-
-            Dictionary<EMagicalElement, int> additionnalMagicalResistancesDictionnary = MagicalElementToValue.GetDictionaryFromArray(additionnalMagicalResistances);
-            foreach (var additionnalMagicalResistance in additionnalMagicalResistancesDictionnary) {
+        public void AddMagicalResistances(Dictionary<EMagicalElement, int> magicalResistancesToAdd) {
+            foreach (KeyValuePair<EMagicalElement, int> additionnalMagicalResistance in magicalResistancesToAdd) {
                 EMagicalElement magicalElement = additionnalMagicalResistance.Key;
-
                 if (magicalResistances.ContainsKey(magicalElement)) {
-                    int newResistance = magicalResistances[magicalElement] + additionnalMagicalResistance.Value;
-                    result.Add(magicalElement, newResistance);
+                    magicalResistances[magicalElement] += additionnalMagicalResistance.Value;
                 }
             }
-             magicalResistances = result;  
         }
 
-        public void AddMagicalStrengths(MagicalElementToValue[] additionnalMagicalStrengths) {
-            Dictionary<EMagicalElement, int> result = new Dictionary<EMagicalElement, int>();
-
-            Dictionary<EMagicalElement, int> additionnalMagicalStrengthsDictionnary = MagicalElementToValue.GetDictionaryFromArray(additionnalMagicalStrengths);
-
-            foreach (var additionnalStrength in additionnalMagicalStrengthsDictionnary) {
-                EMagicalElement magicalElement = additionnalStrength.Key;
-
+        public void AddMagicalStrengths(Dictionary<EMagicalElement, int> magicalStrengthsToAdd) {
+            foreach (KeyValuePair<EMagicalElement, int> additionnalMagicalStrength in magicalStrengthsToAdd) {
+                EMagicalElement magicalElement = additionnalMagicalStrength.Key;
                 if (magicalStrengths.ContainsKey(magicalElement)) {
-                    int newStrength = magicalStrengths[magicalElement] + additionnalStrength.Value;
-                    result.Add(magicalElement, newStrength);
+                    magicalStrengths[magicalElement] += additionnalMagicalStrength.Value;
                 }
             }
-            magicalStrengths = result;
         }
     }
 }

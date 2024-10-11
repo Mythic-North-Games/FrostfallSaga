@@ -1,8 +1,4 @@
-﻿using FrostfallSaga.Fight.Effects;
-using System.Collections;
-using System.Collections.Generic;
-using FrostfallSaga.Fight.Fighters;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace FrostfallSaga.Fight.Fighters {
     [CreateAssetMenu(fileName = "FighterClass", menuName = "ScriptableObjects/Fight/FighterClass", order = 0)]
@@ -19,6 +15,5 @@ namespace FrostfallSaga.Fight.Fighters {
         public MagicalElementToValue[] classMagicalStrengths;
         public float classMasterstroke;
         public int classInitiative;
-
     }
 }
