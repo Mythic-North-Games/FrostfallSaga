@@ -275,14 +275,14 @@ namespace FrostfallSaga.Fight.Fighters
                 case EFighterMutableStat.Tenacity:
                     Math.Min(0, _stats.tenacity += amount);
                     break;
-                case EFighterMutableStat.Dodge:
-                    Math.Min(0, _stats.dodge += amount);
+                case EFighterMutableStat.DodgeChance:
+                    Math.Min(0, _stats.dodgeChance += amount);
                     break;
                 case EFighterMutableStat.PhysicalResistance:
                     Math.Min(0, _stats.physicalResistance += amount);
                     break;
-                case EFighterMutableStat.Masterstroke:
-                    Math.Min(0, _stats.masterstroke += amount);
+                case EFighterMutableStat.MasterstrokeChance:
+                    Math.Min(0, _stats.masterstrokeChance += amount);
                     break;
                 case EFighterMutableStat.Initiative:
                     Math.Min(0, _stats.initiative += amount);
@@ -383,29 +383,19 @@ namespace FrostfallSaga.Fight.Fighters
 
         #region Stats getters & manipulation
 
-        public int GetMovePoints()
-        {
-            return _stats.movePoints;
-        }
+        public int GetMovePoints() => _stats.movePoints;
 
-        public int GetActionPoints()
-        {
-            return _stats.actionPoints;
-        }
+        public int GetActionPoints() => _stats.actionPoints;
 
-        public int GetHealth()
-        {
-            return _stats.health;
-        }
-        public int GetStrength()
-        {
-            return _stats.strength;
-        }
+        public int GetHealth() => _stats.health;
 
-        public int GetInitiative()
-        {
-            return _stats.initiative;
-        }
+        public int GetStrength() => _stats.strength;
+
+        public float GetDodgeChance() => _stats.dodgeChance;
+
+        public float GetMasterstrokeChance() => _stats.masterstrokeChance;
+
+        public int GetInitiative() => _stats.initiative;
 
         public FighterCollider GetWeaponCollider()
         {
@@ -429,7 +419,6 @@ namespace FrostfallSaga.Fight.Fighters
             _stats.strength = _initialStats.strength + _fighterClass.classMaxMovePoints;
             _stats.dexterity = _initialStats.dexterity + _fighterClass.classDexterity;
             _stats.tenacity = _initialStats.tenacity + _fighterClass.classTenacity;
-            _stats.dodge = _initialStats.dodge + _fighterClass.classDodge;
             _stats.physicalResistance = _initialStats.physicalResistance + _fighterClass.classPhysicalResistance;
 
             _stats.magicalResistances = _initialStats.magicalResistances;
@@ -438,7 +427,8 @@ namespace FrostfallSaga.Fight.Fighters
             _stats.magicalStrengths = _initialStats.magicalStrengths;
             _stats.AddMagicalStrengths(MagicalElementToValue.GetDictionaryFromArray(_fighterClass.classMagicalStrengths));
 
-            _stats.masterstroke = _initialStats.masterstroke + _fighterClass.classMasterstroke;
+            _stats.dodgeChance = _initialStats.dodgeChance + _fighterClass.classDodgeChance;
+            _stats.masterstrokeChance = _initialStats.masterstrokeChance + _fighterClass.classMasterstrokeChance;
             _stats.initiative = _initialStats.initiative + _fighterClass.classInitiative;
         }
 
@@ -534,7 +524,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="target">The fighter to apply the effects to.</param>
         private void ApplyEffectsOnFighter(AEffectSO[] effectsToApply, Fighter target)
         {
-            effectsToApply.ToList().ForEach(effect => effect.ApplyEffect(target));
+            effectsToApply.ToList().ForEach(effect => effect.ApplyEffect(this, target, effect.Masterstrokable, effect.Dodgable));
         }
 
         private void DecreaseHealth(int amount)

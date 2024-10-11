@@ -8,11 +8,11 @@ namespace FrostfallSaga.Fight.Fighters
         Strength,
         Dexterity,
         Tenacity,
-        Dodge,
         PhysicalResistance,
         MagicalResistances,
         MagicalStrengths,
-        Masterstroke,
+        DodgeChance,
+        MasterstrokeChance,
         Initiative
     }
 }

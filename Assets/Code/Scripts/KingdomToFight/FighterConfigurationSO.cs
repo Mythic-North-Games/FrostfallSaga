@@ -27,25 +27,13 @@ namespace FrostfallSaga.KingdomToFight
         [field: SerializeField, Range(0, 9999)] public int MaxActionPoints { get; private set; }
         [field: SerializeField, Range(0, 9999)] public int MaxMovePoints { get; private set; }
         [field: SerializeField, Range(0, 9999)] public int Strength { get; private set; }
-        [field: SerializeField, Range(0, 9999)] public int Dexterity { get; private set; } 
+        [field: SerializeField, Range(0, 9999)] public int Dexterity { get; private set; }
         [field: SerializeField, Range(0, 9999)] public float Tenacity { get; private set; }
-        [field: SerializeField, Range(0, 9999)] public float Dodge { get; private set; }
         [field: SerializeField, Range(0, 9999)] public int PhysicalResistance { get; private set; }
-        [field: SerializeField]
-        public MagicalElementToValue[] MagicalResistances
-        {
-            get; private set;
-        }
-        [field: SerializeField]
-        public MagicalElementToValue[] MagicalStrengths
-        {
-            get; private set;
-        }
-
-        [field: SerializeField, Range(0, 9999)]
-        public float Masterstroke {
-            get; private set;
-        }
+        [field: SerializeField] public MagicalElementToValue[] MagicalResistances { get; private set; }
+        [field: SerializeField] public MagicalElementToValue[] MagicalStrengths { get; private set; }
+        [field: SerializeField, Range(0, 9999)] public float DodgeChance { get; private set; }
+        [field: SerializeField, Range(0, 9999)] public float MasterstrokeChance { get; private set; }
         [field: SerializeField, Range(0, 9999)] public int Initiative { get; private set; }
         #endregion
 
@@ -62,11 +50,11 @@ namespace FrostfallSaga.KingdomToFight
                 strength = Strength,
                 dexterity = Dexterity,
                 tenacity = Tenacity,
-                dodge = Dodge,
                 physicalResistance = PhysicalResistance,
                 magicalResistances = MagicalElementToValue.GetDictionaryFromArray(MagicalResistances),
                 magicalStrengths = MagicalElementToValue.GetDictionaryFromArray(MagicalStrengths),
-                masterstroke = Masterstroke,
+                dodgeChance = DodgeChance,
+                masterstrokeChance = MasterstrokeChance,
                 initiative = Initiative
             };
         }
