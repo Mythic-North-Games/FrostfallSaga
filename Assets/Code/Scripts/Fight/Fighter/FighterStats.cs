@@ -17,11 +17,11 @@ namespace FrostfallSaga.Fight.Fighters
         public int strength;
         public int dexterity;
         public float tenacity;
-        public float dodge;
         public int physicalResistance;
         public Dictionary<EMagicalElement, int> magicalResistances = new();
         public Dictionary<EMagicalElement, int> magicalStrengths = new();
-        public float masterstroke;
+        public float dodgeChance;
+        public float masterstrokeChance;
         public int initiative;
 
         public void AddMagicalResistances(Dictionary<EMagicalElement, int> magicalResistancesToAdd) {
