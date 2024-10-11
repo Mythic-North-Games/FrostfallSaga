@@ -3,7 +3,7 @@ using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.Statuses
 {
-    [CreateAssetMenu(fileName = "SlowingStatus", menuName = "ScriptableObjects/Fight/Status/Slowing")]
+    [CreateAssetMenu(fileName = "SlowingStatus", menuName = "ScriptableObjects/Fight/Statuses/Slowing")]
     public class SlowingStatus : Status
     {
         [field: SerializeField] public int InitiativeReduction { get; private set; }

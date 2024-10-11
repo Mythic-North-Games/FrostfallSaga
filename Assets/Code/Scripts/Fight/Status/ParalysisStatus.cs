@@ -3,7 +3,7 @@ using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.Statuses
 {
-    [CreateAssetMenu(fileName = "ParalysisStatus", menuName = "ScriptableObjects/Fight/Status/Paralysis")]
+    [CreateAssetMenu(fileName = "ParalysisStatus", menuName = "ScriptableObjects/Fight/Statuses/Paralysis")]
     public class ParalysisStatus : Status
     {
         public override void ApplyStatus(Fighter fighter)

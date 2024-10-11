@@ -6,7 +6,7 @@ namespace FrostfallSaga.Fight.Statuses
     public class StatusesManager
     {
         private readonly Fighter _fighter;
-        private Dictionary<Status, (bool isActive, int duration)> statuses = new();
+        private Dictionary<Status, (bool isActive, int duration)> _statuses = new();
 
         public StatusesManager(Fighter fighter)
         {
@@ -15,7 +15,7 @@ namespace FrostfallSaga.Fight.Statuses
 
         public void ApplyStatus(Status status)
         {
-            statuses[status] = (true, status.Duration);
+            _statuses[status] = (true, status.Duration);
         }
 
         public void UpdateStatuses(EStatusTriggerTime triggerTime)
@@ -23,11 +23,11 @@ namespace FrostfallSaga.Fight.Statuses
             List<Status> statusesToRemove = new();
             Dictionary<Status, (bool isActive, int duration)> tempStatus = new();
 
-            foreach (var status in statuses)
+            foreach (var status in _statuses)
             {
                 tempStatus[status.Key] = (status.Value.isActive, status.Value.duration);
             }
-            foreach (var status in statuses.Keys)
+            foreach (var status in _statuses.Keys)
             {
                 var (isActive, duration) = tempStatus[status];
                 duration--;
@@ -49,7 +49,7 @@ namespace FrostfallSaga.Fight.Statuses
 
             }
 
-            statuses = tempStatus;
+            _statuses = tempStatus;
             foreach (var status in statusesToRemove)
             {
                 RemoveStatus(status);
@@ -60,15 +60,15 @@ namespace FrostfallSaga.Fight.Statuses
 
         public void RemoveStatus(Status status)
         {
-            if (statuses.ContainsKey(status))
+            if (_statuses.ContainsKey(status))
             {
-                statuses.Remove(status);
+                _statuses.Remove(status);
             }
         }
 
         public Dictionary<Status, (bool isActive, int duration)> GetStatusEffects()
         {
-            return statuses;
+            return _statuses;
         }
     }
 }

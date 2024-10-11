@@ -11,8 +11,8 @@ namespace FrostfallSaga.Fight.Statuses
         [field: SerializeField] public bool IsRecurring { get; private set; } = true;
         [field: SerializeField] public EStatusTriggerTime TriggerTime { get; private set; } = EStatusTriggerTime.StartOfTurn;
 
-        public virtual void ApplyStatus(Fighter fighter) { }
-        public virtual void RemoveStatus(Fighter fighter) { }
+        public abstract void ApplyStatus(Fighter fighter);
+        public abstract void RemoveStatus(Fighter fighter);
 
         #if UNITY_EDITOR
         public void SetDuration(int duration) => Duration = duration;

@@ -3,7 +3,7 @@ using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.Statuses
 {
-    [CreateAssetMenu(fileName = "BleedingStatus", menuName = "ScriptableObjects/Fight/Status/Bleeding")]
+    [CreateAssetMenu(fileName = "BleedingStatus", menuName = "ScriptableObjects/Fight/Statuses/Bleeding")]
     public class BleedingStatus : Status
     {
         [field: SerializeField] public int BleedingReduction { get; private set; }
