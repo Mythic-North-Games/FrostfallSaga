@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: High physical damages
   <Description>k__BackingField: Inflicts a lot of physical damages
-  <PhysicalDamageAmount>k__BackingField: 9999
+  <Dodgable>k__BackingField: 0
+  <Masterstrokable>k__BackingField: 0
+  <PhysicalDamageAmount>k__BackingField: 10

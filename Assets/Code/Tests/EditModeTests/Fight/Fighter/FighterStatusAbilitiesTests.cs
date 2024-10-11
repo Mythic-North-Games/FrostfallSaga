@@ -40,7 +40,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         {
             // arrange
             int initialHealth = fighter.GetHealth();
-            int expectedHealthReduction = bleedingStatus.BleedingReduction;
+            int expectedHealthReduction = bleedingStatus.BleedingDamage;
 
             // Act
             statusManager.ApplyStatus(bleedingStatus);
@@ -70,7 +70,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             // arrange
             statusManager.ApplyStatus(bleedingStatus);
             int initialHealth = fighter.GetHealth();
-            int expectedHealthReduction = bleedingStatus.BleedingReduction;
+            int expectedHealthReduction = bleedingStatus.BleedingDamage;
 
             // Act
             for (int i = 0; i < bleedingStatus.Duration; i++)

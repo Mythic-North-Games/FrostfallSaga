@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f55684d2142514aa31d41629e25aab, type: 3}
-  m_Name: HighWeaknessStatus
+  m_Script: {fileID: 11500000, guid: e7c50324c3aae3944a7f8a86a62edf3d, type: 3}
+  m_Name: BleedingStatus
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: High weakness
-  <Description>k__BackingField: dhzeiuhdui
+  <Name>k__BackingField: BLEEEED
+  <Description>k__BackingField: 
   <Duration>k__BackingField: 2
-  <IsRecurring>k__BackingField: 0
-  <TriggerTime>k__BackingField: 0
-  <StrengthReduction>k__BackingField: 3
+  <IsRecurring>k__BackingField: 1
+  <TriggerTime>k__BackingField: 1
+  <BleedingReduction>k__BackingField: 10

@@ -10,8 +10,8 @@ namespace FrostfallSaga.Fight.Effects
     {
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string Description { get; private set; }
-        [field: SerializeField] public bool Dodgable { get; private set; }
-        [field: SerializeField] public bool Masterstrokable { get; private set; }
+        [field: SerializeField] public bool Dodgable { get; private set; } = true;
+        [field: SerializeField] public bool Masterstrokable { get; private set; } = true;
 
         /// <summary>
         /// Apply the effect to the target fighter using the initator stats for possible masterstroke and dodge chance.
