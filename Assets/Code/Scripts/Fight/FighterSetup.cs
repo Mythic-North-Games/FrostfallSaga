@@ -21,6 +21,7 @@ namespace FrostfallSaga.Fight
         public ActiveAbilityToAnimation[] activeAbilities;
         public string receiveDamageAnimationStateName;
         public string healSelfAnimationStateName;
+        public FighterClassSO fighterClassSO;
 
         public FighterSetup(
             string name,
@@ -33,9 +34,9 @@ namespace FrostfallSaga.Fight
             AAbilityAnimationSO directAttackAnimation,
             ActiveAbilityToAnimation[] activeAbilities,
             string receiveDamageAnimationStateName,
-            string healSelfAnimationStateName
-        )
-        {
+            string healSelfAnimationStateName,
+            FighterClassSO fighterClassSO
+        ) {
             this.name = name;
             this.sessionId = sessionId;
             this.icon = fighterIcon;
@@ -47,6 +48,7 @@ namespace FrostfallSaga.Fight
             this.activeAbilities = activeAbilities;
             this.receiveDamageAnimationStateName = receiveDamageAnimationStateName;
             this.healSelfAnimationStateName = healSelfAnimationStateName;
+            this.fighterClassSO = fighterClassSO;
         }
     }
 }
