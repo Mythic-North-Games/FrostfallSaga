@@ -10,10 +10,7 @@ namespace FrostfallSaga.KingdomToFight
     [CreateAssetMenu(fileName = "Fighter", menuName = "ScriptableObjects/Fight/Fighter", order = 0)]
     public class FighterConfigurationSO : ScriptableObject
     {
-        [field: SerializeField]
-        public FighterClassSO FighterClass {
-            get; private set;
-        }
+        [field: SerializeField] public FighterClassSO FighterClass { get; private set; }
         [field: SerializeField] public ActiveAbilityToAnimation[] AvailableActiveAbilities { get; private set; }
         [field: SerializeField] public int ActiveAbilitiesCapacity = 5;
         [field: SerializeField] public TargeterSO DirectAttackTargeter { get; private set; }

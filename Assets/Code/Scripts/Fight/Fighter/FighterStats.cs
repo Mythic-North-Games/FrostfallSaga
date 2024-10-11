@@ -19,8 +19,8 @@ namespace FrostfallSaga.Fight.Fighters
         public float tenacity;
         public float dodge;
         public int physicalResistance;
-        public Dictionary<EMagicalElement, int> magicalResistances;
-        public Dictionary<EMagicalElement, int> magicalStrengths;
+        public Dictionary<EMagicalElement, int> magicalResistances = new();
+        public Dictionary<EMagicalElement, int> magicalStrengths = new();
         public float masterstroke;
         public int initiative;
 

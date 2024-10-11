@@ -7,9 +7,12 @@ namespace FrostfallSaga.Fight.Fighters
         MaxMovePoints,
         Strength,
         Dexterity,
+        Tenacity,
+        Dodge,
         PhysicalResistance,
         MagicalResistances,
         MagicalStrengths,
+        Masterstroke,
         Initiative
     }
 }

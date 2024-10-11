@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
-namespace FrostfallSaga.Fight.Fighters {
+namespace FrostfallSaga.Fight.Fighters
+{
     [CreateAssetMenu(fileName = "FighterClass", menuName = "ScriptableObjects/Fight/FighterClass", order = 0)]
-    public class FighterClassSO : ScriptableObject {
+    public class FighterClassSO : ScriptableObject
+    {
         public int classMaxHealth;
         public int classMaxActionPoints;
         public int classMaxMovePoints;

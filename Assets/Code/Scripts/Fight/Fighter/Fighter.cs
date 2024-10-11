@@ -272,8 +272,17 @@ namespace FrostfallSaga.Fight.Fighters
                 case EFighterMutableStat.Dexterity:
                     Math.Min(0, _stats.dexterity += amount);
                     break;
+                case EFighterMutableStat.Tenacity:
+                    Math.Min(0, _stats.tenacity += amount);
+                    break;
+                case EFighterMutableStat.Dodge:
+                    Math.Min(0, _stats.dodge += amount);
+                    break;
                 case EFighterMutableStat.PhysicalResistance:
                     Math.Min(0, _stats.physicalResistance += amount);
+                    break;
+                case EFighterMutableStat.Masterstroke:
+                    Math.Min(0, _stats.masterstroke += amount);
                     break;
                 case EFighterMutableStat.Initiative:
                     Math.Min(0, _stats.initiative += amount);
@@ -411,18 +420,26 @@ namespace FrostfallSaga.Fight.Fighters
 
         private void ResetStatsToDefaultConfiguration()
         {
-            _stats.maxHealth = _initialStats.maxHealth;
+            _stats.maxHealth = _initialStats.maxHealth + _fighterClass.classMaxHealth;
             _stats.health = _initialStats.maxHealth;
-            _stats.maxActionPoints = _initialStats.maxActionPoints;
+            _stats.maxActionPoints = _initialStats.maxActionPoints + _fighterClass.classMaxActionPoints;
             _stats.actionPoints = _initialStats.maxActionPoints;
-            _stats.maxMovePoints = _initialStats.maxMovePoints;
+            _stats.maxMovePoints = _initialStats.maxMovePoints + _fighterClass.classMaxMovePoints;
             _stats.movePoints = _initialStats.maxMovePoints;
-            _stats.strength = _initialStats.strength;
-            _stats.dexterity = _initialStats.dexterity;
-            _stats.physicalResistance = _initialStats.physicalResistance;
+            _stats.strength = _initialStats.strength + _fighterClass.classMaxMovePoints;
+            _stats.dexterity = _initialStats.dexterity + _fighterClass.classDexterity;
+            _stats.tenacity = _initialStats.tenacity + _fighterClass.classTenacity;
+            _stats.dodge = _initialStats.dodge + _fighterClass.classDodge;
+            _stats.physicalResistance = _initialStats.physicalResistance + _fighterClass.classPhysicalResistance;
+
             _stats.magicalResistances = _initialStats.magicalResistances;
+            _stats.AddMagicalResistances(MagicalElementToValue.GetDictionaryFromArray(_fighterClass.classMagicalResistances));
+
             _stats.magicalStrengths = _initialStats.magicalStrengths;
-            _stats.initiative = _initialStats.initiative;
+            _stats.AddMagicalStrengths(MagicalElementToValue.GetDictionaryFromArray(_fighterClass.classMagicalStrengths));
+
+            _stats.masterstroke = _initialStats.masterstroke + _fighterClass.classMasterstroke;
+            _stats.initiative = _initialStats.initiative + _fighterClass.classInitiative;
         }
 
         #endregion
