@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using FrostfallSaga.Fight.Effects;
 
@@ -15,9 +16,30 @@ namespace FrostfallSaga.Fight.Fighters
         public int maxMovePoints;
         public int strength;
         public int dexterity;
+        public float tenacity;
+        public float dodge;
         public int physicalResistance;
         public Dictionary<EMagicalElement, int> magicalResistances;
         public Dictionary<EMagicalElement, int> magicalStrengths;
+        public float masterstroke;
         public int initiative;
+
+        public void AddMagicalResistances(Dictionary<EMagicalElement, int> magicalResistancesToAdd) {
+            foreach (KeyValuePair<EMagicalElement, int> additionnalMagicalResistance in magicalResistancesToAdd) {
+                EMagicalElement magicalElement = additionnalMagicalResistance.Key;
+                if (magicalResistances.ContainsKey(magicalElement)) {
+                    magicalResistances[magicalElement] += additionnalMagicalResistance.Value;
+                }
+            }
+        }
+
+        public void AddMagicalStrengths(Dictionary<EMagicalElement, int> magicalStrengthsToAdd) {
+            foreach (KeyValuePair<EMagicalElement, int> additionnalMagicalStrength in magicalStrengthsToAdd) {
+                EMagicalElement magicalElement = additionnalMagicalStrength.Key;
+                if (magicalStrengths.ContainsKey(magicalElement)) {
+                    magicalStrengths[magicalElement] += additionnalMagicalStrength.Value;
+                }
+            }
+        }
     }
 }

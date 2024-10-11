@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf9b68cef373954fa0d8e82209c712d, type: 3}
   m_Name: PersistedHeroFighter
   m_EditorClassIdentifier: 
+  <FighterClass>k__BackingField: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
   <AvailableActiveAbilities>k__BackingField:
   - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
     animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
@@ -23,28 +24,29 @@ MonoBehaviour:
   <DirectAttackAnimation>k__BackingField: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
   <HealSelfAnimationStateName>k__BackingField: 
   <ReceiveDamageAnimationStateName>k__BackingField: Hurt
-  <MaxHealth>k__BackingField: 9999
-  <MaxActionPoints>k__BackingField: 5
+  <MaxHealth>k__BackingField: 60
+  <MaxActionPoints>k__BackingField: 3
   <MaxMovePoints>k__BackingField: 3
-  <Strength>k__BackingField: 10
-  <Dexterity>k__BackingField: 10
-  <PhysicalResistance>k__BackingField: 10
+  <Strength>k__BackingField: 3
+  <Dexterity>k__BackingField: 3
+  <Tenacity>k__BackingField: 1
+  <Dodge>k__BackingField: 1
+  <PhysicalResistance>k__BackingField: 2
   <MagicalResistances>k__BackingField:
   - magicalElement: 0
     value: 0
   - magicalElement: 1
     value: 0
-  - magicalElement: 2
+  <MagicalStrengths>k__BackingField:
+  - magicalElement: 0
     value: 0
-  - magicalElement: 3
+  - magicalElement: 0
     value: 0
-  - magicalElement: 4
+  - magicalElement: 0
     value: 0
-  - magicalElement: 5
-    value: 0
-  <MagicalStrengths>k__BackingField: []
+  <Masterstroke>k__BackingField: 1
   <Initiative>k__BackingField: 5
   <EquipedActiveAbilities>k__BackingField:
   - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
     animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
-  <Health>k__BackingField: 100
+  <Health>k__BackingField: 60

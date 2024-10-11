@@ -4,11 +4,16 @@ using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 
+
 namespace FrostfallSaga.KingdomToFight
 {
     [CreateAssetMenu(fileName = "Fighter", menuName = "ScriptableObjects/Fight/Fighter", order = 0)]
     public class FighterConfigurationSO : ScriptableObject
     {
+        [field: SerializeField]
+        public FighterClassSO FighterClass {
+            get; private set;
+        }
         [field: SerializeField] public ActiveAbilityToAnimation[] AvailableActiveAbilities { get; private set; }
         [field: SerializeField] public int ActiveAbilitiesCapacity = 5;
         [field: SerializeField] public TargeterSO DirectAttackTargeter { get; private set; }
@@ -21,12 +26,14 @@ namespace FrostfallSaga.KingdomToFight
         [field: SerializeField] public string IncreaseStatAnimationName { get; private set; }
 
         #region Base stats
-        [field: SerializeField, Range(1, 9999)] public int MaxHealth { get; private set; }
-        [field: SerializeField, Range(1, 9999)] public int MaxActionPoints { get; private set; }
-        [field: SerializeField, Range(1, 9999)] public int MaxMovePoints { get; private set; }
-        [field: SerializeField, Range(1, 9999)] public int Strength { get; private set; }
-        [field: SerializeField, Range(1, 9999)] public int Dexterity { get; private set; }
-        [field: SerializeField, Range(1, 9999)] public int PhysicalResistance { get; private set; }
+        [field: SerializeField, Range(0, 9999)] public int MaxHealth { get; private set; }
+        [field: SerializeField, Range(0, 9999)] public int MaxActionPoints { get; private set; }
+        [field: SerializeField, Range(0, 9999)] public int MaxMovePoints { get; private set; }
+        [field: SerializeField, Range(0, 9999)] public int Strength { get; private set; }
+        [field: SerializeField, Range(0, 9999)] public int Dexterity { get; private set; } 
+        [field: SerializeField, Range(0, 9999)] public float Tenacity { get; private set; }
+        [field: SerializeField, Range(0, 9999)] public float Dodge { get; private set; }
+        [field: SerializeField, Range(0, 9999)] public int PhysicalResistance { get; private set; }
         [field: SerializeField]
         public MagicalElementToValue[] MagicalResistances
         {
@@ -37,7 +44,12 @@ namespace FrostfallSaga.KingdomToFight
         {
             get; private set;
         }
-        [field: SerializeField, Range(1, 9999)] public int Initiative { get; private set; }
+
+        [field: SerializeField, Range(0, 9999)]
+        public float Masterstroke {
+            get; private set;
+        }
+        [field: SerializeField, Range(0, 9999)] public int Initiative { get; private set; }
         #endregion
 
         public virtual FighterStats ExtractFighterStats()
@@ -46,15 +58,18 @@ namespace FrostfallSaga.KingdomToFight
             {
                 maxHealth = MaxHealth,
                 health = MaxHealth,
-                maxMovePoints = MaxMovePoints,
-                movePoints = MaxMovePoints,
                 maxActionPoints = MaxActionPoints,
                 actionPoints = MaxActionPoints,
+                maxMovePoints = MaxMovePoints,
+                movePoints = MaxMovePoints,
                 strength = Strength,
                 dexterity = Dexterity,
+                tenacity = Tenacity,
+                dodge = Dodge,
                 physicalResistance = PhysicalResistance,
                 magicalResistances = MagicalElementToValue.GetDictionaryFromArray(MagicalResistances),
                 magicalStrengths = MagicalElementToValue.GetDictionaryFromArray(MagicalStrengths),
+                masterstroke = Masterstroke,
                 initiative = Initiative
             };
         }

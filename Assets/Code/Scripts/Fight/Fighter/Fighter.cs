@@ -34,6 +34,7 @@ namespace FrostfallSaga.Fight.Fighters
         private MovePath _currentMovePath;
         private FighterStats _stats = new();
         private FighterStats _initialStats = new();
+        private FighterClassSO _fighterClass;
         public TargeterSO DirectAttackTargeter { get; private set; }
         public int DirectAttackActionPointsCost { get; private set; }
         public AEffectSO[] DirectAttackEffects { get; private set; }
@@ -70,6 +71,7 @@ namespace FrostfallSaga.Fight.Fighters
             EntitySessionId = fighterSetup.sessionId;
             FighterIcon = fighterSetup.icon;
             _initialStats = fighterSetup.initialStats;
+            _fighterClass = fighterSetup.fighterClassSO;
             DirectAttackTargeter = fighterSetup.directAttackTargeter;
             DirectAttackActionPointsCost = fighterSetup.directAttackActionPointsCost;
             DirectAttackEffects = fighterSetup.directAttackEffects;
