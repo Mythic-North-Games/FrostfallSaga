@@ -40,14 +40,14 @@ jobs:
           coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;pathFilters:+**/Assets/Code/**;assemblyFilters:-*unity*,-*Meryel*,-*meryel*'
 
       # Store tests results in artifact
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: Test results
           path: ${{ steps.testsStep.outputs.artifactsPath }}
 
       # Store tests results coverage in artifact
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: Coverage results

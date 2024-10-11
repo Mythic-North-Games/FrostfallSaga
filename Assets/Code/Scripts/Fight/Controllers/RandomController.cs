@@ -41,6 +41,7 @@ namespace FrostfallSaga.Fight.Controllers
         private FighterAction GetRandomDoableAction(Fighter fighterThatWillAct, HexGrid fightGrid)
         {
             List<FighterAction> doableActions = new();
+            
             if (fighterThatWillAct.CanMove(fightGrid))
             {
                 doableActions.Add(FighterAction.MOVE);

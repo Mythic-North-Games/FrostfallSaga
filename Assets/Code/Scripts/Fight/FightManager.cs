@@ -3,9 +3,10 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid;
+using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Controllers;
-using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Fight.Statuses;
 
 namespace FrostfallSaga.Fight
 {
@@ -44,6 +45,8 @@ namespace FrostfallSaga.Fight
         private void PlayNextFighterTurn()
         {
             _playingFighter = _fightersTurnOrder.Dequeue();
+            _playingFighter.StatusesManager.UpdateStatuses(EStatusTriggerTime.StartOfTurn);
+
             bool isAlly = _allies.Contains(_playingFighter);
             AFighterController controller = isAlly ? _alliesController : _enemiesController;
             onFighterTurnBegan(_playingFighter, isAlly);
@@ -53,6 +56,7 @@ namespace FrostfallSaga.Fight
         private void OnFighterTurnEnded(Fighter fighterThatPlayed)
         {
             fighterThatPlayed.ResetMovementAndActionPoints();
+            fighterThatPlayed.StatusesManager.UpdateStatuses(EStatusTriggerTime.EndOfTurn);
             _fightersTurnOrder.Enqueue(fighterThatPlayed);
             onFightersTurnOrderUpdated?.Invoke(_fightersTurnOrder.ToArray());
             PlayNextFighterTurn();

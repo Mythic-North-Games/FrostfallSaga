@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.AI
 {
     public class Sequence : Node
     {
         public Sequence() { }
-        public Sequence(List<Node>) : base(children) { }
+        public Sequence(List<Node> children) : base(children) { }
 
         public override NodeState Evaluate()
         {
@@ -17,7 +13,7 @@ namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.AI
 
             foreach (Node node in children)
             {
-                switch (node.Evaluate)
+                switch (node.Evaluate())
                 {
                     case NodeState.FAILURE:
                         return NodeState.FAILURE;
@@ -29,9 +25,8 @@ namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.AI
                     default:
                         return NodeState.SUCCESS;
                 }
-
-                return anyChildIsRunning ? NodeState.RUNNING : NodeState.SUCCESS;  
-            } 
+            }
+            return anyChildIsRunning ? NodeState.RUNNING : NodeState.SUCCESS;  
         }
     }
 }

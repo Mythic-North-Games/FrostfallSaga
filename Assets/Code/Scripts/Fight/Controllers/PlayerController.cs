@@ -226,6 +226,7 @@ namespace FrostfallSaga.Fight.Controllers
                 _fighterIsActing = true;
                 _possessedFighter.UseDirectAttack(targetedCells);
                 onFighterActionStarted?.Invoke(_possessedFighter);
+
             }
             catch (TargeterUnresolvableException)
             {
@@ -288,6 +289,8 @@ namespace FrostfallSaga.Fight.Controllers
             cellsAvailableForTargeting.ToList().ForEach(cell => cell.HighlightController.UpdateCurrentDefaultMaterial(_cellHighlightMaterial));
             cellsAvailableForTargeting.ToList().ForEach(cell => cell.HighlightController.Highlight(_cellHighlightMaterial));
             _fighterIsTargetingForActiveAbility = true;
+
+
         }
 
         private void TryTriggerActiveAbility(Cell clickedCell)
@@ -300,6 +303,8 @@ namespace FrostfallSaga.Fight.Controllers
                 _fighterIsActing = true;
                 _possessedFighter.UseActiveAbility(_currentActiveAbility, targetedCells);
                 onFighterActionStarted?.Invoke(_possessedFighter);
+
+
             }
             catch (TargeterUnresolvableException)
             {

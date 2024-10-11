@@ -28,7 +28,6 @@ namespace FrostfallSaga.Grid.Cells
         /// </summary>
         /// <param name="coordinates">The cell coordinates on the grid.</param>
         /// <param name="cellHeight">The cell height.</param>
-        /// <param name="isAccessible">The accessibility of the cell.</param>
         /// <param name="hexSize">The size of a cell inside the grid.</param>
         public void Setup(
             Vector2Int coordinates,

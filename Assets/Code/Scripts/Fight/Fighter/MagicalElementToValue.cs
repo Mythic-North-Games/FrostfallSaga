@@ -20,5 +20,5 @@ namespace FrostfallSaga.Fight.Fighters
             }
             return dictionary;
         }
-    }
+    } 
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid;
@@ -6,7 +7,6 @@ using FrostfallSaga.Fight;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.KingdomToFight;
-using System;
 
 namespace FrostfallSaga.EditModeTests.FightTests
 {
@@ -32,7 +32,6 @@ namespace FrostfallSaga.EditModeTests.FightTests
                 Resources.Load<FighterConfigurationSO>("EditModeTests/ScriptableObjects/TestFighter")
             );
 
-
             GameObject fighterEntitiesVisualGameObject = new();
             fighterEntitiesVisualGameObject.transform.SetParent(fighterGameObject.transform);
             fighterEntitiesVisualGameObject.AddComponent<EntityVisualAnimationController>();
@@ -51,13 +50,16 @@ namespace FrostfallSaga.EditModeTests.FightTests
                     Guid.NewGuid().ToString(),
                     null,
                     fighterConfiguration.ExtractFighterStats(),
+                    fighterConfiguration.FighterClass,
                     fighterConfiguration.DirectAttackTargeter,
                     fighterConfiguration.DirectAttackActionPointsCost,
                     fighterConfiguration.DirectAttackEffects,
                     fighterConfiguration.DirectAttackAnimation,
                     fighterConfiguration.AvailableActiveAbilities,
-                    fighterConfiguration.ReceiveDamageAnimationStateName,
-                    fighterConfiguration.HealSelfAnimationStateName
+                    fighterConfiguration.ReceiveDamageAnimationName,
+                    fighterConfiguration.HealSelfAnimationName,
+                    fighterConfiguration.ReduceStatAnimationName,
+                    fighterConfiguration.IncreaseStatAnimationName
                 )
             );
         }

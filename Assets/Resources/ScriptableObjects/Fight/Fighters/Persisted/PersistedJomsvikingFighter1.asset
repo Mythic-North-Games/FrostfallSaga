@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf9b68cef373954fa0d8e82209c712d, type: 3}
   m_Name: PersistedJomsvikingFighter1
   m_EditorClassIdentifier: 
+  <FighterClass>k__BackingField: {fileID: 11400000, guid: 8d3cfbd8265f5e54cb7a7563a0ae8f1b, type: 2}
   <AvailableActiveAbilities>k__BackingField:
   - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
     animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
@@ -23,18 +24,29 @@ MonoBehaviour:
   <DirectAttackAnimation>k__BackingField: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
   <HealSelfAnimationStateName>k__BackingField: 
   <ReceiveDamageAnimationStateName>k__BackingField: Hurt
-  <MaxHealth>k__BackingField: 100
-  <MaxActionPoints>k__BackingField: 5
-  <MaxMovePoints>k__BackingField: 5
-  <Strength>k__BackingField: 10
-  <Dexterity>k__BackingField: 10
-  <PhysicalResistance>k__BackingField: 10
+  <MaxHealth>k__BackingField: 60
+  <MaxActionPoints>k__BackingField: 3
+  <MaxMovePoints>k__BackingField: 3
+  <Strength>k__BackingField: 3
+  <Dexterity>k__BackingField: 3
+  <Tenacity>k__BackingField: 1
+  <Dodge>k__BackingField: 1
+  <PhysicalResistance>k__BackingField: 2
   <MagicalResistances>k__BackingField:
   - magicalElement: 0
     value: 0
-  <MagicalStrengths>k__BackingField: []
-  <Initiative>k__BackingField: 2
+  - magicalElement: 0
+    value: 0
+  <MagicalStrengths>k__BackingField:
+  - magicalElement: 0
+    value: 0
+  - magicalElement: 0
+    value: 0
+  - magicalElement: 0
+    value: 0
+  <Masterstroke>k__BackingField: 1
+  <Initiative>k__BackingField: 5
   <EquipedActiveAbilities>k__BackingField:
   - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
     animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
-  <Health>k__BackingField: 100
+  <Health>k__BackingField: 60
