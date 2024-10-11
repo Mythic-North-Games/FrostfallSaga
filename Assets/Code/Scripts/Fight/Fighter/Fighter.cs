@@ -15,7 +15,7 @@ namespace FrostfallSaga.Fight.Fighters
     {
         [field: SerializeField] public EntityVisualAnimationController AnimationController { get; private set; }
         [field: SerializeField] public EntityVisualMovementController MovementController { get; private set; }
-        [field:SerializeField] public Transform CameraAnchor { get; private set; }
+        [field:SerializeField] public Transform CameraAnchor { get; private set; } 
         public Sprite FighterIcon { get; private set; }
         public string EntitySessionId { get; private set; }
         public Cell cell;
@@ -28,6 +28,7 @@ namespace FrostfallSaga.Fight.Fighters
         private MovePath _currentMovePath;
         private FighterStats _stats = new();
         private FighterStats _initialStats = new();
+        private FighterClassSO _fighterClass;
         public TargeterSO DirectAttackTargeter { get; private set; }
         public int DirectAttackActionPointsCost { get; private set; }
         public AEffectSO[] DirectAttackEffects { get; private set; }
@@ -64,6 +65,7 @@ namespace FrostfallSaga.Fight.Fighters
             ActiveAbilities = fighterSetup.activeAbilities;
             _receiveDamageAnimationStateName = fighterSetup.receiveDamageAnimationStateName;
             _healSelfAnimationStateName = fighterSetup.healSelfAnimationStateName;
+            _fighterClass = fighterSetup.fighterClassSO;
 
             ResetStatsToDefaultConfiguration();
         }
@@ -422,18 +424,19 @@ namespace FrostfallSaga.Fight.Fighters
 
         private void ResetStatsToDefaultConfiguration()
         {
-            _stats.maxHealth = _initialStats.maxHealth;
+            _stats.maxHealth = _initialStats.maxHealth + _fighterClass.classMaxHealth;
             _stats.health = _initialStats.maxHealth;
-            _stats.maxActionPoints = _initialStats.maxActionPoints;
+            _stats.maxActionPoints = _initialStats.maxActionPoints + _fighterClass.classMaxActionPoints;
             _stats.actionPoints = _initialStats.maxActionPoints;
-            _stats.maxMovePoints = _initialStats.maxMovePoints;
+            _stats.maxMovePoints = _initialStats.maxMovePoints + _fighterClass.classMaxMovePoints;
             _stats.movePoints = _initialStats.maxMovePoints;
-            _stats.strength = _initialStats.strength;
-            _stats.dexterity = _initialStats.dexterity;
-            _stats.physicalResistance = _initialStats.physicalResistance;
+            _stats.strength = _initialStats.strength + _fighterClass.classMaxMovePoints;
+            _stats.dexterity = _initialStats.dexterity + _fighterClass.classDexterity;
+            _stats.physicalResistance = _initialStats.physicalResistance + _fighterClass.classPhysicalResistance;
             _stats.magicalResistances = _initialStats.magicalResistances;
             _stats.magicalStrengths = _initialStats.magicalStrengths;
-            _stats.initiative = _initialStats.initiative;
+            _stats.initiative = _initialStats.initiative + _fighterClass.classInitiative;
+            ;
         }
 
         #region Getting children & bindings setup

@@ -57,7 +57,8 @@ namespace FrostfallSaga.EditModeTests.FightTests
                     fighterConfiguration.DirectAttackAnimation,
                     fighterConfiguration.AvailableActiveAbilities,
                     fighterConfiguration.ReceiveDamageAnimationStateName,
-                    fighterConfiguration.HealSelfAnimationStateName
+                    fighterConfiguration.HealSelfAnimationStateName,
+                    fighterConfiguration.FighterClass
                 )
             );
         }
