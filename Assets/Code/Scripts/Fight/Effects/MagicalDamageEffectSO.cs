@@ -12,28 +12,32 @@ namespace FrostfallSaga.Fight.Effects
         [field: SerializeField, Range(0, 9999)] public int MagicalDamageAmount { get; private set; }
         [field: SerializeField] public EMagicalElement MagicalElement { get; private set; }
 
-        public override void ApplyEffect(Fighter initator, Fighter defender, bool canMasterstroke = true, bool canDodge = true)
+        public override void ApplyEffect(Fighter initiator, Fighter receiver, bool canMasterstroke = true, bool canDodge = true)
         {
             // Try dodge if enabled
-            if (canDodge && TryDodge(defender))
+            if (canDodge && TryDodge(receiver))
             {
-                Debug.Log($"{defender.name} dodged heal effect.");
+                Debug.Log($"{receiver.name} dodged heal effect.");
                 return;
             }
 
             int finalDamageAmount = MagicalDamageAmount;
+            bool masterstrokeSucceeded = false;
 
             // Calculate masterstroke
             if (canMasterstroke)
             {
-                finalDamageAmount = TryMasterstroke(initator, MagicalDamageAmount);
-                if (finalDamageAmount != MagicalDamageAmount)
+                finalDamageAmount = TryMasterstroke(initiator, MagicalDamageAmount);
+                masterstrokeSucceeded = finalDamageAmount != MagicalDamageAmount;
+                if (masterstrokeSucceeded)
                 {
                     Debug.Log($"Masterstroke succeeded, damage amount increased to {finalDamageAmount}.");
                 }
             }
 
-            defender.MagicalWithstand(finalDamageAmount, MagicalElement);
+            receiver.MagicalWithstand(finalDamageAmount, MagicalElement);
+            receiver.onEffectReceived?.Invoke(receiver, initiator, this, masterstrokeSucceeded);
+            Debug.Log($"Dealt {finalDamageAmount} magical damage of {MagicalElement} to {receiver.name}.");
         }
     }
 }

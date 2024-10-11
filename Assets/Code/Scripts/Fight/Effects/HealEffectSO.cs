@@ -11,30 +11,33 @@ namespace FrostfallSaga.Fight.Effects
     {
         [field: SerializeField, Range(0, 9999)] public int HealAmount { get; private set; }
 
-        public override void ApplyEffect(Fighter attacker, Fighter defender, bool canMasterstroke = true, bool canDodge = true)
+        public override void ApplyEffect(Fighter initiator, Fighter receiver, bool canMasterstroke = true, bool canDodge = true)
         {
             // Try dodge if enabled
-            if (canDodge && TryDodge(defender))
+            if (canDodge && TryDodge(receiver))
             {
-                Debug.Log($"{defender.name} dodged heal effect.");
+                Debug.Log($"{receiver.name} dodged heal effect.");
                 return;
             }
 
             int finalHealAmount = HealAmount;
+            bool masterstrokeSucceeded = false;
 
             // Calculate masterstroke heal
             if (canMasterstroke)
             {
-                finalHealAmount = TryMasterstroke(attacker, HealAmount);
-                if (finalHealAmount != HealAmount)
+                finalHealAmount = TryMasterstroke(initiator, HealAmount);
+                masterstrokeSucceeded = finalHealAmount != HealAmount;
+                if (masterstrokeSucceeded)
                 {
                     Debug.Log($"Masterstroke succeeded, heal amount increased to {finalHealAmount}.");
                 }
             }
 
             // Apply the heal
-            defender.Heal(finalHealAmount);
-            Debug.Log($"Healed {defender.name} for {finalHealAmount} health.");
+            receiver.Heal(finalHealAmount);
+            receiver.onEffectReceived?.Invoke(receiver, initiator, this, masterstrokeSucceeded);
+            Debug.Log($"Healed {receiver.name} for {finalHealAmount} health.");
         }
     }
 }
