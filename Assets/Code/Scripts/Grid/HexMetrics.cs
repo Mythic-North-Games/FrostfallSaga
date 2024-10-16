@@ -58,9 +58,44 @@ namespace FrostfallSaga.Grid
             return centerPosition;
         }
 
-        public static Vector3 OffsetToCubeCoordinate(float x, float z, ECellOrientation orientation)
+        public static Vector2Int OffsetToAxial(Vector2Int offsetCoords)
         {
-            return new Vector3(x, z, -x - z);
+            int q = offsetCoords.x - (offsetCoords.y - (offsetCoords.y & 1)) / 2;
+            int r = offsetCoords.y;
+            return new Vector2Int(q, r);
+        }
+
+        public static Vector2Int AxialToOffset(Vector2Int axialCoords)
+        {
+            int x = axialCoords.x + (axialCoords.y - (axialCoords.y & 1)) / 2;
+            int y = axialCoords.y;
+            return new Vector2Int(x, y);
+        }
+
+        public static Vector2Int RotateAxialVector(Vector2Int axialVector, Vector2Int direction)
+        {
+            // Define the rotation matrix based on direction (you can add more cases if needed)
+            if (direction.x == 1 && direction.y == -1)
+            {
+                return new Vector2Int(axialVector.y + axialVector.x, -axialVector.x);
+            }
+            if (direction.x == 0 && direction.y == -1)
+            {
+                return new Vector2Int(axialVector.y, -axialVector.x);
+            }
+            if (direction.x == 0 && direction.y == 1)
+            {
+                return new Vector2Int(axialVector.y, axialVector.x);
+            }
+            if (direction.x == -1 && direction.y == 0)
+            {
+                return new Vector2Int(-axialVector.x, -axialVector.y);
+            }
+            if (direction.x == -1 && direction.y == 1)
+            {
+                return new Vector2Int(-axialVector.x - axialVector.y, axialVector.x);
+            }
+            return axialVector;
         }
     }
 }

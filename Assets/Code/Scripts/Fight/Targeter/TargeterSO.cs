@@ -134,15 +134,14 @@ namespace FrostfallSaga.Fight.Targeters
             {
                 originCell
             };
-            Vector2Int direction = GetClampedDirection(initiatorCell.Coordinates, originCell.Coordinates);
+            Vector2Int direction = Cell.GetHexDirection(initiatorCell, originCell);
 
             for (int i = 1; i < CellsSequence.Length; i++)
             {
                 if (StartFromInitiator)
                 {
                     Vector2Int nextCellCoordinates = GetNextCellCoordinatesToDirection(
-                        originCell.Coordinates,
-                        targetedCells.Last().Coordinates,
+                        originCell,
                         CellsSequence[i],
                         direction
                     );
@@ -371,25 +370,25 @@ namespace FrostfallSaga.Fight.Targeters
             return targetedCells;
         }
 
-        private Vector2Int GetClampedDirection(Vector2Int initiatorCellCoordinates, Vector2Int originCellCoordinates)
-        {
-            Vector2Int direction = originCellCoordinates - initiatorCellCoordinates;
-            direction.x = direction.x == 0 ? 1 : Mathf.Clamp(direction.x, -1, 1);
-            direction.y = Mathf.Clamp(direction.y, -1, 1);
-            return direction;
-        }
-
         private Vector2Int GetNextCellCoordinatesToDirection(
-            Vector2Int originCell,
-            Vector2Int currentCell,
-            Vector2Int baseNextCell,
-            Vector2Int direction
+            Cell originCell,
+            Vector2Int baseNextCellCoordinates, // This represents the cell sequence delta (like [0,1], etc.)
+            Vector2Int direction // This represents the direction between the initiator and the origin cell
         )
         {
-            int directionOffset = direction.x == -1 && direction.y != 0 ? 1 : 0;
-            int nextCellX = currentCell.x + ((baseNextCell.x + directionOffset) % 2 * direction.x);
-            int nextCellY = originCell.y + baseNextCell.y + (baseNextCell.x * direction.y);
-            return new(nextCellX, nextCellY);
+            // Convert origin and baseNextCell from offset (x,y) to axial (q, r)
+            Vector2Int axialOrigin = originCell.AxialCoordinates;
+            Vector2Int axialBase = HexMetrics.OffsetToAxial(baseNextCellCoordinates);
+
+            // Apply rotation to the axial base vector depending on the direction.
+            // You can decide how many rotations to apply based on the direction vector (for example, if direction is [0, 1], rotate 60 degrees).
+            Vector2Int rotatedAxial = HexMetrics.RotateAxialVector(axialBase, direction);
+
+            // Now, calculate the new coordinates in axial system
+            Vector2Int nextAxial = axialOrigin + rotatedAxial;
+
+            // Convert the new axial coordinates back to offset (x,y) coordinates
+            return HexMetrics.AxialToOffset(nextAxial);
         }
     }
 }
