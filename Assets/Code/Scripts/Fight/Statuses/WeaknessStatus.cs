@@ -8,17 +8,15 @@ namespace FrostfallSaga.Fight.Statuses
     {
         [field: SerializeField] public int StrengthReduction { get; private set; }
 
-        public override void ApplyStatus(Fighter fighter)
+        protected override void DoApplyStatus(Fighter fighter)
         {
             fighter.UpdateMutableStat(EFighterMutableStat.Strength, StrengthReduction);
-            fighter.onStatusApplied?.Invoke(fighter, this);
-            Debug.Log($"{fighter.name}'s strength is reduced by {StrengthReduction} == > Strength : ${fighter.GetStrength()}.");
+            Debug.Log($"{fighter.name}'s strength is reduced by {StrengthReduction} == > Strength : {fighter.GetStrength()}.");
         }
 
-        public override void RemoveStatus(Fighter fighter)
+        protected override void DoRemoveStatus(Fighter fighter)
         {
             fighter.UpdateMutableStat(EFighterMutableStat.Strength, -StrengthReduction, false);
-            fighter.onStatusRemoved?.Invoke(fighter, this);
             Debug.Log($"{fighter.name}'s strength is back to normal !");
         }
     }

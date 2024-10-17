@@ -307,7 +307,6 @@ namespace FrostfallSaga.Fight.Fighters
             {
                 PlayAnimationIfAny(amount > 0 ? _increaseStatAnimationName : _reduceStatAnimationName);
             }
-            Debug.Log($"{name} {mutableStat} has been modified by {amount}.");
         }
 
         /// <summary>
@@ -366,7 +365,6 @@ namespace FrostfallSaga.Fight.Fighters
 
         public void OnDirectAttackTouchedFighter(Fighter touchedFighter)
         {
-            Debug.Log(touchedFighter.name);
             ApplyEffectsOnFighter(DirectAttackEffects, touchedFighter);
         }
 
@@ -380,6 +378,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         public void OnActiveAbilityTouchedFighter(Fighter touchedFighter)
         {
+            ApplyStatusesOnFighter(_currentActiveAbility.activeAbility.Statuses, touchedFighter);
             ApplyEffectsOnFighter(_currentActiveAbility.activeAbility.Effects, touchedFighter);
         }
 

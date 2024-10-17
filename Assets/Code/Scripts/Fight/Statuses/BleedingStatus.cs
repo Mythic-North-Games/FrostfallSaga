@@ -8,16 +8,14 @@ namespace FrostfallSaga.Fight.Statuses
     {
         [field: SerializeField] public int BleedingDamage { get; private set; }
 
-        public override void ApplyStatus(Fighter fighter)
+        protected override void DoApplyStatus(Fighter fighter)
         {
             fighter.ReceiveRawDamages(BleedingDamage);
-            fighter.onStatusApplied?.Invoke(fighter, this);
             Debug.Log($"{fighter.name} is bleeding and loses ${BleedingDamage} HP! ==> Health : ${fighter.GetHealth()}");
         }
 
-        public override void RemoveStatus(Fighter fighter)
+        protected override void DoRemoveStatus(Fighter fighter)
         {
-            fighter.onStatusRemoved?.Invoke(fighter, this);
             Debug.Log($"{fighter.name} stopped bleeding.");
         }
     }
