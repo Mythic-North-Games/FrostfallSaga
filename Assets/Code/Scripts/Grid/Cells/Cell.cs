@@ -9,8 +9,12 @@ namespace FrostfallSaga.Grid.Cells
     public class Cell : MonoBehaviour
     {
         [field: SerializeField, Header("Coordinates"), Tooltip("Contain coordinates")] public Vector2Int Coordinates { get; private set; }
-        [field:SerializeField] public float WorldHeightPerUnit { get; private set; } = 0.8f;
-        [field: SerializeField, Header("Cell characteristics"), Tooltip("Contain cell characteristics")] public TerrainTypeSO TerrainType{ get; private set; }
+        [property: SerializeField] public Vector2Int AxialCoordinates
+        {
+            get { return HexMetrics.OffsetToAxial(Coordinates); }
+        }
+        [field: SerializeField] public float WorldHeightPerUnit { get; private set; } = 0.8f;
+        [field: SerializeField, Header("Cell characteristics"), Tooltip("Contain cell characteristics")] public TerrainTypeSO TerrainType { get; private set; }
         [field: SerializeField] public ECellHeight Height { get; private set; }
         [field: SerializeField] public bool IsAccessible { get; private set; }
         [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")] public MaterialHighlightable HighlightController { get; private set; }
@@ -113,6 +117,13 @@ namespace FrostfallSaga.Grid.Cells
             {
                 Debug.LogError("Cell " + name + " doesn't have a renderer or a valid material.");
             }
+        }
+
+        public static Vector2Int GetHexDirection(Cell initiatorCell, Cell targetCell)
+        {
+            Vector2Int initiatorAxial = initiatorCell.AxialCoordinates;
+            Vector2Int targetAxial = targetCell.AxialCoordinates;
+            return targetAxial - initiatorAxial;
         }
     }
 }

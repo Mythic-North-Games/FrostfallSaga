@@ -12,16 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353b893bc3f298f438b48b8795817c64, type: 3}
   m_Name: LargeRangeTargeter
   m_EditorClassIdentifier: 
-  <OriginCellRange>k__BackingField: 5
+  <OriginCellRange>k__BackingField: 1
   <CellsSequence>k__BackingField:
   - {x: 0, y: 0}
   - {x: 1, y: 0}
   - {x: 2, y: 0}
+  - {x: 0, y: -1}
+  - {x: 1, y: -1}
+  - {x: 2, y: -1}
+  - {x: 0, y: 1}
+  - {x: 1, y: 1}
+  - {x: 2, y: 1}
   <StartFromInitiator>k__BackingField: 1
   <FighterMandatory>k__BackingField: 0
-  <TargetsToExclude>k__BackingField: 00000000
+  <TargetsToExclude>k__BackingField: 
   <RelativeHeightsToExclude>k__BackingField: 
   <StopedAtInacessibles>k__BackingField: 0
-  <StopedAtXthHigherHeightDifference>k__BackingField: 2
-  <StopedAtXthLowerHeightDifference>k__BackingField: 2
+  <StopedAtXthHigherHeightDifference>k__BackingField: 0
+  <StopedAtXthLowerHeightDifference>k__BackingField: 0
   <StopedAtXthEncounteredFighters>k__BackingField: 0

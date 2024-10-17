@@ -19,7 +19,7 @@ MonoBehaviour:
   ActiveAbilitiesCapacity: 5
   <DirectAttackTargeter>k__BackingField: {fileID: 11400000, guid: dc8968a2b6f65754facef2409f8bfed8, type: 2}
   <DirectAttackEffects>k__BackingField:
-  - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
+  - {fileID: 11400000, guid: dcabd11e3908f944a93bf07aef4ff4c5, type: 2}
   <DirectAttackActionPointsCost>k__BackingField: 2
   <DirectAttackAnimation>k__BackingField: {fileID: 0}
   <HealSelfAnimationName>k__BackingField: 
@@ -32,8 +32,7 @@ MonoBehaviour:
   <Strength>k__BackingField: 10
   <Dexterity>k__BackingField: 10
   <Tenacity>k__BackingField: 0
-  <Dodge>k__BackingField: 0
-  <PhysicalResistance>k__BackingField: 10
+  <PhysicalResistance>k__BackingField: 0
   <MagicalResistances>k__BackingField:
   - magicalElement: 0
     value: 3
@@ -60,5 +59,6 @@ MonoBehaviour:
     value: 0
   - magicalElement: 5
     value: 0
-  <Masterstroke>k__BackingField: 0
+  <DodgeChance>k__BackingField: 0
+  <MasterstrokeChance>k__BackingField: 0
   <Initiative>k__BackingField: 1
