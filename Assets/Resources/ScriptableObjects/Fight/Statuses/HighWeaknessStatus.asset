@@ -15,6 +15,8 @@ MonoBehaviour:
   <Name>k__BackingField: High weakness
   <Description>k__BackingField: dhzeiuhdui
   <Duration>k__BackingField: 2
+  <TriggerOnFirstApply>k__BackingField: 1
   <IsRecurring>k__BackingField: 0
   <TriggerTime>k__BackingField: 0
+  <VisualsController>k__BackingField: {fileID: 11400000, guid: e549f4ec3ffc32845ba84beb73ada695, type: 2}
   <StrengthReduction>k__BackingField: 3
