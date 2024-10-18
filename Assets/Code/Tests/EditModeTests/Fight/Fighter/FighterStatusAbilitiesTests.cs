@@ -80,7 +80,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 
             // Assert
             Assert.AreEqual(initialHealth - (bleedingStatus.Duration * expectedHealthReduction), fighter.GetHealth());
-            Dictionary<Status, (bool isActive, int duration)> statusEffects = statusManager.GetStatusEffects();
+            Dictionary<AStatus, (bool isActive, int duration)> statusEffects = statusManager.GetStatusEffects();
             bool isActive = statusEffects.ContainsKey(bleedingStatus);
             Assert.IsFalse(isActive);
         }
@@ -102,7 +102,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 
 
             // Assert
-            Dictionary<Status, (bool isActive, int duration)> statusEffects = statusManager.GetStatusEffects();
+            Dictionary<AStatus, (bool isActive, int duration)> statusEffects = statusManager.GetStatusEffects();
             var (isActive, duration) = statusEffects[bleedingStatus];
             Assert.IsTrue(isActive);
         }
@@ -144,7 +144,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 
             // Assert 2
             Assert.AreEqual(initialStrength, fighter.GetStrength());
-            Dictionary<Status, (bool isActive, int duration)> statusEffects = statusManager.GetStatusEffects();
+            Dictionary<AStatus, (bool isActive, int duration)> statusEffects = statusManager.GetStatusEffects();
             bool isActive = statusEffects.ContainsKey(weaknessStatus);
             Assert.IsFalse(isActive);
         }

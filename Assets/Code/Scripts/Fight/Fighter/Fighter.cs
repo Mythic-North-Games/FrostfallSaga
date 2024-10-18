@@ -37,10 +37,10 @@ namespace FrostfallSaga.Fight.Fighters
         public Action<Fighter, Fighter, AEffectSO, bool> onEffectReceived;
 
         // <Fighter that received, Status that was applied>
-        public Action<Fighter, Status> onStatusApplied;
+        public Action<Fighter, AStatus> onStatusApplied;
 
         // <Fighter that received, Status that was removed>
-        public Action<Fighter, Status> onStatusRemoved;
+        public Action<Fighter, AStatus> onStatusRemoved;
 
         public Action<Fighter> onFighterDied;
 
@@ -307,7 +307,6 @@ namespace FrostfallSaga.Fight.Fighters
             {
                 PlayAnimationIfAny(amount > 0 ? _increaseStatAnimationName : _reduceStatAnimationName);
             }
-            Debug.Log($"{name} {mutableStat} has been modified by {amount}.");
         }
 
         /// <summary>
@@ -355,7 +354,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// Apply a new status to the fighter.
         /// </summary>
         /// <param name="status">The new status to apply.</param>
-        public void ApplyStatus(Status status)
+        public void ApplyStatus(AStatus status)
         {
             StatusesManager.ApplyStatus(status);
         }
@@ -366,7 +365,6 @@ namespace FrostfallSaga.Fight.Fighters
 
         public void OnDirectAttackTouchedFighter(Fighter touchedFighter)
         {
-            Debug.Log(touchedFighter.name);
             ApplyEffectsOnFighter(DirectAttackEffects, touchedFighter);
         }
 
@@ -380,6 +378,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         public void OnActiveAbilityTouchedFighter(Fighter touchedFighter)
         {
+            ApplyStatusesOnFighter(_currentActiveAbility.activeAbility.Statuses, touchedFighter);
             ApplyEffectsOnFighter(_currentActiveAbility.activeAbility.Effects, touchedFighter);
         }
 
@@ -544,7 +543,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="statusesToApply">The statuses to apply.</param>
         /// <param name="target">The fighter to apply the statuses to.</param>
-        private void ApplyStatusesOnFighter(Status[] statusesToApply, Fighter target)
+        private void ApplyStatusesOnFighter(AStatus[] statusesToApply, Fighter target)
         {
             statusesToApply.ToList().ForEach(status => target.ApplyStatus(status));
         }
