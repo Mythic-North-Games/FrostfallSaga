@@ -3,7 +3,7 @@ using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.Statuses
 {
-    public abstract class Status : ScriptableObject
+    public abstract class AStatus : ScriptableObject
     {
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string Description { get; private set; }

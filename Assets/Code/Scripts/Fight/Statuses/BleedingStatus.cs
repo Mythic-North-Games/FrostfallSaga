@@ -4,7 +4,7 @@ using FrostfallSaga.Fight.Fighters;
 namespace FrostfallSaga.Fight.Statuses
 {
     [CreateAssetMenu(fileName = "BleedingStatus", menuName = "ScriptableObjects/Fight/Statuses/Bleeding")]
-    public class BleedingStatus : Status
+    public class BleedingStatus : AStatus
     {
         [field: SerializeField] public int BleedingDamage { get; private set; }
 

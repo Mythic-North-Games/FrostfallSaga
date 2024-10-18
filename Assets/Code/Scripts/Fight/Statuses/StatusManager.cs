@@ -7,14 +7,14 @@ namespace FrostfallSaga.Fight.Statuses
     public class StatusesManager
     {
         private readonly Fighter _fighter;
-        private Dictionary<Status, (bool isActive, int duration)> _statuses = new();
+        private Dictionary<AStatus, (bool isActive, int duration)> _statuses = new();
 
         public StatusesManager(Fighter fighter)
         {
             _fighter = fighter;
         }
 
-        public void ApplyStatus(Status status)
+        public void ApplyStatus(AStatus status)
         {
             _statuses[status] = (true, status.Duration);
             if (status.TriggerOnFirstApply)
@@ -26,9 +26,9 @@ namespace FrostfallSaga.Fight.Statuses
 
         public void UpdateStatuses(EStatusTriggerTime triggerTime)
         {
-            List<Status> statusesOfTriggerTime = _statuses.Keys.Where(s => s.TriggerTime == triggerTime).ToList();
+            List<AStatus> statusesOfTriggerTime = _statuses.Keys.Where(s => s.TriggerTime == triggerTime).ToList();
 
-            foreach (Status status in statusesOfTriggerTime)
+            foreach (AStatus status in statusesOfTriggerTime)
             {
                 var (isActuallyActive, currentDuration) = _statuses[status];
                 bool willBeActive = isActuallyActive;
@@ -51,7 +51,7 @@ namespace FrostfallSaga.Fight.Statuses
             }
         }
 
-        public Dictionary<Status, (bool isActive, int duration)> GetStatusEffects()
+        public Dictionary<AStatus, (bool isActive, int duration)> GetStatusEffects()
         {
             return _statuses;
         }

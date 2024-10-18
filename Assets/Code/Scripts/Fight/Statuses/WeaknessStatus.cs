@@ -4,7 +4,7 @@ using FrostfallSaga.Fight.Fighters;
 namespace FrostfallSaga.Fight.Statuses
 {
     [CreateAssetMenu(fileName = "WeaknessStatus", menuName = "ScriptableObjects/Fight/Statuses/Weakness")]
-    public class WeaknessStatus : Status
+    public class WeaknessStatus : AStatus
     {
         [field: SerializeField] public int StrengthReduction { get; private set; }
 
