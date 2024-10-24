@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c50324c3aae3944a7f8a86a62edf3d, type: 3}
-  m_Name: BleedingStatus
+  m_Script: {fileID: 11500000, guid: 0e8197a41b78043648bdce5ce7f146bf, type: 3}
+  m_Name: RemoveWeaknessStatusEffect
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: BLEEEED
+  <Name>k__BackingField: Remove weakness
   <Description>k__BackingField: 
-  <Duration>k__BackingField: 2
-  <IsRecurring>k__BackingField: 1
-  <TriggerTime>k__BackingField: 1
-  <BleedingReduction>k__BackingField: 10
+  <Dodgable>k__BackingField: 0
+  <Masterstrokable>k__BackingField: 0
+  <RemovableStatusTypes>k__BackingField: 03000000

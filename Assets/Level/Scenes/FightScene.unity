@@ -6320,9 +6320,13 @@ MonoBehaviour:
     activeAbilities:
     - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
       animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+    - activeAbility: {fileID: 11400000, guid: 2e4c98e0eeb351d4a981ce5c113a2ae5, type: 2}
+      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+    - activeAbility: {fileID: 11400000, guid: ec1b5a01f965feb48abc59d1f1ed3355, type: 2}
+      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
     receiveDamageAnimationName: Hurt
     healSelfAnimationName: 
-    reduceStatAnimationName: 
+    reduceStatAnimationName: Hurt
     increaseStatAnimationName: 
   _devEnemiesFighterSetup:
   - name: Skeleton
