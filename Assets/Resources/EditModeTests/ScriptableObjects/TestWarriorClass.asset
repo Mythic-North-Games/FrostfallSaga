@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d7712d5cb44194fb2a3da2beb333d3, type: 3}
   m_Name: TestWarriorClass
   m_EditorClassIdentifier: 
-  classMaxHealth: 10
+  classMaxHealth: 0
   classMaxActionPoints: 1
   classMaxMovePoints: 0
   classStrength: 2
   classDexterity: 0
   classTenacity: 0.1
-  classDodge: 0
-  classPhysicalResistance: 1
+  classPhysicalResistance: 0
   classMagicalResistances:
   - magicalElement: 0
     value: 0
   classMagicalStrengths:
   - magicalElement: 0
     value: 0
-  classMasterstroke: 0
+  classDodgeChance: 0
+  classMasterstrokeChance: 0
   classInitiative: 0

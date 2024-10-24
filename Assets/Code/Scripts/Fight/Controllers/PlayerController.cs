@@ -99,6 +99,11 @@ namespace FrostfallSaga.Fight.Controllers
                 _currentMovePath = FightCellsPathFinding.GetShorterPath(_currentFightGrid, _possessedFighter.cell, hoveredCell);
                 HighlightShorterPathCells();
             }
+
+            if (_fighterIsTargetingForActiveAbility || _fighterIsTargetingForDirectAttack)
+            {
+                _possessedFighter.MovementController.RotateTowardsCell(hoveredCell);
+            }
         }
 
         private void OnCellUnhovered(Cell unhoveredCell)

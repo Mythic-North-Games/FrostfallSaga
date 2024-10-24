@@ -29,6 +29,19 @@ namespace FrostfallSaga.Fight.Fighters
         public Action<Fighter> onFighterMoved;
         public Action<Fighter> onFighterDirectAttackEnded;
         public Action<Fighter> onFighterActiveAbilityEnded;
+
+        // <Fighter that dodged, Fighter that attacked, Effect that was dodged>
+        public Action<Fighter, Fighter, AEffectSO> onEffectDodged;
+
+        // <Fighter that received, Fighter that attacked, Effect that was received, If masterstroke>
+        public Action<Fighter, Fighter, AEffectSO, bool> onEffectReceived;
+
+        // <Fighter that received, Status that was applied>
+        public Action<Fighter, AStatus> onStatusApplied;
+
+        // <Fighter that received, Status that was removed>
+        public Action<Fighter, AStatus> onStatusRemoved;
+
         public Action<Fighter> onFighterDied;
 
         private MovePath _currentMovePath;
@@ -142,8 +155,6 @@ namespace FrostfallSaga.Fight.Fighters
                 _directAttackAnimation.onFighterTouched += OnDirectAttackTouchedFighter;
                 _directAttackAnimation.onAnimationEnded += OnDirectAttackAnimationEnded;
                 _directAttackAnimation.Execute(this, targetedCells);
-
-
             }
             _stats.actionPoints -= DirectAttackActionPointsCost;
         }
@@ -170,6 +181,7 @@ namespace FrostfallSaga.Fight.Fighters
                 );
             }
 
+            ActiveAbilitySO activeAbilityToUse = activeAbilityToAnimation.activeAbility;
             if (activeAbilityToAnimation.animation == null)
             {
                 Debug.LogWarning($"No animation attached to active ability {activeAbilityToAnimation.activeAbility.Name} for fighter {name}");
@@ -177,10 +189,9 @@ namespace FrostfallSaga.Fight.Fighters
                     .Where(cell => cell.GetComponent<CellFightBehaviour>().Fighter != null).ToList()
                     .ForEach(cell =>
                     {
-                        ApplyEffectsOnFighter(
-                            activeAbilityToAnimation.activeAbility.Effects,
-                            cell.GetComponent<CellFightBehaviour>().Fighter
-                        );
+                        Fighter targetedFighter = cell.GetComponent<CellFightBehaviour>().Fighter;
+                        ApplyStatusesOnFighter(activeAbilityToUse.Statuses, targetedFighter);
+                        ApplyEffectsOnFighter(activeAbilityToUse.Effects, targetedFighter);
                     });
                 onFighterActiveAbilityEnded?.Invoke(this);
             }
@@ -191,7 +202,7 @@ namespace FrostfallSaga.Fight.Fighters
                 _currentActiveAbility.animation.onAnimationEnded += OnActiveAbilityAnimationEnded;
                 _currentActiveAbility.animation.Execute(this, targetedCells);
             }
-            _stats.actionPoints -= activeAbilityToAnimation.activeAbility.ActionPointsCost;
+            _stats.actionPoints -= activeAbilityToUse.ActionPointsCost;
         }
 
         /// <summary>
@@ -275,14 +286,14 @@ namespace FrostfallSaga.Fight.Fighters
                 case EFighterMutableStat.Tenacity:
                     Math.Min(0, _stats.tenacity += amount);
                     break;
-                case EFighterMutableStat.Dodge:
-                    Math.Min(0, _stats.dodge += amount);
+                case EFighterMutableStat.DodgeChance:
+                    Math.Min(0, _stats.dodgeChance += amount);
                     break;
                 case EFighterMutableStat.PhysicalResistance:
                     Math.Min(0, _stats.physicalResistance += amount);
                     break;
-                case EFighterMutableStat.Masterstroke:
-                    Math.Min(0, _stats.masterstroke += amount);
+                case EFighterMutableStat.MasterstrokeChance:
+                    Math.Min(0, _stats.masterstrokeChance += amount);
                     break;
                 case EFighterMutableStat.Initiative:
                     Math.Min(0, _stats.initiative += amount);
@@ -296,7 +307,6 @@ namespace FrostfallSaga.Fight.Fighters
             {
                 PlayAnimationIfAny(amount > 0 ? _increaseStatAnimationName : _reduceStatAnimationName);
             }
-            Debug.Log($"{name} {mutableStat} has been modified by {amount}.");
         }
 
         /// <summary>
@@ -344,7 +354,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// Apply a new status to the fighter.
         /// </summary>
         /// <param name="status">The new status to apply.</param>
-        public void ApplyStatus(Status status)
+        public void ApplyStatus(AStatus status)
         {
             StatusesManager.ApplyStatus(status);
         }
@@ -368,6 +378,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         public void OnActiveAbilityTouchedFighter(Fighter touchedFighter)
         {
+            ApplyStatusesOnFighter(_currentActiveAbility.activeAbility.Statuses, touchedFighter);
             ApplyEffectsOnFighter(_currentActiveAbility.activeAbility.Effects, touchedFighter);
         }
 
@@ -383,33 +394,23 @@ namespace FrostfallSaga.Fight.Fighters
 
         #region Stats getters & manipulation
 
-        public int GetMovePoints()
-        {
-            return _stats.movePoints;
-        }
+        public int GetMovePoints() => _stats.movePoints;
 
-        public int GetActionPoints()
-        {
-            return _stats.actionPoints;
-        }
+        public int GetActionPoints() => _stats.actionPoints;
 
-        public int GetHealth()
-        {
-            return _stats.health;
-        }
-        public int GetStrength()
-        {
-            return _stats.strength;
-        }
+        public int GetHealth() => _stats.health;
 
-        public int GetInitiative()
-        {
-            return _stats.initiative;
-        }
+        public int GetStrength() => _stats.strength;
+
+        public float GetDodgeChance() => _stats.dodgeChance;
+
+        public float GetMasterstrokeChance() => _stats.masterstrokeChance;
+
+        public int GetInitiative() => _stats.initiative;
 
         public FighterCollider GetWeaponCollider()
         {
-            return GetComponentInChildren<FighterCollider>();
+            return GetComponent<FighterCollider>();
         }
 
         public void ResetMovementAndActionPoints()
@@ -429,7 +430,6 @@ namespace FrostfallSaga.Fight.Fighters
             _stats.strength = _initialStats.strength + _fighterClass.classMaxMovePoints;
             _stats.dexterity = _initialStats.dexterity + _fighterClass.classDexterity;
             _stats.tenacity = _initialStats.tenacity + _fighterClass.classTenacity;
-            _stats.dodge = _initialStats.dodge + _fighterClass.classDodge;
             _stats.physicalResistance = _initialStats.physicalResistance + _fighterClass.classPhysicalResistance;
 
             _stats.magicalResistances = _initialStats.magicalResistances;
@@ -438,7 +438,8 @@ namespace FrostfallSaga.Fight.Fighters
             _stats.magicalStrengths = _initialStats.magicalStrengths;
             _stats.AddMagicalStrengths(MagicalElementToValue.GetDictionaryFromArray(_fighterClass.classMagicalStrengths));
 
-            _stats.masterstroke = _initialStats.masterstroke + _fighterClass.classMasterstroke;
+            _stats.dodgeChance = _initialStats.dodgeChance + _fighterClass.classDodgeChance;
+            _stats.masterstrokeChance = _initialStats.masterstrokeChance + _fighterClass.classMasterstrokeChance;
             _stats.initiative = _initialStats.initiative + _fighterClass.classInitiative;
         }
 
@@ -448,6 +449,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         /// <summary>
         /// Returns whether the fighter can move in the given context or not.
+        /// Move points > 0 && at least one cell around him is free (no fighter, no obstacle, height accessible...).
         /// </summary>
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
         /// <returns>True if he has enough move points and if there is at least on cell free around him.</returns>
@@ -534,7 +536,17 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="target">The fighter to apply the effects to.</param>
         private void ApplyEffectsOnFighter(AEffectSO[] effectsToApply, Fighter target)
         {
-            effectsToApply.ToList().ForEach(effect => effect.ApplyEffect(target));
+            effectsToApply.ToList().ForEach(effect => effect.ApplyEffect(this, target, effect.Masterstrokable, effect.Dodgable));
+        }
+
+        /// <summary>
+        /// Apply a list of statuses to the targeted fighter.
+        /// </summary>
+        /// <param name="statusesToApply">The statuses to apply.</param>
+        /// <param name="target">The fighter to apply the statuses to.</param>
+        private void ApplyStatusesOnFighter(AStatus[] statusesToApply, Fighter target)
+        {
+            statusesToApply.ToList().ForEach(status => target.ApplyStatus(status));
         }
 
         private void DecreaseHealth(int amount)

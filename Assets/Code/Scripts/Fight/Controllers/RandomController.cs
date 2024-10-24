@@ -136,9 +136,10 @@ namespace FrostfallSaga.Fight.Controllers
         {
             try
             {
-                Cell[] targetCells = fighter.DirectAttackTargeter.GetRandomTargetCells(fightGrid, fighter.cell, _fighterTeams);
+                Cell[] targetedCells = fighter.DirectAttackTargeter.GetRandomTargetCells(fightGrid, fighter.cell, _fighterTeams);
+                fighter.MovementController.RotateTowardsCell(targetedCells[0]);
                 Debug.Log($"Fighter {fighter.name} is direct attacking.");
-                fighter.UseDirectAttack(targetCells);
+                fighter.UseDirectAttack(targetedCells);
                 onFighterActionStarted?.Invoke(fighter);
             }
             catch (TargeterUnresolvableException)
@@ -161,11 +162,11 @@ namespace FrostfallSaga.Fight.Controllers
             ActiveAbilityToAnimation activeAbilityToUse = GetRandomUsableActiveAbility(fighter, fightGrid);
             try
             {
-                Cell[] targetCells = activeAbilityToUse.activeAbility.Targeter.GetRandomTargetCells(fightGrid, fighter.cell, _fighterTeams);
-
+                Cell[] targetedCells = activeAbilityToUse.activeAbility.Targeter.GetRandomTargetCells(fightGrid, fighter.cell, _fighterTeams);
+                fighter.MovementController.RotateTowardsCell(targetedCells[0]);
                 Debug.Log($"Fighter {fighter.name} is using its active ability {activeAbilityToUse.activeAbility.Name}");
 
-                fighter.UseActiveAbility(activeAbilityToUse, targetCells);
+                fighter.UseActiveAbility(activeAbilityToUse, targetedCells);
                 onFighterActionStarted?.Invoke(fighter);
             }
             catch (TargeterUnresolvableException)

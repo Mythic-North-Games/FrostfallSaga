@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571328, b: 0.3069218, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2515,7 +2515,7 @@ Transform:
   m_GameObject: {fileID: 796642053}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.7320508, y: 1, z: 15}
+  m_LocalPosition: {x: 1.7320508, y: -1, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2550,7 +2550,7 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 0, y: 5}
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
-  <Height>k__BackingField: 1
+  <Height>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1302360962}
   <CellMouseEventsController>k__BackingField: {fileID: 1302360960}
@@ -6306,66 +6306,28 @@ MonoBehaviour:
       maxMovePoints: 4
       strength: 1
       dexterity: 1
+      tenacity: 0
       physicalResistance: 1
+      dodgeChance: 0
+      masterstrokeChance: 0
       initiative: 3
+    fighterClassSO: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
     directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
     directAttackActionPointsCost: 3
     directAttackEffects:
     - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
-    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
+    directAttackAnimation: {fileID: 0}
     activeAbilities:
     - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
       animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
-    receiveDamageAnimationStateName: Hurt
-    healSelfAnimationStateName: 
-  - name: Pelo2
-    sessionId: 
-    icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
-    initialStats:
-      health: 100
-      maxHealth: 100
-      actionPoints: 5
-      maxActionPoints: 5
-      movePoints: 4
-      maxMovePoints: 4
-      strength: 1
-      dexterity: 1
-      physicalResistance: 1
-      initiative: 3
-    directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
-    directAttackActionPointsCost: 3
-    directAttackEffects:
-    - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
-    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
-    activeAbilities:
-    - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+    - activeAbility: {fileID: 11400000, guid: 2e4c98e0eeb351d4a981ce5c113a2ae5, type: 2}
       animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
-    receiveDamageAnimationStateName: Hurt
-    healSelfAnimationStateName: 
-  - name: Pelo3
-    sessionId: 
-    icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
-    initialStats:
-      health: 100
-      maxHealth: 100
-      actionPoints: 5
-      maxActionPoints: 5
-      movePoints: 4
-      maxMovePoints: 4
-      strength: 1
-      dexterity: 1
-      physicalResistance: 1
-      initiative: 3
-    directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
-    directAttackActionPointsCost: 3
-    directAttackEffects:
-    - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
-    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
-    activeAbilities:
-    - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+    - activeAbility: {fileID: 11400000, guid: ec1b5a01f965feb48abc59d1f1ed3355, type: 2}
       animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
-    receiveDamageAnimationStateName: Hurt
-    healSelfAnimationStateName: 
+    receiveDamageAnimationName: Hurt
+    healSelfAnimationName: 
+    reduceStatAnimationName: Hurt
+    increaseStatAnimationName: 
   _devEnemiesFighterSetup:
   - name: Skeleton
     sessionId: 
@@ -6379,18 +6341,24 @@ MonoBehaviour:
       maxMovePoints: 4
       strength: 1
       dexterity: 1
+      tenacity: 0
       physicalResistance: 1
+      dodgeChance: 0
+      masterstrokeChance: 0
       initiative: 1
+    fighterClassSO: {fileID: 11400000, guid: 8d3cfbd8265f5e54cb7a7563a0ae8f1b, type: 2}
     directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
     directAttackActionPointsCost: 3
     directAttackEffects:
     - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
-    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
+    directAttackAnimation: {fileID: 0}
     activeAbilities:
     - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
       animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
-    receiveDamageAnimationStateName: Hurt
-    healSelfAnimationStateName: 
+    receiveDamageAnimationName: Hurt
+    healSelfAnimationName: 
+    reduceStatAnimationName: 
+    increaseStatAnimationName: 
 --- !u!1 &1656478350
 GameObject:
   m_ObjectHideFlags: 0

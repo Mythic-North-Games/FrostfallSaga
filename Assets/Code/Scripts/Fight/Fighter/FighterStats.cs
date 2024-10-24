@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using FrostfallSaga.Fight.Effects;
 
@@ -17,11 +16,11 @@ namespace FrostfallSaga.Fight.Fighters
         public int strength;
         public int dexterity;
         public float tenacity;
-        public float dodge;
         public int physicalResistance;
         public Dictionary<EMagicalElement, int> magicalResistances = new();
         public Dictionary<EMagicalElement, int> magicalStrengths = new();
-        public float masterstroke;
+        public float dodgeChance;
+        public float masterstrokeChance;
         public int initiative;
 
         public void AddMagicalResistances(Dictionary<EMagicalElement, int> magicalResistancesToAdd) {

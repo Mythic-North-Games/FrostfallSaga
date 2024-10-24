@@ -11,11 +11,11 @@ namespace FrostfallSaga.Fight.Fighters
         public int classStrength;
         public int classDexterity;
         public float classTenacity;
-        public float classDodge;
         public int classPhysicalResistance;
         public MagicalElementToValue[] classMagicalResistances;
         public MagicalElementToValue[] classMagicalStrengths;
-        public float classMasterstroke;
+        public float classDodgeChance;
+        public float classMasterstrokeChance;
         public int classInitiative;
     }
 }

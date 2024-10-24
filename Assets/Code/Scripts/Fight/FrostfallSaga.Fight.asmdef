@@ -5,6 +5,7 @@
         "FrostfallSaga.Core",
         "FrostfallSaga.Grid",
         "FrostfallSaga.EntitiesVisual",
+        "FrostfallSaga.BehaviourTree",
         "Cinemachine"
     ],
     "includePlatforms": [],
