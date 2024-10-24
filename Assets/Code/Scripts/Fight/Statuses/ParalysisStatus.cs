@@ -6,7 +6,7 @@ namespace FrostfallSaga.Fight.Statuses
     [CreateAssetMenu(fileName = "ParalysisStatus", menuName = "ScriptableObjects/Fight/Statuses/Paralysis")]
     public class ParalysisStatus : AStatus
     {
-        [field: SerializeField] public new EStatusType StatusType { get; private set; } = EStatusType.PARALYSIS;
+        public new EStatusType StatusType { get; private set; } = EStatusType.PARALYSIS;
 
         protected override void DoApplyStatus(Fighter fighter)
         {

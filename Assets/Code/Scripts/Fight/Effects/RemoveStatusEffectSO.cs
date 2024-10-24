@@ -13,13 +13,12 @@ namespace FrostfallSaga.Fight.Effects
     {
         [field: SerializeField, Tooltip("Type of status the effect can remove from a fighter.")]
         public EStatusType[] RemovableStatusTypes { get; private set; } = { };
-        [field: SerializeField] public new bool Dodgable { get; private set; } = false;
-        [field: SerializeField] public new bool Masterstrokable { get; private set; } = false;
 
         public override void ApplyEffect(Fighter initiator, Fighter receiver, bool canMasterstroke = true, bool canDodge = true)
         {
             // Remove all the status with the configured types
-            foreach (AStatus status in receiver.StatusesManager.GetStatuses().Keys)
+            AStatus[] currentReceiverStatuses = receiver.StatusesManager.GetStatuses().Keys.ToArray();
+            foreach (AStatus status in currentReceiverStatuses)
             {
                 if (RemovableStatusTypes.Contains(status.StatusType))
                 {

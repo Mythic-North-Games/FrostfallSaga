@@ -6,7 +6,7 @@ namespace FrostfallSaga.Fight.Statuses
     [CreateAssetMenu(fileName = "SlownessStatus", menuName = "ScriptableObjects/Fight/Statuses/Slowness")]
     public class SlownessStatus : AStatus
     {
-        [field: SerializeField] public new EStatusType StatusType { get; private set; } = EStatusType.SLOWNESS;
+        public new EStatusType StatusType { get; private set; } = EStatusType.SLOWNESS;
         [field: SerializeField] public int InitiativeReduction { get; private set; }
 
         protected override void DoApplyStatus(Fighter fighter)

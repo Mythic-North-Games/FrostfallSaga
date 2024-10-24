@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59f55684d2142514aa31d41629e25aab, type: 3}
-  m_Name: HighWeaknessStatus
+  m_Name: WeaknessStatus
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: High weakness
-  <Description>k__BackingField: dhzeiuhdui
+  <StatusType>k__BackingField: 3
+  <Name>k__BackingField: High weakness status
+  <Description>k__BackingField: 
   <Duration>k__BackingField: 2
-  <TriggerOnFirstApply>k__BackingField: 1
+  <TriggerOnFirstApply>k__BackingField: 0
   <IsRecurring>k__BackingField: 0
   <TriggerTime>k__BackingField: 0
   <VisualsController>k__BackingField: {fileID: 11400000, guid: e549f4ec3ffc32845ba84beb73ada695, type: 2}
-  <StrengthReduction>k__BackingField: 3
+  <StrengthReduction>k__BackingField: 2
