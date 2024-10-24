@@ -22,7 +22,7 @@ namespace FrostfallSaga.BehaviourTree
         protected List<Node> children = new List<Node>();
 
         // Can contain context data for the entire tree. You can get and set data from any node in the tree.
-        private Dictionary<string, object> _dataContext = new Dictionary<string, object>();
+        private Dictionary<string, object> _sharedDataContext = new Dictionary<string, object>();
 
         public Node()
         {
@@ -49,7 +49,7 @@ namespace FrostfallSaga.BehaviourTree
         /// <param name="value">The value of the data.</param>
         public void SetData(string key, object value)
         {
-            _dataContext[key] = value;
+            _sharedDataContext[key] = value;
         }
 
         /// <summary>
@@ -59,17 +59,32 @@ namespace FrostfallSaga.BehaviourTree
         public object GetData(string key)
         {
             object value = null;
-            if (_dataContext.TryGetValue(key, out value))
+
+            // Search in the current node first
+            if (_sharedDataContext.TryGetValue(key, out value))
                 return value;
 
-            Node node = parent;
-            while (node != null)
+            // Search in the children second
+            if (children.Count > 0)
             {
-                value = node.GetData(key);
+                foreach (Node child in children)
+                {
+                    value = child.GetData(key);
+                    if (value != null)
+                        return value;
+                }
+            }
+
+            // Search in the parents last
+            Node nextParent = parent;
+            while (nextParent != null)
+            {
+                value = nextParent.GetData(key);
                 if (value != null)
                     return value;
-                node = node.parent;
+                nextParent = nextParent.parent;
             }
+
             return null;
         }
 
@@ -80,9 +95,9 @@ namespace FrostfallSaga.BehaviourTree
         /// <returns>True if the data has been successfully cleaned, false otherwise.</returns>
         public bool ClearData(string key)
         {
-            if (_dataContext.ContainsKey(key))
+            if (_sharedDataContext.ContainsKey(key))
             {
-                _dataContext.Remove(key);
+                _sharedDataContext.Remove(key);
                 return true;
             }
 

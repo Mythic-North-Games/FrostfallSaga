@@ -449,6 +449,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         /// <summary>
         /// Returns whether the fighter can move in the given context or not.
+        /// Move points > 0 && at least one cell around him is free (no fighter, no obstacle, height accessible...).
         /// </summary>
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
         /// <returns>True if he has enough move points and if there is at least on cell free around him.</returns>
