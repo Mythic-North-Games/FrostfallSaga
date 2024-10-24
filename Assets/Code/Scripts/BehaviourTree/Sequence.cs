@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
-namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.AI
+namespace FrostfallSaga.BehaviourTree
 {
+    /// <summary>
+    /// Acts like a logical AND.
+    /// If any child node fails, the sequence will fail and the other child branches will not be evaluated.
+    /// </summary>
     public class Sequence : Node
     {
-        public Sequence() { }
+        public Sequence() : base() { }
         public Sequence(List<Node> children) : base(children) { }
 
         public override NodeState Evaluate()
@@ -16,17 +20,23 @@ namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.AI
                 switch (node.Evaluate())
                 {
                     case NodeState.FAILURE:
-                        return NodeState.FAILURE;
+                        state = NodeState.FAILURE;
+                        return state;
                     case NodeState.SUCCESS:
                         continue;
                     case NodeState.RUNNING:
                         anyChildIsRunning = true;
                         continue;
                     default:
-                        return NodeState.SUCCESS;
+                        state = NodeState.SUCCESS;
+                        return state;
                 }
             }
-            return anyChildIsRunning ? NodeState.RUNNING : NodeState.SUCCESS;  
+
+            state = anyChildIsRunning ? NodeState.RUNNING : NodeState.SUCCESS;
+            return state;
         }
+
     }
+
 }
