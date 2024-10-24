@@ -3,9 +3,10 @@ using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.Statuses
 {
-    [CreateAssetMenu(fileName = "BleedingStatus", menuName = "ScriptableObjects/Fight/Statuses/Bleeding")]
-    public class BleedingStatus : AStatus
+    [CreateAssetMenu(fileName = "BleedStatus", menuName = "ScriptableObjects/Fight/Statuses/Bleed")]
+    public class BleedStatus : AStatus
     {
+        [field: SerializeField] public new EStatusType StatusType { get; private set; } = EStatusType.BLEED;
         [field: SerializeField] public int BleedingDamage { get; private set; }
 
         protected override void DoApplyStatus(Fighter fighter)

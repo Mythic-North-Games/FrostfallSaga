@@ -1,5 +1,6 @@
 using UnityEngine;
 using FrostfallSaga.Fight.Targeters;
+using FrostfallSaga.Fight.Statuses;
 
 
 namespace FrostfallSaga.Fight.Abilities

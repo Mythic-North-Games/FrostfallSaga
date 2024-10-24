@@ -5,6 +5,7 @@ namespace FrostfallSaga.Fight.Statuses
 {
     public abstract class AStatus : ScriptableObject
     {
+        [field: SerializeField] public EStatusType StatusType { get; private set; }
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string Description { get; private set; }
         [field: SerializeField] public int Duration { get; private set; }

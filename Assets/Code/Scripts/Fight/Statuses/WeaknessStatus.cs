@@ -6,6 +6,7 @@ namespace FrostfallSaga.Fight.Statuses
     [CreateAssetMenu(fileName = "WeaknessStatus", menuName = "ScriptableObjects/Fight/Statuses/Weakness")]
     public class WeaknessStatus : AStatus
     {
+        [field: SerializeField] public new EStatusType StatusType { get; private set; } = EStatusType.WEAKNESS;
         [field: SerializeField] public int StrengthReduction { get; private set; }
 
         protected override void DoApplyStatus(Fighter fighter)

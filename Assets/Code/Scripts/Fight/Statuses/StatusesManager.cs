@@ -7,7 +7,7 @@ namespace FrostfallSaga.Fight.Statuses
     public class StatusesManager
     {
         private readonly Fighter _fighter;
-        private Dictionary<AStatus, (bool isActive, int duration)> _statuses = new();
+        private readonly Dictionary<AStatus, (bool isActive, int duration)> _statuses = new();
 
         public StatusesManager(Fighter fighter)
         {
@@ -41,8 +41,7 @@ namespace FrostfallSaga.Fight.Statuses
 
                 if (currentDuration == 1)   // Last turn of the status
                 {
-                    status.RemoveStatus(_fighter);
-                    _statuses.Remove(status);
+                    RemoveStatus(status);
                 }
                 else
                 {
@@ -51,7 +50,16 @@ namespace FrostfallSaga.Fight.Statuses
             }
         }
 
-        public Dictionary<AStatus, (bool isActive, int duration)> GetStatusEffects()
+        public void RemoveStatus(AStatus statusToRemove)
+        {
+            if (_statuses.Keys.Contains(statusToRemove))
+            {
+                statusToRemove.RemoveStatus(_fighter);
+                _statuses.Remove(statusToRemove);
+            }
+        }
+
+        public Dictionary<AStatus, (bool isActive, int duration)> GetStatuses()
         {
             return _statuses;
         }
