@@ -17,6 +17,6 @@ MonoBehaviour:
   <IconSprite>k__BackingField: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   <Effects>k__BackingField: []
   <Statuses>k__BackingField:
-  - {fileID: 11400000, guid: 1e1f1514850af254cb2c20ea4732cf2a, type: 2}
+  - {fileID: 11400000, guid: 3589457cc9f373547bc9a6ff171eadff, type: 2}
   <Targeter>k__BackingField: {fileID: 11400000, guid: 4bdf5043cdcfb81468eb5dc2b626d3c4, type: 2}
   <ActionPointsCost>k__BackingField: 1
