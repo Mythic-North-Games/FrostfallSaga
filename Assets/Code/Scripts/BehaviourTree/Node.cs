@@ -19,22 +19,24 @@ namespace FrostfallSaga.BehaviourTree
         protected NodeState state;
 
         public Node parent;
-        protected List<Node> children = new List<Node>();
+        protected List<Node> children = new();
 
         // Can contain context data for the entire tree. You can get and set data from any node in the tree.
-        private Dictionary<string, object> _sharedDataContext = new Dictionary<string, object>();
+        private readonly Dictionary<string, object> _sharedDataContext;
 
         public Node()
         {
             parent = null;
+            _sharedDataContext = new Dictionary<string, object>();
         }
+
         public Node(List<Node> children)
         {
             foreach (Node child in children)
-                _Attach(child);
+                Attach(child);
         }
 
-        private void _Attach(Node node)
+        private void Attach(Node node)
         {
             node.parent = this;
             children.Add(node);
@@ -49,43 +51,30 @@ namespace FrostfallSaga.BehaviourTree
         /// <param name="value">The value of the data.</param>
         public void SetData(string key, object value)
         {
-            _sharedDataContext[key] = value;
+            if (parent == null)
+            {
+                _sharedDataContext[key] = value;
+            }
+            else
+            {
+                parent.SetData(key, value);
+            }
         }
 
         /// <summary>
         /// Gets data from the context of the tree. Available to all nodes in the tree.
         /// </summary>
         /// <param name="key">The key of the data to get.</param>
-        public object GetData(string key)
+        public object GetSharedData(string key)
         {
-            object value = null;
-
-            // Search in the current node first
-            if (_sharedDataContext.TryGetValue(key, out value))
-                return value;
-
-            // Search in the children second
-            if (children.Count > 0)
+            if (parent == null)
             {
-                foreach (Node child in children)
-                {
-                    value = child.GetData(key);
-                    if (value != null)
-                        return value;
-                }
+                return _sharedDataContext.ContainsKey(key) ? _sharedDataContext[key] : null;
             }
-
-            // Search in the parents last
-            Node nextParent = parent;
-            while (nextParent != null)
+            else
             {
-                value = nextParent.GetData(key);
-                if (value != null)
-                    return value;
-                nextParent = nextParent.parent;
+                return parent.GetSharedData(key);
             }
-
-            return null;
         }
 
         /// <summary>
@@ -93,23 +82,16 @@ namespace FrostfallSaga.BehaviourTree
         /// </summary>
         /// <param name="key">The key of the data to clear.</param>
         /// <returns>True if the data has been successfully cleaned, false otherwise.</returns>
-        public bool ClearData(string key)
+        public bool ClearSharedData(string key)
         {
-            if (_sharedDataContext.ContainsKey(key))
+            if (parent == null)
             {
-                _sharedDataContext.Remove(key);
-                return true;
+                return _sharedDataContext.Remove(key);
             }
-
-            Node node = parent;
-            while (node != null)
+            else
             {
-                bool cleared = node.ClearData(key);
-                if (cleared)
-                    return true;
-                node = node.parent;
+                return parent.ClearSharedData(key);
             }
-            return false;
         }
     }
 }
