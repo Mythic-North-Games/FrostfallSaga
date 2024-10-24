@@ -6,7 +6,6 @@ namespace FrostfallSaga.Fight.Statuses
     [CreateAssetMenu(fileName = "BleedStatus", menuName = "ScriptableObjects/Fight/Statuses/Bleed")]
     public class BleedStatus : AStatus
     {
-        public new EStatusType StatusType { get; private set; } = EStatusType.BLEED;
         [field: SerializeField] public int BleedingDamage { get; private set; }
 
         protected override void DoApplyStatus(Fighter fighter)
