@@ -56,5 +56,7 @@ namespace FrostfallSaga.Fight.Effects
             }
             return baseValue;
         }
+
+        public abstract int GetEffectDamages();
     }
 }

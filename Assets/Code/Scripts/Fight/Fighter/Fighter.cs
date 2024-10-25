@@ -51,7 +51,7 @@ namespace FrostfallSaga.Fight.Fighters
         public TargeterSO DirectAttackTargeter { get; private set; }
         public int DirectAttackActionPointsCost { get; private set; }
         public AEffectSO[] DirectAttackEffects { get; private set; }
-        public ActiveAbilityToAnimation[] ActiveAbilities { get; private set; }
+        public ActiveAbilityToAnimation[] ActiveAbilitiesToAnimation { get; private set; }
         private AAbilityAnimationSO _directAttackAnimation;
         private string _receiveDamageAnimationName;
         private string _healSelfAnimationName;
@@ -59,6 +59,7 @@ namespace FrostfallSaga.Fight.Fighters
         private string _increaseStatAnimationName;
         private ActiveAbilityToAnimation _currentActiveAbility;
 
+        
         public Fighter()
         {
             StatusesManager = new StatusesManager(this);
@@ -89,7 +90,7 @@ namespace FrostfallSaga.Fight.Fighters
             DirectAttackActionPointsCost = fighterSetup.directAttackActionPointsCost;
             DirectAttackEffects = fighterSetup.directAttackEffects;
             _directAttackAnimation = fighterSetup.directAttackAnimation;
-            ActiveAbilities = fighterSetup.activeAbilities;
+            ActiveAbilitiesToAnimation = fighterSetup.activeAbilities;
             _receiveDamageAnimationName = fighterSetup.receiveDamageAnimationName;
             _healSelfAnimationName = fighterSetup.healSelfAnimationName;
             _reduceStatAnimationName = fighterSetup.reduceStatAnimationName;
@@ -408,7 +409,10 @@ namespace FrostfallSaga.Fight.Fighters
         public float GetMasterstrokeChance() => _stats.masterstrokeChance;
 
         public int GetInitiative() => _stats.initiative;
-
+        public List<ActiveAbilitySO> GetActiveAbilities()
+        {
+            return ActiveAbilitiesToAnimation.Select(abilityToAnimation => abilityToAnimation.activeAbility).ToList();
+        }
         public FighterCollider GetWeaponCollider()
         {
             return GetComponent<FighterCollider>();
@@ -484,8 +488,15 @@ namespace FrostfallSaga.Fight.Fighters
         /// <returns>True if he has enough actions points and if an active ability targeter can be resolved around him.</returns>
         public bool CanUseAtLeastOneActiveAbility(HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams, Fighter target = null)
         {
-            return ActiveAbilities.Any(
+            return ActiveAbilitiesToAnimation.Any(
                 activeAbilityToAnimation => CanUseActiveAbility(fightGrid, activeAbilityToAnimation.activeAbility, fightersTeams)
+            );
+        }
+
+        public Cell[] GetFirstTouchingCellSequence(TargeterSO targeter, Fighter target, HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        {
+            return targeter.GetAllResolvedCellsSequences(fightGrid, cell, fightersTeams).First(
+                cellsSequence => cellsSequence.Contains(target.cell)
             );
         }
 

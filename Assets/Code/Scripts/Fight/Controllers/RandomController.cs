@@ -189,7 +189,7 @@ namespace FrostfallSaga.Fight.Controllers
         private ActiveAbilityToAnimation GetRandomUsableActiveAbility(Fighter fighter, HexGrid fightGrid)
         {
             List<ActiveAbilityToAnimation> usableActiveAbilities = new();
-            fighter.ActiveAbilities.ToList()
+            fighter.ActiveAbilitiesToAnimation.ToList()
                 .FindAll(activeAbilityToAnimation => fighter.CanUseActiveAbility(fightGrid, activeAbilityToAnimation.activeAbility, _fighterTeams))
                 .ForEach(activeAbilityToAnimation => usableActiveAbilities.Add(activeAbilityToAnimation));
             return Randomizer.GetRandomElementFromArray(usableActiveAbilities.ToArray());

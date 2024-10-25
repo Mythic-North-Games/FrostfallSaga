@@ -23,7 +23,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             Fighter receiver = FightTestsHelper.CreateFighter();
             receiver.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, receiver, new Vector2Int(0, 1));
-            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilities[0];
+            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilitiesToAnimation[0];
 
             int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.activeAbility.ActionPointsCost;
             int expectedReceiverHealth = (
@@ -65,7 +65,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             receiver2.name = "Receiver 2";
             receiver2.GetStatsForTests().magicalResistances[EMagicalElement.FIRE] = 0;
 
-            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilities[0];
+            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilitiesToAnimation[0];
 
             int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.activeAbility.ActionPointsCost;
             int expectedReceiverHealth = (
@@ -109,7 +109,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             notTargetedFighter.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, notTargetedFighter, new Vector2Int(0, 1));
 
-            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilities[0];
+            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilitiesToAnimation[0];
 
             int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.activeAbility.ActionPointsCost;
             int expectedNotTargetedFighterHealth = notTargetedFighter.GetStatsForTests().health;
@@ -135,7 +135,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
-            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilities[0];
+            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilitiesToAnimation[0];
             Cell[] targetedCells = { };
 
             // Act
@@ -151,7 +151,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             attacker.SetStatsForTests();
             attacker.GetStatsForTests().actionPoints = 1;
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
-            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilities[0];
+            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilitiesToAnimation[0];
             Cell[] targetedCells = { grid.CellsByCoordinates[new(0, 1)] };
 
             // Act
