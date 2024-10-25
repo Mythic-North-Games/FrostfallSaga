@@ -462,12 +462,15 @@ namespace FrostfallSaga.Fight.Fighters
         /// Returns whether the fighter can use its direct attack in the given context or not.
         /// </summary>
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
+        /// <param name="fightersTeams">The teams of the fighters in the fight.</param>
+        /// <param name="target">The optional target to check if the direct attack can be used on.</param>
         /// <returns>True if he has enough actions points and if the direct attack targeter can be resolved around him.</returns>
-        public bool CanDirectAttack(HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        public bool CanDirectAttack(HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams, Fighter target = null)
         {
             return (
                 DirectAttackActionPointsCost <= _stats.actionPoints &&
-                DirectAttackTargeter.AtLeastOneCellResolvable(fightGrid, cell, fightersTeams)
+                DirectAttackTargeter.AtLeastOneCellResolvable(fightGrid, cell, fightersTeams) &&
+                target == null || CanUseTargeterOnFighter(DirectAttackTargeter, target, fightGrid, fightersTeams)
             );
         }
 
@@ -475,8 +478,10 @@ namespace FrostfallSaga.Fight.Fighters
         /// Returns whether the fighter can use one if its active ability in the given context or not.
         /// </summary>
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
+        /// <param name="fightersTeams">The teams of the fighters in the fight.</param>
+        /// <param name="target">The optional target to check if the active ability can be used on.</param>
         /// <returns>True if he has enough actions points and if an active ability targeter can be resolved around him.</returns>
-        public bool CanUseAtLeastOneActiveAbility(HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        public bool CanUseAtLeastOneActiveAbility(HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams, Fighter target = null)
         {
             return ActiveAbilities.Any(
                 activeAbilityToAnimation => CanUseActiveAbility(fightGrid, activeAbilityToAnimation.activeAbility, fightersTeams)
@@ -488,12 +493,15 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
         /// <param name="activeAbility">The active ability to check if it can be used.</param>
+        /// <param name="fightersTeams">The teams of the fighters in the fight.</param>
+        /// <param name="target">The optional target to check if the active ability can be used on.</param>
         /// <returns>True if he has enough actions points and if the active ability targeter can be resolved around him.</returns>
-        public bool CanUseActiveAbility(HexGrid fightGrid, ActiveAbilitySO activeAbility, Dictionary<Fighter, bool> fightersTeams)
+        public bool CanUseActiveAbility(HexGrid fightGrid, ActiveAbilitySO activeAbility, Dictionary<Fighter, bool> fightersTeams, Fighter target = null)
         {
             return (
                 activeAbility.ActionPointsCost <= _stats.actionPoints &&
-                activeAbility.Targeter.AtLeastOneCellResolvable(fightGrid, cell, fightersTeams)
+                activeAbility.Targeter.AtLeastOneCellResolvable(fightGrid, cell, fightersTeams) &&
+                target == null || CanUseTargeterOnFighter(activeAbility.Targeter, target, fightGrid, fightersTeams)
             );
         }
 
@@ -565,6 +573,13 @@ namespace FrostfallSaga.Fight.Fighters
             {
                 onFighterDied?.Invoke(this);
             }
+        }
+
+        private bool CanUseTargeterOnFighter(TargeterSO targeter, Fighter target, HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        {
+            return targeter.GetAllResolvedCellsSequences(fightGrid, cell, fightersTeams).Any(
+                cellsSequence => cellsSequence.Contains(target.cell)
+            );
         }
         #endregion
 

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FrostfallSaga.BehaviourTree;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
@@ -6,7 +7,7 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController
 {
     public class EndTurnAction : FBTNode
     {
-        public EndTurnAction(Fighter possessedFighter, HexGrid fightGrid) : base(possessedFighter, fightGrid)
+        public EndTurnAction(Fighter possessedFighter, HexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams) : base(possessedFighter, fightGrid, fighterTeams)
         {
         }
 
@@ -16,7 +17,7 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController
         /// <returns>Always SUCCESS</returns>
         public override NodeState Evaluate()
         {
-            SetData("TurnEnded", true);
+            SetSharedData("TurnEnded", true);
             return NodeState.SUCCESS;
         }
     }

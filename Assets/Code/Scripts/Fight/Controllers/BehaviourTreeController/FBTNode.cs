@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FrostfallSaga.BehaviourTree;  
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
@@ -12,11 +13,13 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController
     {
         protected Fighter _possessedFighter;
         protected HexGrid _fightGrid;
+        protected Dictionary<Fighter, bool> _fighterTeams;
 
-        public FBTNode(Fighter possessedFighter, HexGrid fightGrid)
+        public FBTNode(Fighter possessedFighter, HexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
         {
             _possessedFighter = possessedFighter;
             _fightGrid = fightGrid;
+            _fighterTeams = fighterTeams;
         }
     }
 }

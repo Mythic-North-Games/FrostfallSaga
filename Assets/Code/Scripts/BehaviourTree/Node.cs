@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 
 namespace FrostfallSaga.BehaviourTree
@@ -49,7 +48,7 @@ namespace FrostfallSaga.BehaviourTree
         /// </summary>
         /// <param name="key">The key of the data.</param>
         /// <param name="value">The value of the data.</param>
-        public void SetData(string key, object value)
+        public void SetSharedData(string key, object value)
         {
             if (parent == null)
             {
@@ -57,7 +56,7 @@ namespace FrostfallSaga.BehaviourTree
             }
             else
             {
-                parent.SetData(key, value);
+                parent.SetSharedData(key, value);
             }
         }
 
