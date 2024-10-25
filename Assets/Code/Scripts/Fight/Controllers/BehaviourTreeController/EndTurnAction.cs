@@ -5,6 +5,9 @@ using FrostfallSaga.Grid;
 
 namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController
 {
+    /// <summary>
+    /// Set "TurnEnded" in shared context data to true to indicate that fighter finished his turn.
+    /// </summary>
     public class EndTurnAction : FBTNode
     {
         public EndTurnAction(Fighter possessedFighter, HexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams) : base(possessedFighter, fightGrid, fighterTeams)

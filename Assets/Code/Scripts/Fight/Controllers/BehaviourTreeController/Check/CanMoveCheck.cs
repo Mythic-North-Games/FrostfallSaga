@@ -5,6 +5,9 @@ using FrostfallSaga.Grid;
 
 namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Checks
 {
+    /// <summary>
+    /// Check if the possessed fighter can move. Enough move points and no obstacles.
+    /// </summary>
     public class CanMoveCheck : FBTNode
     {
         public CanMoveCheck(Fighter possessedFighter, HexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams) : base(possessedFighter, fightGrid, fighterTeams)

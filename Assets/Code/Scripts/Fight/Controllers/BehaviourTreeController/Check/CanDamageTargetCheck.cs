@@ -7,6 +7,9 @@ using FrostfallSaga.Grid;
 
 namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Checks
 {
+    /// <summary>
+    /// Check if the possessed fighter can damage any target between the possible targets and types given in parameters.
+    /// </summary>
     public class CanDamageTargetCheck : FBTNode
     {
         private readonly ETarget[] _possibleTargets;
