@@ -1,6 +1,5 @@
 using UnityEngine;
 using FrostfallSaga.Fight.Effects;
-using FrostfallSaga.Fight.Statuses;
 
 
 namespace FrostfallSaga.Fight.Abilities
@@ -14,6 +13,5 @@ namespace FrostfallSaga.Fight.Abilities
         [field: SerializeField] public string Description { get; private set; }
         [field: SerializeField] public Sprite IconSprite { get; private set; }
         [field: SerializeField] public AEffectSO[] Effects { get; private set; } = {};
-        [field: SerializeField] public AStatus[] Statuses { get; private set; } = {};
     }
 }
