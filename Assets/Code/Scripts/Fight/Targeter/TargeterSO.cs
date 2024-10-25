@@ -90,15 +90,7 @@ namespace FrostfallSaga.Fight.Targeters
             return targetedCells;
         }
 
-        /// <summary>
-        /// Get one random resolved targeter cell sequence for the given context if it does exist.
-        /// </summary>
-        /// <param name="fightGrid">The current fight grid.</param>
-        /// <param name="initiatorCell">The cell where the targeter's initiator is located.</param>
-        /// <param name="fightersTeams">The fighters and their teams (true if ally, false if enemy).</param>
-        /// <returns>One random resolved targeter cell sequence for the given context if it does exist.</returns>
-        /// <exception cref="TargeterUnresolvableException">If the targeter can't be resolved around the initiator.</exception>
-        public Cell[] GetRandomTargetCells(HexGrid fightGrid, Cell initiatorCell, Dictionary<Fighter, bool> fightersTeams)
+        public List<Cell[]> GetAllResolvedCellsSequences(HexGrid fightGrid, Cell initiatorCell, Dictionary<Fighter, bool> fightersTeams)
         {
             List<Cell[]> resolvedTargeterSequences = new();
             foreach (Cell cellThatCanBeTargeted in GetAllCellsAvailableForTargeting(fightGrid, initiatorCell, fightersTeams))
@@ -113,12 +105,20 @@ namespace FrostfallSaga.Fight.Targeters
                 }
             }
 
-            if (resolvedTargeterSequences.Count == 0)
-            {
-                throw new TargeterUnresolvableException("Targeter unresolvable around initiator.");
-            }
+            return resolvedTargeterSequences;
+        }
 
-            return Randomizer.GetRandomElementFromArray(resolvedTargeterSequences.ToArray());
+        /// <summary>
+        /// Get one random resolved targeter cell sequence for the given context if it does exist.
+        /// </summary>
+        /// <param name="fightGrid">The current fight grid.</param>
+        /// <param name="initiatorCell">The cell where the targeter's initiator is located.</param>
+        /// <param name="fightersTeams">The fighters and their teams (true if ally, false if enemy).</param>
+        /// <returns>One random resolved targeter cell sequence for the given context if it does exist.</returns>
+        /// <exception cref="TargeterUnresolvableException">If the targeter can't be resolved around the initiator.</exception>
+        public Cell[] GetRandomTargetCells(HexGrid fightGrid, Cell initiatorCell, Dictionary<Fighter, bool> fightersTeams)
+        {
+            return Randomizer.GetRandomElementFromArray(GetAllResolvedCellsSequences(fightGrid, initiatorCell, fightersTeams).ToArray());
         }
 
         /// <summary>
