@@ -105,10 +105,11 @@ namespace FrostfallSaga.Fight.Fighters
         /// Don't forget to listen to `onFighterMoved` event if you want to know when he's done moving.
         /// </summary>
         /// <param name="cellsPath">The cells path to follow.</param>
+        /// <param name="goUntilAllMovePointsUsed">If the path is longer than the current move points, seting this to True will make the fighter move until he runs out of movement points. Seting it to False will raise an exception instead.</param>
         /// <exception cref="ArgumentOutOfRangeException">Raised if the fighter does not have enough move points.</exception>
-        public void Move(Cell[] cellsPath)
+        public void Move(Cell[] cellsPath, bool goUntilAllMovePointsUsed = false)
         {
-            if (cellsPath.Length > _stats.movePoints)
+            if (!goUntilAllMovePointsUsed && cellsPath.Length > _stats.movePoints)
             {
                 throw new ArgumentOutOfRangeException("Fighter " + name + " does not have enough move points to move.");
             }
@@ -596,7 +597,7 @@ namespace FrostfallSaga.Fight.Fighters
             _stats.movePoints -= 1;
             cell = destinationCell;
             cell.GetComponent<CellFightBehaviour>().Fighter = this;
-            if (!_currentMovePath.IsLastMove)
+            if (!_currentMovePath.IsLastMove && _stats.movePoints > 0)
             {
                 MakeNextMove();
             }

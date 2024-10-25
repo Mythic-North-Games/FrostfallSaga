@@ -3,7 +3,7 @@ using FrostfallSaga.BehaviourTree;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
 
-namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController
+namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions
 {
     /// <summary>
     /// Set "TurnEnded" in shared context data to true to indicate that fighter finished his turn.
