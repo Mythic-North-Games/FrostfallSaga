@@ -20,5 +20,10 @@ namespace FrostfallSaga.Fight.Effects
                 Debug.Log($"Status {status.Name} applied to {receiver.name}.");
             }
         }
+
+        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke = true)
+        {
+            return 0;
+        }
     }
 }

@@ -3,6 +3,7 @@ using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Grid;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,55 +13,95 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions
     public class DamageTargetAction : FBTNode
     {
         private readonly EDamagePreference damagePreference;
-        public DamageTargetAction(Fighter possessedFighter, HexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams, EDamagePreference damagePreference) : base(possessedFighter, fightGrid, fighterTeams)
+
+        public DamageTargetAction(
+            Fighter possessedFighter,
+            HexGrid fightGrid,
+            Dictionary<Fighter, bool> fighterTeams,
+            EDamagePreference damagePreference
+        ) : base(possessedFighter, fightGrid, fighterTeams)
         {
             this.damagePreference = damagePreference;
         }
 
         public override NodeState Evaluate()
         {
-            
             Fighter target = (Fighter)GetSharedData("damageTarget");
-            if (target == null) return NodeState.FAILURE;
-            List<ActiveAbilitySO> useableAbilities = _possessedFighter.GetActiveAbilities().Where(actibeAbilities => _possessedFighter.CanUseActiveAbility(_fightGrid, actibeAbilities, _fighterTeams, target)).ToList();
-            ActiveAbilitySO prefereAbility;
+            if (target == null)
+            {
+                return NodeState.FAILURE;
+            }
 
-            
+            // Filter the active abilities that can be used on the target
+            List<ActiveAbilityToAnimation> useableAbilitiesToAnimation = _possessedFighter.ActiveAbilitiesToAnimation.Where(
+                activeAbilityToAnimation => _possessedFighter.CanUseActiveAbility(
+                    _fightGrid, activeAbilityToAnimation.activeAbility, _fighterTeams, target
+                )
+            ).ToList();
 
+            ActiveAbilityToAnimation preferedAbilityToAnimation = null;
+            bool useActiveAbility = false;
+            bool canUseDirectAttack = _possessedFighter.CanDirectAttack(_fightGrid, _fighterTeams, target);
+
+            // Choose the ability to use based on the damage preference and decide if it's better to use the prefered ability or the direct attack
             switch (damagePreference)
             {
                 case EDamagePreference.RANDOM:
-                    prefereAbility = Randomizer.GetRandomElementFromArray(useableAbilities.ToArray());
+                    preferedAbilityToAnimation = Randomizer.GetRandomElementFromArray(useableAbilitiesToAnimation.ToArray());
+                    float directAttackChance = 1f / useableAbilitiesToAnimation.Count + 1;
+                    useActiveAbility = !(canUseDirectAttack && Randomizer.GetBooleanOnChance(directAttackChance));
                     break;
 
                 case EDamagePreference.MAXIMIZE_DAMAGE:
-                    prefereAbility = useableAbilities.OrderByDescending(ability => GetPotentialsDamageOfAbilities(ability)).First();
+                    preferedAbilityToAnimation = useableAbilitiesToAnimation.OrderByDescending(
+                        abilityToAnimation => GetPotentialsDamageOfAbilities(abilityToAnimation.activeAbility, target)
+                    ).First();
+                    useActiveAbility = (
+                        GetPotentialsDamageOfAbilities(preferedAbilityToAnimation.activeAbility, target) >
+                        GetPotentialsDamageOfDirectAttack(_possessedFighter.DirectAttackEffects.ToList(), target)
+                    );
+                    break;
 
-                    if (GetPotentialsDamageOfAbilities(prefereAbility) > GetPotentialsDamageOfDirectAttack(_possessedFighter.DirectAttackEffects.ToList()))
-                    {
-                        _possessedFighter.UseActiveAbility(_possessedFighter.ActiveAbilitiesToAnimation.Where(ability => ability.activeAbility.Equals(prefereAbility)).First(), _possessedFighter.GetFirstTouchingCellSequence(prefereAbility.Targeter, _possessedFighter, _fightGrid, _fighterTeams));
-                    } 
-                    else
-                    {
-                        _possessedFighter.UseDirectAttack(_possessedFighter.GetFirstTouchingCellSequence(_possessedFighter.DirectAttackTargeter, target, _fightGrid, _fighterTeams));
-                    }
-                    break;
-                
                 case EDamagePreference.MINIMIZE_COST:
-                    prefereAbility = useableAbilities.OrderBy(ability => ability.ActionPointsCost).First();
+                    preferedAbilityToAnimation = useableAbilitiesToAnimation.OrderBy(
+                        abilityToAnimation => abilityToAnimation.activeAbility.ActionPointsCost
+                    ).First();
+                    useActiveAbility = preferedAbilityToAnimation.activeAbility.ActionPointsCost < _possessedFighter.DirectAttackActionPointsCost;
                     break;
+            }
+
+            // Do the action
+            if (useActiveAbility && preferedAbilityToAnimation != null)
+            {
+                ;
+                TargeterSO activeAbilityTargeter = preferedAbilityToAnimation.activeAbility.Targeter;
+                _possessedFighter.UseActiveAbility(
+                    preferedAbilityToAnimation,
+                    _possessedFighter.GetFirstTouchingCellSequence(activeAbilityTargeter, target, _fightGrid, _fighterTeams)
+                );
+            }
+            else
+            {
+                TargeterSO directAttackTargeter = _possessedFighter.DirectAttackTargeter;
+                _possessedFighter.UseDirectAttack(
+                    _possessedFighter.GetFirstTouchingCellSequence(directAttackTargeter, target, _fightGrid, _fighterTeams)
+                );
             }
             return NodeState.SUCCESS;
         }
 
-        private int GetPotentialsDamageOfAbilities(ActiveAbilitySO activeAbility)
+        private int GetPotentialsDamageOfAbilities(ActiveAbilitySO activeAbility, Fighter target)
         {
-            return activeAbility.Effects.Sum(effect => effect.GetEffectDamages());
+            return activeAbility.Effects.Sum(
+                effect => effect.GetPotentialEffectDamages(_possessedFighter, target, effect.Masterstrokable)
+            );
         }
 
-        private int GetPotentialsDamageOfDirectAttack(List<AEffectSO> effects)
+        private int GetPotentialsDamageOfDirectAttack(List<AEffectSO> effects, Fighter target)
         {
-            return effects.Sum(effect => effect.GetEffectDamages());
+            return effects.Sum(
+                effect => effect.GetPotentialEffectDamages(_possessedFighter, target, effect.Masterstrokable)
+            );
         }
     }
 }
