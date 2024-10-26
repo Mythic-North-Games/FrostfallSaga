@@ -192,7 +192,6 @@ namespace FrostfallSaga.Fight.Fighters
                     .ForEach(cell =>
                     {
                         Fighter targetedFighter = cell.GetComponent<CellFightBehaviour>().Fighter;
-                        ApplyStatusesOnFighter(activeAbilityToUse.Statuses, targetedFighter);
                         ApplyEffectsOnFighter(activeAbilityToUse.Effects, targetedFighter);
                     });
                 onFighterActiveAbilityEnded?.Invoke(this);
@@ -355,10 +354,10 @@ namespace FrostfallSaga.Fight.Fighters
         /// <summary>
         /// Apply a new status to the fighter.
         /// </summary>
-        /// <param name="status">The new status to apply.</param>
-        public void ApplyStatus(AStatus status)
+        /// <param name="statusToApply">The new status to apply.</param>
+        public void ApplyStatus(AStatus statusToApply)
         {
-            StatusesManager.ApplyStatus(status);
+            StatusesManager.ApplyStatus(statusToApply);
         }
 
         #endregion
@@ -380,7 +379,6 @@ namespace FrostfallSaga.Fight.Fighters
 
         public void OnActiveAbilityTouchedFighter(Fighter touchedFighter)
         {
-            ApplyStatusesOnFighter(_currentActiveAbility.activeAbility.Statuses, touchedFighter);
             ApplyEffectsOnFighter(_currentActiveAbility.activeAbility.Effects, touchedFighter);
         }
 
@@ -557,16 +555,6 @@ namespace FrostfallSaga.Fight.Fighters
         private void ApplyEffectsOnFighter(AEffectSO[] effectsToApply, Fighter target)
         {
             effectsToApply.ToList().ForEach(effect => effect.ApplyEffect(this, target, effect.Masterstrokable, effect.Dodgable));
-        }
-
-        /// <summary>
-        /// Apply a list of statuses to the targeted fighter.
-        /// </summary>
-        /// <param name="statusesToApply">The statuses to apply.</param>
-        /// <param name="target">The fighter to apply the statuses to.</param>
-        private void ApplyStatusesOnFighter(AStatus[] statusesToApply, Fighter target)
-        {
-            statusesToApply.ToList().ForEach(status => target.ApplyStatus(status));
         }
 
         private void DecreaseHealth(int amount)
