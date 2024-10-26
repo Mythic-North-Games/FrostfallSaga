@@ -92,5 +92,7 @@ namespace FrostfallSaga.BehaviourTree
                 return parent.ClearSharedData(key);
             }
         }
+
+        public List<Node> GetChildren() => children;
     }
 }

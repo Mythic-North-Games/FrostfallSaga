@@ -12,14 +12,14 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Checks
     /// </summary>
     public class CanDamageTargetCheck : FBTNode
     {
-        private readonly ETarget[] _possibleTargets;
+        private readonly List<ETarget> _possibleTargets;
         private readonly ETargetType _targetType;
 
         public CanDamageTargetCheck(
             Fighter possessedFighter,
             HexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,
-            ETarget[] possibleTargets,
+            List<ETarget> possibleTargets,
             ETargetType targetType
         ) : base(possessedFighter, fightGrid, fighterTeams)
         {

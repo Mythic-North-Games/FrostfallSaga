@@ -12,13 +12,13 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions
     /// </summary>
     public class MoveToClosestTargetAction : FBTNode
     {
-        private ETarget[] _possibleTargets;
+        private readonly List<ETarget> _possibleTargets;
 
         public MoveToClosestTargetAction(
             Fighter possessedFighter,
             HexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,
-            ETarget[] possibleTargets
+            List<ETarget> possibleTargets
         ) : base(possessedFighter, fightGrid, fighterTeams)
         {
             _possibleTargets = possibleTargets;
