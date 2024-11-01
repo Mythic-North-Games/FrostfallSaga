@@ -3,14 +3,20 @@ using FrostfallSaga.BehaviourTree;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
 
-namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions
+namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 {
     /// <summary>
     /// Set "TurnEnded" in shared context data to true to indicate that fighter finished his turn.
     /// </summary>
     public class EndTurnAction : FBTNode
     {
-        public EndTurnAction(Fighter possessedFighter, HexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams) : base(possessedFighter, fightGrid, fighterTeams)
+        public static string TURN_ENDED_SHARED_DATA_KEY = "TurnEnded";
+
+        public EndTurnAction(
+            Fighter possessedFighter,
+            HexGrid fightGrid,
+            Dictionary<Fighter, bool> fighterTeams
+        ) : base(possessedFighter, fightGrid, fighterTeams)
         {
         }
 
@@ -20,7 +26,7 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions
         /// <returns>Always SUCCESS</returns>
         public override NodeState Evaluate()
         {
-            SetSharedData("TurnEnded", true);
+            SetSharedData(TURN_ENDED_SHARED_DATA_KEY, true);
             return NodeState.SUCCESS;
         }
     }

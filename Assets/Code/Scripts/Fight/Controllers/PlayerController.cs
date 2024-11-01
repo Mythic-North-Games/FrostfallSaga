@@ -15,10 +15,10 @@ namespace FrostfallSaga.Fight.Controllers
     /// </summary>
     public class PlayerController : AFighterController
     {
-        [SerializeField] private FighterActionPanelController _actionPanel;
-        [SerializeField] private Material _cellHighlightMaterial;
-        [SerializeField] private Material _cellActionableHighlightMaterial;
-        [SerializeField] private Material _cellInaccessibleHighlightMaterial;
+        private FighterActionPanelController _actionPanel;
+        private Material _cellHighlightMaterial;
+        private Material _cellActionableHighlightMaterial;
+        private Material _cellInaccessibleHighlightMaterial;
 
         private HexGrid _currentFightGrid;
         private Fighter _possessedFighter;
@@ -30,8 +30,42 @@ namespace FrostfallSaga.Fight.Controllers
         private ActiveAbilityToAnimation _currentActiveAbility;
         private bool _fighterIsTargetingForActiveAbility;
 
+        public void Setup(
+            FighterActionPanelController actionPanel,
+            Material cellHighlightMaterial,
+            Material cellActionableHighlightMaterial,
+            Material cellInaccessibleHighlightMaterial
+        )
+        {
+            _actionPanel = actionPanel;
+            _cellHighlightMaterial = cellHighlightMaterial;
+            _cellActionableHighlightMaterial = cellActionableHighlightMaterial;
+            _cellInaccessibleHighlightMaterial = cellInaccessibleHighlightMaterial;
+        }
+
         public override void PlayTurn(Fighter fighterToPlay, Dictionary<Fighter, bool> fighterTeams, HexGrid fightGrid)
         {
+            if (_actionPanel == null)
+            {
+                Debug.LogError("Player controller has no action panel to work with.");
+                return;
+            }
+            if (_cellHighlightMaterial == null)
+            {
+                Debug.LogError("Player controller has no cell highlight material to work with.");
+                return;
+            }
+            if (_cellActionableHighlightMaterial == null)
+            {
+                Debug.LogError("Player controller has no cell highlight material to work with.");
+                return;
+            }
+            if (_cellInaccessibleHighlightMaterial == null)
+            {
+                Debug.LogError("Player controller has no cell highlight material to work with.");
+                return;
+            }
+
             _currentFightGrid = fightGrid;
             _possessedFighter = fighterToPlay;
             _fighterTeams = fighterTeams;
@@ -531,29 +565,5 @@ namespace FrostfallSaga.Fight.Controllers
         }
 
         #endregion
-
-        private void Awake()
-        {
-            if (_actionPanel == null)
-            {
-                Debug.LogError("Player controller has no action panel to work with.");
-                return;
-            }
-            if (_cellHighlightMaterial == null)
-            {
-                Debug.LogError("Player controller has no cell highlight material to work with.");
-                return;
-            }
-            if (_cellActionableHighlightMaterial == null)
-            {
-                Debug.LogError("Player controller has no cell highlight material to work with.");
-                return;
-            }
-            if (_cellInaccessibleHighlightMaterial == null)
-            {
-                Debug.LogError("Player controller has no cell highlight material to work with.");
-                return;
-            }
-        }
     }
 }

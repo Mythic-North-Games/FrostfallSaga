@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Fire damage effect
   <Description>k__BackingField: Inflicts a medium amount of fire damage
-  <MagicalDamageAmount>k__BackingField: 500
+  <Dodgable>k__BackingField: 1
+  <Masterstrokable>k__BackingField: 1
+  <MagicalDamageAmount>k__BackingField: 5
   <MagicalElement>k__BackingField: 0

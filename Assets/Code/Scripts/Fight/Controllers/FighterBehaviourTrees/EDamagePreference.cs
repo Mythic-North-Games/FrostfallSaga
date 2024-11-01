@@ -1,4 +1,4 @@
-﻿namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController
+﻿namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
 {
     public enum EDamagePreference
     {

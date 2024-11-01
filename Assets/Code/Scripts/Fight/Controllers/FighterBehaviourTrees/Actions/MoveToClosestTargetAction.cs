@@ -4,8 +4,9 @@ using FrostfallSaga.BehaviourTree;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using System.Diagnostics;
 
-namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions
+namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 {
     /// <summary>
     /// Move to the closest target between the ones given.
@@ -31,7 +32,10 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions
             {
                 return NodeState.FAILURE;
             }
-            _possessedFighter.Move(GetClosestFighterPath(fightersToMoveTowards));
+
+            _possessedFighter.onFighterMoved += OnPossessedFighterMoved;
+            _possessedFighter.Move(GetClosestFighterPath(fightersToMoveTowards), goUntilAllMovePointsUsed: true);
+            SetSharedData(FBTNode.ACTION_RUNNING_SHARED_DATA_KEY, true);
             return NodeState.SUCCESS;
         }
 
@@ -40,7 +44,7 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions
             List<Fighter> targetsToMoveTo = new();
             bool _possessedFighterTeam = _fighterTeams[_possessedFighter];
 
-            foreach (Fighter fighter in _fighterTeams.Keys.Where(fighter => fighter != _possessedFighter))
+            foreach (Fighter fighter in _fighterTeams.Keys.Where(fighter => fighter != _possessedFighter && fighter.GetHealth() > 0))
             {
                 bool fighterIsAlly = _fighterTeams[fighter] == _possessedFighterTeam;
                 if (fighterIsAlly && _possibleTargets.Contains(ETarget.ALLIES))
@@ -60,15 +64,13 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions
 
         private Cell[] GetClosestFighterPath(List<Fighter> fightersToMoveTowards)
         {
-            Cell[] shortestPath = {};
+            Cell[] shortestPath = { };
             foreach (Fighter fighter in fightersToMoveTowards)
             {
                 Cell[] path = CellsPathFinding.GetShorterPath(
                     _fightGrid,
                     _possessedFighter.cell,
-                    fighter.cell,
-                    includeInaccessibleNeighbors: true,
-                    includeHeightInaccessibleNeighbors: true
+                    fighter.cell
                 );
 
                 if (shortestPath.Length == 0 || path.Length < shortestPath.Length)
@@ -77,6 +79,12 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions
                 }
             }
             return shortestPath;
+        }
+
+        private void OnPossessedFighterMoved(Fighter fighter)
+        {
+            SetSharedData(FBTNode.ACTION_RUNNING_SHARED_DATA_KEY, false);
+            _possessedFighter.onFighterMoved -= OnPossessedFighterMoved;
         }
     }
 }

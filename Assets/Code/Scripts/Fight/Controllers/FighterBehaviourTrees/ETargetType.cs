@@ -1,4 +1,4 @@
-namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController
+namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
 {
     /// <summary>
     /// Used to configure the type of target to select in fighter behaviour tree nodes.

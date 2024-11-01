@@ -643,54 +643,6 @@ MonoBehaviour:
   <IsAccessible>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 2123708807}
   <CellMouseEventsController>k__BackingField: {fileID: 2123708805}
---- !u!1 &134175708
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 134175709}
-  - component: {fileID: 134175710}
-  m_Layer: 0
-  m_Name: PlayerController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &134175709
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 134175708}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.2007682, z: 5.932871}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &134175710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 134175708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4b9fac17fcfb46488262adf0b374f76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _actionPanel: {fileID: 1952024164}
-  _cellHighlightMaterial: {fileID: 2100000, guid: 1317001a5366be047821b25e2a15c957, type: 2}
-  _cellActionableHighlightMaterial: {fileID: 2100000, guid: fa4458785f81f784e894a2e9bf387954, type: 2}
-  _cellInaccessibleHighlightMaterial: {fileID: 2100000, guid: 3a49c1857eb90d545bdc83727456b7b3, type: 2}
 --- !u!1 &148054851
 GameObject:
   m_ObjectHideFlags: 0
@@ -6311,7 +6263,8 @@ MonoBehaviour:
       dodgeChance: 0
       masterstrokeChance: 0
       initiative: 3
-    fighterClassSO: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
+    fighterClass: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
+    personalityTrait: {fileID: 0}
     directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
     directAttackActionPointsCost: 3
     directAttackEffects:
@@ -6346,7 +6299,8 @@ MonoBehaviour:
       dodgeChance: 0
       masterstrokeChance: 0
       initiative: 1
-    fighterClassSO: {fileID: 11400000, guid: 8d3cfbd8265f5e54cb7a7563a0ae8f1b, type: 2}
+    fighterClass: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
+    personalityTrait: {fileID: 11400000, guid: 770ae372dc3abe843a19020cabaa49fb, type: 2}
     directAttackTargeter: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
     directAttackActionPointsCost: 3
     directAttackEffects:
@@ -6357,7 +6311,7 @@ MonoBehaviour:
       animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
     receiveDamageAnimationName: Hurt
     healSelfAnimationName: 
-    reduceStatAnimationName: 
+    reduceStatAnimationName: Hurt
     increaseStatAnimationName: 
 --- !u!1 &1656478350
 GameObject:
@@ -6449,10 +6403,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e1437369a964c4c8c7c54d4cdb92d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fightersGenerator: {fileID: 0}
+  _fightersGenerator: {fileID: 1644039837}
   _fightGrid: {fileID: 1914315112}
-  _alliesController: {fileID: 134175710}
-  _enemiesController: {fileID: 1789584864}
+  _actionPanel: {fileID: 1952024164}
+  _cellHighlightMaterial: {fileID: 2100000, guid: 1317001a5366be047821b25e2a15c957, type: 2}
+  _cellActionableHighlightMaterial: {fileID: 2100000, guid: fa4458785f81f784e894a2e9bf387954, type: 2}
+  _cellInaccessibleHighlightMateria: {fileID: 2100000, guid: 3a49c1857eb90d545bdc83727456b7b3, type: 2}
 --- !u!1 &1693774668
 GameObject:
   m_ObjectHideFlags: 0
@@ -6853,52 +6809,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1775630768}
   m_Mesh: {fileID: 5264201581553841347, guid: 8aaf0a3f3237af6408cd90e485a85978, type: 3}
---- !u!1 &1789584862
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1789584863}
-  - component: {fileID: 1789584864}
-  m_Layer: 0
-  m_Name: RandomController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1789584863
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789584862}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.2007682, z: 5.932871}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1789584864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789584862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 440fcc2a68be6744086deaf0c2e9022a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxActionsPerTurn: 4
-  timeBetweenActionsInSec: 2
 --- !u!1 &1814713791
 GameObject:
   m_ObjectHideFlags: 3
@@ -8698,8 +8608,6 @@ SceneRoots:
   - {fileID: 1597044137}
   - {fileID: 1963673183}
   - {fileID: 1076755}
-  - {fileID: 134175709}
-  - {fileID: 1789584863}
   - {fileID: 1644039836}
   - {fileID: 1678739251}
   - {fileID: 1656478351}

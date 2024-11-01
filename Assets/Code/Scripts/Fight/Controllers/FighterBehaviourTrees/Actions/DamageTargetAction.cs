@@ -1,14 +1,15 @@
-﻿using FrostfallSaga.BehaviourTree;
+﻿using System.Linq;
+using System.Collections.Generic;
 using FrostfallSaga.Core;
-using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Grid;
+using FrostfallSaga.BehaviourTree;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
-using FrostfallSaga.Grid;
-using System.Collections.Generic;
-using System.Linq;
+using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks;
+using FrostfallSaga.Grid.Cells;
 
-namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions
+namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 {
     public class DamageTargetAction : FBTNode
     {
@@ -26,7 +27,7 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions
 
         public override NodeState Evaluate()
         {
-            Fighter target = (Fighter)GetSharedData("damageTarget");
+            Fighter target = (Fighter)GetSharedData(CanDamageTargetCheck.TARGET_SHARED_DATA_KEY);
             if (target == null)
             {
                 return NodeState.FAILURE;
@@ -48,53 +49,60 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions
             {
                 case EDamagePreference.RANDOM:
                     preferedAbilityToAnimation = Randomizer.GetRandomElementFromArray(useableAbilitiesToAnimation.ToArray());
-                    float directAttackChance = 1f / useableAbilitiesToAnimation.Count + 1;
-                    useActiveAbility = !(canUseDirectAttack && Randomizer.GetBooleanOnChance(directAttackChance));
+                    float directAttackChance = 1f / (useableAbilitiesToAnimation.Count + 1);
+                    useActiveAbility = !Randomizer.GetBooleanOnChance(directAttackChance) || !canUseDirectAttack;
                     break;
 
                 case EDamagePreference.MAXIMIZE_DAMAGE:
                     preferedAbilityToAnimation = useableAbilitiesToAnimation.OrderByDescending(
-                        abilityToAnimation => GetPotentialsDamageOfAbilities(abilityToAnimation.activeAbility, target)
+                        abilityToAnimation => abilityToAnimation.activeAbility.GetDamagesPotential(_possessedFighter, target)
                     ).First();
                     useActiveAbility = (
-                        GetPotentialsDamageOfAbilities(preferedAbilityToAnimation.activeAbility, target) >
+                        preferedAbilityToAnimation.activeAbility.GetDamagesPotential(_possessedFighter, target) >
                         GetPotentialsDamageOfDirectAttack(_possessedFighter.DirectAttackEffects.ToList(), target)
-                    );
+                    ) || !canUseDirectAttack;
                     break;
 
                 case EDamagePreference.MINIMIZE_COST:
                     preferedAbilityToAnimation = useableAbilitiesToAnimation.OrderBy(
                         abilityToAnimation => abilityToAnimation.activeAbility.ActionPointsCost
                     ).First();
-                    useActiveAbility = preferedAbilityToAnimation.activeAbility.ActionPointsCost < _possessedFighter.DirectAttackActionPointsCost;
+                    useActiveAbility = (
+                        preferedAbilityToAnimation.activeAbility.ActionPointsCost < _possessedFighter.DirectAttackActionPointsCost
+                    ) || !canUseDirectAttack;
                     break;
             }
 
-            // Do the action
-            if (useActiveAbility && preferedAbilityToAnimation != null)
+            // Get damage action target cells
+            TargeterSO damageActionTargeter = useActiveAbility ?
+                preferedAbilityToAnimation.activeAbility.Targeter :
+                _possessedFighter.DirectAttackTargeter;
+            Cell[] targetCells = _possessedFighter.GetFirstTouchingCellSequence(damageActionTargeter, target, _fightGrid, _fighterTeams);
+
+            // Check if the target cells are valid (should not occure)
+            if (targetCells == null)
             {
-                ;
-                TargeterSO activeAbilityTargeter = preferedAbilityToAnimation.activeAbility.Targeter;
+                throw new MalformedFBTException(
+                    "Unable to find a valid target cell sequence. Should not occure. Please, verify the previous target check is valid."
+                );
+            }
+
+            // Do the action
+            if (useActiveAbility)
+            {
+                _possessedFighter.onFighterActiveAbilityEnded += OnPossessedFighterFinishedDamageAction;
                 _possessedFighter.UseActiveAbility(
                     preferedAbilityToAnimation,
-                    _possessedFighter.GetFirstTouchingCellSequence(activeAbilityTargeter, target, _fightGrid, _fighterTeams)
+                    targetCells
                 );
             }
             else
             {
-                TargeterSO directAttackTargeter = _possessedFighter.DirectAttackTargeter;
-                _possessedFighter.UseDirectAttack(
-                    _possessedFighter.GetFirstTouchingCellSequence(directAttackTargeter, target, _fightGrid, _fighterTeams)
-                );
+                _possessedFighter.onFighterDirectAttackEnded += OnPossessedFighterFinishedDamageAction;
+                _possessedFighter.UseDirectAttack(targetCells);
             }
+            SetSharedData(FBTNode.ACTION_RUNNING_SHARED_DATA_KEY, true);
             return NodeState.SUCCESS;
-        }
-
-        private int GetPotentialsDamageOfAbilities(ActiveAbilitySO activeAbility, Fighter target)
-        {
-            return activeAbility.Effects.Sum(
-                effect => effect.GetPotentialEffectDamages(_possessedFighter, target, effect.Masterstrokable)
-            );
         }
 
         private int GetPotentialsDamageOfDirectAttack(List<AEffectSO> effects, Fighter target)
@@ -102,6 +110,13 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions
             return effects.Sum(
                 effect => effect.GetPotentialEffectDamages(_possessedFighter, target, effect.Masterstrokable)
             );
+        }
+
+        private void OnPossessedFighterFinishedDamageAction(Fighter possessedFighter)
+        {
+            SetSharedData(FBTNode.ACTION_RUNNING_SHARED_DATA_KEY, false);
+            possessedFighter.onFighterActiveAbilityEnded -= OnPossessedFighterFinishedDamageAction;
+            possessedFighter.onFighterDirectAttackEnded -= OnPossessedFighterFinishedDamageAction;
         }
     }
 }

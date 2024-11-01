@@ -24,6 +24,17 @@ namespace FrostfallSaga.Fight.Controllers
         private int _numberOfActionsToDoForTurn;
         private int _numberOfActionsDoneForTurn;
 
+        public void Setup(int maxActionsPerTurn = 4, int timeBetweenActionsInSec = 2)
+        {
+            this.maxActionsPerTurn = maxActionsPerTurn;
+            this.timeBetweenActionsInSec = timeBetweenActionsInSec;
+            _possessedFighter = null;
+            _fighterTeams = null;
+            _fightGrid = null;
+            _numberOfActionsToDoForTurn = 0;
+            _numberOfActionsDoneForTurn = 0;
+        }
+
         public override void PlayTurn(Fighter fighterToPlay, Dictionary<Fighter, bool> fighterTeams, HexGrid fightGrid)
         {
             _possessedFighter = fighterToPlay;

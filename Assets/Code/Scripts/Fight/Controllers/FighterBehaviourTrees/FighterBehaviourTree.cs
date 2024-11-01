@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using FrostfallSaga.BehaviourTree;
-using FrostfallSaga.Fight.Controllers.BehaviourTreeController.Actions;
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
+using FrostfallSaga.BehaviourTree;
+using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions;
+using FrostfallSaga.Fight.Fighters;
 
-namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController
+namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
 {
     /// <summary>
     /// Base class for fighter behaviour trees.
@@ -44,12 +44,24 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController
         }
 
         /// <summary>
+        /// Returns true if the possessed fighter is doing an action. 
+        /// Use this to stop running the tree until the action is done.
+        /// </summary>
+        /// <returns>True if the possessed fighter is doing an action, false otherwise.</returns>
+        public bool IsActionRunning()
+        {
+            object actionRunning = _root.GetSharedData(FBTNode.ACTION_RUNNING_SHARED_DATA_KEY);
+            return actionRunning != null && (bool)actionRunning;
+        }
+
+        /// <summary>
         /// Returns true if the turn has ended. Use this to know when to stop the tree execution.
         /// </summary>
         /// <returns>True if the turn has ended, false otherwise.</returns>
         public bool HasTurnEnded()
         {
-            return (bool)_root.GetSharedData("TurnEnded");
+            object turnEnded = _root.GetSharedData(EndTurnAction.TURN_ENDED_SHARED_DATA_KEY);
+            return turnEnded != null && (bool)turnEnded;
         }
 
         private bool ContainsEndTurnAction(Node node)

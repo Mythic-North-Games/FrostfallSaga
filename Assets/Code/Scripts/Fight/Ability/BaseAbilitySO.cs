@@ -1,5 +1,7 @@
 using UnityEngine;
+using System.Linq;
 using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight.Fighters;
 
 
 namespace FrostfallSaga.Fight.Abilities
@@ -12,6 +14,13 @@ namespace FrostfallSaga.Fight.Abilities
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string Description { get; private set; }
         [field: SerializeField] public Sprite IconSprite { get; private set; }
-        [field: SerializeField] public AEffectSO[] Effects { get; private set; } = {};
+        [field: SerializeField] public AEffectSO[] Effects { get; private set; } = { };
+
+        public int GetDamagesPotential(Fighter initiator, Fighter target)
+        {
+            return Effects.Sum(
+                effect => effect.GetPotentialEffectDamages(initiator, target, effect.Masterstrokable)
+            );
+        }
     }
 }

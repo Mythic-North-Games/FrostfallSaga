@@ -21,7 +21,7 @@ namespace FrostfallSaga.BehaviourTree
         protected List<Node> children = new();
 
         // Can contain context data for the entire tree. You can get and set data from any node in the tree.
-        private readonly Dictionary<string, object> _sharedDataContext;
+        private readonly Dictionary<string, object> _sharedDataContext = new();
 
         public Node()
         {
