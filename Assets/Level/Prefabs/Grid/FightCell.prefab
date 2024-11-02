@@ -52,7 +52,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: FightCell
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5788510601483087246, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -77,4 +78,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1396e37f15498bc499493fad8db36ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Fighter: {fileID: 0}
+  <Coordinates>k__BackingField: {x: 0, y: 0}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
+  <Height>k__BackingField: 0
+  <IsAccessibleByDefault>k__BackingField: 0
+  <HighlightController>k__BackingField: {fileID: 0}
+  <CellMouseEventsController>k__BackingField: {fileID: 0}
+  <Fighter>k__BackingField: {fileID: 0}

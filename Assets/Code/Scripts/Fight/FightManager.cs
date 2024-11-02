@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid;
-using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Controllers;
 using FrostfallSaga.Fight.Statuses;
@@ -108,7 +108,7 @@ namespace FrostfallSaga.Fight
         {
             // Deactivate dead fighter
             fighterThatDied.gameObject.SetActive(false);
-            fighterThatDied.cell.GetComponent<CellFightBehaviour>().Fighter = null;
+            fighterThatDied.cell.SetFighter(null);
 
             // Update order
             Queue<Fighter> updatedFighterTurnsOrder = GetFightersTurnOrder(_allies.Concat(_enemies).ToArray());
@@ -233,8 +233,8 @@ namespace FrostfallSaga.Fight
             int xCellIndex = 0;
             foreach (Fighter ally in allies)
             {
-                Cell cellForAlly = fightGrid.CellsByCoordinates[new(xCellIndex, 0)];
-                cellForAlly.GetComponent<CellFightBehaviour>().Fighter = ally;
+                FightCell cellForAlly = (FightCell)fightGrid.CellsByCoordinates[new(xCellIndex, 0)];
+                cellForAlly.SetFighter(ally);
                 ally.cell = cellForAlly;
                 ally.MovementController.RotateTowardsCell(fightGrid.CellsByCoordinates[new(xCellIndex, 1)]);
                 ally.MovementController.TeleportToCell(cellForAlly);
@@ -244,8 +244,8 @@ namespace FrostfallSaga.Fight
             xCellIndex = 0;
             foreach (Fighter enemy in enemies)
             {
-                Cell cellForEnemy = fightGrid.CellsByCoordinates[new(xCellIndex, fightGrid.Height - 1)];
-                cellForEnemy.GetComponent<CellFightBehaviour>().Fighter = enemy;
+                FightCell cellForEnemy = (FightCell)fightGrid.CellsByCoordinates[new(xCellIndex, fightGrid.Height - 1)];
+                cellForEnemy.SetFighter(enemy);
                 enemy.cell = cellForEnemy;
                 enemy.MovementController.RotateTowardsCell(fightGrid.CellsByCoordinates[new(xCellIndex, fightGrid.Height - 2)]);
                 enemy.MovementController.TeleportToCell(cellForEnemy);

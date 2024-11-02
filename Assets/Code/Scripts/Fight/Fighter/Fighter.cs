@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Targeters;
-using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Fight.Statuses;
+using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -23,7 +24,7 @@ namespace FrostfallSaga.Fight.Fighters
         public Sprite FighterIcon { get; private set; }
 
         public string EntitySessionId { get; private set; }
-        public Cell cell;
+        public FightCell cell;
         public bool IsParalyzed { get; private set; }
 
         public Action<Fighter> onFighterMoved;
@@ -109,7 +110,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="cellsPath">The cells path to follow.</param>
         /// <param name="goUntilAllMovePointsUsed">If the path is longer than the current move points, seting this to True will make the fighter move until he runs out of movement points. Seting it to False will raise an exception instead.</param>
         /// <exception cref="ArgumentOutOfRangeException">Raised if the fighter does not have enough move points.</exception>
-        public void Move(Cell[] cellsPath, bool goUntilAllMovePointsUsed = false)
+        public void Move(FightCell[] cellsPath, bool goUntilAllMovePointsUsed = false)
         {
             if (!goUntilAllMovePointsUsed && cellsPath.Length > _stats.movePoints)
             {
@@ -126,7 +127,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="targetedCells">The cells to use the direct attack on.</param>
         /// <exception cref="ArgumentException">Raised if targeted cells are empty.</exception>
         /// <exception cref="InvalidOperationException">Raised if not enough action points.</exception>
-        public void UseDirectAttack(Cell[] targetedCells)
+        public void UseDirectAttack(FightCell[] targetedCells)
         {
             if (targetedCells.Length == 0)
             {
@@ -142,14 +143,8 @@ namespace FrostfallSaga.Fight.Fighters
             {
                 Debug.LogWarning($"No animation attached to direct attack for fighter {name}");
                 targetedCells.ToList()
-                    .Where(cell => cell.GetComponent<CellFightBehaviour>().Fighter != null).ToList()
-                    .ForEach(cell =>
-                    {
-                        ApplyEffectsOnFighter(
-                            DirectAttackEffects,
-                            cell.GetComponent<CellFightBehaviour>().Fighter
-                        );
-                    });
+                    .Where(cell => cell.HasFighter()).ToList()
+                    .ForEach(cell => ApplyEffectsOnFighter(DirectAttackEffects, cell.Fighter));
                 onFighterDirectAttackEnded?.Invoke(this);
 
             }
@@ -169,7 +164,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="targetedCells">The target cells for the ability.</param>
         /// <exception cref="ArgumentException">Raised if targeted cells are empty.</exception>
         /// <exception cref="InvalidOperationException">Raised if not enough action points.</exception>
-        public void UseActiveAbility(ActiveAbilityToAnimation activeAbilityToAnimation, Cell[] targetedCells)
+        public void UseActiveAbility(ActiveAbilityToAnimation activeAbilityToAnimation, FightCell[] targetedCells)
         {
             if (targetedCells.Length == 0)
             {
@@ -189,12 +184,8 @@ namespace FrostfallSaga.Fight.Fighters
             {
                 Debug.LogWarning($"No animation attached to active ability {activeAbilityToAnimation.activeAbility.Name} for fighter {name}");
                 targetedCells.ToList()
-                    .Where(cell => cell.GetComponent<CellFightBehaviour>().Fighter != null).ToList()
-                    .ForEach(cell =>
-                    {
-                        Fighter targetedFighter = cell.GetComponent<CellFightBehaviour>().Fighter;
-                        ApplyEffectsOnFighter(activeAbilityToUse.Effects, targetedFighter);
-                    });
+                    .Where(cell => cell.HasFighter()).ToList()
+                    .ForEach(cell => ApplyEffectsOnFighter(activeAbilityToUse.Effects, cell.Fighter));
                 onFighterActiveAbilityEnded?.Invoke(this);
             }
             else
@@ -459,7 +450,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <returns>True if he has enough move points and if there is at least on cell free around him.</returns>
         public bool CanMove(HexGrid fightGrid)
         {
-            return _stats.movePoints > 0 && FightCellNeighbors.GetNeighbors(fightGrid, cell).Length > 0;
+            return _stats.movePoints > 0 && CellsNeighbors.GetNeighbors(fightGrid, cell).Length > 0;
         }
 
         /// <summary>
@@ -485,10 +476,19 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="fightersTeams">The teams of the fighters in the fight.</param>
         /// <param name="target">The optional target to check if the active ability can be used on.</param>
         /// <returns>True if he has enough actions points and if an active ability targeter can be resolved around him.</returns>
-        public bool CanUseAtLeastOneActiveAbility(HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams, Fighter target = null)
+        public bool CanUseAtLeastOneActiveAbility(
+            HexGrid fightGrid,
+            Dictionary<Fighter, bool> fightersTeams,
+            Fighter target = null
+        )
         {
             return ActiveAbilitiesToAnimation.Any(
-                activeAbilityToAnimation => CanUseActiveAbility(fightGrid, activeAbilityToAnimation.activeAbility, fightersTeams, target)
+                activeAbilityToAnimation => CanUseActiveAbility(
+                    fightGrid,
+                    activeAbilityToAnimation.activeAbility,
+                    fightersTeams,
+                    target
+                )
             );
         }
 
@@ -501,7 +501,12 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="fightGrid">The current fight grid.</param>
         /// <param name="fightersTeams">The current fighters and corresponding team.</param>
         /// <returns>The first touching cell sequence if it exists, null otherwise.</returns>
-        public Cell[] GetFirstTouchingCellSequence(TargeterSO targeter, Fighter target, HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        public FightCell[] GetFirstTouchingCellSequence(
+            TargeterSO targeter,
+            Fighter target,
+            HexGrid fightGrid,
+            Dictionary<Fighter, bool> fightersTeams
+        )
         {
             return targeter.GetAllResolvedCellsSequences(fightGrid, cell, fightersTeams).FirstOrDefault(
                 cellsSequence => cellsSequence.Contains(target.cell)
@@ -592,7 +597,12 @@ namespace FrostfallSaga.Fight.Fighters
             }
         }
 
-        private bool CanUseTargeterOnFighter(TargeterSO targeter, Fighter target, HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        private bool CanUseTargeterOnFighter(
+            TargeterSO targeter,
+            Fighter target,
+            HexGrid fightGrid,
+            Dictionary<Fighter, bool> fightersTeams
+        )
         {
             return targeter.GetAllResolvedCellsSequences(fightGrid, cell, fightersTeams).Any(
                 cellsSequence => cellsSequence.Contains(target.cell)
@@ -603,17 +613,23 @@ namespace FrostfallSaga.Fight.Fighters
         #region Movement handling
         private void MakeNextMove()
         {
-            Cell cellToMoveTo = _currentMovePath.GetNextCellInPath();
-            cell.GetComponent<CellFightBehaviour>().Fighter = null;
+            FightCell cellToMoveTo = (FightCell)_currentMovePath.GetNextCellInPath();
             MovementController.Move(cell, cellToMoveTo, _currentMovePath.IsLastMove);
         }
 
         private void OnFighterArrivedAtCell(Cell destinationCell)
         {
+            // Update cells fighter references
+            cell.SetFighter(null);
+            FightCell destinationFightCell = (FightCell)destinationCell;
+            destinationFightCell.SetFighter(this);
+            cell = destinationFightCell;
+
+            // Decrease move points
             _stats.movePoints -= 1;
-            cell = destinationCell;
-            cell.GetComponent<CellFightBehaviour>().Fighter = this;
-            if (!_currentMovePath.IsLastMove && _stats.movePoints > 0)
+        
+            // If there are still moves to make, make the next one
+            if (!_currentMovePath.IsLastMove)
             {
                 MakeNextMove();
             }

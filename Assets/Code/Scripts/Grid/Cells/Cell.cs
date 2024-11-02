@@ -8,16 +8,24 @@ namespace FrostfallSaga.Grid.Cells
     /// </summary>
     public class Cell : MonoBehaviour
     {
-        [field: SerializeField, Header("Coordinates"), Tooltip("Contain coordinates")] public Vector2Int Coordinates { get; private set; }
-        [property: SerializeField] public Vector2Int AxialCoordinates
+        [field: SerializeField, Header("Coordinates"), Tooltip("Contain coordinates")]
+        public Vector2Int Coordinates { get; private set; }
+
+        [property: SerializeField]
+        public Vector2Int AxialCoordinates
         {
             get { return HexMetrics.OffsetToAxial(Coordinates); }
         }
         [field: SerializeField] public float WorldHeightPerUnit { get; private set; } = 0.8f;
-        [field: SerializeField, Header("Cell characteristics"), Tooltip("Contain cell characteristics")] public TerrainTypeSO TerrainType { get; private set; }
+
+        [field: SerializeField, Header("Cell characteristics"), Tooltip("Contain cell characteristics")]
+        public TerrainTypeSO TerrainType { get; private set; }
+
         [field: SerializeField] public ECellHeight Height { get; private set; }
-        [field: SerializeField] public bool IsAccessible { get; private set; }
-        [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")] public MaterialHighlightable HighlightController { get; private set; }
+
+        [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")]
+        public MaterialHighlightable HighlightController { get; private set; }
+
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
 
         private void Awake()
@@ -44,7 +52,6 @@ namespace FrostfallSaga.Grid.Cells
             Coordinates = coordinates;
             Height = cellHeight;
             TerrainType = terrainType;
-            IsAccessible = terrainType.IsAccessible;
             SetPositionForCellHeight(Height);
             SetCellMouseEventsControllerFromGameObjectTree();
             SetTerrainVisual();
@@ -58,6 +65,24 @@ namespace FrostfallSaga.Grid.Cells
             {
                 Debug.LogError("Cell " + name + " has no visual to be set up. Please add a cell visual as a child.");
             }
+        }
+
+        /// <summary>
+        /// Returns if the cell is accessible, regardless of the possible cell occupants.
+        /// </summary>
+        /// <returns>True if the terrain is accessible and if there are no obstacles, false otherwise</returns>
+        public virtual bool IsTerrainAccessible()
+        {
+            return TerrainType.IsAccessible;
+        }
+
+        /// <summary>
+        /// Returns if the cell is free to be occupied.
+        /// </summary>
+        /// <returns>True if the cell is accessible and contains no occupants.</returns>
+        public virtual bool IsFree()
+        {
+            return TerrainType.IsAccessible;
         }
 
         /// <summary>
