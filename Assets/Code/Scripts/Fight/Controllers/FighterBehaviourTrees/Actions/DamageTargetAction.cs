@@ -89,6 +89,9 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
                 );
             }
 
+            // INFO: We are setting it before executing the action because if no animation is played, the action will be finished instantly and the variable will still be true so infinite loop will occure.
+            SetSharedData(FBTNode.ACTION_RUNNING_SHARED_DATA_KEY, true);
+
             // Do the action
             if (useActiveAbility)
             {
@@ -103,7 +106,6 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
                 _possessedFighter.onFighterDirectAttackEnded += OnPossessedFighterFinishedDamageAction;
                 _possessedFighter.UseDirectAttack(targetCells);
             }
-            SetSharedData(FBTNode.ACTION_RUNNING_SHARED_DATA_KEY, true);
             return NodeState.SUCCESS;
         }
 
