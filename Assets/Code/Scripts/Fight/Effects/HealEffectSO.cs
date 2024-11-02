@@ -11,7 +11,12 @@ namespace FrostfallSaga.Fight.Effects
     {
         [field: SerializeField, Range(0, 9999)] public int HealAmount { get; private set; }
 
-        public override void ApplyEffect(Fighter initiator, Fighter receiver, bool canMasterstroke = true, bool canDodge = true)
+        public override void ApplyEffect(
+            Fighter receiver,
+            Fighter initiator = null,
+            bool canMasterstroke = true,
+            bool canDodge = true
+        )
         {
             // Try dodge if enabled
             if (canDodge && TryDodge(receiver))

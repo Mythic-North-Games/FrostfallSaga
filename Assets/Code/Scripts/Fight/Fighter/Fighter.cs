@@ -589,7 +589,14 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="target">The fighter to apply the effects to.</param>
         private void ApplyEffectsOnFighter(AEffectSO[] effectsToApply, Fighter target)
         {
-            effectsToApply.ToList().ForEach(effect => effect.ApplyEffect(this, target, effect.Masterstrokable, effect.Dodgable));
+            effectsToApply.ToList().ForEach(
+                effect => effect.ApplyEffect(
+                    receiver: target,
+                    initator: this,
+                    canMasterstroke: effect.Masterstrokable,
+                    canDodge: effect.Dodgable
+                )
+            );
         }
 
         private void DecreaseHealth(int amount)

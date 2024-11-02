@@ -7,12 +7,21 @@ namespace FrostfallSaga.Fight.Effects
     /// <summary>
     /// Effect that applies the configured status to the target fighter.
     /// </summary>
-    [CreateAssetMenu(fileName = "RemoveStatusEffect", menuName = "ScriptableObjects/Fight/Effects/RemoveStatusEffect", order = 0)]
+    [CreateAssetMenu(
+        fileName = "RemoveStatusEffect",
+        menuName = "ScriptableObjects/Fight/Effects/RemoveStatusEffect",
+        order = 0
+    )]
     public class ApplyStatusesEffectSO : AEffectSO
     {
         [field: SerializeField, Tooltip("The status to apply.")] public AStatus[] StatusesToApply { get; private set; } = { };
 
-        public override void ApplyEffect(Fighter initiator, Fighter receiver, bool canMasterstroke = false, bool canDodge = false)
+        public override void ApplyEffect(
+            Fighter receiver,
+            Fighter initiator = null,
+            bool canMasterstroke = true,
+            bool canDodge = true
+        )
         {
             foreach (AStatus status in StatusesToApply)
             {

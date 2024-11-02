@@ -16,11 +16,16 @@ namespace FrostfallSaga.Fight.Effects
         /// <summary>
         /// Apply the effect to the target fighter using the initator stats for possible masterstroke and dodge chance.
         /// </summary>
-        /// <param name="initiator">The effect initiator.</param>
         /// <param name="receiver">The fighter that will receive the effect.</param>
+        /// <param name="initator">The fighter that initiates the effect if there is one.</param>
         /// <param name="canMasterstroke">True if the effect can be masterstroked, false otherwise.</param>
         /// <param name="canDodge">True if the effect can be dodged, false otherwise.</param>
-        public abstract void ApplyEffect(Fighter initiator, Fighter receiver, bool canMasterstroke = true, bool canDodge = true);
+        public abstract void ApplyEffect(
+            Fighter receiver,
+            Fighter initator = null,
+            bool canMasterstroke = true,
+            bool canDodge = true
+        );
 
         /// <summary>
         /// Make the given fighter try to dodge something.

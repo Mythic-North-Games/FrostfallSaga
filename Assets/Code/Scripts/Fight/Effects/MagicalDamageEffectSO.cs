@@ -6,13 +6,22 @@ namespace FrostfallSaga.Fight.Effects
     /// <summary>
     /// Effect that applies magical damage to the target fighter.
     /// </summary>
-    [CreateAssetMenu(fileName = "MagicalDamageEffect", menuName = "ScriptableObjects/Fight/Effects/MagicalDamageEffect", order = 0)]
+    [CreateAssetMenu(
+        fileName = "MagicalDamageEffect",
+        menuName = "ScriptableObjects/Fight/Effects/MagicalDamageEffect",
+        order = 0
+    )]
     public class MagicalDamageEffectSO : AEffectSO
     {
         [field: SerializeField, Range(0, 9999)] public int MagicalDamageAmount { get; private set; }
         [field: SerializeField] public EMagicalElement MagicalElement { get; private set; }
 
-        public override void ApplyEffect(Fighter initiator, Fighter receiver, bool canMasterstroke = true, bool canDodge = true)
+        public override void ApplyEffect(
+            Fighter receiver,
+            Fighter initiator = null,
+            bool canMasterstroke = true,
+            bool canDodge = true
+        )
         {
             // Try dodge if enabled
             if (canDodge && TryDodge(receiver))
@@ -25,7 +34,7 @@ namespace FrostfallSaga.Fight.Effects
             bool masterstrokeSucceeded = false;
 
             // Calculate masterstroke
-            if (canMasterstroke)
+            if (canMasterstroke && initiator != null)
             {
                 finalDamageAmount = TryMasterstroke(initiator, MagicalDamageAmount);
                 masterstrokeSucceeded = finalDamageAmount != MagicalDamageAmount;
