@@ -112,12 +112,20 @@ namespace FrostfallSaga.Fight.Fighters
         /// <exception cref="ArgumentOutOfRangeException">Raised if the fighter does not have enough move points.</exception>
         public void Move(FightCell[] cellsPath, bool goUntilAllMovePointsUsed = false)
         {
-            if (!goUntilAllMovePointsUsed && cellsPath.Length > _stats.movePoints)
+            bool pathLongerThanMovePoints = cellsPath.Length > _stats.movePoints;
+
+            // Check if the fighter has enough move points to move
+            if (!goUntilAllMovePointsUsed && pathLongerThanMovePoints)
             {
                 throw new ArgumentOutOfRangeException("Fighter " + name + " does not have enough move points to move.");
             }
 
-            _currentMovePath = new(goUntilAllMovePointsUsed ? cellsPath.Take(_stats.movePoints).ToArray() : cellsPath);
+            // If the path is longer than the move points, we shrink it to the move points
+            if (goUntilAllMovePointsUsed && pathLongerThanMovePoints)
+            {
+                cellsPath = cellsPath.Take(_stats.movePoints).ToArray();
+            }
+            _currentMovePath = new(cellsPath);
             MakeNextMove();
         }
 
@@ -146,7 +154,6 @@ namespace FrostfallSaga.Fight.Fighters
                     .Where(cell => cell.HasFighter()).ToList()
                     .ForEach(cell => ApplyEffectsOnFighter(DirectAttackEffects, cell.Fighter));
                 onFighterDirectAttackEnded?.Invoke(this);
-
             }
             else
             {
@@ -462,10 +469,12 @@ namespace FrostfallSaga.Fight.Fighters
         /// <returns>True if he has enough actions points and if the direct attack targeter can be resolved around him.</returns>
         public bool CanDirectAttack(HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams, Fighter target = null)
         {
-            return (
-                DirectAttackActionPointsCost <= _stats.actionPoints &&
-                DirectAttackTargeter.AtLeastOneCellResolvable(fightGrid, cell, fightersTeams) &&
-                target == null || CanUseTargeterOnFighter(DirectAttackTargeter, target, fightGrid, fightersTeams)
+            return DirectAttackActionPointsCost <= _stats.actionPoints && (
+                (
+                    DirectAttackTargeter.AtLeastOneCellResolvable(fightGrid, cell, fightersTeams) &&
+                    target == null
+                ) ||
+                CanUseTargeterOnFighter(DirectAttackTargeter, target, fightGrid, fightersTeams)
             );
         }
 
@@ -544,7 +553,11 @@ namespace FrostfallSaga.Fight.Fighters
         /// <returns>True if he can move, direct attack or use one of its active ability.</returns>
         public bool CanAct(HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
         {
-            return CanMove(fightGrid) || CanDirectAttack(fightGrid, fightersTeams) || CanUseAtLeastOneActiveAbility(fightGrid, fightersTeams);
+            return (
+                CanMove(fightGrid) ||
+                CanDirectAttack(fightGrid, fightersTeams) ||
+                CanUseAtLeastOneActiveAbility(fightGrid, fightersTeams)
+            );
         }
 
         #endregion
@@ -627,7 +640,7 @@ namespace FrostfallSaga.Fight.Fighters
 
             // Decrease move points
             _stats.movePoints -= 1;
-        
+
             // If there are still moves to make, make the next one
             if (!_currentMovePath.IsLastMove)
             {

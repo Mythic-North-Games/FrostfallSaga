@@ -28,13 +28,23 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
         public override NodeState Evaluate()
         {
             List<Fighter> fightersToMoveTowards = GetFightersToMoveTowards();
+
+            // If there are no fighters to move towards, don't move.
             if (fightersToMoveTowards.Count == 0)
             {
                 return NodeState.FAILURE;
             }
 
+            FightCell[] pathToClosestFighter = GetShortPathToClosestFighter(fightersToMoveTowards);
+
+            // If we are already in melee with the closest fighter, don't move.
+            if (pathToClosestFighter.Length == 0)
+            {
+                return NodeState.FAILURE;
+            }
+
             _possessedFighter.onFighterMoved += OnPossessedFighterMoved;
-            _possessedFighter.Move(GetClosestFighterPath(fightersToMoveTowards), goUntilAllMovePointsUsed: true);
+            _possessedFighter.Move(pathToClosestFighter, goUntilAllMovePointsUsed: true);
             SetSharedData(FBTNode.ACTION_RUNNING_SHARED_DATA_KEY, true);
             return NodeState.SUCCESS;
         }
@@ -62,7 +72,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             return targetsToMoveTo;
         }
 
-        private FightCell[] GetClosestFighterPath(List<Fighter> fightersToMoveTowards)
+        private FightCell[] GetShortPathToClosestFighter(List<Fighter> fightersToMoveTowards)
         {
             FightCell[] shortestPath = { };
             foreach (Fighter fighter in fightersToMoveTowards)
