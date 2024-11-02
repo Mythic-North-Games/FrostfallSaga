@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.BehaviourTree;
+using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks;
-using FrostfallSaga.Grid.Cells;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 {
@@ -77,7 +77,9 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             TargeterSO damageActionTargeter = useActiveAbility ?
                 preferedAbilityToAnimation.activeAbility.Targeter :
                 _possessedFighter.DirectAttackTargeter;
-            Cell[] targetCells = _possessedFighter.GetFirstTouchingCellSequence(damageActionTargeter, target, _fightGrid, _fighterTeams);
+            FightCell[] targetCells = _possessedFighter.GetFirstTouchingCellSequence(
+                damageActionTargeter, target, _fightGrid, _fighterTeams
+            );
 
             // Check if the target cells are valid (should not occure)
             if (targetCells == null)

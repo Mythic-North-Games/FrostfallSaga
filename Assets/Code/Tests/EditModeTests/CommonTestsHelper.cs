@@ -2,6 +2,7 @@ using UnityEngine;
 using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Fight.FightCells;
 
 namespace FrostfallSaga.EditModeTests
 {
@@ -14,7 +15,7 @@ namespace FrostfallSaga.EditModeTests
         /// </summary>
         static TerrainTypeSO TerrainPlain = Resources.LoadAll<TerrainTypeSO>("ScriptableObjects/Grid/Terrain/")[4];
 
-        public static HexGrid CreatePlainGridForTest(int gridWidth = 5, int gridHeight = 5)
+        public static HexGrid CreatePlainGridForTest(bool fightCell = false, int gridWidth = 5, int gridHeight = 5)
         {
             GameObject gridGameObject = new();
             gridGameObject.AddComponent<HexGrid>();
@@ -25,7 +26,7 @@ namespace FrostfallSaga.EditModeTests
                 for (int y = 0; y < gridHeight; y++)
                 {
                     Vector2Int newCellCoordinates = new(x, y);
-                    grid.CellsByCoordinates.Add(newCellCoordinates, CreateCellForTest(newCellCoordinates));
+                    grid.CellsByCoordinates.Add(newCellCoordinates, CreateCellForTest(newCellCoordinates, fightCell));
                 }
             }
             return grid;
@@ -33,12 +34,20 @@ namespace FrostfallSaga.EditModeTests
 
         public static Cell CreateCellForTest(
             Vector2Int coordinates,
+            bool fightCell = false,
             ECellHeight height = ECellHeight.LOW,
             float hexGridSize = 2f
         )
         {
             GameObject cellGameObject = new();
-            cellGameObject.AddComponent<Cell>();
+            if (fightCell)
+            {
+                cellGameObject.AddComponent<FightCell>();
+            }
+            else
+            {
+                cellGameObject.AddComponent<Cell>();
+            }
             cellGameObject.name = "Cell[" + coordinates.x + ";" + coordinates.y + "]";
 
             GameObject cellVisualGameObject = new();

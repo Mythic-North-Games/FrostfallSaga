@@ -1,10 +1,10 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
+using FrostfallSaga.Grid;
 using FrostfallSaga.BehaviourTree;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Grid.Cells;
-using System.Diagnostics;
+using FrostfallSaga.Fight.FightCells;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 {
@@ -62,20 +62,22 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             return targetsToMoveTo;
         }
 
-        private Cell[] GetClosestFighterPath(List<Fighter> fightersToMoveTowards)
+        private FightCell[] GetClosestFighterPath(List<Fighter> fightersToMoveTowards)
         {
-            Cell[] shortestPath = { };
+            FightCell[] shortestPath = { };
             foreach (Fighter fighter in fightersToMoveTowards)
             {
-                Cell[] path = CellsPathFinding.GetShorterPath(
-                    _fightGrid,
-                    _possessedFighter.cell,
-                    fighter.cell
+                FightCell[] path = Array.ConvertAll(
+                        CellsPathFinding.GetShorterPath(
+                        _fightGrid,
+                        _possessedFighter.cell,
+                        fighter.cell
+                    ), cell => (FightCell)cell
                 );
 
                 if (shortestPath.Length == 0 || path.Length < shortestPath.Length)
                 {
-                    shortestPath = path;
+                    shortestPath = path.Take(path.Length - 1).ToArray();
                 }
             }
             return shortestPath;

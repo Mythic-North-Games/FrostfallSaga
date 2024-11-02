@@ -2,9 +2,9 @@ using System;
 using NUnit.Framework;
 using UnityEngine;
 using FrostfallSaga.Grid;
-using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight.FightCells;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
@@ -14,7 +14,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void UseDirectAttack_OneReceiver_Test()
         {
             // Arrange
-            HexGrid grid = FightTestsHelper.CreatePlainFightGrid();
+            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(fightCell: true);
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
@@ -27,7 +27,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int attackerDamages = ((PhysicalDamageEffectSO)attacker.DirectAttackEffects[0]).PhysicalDamageAmount;
             int expectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - attackerDamages);
 
-            Cell[] targetedCells = { receiver.cell };
+            FightCell[] targetedCells = { receiver.cell };
 
             // Act
             attacker.UseDirectAttack(targetedCells);
@@ -44,7 +44,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void UseDirectAttack_MultipleReceivers_Test()
         {
             // Arrange
-            HexGrid grid = FightTestsHelper.CreatePlainFightGrid();
+            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(fightCell: true);
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
@@ -65,10 +65,10 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int expectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - attackerDamages);
             int expectedReceiverHealth2 = Math.Max(0, receiver2.GetStatsForTests().health - attackerDamages);
 
-            Cell[] targetedCells = {
+            FightCell[] targetedCells = {
                 receiver.cell,
                 receiver2.cell,
-                grid.CellsByCoordinates[new(1, 1)],
+                (FightCell)grid.CellsByCoordinates[new(1, 1)],
             };
 
             // Act
@@ -87,7 +87,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void UseDirectAttack_NoFighterOnCells_Test()
         {
             // Arrange
-            HexGrid grid = FightTestsHelper.CreatePlainFightGrid();
+            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(fightCell: true);
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
@@ -97,7 +97,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.DirectAttackActionPointsCost;
             int expectedNotTargetedFighterHealth = notTargetedFighter.GetStatsForTests().health;
 
-            Cell[] targetedCells = { grid.CellsByCoordinates[new(1, 1)] };
+            FightCell[] targetedCells = { (FightCell)grid.CellsByCoordinates[new(1, 1)] };
 
             // Act
             attacker.UseDirectAttack(targetedCells);
@@ -114,11 +114,11 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void UseDirectAttack_NoTargetCells_Test()
         {
             // Arrange
-            HexGrid grid = FightTestsHelper.CreatePlainFightGrid();
+            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(fightCell: true);
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
-            Cell[] targetedCells = { };
+            FightCell[] targetedCells = { };
 
             // Act
             Assert.Throws<ArgumentException>(() => attacker.UseDirectAttack(targetedCells));
@@ -128,12 +128,12 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void UseDirectAttack_NotEnoughActionPoints_Test()
         {
             // Arrange
-            HexGrid grid = FightTestsHelper.CreatePlainFightGrid();
+            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(fightCell: true);
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
             attacker.GetStatsForTests().actionPoints = 1;
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
-            Cell[] targetedCells = { grid.CellsByCoordinates[new(0, 1)] };
+            FightCell[] targetedCells = { (FightCell)grid.CellsByCoordinates[new(0, 1)] };
 
             // Act
             Assert.Throws<InvalidOperationException>(() => attacker.UseDirectAttack(targetedCells));

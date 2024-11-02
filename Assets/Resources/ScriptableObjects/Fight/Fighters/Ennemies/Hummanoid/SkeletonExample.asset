@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SkeletonExample
   m_EditorClassIdentifier: 
   <FighterClass>k__BackingField: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
+  <PersonalityTrait>k__BackingField: {fileID: 11400000, guid: 770ae372dc3abe843a19020cabaa49fb, type: 2}
   <AvailableActiveAbilities>k__BackingField:
   - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
     animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
@@ -21,16 +22,12 @@ MonoBehaviour:
   <DirectAttackEffects>k__BackingField:
   - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
   <DirectAttackActionPointsCost>k__BackingField: 2
-  <DirectAttackAnimation>k__BackingField: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
-  <HealSelfAnimationStateName>k__BackingField: 
-  <ReceiveDamageAnimationStateName>k__BackingField: Hurt
   <MaxHealth>k__BackingField: 70
   <MaxActionPoints>k__BackingField: 3
   <MaxMovePoints>k__BackingField: 3
   <Strength>k__BackingField: 4
   <Dexterity>k__BackingField: 2
   <Tenacity>k__BackingField: 0.15
-  <Dodge>k__BackingField: 0.02
   <PhysicalResistance>k__BackingField: 3
   <MagicalResistances>k__BackingField:
   - magicalElement: 0
@@ -44,5 +41,11 @@ MonoBehaviour:
     value: 0
   - magicalElement: 0
     value: 0
-  <Masterstroke>k__BackingField: 0.1
+  <DodgeChance>k__BackingField: 0
+  <MasterstrokeChance>k__BackingField: 0
   <Initiative>k__BackingField: 5
+  <DirectAttackAnimation>k__BackingField: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
+  <HealSelfAnimationName>k__BackingField: 
+  <ReceiveDamageAnimationName>k__BackingField: 
+  <ReduceStatAnimationName>k__BackingField: 
+  <IncreaseStatAnimationName>k__BackingField: 

@@ -83,26 +83,22 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 
         private Fighter GetPreferredTarget(List<Fighter> damagableTargets)
         {
-            switch (_targetType)
+            return _targetType switch
             {
-                case ETargetType.RANDOM:
-                    return Randomizer.GetRandomElementFromArray(damagableTargets.ToArray());
-                case ETargetType.WEAKEST:
-                    return damagableTargets.OrderBy(fighter => fighter.GetHealth()).First();
-                case ETargetType.STRONGEST:
-                    return damagableTargets.OrderByDescending(fighter => fighter.GetHealth()).First();
-                case ETargetType.CLOSEST:
-                    return damagableTargets.OrderBy(fighter => CellsPathFinding.GetShorterPath(
-                            _fightGrid,
-                            _possessedFighter.cell,
-                            fighter.cell,
-                            includeInaccessibleNeighbors: true,
-                            includeHeightInaccessibleNeighbors: true
-                        ).Length
-                    ).First();
-                default:
-                    return null;
-            }
+                ETargetType.RANDOM => Randomizer.GetRandomElementFromArray(damagableTargets.ToArray()),
+                ETargetType.WEAKEST => damagableTargets.OrderBy(fighter => fighter.GetHealth()).First(),
+                ETargetType.STRONGEST => damagableTargets.OrderByDescending(fighter => fighter.GetHealth()).First(),
+                ETargetType.CLOSEST => damagableTargets.OrderBy(
+                    fighter => CellsPathFinding.GetShorterPath(
+                        _fightGrid,
+                        _possessedFighter.cell,
+                        fighter.cell,
+                        includeInaccessibleNeighbors: true,
+                        includeHeightInaccessibleNeighbors: true
+                    ).Length
+                ).First(),
+                _ => null,
+            };
         }
     }
 }
