@@ -11,16 +11,12 @@ namespace FrostfallSaga.KingdomToFight
     public class FighterConfigurationSO : ScriptableObject
     {
         [field: SerializeField] public FighterClassSO FighterClass { get; private set; }
+        [field: SerializeField] public PersonalityTraitSO PersonalityTrait { get; private set; }
         [field: SerializeField] public ActiveAbilityToAnimation[] AvailableActiveAbilities { get; private set; }
         [field: SerializeField] public int ActiveAbilitiesCapacity = 5;
         [field: SerializeField] public TargeterSO DirectAttackTargeter { get; private set; }
         [field: SerializeField] public AEffectSO[] DirectAttackEffects { get; private set; }
         [field: SerializeField] public int DirectAttackActionPointsCost { get; private set; }
-        [field: SerializeField] public AAbilityAnimationSO DirectAttackAnimation { get; private set; }
-        [field: SerializeField] public string HealSelfAnimationName { get; private set; }
-        [field: SerializeField] public string ReceiveDamageAnimationName { get; private set; }
-        [field: SerializeField] public string ReduceStatAnimationName { get; private set; }
-        [field: SerializeField] public string IncreaseStatAnimationName { get; private set; }
 
         #region Base stats
         [field: SerializeField, Range(0, 9999)] public int MaxHealth { get; private set; }
@@ -35,6 +31,14 @@ namespace FrostfallSaga.KingdomToFight
         [field: SerializeField, Range(0, 9999)] public float DodgeChance { get; private set; }
         [field: SerializeField, Range(0, 9999)] public float MasterstrokeChance { get; private set; }
         [field: SerializeField, Range(0, 9999)] public int Initiative { get; private set; }
+        #endregion
+
+        #region Animations
+        [field: SerializeField] public AAbilityAnimationSO DirectAttackAnimation { get; private set; }
+        [field: SerializeField] public string HealSelfAnimationName { get; private set; }
+        [field: SerializeField] public string ReceiveDamageAnimationName { get; private set; }
+        [field: SerializeField] public string ReduceStatAnimationName { get; private set; }
+        [field: SerializeField] public string IncreaseStatAnimationName { get; private set; }
         #endregion
 
         public virtual FighterStats ExtractFighterStats()

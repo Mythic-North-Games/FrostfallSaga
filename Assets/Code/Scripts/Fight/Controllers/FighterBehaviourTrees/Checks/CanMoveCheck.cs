@@ -3,7 +3,7 @@ using FrostfallSaga.BehaviourTree;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
 
-namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Checks
+namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 {
     /// <summary>
     /// Check if the possessed fighter can move. Enough move points and no obstacles.

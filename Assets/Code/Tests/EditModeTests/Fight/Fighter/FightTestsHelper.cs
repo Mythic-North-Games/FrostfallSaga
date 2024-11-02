@@ -51,6 +51,7 @@ namespace FrostfallSaga.EditModeTests.FightTests
                     null,
                     fighterConfiguration.ExtractFighterStats(),
                     fighterConfiguration.FighterClass,
+                    fighterConfiguration.PersonalityTrait,
                     fighterConfiguration.DirectAttackTargeter,
                     fighterConfiguration.DirectAttackActionPointsCost,
                     fighterConfiguration.DirectAttackEffects,

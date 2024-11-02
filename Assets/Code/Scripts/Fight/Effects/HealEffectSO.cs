@@ -39,5 +39,10 @@ namespace FrostfallSaga.Fight.Effects
             receiver.onEffectReceived?.Invoke(receiver, initiator, this, masterstrokeSucceeded);
             Debug.Log($"Healed {receiver.name} for {finalHealAmount} health.");
         }
+
+        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke = true)
+        {
+            return 0;
+        }
     }
 }

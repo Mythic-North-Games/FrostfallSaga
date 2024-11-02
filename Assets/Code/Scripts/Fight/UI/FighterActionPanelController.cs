@@ -46,7 +46,7 @@ namespace FrostfallSaga.Fight.UI
             int abilitiesButtonCount = GetAbilitiesButtons().Length;
 
             int i = 1;
-            fighter.ActiveAbilities.ToList().ForEach(ability =>
+            fighter.ActiveAbilitiesToAnimation.ToList().ForEach(ability =>
             {
                 if (i < abilitiesButtonCount)
                 {

@@ -5,21 +5,22 @@ using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
 
-namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Checks
+namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 {
     /// <summary>
     /// Check if the possessed fighter can damage any target between the possible targets and types given in parameters.
     /// </summary>
     public class CanDamageTargetCheck : FBTNode
     {
-        private readonly ETarget[] _possibleTargets;
+        public static string TARGET_SHARED_DATA_KEY = "damageTarget";
+        private readonly List<ETarget> _possibleTargets;
         private readonly ETargetType _targetType;
 
         public CanDamageTargetCheck(
             Fighter possessedFighter,
             HexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,
-            ETarget[] possibleTargets,
+            List<ETarget> possibleTargets,
             ETargetType targetType
         ) : base(possessedFighter, fightGrid, fighterTeams)
         {
@@ -35,7 +36,7 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Checks
                 return NodeState.FAILURE;
             }
 
-            SetSharedData("damageTarget", GetPreferredTarget(damagableTargets));
+            SetSharedData(TARGET_SHARED_DATA_KEY, GetPreferredTarget(damagableTargets));
             return NodeState.SUCCESS;
         }
 
@@ -44,30 +45,29 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController.Checks
             List<Fighter> damagableTargets = new();
             bool _possessedFighterTeam = _fighterTeams[_possessedFighter];
 
-            foreach (Fighter fighter in _fighterTeams.Keys)
+            foreach (Fighter fighter in _fighterTeams.Keys.Where(fighter => fighter.GetHealth() > 0))
             {
-                if (!CanDamageFighter(fighter))
+                if (fighter == _possessedFighter && !_possibleTargets.Contains(ETarget.SELF))
                 {
-                    continue;
-                }
-
-                if (fighter == _possessedFighter && _possibleTargets.Contains(ETarget.SELF))
-                {
-                    damagableTargets.Add(fighter);
                     continue;
                 }
 
                 bool fighterIsAlly = _fighterTeams[fighter] == _possessedFighterTeam;
-                if (fighterIsAlly && _possibleTargets.Contains(ETarget.ALLIES))
+                if (fighterIsAlly && !_possibleTargets.Contains(ETarget.ALLIES))
                 {
-                    damagableTargets.Add(fighter);
                     continue;
                 }
 
-                if (!fighterIsAlly && _possibleTargets.Contains(ETarget.OPONENTS))
+                if (!fighterIsAlly && !_possibleTargets.Contains(ETarget.OPONENTS))
                 {
-                    damagableTargets.Add(fighter);
+                    continue;
                 }
+
+                if (!CanDamageFighter(fighter))
+                {
+                    continue;
+                }
+                damagableTargets.Add(fighter);
             }
 
             return damagableTargets;

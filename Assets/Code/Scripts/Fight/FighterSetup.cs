@@ -14,7 +14,8 @@ namespace FrostfallSaga.Fight
         public string sessionId;
         public Sprite icon;
         public FighterStats initialStats;
-        public FighterClassSO fighterClassSO;
+        public FighterClassSO fighterClass;
+        public PersonalityTraitSO personalityTrait;
         public TargeterSO directAttackTargeter;
         public int directAttackActionPointsCost;
         public AEffectSO[] directAttackEffects;
@@ -30,7 +31,8 @@ namespace FrostfallSaga.Fight
             string sessionId,
             Sprite fighterIcon,
             FighterStats initialStats,
-            FighterClassSO fighterClassSO,
+            FighterClassSO fighterClass,
+            PersonalityTraitSO personalityTrait,
             TargeterSO directAttackTargeter,
             int directAttackActionPointsCost,
             AEffectSO[] directAttackEffects,
@@ -46,7 +48,8 @@ namespace FrostfallSaga.Fight
             this.sessionId = sessionId;
             this.icon = fighterIcon;
             this.initialStats = initialStats;
-            this.fighterClassSO = fighterClassSO;
+            this.fighterClass = fighterClass;
+            this.personalityTrait = personalityTrait;
             this.directAttackTargeter = directAttackTargeter;
             this.directAttackActionPointsCost = directAttackActionPointsCost;
             this.directAttackEffects = directAttackEffects;

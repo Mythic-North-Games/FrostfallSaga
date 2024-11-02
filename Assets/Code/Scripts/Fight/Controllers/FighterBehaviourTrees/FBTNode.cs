@@ -3,7 +3,7 @@ using FrostfallSaga.BehaviourTree;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
 
-namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController
+namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
 {
     /// <summary>
     /// Base class for Fighter Behaviour Tree nodes.
@@ -11,6 +11,8 @@ namespace FrostfallSaga.Fight.Controllers.BehaviourTreeController
     /// </summary>
     public abstract class FBTNode : Node
     {
+        public static readonly string ACTION_RUNNING_SHARED_DATA_KEY = "ActionRunning";
+
         protected Fighter _possessedFighter;
         protected HexGrid _fightGrid;
         protected Dictionary<Fighter, bool> _fighterTeams;

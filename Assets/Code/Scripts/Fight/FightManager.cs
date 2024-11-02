@@ -7,6 +7,7 @@ using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Controllers;
 using FrostfallSaga.Fight.Statuses;
+using FrostfallSaga.Fight.UI;
 
 namespace FrostfallSaga.Fight
 {
@@ -20,10 +21,18 @@ namespace FrostfallSaga.Fight
         public Action<Fighter[]> onFightersTurnOrderUpdated;
         public Action<Fighter[], Fighter[]> onFightEnded;   // <allies, enemies>
 
+        // Needed external components
         [SerializeField] private FightersGenerator _fightersGenerator;
         [SerializeField] private HexGrid _fightGrid;
-        [SerializeField] private AFighterController _alliesController;
-        [SerializeField] private AFighterController _enemiesController;
+        [SerializeField] private FighterActionPanelController _actionPanel;
+        [SerializeField] private Material _cellHighlightMaterial;
+        [SerializeField] private Material _cellActionableHighlightMaterial;
+        [SerializeField] private Material _cellInaccessibleHighlightMateria;
+
+        // Controllers
+        private PlayerController _playerController;
+        private FBTController _fbtController;
+        private RandomController _randomController;
 
         private List<Fighter> _allies;
         private List<Fighter> _enemies;
@@ -47,14 +56,31 @@ namespace FrostfallSaga.Fight
             _playingFighter = _fightersTurnOrder.Dequeue();
             _playingFighter.StatusesManager.UpdateStatuses(EStatusTriggerTime.StartOfTurn);
 
-            bool isAlly = _allies.Contains(_playingFighter);
-            AFighterController controller = isAlly ? _alliesController : _enemiesController;
-            onFighterTurnBegan(_playingFighter, isAlly);
+            AFighterController controller = GetControllerForFighter(_playingFighter);
+            onFighterTurnBegan(_playingFighter, _allies.Contains(_playingFighter));
             controller.PlayTurn(_playingFighter, GetFighterTeamsAsDict(_allies, _enemies), _fightGrid);
+        }
+
+        private AFighterController GetControllerForFighter(Fighter fighter)
+        {
+            if (_allies.Contains(fighter))
+            {
+                return _playerController;
+            }
+            if (fighter.PersonalityTrait == null)
+            {
+                return _randomController;
+            }
+            return _fbtController;
         }
 
         private void OnFighterTurnEnded(Fighter fighterThatPlayed)
         {
+            if (HasFightEnded())    // All fight ended events already handled in OnFighterActionEnded
+            {
+                return;
+            }
+
             fighterThatPlayed.ResetMovementAndActionPoints();
             fighterThatPlayed.StatusesManager.UpdateStatuses(EStatusTriggerTime.EndOfTurn);
             _fightersTurnOrder.Enqueue(fighterThatPlayed);
@@ -143,24 +169,29 @@ namespace FrostfallSaga.Fight
                 Debug.LogError("No fighters generator found. Can't start fight.");
             }
 
-            if (_alliesController == null)
-            {
-                Debug.LogError("No controller for allies set.");
-                return;
-            }
-            if (_enemiesController == null)
-            {
-                Debug.LogError("No controller for enemies set.");
-                return;
-            }
+            // Setup controllers
+            _playerController = gameObject.AddComponent<PlayerController>();
+            _playerController.Setup(
+                _actionPanel,
+                _cellHighlightMaterial,
+                _cellActionableHighlightMaterial,
+                _cellInaccessibleHighlightMateria
+
+            );
+            _playerController.onFighterTurnEnded += OnFighterTurnEnded;
+            _playerController.onFighterActionEnded += OnFighterActionEnded;
+
+            _fbtController = gameObject.AddComponent<FBTController>();
+            _fbtController.Setup();
+            _fbtController.onFighterTurnEnded += OnFighterTurnEnded;
+            _fbtController.onFighterActionEnded += OnFighterActionEnded;
+
+            _randomController = gameObject.AddComponent<RandomController>();
+            _randomController.Setup();
+            _randomController.onFighterTurnEnded += OnFighterTurnEnded;
+            _randomController.onFighterActionEnded += OnFighterActionEnded;
 
             _fightersGenerator.onFightersGenerated += OnFightersGenerated;
-
-            _alliesController.onFighterTurnEnded += OnFighterTurnEnded;
-            _alliesController.onFighterActionEnded += OnFighterActionEnded;
-
-            _enemiesController.onFighterTurnEnded += OnFighterTurnEnded;
-            _enemiesController.onFighterActionEnded += OnFighterActionEnded;
         }
 
         private void OnDisable()
@@ -170,15 +201,20 @@ namespace FrostfallSaga.Fight
                 _fightersGenerator.onFightersGenerated -= OnFightersGenerated;
             }
 
-            if (_alliesController != null)
+            if (_playerController != null)
             {
-                _alliesController.onFighterTurnEnded -= OnFighterTurnEnded;
-                _alliesController.onFighterActionEnded += OnFighterActionEnded;
+                _playerController.onFighterTurnEnded -= OnFighterTurnEnded;
+                _playerController.onFighterActionEnded += OnFighterActionEnded;
             }
-            if (_enemiesController != null)
+            if (_fbtController != null)
             {
-                _enemiesController.onFighterTurnEnded -= OnFighterTurnEnded;
-                _enemiesController.onFighterActionEnded -= OnFighterActionEnded;
+                _fbtController.onFighterTurnEnded -= OnFighterTurnEnded;
+                _fbtController.onFighterActionEnded -= OnFighterActionEnded;
+            }
+            if (_randomController != null)
+            {
+                _randomController.onFighterTurnEnded -= OnFighterTurnEnded;
+                _randomController.onFighterActionEnded -= OnFighterActionEnded;
             }
         }
         #endregion

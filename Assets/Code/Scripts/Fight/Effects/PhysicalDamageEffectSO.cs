@@ -38,5 +38,10 @@ namespace FrostfallSaga.Fight.Effects
             receiver.onEffectReceived?.Invoke(receiver, initiator, this, masterstrokeSucceeded);
             Debug.Log($"Dealt {finalDamageAmount} physical damage to {receiver.name}.");
         }
+
+        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke = true)
+        {
+            return PhysicalDamageAmount * (canMasterstroke ? 2 : 1);
+        }
     }
 }
