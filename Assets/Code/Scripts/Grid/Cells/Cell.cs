@@ -51,10 +51,9 @@ namespace FrostfallSaga.Grid.Cells
 
             Coordinates = coordinates;
             Height = cellHeight;
-            TerrainType = terrainType;
+            SetTerrain(terrainType);
             SetPositionForCellHeight(Height);
             SetCellMouseEventsControllerFromGameObjectTree();
-            SetTerrainVisual();
 
             HighlightController = GetComponentInChildren<MaterialHighlightable>();
             if (HighlightController != null)
@@ -95,6 +94,20 @@ namespace FrostfallSaga.Grid.Cells
             SetPositionForCellHeight(Height);
         }
 
+        public void SetTerrain(TerrainTypeSO terrainType)
+        {
+            TerrainType = terrainType;
+            Renderer renderer = GetComponentInChildren<Renderer>();
+            if (renderer != null && TerrainType != null && TerrainType.CellMaterial != null)
+            {
+                renderer.material = TerrainType.CellMaterial;
+            }
+            else
+            {
+                Debug.LogError("Cell " + name + " doesn't have a renderer or a valid material.");
+            }
+        }
+
         public Vector3 GetCenter()
         {
             HexGrid grid = GetComponentInParent<HexGrid>();
@@ -128,19 +141,6 @@ namespace FrostfallSaga.Grid.Cells
             if (CellMouseEventsController == null)
             {
                 Debug.LogError("Cell " + name + " doesn't have a cell mouse controller as child.");
-            }
-        }
-
-        private void SetTerrainVisual()
-        {
-            Renderer renderer = GetComponentInChildren<Renderer>();
-            if (renderer != null && TerrainType != null && TerrainType.CellMaterial != null)
-            {
-                renderer.material = TerrainType.CellMaterial;
-            }
-            else
-            {
-                Debug.LogError("Cell " + name + " doesn't have a renderer or a valid material.");
             }
         }
 

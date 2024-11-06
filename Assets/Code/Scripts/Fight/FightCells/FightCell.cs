@@ -18,11 +18,6 @@ namespace FrostfallSaga.Fight.FightCells
 
         public void SetImpediment(AImpedimentSO impediment, GameObject impediementGameObject)
         {
-            if (_currentImpedimentGameObject != null)
-            {
-                Destroy(_currentImpedimentGameObject);
-            }
-
             Impediment = impediment;
             _currentImpedimentGameObject = impediementGameObject;
         }
@@ -50,6 +45,11 @@ namespace FrostfallSaga.Fight.FightCells
         public override bool IsFree()
         {
             return IsTerrainAccessible() && !HasFighter();
+        }
+
+        public GameObject GetImpedimentGameObject()
+        {
+            return _currentImpedimentGameObject;
         }
     }
 }

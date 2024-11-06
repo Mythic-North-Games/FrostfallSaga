@@ -16,16 +16,89 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
         [field: SerializeField, Header("Impediment alteration definition")]
         public AImpedimentSO Impediment { get; private set; }
 
-        public override void Apply(FightCell cell)
+        private FightCell _currentlyModifiedCell;
+
+        #region Application
+
+        public override void Apply(FightCell fightCell)
         {
-            Impediment.ApplyOnCell(cell);
-            onAlterationApplied?.Invoke(cell);
+            _currentlyModifiedCell = fightCell;
+            Impediment.SpawnController.SpawnGameObject(fightCell.transform, Impediment.Prefab);
         }
 
-        public override void Remove(FightCell cell)
+        private void OnImpedimentGameObjectSpawned(GameObject impedimentGameObject)
         {
-            Impediment.Destroy(cell);
-            onAlterationRemoved?.Invoke(cell);
+            _currentlyModifiedCell.SetImpediment(Impediment, impedimentGameObject);
+            onAlterationApplied?.Invoke(_currentlyModifiedCell);
+            _currentlyModifiedCell = null;
         }
+
+        #endregion
+
+        #region Destruction
+
+        public override void Remove(FightCell fightCell)
+        {
+            _currentlyModifiedCell = fightCell;
+            Impediment.DestroyController.DestroyGameObject(fightCell.GetImpedimentGameObject());
+        }
+
+        private void OnImpedimentGameObjectDestroyed()
+        {
+            _currentlyModifiedCell.SetImpediment(null, null);
+            onAlterationRemoved?.Invoke(_currentlyModifiedCell);
+            _currentlyModifiedCell = null;
+        }
+
+        #endregion
+
+        #region Setup & teardown
+
+        private void Awake()
+        {
+            if (Impediment == null)
+            {
+                Debug.LogWarning($"{name} has no impediment configured.");
+                return;
+            }
+
+            if (Impediment.SpawnController == null)
+            {
+                Debug.LogWarning($"Impediment {Impediment.name} has no spawn controller.");
+            }
+            else
+            {
+                Impediment.SpawnController.onSpawnEnded += OnImpedimentGameObjectSpawned;
+            }
+
+            if (Impediment.DestroyController == null)
+            {
+                Debug.LogWarning($"Impediment {Impediment.name} has no destroy controller.");
+            }
+            else
+            {
+                Impediment.DestroyController.onDestroyEnded += OnImpedimentGameObjectDestroyed;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (Impediment == null)
+            {
+                return;
+            }
+
+            if (Impediment.SpawnController != null)
+            {
+                Impediment.SpawnController.onSpawnEnded -= OnImpedimentGameObjectSpawned;
+            }
+
+            if (Impediment.DestroyController != null)
+            {
+                Impediment.DestroyController.onDestroyEnded -= OnImpedimentGameObjectDestroyed;
+            }
+        }
+
+        #endregion
     }
 }
