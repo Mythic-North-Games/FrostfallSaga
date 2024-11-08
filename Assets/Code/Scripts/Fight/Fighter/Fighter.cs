@@ -32,10 +32,10 @@ namespace FrostfallSaga.Fight.Fighters
         public Action<Fighter> onFighterActiveAbilityEnded;
 
         // <Fighter that dodged, Fighter that attacked, Effect that was dodged>
-        public Action<Fighter, Fighter, AEffectSO> onEffectDodged;
+        public Action<Fighter, Fighter, AEffect> onEffectDodged;
 
         // <Fighter that received, Fighter that attacked, Effect that was received, If masterstroke>
-        public Action<Fighter, Fighter, AEffectSO, bool> onEffectReceived;
+        public Action<Fighter, Fighter, AEffect, bool> onEffectReceived;
 
         // <Fighter that received, Status that was applied>
         public Action<Fighter, AStatus> onStatusApplied;
@@ -50,9 +50,9 @@ namespace FrostfallSaga.Fight.Fighters
         private FighterStats _initialStats = new();
         private FighterClassSO _fighterClass;
         public PersonalityTraitSO PersonalityTrait { get; private set; }
-        public TargeterSO DirectAttackTargeter { get; private set; }
+        public Targeter DirectAttackTargeter { get; private set; }
         public int DirectAttackActionPointsCost { get; private set; }
-        public AEffectSO[] DirectAttackEffects { get; private set; }
+        public AEffect[] DirectAttackEffects { get; private set; }
         public ActiveAbilityToAnimation[] ActiveAbilitiesToAnimation { get; private set; }
         private AAbilityAnimationSO _directAttackAnimation;
         private string _receiveDamageAnimationName;
@@ -511,7 +511,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="fightersTeams">The current fighters and corresponding team.</param>
         /// <returns>The first touching cell sequence if it exists, null otherwise.</returns>
         public FightCell[] GetFirstTouchingCellSequence(
-            TargeterSO targeter,
+            Targeter targeter,
             Fighter target,
             HexGrid fightGrid,
             Dictionary<Fighter, bool> fightersTeams
@@ -587,9 +587,16 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="effectsToApply">The effects to apply.</param>
         /// <param name="target">The fighter to apply the effects to.</param>
-        private void ApplyEffectsOnFighter(AEffectSO[] effectsToApply, Fighter target)
+        private void ApplyEffectsOnFighter(AEffect[] effectsToApply, Fighter target)
         {
-            effectsToApply.ToList().ForEach(effect => effect.ApplyEffect(this, target, effect.Masterstrokable, effect.Dodgable));
+            effectsToApply.ToList().ForEach(
+                effect => effect.ApplyEffect(
+                    receiver: target,
+                    initator: this,
+                    canMasterstroke: effect.Masterstrokable,
+                    canDodge: effect.Dodgable
+                )
+            );
         }
 
         private void DecreaseHealth(int amount)
@@ -611,7 +618,7 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
         private bool CanUseTargeterOnFighter(
-            TargeterSO targeter,
+            Targeter targeter,
             Fighter target,
             HexGrid fightGrid,
             Dictionary<Fighter, bool> fightersTeams

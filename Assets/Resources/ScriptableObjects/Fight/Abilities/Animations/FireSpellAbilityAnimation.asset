@@ -13,4 +13,17 @@ MonoBehaviour:
   m_Name: FireSpellAbilityAnimation
   m_EditorClassIdentifier: 
   <ProjectilePrefab>k__BackingField: {fileID: 1435735026039513003, guid: b9833b7cd81df9c4c84090c19e05c49c, type: 3}
-  <Executor>k__BackingField: {fileID: 11400000, guid: 4e1946a1f0d49d3479bb6963339a338b, type: 2}
+  Executor:
+    rid: 3629974059018879021
+  references:
+    version: 2
+    RefIds:
+    - rid: 3629974059018879021
+      type: {class: CellPerCellExternalExecutor, ns: FrostfallSaga.Fight.Abilities.AbilityAnimation, asm: FrostfallSaga.Fight}
+      data:
+        StartLocation: {x: 0, y: 100, z: 0}
+        EndLocation: {x: 0, y: 0, z: 0}
+        StartRotation: {x: 0, y: 0, z: 0, w: 0}
+        EndRotation: {x: 0, y: 0, z: 0, w: 0}
+        MoveSpeed: 10
+        TimeBeforNextMovementStart: 1

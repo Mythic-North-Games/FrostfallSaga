@@ -14,4 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <AnimationStateName>k__BackingField: ReadyToFight
   <AnimationDuration>k__BackingField: 2
-  <Executor>k__BackingField: {fileID: 11400000, guid: 4c23d57105b03ca4c9e8e943f6920c3c, type: 2}
+  Executor:
+    rid: 3629974059018879020
+  references:
+    version: 2
+    RefIds:
+    - rid: 3629974059018879020
+      type: {class: ReturnToOriginCellInternalExecutor, ns: FrostfallSaga.Fight.Abilities.AbilityAnimation, asm: FrostfallSaga.Fight}
+      data: 

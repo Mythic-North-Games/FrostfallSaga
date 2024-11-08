@@ -1,12 +1,33 @@
+using System;
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.Statuses
 {
-    [CreateAssetMenu(fileName = "BleedStatus", menuName = "ScriptableObjects/Fight/Statuses/Bleed")]
+    [Serializable]
     public class BleedStatus : AStatus
     {
         [field: SerializeField] public int BleedingDamage { get; private set; }
+
+        public BleedStatus()
+        {
+            StatusType = EStatusType.BLEED;
+        }
+
+        public BleedStatus(
+            string name,
+            string description,
+            int duration,
+            bool triggerOnFirstApply,
+            bool isRecurring,
+            EStatusTriggerTime triggerTime,
+            StatusVisualsController visualsController,
+            int bleedingDamage
+        )
+            : base(EStatusType.BLEED, name, description, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+        {
+            BleedingDamage = bleedingDamage;
+        }
 
         protected override void DoApplyStatus(Fighter fighter)
         {

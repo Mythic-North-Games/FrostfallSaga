@@ -11,25 +11,40 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
     public class FighterUseActiveAbilityTests
     {
-        private static readonly int FIRE_SPELL_DAMAGE_AMOUNT = 5;
+        HexGrid grid;
+        Fighter attacker;
+        int fireDamages;
+
+
+        [SetUp]
+        public void Setup()
+        {
+            // Set up grid
+            grid = CommonTestsHelper.CreatePlainGridForTest(fightCell: true);
+
+            // Set up attacker
+            attacker = FightTestsHelper.CreateFighter();
+            attacker.SetStatsForTests();
+            FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
+
+            fireDamages = ((MagicalDamageEffect)attacker.ActiveAbilitiesToAnimation[0].activeAbility.Effects[0]).MagicalDamageAmount;
+        }
 
         [Test]
         public void UseActiveAbility_OneReceiver_Test()
         {
             // Arrange
-            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(fightCell: true);
-            Fighter attacker = FightTestsHelper.CreateFighter();
-            attacker.SetStatsForTests();
-            FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
+
             Fighter receiver = FightTestsHelper.CreateFighter();
             receiver.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, receiver, new Vector2Int(0, 1));
             ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilitiesToAnimation[0];
+            MagicalDamageEffect magicalDamageEffect = (MagicalDamageEffect)activeAbilityToUse.activeAbility.Effects[0];
 
             int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.activeAbility.ActionPointsCost;
             int expectedReceiverHealth = (
                 receiver.GetStatsForTests().health -
-                FIRE_SPELL_DAMAGE_AMOUNT +
+                fireDamages +
                 receiver.GetStatsForTests().magicalResistances[EMagicalElement.FIRE]
             );
 
@@ -71,12 +86,12 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.activeAbility.ActionPointsCost;
             int expectedReceiverHealth = (
                 receiver.GetStatsForTests().health -
-                FIRE_SPELL_DAMAGE_AMOUNT +
+                fireDamages +
                 receiver.GetStatsForTests().magicalResistances[EMagicalElement.FIRE]
             );
             int expectedReceiverHealth2 = (
                 receiver2.GetStatsForTests().health -
-                FIRE_SPELL_DAMAGE_AMOUNT +
+                fireDamages +
                 receiver2.GetStatsForTests().magicalResistances[EMagicalElement.FIRE]
             );
 

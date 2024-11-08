@@ -15,7 +15,30 @@ MonoBehaviour:
   <Name>k__BackingField: TestFireSpell
   <Description>k__BackingField: Apply fire on cell
   <IconSprite>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
-  <Effects>k__BackingField:
-  - {fileID: 11400000, guid: 235eb0800667e21449dacaa586836a46, type: 2}
-  <Targeter>k__BackingField: {fileID: 11400000, guid: dc8968a2b6f65754facef2409f8bfed8, type: 2}
+  Effects:
+  - rid: 3629974059018878989
+  <Targeter>k__BackingField:
+    <OriginCellRange>k__BackingField: 0
+    <CellsSequence>k__BackingField: []
+    <StartFromInitiator>k__BackingField: 0
+    <FighterMandatory>k__BackingField: 0
+    <TargetsToExclude>k__BackingField: 
+    <RelativeHeightsToExclude>k__BackingField: 
+    <StopedAtInacessibles>k__BackingField: 0
+    <StopedAtXthHigherHeightDifference>k__BackingField: 0
+    <StopedAtXthLowerHeightDifference>k__BackingField: 0
+    <StopedAtXthEncounteredFighters>k__BackingField: 0
   <ActionPointsCost>k__BackingField: 2
+  CellAlterations: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3629974059018878989
+      type: {class: MagicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
+      data:
+        Name: Test fire damage effect
+        Description: 
+        Dodgable: 0
+        Masterstrokable: 0
+        MagicalDamageAmount: 10
+        MagicalElement: 0

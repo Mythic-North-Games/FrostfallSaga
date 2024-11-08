@@ -494,7 +494,7 @@ namespace FrostfallSaga.Fight.Controllers
             }
         }
 
-        private void HighlightTargeterCells(TargeterSO targeter, FightCell originCell)
+        private void HighlightTargeterCells(Targeter targeter, FightCell originCell)
         {
             try
             {
@@ -519,7 +519,7 @@ namespace FrostfallSaga.Fight.Controllers
             }
         }
 
-        private void ResetTargeterCellsMaterial(TargeterSO targeter, FightCell originCell)
+        private void ResetTargeterCellsMaterial(Targeter targeter, FightCell originCell)
         {
             FightCell[] targetedCells = targeter.GetCellsFromSequence(
                 _currentFightGrid,

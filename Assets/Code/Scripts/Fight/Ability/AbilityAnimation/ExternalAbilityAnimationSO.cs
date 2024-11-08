@@ -12,7 +12,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
     public class ExternalAbilityAnimationSO : AAbilityAnimationSO
     {
         [field: SerializeField] public GameObject ProjectilePrefab { get; private set; }
-        [field: SerializeField] public AExternalAbilityAnimationExecutorSO Executor { get; private set; }
+        [SerializeReference] public AExternalAbilityAnimationExecutor Executor;
 
         /// <summary>
         /// Executes the external ability animation as configured.

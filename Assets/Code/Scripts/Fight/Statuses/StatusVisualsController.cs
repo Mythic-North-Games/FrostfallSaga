@@ -3,7 +3,10 @@ using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.Statuses
 {
-    [CreateAssetMenu(fileName = "StatusVisualsController", menuName = "ScriptableObjects/Fight/Statuses/StatusVisualsController")]
+    [CreateAssetMenu(
+        fileName = "StatusVisualsController", 
+        menuName = "ScriptableObjects/Fight/Statuses/StatusVisualsController"
+    )]
     public class StatusVisualsController : ScriptableObject
     {
         [field: SerializeField] public GameObject RecurringStatusParticles { get; private set; }

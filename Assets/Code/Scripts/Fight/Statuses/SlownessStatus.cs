@@ -1,12 +1,33 @@
+using System;
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.Statuses
 {
-    [CreateAssetMenu(fileName = "SlownessStatus", menuName = "ScriptableObjects/Fight/Statuses/Slowness")]
+    [Serializable]
     public class SlownessStatus : AStatus
     {
         [field: SerializeField] public int InitiativeReduction { get; private set; }
+
+        public SlownessStatus()
+        {
+            StatusType = EStatusType.SLOWNESS;
+        }
+
+        public SlownessStatus(
+            string name,
+            string description,
+            int duration,
+            bool triggerOnFirstApply,
+            bool isRecurring,
+            EStatusTriggerTime triggerTime,
+            StatusVisualsController visualsController,
+            int initiativeReduction
+        )
+            : base(EStatusType.SLOWNESS, name, description, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+        {
+            InitiativeReduction = initiativeReduction;
+        }
 
         protected override void DoApplyStatus(Fighter fighter)
         {

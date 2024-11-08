@@ -13,7 +13,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
     {
         [field: SerializeField] public string AnimationStateName { get; private set; }
         [field: SerializeField, Range(0f, 99f)] public float AnimationDuration { get; private set; }
-        [field: SerializeField] public AInternalAbilityAnimationExecutorSO Executor { get; private set; }
+        [SerializeReference] public AInternalAbilityAnimationExecutor Executor;
 
         /// <summary>
         /// Executes the internal ability animation as configured.

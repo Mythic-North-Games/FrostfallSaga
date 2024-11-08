@@ -15,9 +15,30 @@ MonoBehaviour:
   <Name>k__BackingField: ExampleFireSpell
   <Description>k__BackingField: Apply fire on cell
   <IconSprite>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
-  <Effects>k__BackingField:
-  - {fileID: 11400000, guid: 58c6e73176ad35848ba08786bd81f44a, type: 2}
-  <Statuses>k__BackingField:
-  - {fileID: 11400000, guid: 975f0c5a8de1f8b41be64c1b69bd6f4b, type: 2}
-  <Targeter>k__BackingField: {fileID: 11400000, guid: 4bdf5043cdcfb81468eb5dc2b626d3c4, type: 2}
+  Effects:
+  - rid: 3629974059018879022
+  <Targeter>k__BackingField:
+    <OriginCellRange>k__BackingField: 0
+    <CellsSequence>k__BackingField: []
+    <StartFromInitiator>k__BackingField: 0
+    <FighterMandatory>k__BackingField: 0
+    <TargetsToExclude>k__BackingField: 
+    <RelativeHeightsToExclude>k__BackingField: 
+    <StopedAtInacessibles>k__BackingField: 0
+    <StopedAtXthHigherHeightDifference>k__BackingField: 0
+    <StopedAtXthLowerHeightDifference>k__BackingField: 0
+    <StopedAtXthEncounteredFighters>k__BackingField: 0
   <ActionPointsCost>k__BackingField: 2
+  CellAlterations: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3629974059018879022
+      type: {class: MagicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
+      data:
+        Name: Fire dammaaage
+        Description: Extreme damage
+        Dodgable: 1
+        Masterstrokable: 1
+        MagicalDamageAmount: 20
+        MagicalElement: 0

@@ -1,18 +1,43 @@
+using System;
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.Statuses
 {
-    public abstract class AStatus : ScriptableObject
+    [Serializable]
+    public abstract class AStatus
     {
-        [field: SerializeField] public EStatusType StatusType { get; private set; }
-        [field: SerializeField] public string Name { get; private set; }
-        [field: SerializeField] public string Description { get; private set; }
-        [field: SerializeField] public int Duration { get; private set; }
-        [field: SerializeField] public bool TriggerOnFirstApply { get; private set; }
-        [field: SerializeField] public bool IsRecurring { get; private set; } = true;
-        [field: SerializeField] public EStatusTriggerTime TriggerTime { get; private set; } = EStatusTriggerTime.StartOfTurn;
-        [field: SerializeField] public StatusVisualsController VisualsController { get; private set; }
+        [field: SerializeField] public EStatusType StatusType { get; protected set; }
+        [field: SerializeField] public string Name { get; protected set; }
+        [field: SerializeField] public string Description { get; protected set; }
+        [field: SerializeField] public int Duration { get; protected set; }
+        [field: SerializeField] public bool TriggerOnFirstApply { get; protected set; }
+        [field: SerializeField] public bool IsRecurring { get; protected set; } = true;
+        [field: SerializeField] public EStatusTriggerTime TriggerTime { get; protected set; } = EStatusTriggerTime.StartOfTurn;
+        [field: SerializeField] public StatusVisualsController VisualsController { get; protected set; }
+
+        public AStatus() { }
+
+        public AStatus(
+            EStatusType statusType,
+            string name,
+            string description,
+            int duration,
+            bool triggerOnFirstApply,
+            bool isRecurring,
+            EStatusTriggerTime triggerTime,
+            StatusVisualsController visualsController
+        )
+        {
+            StatusType = statusType;
+            Name = name;
+            Description = description;
+            Duration = duration;
+            TriggerOnFirstApply = triggerOnFirstApply;
+            IsRecurring = isRecurring;
+            TriggerTime = triggerTime;
+            VisualsController = visualsController;
+        }
 
         /// <summary>
         /// Applies the status to the given fighter. Apply status logic, visuals, sounds and events are handled here.
@@ -65,10 +90,10 @@ namespace FrostfallSaga.Fight.Statuses
         /// <param name="fighter">The fighter that will have the status removed.</param>
         protected abstract void DoRemoveStatus(Fighter fighter);
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         public void SetDuration(int duration) => Duration = duration;
         public void SetIsRecurring(bool isRecurring) => IsRecurring = isRecurring;
         public void SetTriggerTime(EStatusTriggerTime triggerTime) => TriggerTime = triggerTime;
-        #endif
+#endif
     }
 }
