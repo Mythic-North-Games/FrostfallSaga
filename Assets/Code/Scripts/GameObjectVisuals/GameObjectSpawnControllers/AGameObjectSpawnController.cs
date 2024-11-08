@@ -7,15 +7,18 @@ namespace FrostfallSaga.GameObjectVisuals.GameObjectSpawnControllers
     /// Base class for all GameObject spawn controllers.
     /// Handles how a game object should spawn.
     /// </summary>
-    public abstract class AGameObjectSpawnController : MonoBehaviour
+    [Serializable]
+    public abstract class AGameObjectSpawnController
     {
-        [SerializeField, Tooltip("Offset to the reference.")] protected Vector3 _spawnOffset;
+        [SerializeField, Tooltip("Offset to the reference.")] public Vector3 SpawnOffset;
+
         [
             SerializeField,
             Tooltip("Default spawn rotation of the object. If set, won't consider rotation offset.")
         ]
-        protected Quaternion _spawnRotation;
-        [SerializeField, Tooltip("Rotation offset to the reference.")] protected Quaternion _rotationOffset;
+        public Quaternion SpawnRotation;
+
+        [SerializeField, Tooltip("Rotation offset to the reference.")] public Quaternion RotationOffset;
 
         public Action<GameObject> onSpawnEnded;
 

@@ -15,8 +15,42 @@ MonoBehaviour:
   <Name>k__BackingField: Weakness ability example
   <Description>k__BackingField: Applies weakness to targets.
   <IconSprite>k__BackingField: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  <Effects>k__BackingField: []
-  <Statuses>k__BackingField:
-  - {fileID: 11400000, guid: 3589457cc9f373547bc9a6ff171eadff, type: 2}
-  <Targeter>k__BackingField: {fileID: 11400000, guid: 4bdf5043cdcfb81468eb5dc2b626d3c4, type: 2}
+  Effects:
+  - rid: 3629974059018879023
+  <Targeter>k__BackingField:
+    <OriginCellRange>k__BackingField: 0
+    <CellsSequence>k__BackingField: []
+    <StartFromInitiator>k__BackingField: 0
+    <FighterMandatory>k__BackingField: 0
+    <TargetsToExclude>k__BackingField: 
+    <RelativeHeightsToExclude>k__BackingField: 
+    <StopedAtInacessibles>k__BackingField: 0
+    <StopedAtXthHigherHeightDifference>k__BackingField: 0
+    <StopedAtXthLowerHeightDifference>k__BackingField: 0
+    <StopedAtXthEncounteredFighters>k__BackingField: 0
   <ActionPointsCost>k__BackingField: 1
+  CellAlterations: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3629974059018879023
+      type: {class: ApplyStatusesEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
+      data:
+        Name: Apply weakness example
+        Description: 
+        Dodgable: 0
+        Masterstrokable: 0
+        StatusesToApply:
+        - rid: 3629974059018879024
+    - rid: 3629974059018879024
+      type: {class: WeaknessStatus, ns: FrostfallSaga.Fight.Statuses, asm: FrostfallSaga.Fight}
+      data:
+        <StatusType>k__BackingField: 3
+        <Name>k__BackingField: Weakness status
+        <Description>k__BackingField: 
+        <Duration>k__BackingField: 3
+        <TriggerOnFirstApply>k__BackingField: 1
+        <IsRecurring>k__BackingField: 1
+        <TriggerTime>k__BackingField: 0
+        <VisualsController>k__BackingField: {fileID: 11400000, guid: e549f4ec3ffc32845ba84beb73ada695, type: 2}
+        <StrengthReduction>k__BackingField: 2

@@ -7,7 +7,8 @@ namespace FrostfallSaga.GameObjectVisuals.GameObjectDestroyControllers
     /// Base class for all GameObject destroy controllers.
     /// Controls how a GameObject is destroyed.
     /// </summary>
-    public abstract class AGameObjectDestroyController : MonoBehaviour
+    [Serializable]
+    public abstract class AGameObjectDestroyController
     {
         public Action onDestroyEnded;
 

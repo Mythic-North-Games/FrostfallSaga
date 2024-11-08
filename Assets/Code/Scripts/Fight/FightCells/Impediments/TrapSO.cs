@@ -12,7 +12,7 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
     [CreateAssetMenu(fileName = "Trap", menuName = "ScriptableObjects/Fight/Impediments/Trap", order = 0)]
     public class TrapSO : AImpedimentSO
     {
-        [field: SerializeField, Header("Trap definition")] public AEffectSO[] Effects { get; private set; }
+        [field: SerializeField, Header("Trap definition")] public AEffect[] Effects { get; private set; }
         [field: SerializeField] public ETrapTriggerTime[] TriggerTimes { get; private set; }
 
         public void Trigger(Fighter receiver)

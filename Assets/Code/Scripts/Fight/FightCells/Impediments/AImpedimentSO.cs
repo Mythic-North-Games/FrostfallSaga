@@ -9,9 +9,9 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
         [field: SerializeField, Header("Impediment definition")] public GameObject Prefab { get; private set; }
         [field: SerializeField] public bool Destroyable { get; private set; } = true;
 
-        [field: SerializeField, Header("Visuals controllers")]
-        public AGameObjectSpawnController SpawnController { get; private set; }
-        [field: SerializeField] public AGameObjectDestroyController DestroyController { get; private set; }
+        [SerializeReference, Header("Visuals controllers")]
+        public AGameObjectSpawnController SpawnController = new ImmediateGameObjectSpawn();
+        [SerializeReference] public AGameObjectDestroyController DestroyController = new ImmediateGameObjectDestroy();
 
         [field: SerializeField, Header("For the UI")] public string Name { get; private set; }
         [field: SerializeField] public string Description { get; private set; }

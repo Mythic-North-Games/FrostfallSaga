@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace FrostfallSaga.GameObjectVisuals.GameObjectSpawnControllers
@@ -5,14 +6,15 @@ namespace FrostfallSaga.GameObjectVisuals.GameObjectSpawnControllers
     /// <summary>
     /// Spawns a game object immediately. No animation or delay.
     /// </summary>
+    [Serializable]
     public class ImmediateGameObjectSpawn : AGameObjectSpawnController
     {
         public override void SpawnGameObject(Transform reference, GameObject gameObjectPrefab)
         {
-            Vector3 relativeSpawnPosition = reference.position + _spawnOffset;
-            Quaternion spawnRotation = _spawnRotation != null ? _spawnRotation : reference.rotation * _rotationOffset;
+            Vector3 relativeSpawnPosition = reference.position + SpawnOffset;
+            Quaternion spawnRotation = SpawnRotation != null ? SpawnRotation : reference.rotation * RotationOffset;
 
-            GameObject spawnedGameObject = Instantiate(
+            GameObject spawnedGameObject = UnityEngine.Object.Instantiate(
                 gameObjectPrefab,
                 relativeSpawnPosition,
                 spawnRotation,

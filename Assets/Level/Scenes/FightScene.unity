@@ -500,10 +500,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 940315282}
   <CellMouseEventsController>k__BackingField: {fileID: 940315280}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &222583001
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,10 +1357,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 2062198773}
   <CellMouseEventsController>k__BackingField: {fileID: 2062198771}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &346093934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,10 +1544,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 232013680}
   <CellMouseEventsController>k__BackingField: {fileID: 232013678}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &378935482
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,10 +1597,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 8938c5d5577b725409e564ab9665711a, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 9728396}
   <CellMouseEventsController>k__BackingField: {fileID: 9728394}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &388415740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,10 +1918,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 292754159}
   <CellMouseEventsController>k__BackingField: {fileID: 292754157}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &515303405
 GameObject:
   m_ObjectHideFlags: 0
@@ -2239,10 +2239,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 632257370}
   <CellMouseEventsController>k__BackingField: {fileID: 632257368}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &610556471
 GameObject:
   m_ObjectHideFlags: 0
@@ -2292,10 +2292,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 388415744}
   <CellMouseEventsController>k__BackingField: {fileID: 388415742}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &612811794
 GameObject:
   m_ObjectHideFlags: 0
@@ -2747,10 +2747,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1497276326}
   <CellMouseEventsController>k__BackingField: {fileID: 1497276324}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &738499232
 GameObject:
   m_ObjectHideFlags: 0
@@ -2997,10 +2997,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 228322682}
   <CellMouseEventsController>k__BackingField: {fileID: 228322680}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &840395641
 GameObject:
   m_ObjectHideFlags: 0
@@ -3184,10 +3184,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1475472325}
   <CellMouseEventsController>k__BackingField: {fileID: 1475472323}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &877630182
 GameObject:
   m_ObjectHideFlags: 0
@@ -3699,10 +3699,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1305927832}
   <CellMouseEventsController>k__BackingField: {fileID: 1305927830}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1110237158
 GameObject:
   m_ObjectHideFlags: 0
@@ -4020,10 +4020,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1170905418}
   <CellMouseEventsController>k__BackingField: {fileID: 1170905416}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1149782722
 GameObject:
   m_ObjectHideFlags: 0
@@ -4073,10 +4073,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: db5ca4ec135671f4fb5b8d838c384162, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 393473407}
   <CellMouseEventsController>k__BackingField: {fileID: 393473405}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1150829935
 GameObject:
   m_ObjectHideFlags: 0
@@ -4126,10 +4126,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1367291555}
   <CellMouseEventsController>k__BackingField: {fileID: 1367291553}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1170905414
 GameObject:
   m_ObjectHideFlags: 0
@@ -4515,10 +4515,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1500339871}
   <CellMouseEventsController>k__BackingField: {fileID: 1500339869}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1258972293
 GameObject:
   m_ObjectHideFlags: 0
@@ -4568,10 +4568,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1110237162}
   <CellMouseEventsController>k__BackingField: {fileID: 1110237160}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1305927828
 GameObject:
   m_ObjectHideFlags: 0
@@ -4755,10 +4755,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1663094337}
   <CellMouseEventsController>k__BackingField: {fileID: 1663094335}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1315901398
 GameObject:
   m_ObjectHideFlags: 0
@@ -4808,10 +4808,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: db5ca4ec135671f4fb5b8d838c384162, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1830787676}
   <CellMouseEventsController>k__BackingField: {fileID: 1830787674}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1344846660
 GameObject:
   m_ObjectHideFlags: 0
@@ -4861,10 +4861,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 535857422}
   <CellMouseEventsController>k__BackingField: {fileID: 535857420}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1367291551
 GameObject:
   m_ObjectHideFlags: 0
@@ -5048,10 +5048,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 612811798}
   <CellMouseEventsController>k__BackingField: {fileID: 612811796}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1440011601
 GameObject:
   m_ObjectHideFlags: 0
@@ -5235,10 +5235,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 313342218}
   <CellMouseEventsController>k__BackingField: {fileID: 313342216}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1475472321
 GameObject:
   m_ObjectHideFlags: 0
@@ -5737,10 +5737,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1763364733}
   <CellMouseEventsController>k__BackingField: {fileID: 1763364731}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1597044135
 GameObject:
   m_ObjectHideFlags: 0
@@ -5908,10 +5908,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1999782629}
   <CellMouseEventsController>k__BackingField: {fileID: 1999782627}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1611168614
 GameObject:
   m_ObjectHideFlags: 0
@@ -5961,10 +5961,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 738499236}
   <CellMouseEventsController>k__BackingField: {fileID: 738499234}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1644039835
 GameObject:
   m_ObjectHideFlags: 0
@@ -6308,10 +6308,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1440011605}
   <CellMouseEventsController>k__BackingField: {fileID: 1440011603}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1678739250
 GameObject:
   m_ObjectHideFlags: 0
@@ -6411,10 +6411,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 222583005}
   <CellMouseEventsController>k__BackingField: {fileID: 222583003}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1693383064
 GameObject:
   m_ObjectHideFlags: 0
@@ -6464,10 +6464,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 840395645}
   <CellMouseEventsController>k__BackingField: {fileID: 840395643}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1699139018
 GameObject:
   m_ObjectHideFlags: 0
@@ -6517,10 +6517,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1127436002}
   <CellMouseEventsController>k__BackingField: {fileID: 1127436000}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1714547400
 GameObject:
   m_ObjectHideFlags: 0
@@ -6570,10 +6570,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 8938c5d5577b725409e564ab9665711a, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 515303409}
   <CellMouseEventsController>k__BackingField: {fileID: 515303407}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1715340621
 GameObject:
   m_ObjectHideFlags: 0
@@ -6623,10 +6623,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 623510927}
   <CellMouseEventsController>k__BackingField: {fileID: 623510925}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1763364729
 GameObject:
   m_ObjectHideFlags: 0
@@ -7078,10 +7078,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 314338589}
   <CellMouseEventsController>k__BackingField: {fileID: 314338587}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1814713791
 GameObject:
   m_ObjectHideFlags: 3
@@ -7353,10 +7353,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 8938c5d5577b725409e564ab9665711a, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1801666726}
   <CellMouseEventsController>k__BackingField: {fileID: 1801666724}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1910540537
 GameObject:
   m_ObjectHideFlags: 0
@@ -7406,10 +7406,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 2002065477}
   <CellMouseEventsController>k__BackingField: {fileID: 2002065475}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!114 &1914315112 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7936790293927368877, guid: 3be7973bb46ad214d995adfc136b8c4c, type: 3}
@@ -7597,10 +7597,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 8938c5d5577b725409e564ab9665711a, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 1198504180}
   <CellMouseEventsController>k__BackingField: {fileID: 1198504178}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1997055553
 GameObject:
   m_ObjectHideFlags: 0
@@ -7650,10 +7650,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: db5ca4ec135671f4fb5b8d838c384162, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1773734191}
   <CellMouseEventsController>k__BackingField: {fileID: 1773734189}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &1999782625
 GameObject:
   m_ObjectHideFlags: 0
@@ -8105,10 +8105,10 @@ MonoBehaviour:
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <Height>k__BackingField: -1
-  <IsAccessibleByDefault>k__BackingField: 1
   <HighlightController>k__BackingField: {fileID: 346093938}
   <CellMouseEventsController>k__BackingField: {fileID: 346093936}
   <Fighter>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 0}
 --- !u!1 &2086321099
 GameObject:
   m_ObjectHideFlags: 0

@@ -74,7 +74,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             }
 
             // Get damage action target cells
-            TargeterSO damageActionTargeter = useActiveAbility ?
+            Targeter damageActionTargeter = useActiveAbility ?
                 preferedAbilityToAnimation.activeAbility.Targeter :
                 _possessedFighter.DirectAttackTargeter;
             FightCell[] targetCells = _possessedFighter.GetFirstTouchingCellSequence(
@@ -109,7 +109,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             return NodeState.SUCCESS;
         }
 
-        private int GetPotentialsDamageOfDirectAttack(List<AEffectSO> effects, Fighter target)
+        private int GetPotentialsDamageOfDirectAttack(List<AEffect> effects, Fighter target)
         {
             return effects.Sum(
                 effect => effect.GetPotentialEffectDamages(_possessedFighter, target, effect.Masterstrokable)

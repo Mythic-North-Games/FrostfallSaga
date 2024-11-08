@@ -16,9 +16,9 @@ namespace FrostfallSaga.Fight
         public FighterStats initialStats;
         public FighterClassSO fighterClass;
         public PersonalityTraitSO personalityTrait;
-        public TargeterSO directAttackTargeter;
+        public Targeter directAttackTargeter;
         public int directAttackActionPointsCost;
-        public AEffectSO[] directAttackEffects;
+        public AEffect[] directAttackEffects;
         public AAbilityAnimationSO directAttackAnimation;
         public ActiveAbilityToAnimation[] activeAbilities;
         public string receiveDamageAnimationName;
@@ -33,9 +33,9 @@ namespace FrostfallSaga.Fight
             FighterStats initialStats,
             FighterClassSO fighterClass,
             PersonalityTraitSO personalityTrait,
-            TargeterSO directAttackTargeter,
+            Targeter directAttackTargeter,
             int directAttackActionPointsCost,
-            AEffectSO[] directAttackEffects,
+            AEffect[] directAttackEffects,
             AAbilityAnimationSO directAttackAnimation,
             ActiveAbilityToAnimation[] activeAbilities,
             string receiveDamageAnimationName,

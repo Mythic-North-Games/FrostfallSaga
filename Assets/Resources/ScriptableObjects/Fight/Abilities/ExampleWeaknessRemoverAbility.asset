@@ -15,8 +15,29 @@ MonoBehaviour:
   <Name>k__BackingField: Weakness remover ability example
   <Description>k__BackingField: Remove weakness from targets.
   <IconSprite>k__BackingField: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
-  <Effects>k__BackingField:
-  - {fileID: 11400000, guid: 282f86875f8341b4a9fdb7e5e49ffba4, type: 2}
-  <Statuses>k__BackingField: []
-  <Targeter>k__BackingField: {fileID: 11400000, guid: 4bdf5043cdcfb81468eb5dc2b626d3c4, type: 2}
+  Effects:
+  - rid: 3629974059018879025
+  <Targeter>k__BackingField:
+    <OriginCellRange>k__BackingField: 0
+    <CellsSequence>k__BackingField: []
+    <StartFromInitiator>k__BackingField: 0
+    <FighterMandatory>k__BackingField: 0
+    <TargetsToExclude>k__BackingField: 
+    <RelativeHeightsToExclude>k__BackingField: 
+    <StopedAtInacessibles>k__BackingField: 0
+    <StopedAtXthHigherHeightDifference>k__BackingField: 0
+    <StopedAtXthLowerHeightDifference>k__BackingField: 0
+    <StopedAtXthEncounteredFighters>k__BackingField: 0
   <ActionPointsCost>k__BackingField: 1
+  CellAlterations: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3629974059018879025
+      type: {class: RemoveStatusesEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
+      data:
+        Name: Remove weakness status example
+        Description: 
+        Dodgable: 0
+        Masterstrokable: 0
+        RemovableStatusTypes: 03000000

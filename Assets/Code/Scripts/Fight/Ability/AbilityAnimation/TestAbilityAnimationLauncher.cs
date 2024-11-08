@@ -9,7 +9,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
     /// </summary>
     public class TestAbilityAnimationLauncher : MonoBehaviour
     {
-        [SerializeField] private AInternalAbilityAnimationExecutorSO _abilityAnimationExecutor;
+        [SerializeReference] private AInternalAbilityAnimationExecutor _abilityAnimationExecutor;
         [SerializeField] private Fighter _initator;
         [SerializeField] private Cell[] _abilityCells;
         [SerializeField] private string _animationStateName;
