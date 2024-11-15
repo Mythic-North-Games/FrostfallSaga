@@ -13,17 +13,33 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         private TerrainTypeSO _previousTerrainType;
 
+        public SetTerrainAlteration()
+        {
+            CanBeReplaced = true;
+            CanApplyWithFighter = true;
+        }
+
+        public SetTerrainAlteration(
+            bool isPermanent,
+            int duration,
+            string name,
+            string description,
+            Sprite icon
+        ) : base(isPermanent, duration, true, true, name, description, icon)
+        {
+        }
+
         public override void Apply(FightCell cell)
         {
             _previousTerrainType = cell.TerrainType;
             cell.SetTerrain(TerrainType);
-            onAlterationApplied?.Invoke(cell);
+            onAlterationApplied?.Invoke(cell, this);
         }
 
         public override void Remove(FightCell cell)
         {
             cell.SetTerrain(_previousTerrainType);
-            onAlterationRemoved?.Invoke(cell);
+            onAlterationRemoved?.Invoke(cell, this);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Effects;
@@ -12,8 +13,10 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
     [CreateAssetMenu(fileName = "Trap", menuName = "ScriptableObjects/Fight/Impediments/Trap", order = 0)]
     public class TrapSO : AImpedimentSO
     {
-        [field: SerializeField, Header("Trap definition")] public AEffect[] Effects { get; private set; }
-        [field: SerializeField] public ETrapTriggerTime[] TriggerTimes { get; private set; }
+        [field: SerializeField, Header("Trap definition")] public ETrapTriggerTime[] TriggerTimes { get; private set; }
+        [SerializeReference] public AEffect[] Effects = { };
+
+        public Action onTrapTriggered;
 
         public void Trigger(Fighter receiver)
         {
@@ -21,6 +24,8 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
             {
                 effect.ApplyEffect(receiver, initator: null, canMasterstroke: false, canDodge: false);
             }
+
+            onTrapTriggered?.Invoke();
         }
     }
 }

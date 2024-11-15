@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12969dd273b10b843b086c6df821cae8, type: 3}
   m_Name: ObstacleExample
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: 919132149155446097, guid: 8aaf0a3f3237af6408cd90e485a85978, type: 3}
+  <Prefab>k__BackingField: {fileID: 4432762545338704991, guid: e0f2e0ebd2fe2154bb88ea014c107f2a, type: 3}
   <Destroyable>k__BackingField: 1
   SpawnController:
     rid: 3629974059018879019
@@ -30,6 +30,6 @@ MonoBehaviour:
     - rid: 3629974059018879019
       type: {class: ImmediateGameObjectSpawn, ns: FrostfallSaga.GameObjectVisuals.GameObjectSpawnControllers, asm: FrostfallSaga.GameObjectVisuals}
       data:
-        SpawnOffset: {x: 0, y: 0, z: 0}
+        SpawnOffset: {x: 0, y: 2, z: 0}
         SpawnRotation: {x: 0, y: 0, z: 0, w: 0}
         RotationOffset: {x: 0, y: 0, z: 0, w: 0}

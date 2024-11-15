@@ -18,7 +18,7 @@ namespace FrostfallSaga.Fight
         public PersonalityTraitSO personalityTrait;
         public Targeter directAttackTargeter;
         public int directAttackActionPointsCost;
-        public AEffect[] directAttackEffects;
+        [SerializeReference] public AEffect[] directAttackEffects = { };
         public AAbilityAnimationSO directAttackAnimation;
         public ActiveAbilityToAnimation[] activeAbilities;
         public string receiveDamageAnimationName;

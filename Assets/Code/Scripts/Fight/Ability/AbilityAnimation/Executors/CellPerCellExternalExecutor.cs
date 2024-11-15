@@ -4,8 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.GameObjectVisuals;
-using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.FightCells;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
@@ -23,7 +23,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
         private Fighter _fighterThatExecutes;
         private List<GameObject> _projectilesToFinishedTranslation;
 
-        public override void Execute(Fighter fighterThatExecutes, Cell[] abilityCells, GameObject projectilePrefab)
+        public override void Execute(Fighter fighterThatExecutes, FightCell[] abilityCells, GameObject projectilePrefab)
         {
             _fighterThatExecutes = fighterThatExecutes;
             _projectilesToFinishedTranslation = new();
@@ -33,10 +33,10 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
                 Debug.LogWarning("No fighter collider found on projectile prefab. onFighterTouched event will not be triggered.");
             }
 
-            foreach (Cell targetCell in abilityCells)
+            foreach (FightCell targetCell in abilityCells)
             {
                 GameObject projectile = UnityEngine.Object.Instantiate(projectilePrefab, targetCell.transform);
-                SetupProjectileColliderEventIfAny(projectile);
+                SetupProjectileColliderEventsIfAny(projectile);
                 projectile.transform.position = new(999999, 999999);    // Hide before launching
                 _projectilesToFinishedTranslation.Add(projectile);
             }

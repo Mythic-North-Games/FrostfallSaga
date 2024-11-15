@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a92309899b8b9f04ea20210cad65d66f, type: 3}
-  m_Name: ExampleFireSpell
+  m_Name: ExampleObstacleAdder
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: ExampleFireSpell
-  <Description>k__BackingField: Apply fire on cell
-  <IconSprite>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
-  Effects:
-  - rid: 3629974059018879022
+  <Name>k__BackingField: Example obstacle adder
+  <Description>k__BackingField: 
+  <IconSprite>k__BackingField: {fileID: 21300000, guid: c34cd61ed96ff9a40a54e159467c5155, type: 3}
+  Effects: []
   <Targeter>k__BackingField:
-    <OriginCellRange>k__BackingField: 2
+    <OriginCellRange>k__BackingField: 5
     <CellsSequence>k__BackingField:
     - {x: 0, y: 0}
     <StartFromInitiator>k__BackingField: 0
@@ -29,17 +28,18 @@ MonoBehaviour:
     <StopedAtXthHigherHeightDifference>k__BackingField: 0
     <StopedAtXthLowerHeightDifference>k__BackingField: 0
     <StopedAtXthEncounteredFighters>k__BackingField: 0
-  <ActionPointsCost>k__BackingField: 2
-  CellAlterations: []
+  <ActionPointsCost>k__BackingField: 0
+  CellAlterations:
+  - rid: 3629974199755079683
   references:
     version: 2
     RefIds:
-    - rid: 3629974059018879022
-      type: {class: MagicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
+    - rid: 3629974199755079683
+      type: {class: AddImpedimentAlteration, ns: FrostfallSaga.Fight.FightCells.FightCellAlterations, asm: FrostfallSaga.Fight}
       data:
-        Name: Fire dammaaage
-        Description: Extreme damage
-        Dodgable: 1
-        Masterstrokable: 1
-        MagicalDamageAmount: 20
-        MagicalElement: 0
+        <IsPermanent>k__BackingField: 0
+        <Duration>k__BackingField: 2
+        <Name>k__BackingField: 
+        <Description>k__BackingField: 
+        <Icon>k__BackingField: {fileID: 0}
+        <Impediment>k__BackingField: {fileID: 11400000, guid: e2124aec1e508164c8f11136abb00315, type: 2}

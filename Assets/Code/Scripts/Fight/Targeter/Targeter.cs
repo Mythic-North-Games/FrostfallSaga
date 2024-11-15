@@ -7,6 +7,7 @@ using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.FightCells.FightCellAlterations;
 
 namespace FrostfallSaga.Fight.Targeters
 {
@@ -71,7 +72,8 @@ namespace FrostfallSaga.Fight.Targeters
             HexGrid fightGrid,
             FightCell initiatorCell,
             FightCell originCell,
-            Dictionary<Fighter, bool> fightersTeams
+            Dictionary<Fighter, bool> fightersTeams,
+            AFightCellAlteration[] cellAlterations = null
         )
         {
             int distanceToInitiator = CellsPathFinding.GetShorterPath(
@@ -86,7 +88,7 @@ namespace FrostfallSaga.Fight.Targeters
                 throw new TargeterUnresolvableException("Initiator not in range");
             }
 
-            FightCell[] targetedCells = GetCellsFromSequence(fightGrid, initiatorCell, originCell);
+            FightCell[] targetedCells = GetCellsFromSequence(fightGrid, initiatorCell, originCell, cellAlterations);
             if (FighterMandatory)
             {
                 CheckAtLeastOneFighterPresent(targetedCells);
@@ -99,11 +101,19 @@ namespace FrostfallSaga.Fight.Targeters
         public List<FightCell[]> GetAllResolvedCellsSequences(
             HexGrid fightGrid,
             FightCell initiatorCell,
-            Dictionary<Fighter, bool> fightersTeams
+            Dictionary<Fighter, bool> fightersTeams,
+            AFightCellAlteration[] cellAlterations = null
         )
         {
             List<FightCell[]> resolvedTargeterSequences = new();
-            foreach (FightCell cellThatCanBeTargeted in GetAllCellsAvailableForTargeting(fightGrid, initiatorCell, fightersTeams))
+            foreach (
+                FightCell cellThatCanBeTargeted in GetAllCellsAvailableForTargeting(
+                    fightGrid,
+                    initiatorCell,
+                    fightersTeams,
+                    cellAlterations
+                )
+            )
             {
                 try
                 {
@@ -141,8 +151,14 @@ namespace FrostfallSaga.Fight.Targeters
         /// <param name="fightGrid">The fight grid that the targeter will extract the cells from.</param>
         /// <param name="initiatorCell">The cell where the targeter's initiator is located.</param>
         /// <param name="originCell">The starting cell of the sequence.</param>
+        /// <param name="cellAlterations">The cell alterations that can be applied to the cells.</param>
         /// <returns>The extracted cells in order, targeter's conditions are ignored.</returns>
-        public FightCell[] GetCellsFromSequence(HexGrid fightGrid, FightCell initiatorCell, FightCell originCell)
+        public FightCell[] GetCellsFromSequence(
+            HexGrid fightGrid,
+            FightCell initiatorCell,
+            FightCell originCell,
+            AFightCellAlteration[] cellAlterations = null
+        )
         {
             List<FightCell> targetedCells = new()
             {
@@ -167,20 +183,35 @@ namespace FrostfallSaga.Fight.Targeters
                 else
                 {
                     Vector2Int nextCellCoordinates = targetedCells.First().Coordinates + CellsSequence[i];
-                    if (fightGrid.CellsByCoordinates.TryGetValue(nextCellCoordinates, out Cell nextCell))
+                    if (
+                        fightGrid.CellsByCoordinates.TryGetValue(nextCellCoordinates, out Cell nextCell) && 
+                        !IsCellBlockedByAlterations((FightCell)nextCell, cellAlterations)
+                    )
                     {
                         targetedCells.Add((FightCell)nextCell);
                     }
+
                 }
             }
 
+            if (cellAlterations != null)
+            {
+                if (cellAlterations.Any(alteration => !alteration.CanApplyWithFighter))
+                {
+                    targetedCells = GetCellsUntilStoppedByTheXthFighter(targetedCells, 1);
+                }
+                if (cellAlterations.Any(alteration => alteration is AddImpedimentAlteration))
+                {
+                    targetedCells = GetCellsUntilStoppedByInaccessible(targetedCells);
+                }
+            }
             if (StopedAtInacessibles)
             {
                 targetedCells = GetCellsUntilStoppedByInaccessible(targetedCells);
             }
             if (StopedAtXthEncounteredFighters > 0)
             {
-                targetedCells = GetCellsUntilStoppedByTheXthFighter(targetedCells);
+                targetedCells = GetCellsUntilStoppedByTheXthFighter(targetedCells, StopedAtXthEncounteredFighters);
             }
             if (StopedAtXthHigherHeightDifference > 0)
             {
@@ -200,8 +231,14 @@ namespace FrostfallSaga.Fight.Targeters
         /// <param name="fightGrid">The fight grid to get the cells from.</param>
         /// <param name="initiatorCell">The cell the initiator occupies.</param>
         /// <param name="fightersTeams">The fighters and their teams (true if ally, false if enemy).</param>
+        /// <param name="cellAlterations">The cell alterations that can be applied to the cells.</param>
         /// <returns>All the cells that are in range depending on the initiator position and the targeter</returns>
-        public FightCell[] GetAllCellsAvailableForTargeting(HexGrid fightGrid, FightCell initiatorCell, Dictionary<Fighter, bool> fightersTeams)
+        public FightCell[] GetAllCellsAvailableForTargeting(
+            HexGrid fightGrid,
+            FightCell initiatorCell,
+            Dictionary<Fighter, bool> fightersTeams,
+            AFightCellAlteration[] cellAlterations = null
+        )
         {
             List<FightCell> availableCells = new();
             foreach (FightCell cell in fightGrid.GetCells())
@@ -210,7 +247,7 @@ namespace FrostfallSaga.Fight.Targeters
                 {
                     if (
                         Resolve(
-                            fightGrid, initiatorCell, cell, fightersTeams
+                            fightGrid, initiatorCell, cell, fightersTeams, cellAlterations
                         ).Length > 0 && (!StartFromInitiator || cell != initiatorCell)
                     )
                     {
@@ -232,15 +269,17 @@ namespace FrostfallSaga.Fight.Targeters
         /// <param name="initiatorCell">The targeter initiator's cell.</param>
         /// <param name="targetCell">The cell you want to know if it's in range.</param>
         /// <param name="fightersTeams">The fighters and their teams (true if ally, false if enemy).</param>
+        /// <param name="cellAlterations">The cell alterations that can be applied to the cells.</param>
         /// <returns>True if the target cell is in range, false otherwise.</returns>
         public bool IsCellTargetable(
             HexGrid fightGrid,
             FightCell initiatorCell,
             FightCell targetCell,
-            Dictionary<Fighter, bool> fightersTeams
+            Dictionary<Fighter, bool> fightersTeams,
+            AFightCellAlteration[] cellAlterations = null
         )
         {
-            return GetAllCellsAvailableForTargeting(fightGrid, initiatorCell, fightersTeams).Contains(targetCell);
+            return GetAllCellsAvailableForTargeting(fightGrid, initiatorCell, fightersTeams, cellAlterations).Contains(targetCell);
         }
 
         /// <summary>
@@ -249,10 +288,23 @@ namespace FrostfallSaga.Fight.Targeters
         /// <param name="fightGrid">The fight grid where the initiator is located.</param>
         /// <param name="initiatorCell">The targeter initiator's cell.</param>*
         /// <param name="fightersTeams">The fighters and their teams (true if ally, false if enemy).</param>
+        /// <param name="cellAlterations">The cell alterations that can be applied to the cells.</param>
         /// <returns>True if the targeter resolves at least for one cell in the available cells around the given initiator cell, false otherwise.</returns>
-        public bool AtLeastOneCellResolvable(HexGrid fightGrid, FightCell initiatorCell, Dictionary<Fighter, bool> fightersTeams)
+        public bool AtLeastOneCellResolvable(
+            HexGrid fightGrid,
+            FightCell initiatorCell,
+            Dictionary<Fighter, bool> fightersTeams,
+            AFightCellAlteration[] cellAlterations = null
+        )
         {
-            foreach (FightCell cellThatCanBeTargeted in GetAllCellsAvailableForTargeting(fightGrid, initiatorCell, fightersTeams))
+            foreach (
+                FightCell cellThatCanBeTargeted in GetAllCellsAvailableForTargeting(
+                    fightGrid,
+                    initiatorCell,
+                    fightersTeams,
+                    cellAlterations
+                )
+            )
             {
                 try
                 {
@@ -346,23 +398,20 @@ namespace FrostfallSaga.Fight.Targeters
             return targetedCells;
         }
 
-        private List<FightCell> GetCellsUntilStoppedByTheXthFighter(List<FightCell> targetedCells)
+        private List<FightCell> GetCellsUntilStoppedByTheXthFighter(List<FightCell> targetedCells, int xthFighter)
         {
             int fightersEncountered = 0;
             for (int i = 0; i < targetedCells.Count; i++)
             {
-                if (fightersEncountered == StopedAtXthEncounteredFighters)
+                if (targetedCells[i].HasFighter())
+                {
+                    fightersEncountered++;
+                }
+
+                if (fightersEncountered == xthFighter)
                 {
                     targetedCells = targetedCells.Take(i).ToList();
                     break;
-                }
-
-                if (
-                    fightersEncountered < StopedAtXthEncounteredFighters &&
-                    targetedCells[i].HasFighter()
-                )
-                {
-                    fightersEncountered++;
                 }
             }
             return targetedCells;
@@ -419,6 +468,17 @@ namespace FrostfallSaga.Fight.Targeters
 
             // Convert the new axial coordinates back to offset (x,y) coordinates
             return HexMetrics.AxialToOffset(nextAxial);
+        }
+
+        private bool IsCellBlockedByAlterations(FightCell cell, AFightCellAlteration[] cellAlterations)
+        {
+            return cellAlterations != null && cell.GetAlterations().Any(
+                activeCellAlteration => cellAlterations.Any(
+                    possibleCellAlteration =>
+                        !activeCellAlteration.CanBeReplaced &&
+                        activeCellAlteration.GetType() == possibleCellAlteration.GetType()
+                )
+            );
         }
     }
 }

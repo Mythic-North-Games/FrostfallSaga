@@ -15,10 +15,28 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         private FightCell _currentlyModifiedCell;
 
+        public AddImpedimentAlteration()
+        {
+            CanBeReplaced = false;
+            CanApplyWithFighter = false;
+        }
+
+        public AddImpedimentAlteration(
+            bool isPermanent,
+            int duration,
+            string name,
+            string description,
+            Sprite icon
+        ) : base(isPermanent, duration, false, false, name, description, icon)
+        {
+        }
+
         #region Application
 
         public override void Apply(FightCell fightCell)
         {
+            Impediment.SpawnController.onSpawnEnded += OnImpedimentGameObjectSpawned;
+
             _currentlyModifiedCell = fightCell;
             Impediment.SpawnController.SpawnGameObject(fightCell.transform, Impediment.Prefab);
         }
@@ -26,8 +44,9 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
         private void OnImpedimentGameObjectSpawned(GameObject impedimentGameObject)
         {
             _currentlyModifiedCell.SetImpediment(Impediment, impedimentGameObject);
-            onAlterationApplied?.Invoke(_currentlyModifiedCell);
             _currentlyModifiedCell = null;
+            Impediment.SpawnController.onSpawnEnded -= OnImpedimentGameObjectSpawned;
+            onAlterationApplied?.Invoke(_currentlyModifiedCell, this);
         }
 
         #endregion
@@ -36,6 +55,8 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         public override void Remove(FightCell fightCell)
         {
+            Impediment.DestroyController.onDestroyEnded += OnImpedimentGameObjectDestroyed;
+
             _currentlyModifiedCell = fightCell;
             Impediment.DestroyController.DestroyGameObject(fightCell.GetImpedimentGameObject());
         }
@@ -43,57 +64,9 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
         private void OnImpedimentGameObjectDestroyed()
         {
             _currentlyModifiedCell.SetImpediment(null, null);
-            onAlterationRemoved?.Invoke(_currentlyModifiedCell);
             _currentlyModifiedCell = null;
-        }
-
-        #endregion
-
-        #region Setup & teardown
-
-        private void Awake()
-        {
-            if (Impediment == null)
-            {
-                Debug.LogWarning($"{Name} has no impediment configured.");
-                return;
-            }
-
-            if (Impediment.SpawnController == null)
-            {
-                Debug.LogWarning($"Impediment {Impediment.name} has no spawn controller.");
-            }
-            else
-            {
-                Impediment.SpawnController.onSpawnEnded += OnImpedimentGameObjectSpawned;
-            }
-
-            if (Impediment.DestroyController == null)
-            {
-                Debug.LogWarning($"Impediment {Impediment.name} has no destroy controller.");
-            }
-            else
-            {
-                Impediment.DestroyController.onDestroyEnded += OnImpedimentGameObjectDestroyed;
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (Impediment == null)
-            {
-                return;
-            }
-
-            if (Impediment.SpawnController != null)
-            {
-                Impediment.SpawnController.onSpawnEnded -= OnImpedimentGameObjectSpawned;
-            }
-
-            if (Impediment.DestroyController != null)
-            {
-                Impediment.DestroyController.onDestroyEnded -= OnImpedimentGameObjectDestroyed;
-            }
+            Impediment.DestroyController.onDestroyEnded -= OnImpedimentGameObjectDestroyed;
+            onAlterationRemoved?.Invoke(_currentlyModifiedCell, this);
         }
 
         #endregion

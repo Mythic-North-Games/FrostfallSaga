@@ -1,6 +1,6 @@
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Fight.FightCells;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
@@ -17,17 +17,19 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
         /// <summary>
         /// Executes the external ability animation as configured.
         /// </summary>
-        public override void Execute(Fighter fighterThatWillExecute, Cell[] abilityTargetCells)
+        public override void Execute(Fighter fighterThatWillExecute, FightCell[] abilityTargetCells)
         {
             Executor.onFighterTouched += OnFighterTouched;
+            Executor.onCellTouched += OnCellTouched;
             Executor.onAnimationEnded += OnExecutorAnimationEnded;
-            
+
             Executor.Execute(fighterThatWillExecute, abilityTargetCells, ProjectilePrefab);
         }
 
         protected override void OnExecutorAnimationEnded(Fighter initiator)
         {
             Executor.onFighterTouched -= OnFighterTouched;
+            Executor.onCellTouched -= OnCellTouched;
             Executor.onAnimationEnded -= OnExecutorAnimationEnded;
             base.OnExecutorAnimationEnded(initiator);
         }

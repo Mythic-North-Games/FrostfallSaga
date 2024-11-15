@@ -8,6 +8,8 @@ using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Controllers;
 using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Fight.UI;
+using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Fight.FightCells.Impediments;
 
 namespace FrostfallSaga.Fight
 {
@@ -81,10 +83,18 @@ namespace FrostfallSaga.Fight
                 return;
             }
 
+            // Update fighter stats & statuses
             fighterThatPlayed.ResetMovementAndActionPoints();
             fighterThatPlayed.StatusesManager.UpdateStatuses(EStatusTriggerTime.EndOfTurn);
+
+            // Update cells alterations
+            UpdateFightGridCellsAlterations();
+
+            // Update turn order
             _fightersTurnOrder.Enqueue(fighterThatPlayed);
             onFightersTurnOrderUpdated?.Invoke(_fightersTurnOrder.ToArray());
+
+            // Launch next turn
             PlayNextFighterTurn();
         }
 
@@ -117,7 +127,7 @@ namespace FrostfallSaga.Fight
                 UpdateFightersTurnOrder(updatedFighterTurnsOrder);
             }
 
-            // If suicide, end fight if needed, otherwise go to next fight
+            // If suicide, end fight if needed, otherwise end fighter turn
             if (fighterThatDied == _playingFighter)
             {
                 if (HasFightEnded())
@@ -126,7 +136,7 @@ namespace FrostfallSaga.Fight
                     onFightEnded?.Invoke(_allies.ToArray(), _enemies.ToArray());
                     return;
                 }
-                PlayNextFighterTurn();
+                OnFighterTurnEnded(fighterThatDied);
             }
         }
 
@@ -219,8 +229,8 @@ namespace FrostfallSaga.Fight
         }
         #endregion
 
-        #region Static helper methods
-        private static Dictionary<Fighter, bool> GetFighterTeamsAsDict(List<Fighter> allies, List<Fighter> enemies)
+        #region Private helper methods
+        private Dictionary<Fighter, bool> GetFighterTeamsAsDict(List<Fighter> allies, List<Fighter> enemies)
         {
             Dictionary<Fighter, bool> teams = new();
             allies.ForEach(ally => teams.Add(ally, true));
@@ -228,7 +238,7 @@ namespace FrostfallSaga.Fight
             return teams;
         }
 
-        private static void PositionFightersOnGrid(HexGrid fightGrid, Fighter[] allies, Fighter[] enemies)
+        private void PositionFightersOnGrid(HexGrid fightGrid, Fighter[] allies, Fighter[] enemies)
         {
             int xCellIndex = 0;
             foreach (Fighter ally in allies)
@@ -253,7 +263,7 @@ namespace FrostfallSaga.Fight
             }
         }
 
-        private static EWinner GetWinner(List<Fighter> allies, List<Fighter> enemies)
+        private EWinner GetWinner(List<Fighter> allies, List<Fighter> enemies)
         {
             int teamHealth = 0;
             allies.ForEach(ally => teamHealth += ally.GetHealth());
@@ -272,7 +282,7 @@ namespace FrostfallSaga.Fight
             return EWinner.NO_ONE;
         }
 
-        private static Queue<Fighter> GetFightersTurnOrder(Fighter[] fighters)
+        private Queue<Fighter> GetFightersTurnOrder(Fighter[] fighters)
         {
             return new(
                 fighters
@@ -281,7 +291,7 @@ namespace FrostfallSaga.Fight
             );
         }
 
-        private static bool CompareFighterTurnOrder(Fighter[] order1, Fighter[] order2)
+        private bool CompareFighterTurnOrder(Fighter[] order1, Fighter[] order2)
         {
             if (order1.Length != order2.Length)
             {
@@ -297,6 +307,15 @@ namespace FrostfallSaga.Fight
             }
 
             return true;
+        }
+
+        private void UpdateFightGridCellsAlterations()
+        {
+            FightCell[] cells = Array.ConvertAll(_fightGrid.GetCells(), cell => (FightCell)cell);
+            foreach (FightCell cell in cells)
+            {
+                cell.UpdateAlterations();
+            }
         }
         #endregion
 
