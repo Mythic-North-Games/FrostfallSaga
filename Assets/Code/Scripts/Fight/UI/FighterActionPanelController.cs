@@ -48,7 +48,7 @@ namespace FrostfallSaga.Fight.UI
             int i = 1;
             fighter.ActiveAbilitiesToAnimation.ToList().ForEach(ability =>
             {
-                if (i < abilitiesButtonCount)
+                if (i <= abilitiesButtonCount)
                 {
                     SetupAbilityButton(ability, i);
                 }

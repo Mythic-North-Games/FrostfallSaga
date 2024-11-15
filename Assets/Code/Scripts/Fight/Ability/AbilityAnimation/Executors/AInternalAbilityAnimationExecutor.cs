@@ -1,7 +1,6 @@
 using System;
-using UnityEngine;
-using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.FightCells;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
@@ -13,6 +12,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
     public abstract class AInternalAbilityAnimationExecutor
     {
         public Action<Fighter> onFighterTouched;
+        public Action<FightCell> onCellTouched;
         public Action<Fighter> onAnimationEnded;
 
         protected Fighter _fighterThatExecutes;
@@ -27,7 +27,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
         /// <param name="colliderToTrack">The weapon or other collider to track for collision.</param>
         public abstract void Execute(
             Fighter fighterThatWillExecute,
-            Cell[] abilityTargetCells,
+            FightCell[] abilityTargetCells,
             string animationStateNameToTrigger,
             float animationDuration,
             FighterCollider colliderToTrack

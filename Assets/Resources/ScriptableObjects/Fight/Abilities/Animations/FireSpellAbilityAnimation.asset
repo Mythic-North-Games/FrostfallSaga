@@ -21,7 +21,7 @@ MonoBehaviour:
     - rid: 3629974059018879021
       type: {class: CellPerCellExternalExecutor, ns: FrostfallSaga.Fight.Abilities.AbilityAnimation, asm: FrostfallSaga.Fight}
       data:
-        StartLocation: {x: 0, y: 100, z: 0}
+        StartLocation: {x: 0, y: 20, z: 0}
         EndLocation: {x: 0, y: 0, z: 0}
         StartRotation: {x: 0, y: 0, z: 0, w: 0}
         EndRotation: {x: 0, y: 0, z: 0, w: 0}

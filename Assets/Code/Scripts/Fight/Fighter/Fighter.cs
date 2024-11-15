@@ -11,6 +11,8 @@ using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
+using FrostfallSaga.Fight.FightCells.FightCellAlterations;
+using FrostfallSaga.Fight.FightCells.Impediments;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -59,7 +61,7 @@ namespace FrostfallSaga.Fight.Fighters
         private string _healSelfAnimationName;
         private string _reduceStatAnimationName;
         private string _increaseStatAnimationName;
-        private ActiveAbilityToAnimation _currentActiveAbility;
+        private ActiveAbilityToAnimation _currentAbilityToAnimation;
 
         public Fighter()
         {
@@ -192,15 +194,21 @@ namespace FrostfallSaga.Fight.Fighters
                 Debug.LogWarning($"No animation attached to active ability {activeAbilityToAnimation.activeAbility.Name} for fighter {name}");
                 targetedCells.ToList()
                     .Where(cell => cell.HasFighter()).ToList()
-                    .ForEach(cell => ApplyEffectsOnFighter(activeAbilityToUse.Effects, cell.Fighter));
+                    .ForEach(cell =>
+                        {
+                            ApplyEffectsOnFighter(activeAbilityToUse.Effects, cell.Fighter);
+                            ApplyAlterationsToCell(activeAbilityToUse.CellAlterations, cell);
+                        }
+                    );
                 onFighterActiveAbilityEnded?.Invoke(this);
             }
             else
             {
-                _currentActiveAbility = activeAbilityToAnimation;
-                _currentActiveAbility.animation.onFighterTouched += OnActiveAbilityTouchedFighter;
-                _currentActiveAbility.animation.onAnimationEnded += OnActiveAbilityAnimationEnded;
-                _currentActiveAbility.animation.Execute(this, targetedCells);
+                _currentAbilityToAnimation = activeAbilityToAnimation;
+                _currentAbilityToAnimation.animation.onFighterTouched += OnActiveAbilityTouchedFighter;
+                _currentAbilityToAnimation.animation.onCellTouched += OnActiveAbilityTouchedCell;
+                _currentAbilityToAnimation.animation.onAnimationEnded += OnActiveAbilityAnimationEnded;
+                _currentAbilityToAnimation.animation.Execute(this, targetedCells);
             }
             _stats.actionPoints -= activeAbilityToUse.ActionPointsCost;
         }
@@ -378,13 +386,19 @@ namespace FrostfallSaga.Fight.Fighters
 
         public void OnActiveAbilityTouchedFighter(Fighter touchedFighter)
         {
-            ApplyEffectsOnFighter(_currentActiveAbility.activeAbility.Effects, touchedFighter);
+            ApplyEffectsOnFighter(_currentAbilityToAnimation.activeAbility.Effects, touchedFighter);
+        }
+
+        public void OnActiveAbilityTouchedCell(FightCell touchedCell)
+        {
+            ApplyAlterationsToCell(_currentAbilityToAnimation.activeAbility.CellAlterations, touchedCell);
         }
 
         public void OnActiveAbilityAnimationEnded(Fighter initiator)
         {
-            _currentActiveAbility.animation.onFighterTouched -= OnActiveAbilityTouchedFighter;
-            _currentActiveAbility.animation.onAnimationEnded -= OnActiveAbilityAnimationEnded;
+            _currentAbilityToAnimation.animation.onFighterTouched -= OnActiveAbilityTouchedFighter;
+            _currentAbilityToAnimation.animation.onCellTouched -= OnActiveAbilityTouchedCell;
+            _currentAbilityToAnimation.animation.onAnimationEnded -= OnActiveAbilityAnimationEnded;
 
             onFighterActiveAbilityEnded?.Invoke(initiator);
         }
@@ -539,10 +553,15 @@ namespace FrostfallSaga.Fight.Fighters
         {
             return activeAbility.ActionPointsCost <= _stats.actionPoints && (
                 (
-                    activeAbility.Targeter.AtLeastOneCellResolvable(fightGrid, cell, fightersTeams) &&
+                    activeAbility.Targeter.AtLeastOneCellResolvable(
+                        fightGrid,
+                        cell,
+                        fightersTeams,
+                        activeAbility.CellAlterations
+                    ) &&
                     target == null
                 ) ||
-                CanUseTargeterOnFighter(activeAbility.Targeter, target, fightGrid, fightersTeams)
+                CanUseTargeterOnFighter(activeAbility.Targeter, target, fightGrid, fightersTeams, activeAbility.CellAlterations)
             );
         }
 
@@ -599,6 +618,23 @@ namespace FrostfallSaga.Fight.Fighters
             );
         }
 
+        private void ApplyAlterationsToCell(AFightCellAlteration[] cellAlterations, FightCell fightCell)
+        {
+            cellAlterations.ToList().ForEach(
+                cellAlteration =>
+                {
+                    try
+                    {
+                        fightCell.AlterationsManager.ApplyNewAlteration(cellAlteration);
+                    }
+                    catch (FightCellAlterationApplicationException e)
+                    {
+                        Debug.Log($"Cell alteration {cellAlteration.Name} could not be applied on cell {fightCell.name}.\n{e}");
+                    }
+                }
+            );
+        }
+
         private void DecreaseHealth(int amount)
         {
             _stats.health = Math.Clamp(_stats.health - amount, 0, _stats.maxHealth);
@@ -621,10 +657,11 @@ namespace FrostfallSaga.Fight.Fighters
             Targeter targeter,
             Fighter target,
             HexGrid fightGrid,
-            Dictionary<Fighter, bool> fightersTeams
+            Dictionary<Fighter, bool> fightersTeams,
+            AFightCellAlteration[] cellAlterations = null
         )
         {
-            return targeter.GetAllResolvedCellsSequences(fightGrid, cell, fightersTeams).Any(
+            return targeter.GetAllResolvedCellsSequences(fightGrid, cell, fightersTeams, cellAlterations).Any(
                 cellsSequence => cellsSequence.Contains(target.cell)
             );
         }
@@ -632,6 +669,13 @@ namespace FrostfallSaga.Fight.Fighters
 
         #region Movement handling
         private void MakeNextMove()
+        {
+            // Trigger exit trap of current cell before moving (if any)
+            cell.onTrapTriggered += OnExitCellTrapTriggered;
+            cell.TriggerTrapIfAny(ETrapTriggerTime.OnExit);
+        }
+
+        private void OnExitCellTrapTriggered()
         {
             FightCell cellToMoveTo = (FightCell)_currentMovePath.GetNextCellInPath();
             MovementController.Move(cell, cellToMoveTo, _currentMovePath.IsLastMove);
@@ -641,12 +685,24 @@ namespace FrostfallSaga.Fight.Fighters
         {
             // Update cells fighter references
             cell.SetFighter(null);
+            cell.onTrapTriggered -= OnExitCellTrapTriggered;
+
             FightCell destinationFightCell = (FightCell)destinationCell;
             destinationFightCell.SetFighter(this);
             cell = destinationFightCell;
 
             // Decrease move points
             _stats.movePoints -= 1;
+
+            // Trigger trap of new entered cell if any
+            cell.onTrapTriggered += OnEnteredCellTrapTriggered;
+            cell.TriggerTrapIfAny(ETrapTriggerTime.OnEnter);
+        }
+
+        private void OnEnteredCellTrapTriggered()
+        {
+            // Unsubscribe to the trap event
+            cell.onTrapTriggered -= OnEnteredCellTrapTriggered;
 
             // If there are still moves to make, make the next one
             if (!_currentMovePath.IsLastMove)

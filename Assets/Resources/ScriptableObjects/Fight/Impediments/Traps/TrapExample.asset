@@ -14,9 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Prefab>k__BackingField: {fileID: 919132149155446097, guid: 39857cfad1651644682ff5b772e6e697, type: 3}
   <Destroyable>k__BackingField: 1
+  SpawnController:
+    rid: 3629974220633014276
+  DestroyController:
+    rid: 3629974220633014277
   <Name>k__BackingField: Fire trap example
   <Description>k__BackingField: Trap example description
   <Icon>k__BackingField: {fileID: 21300000, guid: 119f93d0bcbf1e743bf5fcf237507d39, type: 3}
-  <Effects>k__BackingField:
-  - {fileID: 11400000, guid: 58c6e73176ad35848ba08786bd81f44a, type: 2}
-  <TriggerTimes>k__BackingField: 00000000
+  <TriggerTimes>k__BackingField: 0000000001000000
+  Effects:
+  - rid: 3629974220633014278
+  references:
+    version: 2
+    RefIds:
+    - rid: 3629974220633014276
+      type: {class: ImmediateGameObjectSpawn, ns: FrostfallSaga.GameObjectVisuals.GameObjectSpawnControllers, asm: FrostfallSaga.GameObjectVisuals}
+      data:
+        SpawnOffset: {x: 0, y: 2, z: 0}
+        SpawnRotation: {x: 0, y: 0, z: 0, w: 0}
+        RotationOffset: {x: 0, y: 0, z: 0, w: 0}
+    - rid: 3629974220633014277
+      type: {class: ImmediateGameObjectDestroy, ns: FrostfallSaga.GameObjectVisuals.GameObjectDestroyControllers, asm: FrostfallSaga.GameObjectVisuals}
+      data: 
+    - rid: 3629974220633014278
+      type: {class: PhysicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
+      data:
+        Name: Physical damage test
+        Description: 
+        Dodgable: 0
+        Masterstrokable: 0
+        PhysicalDamageAmount: 10

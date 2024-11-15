@@ -134,7 +134,8 @@ namespace FrostfallSaga.Fight.Controllers
                     _currentActiveAbility.activeAbility.Targeter.GetAllCellsAvailableForTargeting(
                         _currentFightGrid,
                         _possessedFighter.cell,
-                        _fighterTeams
+                        _fighterTeams,
+                        _currentActiveAbility.activeAbility.CellAlterations
                     ).Contains(hoveredFightCell)
                 )
             )
@@ -360,7 +361,8 @@ namespace FrostfallSaga.Fight.Controllers
                 _currentActiveAbility.activeAbility.Targeter.GetAllCellsAvailableForTargeting(
                     _currentFightGrid,
                     _possessedFighter.cell,
-                    _fighterTeams
+                    _fighterTeams,
+                    _currentActiveAbility.activeAbility.CellAlterations
                 );
             cellsAvailableForTargeting.ToList().ForEach(
                 cell => cell.HighlightController.UpdateCurrentDefaultMaterial(_cellHighlightMaterial)
@@ -409,7 +411,8 @@ namespace FrostfallSaga.Fight.Controllers
             _currentActiveAbility.activeAbility.Targeter.GetAllCellsAvailableForTargeting(
                 _currentFightGrid,
                 _possessedFighter.cell,
-                _fighterTeams
+                _fighterTeams,
+                _currentActiveAbility.activeAbility.CellAlterations
             ).ToList().ForEach(cell => cell.HighlightController.ResetToInitialMaterial());
         }
 

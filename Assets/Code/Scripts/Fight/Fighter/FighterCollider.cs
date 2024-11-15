@@ -15,12 +15,18 @@ namespace FrostfallSaga.Fight.Fighters
 
         private void OnTriggerEnter(Collider other)
         {
-            onFighterEnter?.Invoke(other.gameObject.GetComponent<Fighter>());   
+            if (other.gameObject.TryGetComponent(out Fighter fighter))
+            {
+                onFighterEnter?.Invoke(fighter);
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            onFighterExit?.Invoke(other.gameObject.GetComponent<Fighter>());   
+            if (other.gameObject.TryGetComponent(out Fighter fighter))
+            {
+                onFighterExit?.Invoke(fighter);
+            }
         }
     }
 }

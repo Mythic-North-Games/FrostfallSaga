@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Grid.Cells;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
@@ -10,14 +11,14 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
     [Serializable]
     public class ReturnToOriginCellInternalExecutor : AInternalAbilityAnimationExecutor
     {
-        private Cell[] _abilityTargetCells;
+        private FightCell[] _abilityTargetCells;
         private string _animationStateNameToTrigger;
         private float _animationDuration;
         private int _currentExecutionCellIndex;
 
         public override void Execute(
             Fighter fighterThatWillExecute,
-            Cell[] abilityTargetCells,
+            FightCell[] abilityTargetCells,
             string animationStateNameToTrigger,
             float animationDuration,
             FighterCollider colliderToTrack
@@ -46,7 +47,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
         private void MoveToNextTargetCell()
         {
             _currentExecutionCellIndex++;
-            Cell nextTargetCell = _abilityTargetCells[_currentExecutionCellIndex];
+            FightCell nextTargetCell = _abilityTargetCells[_currentExecutionCellIndex];
             _fighterThatExecutes.MovementController.Move(_fighterThatExecutes.cell, nextTargetCell, true);
         }
 

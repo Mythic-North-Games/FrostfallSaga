@@ -15,17 +15,33 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         private ECellHeight _previousHeight;
 
+        public SetHeightAlteration()
+        {
+            CanBeReplaced = true;
+            CanApplyWithFighter = true;
+        }
+
+        public SetHeightAlteration(
+            bool isPermanent,
+            int duration,
+            string name,
+            string description,
+            Sprite icon
+        ) : base(isPermanent, duration, true, true, name, description, icon)
+        {
+        }
+
         public override void Apply(FightCell cell)
         {
             _previousHeight = cell.Height;
             cell.UpdateHeight(TargetHeight);
-            onAlterationApplied?.Invoke(cell);
+            onAlterationApplied?.Invoke(cell, this);
         }
 
         public override void Remove(FightCell cell)
         {
             cell.UpdateHeight(_previousHeight);
-            onAlterationRemoved?.Invoke(cell);
+            onAlterationRemoved?.Invoke(cell, this);
         }
     }
 }
