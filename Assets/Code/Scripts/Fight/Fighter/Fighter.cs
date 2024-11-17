@@ -108,10 +108,14 @@ namespace FrostfallSaga.Fight.Fighters
         // <Fighter that died>
         public Action<Fighter> onFighterDied;
 
-        private void Awake()
+        public Fighter()
         {
             StatusesManager = new StatusesManager(this);
             PassiveAbilitiesManager = new PassiveAbilitiesManager(this);
+        }
+
+        private void Awake()
+        {
             if (!TrySetupEntitiyVisualMoveController())
             {
                 Debug.LogError("No entity visual move controller found for fighter " + name);
@@ -639,7 +643,7 @@ namespace FrostfallSaga.Fight.Fighters
         {
             return (
                 activeAbility.ActionPointsCost <= _stats.actionPoints &&
-                activeAbility.GodFavorsPointsCost <= _godFavorsPoints && 
+                activeAbility.GodFavorsPointsCost <= _godFavorsPoints &&
                 (
                     (
                         activeAbility.Targeter.AtLeastOneCellResolvable(
