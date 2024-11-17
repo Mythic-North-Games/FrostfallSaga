@@ -16,7 +16,8 @@ namespace FrostfallSaga.Fight.Effects
             Fighter receiver,
             Fighter initiator = null,
             bool canMasterstroke = true,
-            bool canDodge = true
+            bool canDodge = true,
+            bool adjustGodFavorsPoints = true
         )
         {
             // Try dodge if enabled
@@ -44,6 +45,12 @@ namespace FrostfallSaga.Fight.Effects
             receiver.Heal(finalHealAmount);
             receiver.onEffectReceived?.Invoke(receiver, initiator, this, masterstrokeSucceeded);
             Debug.Log($"Healed {receiver.name} for {finalHealAmount} health.");
+
+            // Increase god favors points if enabled
+            if (adjustGodFavorsPoints && initiator != null)
+            {
+                initiator.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.HEAL);
+            }
         }
 
         public override void RestoreEffect(Fighter receiver)

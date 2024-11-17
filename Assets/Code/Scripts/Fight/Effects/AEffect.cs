@@ -23,11 +23,13 @@ namespace FrostfallSaga.Fight.Effects
         /// <param name="initator">The fighter that initiates the effect if there is one.</param>
         /// <param name="canMasterstroke">True if the effect can be masterstroked, false otherwise.</param>
         /// <param name="canDodge">True if the effect can be dodged, false otherwise.</param>
+        /// <param name="adjustGodFavorsPoints">True if the god favors points should be adjusted for the initiator, false otherwise.</param>
         public abstract void ApplyEffect(
             Fighter receiver,
             Fighter initator = null,
             bool canMasterstroke = true,
-            bool canDodge = true
+            bool canDodge = true,
+            bool adjustGodFavorsPoints = true
         );
 
         /// <summary>

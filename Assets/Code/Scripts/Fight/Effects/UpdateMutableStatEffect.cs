@@ -24,7 +24,8 @@ namespace FrostfallSaga.Fight.Effects
             Fighter receiver,
             Fighter initiator = null,
             bool canMasterstroke = true,
-            bool canDodge = true
+            bool canDodge = true,
+            bool adjustGodFavorsPoints = true
         )
         {
             float finalUpdateAmount = Amount;
@@ -33,9 +34,17 @@ namespace FrostfallSaga.Fight.Effects
                 finalUpdateAmount = receiver.GetMutableStat(StatToUpdate) * Amount / 100f;
             }
 
+            // Do the update
             receiver.UpdateMutableStat(StatToUpdate, finalUpdateAmount);
             receiver.onEffectReceived?.Invoke(receiver, initiator, this, false);
             Debug.Log($"{receiver.name} {StatToUpdate} updated by {finalUpdateAmount}.");
+
+            // Increase god favors points if enbabled
+            if (adjustGodFavorsPoints && initiator != null)
+            {
+                EGodFavorsAction actionDone = Amount > 0 ? EGodFavorsAction.BUFF : EGodFavorsAction.DEBUFF;
+                receiver.TryIncreaseGodFavorsPointsForAction(actionDone);
+            }
         }
 
         public override void RestoreEffect(Fighter receiver)

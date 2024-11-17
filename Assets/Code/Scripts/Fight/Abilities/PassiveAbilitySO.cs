@@ -58,7 +58,7 @@ namespace FrostfallSaga.Fight.Abilities
             Fighter[] targets = GetTargets(initator, fighterTeams);
             foreach (Fighter target in targets)
             {
-                Effects.ToList().ForEach(effect => effect.ApplyEffect(target));
+                Effects.ToList().ForEach(effect => effect.ApplyEffect(target, initator, false, false, false));
             }
 
             if (VisualsController == null)

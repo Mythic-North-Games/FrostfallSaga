@@ -18,14 +18,32 @@ namespace FrostfallSaga.Fight.Effects
             Fighter receiver,
             Fighter initiator = null,
             bool canMasterstroke = true,
-            bool canDodge = true
+            bool canDodge = true,
+            bool adjustGodFavorsPoints = true
         )
         {
+            bool atLeastOneBuff = false;
+            bool atLeastOneDebuff = false;
+
             foreach (AStatus status in StatusesToApply)
             {
                 receiver.ApplyStatus(status);
                 Debug.Log($"Status {status.Name} applied to {receiver.name}.");
+
+                if (status.StatusType.IsBuff())
+                {
+                    if (!atLeastOneBuff) atLeastOneBuff = true;
+                }
+                else
+                {
+                    if (!atLeastOneDebuff) atLeastOneDebuff = true;
+                }
             }
+
+            // Increase god favors points if enabled
+            if (!adjustGodFavorsPoints || initiator != null) return;
+            if (atLeastOneBuff) initiator.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.BUFF);
+            if (atLeastOneDebuff) initiator.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.DEBUFF);
         }
 
         public override void RestoreEffect(Fighter receiver)
