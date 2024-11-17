@@ -6,5 +6,6 @@ namespace FrostfallSaga.Fight.Statuses
         BLEED,
         PARALYSIS,
         WEAKNESS,
+        STRENGTH,
     }
 }

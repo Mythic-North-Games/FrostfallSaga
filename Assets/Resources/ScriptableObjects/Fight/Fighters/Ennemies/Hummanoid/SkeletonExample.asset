@@ -18,9 +18,21 @@ MonoBehaviour:
   - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
     animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
   ActiveAbilitiesCapacity: 5
-  <DirectAttackTargeter>k__BackingField: {fileID: 11400000, guid: 6dea62123af5d214384a580edb88e5fb, type: 2}
-  <DirectAttackEffects>k__BackingField:
-  - {fileID: 11400000, guid: 4ccc8e74b617d96429b4d72988f71b76, type: 2}
+  <AvailablePassiveAbilities>k__BackingField:
+  - {fileID: 0}
+  PassiveAbilitiesCapacity: 5
+  <DirectAttackTargeter>k__BackingField:
+    <OriginCellRange>k__BackingField: 0
+    <CellsSequence>k__BackingField: []
+    <StartFromInitiator>k__BackingField: 0
+    <FighterMandatory>k__BackingField: 0
+    <TargetsToExclude>k__BackingField: 
+    <RelativeHeightsToExclude>k__BackingField: 
+    <StopedAtInacessibles>k__BackingField: 0
+    <StopedAtXthHigherHeightDifference>k__BackingField: 0
+    <StopedAtXthLowerHeightDifference>k__BackingField: 0
+    <StopedAtXthEncounteredFighters>k__BackingField: 0
+  DirectAttackEffects: []
   <DirectAttackActionPointsCost>k__BackingField: 2
   <MaxHealth>k__BackingField: 70
   <MaxActionPoints>k__BackingField: 3
@@ -49,3 +61,6 @@ MonoBehaviour:
   <ReceiveDamageAnimationName>k__BackingField: 
   <ReduceStatAnimationName>k__BackingField: 
   <IncreaseStatAnimationName>k__BackingField: 
+  references:
+    version: 2
+    RefIds: []

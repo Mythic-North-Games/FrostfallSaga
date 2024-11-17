@@ -17,14 +17,15 @@ namespace FrostfallSaga.Fight.Statuses
         public SlownessStatus(
             string name,
             string description,
+            bool isPermanent,
             int duration,
             bool triggerOnFirstApply,
             bool isRecurring,
             EStatusTriggerTime triggerTime,
-            StatusVisualsController visualsController,
+            FighterBuffVisualsController visualsController,
             int initiativeReduction
         )
-            : base(EStatusType.SLOWNESS, name, description, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+            : base(EStatusType.SLOWNESS, name, description, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
         {
             InitiativeReduction = initiativeReduction;
         }

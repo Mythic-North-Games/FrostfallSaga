@@ -46,6 +46,11 @@ namespace FrostfallSaga.Fight.Effects
             Debug.Log($"Dealt {finalDamageAmount} magical damage of {MagicalElement} to {receiver.name}.");
         }
 
+        public override void RestoreEffect(Fighter receiver)
+        {
+            // Magical damage effects cannot be restored
+        }
+
         public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke = true)
         {
             return MagicalDamageAmount * (canMasterstroke ? 2 : 1);

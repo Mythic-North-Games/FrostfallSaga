@@ -34,6 +34,11 @@ namespace FrostfallSaga.Fight.Effects
             }
         }
 
+        public override void RestoreEffect(Fighter receiver)
+        {
+            // Remove statuses effect cannot be restored
+        }
+
         public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke = true)
         {
             return 0;

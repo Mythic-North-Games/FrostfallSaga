@@ -44,6 +44,11 @@ namespace FrostfallSaga.Fight.Effects
             receiver.onEffectReceived?.Invoke(receiver, initiator, this, masterstrokeSucceeded);
         }
 
+        public override void RestoreEffect(Fighter receiver)
+        {
+            // Physical damage effects cannot be restored
+        }
+
         public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke = true)
         {
             return PhysicalDamageAmount * (canMasterstroke ? 2 : 1);

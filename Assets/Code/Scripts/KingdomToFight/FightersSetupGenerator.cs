@@ -7,6 +7,7 @@ using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Fight;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Abilities;
 
 namespace FrostfallSaga.KingdomToFight
 {
@@ -85,6 +86,10 @@ namespace FrostfallSaga.KingdomToFight
                     fighterConfiguration.AvailableActiveAbilities,
                     fighterConfiguration.ActiveAbilitiesCapacity
                 ),
+                GetRandomPassiveAbilities(
+                    fighterConfiguration.AvailablePassiveAbilities,
+                    fighterConfiguration.PassiveAbilitiesCapacity
+                ),
                 fighterConfiguration.ReceiveDamageAnimationName,
                 fighterConfiguration.HealSelfAnimationName,
                 fighterConfiguration.ReduceStatAnimationName,
@@ -110,6 +115,7 @@ namespace FrostfallSaga.KingdomToFight
                 fighterConfiguration.DirectAttackEffects,
                 fighterConfiguration.DirectAttackAnimation,
                 fighterConfiguration.EquipedActiveAbilities,
+                fighterConfiguration.EquipedPassiveAbilities,
                 fighterConfiguration.ReceiveDamageAnimationName,
                 fighterConfiguration.HealSelfAnimationName,
                 fighterConfiguration.ReduceStatAnimationName,
@@ -171,6 +177,19 @@ namespace FrostfallSaga.KingdomToFight
                 availableActiveAbilities.RemoveAt(randomActiveAbilityIndex);
             }
             return equipedActiveAbilities.ToArray();
+        }
+
+        private static PassiveAbilitySO[] GetRandomPassiveAbilities(PassiveAbilitySO[] availablePassiveAbilities, int passiveAbilitiesCapacity)
+        {
+            int nbPassiveAbilitiesToAdd = Randomizer.GetRandomIntBetween(0, passiveAbilitiesCapacity);
+            List<PassiveAbilitySO> equipedPassiveAbilities = new();
+            while (equipedPassiveAbilities.Count < nbPassiveAbilitiesToAdd && availablePassiveAbilities.Length > 0)
+            {
+                int randomPassiveAbilityIndex = Randomizer.GetRandomIntBetween(0, availablePassiveAbilities.Length);
+                equipedPassiveAbilities.Add(availablePassiveAbilities[randomPassiveAbilityIndex]);
+                availablePassiveAbilities = availablePassiveAbilities.Where((_, index) => index != randomPassiveAbilityIndex).ToArray();
+            }
+            return equipedPassiveAbilities.ToArray();
         }
     }
 }

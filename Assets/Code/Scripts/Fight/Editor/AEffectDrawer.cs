@@ -98,6 +98,21 @@ namespace FrostfallSaga.FFSEditor.Fight
                         property.FindPropertyRelative("MagicalElement")
                     );
                 }
+                else if (property.managedReferenceValue is UpdateMutableStatEffect)
+                {
+                    currentY = DrawPropertyField(
+                        new Rect(position.x, currentY, position.width, EditorGUIUtility.singleLineHeight),
+                        property.FindPropertyRelative("StatToUpdate")
+                    );
+                    currentY = DrawPropertyField(
+                        new Rect(position.x, currentY, position.width, EditorGUIUtility.singleLineHeight),
+                        property.FindPropertyRelative("Amount")
+                    );
+                    DrawPropertyField(
+                        new Rect(position.x, currentY, position.width, EditorGUIUtility.singleLineHeight),
+                        property.FindPropertyRelative("UsePercentage")
+                    );
+                }
 
                 EditorGUI.indentLevel--;
             }

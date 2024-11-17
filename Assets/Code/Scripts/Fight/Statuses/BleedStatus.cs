@@ -17,14 +17,15 @@ namespace FrostfallSaga.Fight.Statuses
         public BleedStatus(
             string name,
             string description,
+            bool isPermanent,
             int duration,
             bool triggerOnFirstApply,
             bool isRecurring,
             EStatusTriggerTime triggerTime,
-            StatusVisualsController visualsController,
+            FighterBuffVisualsController visualsController,
             int bleedingDamage
         )
-            : base(EStatusType.BLEED, name, description, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+            : base(EStatusType.BLEED, name, description, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
         {
             BleedingDamage = bleedingDamage;
         }
