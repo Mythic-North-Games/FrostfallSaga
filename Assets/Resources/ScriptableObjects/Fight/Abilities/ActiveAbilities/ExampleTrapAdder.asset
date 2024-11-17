@@ -28,7 +28,8 @@ MonoBehaviour:
     <StopedAtXthHigherHeightDifference>k__BackingField: 0
     <StopedAtXthLowerHeightDifference>k__BackingField: 0
     <StopedAtXthEncounteredFighters>k__BackingField: 0
-  <ActionPointsCost>k__BackingField: 0
+  <ActionPointsCost>k__BackingField: 1
+  <GodFavorsPointsCost>k__BackingField: 2
   CellAlterations:
   - rid: 3629974199755079683
   references:

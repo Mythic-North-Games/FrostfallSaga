@@ -129,6 +129,9 @@ namespace FrostfallSaga.Fight
             fighterThatDied.gameObject.SetActive(false);
             fighterThatDied.cell.SetFighter(null);
 
+            // Increase god favors points for the fighter that killed the other
+            _playingFighter.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.KILL);
+
             // Update fighter passive abilities
             UpdateFightersPassiveAbilities();
 

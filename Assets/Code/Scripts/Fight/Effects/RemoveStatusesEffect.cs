@@ -19,7 +19,8 @@ namespace FrostfallSaga.Fight.Effects
             Fighter receiver,
             Fighter initiator = null,
             bool canMasterstroke = true,
-            bool canDodge = true
+            bool canDodge = true,
+            bool adjustGodFavorsPoints = true
         )
         {
             // Remove all the status with the configured types
@@ -31,6 +32,12 @@ namespace FrostfallSaga.Fight.Effects
                     receiver.StatusesManager.RemoveStatus(status);
                     Debug.Log($"Status {status.Name} removed from {receiver.name}.");
                 }
+            }
+
+            // Increase god favors points if enabled
+            if (adjustGodFavorsPoints && initiator != null)
+            {
+                initiator.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.HEAL);
             }
         }
 

@@ -346,6 +346,11 @@ namespace FrostfallSaga.Fight.Controllers
                 Debug.Log("Fighter " + _possessedFighter.name + " does not have enough action points to execute the ability");
                 return;
             }
+            if (clickedAbility.activeAbility.GodFavorsPointsCost > _possessedFighter.GetGodFavorsPoints())
+            {
+                Debug.Log("Fighter " + _possessedFighter.name + " does not have enough god favors points to execute the ability");
+                return;
+            }
 
             if (_fighterIsTargetingForDirectAttack)
             {

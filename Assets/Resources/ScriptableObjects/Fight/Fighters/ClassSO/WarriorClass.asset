@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d7712d5cb44194fb2a3da2beb333d3, type: 3}
   m_Name: WarriorClass
   m_EditorClassIdentifier: 
-  classMaxHealth: 10
-  classMaxActionPoints: 1
-  classMaxMovePoints: 0
-  classStrength: 2
-  classDexterity: 0
-  classTenacity: 0.1
-  classDodge: 0
-  classPhysicalResistance: 1
-  masterstroke: 0
-  initiative: 0
+  <ClassMaxHealth>k__BackingField: 0
+  <ClassMaxActionPoints>k__BackingField: 0
+  <ClassMaxMovePoints>k__BackingField: 0
+  <ClassStrength>k__BackingField: 0
+  <ClassDexterity>k__BackingField: 0
+  <ClassTenacity>k__BackingField: 0
+  <ClassPhysicalResistance>k__BackingField: 0
+  <ClassMagicalResistances>k__BackingField: []
+  <ClassMagicalStrengths>k__BackingField: []
+  <ClassDodgeChance>k__BackingField: 0
+  <ClassMasterstrokeChance>k__BackingField: 0
+  <ClassInitiative>k__BackingField: 0
+  <God>k__BackingField: {fileID: 11400000, guid: 88f6ee6c39216fa4d883ba3e34e5fcad, type: 2}

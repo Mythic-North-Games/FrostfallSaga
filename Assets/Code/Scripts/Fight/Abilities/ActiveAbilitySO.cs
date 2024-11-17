@@ -12,7 +12,8 @@ namespace FrostfallSaga.Fight.Abilities
     public class ActiveAbilitySO : BaseAbilitySO
     {
         [field: SerializeField] public Targeter Targeter { get; private set; }
-        [field: SerializeField, Range(0, 9999)] public int ActionPointsCost { get; private set; }
+        [field: SerializeField, Range(0, 99)] public int ActionPointsCost { get; private set; }
+        [field: SerializeField, Range(0, 99)] public int GodFavorsPointsCost { get; private set; }
         [SerializeReference] public AFightCellAlteration[] CellAlterations = { };
     }
 }
