@@ -6,7 +6,7 @@ using FrostfallSaga.Fight.FightCells.FightCellAlterations;
 namespace FrostfallSaga.Fight.Abilities
 {
     /// <summary>
-    /// Active ability fields.
+    /// Reperesents an active ability that can be used during a fight.
     /// </summary>
     [CreateAssetMenu(fileName = "ActiveAbility", menuName = "ScriptableObjects/Fight/Abilities/ActiveAbility", order = 0)]
     public class ActiveAbilitySO : BaseAbilitySO

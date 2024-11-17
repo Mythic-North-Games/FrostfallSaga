@@ -2,6 +2,7 @@ using UnityEngine;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 
 
@@ -14,6 +15,8 @@ namespace FrostfallSaga.KingdomToFight
         [field: SerializeField] public PersonalityTraitSO PersonalityTrait { get; private set; }
         [field: SerializeField] public ActiveAbilityToAnimation[] AvailableActiveAbilities { get; private set; }
         [field: SerializeField] public int ActiveAbilitiesCapacity = 5;
+        [field: SerializeField] public PassiveAbilitySO[] AvailablePassiveAbilities { get; private set; }
+        [field: SerializeField] public int PassiveAbilitiesCapacity = 5;
         [field: SerializeField] public Targeter DirectAttackTargeter { get; private set; }
         [SerializeReference] public AEffect[] DirectAttackEffects = { };
         [field: SerializeField] public int DirectAttackActionPointsCost { get; private set; }

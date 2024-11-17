@@ -15,12 +15,13 @@ namespace FrostfallSaga.Fight.Statuses
         public ParalysisStatus(
             string name,
             string description,
+            bool isPermanent,
             int duration,
             bool triggerOnFirstApply,
             bool isRecurring,
             EStatusTriggerTime triggerTime,
-            StatusVisualsController visualsController
-        ) : base(EStatusType.PARALYSIS, name, description, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+            FighterBuffVisualsController visualsController
+        ) : base(EStatusType.PARALYSIS, name, description, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
         {
         }
 

@@ -46,6 +46,11 @@ namespace FrostfallSaga.Fight.Effects
             Debug.Log($"Healed {receiver.name} for {finalHealAmount} health.");
         }
 
+        public override void RestoreEffect(Fighter receiver)
+        {
+            // Heal effects cannot be restored
+        }
+
         public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke = true)
         {
             return 0;

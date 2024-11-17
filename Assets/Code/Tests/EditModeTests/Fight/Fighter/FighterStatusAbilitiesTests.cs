@@ -27,6 +27,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             bleedStatus = new BleedStatus(
                 "Bleed",
                 "Bleed the target",
+                false,
                 3,
                 false,
                 true,
@@ -37,6 +38,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             weaknessStatus = new WeaknessStatus(
                 "Weakness",
                 "Weaken the target",
+                false,
                 3,
                 false,
                 false,
@@ -47,6 +49,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             paralysisStatus = new ParalysisStatus(
                 "Paralysis",
                 "Paralyze the target",
+                false,
                 3,
                 false,
                 false,

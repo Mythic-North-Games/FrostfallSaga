@@ -17,14 +17,15 @@ namespace FrostfallSaga.Fight.Statuses
         public WeaknessStatus(
             string name,
             string description,
+            bool isPermanent,
             int duration,
             bool triggerOnFirstApply,
             bool isRecurring,
             EStatusTriggerTime triggerTime,
-            StatusVisualsController visualsController,
+            FighterBuffVisualsController visualsController,
             int strengthReduction
         )
-            : base(EStatusType.WEAKNESS, name, description, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+            : base(EStatusType.WEAKNESS, name, description, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
         {
             StrengthReduction = strengthReduction;
         }

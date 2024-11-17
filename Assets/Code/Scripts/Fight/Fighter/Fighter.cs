@@ -22,6 +22,7 @@ namespace FrostfallSaga.Fight.Fighters
         [field: SerializeField] public EntityVisualMovementController MovementController { get; private set; }
         [field: SerializeField] public FighterMouseEventsController FighterMouseEventsController { get; private set; }
         [field: SerializeField] public StatusesManager StatusesManager { get; private set; }
+        [field: SerializeField] public PassiveAbilitiesManager PassiveAbilitiesManager { get; private set; }
         [field: SerializeField] public Transform CameraAnchor { get; private set; }
         public Sprite FighterIcon { get; private set; }
 
@@ -45,6 +46,13 @@ namespace FrostfallSaga.Fight.Fighters
         // <Fighter that received, Status that was removed>
         public Action<Fighter, AStatus> onStatusRemoved;
 
+        // <Fighter that received, Status that was applied>
+        public Action<Fighter, PassiveAbilitySO> onPassiveAbilityApplied;
+
+        // <Fighter that received, Status that was removed>
+        public Action<Fighter, PassiveAbilitySO> onPassiveAbilityRemoved;
+
+        // <Fighter that died>
         public Action<Fighter> onFighterDied;
 
         private MovePath _currentMovePath;
@@ -56,6 +64,7 @@ namespace FrostfallSaga.Fight.Fighters
         public int DirectAttackActionPointsCost { get; private set; }
         public AEffect[] DirectAttackEffects { get; private set; }
         public ActiveAbilityToAnimation[] ActiveAbilitiesToAnimation { get; private set; }
+        public PassiveAbilitySO[] PassiveAbilities { get; private set; }
         private AAbilityAnimationSO _directAttackAnimation;
         private string _receiveDamageAnimationName;
         private string _healSelfAnimationName;
@@ -66,6 +75,7 @@ namespace FrostfallSaga.Fight.Fighters
         public Fighter()
         {
             StatusesManager = new StatusesManager(this);
+            PassiveAbilitiesManager = new PassiveAbilitiesManager(this);
         }
 
         private void Awake()
@@ -95,6 +105,7 @@ namespace FrostfallSaga.Fight.Fighters
             DirectAttackEffects = fighterSetup.directAttackEffects;
             _directAttackAnimation = fighterSetup.directAttackAnimation;
             ActiveAbilitiesToAnimation = fighterSetup.activeAbilities;
+            PassiveAbilities = fighterSetup.passiveAbilities;
             _receiveDamageAnimationName = fighterSetup.receiveDamageAnimationName;
             _healSelfAnimationName = fighterSetup.healSelfAnimationName;
             _reduceStatAnimationName = fighterSetup.reduceStatAnimationName;
@@ -272,24 +283,24 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="mutableStat">The mutable stat to increase or reduce.</param>
         /// <param name="amount">The amount to increase or reduce.</param>
         /// <param name="triggerAnimation">True to trigger the stat update animation, false otherwise.</param>
-        public void UpdateMutableStat(EFighterMutableStat mutableStat, int amount, bool triggerAnimation = true)
+        public void UpdateMutableStat(EFighterMutableStat mutableStat, float amount, bool triggerAnimation = true)
         {
             switch (mutableStat)
             {
                 case EFighterMutableStat.MaxHealth:
-                    Math.Min(0, _stats.maxHealth += amount);
+                    Math.Min(0, _stats.maxHealth += (int)amount);
                     break;
                 case EFighterMutableStat.MaxActionPoints:
-                    Math.Min(0, _stats.maxActionPoints += amount);
+                    Math.Min(0, _stats.maxActionPoints += (int)amount);
                     break;
                 case EFighterMutableStat.MaxMovePoints:
-                    Math.Min(0, _stats.maxMovePoints += amount);
+                    Math.Min(0, _stats.maxMovePoints += (int)amount);
                     break;
                 case EFighterMutableStat.Strength:
-                    Math.Min(0, _stats.strength += amount);
+                    Math.Min(0, _stats.strength += (int)amount);
                     break;
                 case EFighterMutableStat.Dexterity:
-                    Math.Min(0, _stats.dexterity += amount);
+                    Math.Min(0, _stats.dexterity += (int)amount);
                     break;
                 case EFighterMutableStat.Tenacity:
                     Math.Min(0, _stats.tenacity += amount);
@@ -298,13 +309,13 @@ namespace FrostfallSaga.Fight.Fighters
                     Math.Min(0, _stats.dodgeChance += amount);
                     break;
                 case EFighterMutableStat.PhysicalResistance:
-                    Math.Min(0, _stats.physicalResistance += amount);
+                    Math.Min(0, _stats.physicalResistance += (int)amount);
                     break;
                 case EFighterMutableStat.MasterstrokeChance:
                     Math.Min(0, _stats.masterstrokeChance += amount);
                     break;
                 case EFighterMutableStat.Initiative:
-                    Math.Min(0, _stats.initiative += amount);
+                    Math.Min(0, _stats.initiative += (int)amount);
                     break;
                 default:
                     Debug.LogWarning($"Unmanaged stat to reduce: {mutableStat}. If you want to modify a magical stat, use ReduceMagicalStat method instead.");
@@ -409,15 +420,39 @@ namespace FrostfallSaga.Fight.Fighters
 
         public int GetMovePoints() => _stats.movePoints;
 
+        public int GetMaxMovePoints() => _stats.maxMovePoints;
+
         public int GetActionPoints() => _stats.actionPoints;
 
+        public int GetMaxActionPoints() => _stats.maxActionPoints;
+
         public int GetHealth() => _stats.health;
+
+        public int GetMaxHealth() => _stats.maxHealth;
 
         public int GetStrength() => _stats.strength;
 
         public float GetDodgeChance() => _stats.dodgeChance;
 
         public float GetMasterstrokeChance() => _stats.masterstrokeChance;
+
+        public float GetMutableStat(EFighterMutableStat mutableStat)
+        {
+            return mutableStat switch
+            {
+                EFighterMutableStat.MaxHealth => _stats.maxHealth,
+                EFighterMutableStat.MaxActionPoints => _stats.maxActionPoints,
+                EFighterMutableStat.MaxMovePoints => _stats.maxMovePoints,
+                EFighterMutableStat.Strength => _stats.strength,
+                EFighterMutableStat.Dexterity => _stats.dexterity,
+                EFighterMutableStat.Tenacity => _stats.tenacity,
+                EFighterMutableStat.PhysicalResistance => _stats.physicalResistance,
+                EFighterMutableStat.DodgeChance => _stats.dodgeChance,
+                EFighterMutableStat.MasterstrokeChance => _stats.masterstrokeChance,
+                EFighterMutableStat.Initiative => _stats.initiative,
+                _ => throw new ArgumentOutOfRangeException(nameof(mutableStat), mutableStat, null),
+            };
+        }
 
         public int GetInitiative() => _stats.initiative;
         public List<ActiveAbilitySO> GetActiveAbilities()

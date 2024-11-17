@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
@@ -24,6 +25,20 @@ namespace FrostfallSaga.Fight.Effects
             {
                 receiver.ApplyStatus(status);
                 Debug.Log($"Status {status.Name} applied to {receiver.name}.");
+            }
+        }
+
+        public override void RestoreEffect(Fighter receiver)
+        {
+            // Remove all the status with the configured types
+            AStatus[] currentReceiverStatuses = receiver.StatusesManager.GetStatuses().Keys.ToArray();
+            foreach (AStatus status in currentReceiverStatuses)
+            {
+                if (StatusesToApply.ToList().Contains(status))
+                {
+                    receiver.StatusesManager.RemoveStatus(status);
+                    Debug.Log($"Status {status.Name} removed from {receiver.name}.");
+                }
             }
         }
 

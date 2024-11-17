@@ -45,6 +45,7 @@ namespace FrostfallSaga.EditModeTests.FightTests
                     fighterConfiguration.DirectAttackEffects,
                     fighterConfiguration.DirectAttackAnimation,
                     fighterConfiguration.AvailableActiveAbilities,
+                    fighterConfiguration.AvailablePassiveAbilities,
                     fighterConfiguration.ReceiveDamageAnimationName,
                     fighterConfiguration.HealSelfAnimationName,
                     fighterConfiguration.ReduceStatAnimationName,

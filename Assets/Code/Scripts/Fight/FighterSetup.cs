@@ -4,6 +4,7 @@ using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
+using FrostfallSaga.Fight.Abilities;
 
 namespace FrostfallSaga.Fight
 {
@@ -21,6 +22,7 @@ namespace FrostfallSaga.Fight
         [SerializeReference] public AEffect[] directAttackEffects = { };
         public AAbilityAnimationSO directAttackAnimation;
         public ActiveAbilityToAnimation[] activeAbilities;
+        public PassiveAbilitySO[] passiveAbilities;
         public string receiveDamageAnimationName;
         public string healSelfAnimationName;
         public string reduceStatAnimationName;
@@ -38,6 +40,7 @@ namespace FrostfallSaga.Fight
             AEffect[] directAttackEffects,
             AAbilityAnimationSO directAttackAnimation,
             ActiveAbilityToAnimation[] activeAbilities,
+            PassiveAbilitySO[] passiveAbilities,
             string receiveDamageAnimationName,
             string healSelfAnimationName,
             string reduceStatAnimationName,
@@ -55,6 +58,7 @@ namespace FrostfallSaga.Fight
             this.directAttackEffects = directAttackEffects;
             this.directAttackAnimation = directAttackAnimation;
             this.activeAbilities = activeAbilities;
+            this.passiveAbilities = passiveAbilities;
             this.receiveDamageAnimationName = receiveDamageAnimationName;
             this.healSelfAnimationName = healSelfAnimationName;
             this.reduceStatAnimationName = reduceStatAnimationName;

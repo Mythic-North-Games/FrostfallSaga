@@ -31,6 +31,12 @@ namespace FrostfallSaga.Fight.Effects
         );
 
         /// <summary>
+        /// Restore the effect previously applied to the given fighter.
+        /// </summary>
+        /// <param name="receiver">The fighter that received the effect.</param>
+        public abstract void RestoreEffect(Fighter receiver);
+
+        /// <summary>
         /// Make the given fighter try to dodge something.
         /// </summary>
         /// <param name="defender">The fighter that tries to dodge.</param>
