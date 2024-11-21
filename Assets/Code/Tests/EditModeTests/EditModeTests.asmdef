@@ -9,7 +9,8 @@
         "FrostfallSaga.Kingdom",
         "FrostfallSaga.Fight",
         "FrostfallSaga.KingdomToFight",
-        "FrostfallSaga.EntitiesVisual"
+        "FrostfallSaga.EntitiesVisual",
+        "FrostfallSaga.Terrain"
     ],
     "includePlatforms": [
         "Editor"

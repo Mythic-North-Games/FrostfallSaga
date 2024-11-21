@@ -1,7 +1,6 @@
-using System.Linq;
-using UnityEngine;
 using FrostfallSaga.Core;
 using FrostfallSaga.Fight.UI;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight
 {

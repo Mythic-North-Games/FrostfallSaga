@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using FrostfallSaga.Fight.Fighters;
+﻿using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Effects
 {
@@ -9,11 +9,11 @@ namespace FrostfallSaga.Fight.Effects
     [CreateAssetMenu(fileName = "HealEffect", menuName = "ScriptableObjects/Fight/Effects/HealEffect", order = 0)]
     public class HealEffectSO : AEffectSO
     {
-    [field: SerializeField, Range(0, 9999)] public int HealAmount { get; private set; }
+        [field: SerializeField, Range(0, 9999)] public int HealAmount { get; private set; }
 
-    public override void ApplyEffect(Fighter fighter)
+        public override void ApplyEffect(Fighter fighter)
         {
             fighter.Heal(HealAmount);
-        }       
+        }
     }
 }

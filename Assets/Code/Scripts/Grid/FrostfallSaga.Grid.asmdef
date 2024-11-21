@@ -2,7 +2,9 @@
     "name": "FrostfallSaga.Grid",
     "rootNamespace": "FrostfallSaga.Grid",
     "references": [
+        "FrostfallSaga.Validator",
         "FrostfallSaga.Core",
+        "FrostfallSaga.Terrain",
         "FrostfallSaga.Procedural"
     ],
     "includePlatforms": [],

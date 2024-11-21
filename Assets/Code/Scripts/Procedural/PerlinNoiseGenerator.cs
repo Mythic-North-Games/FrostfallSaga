@@ -7,35 +7,23 @@ namespace FrostfallSaga.Procedural
     [Serializable]
     public class PerlinNoiseGenerator
     {
-        [field: SerializeField, Range(0.1f, 0.99f)] public float noiseScale { get; private set; } = 0.2f;
-        [field: SerializeField, Range(100000000, 999999999)] public int seed { get; private set; } = 112345678;
-        private Vector2 noiseOffset;
+        private float _noiseScale;
+        private Vector2 _noiseOffset;
 
-        public PerlinNoiseGenerator(float noiseScale, int seed)
+        public PerlinNoiseGenerator(float noiseScale)
         {
-            this.noiseScale = noiseScale;
-            this.seed = seed;
+            _noiseScale = noiseScale;
             Initialize();
         }
 
-        /// <summary>
-        /// Initialize the noise generator with the seed.
-        /// </summary>
         private void Initialize()
         {
-            Random.InitState(seed);
-            noiseOffset = new Vector2(Random.Range(0f, 1000f), Random.Range(0f, 1000f));
+            _noiseOffset = new Vector2(Random.Range(0f, 1000f), Random.Range(0f, 1000f));
         }
 
-        /// <summary>
-        /// Obtain a Perlin noise value based on the x and z coordinates.
-        /// </summary>
-        /// <param name="x">Coordinate x</param>
-        /// <param name="z">Coordinate z</param>
-        /// <returns>Valeur de bruit de Perlin</returns>
-        public float GetNoiseValue(int x, int z)
+        public float ComputeNoiseValue(int x, int z)
         {
-            return Mathf.PerlinNoise((x + noiseOffset.x) * noiseScale, (z + noiseOffset.y) * noiseScale);
+            return Mathf.PerlinNoise((x + _noiseOffset.x) * _noiseScale, (z + _noiseOffset.y) * _noiseScale);
         }
     }
 }

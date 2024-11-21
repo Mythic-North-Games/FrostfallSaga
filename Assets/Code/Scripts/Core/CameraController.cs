@@ -1,7 +1,7 @@
 using System;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Cinemachine;
 
 namespace FrostfallSaga.Core
 {

@@ -1,12 +1,12 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using FrostfallSaga.EntitiesVisual;
+using FrostfallSaga.Fight;
+using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.Fight;
-using FrostfallSaga.EntitiesVisual;
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.KingdomToFight;
-using System;
+using UnityEngine;
 
 namespace FrostfallSaga.EditModeTests.FightTests
 {

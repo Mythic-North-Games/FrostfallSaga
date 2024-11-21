@@ -1,14 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using FrostfallSaga.EntitiesVisual;
+using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.Abilities.AbilityAnimation;
+using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.EntitiesVisual;
-using FrostfallSaga.Fight.Effects;
-using FrostfallSaga.Fight.Abilities;
-using FrostfallSaga.Fight.Targeters;
-using FrostfallSaga.Fight.Abilities.AbilityAnimation;
-using System.Collections.Generic;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Fighters
 {

@@ -1,12 +1,12 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Grid.Cells;
+using System.Linq;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.UI;
+using FrostfallSaga.Grid;
+using FrostfallSaga.Grid.Cells;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Controllers
 {
@@ -501,7 +501,8 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void BindFightersMouseEvents(List<Fighter> fighters)
         {
-            fighters.ForEach(fighter => {
+            fighters.ForEach(fighter =>
+            {
                 fighter.FighterMouseEventsController.OnElementHover += OnFighterHovered;
                 fighter.FighterMouseEventsController.OnElementUnhover += OnFighterUnhovered;
                 fighter.FighterMouseEventsController.OnLeftMouseUp += OnFighterClicked;
@@ -510,12 +511,13 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void UnbindEntitiesGroupsMouseEvents(List<Fighter> fighters)
         {
-            fighters.ForEach(fighter => {
+            fighters.ForEach(fighter =>
+            {
                 fighter.FighterMouseEventsController.OnElementHover += OnFighterHovered;
                 fighter.FighterMouseEventsController.OnElementUnhover += OnFighterUnhovered;
                 fighter.FighterMouseEventsController.OnLeftMouseUp += OnFighterClicked;
             });
-        }        
+        }
 
         #endregion
 

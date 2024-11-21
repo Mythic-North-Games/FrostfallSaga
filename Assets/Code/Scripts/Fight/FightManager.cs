@@ -1,11 +1,11 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Fight.Fighters;
+using System.Linq;
 using FrostfallSaga.Fight.Controllers;
+using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight
 {

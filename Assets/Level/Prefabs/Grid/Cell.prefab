@@ -180,8 +180,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 0, y: 0}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
+  <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: 0
   <IsAccessible>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 0}
-  <WorldHeightPerUnit>k__BackingField: 0.8

@@ -1,10 +1,10 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
+using System.Linq;
 using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Fight.UI
 {

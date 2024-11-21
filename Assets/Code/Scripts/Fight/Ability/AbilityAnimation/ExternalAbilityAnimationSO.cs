@@ -1,6 +1,6 @@
-using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid.Cells;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
@@ -21,7 +21,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
         {
             Executor.onFighterTouched += OnFighterTouched;
             Executor.onAnimationEnded += OnExecutorAnimationEnded;
-            
+
             Executor.Execute(fighterThatWillExecute, abilityTargetCells, ProjectilePrefab);
         }
 

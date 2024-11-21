@@ -1,12 +1,12 @@
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 using FrostfallSaga.Core;
+using FrostfallSaga.Fight;
+using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Kingdom;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
-using FrostfallSaga.Fight;
-using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.KingdomToFight
 {

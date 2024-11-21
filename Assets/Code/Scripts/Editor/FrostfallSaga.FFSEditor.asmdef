@@ -2,7 +2,8 @@
     "name": "FrostfallSaga.FFSEditor",
     "rootNamespace": "FrostfallSaga.FFSEditor",
     "references": [
-        "FrostfallSaga.Grid"
+        "FrostfallSaga.Grid",
+        "FrostfallSaga.Procedural"
     ],
     "includePlatforms": [
         "Editor"

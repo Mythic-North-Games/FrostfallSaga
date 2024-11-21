@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 
 namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.AI
 {
@@ -48,7 +46,7 @@ namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.AI
         {
             parent = null;
         }
-        
+
         /// <summary>
         /// Constructor for initializing a node with a list of child nodes.
         /// </summary>

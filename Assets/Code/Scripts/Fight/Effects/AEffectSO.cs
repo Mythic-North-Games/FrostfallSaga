@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using FrostfallSaga.Fight.Fighters;
+﻿using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Effects
 {
@@ -11,6 +11,6 @@ namespace FrostfallSaga.Fight.Effects
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string Description { get; private set; }
 
-        public abstract void ApplyEffect(Fighter fighter); 
+        public abstract void ApplyEffect(Fighter fighter);
     }
 }

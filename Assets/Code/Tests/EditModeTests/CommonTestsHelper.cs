@@ -1,7 +1,8 @@
-using UnityEngine;
 using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Terrain;
+using UnityEngine;
 
 namespace FrostfallSaga.EditModeTests
 {
@@ -13,6 +14,13 @@ namespace FrostfallSaga.EditModeTests
         /// AllTerrain[5] = Water (NOT Accessible)
         /// </summary>
         static TerrainTypeSO TerrainPlain = Resources.LoadAll<TerrainTypeSO>("ScriptableObjects/Grid/Terrain/")[4];
+        /// <summary>
+        /// AllBiome[0] = Dark Forest
+        /// AllBiome[1] = Snow
+        /// AllBiome[2] = Tundra
+        /// AllBiome[3] = Valley
+        /// </summary>        
+        static BiomeTypeSO[] AllBiome = Resources.LoadAll<BiomeTypeSO>("ScriptableObjects/Grid/Biome/");
 
         public static HexGrid CreatePlainGridForTest(int gridWidth = 5, int gridHeight = 5)
         {
@@ -48,7 +56,7 @@ namespace FrostfallSaga.EditModeTests
             cellVisualGameObject.AddComponent<MaterialHighlightable>();
 
             Cell newCell = cellGameObject.GetComponent<Cell>();
-            newCell.Setup(coordinates, height, hexGridSize, TerrainPlain);
+            newCell.Setup(coordinates, height, hexGridSize, TerrainPlain, AllBiome[3]);
             return newCell;
         }
     }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight
 {

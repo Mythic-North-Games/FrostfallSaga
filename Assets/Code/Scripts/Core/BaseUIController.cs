@@ -27,7 +27,7 @@ namespace FrostfallSaga.Core
             mousePosition.y = Screen.height - mousePosition.y; // Convert to UI Toolkit's coordinate system
 
             // Check if the mouse is over any element in the root
-            VisualElement pickedElement = root.panel.Pick(mousePosition);            
+            VisualElement pickedElement = root.panel.Pick(mousePosition);
 
             return pickedElement != null; // Returns true if the mouse is over any UI element
         }

@@ -1,5 +1,5 @@
-using NUnit.Framework;
 using FrostfallSaga.Grid;
+using NUnit.Framework;
 
 namespace FrostfallSaga.EditModeTests.Grid
 {
