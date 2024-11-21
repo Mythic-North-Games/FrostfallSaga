@@ -1,6 +1,5 @@
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.Terrain;
 using NUnit.Framework;
 using UnityEngine;
 

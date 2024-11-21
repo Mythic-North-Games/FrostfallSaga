@@ -1,7 +1,6 @@
 using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.Terrain;
 using UnityEngine;
 
 namespace FrostfallSaga.EditModeTests

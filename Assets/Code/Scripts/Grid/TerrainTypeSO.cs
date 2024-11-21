@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FrostfallSaga.Terrain
+namespace FrostfallSaga.Grid
 {
     [CreateAssetMenu(fileName = "TerrainType", menuName = "ScriptableObjects/Grid/Terrain", order = 0)]
     public class TerrainTypeSO : ScriptableObject
