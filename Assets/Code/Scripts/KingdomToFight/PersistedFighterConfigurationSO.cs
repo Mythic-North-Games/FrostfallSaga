@@ -7,7 +7,7 @@ namespace FrostfallSaga.KingdomToFight
     [CreateAssetMenu(fileName = "PersistedFighter", menuName = "ScriptableObjects/Fight/PersistedFighter", order = 0)]
     public class PersistedFighterConfigurationSO : FighterConfigurationSO
     {
-        [field: SerializeField] public ActiveAbilityToAnimation[] EquipedActiveAbilities { get; private set; }
+        [field: SerializeField] public ActiveAbilitySO[] EquipedActiveAbilities { get; private set; }
         [field: SerializeField] public PassiveAbilitySO[] EquipedPassiveAbilities { get; private set; }
         [field: SerializeField] public int Health { get; private set; }
 

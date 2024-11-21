@@ -29,7 +29,12 @@ MonoBehaviour:
     <StopedAtXthLowerHeightDifference>k__BackingField: 0
     <StopedAtXthEncounteredFighters>k__BackingField: 0
   <ActionPointsCost>k__BackingField: 1
+  <GodFavorsPointsCost>k__BackingField: 0
+  <Dodgable>k__BackingField: 0
+  <Masterstrokable>k__BackingField: 0
+  MasterstrokeEffects: []
   CellAlterations: []
+  <Animation>k__BackingField: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
   references:
     version: 2
     RefIds:
@@ -38,8 +43,6 @@ MonoBehaviour:
       data:
         Name: Apply weakness example
         Description: 
-        Dodgable: 0
-        Masterstrokable: 0
         StatusesToApply:
         - rid: 3629974059018879024
     - rid: 3629974059018879024
@@ -48,6 +51,7 @@ MonoBehaviour:
         <StatusType>k__BackingField: 3
         <Name>k__BackingField: Weakness status
         <Description>k__BackingField: 
+        <IsPermanent>k__BackingField: 0
         <Duration>k__BackingField: 3
         <TriggerOnFirstApply>k__BackingField: 1
         <IsRecurring>k__BackingField: 1

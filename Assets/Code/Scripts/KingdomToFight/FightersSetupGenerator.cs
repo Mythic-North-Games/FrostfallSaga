@@ -166,10 +166,10 @@ namespace FrostfallSaga.KingdomToFight
         }
         #endregion
 
-        private static ActiveAbilityToAnimation[] GetRandomActiveAbilities(ActiveAbilityToAnimation[] activeAbalities, int count)
+        private static ActiveAbilitySO[] GetRandomActiveAbilities(ActiveAbilitySO[] activeAbalities, int count)
         {
-            List<ActiveAbilityToAnimation> availableActiveAbilities = new(activeAbalities);
-            List<ActiveAbilityToAnimation> equipedActiveAbilities = new();
+            List<ActiveAbilitySO> availableActiveAbilities = new(activeAbalities);
+            List<ActiveAbilitySO> equipedActiveAbilities = new();
             while (equipedActiveAbilities.Count < count && availableActiveAbilities.Count > 0)
             {
                 int randomActiveAbilityIndex = Randomizer.GetRandomIntBetween(0, availableActiveAbilities.Count);

@@ -30,8 +30,12 @@ MonoBehaviour:
     <StopedAtXthEncounteredFighters>k__BackingField: 0
   <ActionPointsCost>k__BackingField: 1
   <GodFavorsPointsCost>k__BackingField: 2
+  <Dodgable>k__BackingField: 0
+  <Masterstrokable>k__BackingField: 0
+  MasterstrokeEffects: []
   CellAlterations:
   - rid: 3629974199755079683
+  <Animation>k__BackingField: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
   references:
     version: 2
     RefIds:

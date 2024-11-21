@@ -17,6 +17,9 @@ namespace FrostfallSaga.Fight.Statuses
 
         public void ApplyStatus(AStatus status)
         {
+            _permanentStatuses.Find(s => s.GetType() == status.GetType())?.RemoveStatus(_fighter);
+            _temporaryStatuses.Keys.ToList().Find(s => s.GetType() == status.GetType())?.RemoveStatus(_fighter);
+
             if (status.IsPermanent)
             {
                 _permanentStatuses.Add(status);

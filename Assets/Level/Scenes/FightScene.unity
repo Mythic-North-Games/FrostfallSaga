@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571328, b: 0.3069218, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5343,7 +5343,7 @@ MonoBehaviour:
       tenacity: 0
       physicalResistance: 1
       dodgeChance: 0
-      masterstrokeChance: 0
+      masterstrokeChance: 1
       initiative: 3
     fighterClass: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
     personalityTrait: {fileID: 0}
@@ -5363,14 +5363,11 @@ MonoBehaviour:
     directAttackEffects: []
     directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
     activeAbilities:
-    - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
-    - activeAbility: {fileID: 11400000, guid: 5f043d044d913ad4682a195b63aa9106, type: 2}
-      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
-    - activeAbility: {fileID: 11400000, guid: 3d87480334b9b4742a045fc9f48e94c5, type: 2}
-      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
-    - activeAbility: {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
-      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+    - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+    - {fileID: 11400000, guid: 3d87480334b9b4742a045fc9f48e94c5, type: 2}
+    - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
+    - {fileID: 11400000, guid: 2e4c98e0eeb351d4a981ce5c113a2ae5, type: 2}
+    - {fileID: 11400000, guid: ec1b5a01f965feb48abc59d1f1ed3355, type: 2}
     passiveAbilities:
     - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
     receiveDamageAnimationName: Hurt
@@ -5413,8 +5410,7 @@ MonoBehaviour:
     directAttackEffects: []
     directAttackAnimation: {fileID: 0}
     activeAbilities:
-    - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-      animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+    - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
     passiveAbilities: []
     receiveDamageAnimationName: Hurt
     healSelfAnimationName: 

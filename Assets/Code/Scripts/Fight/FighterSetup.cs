@@ -21,7 +21,7 @@ namespace FrostfallSaga.Fight
         public int directAttackActionPointsCost;
         [SerializeReference] public AEffect[] directAttackEffects = { };
         public AAbilityAnimationSO directAttackAnimation;
-        public ActiveAbilityToAnimation[] activeAbilities;
+        public ActiveAbilitySO[] activeAbilities;
         public PassiveAbilitySO[] passiveAbilities;
         public string receiveDamageAnimationName;
         public string healSelfAnimationName;
@@ -39,7 +39,7 @@ namespace FrostfallSaga.Fight
             int directAttackActionPointsCost,
             AEffect[] directAttackEffects,
             AAbilityAnimationSO directAttackAnimation,
-            ActiveAbilityToAnimation[] activeAbilities,
+            ActiveAbilitySO[] activeAbilities,
             PassiveAbilitySO[] passiveAbilities,
             string receiveDamageAnimationName,
             string healSelfAnimationName,

@@ -42,14 +42,16 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             FightCell[] targetedCells = { receiver.cell };
 
             // Act
+            attacker.onDirectAttackEnded += (Fighter attacker) =>
+            {
+                /// ASSERTS ///
+                // Check actions points have been decreased
+                Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
+
+                // Check effects have been applied
+                Assert.AreEqual(expectedReceiverHealth, receiver.GetStatsForTests().health);
+            };
             attacker.UseDirectAttack(targetedCells);
-
-            /// ASSERTS ///
-            // Check actions points have been decreased
-            Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
-
-            // Check effects have been applied
-            Assert.AreEqual(expectedReceiverHealth, receiver.GetStatsForTests().health);
         }
 
         [Test]
@@ -77,15 +79,14 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             };
 
             // Act
+            attacker.onDirectAttackEnded += (Fighter attacker) =>
+            {
+                /// ASSERTS ///
+                Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
+                Assert.AreEqual(expectedReceiverHealth, receiver.GetStatsForTests().health);
+                Assert.AreEqual(expectedReceiverHealth2, receiver2.GetStatsForTests().health);
+            };
             attacker.UseDirectAttack(targetedCells);
-
-            /// ASSERTS ///
-            // Check actions points have been decreased
-            Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
-
-            // Check effects have been applied
-            Assert.AreEqual(expectedReceiverHealth, receiver.GetStatsForTests().health);
-            Assert.AreEqual(expectedReceiverHealth2, receiver2.GetStatsForTests().health);
         }
 
         [Test]
@@ -101,14 +102,16 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             FightCell[] targetedCells = { (FightCell)grid.CellsByCoordinates[new(1, 1)] };
 
             // Act
+            attacker.onDirectAttackEnded += (Fighter attacker) =>
+            {
+                /// ASSERTS ///
+                // Check actions points have been decreased
+                Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
+
+                // Check no effect have been applied to other fighter
+                Assert.AreEqual(expectedNotTargetedFighterHealth, notTargetedFighter.GetStatsForTests().health);
+            };
             attacker.UseDirectAttack(targetedCells);
-
-            /// ASSERTS ///
-            // Check actions points have been decreased
-            Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
-
-            // Check no effect have been applied to other fighter
-            Assert.AreEqual(expectedNotTargetedFighterHealth, notTargetedFighter.GetStatsForTests().health);
         }
 
         [Test]
