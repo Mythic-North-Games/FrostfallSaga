@@ -1,6 +1,6 @@
-using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {

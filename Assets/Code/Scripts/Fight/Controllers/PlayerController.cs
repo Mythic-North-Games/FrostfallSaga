@@ -1,14 +1,14 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Grid.Cells;
+using System.Linq;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.UI;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Abilities;
+using UnityEngine;
+using FrostfallSaga.Grid;
+using FrostfallSaga.Grid.Cells;
 
 namespace FrostfallSaga.Fight.Controllers
 {

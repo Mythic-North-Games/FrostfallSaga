@@ -1,11 +1,11 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.EntitiesGroupsSpawner;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -192,7 +192,8 @@ namespace FrostfallSaga.Kingdom
             HeroGroup.onEntityGroupHovered += OnEntitiesGroupHovered;
             HeroGroup.onEntityGroupUnhovered += OnEntitiesGroupUnhovered;
             HeroGroup.onEntityGroupClicked += OnEntitiesGroupClicked;
-            EnemiesGroups.ForEach(enemiesGroup => {
+            EnemiesGroups.ForEach(enemiesGroup =>
+            {
                 enemiesGroup.onEntityGroupHovered += OnEntitiesGroupHovered;
                 enemiesGroup.onEntityGroupUnhovered += OnEntitiesGroupUnhovered;
                 enemiesGroup.onEntityGroupClicked += OnEntitiesGroupClicked;
@@ -204,7 +205,8 @@ namespace FrostfallSaga.Kingdom
             HeroGroup.onEntityGroupHovered -= OnEntitiesGroupHovered;
             HeroGroup.onEntityGroupUnhovered -= OnEntitiesGroupUnhovered;
             HeroGroup.onEntityGroupClicked -= OnEntitiesGroupClicked;
-            EnemiesGroups.ForEach(enemiesGroup => {
+            EnemiesGroups.ForEach(enemiesGroup =>
+            {
                 enemiesGroup.onEntityGroupHovered -= OnEntitiesGroupHovered;
                 enemiesGroup.onEntityGroupUnhovered -= OnEntitiesGroupUnhovered;
                 enemiesGroup.onEntityGroupClicked -= OnEntitiesGroupClicked;

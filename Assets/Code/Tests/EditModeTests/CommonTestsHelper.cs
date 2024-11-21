@@ -14,6 +14,7 @@ namespace FrostfallSaga.EditModeTests
         /// AllTerrain[5] = Water (NOT Accessible)
         /// </summary>
         static TerrainTypeSO TerrainPlain = Resources.LoadAll<TerrainTypeSO>("ScriptableObjects/Grid/Terrain/")[4];
+        static BiomeTypeSO[] BiomeType = Resources.LoadAll<BiomeTypeSO>("ScriptableObjects/Grid/Biome");
 
         public static HexGrid CreatePlainGridForTest(bool fightCell = false, int gridWidth = 5, int gridHeight = 5)
         {
@@ -57,7 +58,7 @@ namespace FrostfallSaga.EditModeTests
             cellVisualGameObject.AddComponent<MaterialHighlightable>();
 
             Cell newCell = cellGameObject.GetComponent<Cell>();
-            newCell.Setup(coordinates, height, hexGridSize, TerrainPlain);
+            newCell.Setup(coordinates, height, hexGridSize, TerrainPlain, BiomeType[3]);
             return newCell;
         }
     }

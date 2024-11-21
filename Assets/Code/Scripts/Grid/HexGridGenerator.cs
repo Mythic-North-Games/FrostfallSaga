@@ -1,47 +1,70 @@
-using UnityEngine;
-using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Core;
+using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Procedural;
+using FrostfallSaga.Validator;
+using UnityEngine;
 
 namespace FrostfallSaga.Grid
 {
     /// <summary>
-    /// Expose methods for generating cells inside a given grid.
+    /// Manages the procedural generation of hexagonal grid cells, using Perlin and Voronoi noise to determine terrain and biome distribution.
+    /// Responsible for initializing terrain and biome managers and setting up each cell's characteristics based on defined parameters.
     /// </summary>
-    [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshCollider))]
+    [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshCollider)), ExecuteAlways]
     public class GridCellsGenerator : MonoBehaviour
     {
-        [field: SerializeField] public HexGrid HexGrid { get; private set; }
+        [Required]
+        [field: SerializeField, Header("Default"), Tooltip("Default attributs required")] public HexGrid HexGrid { get; private set; }
+        [Required]
         [field: SerializeField] public Material AlternativeMaterial { get; private set; }
-        [field: SerializeField, Header("Biome caracteristics"), Tooltip("Biome's type")] public BiomeTypeSO BiomeType { get; private set; }
-        [field: SerializeField, Header("Perlin Noise"), Tooltip("Statistics about Perlin Noise")] public PerlinNoiseGenerator PerlinNoiseGenerator { get; private set; }
-        private float lastSeed;
-
+        [Required]
+        [field: SerializeField, Header("Biomes caracteristics"), Tooltip("Biomes's type")] public BiomeTypeSO[] AvailableBiomes { get; private set; }
+        [Required]
+        [field: SerializeField, Header("Generators managers"), Tooltip("Generation diffusion"), Range(0.1f, 0.99f)] public float NoiseScale { get; private set; } = 0.2f;
+        [Required]
+        [field: SerializeField, Tooltip("Generation reference"), Range(000_000_000, 999_999_999)] public int Seed { get; private set; } = 000_000_000;
+        private PerlinTerrainManager _perlinTerrainManager;
+        private VoronoiBiomeManager _voronoiBiomeManager;
+        private int _lastSeed;
+        /// <summary>
+        /// Initializes components and verifies attributes on scene load to prepare for cell generation.
+        /// </summary>
         private void Awake()
         {
-            if (HexGrid == null)
-            {
-                HexGrid = GetComponentInParent<HexGrid>();
-            }
-            if (HexGrid == null)
-            {
-                Debug.LogError("HexGridGenerator could not find HexGrid component in its parent or itself");
-            }
-            PerlinNoiseGenerator = new PerlinNoiseGenerator(PerlinNoiseGenerator.NoiseScale, PerlinNoiseGenerator.Seed);
-            lastSeed = PerlinNoiseGenerator.Seed;
+            Initialize();
         }
 
         /// <summary>
-        /// Clears existing cells of the grid if any then generate new ones.
+        /// Clears any existing cells and generates new cells across the grid according to defined biomes and terrain characteristics.
+        /// Uses Perlin noise for height variation and Voronoi noise for biome distribution.
+        /// </summary>
+        public void Initialize()
+        {
+            Validator.Validator.ValidateRequiredFields(this);
+            
+            _perlinTerrainManager = new PerlinTerrainManager(NoiseScale, Seed);
+            _voronoiBiomeManager = new VoronoiBiomeManager(HexGrid.Width, HexGrid.Height, AvailableBiomes.Length, Seed);
+
+            _lastSeed = Seed;
+        }
+
+        /// <summary>
+        /// Checks if the list of available biomes is populated and valid, logging errors if null or empty.
+        /// Returns true if all biomes are valid, false otherwise.
         /// </summary>
         public void GenerateCells()
         {
             ClearCells();
 
-            if (PerlinNoiseGenerator.Seed != lastSeed)
+            if (!VerifyAvailableBiomesAttribut())
             {
-                PerlinNoiseGenerator = new PerlinNoiseGenerator(PerlinNoiseGenerator.NoiseScale, PerlinNoiseGenerator.Seed);
-                lastSeed = PerlinNoiseGenerator.Seed;
+                return;
+            }
+
+            if (Seed != _lastSeed)
+            {
+                _perlinTerrainManager = new PerlinTerrainManager(NoiseScale, Seed);
+                _lastSeed = Seed;
             }
 
             Quaternion rotation = Quaternion.identity;
@@ -56,15 +79,36 @@ namespace FrostfallSaga.Grid
                 {
                     Vector3 centerPosition = HexMetrics.Center(HexGrid.HexSize, x, z, HexGrid.HexOrientation);
                     GameObject newHex = Instantiate(HexGrid.HexPrefab, centerPosition, rotation, HexGrid.transform);
-                    SetupCellForInstanciatedCellPrefab(newHex, x, z);
+                    int biomeIndex = _voronoiBiomeManager.GetClosestBiomeIndex(x, z);
+                    BiomeTypeSO selectedBiome = AvailableBiomes[biomeIndex];
+                    SetupCellForInstanciatedCellPrefab(newHex, x, z, selectedBiome);
                 }
             }
             HexGrid.FindAndSetCellsByCoordinates();
         }
 
         /// <summary>
-        /// Updates the height of existing cells with a random height.
+        /// Checks if the list of available biomes is populated and valid, logging errors if null or empty.
+        /// Returns true if all biomes are valid, false otherwise.
         /// </summary>
+        private bool VerifyAvailableBiomesAttribut()
+        {
+            if (AvailableBiomes == null || AvailableBiomes.Length == 0)
+            {
+                Debug.LogError("AvailableBiomes is null or empty. Cannot generate cells.");
+                return false;
+            }
+            foreach (var biome in AvailableBiomes)
+            {
+                if (biome == null)
+                {
+                    Debug.LogError("One of the available biomes is null. Cannot generate cells.");
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public void GenerateRandomHeight()
         {
             int childCount = HexGrid.transform.childCount;
@@ -84,55 +128,43 @@ namespace FrostfallSaga.Grid
             }
         }
 
-        private void SetupCellForInstanciatedCellPrefab(GameObject cellPrefab, int x, int z)
+        private void SetupCellForInstanciatedCellPrefab(GameObject cellPrefab, int x, int z, BiomeTypeSO biome)
         {
             cellPrefab.transform.name = "Cell[" + x + ";" + z + "]";
             Cell newCell = cellPrefab.GetComponent<Cell>();
-
-            float perlinValue = PerlinNoiseGenerator.GetNoiseValue(x, z);
-            TerrainTypeSO terrainType = GetTerrainTypeFromPerlinValue(perlinValue);
-
-            newCell.Setup(new Vector2Int(x, z), ECellHeight.LOW, HexGrid.HexSize, terrainType);
+            float perlinValue = _perlinTerrainManager.GetNoiseValue(x, z);
+            TerrainTypeSO terrainType = GetTerrainTypeFromPerlinValue(perlinValue, biome);
+            newCell.Setup(new Vector2Int(x, z), ECellHeight.LOW, HexGrid.HexSize, terrainType, biome);
             newCell.HighlightController.SetupInitialMaterial(terrainType.CellMaterial);
             newCell.HighlightController.UpdateCurrentDefaultMaterial(terrainType.CellMaterial);
             newCell.HighlightController.ResetToInitialMaterial();
         }
 
-        /// <summary>
-        /// Define with the perlinValue wich Terrain will be choose
-        /// </summary>
-        /// <param name="perlinValue">float value will determine wich terrain type</param>
-        /// <returns></returns>
-        private TerrainTypeSO GetTerrainTypeFromPerlinValue(float perlinValue)
+        private TerrainTypeSO GetTerrainTypeFromPerlinValue(float perlinValue, BiomeTypeSO biome)
         {
-            TerrainTypeSO[] _availableTerrains = BiomeType.TerrainTypeSO;
+            TerrainTypeSO[] availableTerrains = biome.TerrainTypeSO;
 
-            if (_availableTerrains == null || _availableTerrains.Length == 0)
+            if (availableTerrains == null || availableTerrains.Length == 0)
             {
                 Debug.LogError("No terrain types available for the current biome.");
                 return null;
             }
 
-            int _terrainCount = _availableTerrains.Length;
-            float _segmentSize = 1f / _terrainCount;
+            int terrainCount = availableTerrains.Length;
+            float segmentSize = 1f / terrainCount;
 
-            for (int i = 0; i < _terrainCount; i++)
+            for (int i = 0; i < terrainCount; i++)
             {
-                if (perlinValue < (i + 1) * _segmentSize)
+                if (perlinValue < (i + 1) * segmentSize)
                 {
-                    return _availableTerrains[i];
+                    return availableTerrains[i];
                 }
             }
-
-            return _availableTerrains[_terrainCount - 1];
+            return availableTerrains[terrainCount]; // -1
         }
 
-        /// <summary>
-        /// Destroys all the cells of the grid.
-        /// </summary>
         public void ClearCells()
         {
-
             GameObject[] cells = GameObject.FindGameObjectsWithTag("Cell");
             if (cells != null)
             {

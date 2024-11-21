@@ -1,10 +1,12 @@
 using System;
+using RandomSys = System.Random;
+using RandomUnity = UnityEngine.Random;
 
 namespace FrostfallSaga.Core
 {
     public static class Randomizer
     {
-        private static readonly Random _randomizer = new();
+        private static readonly RandomSys _randomizer = new();
 
         public static int GetRandomIntBetween(int min, int max)
         {
@@ -19,6 +21,15 @@ namespace FrostfallSaga.Core
         public static T GetRandomElementFromArray<T>(T[] array)
         {
             return array[_randomizer.Next(0, array.Length)];
+        }
+        public static float GetRandomFloatBetween(float min, float max)
+        {
+            return RandomUnity.Range(min, max);
+        }
+
+        public static void InitState(int state)
+        {
+            RandomUnity.InitState(state);
         }
 
         public static T GetRandomElementFromEnum<T>(T[] toExclude = null) where T : Enum

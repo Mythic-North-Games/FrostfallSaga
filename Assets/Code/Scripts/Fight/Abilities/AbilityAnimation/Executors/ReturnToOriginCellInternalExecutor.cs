@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Grid.Cells;
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
