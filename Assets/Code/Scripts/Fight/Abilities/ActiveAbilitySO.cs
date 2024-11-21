@@ -76,6 +76,9 @@ namespace FrostfallSaga.Fight.Abilities
 
         private void OnActiveAbilityAnimationEnded(Fighter initiator)
         {
+            Animation.onFighterTouched -= OnActiveAbilityTouchedFighter;
+            Animation.onCellTouched -= OnActiveAbilityTouchedCell;
+            Animation.onAnimationEnded -= OnActiveAbilityAnimationEnded;
             onActiveAbilityEnded?.Invoke(this);
         }
 
@@ -101,6 +104,7 @@ namespace FrostfallSaga.Fight.Abilities
 
             if (isMasterstroke)
             {
+                Debug.Log($"{initiator.name} masterstrokes the ability {Name}");
                 foreach (AEffect effect in MasterstrokeEffects)
                 {
                     effect.ApplyEffect(

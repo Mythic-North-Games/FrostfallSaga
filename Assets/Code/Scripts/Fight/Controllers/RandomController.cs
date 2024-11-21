@@ -235,16 +235,16 @@ namespace FrostfallSaga.Fight.Controllers
         private void BindFighterEventsForTurn(Fighter fighterToPlay)
         {
             fighterToPlay.onFighterMoved += OnFighterMoved;
-            fighterToPlay.onFighterDirectAttackEnded += OnFighterDirectAttackEnded;
-            fighterToPlay.onFighterActiveAbilityEnded += OnFighterActiveAbilityEnded;
+            fighterToPlay.onDirectAttackEnded += OnFighterDirectAttackEnded;
+            fighterToPlay.onActiveAbilityEnded += OnFighterActiveAbilityEnded;
             fighterToPlay.onFighterDied += OnPossessedFighterDied;
         }
 
         private void UnbindFighterEventsForTurn(Fighter fighterToPlay)
         {
             fighterToPlay.onFighterMoved -= OnFighterMoved;
-            fighterToPlay.onFighterDirectAttackEnded -= OnFighterDirectAttackEnded;
-            fighterToPlay.onFighterActiveAbilityEnded -= OnFighterActiveAbilityEnded;
+            fighterToPlay.onDirectAttackEnded -= OnFighterDirectAttackEnded;
+            fighterToPlay.onActiveAbilityEnded -= OnFighterActiveAbilityEnded;
             fighterToPlay.onFighterDied -= OnPossessedFighterDied;
         }
 

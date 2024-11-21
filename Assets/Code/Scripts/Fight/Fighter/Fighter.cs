@@ -82,10 +82,10 @@ namespace FrostfallSaga.Fight.Fighters
         public Action<Fighter> onFighterMoved;
 
         // <Fighter that attacked>
-        public Action<Fighter> onFighterDirectAttackEnded;
+        public Action<Fighter> onDirectAttackEnded;
 
         // <Fighter that used an active ability>
-        public Action<Fighter> onFighterActiveAbilityEnded;
+        public Action<Fighter> onActiveAbilityEnded;
 
         // <Fighter that dodged, Fighter that attacked>
         public Action<Fighter, Fighter> onActionDodged;
@@ -213,7 +213,8 @@ namespace FrostfallSaga.Fight.Fighters
                             ApplyEffectsOnFighter(DirectAttackEffects, cell.Fighter, TryMasterstroke());
                         }
                     );
-                onFighterDirectAttackEnded?.Invoke(this);
+                _stats.actionPoints -= DirectAttackActionPointsCost;
+                onDirectAttackEnded?.Invoke(this);
             }
             else
             {
@@ -450,14 +451,14 @@ namespace FrostfallSaga.Fight.Fighters
             _directAttackAnimation.onFighterTouched -= OnDirectAttackTouchedFighter;
             _directAttackAnimation.onAnimationEnded -= OnDirectAttackAnimationEnded;
             _stats.actionPoints -= DirectAttackActionPointsCost;
-            onFighterDirectAttackEnded?.Invoke(initiator);
+            onDirectAttackEnded?.Invoke(initiator);
         }
 
         private void OnActiveAbilityEnded(ActiveAbilitySO activeAbility)
         {
             activeAbility.onActiveAbilityEnded -= OnActiveAbilityEnded;
             _stats.actionPoints -= activeAbility.ActionPointsCost;
-            onFighterActiveAbilityEnded?.Invoke(this);
+            onActiveAbilityEnded?.Invoke(this);
         }
 
         #endregion

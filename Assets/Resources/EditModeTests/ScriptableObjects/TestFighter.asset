@@ -15,12 +15,14 @@ MonoBehaviour:
   <FighterClass>k__BackingField: {fileID: 11400000, guid: 300401a09f127304391e9390e710e20f, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 0}
   <AvailableActiveAbilities>k__BackingField:
-  - activeAbility: {fileID: 11400000, guid: 96b49d2c6e60f09488401b8474900905, type: 2}
-    animation: {fileID: 0}
+  - {fileID: 11400000, guid: 96b49d2c6e60f09488401b8474900905, type: 2}
   ActiveAbilitiesCapacity: 5
+  <AvailablePassiveAbilities>k__BackingField: []
+  PassiveAbilitiesCapacity: 5
   <DirectAttackTargeter>k__BackingField:
-    <OriginCellRange>k__BackingField: 0
-    <CellsSequence>k__BackingField: []
+    <OriginCellRange>k__BackingField: 1
+    <CellsSequence>k__BackingField:
+    - {x: 0, y: 0}
     <StartFromInitiator>k__BackingField: 0
     <FighterMandatory>k__BackingField: 0
     <TargetsToExclude>k__BackingField: 
@@ -79,8 +81,4 @@ MonoBehaviour:
     - rid: 3629974059018878979
       type: {class: PhysicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
-        Name: Test direct attack effect
-        Description: 
-        Dodgable: 0
-        Masterstrokable: 0
         PhysicalDamageAmount: 10

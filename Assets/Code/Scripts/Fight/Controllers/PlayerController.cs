@@ -573,16 +573,16 @@ namespace FrostfallSaga.Fight.Controllers
         private void BindPossessedFighterEventsForTurn(Fighter _possessedFighter)
         {
             _possessedFighter.onFighterMoved += OnFighterMoved;
-            _possessedFighter.onFighterDirectAttackEnded += OnFighterDirectAttackEnded;
-            _possessedFighter.onFighterActiveAbilityEnded += OnFighterActiveAbilityEnded;
+            _possessedFighter.onDirectAttackEnded += OnFighterDirectAttackEnded;
+            _possessedFighter.onActiveAbilityEnded += OnFighterActiveAbilityEnded;
             _possessedFighter.onFighterDied += OnPossessedFighterDied;
         }
 
         private void UnbindFighterEventsForTurn()
         {
             _possessedFighter.onFighterMoved -= OnFighterMoved;
-            _possessedFighter.onFighterDirectAttackEnded -= OnFighterDirectAttackEnded;
-            _possessedFighter.onFighterActiveAbilityEnded -= OnFighterActiveAbilityEnded;
+            _possessedFighter.onDirectAttackEnded -= OnFighterDirectAttackEnded;
+            _possessedFighter.onActiveAbilityEnded -= OnFighterActiveAbilityEnded;
             _possessedFighter.onFighterDied -= OnPossessedFighterDied;
         }
 
