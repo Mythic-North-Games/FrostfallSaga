@@ -15,36 +15,23 @@ namespace FrostfallSaga.Fight.Effects
 
         public override void ApplyEffect(
             Fighter receiver,
+            bool isMasterstroke,
             Fighter initiator = null,
-            bool canMasterstroke = true,
-            bool canDodge = true,
             bool adjustGodFavorsPoints = true
         )
         {
-            // Try dodge if enabled
-            if (canDodge && TryDodge(receiver))
-            {
-                Debug.Log($"{receiver.name} dodged heal effect.");
-                return;
-            }
-
             int finalDamageAmount = MagicalDamageAmount;
-            bool masterstrokeSucceeded = false;
 
-            // Calculate masterstroke
-            if (canMasterstroke && initiator != null)
+            // Increase heal amount if masterstroke
+            if (isMasterstroke && initiator != null)
             {
-                finalDamageAmount = TryMasterstroke(initiator, MagicalDamageAmount);
-                masterstrokeSucceeded = finalDamageAmount != MagicalDamageAmount;
-                if (masterstrokeSucceeded)
-                {
-                    Debug.Log($"Masterstroke succeeded, damage amount increased to {finalDamageAmount}.");
-                }
+                finalDamageAmount = ApplyMasterstroke(MagicalDamageAmount);
+                Debug.Log($"Masterstroke succeeded, damage amount increased to {finalDamageAmount}.");
             }
 
             // Apply magical damage
             receiver.MagicalWithstand(finalDamageAmount, MagicalElement);
-            receiver.onEffectReceived?.Invoke(receiver, initiator, this, masterstrokeSucceeded);
+            receiver.onEffectReceived?.Invoke(receiver, initiator, this, isMasterstroke);
             Debug.Log($"Dealt {finalDamageAmount} magical damage of {MagicalElement} to {receiver.name}.");
 
             // Increase god favors points if enabled
@@ -59,7 +46,7 @@ namespace FrostfallSaga.Fight.Effects
             // Magical damage effects cannot be restored
         }
 
-        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke = true)
+        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke)
         {
             return MagicalDamageAmount * (canMasterstroke ? 2 : 1);
         }

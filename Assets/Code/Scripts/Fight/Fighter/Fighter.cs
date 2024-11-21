@@ -13,6 +13,7 @@ using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
 using FrostfallSaga.Fight.FightCells.Impediments;
+using FrostfallSaga.Core;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -44,8 +45,7 @@ namespace FrostfallSaga.Fight.Fighters
         [field: SerializeField] public int DirectAttackActionPointsCost { get; private set; }
         [field: SerializeField] public AEffect[] DirectAttackEffects { get; private set; }
         [SerializeField] private AAbilityAnimationSO _directAttackAnimation;
-        [field: SerializeField] public ActiveAbilityToAnimation[] ActiveAbilitiesToAnimation { get; private set; }
-        [SerializeField] private ActiveAbilityToAnimation _currentAbilityToAnimation;
+        [field: SerializeField] public ActiveAbilitySO[] ActiveAbilities { get; private set; }
         [field: SerializeField] public PassiveAbilitySO[] PassiveAbilities { get; private set; }
         [field: SerializeField] public bool IsParalyzed { get; private set; }
 
@@ -87,8 +87,8 @@ namespace FrostfallSaga.Fight.Fighters
         // <Fighter that used an active ability>
         public Action<Fighter> onFighterActiveAbilityEnded;
 
-        // <Fighter that dodged, Fighter that attacked, Effect that was dodged>
-        public Action<Fighter, Fighter, AEffect> onEffectDodged;
+        // <Fighter that dodged, Fighter that attacked>
+        public Action<Fighter, Fighter> onActionDodged;
 
         // <Fighter that received, Fighter that attacked, Effect that was received, If masterstroke>
         public Action<Fighter, Fighter, AEffect, bool> onEffectReceived;
@@ -140,7 +140,7 @@ namespace FrostfallSaga.Fight.Fighters
             DirectAttackActionPointsCost = fighterSetup.directAttackActionPointsCost;
             DirectAttackEffects = fighterSetup.directAttackEffects;
             _directAttackAnimation = fighterSetup.directAttackAnimation;
-            ActiveAbilitiesToAnimation = fighterSetup.activeAbilities;
+            ActiveAbilities = fighterSetup.activeAbilities;
             PassiveAbilities = fighterSetup.passiveAbilities;
             _receiveDamageAnimationName = fighterSetup.receiveDamageAnimationName;
             _healSelfAnimationName = fighterSetup.healSelfAnimationName;
@@ -186,6 +186,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <exception cref="InvalidOperationException">Raised if not enough action points.</exception>
         public void UseDirectAttack(FightCell[] targetedCells)
         {
+            // Do various checks to confirm the direct attack can be used
             if (targetedCells.Length == 0)
             {
                 throw new ArgumentException("A direct attack can't be used without one or more target cells");
@@ -196,12 +197,22 @@ namespace FrostfallSaga.Fight.Fighters
                 throw new InvalidOperationException("Fighter " + name + " does not have enough actions points to use its direct attack.");
             }
 
+            // Trigger the direct attack (with or without animation)
             if (_directAttackAnimation == null)
             {
                 Debug.LogWarning($"No animation attached to direct attack for fighter {name}");
                 targetedCells.ToList()
                     .Where(cell => cell.HasFighter()).ToList()
-                    .ForEach(cell => ApplyEffectsOnFighter(DirectAttackEffects, cell.Fighter));
+                    .ForEach(cell =>
+                        {
+                            if (cell.Fighter.TryDodge())
+                            {
+                                cell.Fighter.onActionDodged?.Invoke(cell.Fighter, this);
+                                return;
+                            }
+                            ApplyEffectsOnFighter(DirectAttackEffects, cell.Fighter, TryMasterstroke());
+                        }
+                    );
                 onFighterDirectAttackEnded?.Invoke(this);
             }
             else
@@ -210,62 +221,42 @@ namespace FrostfallSaga.Fight.Fighters
                 _directAttackAnimation.onAnimationEnded += OnDirectAttackAnimationEnded;
                 _directAttackAnimation.Execute(this, targetedCells);
             }
-            _stats.actionPoints -= DirectAttackActionPointsCost;
         }
 
         /// <summary>
         /// Makes the fighter use the given active ability on the given cells.
         /// </summary>
-        /// <param name="activeAbilityToAnimation">The active ability to use.</param>
+        /// <param name="activeAbility">The active ability to use.</param>
         /// <param name="targetedCells">The target cells for the ability.</param>
         /// <exception cref="ArgumentException">Raised if targeted cells are empty.</exception>
         /// <exception cref="InvalidOperationException">Raised if not enough action points.</exception>
-        public void UseActiveAbility(ActiveAbilityToAnimation activeAbilityToAnimation, FightCell[] targetedCells)
+        public void UseActiveAbility(ActiveAbilitySO activeAbility, FightCell[] targetedCells)
         {
+            // Do various checks to confirm the ability can be used
             if (targetedCells.Length == 0)
             {
                 throw new ArgumentException("An active ability can't be used without one or more target cells");
             }
 
-            if (_stats.actionPoints < activeAbilityToAnimation.activeAbility.ActionPointsCost)
+            if (_stats.actionPoints < activeAbility.ActionPointsCost)
             {
                 throw new InvalidOperationException(
                     "Fighter : " + name + " does not have enough action points to use its ability "
-                    + activeAbilityToAnimation.activeAbility.Name
+                    + activeAbility.Name
                 );
             }
 
-            if (_godFavorsPoints < activeAbilityToAnimation.activeAbility.GodFavorsPointsCost)
+            if (_godFavorsPoints < activeAbility.GodFavorsPointsCost)
             {
                 throw new InvalidOperationException(
                     "Fighter : " + name + " does not have enough god favors points to use its ability "
-                    + activeAbilityToAnimation.activeAbility.Name
+                    + activeAbility.Name
                 );
             }
 
-            ActiveAbilitySO activeAbilityToUse = activeAbilityToAnimation.activeAbility;
-            if (activeAbilityToAnimation.animation == null)
-            {
-                Debug.LogWarning($"No animation attached to active ability {activeAbilityToAnimation.activeAbility.Name} for fighter {name}");
-                targetedCells.ToList()
-                    .Where(cell => cell.HasFighter()).ToList()
-                    .ForEach(cell =>
-                        {
-                            ApplyEffectsOnFighter(activeAbilityToUse.Effects, cell.Fighter);
-                            ApplyAlterationsToCell(activeAbilityToUse.CellAlterations, cell);
-                        }
-                    );
-                onFighterActiveAbilityEnded?.Invoke(this);
-            }
-            else
-            {
-                _currentAbilityToAnimation = activeAbilityToAnimation;
-                _currentAbilityToAnimation.animation.onFighterTouched += OnActiveAbilityTouchedFighter;
-                _currentAbilityToAnimation.animation.onCellTouched += OnActiveAbilityTouchedCell;
-                _currentAbilityToAnimation.animation.onAnimationEnded += OnActiveAbilityAnimationEnded;
-                _currentAbilityToAnimation.animation.Execute(this, targetedCells);
-            }
-            _stats.actionPoints -= activeAbilityToUse.ActionPointsCost;
+            // Trigger the ability
+            activeAbility.onActiveAbilityEnded += OnActiveAbilityEnded;
+            activeAbility.Trigger(targetedCells, this);
         }
 
         /// <summary>
@@ -422,40 +413,51 @@ namespace FrostfallSaga.Fight.Fighters
             StatusesManager.ApplyStatus(statusToApply);
         }
 
+        /// <summary>
+        /// Make the fighter try to dodge something.
+        /// </summary>
+        /// <returns>True if the dodge is successfull, false otherwise</returns>
+        public bool TryDodge()
+        {
+            return Randomizer.GetBooleanOnChance(_stats.dodgeChance);
+        }
+
+        /// <summary>
+        /// Make the fighter try to masterstroke.
+        /// </summary>        
+        /// <returns>True if the masterstroke is successfull, false otherwise</returns>
+        public bool TryMasterstroke()
+        {
+            return Randomizer.GetBooleanOnChance(_stats.masterstrokeChance);
+        }
+
         #endregion
 
         #region Actions process management
 
         public void OnDirectAttackTouchedFighter(Fighter touchedFighter)
         {
-            ApplyEffectsOnFighter(DirectAttackEffects, touchedFighter);
+            if (cell.Fighter.TryDodge())
+            {
+                cell.Fighter.onActionDodged?.Invoke(cell.Fighter, this);
+                return;
+            }
+            ApplyEffectsOnFighter(DirectAttackEffects, cell.Fighter, TryMasterstroke());
         }
 
         public void OnDirectAttackAnimationEnded(Fighter initiator)
         {
             _directAttackAnimation.onFighterTouched -= OnDirectAttackTouchedFighter;
             _directAttackAnimation.onAnimationEnded -= OnDirectAttackAnimationEnded;
-
+            _stats.actionPoints -= DirectAttackActionPointsCost;
             onFighterDirectAttackEnded?.Invoke(initiator);
         }
 
-        public void OnActiveAbilityTouchedFighter(Fighter touchedFighter)
+        private void OnActiveAbilityEnded(ActiveAbilitySO activeAbility)
         {
-            ApplyEffectsOnFighter(_currentAbilityToAnimation.activeAbility.Effects, touchedFighter);
-        }
-
-        public void OnActiveAbilityTouchedCell(FightCell touchedCell)
-        {
-            ApplyAlterationsToCell(_currentAbilityToAnimation.activeAbility.CellAlterations, touchedCell);
-        }
-
-        public void OnActiveAbilityAnimationEnded(Fighter initiator)
-        {
-            _currentAbilityToAnimation.animation.onFighterTouched -= OnActiveAbilityTouchedFighter;
-            _currentAbilityToAnimation.animation.onCellTouched -= OnActiveAbilityTouchedCell;
-            _currentAbilityToAnimation.animation.onAnimationEnded -= OnActiveAbilityAnimationEnded;
-
-            onFighterActiveAbilityEnded?.Invoke(initiator);
+            activeAbility.onActiveAbilityEnded -= OnActiveAbilityEnded;
+            _stats.actionPoints -= activeAbility.ActionPointsCost;
+            onFighterActiveAbilityEnded?.Invoke(this);
         }
 
         #endregion
@@ -475,10 +477,6 @@ namespace FrostfallSaga.Fight.Fighters
         public int GetMaxHealth() => _stats.maxHealth;
 
         public int GetStrength() => _stats.strength;
-
-        public float GetDodgeChance() => _stats.dodgeChance;
-
-        public float GetMasterstrokeChance() => _stats.masterstrokeChance;
 
         public int GetGodFavorsPoints() => _godFavorsPoints;
 
@@ -510,10 +508,7 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
         public int GetInitiative() => _stats.initiative;
-        public List<ActiveAbilitySO> GetActiveAbilities()
-        {
-            return ActiveAbilitiesToAnimation.Select(abilityToAnimation => abilityToAnimation.activeAbility).ToList();
-        }
+
         public FighterCollider GetWeaponCollider()
         {
             return GetComponent<FighterCollider>();
@@ -595,10 +590,10 @@ namespace FrostfallSaga.Fight.Fighters
             Fighter target = null
         )
         {
-            return ActiveAbilitiesToAnimation.Any(
-                activeAbilityToAnimation => CanUseActiveAbility(
+            return ActiveAbilities.Any(
+                activeAbility => CanUseActiveAbility(
                     fightGrid,
-                    activeAbilityToAnimation.activeAbility,
+                    activeAbility,
                     fightersTeams,
                     target
                 )
@@ -700,32 +695,20 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="effectsToApply">The effects to apply.</param>
         /// <param name="target">The fighter to apply the effects to.</param>
-        private void ApplyEffectsOnFighter(AEffect[] effectsToApply, Fighter target)
+        /// <param name="isMasterstroke">If the initiator made a masterstroke.</param>
+        private void ApplyEffectsOnFighter(
+            AEffect[] effectsToApply,
+            Fighter target,
+            bool isMasterstroke
+        )
         {
             effectsToApply.ToList().ForEach(
                 effect => effect.ApplyEffect(
                     receiver: target,
+                    isMasterstroke: isMasterstroke,
                     initator: this,
-                    canMasterstroke: effect.Masterstrokable,
-                    canDodge: effect.Dodgable
+                    adjustGodFavorsPoints: true
                 )
-            );
-        }
-
-        private void ApplyAlterationsToCell(AFightCellAlteration[] cellAlterations, FightCell fightCell)
-        {
-            cellAlterations.ToList().ForEach(
-                cellAlteration =>
-                {
-                    try
-                    {
-                        fightCell.AlterationsManager.ApplyNewAlteration(cellAlteration);
-                    }
-                    catch (FightCellAlterationApplicationException e)
-                    {
-                        Debug.Log($"Cell alteration {cellAlteration.Name} could not be applied on cell {fightCell.name}.\n{e}");
-                    }
-                }
             );
         }
 

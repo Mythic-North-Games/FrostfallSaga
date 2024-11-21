@@ -5,17 +5,18 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Abilities;
 
 namespace FrostfallSaga.Fight.UI
 {
     public class FighterActionPanelController : BaseUIController
     {
         public Action onDirectAttackClicked;
-        public Action<ActiveAbilityToAnimation> onActiveAbilityClicked;
+        public Action<ActiveAbilitySO> onActiveAbilityClicked;
         public Action onEndTurnClicked;
 
         [SerializeField] private FightManager _fightManager;
-        private readonly Dictionary<Button, ActiveAbilityToAnimation> _buttonToActiveAbility = new();
+        private readonly Dictionary<Button, ActiveAbilitySO> _buttonToActiveAbility = new();
 
         private static readonly string ACTION_PANEL_ROOT = "RootActionPanel";
         private static readonly string ABILITY_BUTTON_UI_NAME = "AbilityButton";
@@ -46,7 +47,7 @@ namespace FrostfallSaga.Fight.UI
             int abilitiesButtonCount = GetAbilitiesButtons().Length;
 
             int i = 1;
-            fighter.ActiveAbilitiesToAnimation.ToList().ForEach(ability =>
+            fighter.ActiveAbilities.ToList().ForEach(ability =>
             {
                 if (i <= abilitiesButtonCount)
                 {
@@ -60,10 +61,10 @@ namespace FrostfallSaga.Fight.UI
             });
         }
 
-        private void SetupAbilityButton(ActiveAbilityToAnimation activeAbility, int slotIndex)
+        private void SetupAbilityButton(ActiveAbilitySO activeAbility, int slotIndex)
         {
             Button abilityButton = _uiDoc.rootVisualElement.Q($"{ABILITY_BUTTON_UI_NAME}{slotIndex}") as Button;
-            abilityButton.style.backgroundImage = new(activeAbility.activeAbility.IconSprite);
+            abilityButton.style.backgroundImage = new(activeAbility.IconSprite);
             _buttonToActiveAbility.Add(abilityButton, activeAbility);
         }
 

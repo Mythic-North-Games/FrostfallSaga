@@ -35,28 +35,10 @@ namespace FrostfallSaga.FFSEditor.Fight
                 // Draw a title with the name of the effect class
                 EditorGUI.LabelField(
                     new Rect(position.x, currentY, position.width, EditorGUIUtility.singleLineHeight),
-                    "Effect Type: " + property.name
+                    "Effect Type: " + property.managedReferenceFullTypename.Split(".")[^1]
                 );
                 currentY += EditorGUIUtility.singleLineHeight * 2;
                 expandedHeight += EditorGUIUtility.singleLineHeight * 2;
-
-                // Draw each common properties
-                currentY = DrawPropertyField(
-                    new Rect(position.x, currentY, position.width, EditorGUIUtility.singleLineHeight),
-                    property.FindPropertyRelative("Name")
-                );
-                currentY = DrawPropertyField(
-                    new Rect(position.x, currentY, position.width, EditorGUIUtility.singleLineHeight),
-                    property.FindPropertyRelative("Description")
-                );
-                currentY = DrawPropertyField(
-                    new Rect(position.x, currentY, position.width, EditorGUIUtility.singleLineHeight),
-                    property.FindPropertyRelative("Dodgable")
-                );
-                currentY = DrawPropertyField(
-                    new Rect(position.x, currentY, position.width, EditorGUIUtility.singleLineHeight),
-                    property.FindPropertyRelative("Masterstrokable")
-                );
 
                 // Draw properties specific to effect subclasses
                 if (property.managedReferenceValue is ApplyStatusesEffect)

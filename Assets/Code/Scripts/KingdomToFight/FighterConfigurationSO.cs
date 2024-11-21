@@ -13,7 +13,7 @@ namespace FrostfallSaga.KingdomToFight
     {
         [field: SerializeField] public FighterClassSO FighterClass { get; private set; }
         [field: SerializeField] public PersonalityTraitSO PersonalityTrait { get; private set; }
-        [field: SerializeField] public ActiveAbilityToAnimation[] AvailableActiveAbilities { get; private set; }
+        [field: SerializeField] public ActiveAbilitySO[] AvailableActiveAbilities { get; private set; }
         [field: SerializeField] public int ActiveAbilitiesCapacity = 5;
         [field: SerializeField] public PassiveAbilitySO[] AvailablePassiveAbilities { get; private set; }
         [field: SerializeField] public int PassiveAbilitiesCapacity = 5;

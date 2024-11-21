@@ -16,15 +16,15 @@ namespace FrostfallSaga.Fight.Effects
 
         public override void ApplyEffect(
             Fighter receiver,
+            bool isMasterstroke,
             Fighter initiator = null,
-            bool canMasterstroke = true,
-            bool canDodge = true,
             bool adjustGodFavorsPoints = true
         )
         {
             bool atLeastOneBuff = false;
             bool atLeastOneDebuff = false;
 
+            // Apply the statuses
             foreach (AStatus status in StatusesToApply)
             {
                 receiver.ApplyStatus(status);
@@ -38,6 +38,12 @@ namespace FrostfallSaga.Fight.Effects
                 {
                     if (!atLeastOneDebuff) atLeastOneDebuff = true;
                 }
+            }
+
+            // Trigger the effect received event if at least one buff or debuff was applied
+            if (atLeastOneBuff || atLeastOneDebuff)
+            {
+                receiver.onEffectReceived?.Invoke(receiver, initiator, this, false);
             }
 
             // Increase god favors points if enabled
@@ -60,7 +66,7 @@ namespace FrostfallSaga.Fight.Effects
             }
         }
 
-        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke = true)
+        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke)
         {
             return 0;
         }

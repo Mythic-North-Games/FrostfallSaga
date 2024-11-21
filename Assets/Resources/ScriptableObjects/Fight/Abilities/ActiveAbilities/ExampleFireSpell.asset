@@ -30,7 +30,12 @@ MonoBehaviour:
     <StopedAtXthLowerHeightDifference>k__BackingField: 0
     <StopedAtXthEncounteredFighters>k__BackingField: 0
   <ActionPointsCost>k__BackingField: 2
+  <GodFavorsPointsCost>k__BackingField: 0
+  <Dodgable>k__BackingField: 0
+  <Masterstrokable>k__BackingField: 0
+  MasterstrokeEffects: []
   CellAlterations: []
+  <Animation>k__BackingField: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
   references:
     version: 2
     RefIds:
@@ -39,7 +44,5 @@ MonoBehaviour:
       data:
         Name: Fire dammaaage
         Description: Extreme damage
-        Dodgable: 1
-        Masterstrokable: 1
         MagicalDamageAmount: 20
         MagicalElement: 0
