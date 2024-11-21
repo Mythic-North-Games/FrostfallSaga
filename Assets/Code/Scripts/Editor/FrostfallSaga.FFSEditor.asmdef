@@ -3,6 +3,9 @@
     "rootNamespace": "FrostfallSaga.FFSEditor",
     "references": [
         "FrostfallSaga.Grid",
+        "FrostfallSaga.Fight",
+        "FrostfallSaga.KingdomToFight",
+        "FrostfallSaga.GameObjectVisuals",
         "FrostfallSaga.Procedural"
     ],
     "includePlatforms": [

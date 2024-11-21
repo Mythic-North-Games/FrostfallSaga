@@ -17,13 +17,15 @@ namespace FrostfallSaga.Grid
         /// <param name="endCell">The other cell to find the shorter path between.</param>
         /// <param name="includeInaccessibleNeighbors">If the inaccessible cells should be included.</param>
         /// <param name="includeHeightInaccessibleNeighbors">If only the height inaccessible cells should be included.</param>
+        /// <param name="includeOccupiedNeighbors">If the occupied cells should be included.</param>
         /// <returns>An ordered array of Cell representing the shorter path from the startCell to the endCell.</returns>
         public static Cell[] GetShorterPath(
             HexGrid hexGrid,
             Cell startCell,
             Cell endCell,
             bool includeInaccessibleNeighbors = false,
-            bool includeHeightInaccessibleNeighbors = false
+            bool includeHeightInaccessibleNeighbors = false,
+            bool includeOccupiedNeighbors = true
         )
         {
             PriorityQueue<Cell> frontier = new();
@@ -44,7 +46,14 @@ namespace FrostfallSaga.Grid
                     break;
                 }
 
-                foreach (Cell neighbor in CellsNeighbors.GetNeighbors(hexGrid, currentCell, includeInaccessibleNeighbors, includeHeightInaccessibleNeighbors))
+                foreach (Cell neighbor in CellsNeighbors.GetNeighbors(
+                        hexGrid,
+                        currentCell,
+                        includeInaccessibleNeighbors,
+                        includeHeightInaccessibleNeighbors,
+                        includeOccupiedNeighbors
+                    )
+                )
                 {
                     float newCost = costSoFar[currentCell] + GetCost(currentCell, neighbor);
                     if (!costSoFar.ContainsKey(neighbor) || newCost < costSoFar[neighbor])

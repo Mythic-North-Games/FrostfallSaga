@@ -25,9 +25,7 @@ namespace FrostfallSaga.Grid
         [field: SerializeField, Tooltip("Generation reference"), Range(000_000_000, 999_999_999)] public int Seed { get; private set; } = 000_000_000;
         private PerlinTerrainManager _perlinTerrainManager;
         private VoronoiBiomeManager _voronoiBiomeManager;
-
         private int _lastSeed;
-
         /// <summary>
         /// Initializes components and verifies attributes on scene load to prepare for cell generation.
         /// </summary>

@@ -1,3 +1,4 @@
+using System;
 using RandomSys = System.Random;
 using RandomUnity = UnityEngine.Random;
 
@@ -29,6 +30,22 @@ namespace FrostfallSaga.Core
         public static void InitState(int state)
         {
             RandomUnity.InitState(state);
+        }
+
+        public static T GetRandomElementFromEnum<T>(T[] toExclude = null) where T : Enum
+        {
+            var values = Enum.GetValues(typeof(T));
+            var randomIndex = _randomizer.Next(0, values.Length);
+
+            if (toExclude != null)
+            {
+                while (Array.Exists(toExclude, element => element.Equals(values.GetValue(randomIndex))))
+                {
+                    randomIndex = _randomizer.Next(0, values.Length);
+                }
+            }
+
+            return (T) values.GetValue(randomIndex);
         }
     }
 }

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b15bc642ab647f4db22884ea96f1dc9, type: 3}
+  m_Name: FireSpellAbilityAnimation
+  m_EditorClassIdentifier: 
+  <ProjectilePrefab>k__BackingField: {fileID: 1435735026039513003, guid: b9833b7cd81df9c4c84090c19e05c49c, type: 3}
+  Executor:
+    rid: 3629974059018879021
+  references:
+    version: 2
+    RefIds:
+    - rid: 3629974059018879021
+      type: {class: CellPerCellExternalExecutor, ns: FrostfallSaga.Fight.Abilities.AbilityAnimation, asm: FrostfallSaga.Fight}
+      data:
+        StartLocation: {x: 0, y: 20, z: 0}
+        EndLocation: {x: 0, y: 0, z: 0}
+        StartRotation: {x: 0, y: 0, z: 0, w: 0}
+        EndRotation: {x: 0, y: 0, z: 0, w: 0}
+        MoveSpeed: 10
+        TimeBeforNextMovementStart: 1

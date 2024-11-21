@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50862a0fc6cf7d64c9f705ea8e91f54b, type: 3}
+  m_Name: GobelinExample
+  m_EditorClassIdentifier: 
+  <FighterClass>k__BackingField: {fileID: 11400000, guid: 8d3cfbd8265f5e54cb7a7563a0ae8f1b, type: 2}
+  <AvailableActiveAbilities>k__BackingField:
+  - activeAbility: {fileID: 0}
+    animation: {fileID: 0}
+  ActiveAbilitiesCapacity: 5
+  <DirectAttackTargeter>k__BackingField: {fileID: 11400000, guid: dc8968a2b6f65754facef2409f8bfed8, type: 2}
+  <DirectAttackEffects>k__BackingField:
+  - {fileID: 0}
+  <DirectAttackActionPointsCost>k__BackingField: 1
+  <DirectAttackAnimation>k__BackingField: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
+  <HealSelfAnimationStateName>k__BackingField: 
+  <ReceiveDamageAnimationStateName>k__BackingField: Hurt
+  <MaxHealth>k__BackingField: 0
+  <MaxActionPoints>k__BackingField: 0
+  <MaxMovePoints>k__BackingField: 0
+  <Strength>k__BackingField: 0
+  <Dexterity>k__BackingField: 0
+  <Tenacity>k__BackingField: 0
+  <Dodge>k__BackingField: 0
+  <PhysicalResistance>k__BackingField: 0
+  <MagicalResistances>k__BackingField: []
+  <MagicalStrengths>k__BackingField: []
+  <Masterstroke>k__BackingField: 0
+  <Initiative>k__BackingField: 0

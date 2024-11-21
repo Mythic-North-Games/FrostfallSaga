@@ -38,7 +38,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
                 try
                 {
                     Cell _tryToGetStartCell = GameObject.Find("Cell[0;0]").GetComponent<Cell>();
-                    if (_tryToGetStartCell.IsAccessible)
+                    if (_tryToGetStartCell.IsFree())
                     {
                         cell = _tryToGetStartCell;
                     }

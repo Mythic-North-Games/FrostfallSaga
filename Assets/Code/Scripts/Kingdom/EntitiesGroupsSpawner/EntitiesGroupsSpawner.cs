@@ -83,7 +83,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
 
         private Cell[] GetAvailableCellsForSpawn(Cell[] prohibitedCells)
         {
-            return _grid.GetCells().Where(cell => !prohibitedCells.Contains(cell) && cell.IsAccessible).ToArray();
+            return _grid.GetCells().Where(cell => !prohibitedCells.Contains(cell) && cell.IsFree()).ToArray();
         }
 
         #region Setup and tear down
