@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movePoints: 0
   cell: {fileID: 0}
+  <CameraAnchor>k__BackingField: {fileID: 6379418522271526532}

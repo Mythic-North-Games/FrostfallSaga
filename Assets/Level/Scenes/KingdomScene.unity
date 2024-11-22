@@ -17052,6 +17052,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HeroGroup
       objectReference: {fileID: 0}
+    - target: {fileID: 7173097758504485735, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300022, guid: 8597359a2c9181049aac29d63db82f86, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
