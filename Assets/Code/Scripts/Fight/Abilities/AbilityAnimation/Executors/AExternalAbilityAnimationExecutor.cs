@@ -1,10 +1,8 @@
 using System;
-using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid.Cells;
 using UnityEngine;
+using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
-using FrostfallSaga.Grid.Cells;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
