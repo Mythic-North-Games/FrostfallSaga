@@ -1,9 +1,9 @@
 using System;
+using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Grid;
 using NUnit.Framework;
 using UnityEngine;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.FightCells;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
