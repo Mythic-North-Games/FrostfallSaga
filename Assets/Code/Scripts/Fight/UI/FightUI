@@ -1,0 +1,17 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
+using FrostfallSaga.Fight.Fighters;
+
+namespace FrostfallSaga.Fight.UI
+{
+     public class FighterDamage : MonoBehaviour
+    {
+
+
+
+
+    }
+}
