@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight;
@@ -49,6 +50,7 @@ namespace FrostfallSaga.EditModeTests.FightTests
                 new(
                     fighterConfiguration.name,
                     Guid.NewGuid().ToString(),
+                    EntityID.HERO,
                     null,
                     fighterConfiguration.ExtractFighterStats(),
                     fighterConfiguration.DirectAttackTargeter,

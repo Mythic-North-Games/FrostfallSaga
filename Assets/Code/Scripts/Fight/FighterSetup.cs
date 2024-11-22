@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
@@ -12,6 +13,7 @@ namespace FrostfallSaga.Fight
     {
         public string name;
         public string sessionId;
+        public EntityID EntityID;
         public Sprite icon;
         public FighterStats initialStats;
         public TargeterSO directAttackTargeter;
@@ -25,6 +27,7 @@ namespace FrostfallSaga.Fight
         public FighterSetup(
             string name,
             string sessionId,
+            EntityID EntityID,
             Sprite fighterIcon,
             FighterStats initialStats,
             TargeterSO directAttackTargeter,
@@ -38,6 +41,7 @@ namespace FrostfallSaga.Fight
         {
             this.name = name;
             this.sessionId = sessionId;
+            this.EntityID = EntityID;
             this.icon = fighterIcon;
             this.initialStats = initialStats;
             this.directAttackTargeter = directAttackTargeter;

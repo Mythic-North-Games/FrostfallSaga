@@ -1,4 +1,4 @@
-namespace FrostfallSaga.Kingdom.Entities
+namespace FrostfallSaga.Core
 {
     public enum EntityID
     {

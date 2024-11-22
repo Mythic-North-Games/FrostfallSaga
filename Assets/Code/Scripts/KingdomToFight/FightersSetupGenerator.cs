@@ -73,6 +73,7 @@ namespace FrostfallSaga.KingdomToFight
             return new(
                 fighterConfiguration.name,
                 entitySessionId,
+                entityConfiguration.EntityID,
                 entityConfiguration.EntityIcon,
                 fighterConfiguration.ExtractFighterStats(),
                 fighterConfiguration.DirectAttackTargeter,
@@ -97,6 +98,7 @@ namespace FrostfallSaga.KingdomToFight
             return new(
                 fighterConfiguration.name,
                 entitySessionId,
+                entityConfiguration.EntityID,
                 entityConfiguration.EntityIcon,
                 fighterConfiguration.ExtractFighterStats(),
                 fighterConfiguration.DirectAttackTargeter,
