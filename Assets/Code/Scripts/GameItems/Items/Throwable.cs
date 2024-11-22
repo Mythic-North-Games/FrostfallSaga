@@ -15,7 +15,7 @@ public class Throwable  : Item
     public int MaxDamage;
     public List<EntityID> WeaknessList;
     public List<EntityID> StrenghtList;
-    public List<AEffectSO> Effects;
+    [SerializeReference] public List<AEffect> Effects;
     public Throwable()
     {
         ItemTag = SlotTag.Secondary;
