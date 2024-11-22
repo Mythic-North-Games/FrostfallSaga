@@ -86,3 +86,6 @@ node_modules/
 # Assets Package import
 Assets/**/PolygonVikings/
 Assets/**/PolygonParticleFX/
+/Assets/Vfx
+/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json
+/ProjectSettings/ShaderGraphSettings.asset
