@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Controllers
 {

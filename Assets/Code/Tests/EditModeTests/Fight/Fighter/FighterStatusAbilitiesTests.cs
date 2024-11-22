@@ -24,15 +24,32 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             statusManager = fighter.StatusesManager;
             Assert.IsNotNull(fighter, "Le fighter n'est pas initialisé");
             Assert.IsNotNull(statusManager, "Le StatusEffectManager n'est pas initialisé");
-            bleedStatus = ScriptableObject.CreateInstance<BleedStatus>();
-            weaknessStatus = ScriptableObject.CreateInstance<WeaknessStatus>();
-            paralysisStatus = ScriptableObject.CreateInstance<ParalysisStatus>();
-
-            bleedStatus.SetIsRecurring(true);
-            bleedStatus.SetDuration(3);
-            weaknessStatus.SetIsRecurring(false);
-            weaknessStatus.SetDuration(3);
-            paralysisStatus.SetDuration(3);
+            bleedStatus = new BleedStatus(
+                false,
+                3,
+                false,
+                true,
+                EStatusTriggerTime.StartOfTurn,
+                null,
+                10
+            );
+            weaknessStatus = new WeaknessStatus(
+                false,
+                3,
+                false,
+                false,
+                EStatusTriggerTime.StartOfTurn,
+                null,
+                10
+            );
+            paralysisStatus = new ParalysisStatus(
+                false,
+                3,
+                false,
+                false,
+                EStatusTriggerTime.StartOfTurn,
+                null
+            );
         }
 
         [Test]
@@ -49,9 +66,9 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             // Assert
             Assert.AreEqual(initialHealth - expectedHealthReduction, fighter.GetHealth());
         }
-        
+
         [Test]
-          public void ApplyBleedStatus_ShouldNotReduceHealthOverTime()
+        public void ApplyBleedStatus_ShouldNotReduceHealthOverTime()
         {
             // arrange
             int initialHealth = fighter.GetHealth();

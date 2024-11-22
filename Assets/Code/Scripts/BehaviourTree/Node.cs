@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 
 namespace FrostfallSaga.BehaviourTree
@@ -22,7 +21,7 @@ namespace FrostfallSaga.BehaviourTree
         protected List<Node> children = new();
 
         // Can contain context data for the entire tree. You can get and set data from any node in the tree.
-        private readonly Dictionary<string, object> _sharedDataContext;
+        private readonly Dictionary<string, object> _sharedDataContext = new();
 
         public Node()
         {
@@ -49,7 +48,7 @@ namespace FrostfallSaga.BehaviourTree
         /// </summary>
         /// <param name="key">The key of the data.</param>
         /// <param name="value">The value of the data.</param>
-        public void SetData(string key, object value)
+        public void SetSharedData(string key, object value)
         {
             if (parent == null)
             {
@@ -57,7 +56,7 @@ namespace FrostfallSaga.BehaviourTree
             }
             else
             {
-                parent.SetData(key, value);
+                parent.SetSharedData(key, value);
             }
         }
 
@@ -93,5 +92,7 @@ namespace FrostfallSaga.BehaviourTree
                 return parent.ClearSharedData(key);
             }
         }
+
+        public List<Node> GetChildren() => children;
     }
 }

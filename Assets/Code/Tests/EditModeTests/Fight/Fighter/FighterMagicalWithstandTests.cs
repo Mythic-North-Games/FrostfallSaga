@@ -1,7 +1,7 @@
-using NUnit.Framework;
-using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.Effects;
 using System;
+using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight.Fighters;
+using NUnit.Framework;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {

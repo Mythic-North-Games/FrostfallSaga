@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-
 namespace FrostfallSaga.BehaviourTree
 {
     /// <summary>
@@ -10,7 +7,7 @@ namespace FrostfallSaga.BehaviourTree
     /// </summary>
     public abstract class BTree
     {
-        private Node _root = null;
+        protected Node _root = null;
 
         public BTree()
         {

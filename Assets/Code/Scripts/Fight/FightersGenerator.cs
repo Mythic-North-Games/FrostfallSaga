@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Effects;
 
 namespace FrostfallSaga.Fight
 {
@@ -14,20 +15,6 @@ namespace FrostfallSaga.Fight
         [SerializeField] private PreFightDataSO _preFightData;
         [SerializeField] private FighterSetup[] _devAlliesFighterSetup;
         [SerializeField] private FighterSetup[] _devEnemiesFighterSetup;
-
-        private void OnEnable()
-        {
-            if (_preFightData == null)
-            {
-                Debug.LogError("No PreFightData scriptable object given. Can't generate fighters.");
-                return;
-            }
-            if (_fighterPrefab == null)
-            {
-                Debug.LogError("No fighter prefab given. Can't generate fighters.");
-                return;
-            }
-        }
 
         private void Start()
         {
@@ -69,6 +56,21 @@ namespace FrostfallSaga.Fight
             return fighter;
         }
 
+        #region Setup & Teardown
+        private void OnEnable()
+        {
+            if (_preFightData == null)
+            {
+                Debug.LogError("No PreFightData scriptable object given. Can't generate fighters.");
+                return;
+            }
+            if (_fighterPrefab == null)
+            {
+                Debug.LogError("No fighter prefab given. Can't generate fighters.");
+                return;
+            }
+        }
+
         private void OnDisable()
         {
             if (_preFightData == null)
@@ -82,5 +84,41 @@ namespace FrostfallSaga.Fight
                 return;
             }
         }
+
+        private void Awake()
+        {
+            if (_devAlliesFighterSetup == null || _devAlliesFighterSetup.Length == 0)
+            {
+                return;
+            }
+            foreach (FighterSetup fighterSetup in _devAlliesFighterSetup)
+            {
+                fighterSetup.initialStats.magicalResistances = new() 
+                {
+                    { EMagicalElement.FIRE, 0 },
+                    { EMagicalElement.ICE, 0 },
+                    { EMagicalElement.LIGHTNING, 0 },
+                    { EMagicalElement.WATER, 0 },
+                    { EMagicalElement.WIND, 0 }
+                };
+            }
+
+            if (_devEnemiesFighterSetup == null || _devEnemiesFighterSetup.Length == 0)
+            {
+                return;
+            }
+            foreach (FighterSetup fighterSetup in _devEnemiesFighterSetup)
+            {
+                fighterSetup.initialStats.magicalResistances = new() 
+                {
+                    { EMagicalElement.FIRE, 0 },
+                    { EMagicalElement.ICE, 0 },
+                    { EMagicalElement.LIGHTNING, 0 },
+                    { EMagicalElement.WATER, 0 },
+                    { EMagicalElement.WIND, 0 }
+                };
+            }
+        }
+        #endregion
     }
 }

@@ -1,3 +1,5 @@
+using System;
+
 namespace FrostfallSaga.Fight.Statuses
 {
     public enum EStatusType
@@ -6,5 +8,22 @@ namespace FrostfallSaga.Fight.Statuses
         BLEED,
         PARALYSIS,
         WEAKNESS,
+        STRENGTH,
+    }
+
+    public static class EStatusTypeMethods
+    {
+        public static bool IsBuff(this EStatusType statusType)
+        {
+            return statusType switch
+            {
+                EStatusType.SLOWNESS => false,
+                EStatusType.BLEED => false,
+                EStatusType.PARALYSIS => false,
+                EStatusType.WEAKNESS => false,
+                EStatusType.STRENGTH => true,
+                _ => throw new InvalidOperationException("Unknown status type."),
+            };
+        }
     }
 }
