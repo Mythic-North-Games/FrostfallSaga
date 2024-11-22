@@ -1,6 +1,6 @@
-using NUnit.Framework;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using NUnit.Framework;
 using UnityEngine;
 
 namespace FrostfallSaga.EditModeTests.Grid.Cells
@@ -8,8 +8,18 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
     public class GetShorterPathTests
     {
-
+        /// <summary>
+        /// AllTerrain[4] = Plain (Accessible)
+        /// AllTerrain[5] = Water (NOT Accessible)
+        /// </summary>
         TerrainTypeSO[] AllTerrain = Resources.LoadAll<TerrainTypeSO>("ScriptableObjects/Grid/Terrain/");
+        /// <summary>
+        /// AllBiome[0] = Dark Forest
+        /// AllBiome[1] = Snow
+        /// AllBiome[2] = Tundra
+        /// AllBiome[3] = Valley
+        /// </summary>        
+        BiomeTypeSO[] AllBiome = Resources.LoadAll<BiomeTypeSO>("ScriptableObjects/Grid/Biome/");
 
         #region Tests with no obstacles
         [Test]
@@ -40,7 +50,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(3, 0)];
-            Cell[] expectedShorterPath = {                
+            Cell[] expectedShorterPath = {
                 grid.CellsByCoordinates[new(1, 0)],
                 grid.CellsByCoordinates[new(2, 0)],
                 grid.CellsByCoordinates[new(3, 0)],
@@ -60,7 +70,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
             Cell startCell = grid.CellsByCoordinates[new(4, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 1)];
-            Cell[] expectedShorterPath = {                
+            Cell[] expectedShorterPath = {
                 grid.CellsByCoordinates[new(3, 3)],
                 grid.CellsByCoordinates[new(3, 2)],
                 grid.CellsByCoordinates[new(2, 1)],
@@ -220,7 +230,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(0, 2)].Setup(new(0, 2), ECellHeight.LOW, 2f, AllTerrain[5]);
+            grid.CellsByCoordinates[new(0, 2)].Setup(new(0, 2), ECellHeight.LOW, 2f, AllTerrain[5], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(0, 3)];
@@ -242,7 +252,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(2, 0)].Setup(new(2, 0), ECellHeight.LOW, 2f, AllTerrain[5]);
+            grid.CellsByCoordinates[new(2, 0)].Setup(new(2, 0), ECellHeight.LOW, 2f, AllTerrain[5], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(3, 0)];
@@ -265,7 +275,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(3, 3)].Setup(new(3, 3), ECellHeight.LOW, 2f, AllTerrain[5]);
+            grid.CellsByCoordinates[new(3, 3)].Setup(new(3, 3), ECellHeight.LOW, 2f, AllTerrain[5], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(4, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 1)];
@@ -288,7 +298,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(0, 3)].Setup(new(0, 3), ECellHeight.LOW, 2f, AllTerrain[5]);
+            grid.CellsByCoordinates[new(0, 3)].Setup(new(0, 3), ECellHeight.LOW, 2f, AllTerrain[5], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(0, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(1, 1)];
@@ -311,7 +321,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(0, 1)].Setup(new(0, 1), ECellHeight.LOW, 2f, AllTerrain[5]);
+            grid.CellsByCoordinates[new(0, 1)].Setup(new(0, 1), ECellHeight.LOW, 2f, AllTerrain[5], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(1, 3)];
@@ -334,7 +344,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(3, 1)].Setup(new(3, 1), ECellHeight.LOW, 2f, AllTerrain[5]);
+            grid.CellsByCoordinates[new(3, 1)].Setup(new(3, 1), ECellHeight.LOW, 2f, AllTerrain[5], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(4, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 3)];
@@ -357,7 +367,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(1, 2)].Setup(new(1, 2), ECellHeight.LOW, 2f, AllTerrain[5]);
+            grid.CellsByCoordinates[new(1, 2)].Setup(new(1, 2), ECellHeight.LOW, 2f, AllTerrain[5], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
@@ -379,7 +389,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(3, 1)].Setup(new(3, 1), ECellHeight.LOW, 2f, AllTerrain[5]);
+            grid.CellsByCoordinates[new(3, 1)].Setup(new(3, 1), ECellHeight.LOW, 2f, AllTerrain[5], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(4, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
@@ -401,7 +411,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(1, 2)].Setup(new(1, 2), ECellHeight.LOW, 2f, AllTerrain[5]);
+            grid.CellsByCoordinates[new(1, 2)].Setup(new(1, 2), ECellHeight.LOW, 2f, AllTerrain[5], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(0, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
@@ -423,7 +433,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.LOW, 2f, AllTerrain[5]);
+            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.LOW, 2f, AllTerrain[5], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(4, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
@@ -447,7 +457,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(0, 2)].Setup(new(0, 2), ECellHeight.HIGH, 2f, AllTerrain[4]);
+            grid.CellsByCoordinates[new(0, 2)].Setup(new(0, 2), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(0, 3)];
@@ -469,7 +479,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(2, 0)].Setup(new(2, 0), ECellHeight.HIGH, 2f, AllTerrain[4]);
+            grid.CellsByCoordinates[new(2, 0)].Setup(new(2, 0), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(3, 0)];
@@ -492,7 +502,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(3, 3)].Setup(new(3, 3), ECellHeight.HIGH, 2f, AllTerrain[4]);
+            grid.CellsByCoordinates[new(3, 3)].Setup(new(3, 3), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(4, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 1)];
@@ -515,7 +525,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(0, 3)].Setup(new(0, 3), ECellHeight.HIGH, 2f, AllTerrain[4]);
+            grid.CellsByCoordinates[new(0, 3)].Setup(new(0, 3), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(0, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(1, 1)];
@@ -538,7 +548,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(0, 1)].Setup(new(0, 1), ECellHeight.HIGH, 2f, AllTerrain[4]);
+            grid.CellsByCoordinates[new(0, 1)].Setup(new(0, 1), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(1, 3)];
@@ -561,7 +571,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(3, 1)].Setup(new(3, 1), ECellHeight.HIGH, 2f, AllTerrain[4]);
+            grid.CellsByCoordinates[new(3, 1)].Setup(new(3, 1), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(4, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 3)];
@@ -584,7 +594,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(1, 2)].Setup(new(1, 2), ECellHeight.HIGH, 2f, AllTerrain[4]);
+            grid.CellsByCoordinates[new(1, 2)].Setup(new(1, 2), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
@@ -606,7 +616,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(3, 1)].Setup(new(3, 1), ECellHeight.HIGH, 2f, AllTerrain[4]);
+            grid.CellsByCoordinates[new(3, 1)].Setup(new(3, 1), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(4, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
@@ -628,7 +638,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(1, 2)].Setup(new(1, 2), ECellHeight.HIGH, 2f, AllTerrain[4]);
+            grid.CellsByCoordinates[new(1, 2)].Setup(new(1, 2), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(0, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
@@ -650,7 +660,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.HIGH, 2f, AllTerrain[4]);
+            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(4, 4)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
@@ -674,11 +684,11 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(2, 1)].Setup(new(2, 1), ECellHeight.HIGH, 2f, AllTerrain[4]);
-            grid.CellsByCoordinates[new(1, 1)].Setup(new(1, 1), ECellHeight.HIGH, 2f, AllTerrain[4]);
-            grid.CellsByCoordinates[new(1, 2)].Setup(new(1, 2), ECellHeight.HIGH, 2f, AllTerrain[4]);
-            grid.CellsByCoordinates[new(1, 3)].Setup(new(1, 3), ECellHeight.LOW, 2f, AllTerrain[5]);
-            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.MEDIUM, 2f, AllTerrain[5]);
+            grid.CellsByCoordinates[new(2, 1)].Setup(new(2, 1), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
+            grid.CellsByCoordinates[new(1, 1)].Setup(new(1, 1), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
+            grid.CellsByCoordinates[new(1, 2)].Setup(new(1, 2), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
+            grid.CellsByCoordinates[new(1, 3)].Setup(new(1, 3), ECellHeight.LOW, 2f, AllTerrain[5], AllBiome[3]);
+            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.MEDIUM, 2f, AllTerrain[5], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];
@@ -703,12 +713,12 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             HexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
-            grid.CellsByCoordinates[new(2, 1)].Setup(new(2, 1), ECellHeight.HIGH, 2f, AllTerrain[4]);
-            grid.CellsByCoordinates[new(1, 1)].Setup(new(1, 1), ECellHeight.HIGH, 2f, AllTerrain[4]);
-            grid.CellsByCoordinates[new(1, 2)].Setup(new(1, 2), ECellHeight.HIGH, 2f, AllTerrain[4]);
-            grid.CellsByCoordinates[new(1, 3)].Setup(new(1, 3), ECellHeight.LOW, 2f, AllTerrain[5]);
-            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.MEDIUM, 2f, AllTerrain[5]);
-            grid.CellsByCoordinates[new(3, 2)].Setup(new(3, 2), ECellHeight.MEDIUM, 2f, AllTerrain[5]);
+            grid.CellsByCoordinates[new(2, 1)].Setup(new(2, 1), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
+            grid.CellsByCoordinates[new(1, 1)].Setup(new(1, 1), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
+            grid.CellsByCoordinates[new(1, 2)].Setup(new(1, 2), ECellHeight.HIGH, 2f, AllTerrain[4], AllBiome[3]);
+            grid.CellsByCoordinates[new(1, 3)].Setup(new(1, 3), ECellHeight.LOW, 2f, AllTerrain[5], AllBiome[3]);
+            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.MEDIUM, 2f, AllTerrain[5], AllBiome[3]);
+            grid.CellsByCoordinates[new(3, 2)].Setup(new(3, 2), ECellHeight.MEDIUM, 2f, AllTerrain[5], AllBiome[3]);
 
             Cell startCell = grid.CellsByCoordinates[new(0, 0)];
             Cell targetCell = grid.CellsByCoordinates[new(2, 2)];

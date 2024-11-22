@@ -1,6 +1,6 @@
+using FrostfallSaga.Grid;
 using UnityEditor;
 using UnityEngine;
-using FrostfallSaga.Grid;
 
 namespace FrostfallSaga.FFSEditor.Grid
 {

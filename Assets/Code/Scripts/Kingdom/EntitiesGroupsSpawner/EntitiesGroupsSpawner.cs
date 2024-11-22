@@ -1,11 +1,11 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
+using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
-using FrostfallSaga.Core;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
 {
@@ -83,7 +83,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
 
         private Cell[] GetAvailableCellsForSpawn(Cell[] prohibitedCells)
         {
-            return _grid.GetCells().Where(cell => !prohibitedCells.Contains(cell) && cell.IsAccessible).ToArray();
+            return _grid.GetCells().Where(cell => !prohibitedCells.Contains(cell) && cell.IsFree()).ToArray();
         }
 
         #region Setup and tear down

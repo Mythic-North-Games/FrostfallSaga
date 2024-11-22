@@ -1,6 +1,6 @@
-using UnityEngine;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
+using UnityEngine;
 
 namespace FrostfallSaga.EditModeTests.Kingdom
 {
@@ -9,13 +9,13 @@ namespace FrostfallSaga.EditModeTests.Kingdom
         public static EntitiesGroup CreateEntitiesGroup(Cell currentCell, int movePoints = 3)
         {
             GameObject entitiesGroupGameObject = new();
-			entitiesGroupGameObject.AddComponent<EntitiesGroup>();
-			EntitiesGroup entitiesGroup = entitiesGroupGameObject.GetComponent<EntitiesGroup>();
+            entitiesGroupGameObject.AddComponent<EntitiesGroup>();
+            EntitiesGroup entitiesGroup = entitiesGroupGameObject.GetComponent<EntitiesGroup>();
 
             entitiesGroup.cell = currentCell;
-			entitiesGroup.movePoints = movePoints;
-            
-			return entitiesGroup;
+            entitiesGroup.movePoints = movePoints;
+
+            return entitiesGroup;
         }
-	}
+    }
 }

@@ -1,8 +1,8 @@
 using System;
-using UnityEngine;
-using UnityEngine.UIElements;
 using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Fight.UI
 {

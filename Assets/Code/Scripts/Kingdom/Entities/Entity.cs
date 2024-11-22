@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.EntitiesVisual;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom.Entities
 {

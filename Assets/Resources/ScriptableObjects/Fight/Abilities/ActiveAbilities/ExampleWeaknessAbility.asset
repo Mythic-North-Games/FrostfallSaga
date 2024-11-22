@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92309899b8b9f04ea20210cad65d66f, type: 3}
+  m_Name: ExampleWeaknessAbility
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Weakness ability example
+  <Description>k__BackingField: Applies weakness to targets.
+  <IconSprite>k__BackingField: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  Effects:
+  - rid: 3629974059018879023
+  <Targeter>k__BackingField:
+    <OriginCellRange>k__BackingField: 0
+    <CellsSequence>k__BackingField: []
+    <StartFromInitiator>k__BackingField: 0
+    <FighterMandatory>k__BackingField: 0
+    <TargetsToExclude>k__BackingField: 
+    <RelativeHeightsToExclude>k__BackingField: 
+    <StopedAtInacessibles>k__BackingField: 0
+    <StopedAtXthHigherHeightDifference>k__BackingField: 0
+    <StopedAtXthLowerHeightDifference>k__BackingField: 0
+    <StopedAtXthEncounteredFighters>k__BackingField: 0
+  <ActionPointsCost>k__BackingField: 1
+  <GodFavorsPointsCost>k__BackingField: 0
+  <Dodgable>k__BackingField: 0
+  <Masterstrokable>k__BackingField: 0
+  MasterstrokeEffects: []
+  CellAlterations: []
+  <Animation>k__BackingField: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3629974059018879023
+      type: {class: ApplyStatusesEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
+      data:
+        Name: Apply weakness example
+        Description: 
+        StatusesToApply:
+        - rid: 3629974059018879024
+    - rid: 3629974059018879024
+      type: {class: WeaknessStatus, ns: FrostfallSaga.Fight.Statuses, asm: FrostfallSaga.Fight}
+      data:
+        <StatusType>k__BackingField: 3
+        <Name>k__BackingField: Weakness status
+        <Description>k__BackingField: 
+        <IsPermanent>k__BackingField: 0
+        <Duration>k__BackingField: 3
+        <TriggerOnFirstApply>k__BackingField: 1
+        <IsRecurring>k__BackingField: 1
+        <TriggerTime>k__BackingField: 0
+        <VisualsController>k__BackingField: {fileID: 11400000, guid: e549f4ec3ffc32845ba84beb73ada695, type: 2}
+        <StrengthReduction>k__BackingField: 2

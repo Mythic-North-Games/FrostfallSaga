@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using FrostfallSaga.Grid.Cells;
+using UnityEngine;
 
 namespace FrostfallSaga.Grid
 {
@@ -31,16 +31,20 @@ namespace FrostfallSaga.Grid
         /// <param name="cellToGetTheNeighbors">The cell to get the neigbors from.</param>
         /// <param name="includeInaccessibleNeighbors">If the inaccessible cells should be included.</param>
         /// <param name="includeHeightInaccessibleNeighbors">If only the height inaccessible cells should be included.</param>
+        /// <param name="includeOccupiedNeighbors">If the occupied cells should be included.</param>
         /// <returns>The current cell neighbors in the given grid.</returns>
         public static Cell[] GetNeighbors(
             HexGrid hexGrid,
             Cell cellToGetTheNeighbors,
             bool includeInaccessibleNeighbors = false,
-            bool includeHeightInaccessibleNeighbors = false
+            bool includeHeightInaccessibleNeighbors = false,
+            bool includeOccupiedNeighbors = true
         )
         {
             List<Cell> neighbors = new();
-            Vector2Int[] directionsToCheck = (int)cellToGetTheNeighbors.Coordinates.y % 2 == 0 ? directionsToCheckIfHeightEven : directionsToCheckIfHeightOdd;
+            Vector2Int[] directionsToCheck = cellToGetTheNeighbors.Coordinates.y % 2 == 0 ?
+                directionsToCheckIfHeightEven :
+                directionsToCheckIfHeightOdd;
 
             foreach (Vector2Int direction in directionsToCheck)
             {
@@ -50,8 +54,12 @@ namespace FrostfallSaga.Grid
                 {
                     Cell currentNeighbor = cellsByCoordinates[neighborCoord];
                     if (
-                        (includeInaccessibleNeighbors || currentNeighbor.IsAccessible) &&
-                        (includeHeightInaccessibleNeighbors || GetHeightDifference(cellToGetTheNeighbors, currentNeighbor) <= 1)
+                        (includeOccupiedNeighbors || currentNeighbor.IsFree()) &&
+                        (includeInaccessibleNeighbors || currentNeighbor.IsTerrainAccessible()) &&
+                        (
+                            includeHeightInaccessibleNeighbors ||
+                            GetHeightDifference(cellToGetTheNeighbors, currentNeighbor) <= 1
+                        )
                     )
                     {
                         neighbors.Add(currentNeighbor);
