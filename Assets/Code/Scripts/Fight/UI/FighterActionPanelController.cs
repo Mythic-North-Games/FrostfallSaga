@@ -21,7 +21,7 @@ namespace FrostfallSaga.Fight.UI
         private static readonly string ACTION_PANEL_ROOT = "RootActionPanel";
         private static readonly string ABILITY_BUTTON_UI_NAME = "AbilityButton";
         private static readonly string DIRECT_ATTACK_BUTTON_UI_NAME = "AbilityButton0";
-        private static readonly string END_TURN_BUTTON_UI_NAME = "EndTurnButton";
+        private static readonly string END_TURN_BUTTON_UI_NAME = "EndTurnButton";        
 
         /// <summary>
         /// Displays or hides the entire action panel.
@@ -63,7 +63,7 @@ namespace FrostfallSaga.Fight.UI
 
         private void SetupAbilityButton(ActiveAbilitySO activeAbility, int slotIndex)
         {
-            Button abilityButton = _uiDoc.rootVisualElement.Q($"{ABILITY_BUTTON_UI_NAME}{slotIndex}") as Button;
+            Button abilityButton = _uiDoc.rootVisualElement.Q<Button>($"{ABILITY_BUTTON_UI_NAME}{slotIndex}");
             abilityButton.style.backgroundImage = new(activeAbility.IconSprite);
             _buttonToActiveAbility.Add(abilityButton, activeAbility);
         }
@@ -99,7 +99,7 @@ namespace FrostfallSaga.Fight.UI
             VisualElement abilitiesPanel = _uiDoc.rootVisualElement.Q("AbilitiesPanel");
             while (i < abilitiesPanel.childCount)
             {
-                abilitiesButtons.Add(abilitiesPanel.Q($"{ABILITY_BUTTON_UI_NAME}{i}") as Button);
+                abilitiesButtons.Add(abilitiesPanel.Q<Button>($"{ABILITY_BUTTON_UI_NAME}{i}"));
                 i++;
             }
 
@@ -130,8 +130,8 @@ namespace FrostfallSaga.Fight.UI
                 return;
             }
 
-            Button directAttackButton = _uiDoc.rootVisualElement.Q(DIRECT_ATTACK_BUTTON_UI_NAME) as Button;
-            Button endTurnButton = _uiDoc.rootVisualElement.Q(END_TURN_BUTTON_UI_NAME) as Button;
+            Button directAttackButton = _uiDoc.rootVisualElement.Q<Button>(DIRECT_ATTACK_BUTTON_UI_NAME);
+            Button endTurnButton = _uiDoc.rootVisualElement.Q<Button>(END_TURN_BUTTON_UI_NAME);
 
             directAttackButton.RegisterCallback<ClickEvent>(OnDirectAttackButtonClicked);
             GetAbilitiesButtons().ToList().ForEach(
@@ -147,8 +147,8 @@ namespace FrostfallSaga.Fight.UI
         {
             if (_uiDoc != null && _uiDoc.rootVisualElement != null)
             {
-                Button directAttackButton = _uiDoc.rootVisualElement.Q(DIRECT_ATTACK_BUTTON_UI_NAME) as Button;
-                Button endTurnButton = _uiDoc.rootVisualElement.Q(END_TURN_BUTTON_UI_NAME) as Button;
+                Button directAttackButton = _uiDoc.rootVisualElement.Q<Button>(DIRECT_ATTACK_BUTTON_UI_NAME);
+                Button endTurnButton = _uiDoc.rootVisualElement.Q<Button>(END_TURN_BUTTON_UI_NAME);
 
                 directAttackButton.UnregisterCallback<ClickEvent>(OnDirectAttackButtonClicked);
                 GetAbilitiesButtons().ToList().ForEach(
