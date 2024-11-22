@@ -15,11 +15,10 @@ MonoBehaviour:
   <FighterClass>k__BackingField: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 11400000, guid: 770ae372dc3abe843a19020cabaa49fb, type: 2}
   <AvailableActiveAbilities>k__BackingField:
-  - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-    animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+  - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
   ActiveAbilitiesCapacity: 5
   <AvailablePassiveAbilities>k__BackingField:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
   PassiveAbilitiesCapacity: 5
   <DirectAttackTargeter>k__BackingField:
     <OriginCellRange>k__BackingField: 0
@@ -44,14 +43,28 @@ MonoBehaviour:
   <MagicalResistances>k__BackingField:
   - magicalElement: 0
     value: 0
-  - magicalElement: 0
+  - magicalElement: 1
+    value: 0
+  - magicalElement: 2
+    value: 0
+  - magicalElement: 3
+    value: 0
+  - magicalElement: 4
+    value: 0
+  - magicalElement: 5
     value: 0
   <MagicalStrengths>k__BackingField:
   - magicalElement: 0
     value: 0
-  - magicalElement: 0
+  - magicalElement: 1
     value: 0
-  - magicalElement: 0
+  - magicalElement: 2
+    value: 0
+  - magicalElement: 3
+    value: 0
+  - magicalElement: 4
+    value: 0
+  - magicalElement: 5
     value: 0
   <DodgeChance>k__BackingField: 0
   <MasterstrokeChance>k__BackingField: 0

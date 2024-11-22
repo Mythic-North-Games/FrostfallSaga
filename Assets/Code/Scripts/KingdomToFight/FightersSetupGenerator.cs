@@ -6,7 +6,6 @@ using FrostfallSaga.Kingdom;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Fight;
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Abilities;
 
 namespace FrostfallSaga.KingdomToFight
