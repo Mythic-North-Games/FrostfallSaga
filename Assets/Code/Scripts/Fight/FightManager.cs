@@ -3,9 +3,11 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid;
+using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Controllers;
-using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Fight.Statuses;
+using FrostfallSaga.Fight.UI;
 
 namespace FrostfallSaga.Fight
 {
@@ -14,15 +16,28 @@ namespace FrostfallSaga.Fight
     /// </summary>
     public class FightManager : MonoBehaviour
     {
+        public Dictionary<Fighter, bool> FighterTeams
+        {
+            get => GetFighterTeamsAsDict(_allies, _enemies);
+        }
+
         public Action<Fighter, bool> onFighterTurnBegan; // <the fighter that plays, if he's an ally>
         public Action<Fighter, bool> onFighterTurnEnded; // <the fighter that plays, if he's an ally>
         public Action<Fighter[]> onFightersTurnOrderUpdated;
         public Action<Fighter[], Fighter[]> onFightEnded;   // <allies, enemies>
 
+        // Needed external components
         [SerializeField] private FightersGenerator _fightersGenerator;
         [SerializeField] private HexGrid _fightGrid;
-        [SerializeField] private AFighterController _alliesController;
-        [SerializeField] private AFighterController _enemiesController;
+        [SerializeField] private FighterActionPanelController _actionPanel;
+        [SerializeField] private Material _cellHighlightMaterial;
+        [SerializeField] private Material _cellActionableHighlightMaterial;
+        [SerializeField] private Material _cellInaccessibleHighlightMateria;
+
+        // Controllers
+        private PlayerController _playerController;
+        private FBTController _fbtController;
+        private RandomController _randomController;
 
         private List<Fighter> _allies;
         private List<Fighter> _enemies;
@@ -38,28 +53,58 @@ namespace FrostfallSaga.Fight
             SubscribeToFightersEvents();
             PositionFightersOnGrid(_fightGrid, _allies.ToArray(), _enemies.ToArray());
             UpdateFightersTurnOrder(GetFightersTurnOrder(_allies.Concat(_enemies).ToArray()));
+            UpdateFightersPassiveAbilities();
             PlayNextFighterTurn();
         }
 
         private void PlayNextFighterTurn()
         {
             _playingFighter = _fightersTurnOrder.Dequeue();
-            bool isAlly = _allies.Contains(_playingFighter);
-            AFighterController controller = isAlly ? _alliesController : _enemiesController;
-            onFighterTurnBegan(_playingFighter, isAlly);
-            controller.PlayTurn(_playingFighter, GetFighterTeamsAsDict(_allies, _enemies), _fightGrid);
+            _playingFighter.StatusesManager.UpdateStatuses(EStatusTriggerTime.StartOfTurn);
+
+            AFighterController controller = GetControllerForFighter(_playingFighter);
+            onFighterTurnBegan(_playingFighter, _allies.Contains(_playingFighter));
+            controller.PlayTurn(_playingFighter, FighterTeams, _fightGrid);
+        }
+
+        private AFighterController GetControllerForFighter(Fighter fighter)
+        {
+            if (_allies.Contains(fighter))
+            {
+                return _playerController;
+            }
+            if (fighter.PersonalityTrait == null)
+            {
+                return _randomController;
+            }
+            return _fbtController;
         }
 
         private void OnFighterTurnEnded(Fighter fighterThatPlayed)
         {
+            if (HasFightEnded())    // All fight ended events already handled in OnFighterActionEnded
+            {
+                return;
+            }
+
+            // Update fighter stats & statuses
             fighterThatPlayed.ResetMovementAndActionPoints();
+            fighterThatPlayed.StatusesManager.UpdateStatuses(EStatusTriggerTime.EndOfTurn);
+
+            // Update cells alterations
+            UpdateFightGridCellsAlterations();
+
+            // Update turn order
             _fightersTurnOrder.Enqueue(fighterThatPlayed);
             onFightersTurnOrderUpdated?.Invoke(_fightersTurnOrder.ToArray());
+
+            // Launch next turn
             PlayNextFighterTurn();
         }
 
         private void OnFighterActionEnded(Fighter fighterThatAct)
         {
+            // Check for fight end first
             if (HasFightEnded())
             {
                 Debug.Log($"Winner is {GetWinner(_allies, _enemies)}");
@@ -67,6 +112,10 @@ namespace FrostfallSaga.Fight
                 return;
             }
 
+            // Update fighter passive abilities
+            UpdateFightersPassiveAbilities();
+
+            // Update turn order if needed
             Queue<Fighter> updatedFighterTurnsOrder = GetFightersTurnOrder(_allies.Concat(_enemies).ToArray());
             if (!CompareFighterTurnOrder(updatedFighterTurnsOrder.ToArray(), _initialFightersTurnOrder))
             {
@@ -78,7 +127,13 @@ namespace FrostfallSaga.Fight
         {
             // Deactivate dead fighter
             fighterThatDied.gameObject.SetActive(false);
-            fighterThatDied.cell.GetComponent<CellFightBehaviour>().Fighter = null;
+            fighterThatDied.cell.SetFighter(null);
+
+            // Increase god favors points for the fighter that killed the other
+            _playingFighter.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.KILL);
+
+            // Update fighter passive abilities
+            UpdateFightersPassiveAbilities();
 
             // Update order
             Queue<Fighter> updatedFighterTurnsOrder = GetFightersTurnOrder(_allies.Concat(_enemies).ToArray());
@@ -87,7 +142,7 @@ namespace FrostfallSaga.Fight
                 UpdateFightersTurnOrder(updatedFighterTurnsOrder);
             }
 
-            // If suicide, end fight if needed, otherwise go to next fight
+            // If suicide, end fight if needed, otherwise end fighter turn
             if (fighterThatDied == _playingFighter)
             {
                 if (HasFightEnded())
@@ -96,7 +151,7 @@ namespace FrostfallSaga.Fight
                     onFightEnded?.Invoke(_allies.ToArray(), _enemies.ToArray());
                     return;
                 }
-                PlayNextFighterTurn();
+                OnFighterTurnEnded(fighterThatDied);
             }
         }
 
@@ -139,24 +194,29 @@ namespace FrostfallSaga.Fight
                 Debug.LogError("No fighters generator found. Can't start fight.");
             }
 
-            if (_alliesController == null)
-            {
-                Debug.LogError("No controller for allies set.");
-                return;
-            }
-            if (_enemiesController == null)
-            {
-                Debug.LogError("No controller for enemies set.");
-                return;
-            }
+            // Setup controllers
+            _playerController = gameObject.AddComponent<PlayerController>();
+            _playerController.Setup(
+                _actionPanel,
+                _cellHighlightMaterial,
+                _cellActionableHighlightMaterial,
+                _cellInaccessibleHighlightMateria
+
+            );
+            _playerController.onFighterTurnEnded += OnFighterTurnEnded;
+            _playerController.onFighterActionEnded += OnFighterActionEnded;
+
+            _fbtController = gameObject.AddComponent<FBTController>();
+            _fbtController.Setup();
+            _fbtController.onFighterTurnEnded += OnFighterTurnEnded;
+            _fbtController.onFighterActionEnded += OnFighterActionEnded;
+
+            _randomController = gameObject.AddComponent<RandomController>();
+            _randomController.Setup();
+            _randomController.onFighterTurnEnded += OnFighterTurnEnded;
+            _randomController.onFighterActionEnded += OnFighterActionEnded;
 
             _fightersGenerator.onFightersGenerated += OnFightersGenerated;
-
-            _alliesController.onFighterTurnEnded += OnFighterTurnEnded;
-            _alliesController.onFighterActionEnded += OnFighterActionEnded;
-
-            _enemiesController.onFighterTurnEnded += OnFighterTurnEnded;
-            _enemiesController.onFighterActionEnded += OnFighterActionEnded;
         }
 
         private void OnDisable()
@@ -166,21 +226,26 @@ namespace FrostfallSaga.Fight
                 _fightersGenerator.onFightersGenerated -= OnFightersGenerated;
             }
 
-            if (_alliesController != null)
+            if (_playerController != null)
             {
-                _alliesController.onFighterTurnEnded -= OnFighterTurnEnded;
-                _alliesController.onFighterActionEnded += OnFighterActionEnded;
+                _playerController.onFighterTurnEnded -= OnFighterTurnEnded;
+                _playerController.onFighterActionEnded += OnFighterActionEnded;
             }
-            if (_enemiesController != null)
+            if (_fbtController != null)
             {
-                _enemiesController.onFighterTurnEnded -= OnFighterTurnEnded;
-                _enemiesController.onFighterActionEnded -= OnFighterActionEnded;
+                _fbtController.onFighterTurnEnded -= OnFighterTurnEnded;
+                _fbtController.onFighterActionEnded -= OnFighterActionEnded;
+            }
+            if (_randomController != null)
+            {
+                _randomController.onFighterTurnEnded -= OnFighterTurnEnded;
+                _randomController.onFighterActionEnded -= OnFighterActionEnded;
             }
         }
         #endregion
 
-        #region Static helper methods
-        private static Dictionary<Fighter, bool> GetFighterTeamsAsDict(List<Fighter> allies, List<Fighter> enemies)
+        #region Private helper methods
+        private Dictionary<Fighter, bool> GetFighterTeamsAsDict(List<Fighter> allies, List<Fighter> enemies)
         {
             Dictionary<Fighter, bool> teams = new();
             allies.ForEach(ally => teams.Add(ally, true));
@@ -188,13 +253,13 @@ namespace FrostfallSaga.Fight
             return teams;
         }
 
-        private static void PositionFightersOnGrid(HexGrid fightGrid, Fighter[] allies, Fighter[] enemies)
+        private void PositionFightersOnGrid(HexGrid fightGrid, Fighter[] allies, Fighter[] enemies)
         {
             int xCellIndex = 0;
             foreach (Fighter ally in allies)
             {
-                Cell cellForAlly = fightGrid.CellsByCoordinates[new(xCellIndex, 0)];
-                cellForAlly.GetComponent<CellFightBehaviour>().Fighter = ally;
+                FightCell cellForAlly = (FightCell)fightGrid.CellsByCoordinates[new(xCellIndex, 0)];
+                cellForAlly.SetFighter(ally);
                 ally.cell = cellForAlly;
                 ally.MovementController.RotateTowardsCell(fightGrid.CellsByCoordinates[new(xCellIndex, 1)]);
                 ally.MovementController.TeleportToCell(cellForAlly);
@@ -204,8 +269,8 @@ namespace FrostfallSaga.Fight
             xCellIndex = 0;
             foreach (Fighter enemy in enemies)
             {
-                Cell cellForEnemy = fightGrid.CellsByCoordinates[new(xCellIndex, fightGrid.Height - 1)];
-                cellForEnemy.GetComponent<CellFightBehaviour>().Fighter = enemy;
+                FightCell cellForEnemy = (FightCell)fightGrid.CellsByCoordinates[new(xCellIndex, fightGrid.Height - 1)];
+                cellForEnemy.SetFighter(enemy);
                 enemy.cell = cellForEnemy;
                 enemy.MovementController.RotateTowardsCell(fightGrid.CellsByCoordinates[new(xCellIndex, fightGrid.Height - 2)]);
                 enemy.MovementController.TeleportToCell(cellForEnemy);
@@ -213,7 +278,7 @@ namespace FrostfallSaga.Fight
             }
         }
 
-        private static EWinner GetWinner(List<Fighter> allies, List<Fighter> enemies)
+        private EWinner GetWinner(List<Fighter> allies, List<Fighter> enemies)
         {
             int teamHealth = 0;
             allies.ForEach(ally => teamHealth += ally.GetHealth());
@@ -232,7 +297,7 @@ namespace FrostfallSaga.Fight
             return EWinner.NO_ONE;
         }
 
-        private static Queue<Fighter> GetFightersTurnOrder(Fighter[] fighters)
+        private Queue<Fighter> GetFightersTurnOrder(Fighter[] fighters)
         {
             return new(
                 fighters
@@ -241,7 +306,7 @@ namespace FrostfallSaga.Fight
             );
         }
 
-        private static bool CompareFighterTurnOrder(Fighter[] order1, Fighter[] order2)
+        private bool CompareFighterTurnOrder(Fighter[] order1, Fighter[] order2)
         {
             if (order1.Length != order2.Length)
             {
@@ -257,6 +322,21 @@ namespace FrostfallSaga.Fight
             }
 
             return true;
+        }
+
+        private void UpdateFightGridCellsAlterations()
+        {
+            FightCell[] cells = Array.ConvertAll(_fightGrid.GetCells(), cell => (FightCell)cell);
+            foreach (FightCell cell in cells)
+            {
+                cell.UpdateAlterations();
+            }
+        }
+
+        private void UpdateFightersPassiveAbilities()
+        {
+            _allies.ForEach(ally => ally.PassiveAbilitiesManager.UpdatePassiveAbilities(_fightGrid, FighterTeams));
+            _enemies.ForEach(enemy => enemy.PassiveAbilitiesManager.UpdatePassiveAbilities(_fightGrid, FighterTeams));
         }
         #endregion
 

@@ -1,28 +1,16 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
-using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.Fight;
+using FrostfallSaga.KingdomToFight;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.KingdomToFight;
-using System;
+using FrostfallSaga.Fight.FightCells;
 
 namespace FrostfallSaga.EditModeTests.FightTests
 {
     public static class FightTestsHelper
     {
-        public static HexGrid CreatePlainFightGrid(int width = 5, int height = 5)
-        {
-            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(width, height);
-            foreach (KeyValuePair<Vector2Int, Cell> coordsToCell in grid.CellsByCoordinates)
-            {
-                coordsToCell.Value.gameObject.AddComponent<CellFightBehaviour>();
-            }
-            return grid;
-        }
-
         public static Fighter CreateFighter()
         {
             GameObject fighterGameObject = new();
@@ -32,7 +20,6 @@ namespace FrostfallSaga.EditModeTests.FightTests
                 fighter,
                 Resources.Load<FighterConfigurationSO>("EditModeTests/ScriptableObjects/TestFighter")
             );
-
 
             GameObject fighterEntitiesVisualGameObject = new();
             fighterEntitiesVisualGameObject.transform.SetParent(fighterGameObject.transform);
@@ -53,21 +40,26 @@ namespace FrostfallSaga.EditModeTests.FightTests
                     EntityID.HERO,
                     null,
                     fighterConfiguration.ExtractFighterStats(),
+                    fighterConfiguration.FighterClass,
+                    fighterConfiguration.PersonalityTrait,
                     fighterConfiguration.DirectAttackTargeter,
                     fighterConfiguration.DirectAttackActionPointsCost,
                     fighterConfiguration.DirectAttackEffects,
                     fighterConfiguration.DirectAttackAnimation,
                     fighterConfiguration.AvailableActiveAbilities,
-                    fighterConfiguration.ReceiveDamageAnimationStateName,
-                    fighterConfiguration.HealSelfAnimationStateName
+                    fighterConfiguration.AvailablePassiveAbilities,
+                    fighterConfiguration.ReceiveDamageAnimationName,
+                    fighterConfiguration.HealSelfAnimationName,
+                    fighterConfiguration.ReduceStatAnimationName,
+                    fighterConfiguration.IncreaseStatAnimationName
                 )
             );
         }
 
         public static void SetupFighterPositionOnGrid(HexGrid grid, Fighter fighter, Vector2Int cellCoordinates)
         {
-            grid.CellsByCoordinates[cellCoordinates].GetComponent<CellFightBehaviour>().Fighter = fighter;
-            fighter.cell = grid.CellsByCoordinates[cellCoordinates];
+            ((FightCell)grid.CellsByCoordinates[cellCoordinates]).SetFighter(fighter);
+            fighter.cell = (FightCell)grid.CellsByCoordinates[cellCoordinates];
         }
     }
 }

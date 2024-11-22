@@ -15,7 +15,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 		public void GenerateRandomMovePathForEntitiesGroup_NoProhibitedCells_LengthMax_Test()
 		{
 			// Arrange
-			HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(10, 10);
+			HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(false, 10, 10);
 			int pathLength = 3;
 			HashSet<Cell> prohibitedCells = new();
 			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)], pathLength);
@@ -46,14 +46,14 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 			}
 
 			// Assert all cells are accessibles
-			Assert.True(uniqueCells.All(cell => cell.IsAccessible));
+			Assert.True(uniqueCells.All(cell => cell.IsFree()));
 		}
 
 		[Test]
 		public void GenerateRandomMovePathForEntitiesGroup_ProhibitedCells_LengthMax_Test()
 		{
 			// Arrange
-			HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(10, 10);
+			HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(false, 10, 10);
 			int pathLength = 3;
 			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)], pathLength);
 			HashSet<Cell> prohibitedCells = new()
@@ -90,7 +90,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 				}
 
 				// Assert all cells are accessibles
-				Assert.True(uniqueCells.All(cell => cell.IsAccessible));
+				Assert.True(uniqueCells.All(cell => cell.IsFree()));
 			}
 		}
 
@@ -98,7 +98,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 		public void GenerateRandomMovePathForEntitiesGroup_MinPathLengthLessThanZero_Test()
 		{
 			// Arrange
-			HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(10, 10);
+			HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(false, 10, 10);
 			int minPathLength = -3;
 			HashSet<Cell> prohibitedCells = new();
 			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)], minPathLength);
@@ -115,7 +115,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 		public void GenerateRandomMovePathPerEntitiesGroup_Test()
 		{
 			// Arrange
-			HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(10, 10);
+			HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(false, 10, 10);
 			int minPathLength = 2;
 			EntitiesGroup[] entitiesGroups = {
 				KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)], minPathLength),
@@ -163,7 +163,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 				}
 
 				// Assert all cells are accessibles
-				Assert.True(uniqueCells.All(cell => cell.IsAccessible));				
+				Assert.True(uniqueCells.All(cell => cell.IsFree()));				
 			}
 		}
 	}

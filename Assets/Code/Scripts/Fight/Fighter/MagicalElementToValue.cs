@@ -11,9 +11,15 @@ namespace FrostfallSaga.Fight.Fighters
         public EMagicalElement magicalElement;
         public int value;
 
+        public MagicalElementToValue(EMagicalElement magicalElement, int value)
+        {
+            this.magicalElement = magicalElement;
+            this.value = value;
+        }
+
         public static Dictionary<EMagicalElement, int> GetDictionaryFromArray(MagicalElementToValue[] magicalElementToValues)
         {
-            Dictionary<EMagicalElement, int> dictionary = new Dictionary<EMagicalElement, int>();
+            Dictionary<EMagicalElement, int> dictionary = new();
             foreach (var magicalElementToValue in magicalElementToValues)
             {
                 dictionary.Add(magicalElementToValue.magicalElement, magicalElementToValue.value);

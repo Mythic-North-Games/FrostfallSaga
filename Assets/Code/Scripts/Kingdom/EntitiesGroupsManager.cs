@@ -1,11 +1,11 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.EntitiesGroupsSpawner;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -33,6 +33,7 @@ namespace FrostfallSaga.Kingdom
         {
             HeroGroup = FindObjectsOfType<EntitiesGroup>().ToList().Find(entitiesGroup => entitiesGroup.name == "HeroGroup");
             EnemiesGroups = FindObjectsOfType<EntitiesGroup>().ToList().FindAll(entitiesGroup => entitiesGroup.name != "HeroGroup");
+            BindEntitiesGroupsMouseEvents();
         }
 
         // It's inside this function that the magic happens. It makes the hero group then the enemies move.
@@ -56,6 +57,11 @@ namespace FrostfallSaga.Kingdom
 
         }
 
+        private void OnEntitiesGroupClicked(EntitiesGroup clickedEntitiesGroup)
+        {
+            OnCellClicked(clickedEntitiesGroup.cell);
+        }
+
         private void OnEnemiesGroupEncounteredDuringMovement(EntitiesGroup encounteredEnemiesGroup, bool heroGroupHasInitiated)
         {
             onEnemiesGroupEncountered?.Invoke(HeroGroup, encounteredEnemiesGroup, heroGroupHasInitiated);
@@ -77,6 +83,9 @@ namespace FrostfallSaga.Kingdom
         private void OnEnemiesGroupSpawned(EntitiesGroup spawnedEnemiesGroup)
         {
             EnemiesGroups.Add(spawnedEnemiesGroup);
+            spawnedEnemiesGroup.onEntityGroupHovered += OnEntitiesGroupHovered;
+            spawnedEnemiesGroup.onEntityGroupUnhovered += OnEntitiesGroupUnhovered;
+            spawnedEnemiesGroup.onEntityGroupClicked += OnEntitiesGroupClicked;
         }
 
         private Cell[] GetOccupiedCells()
@@ -107,9 +116,19 @@ namespace FrostfallSaga.Kingdom
             HighlightShorterPathCells();
         }
 
+        private void OnEntitiesGroupHovered(EntitiesGroup hoveredEntitiesGroup)
+        {
+            OnCellHovered(hoveredEntitiesGroup.cell);
+        }
+
         private void OnCellUnhovered(Cell hoveredCell)
         {
             ResetShorterPathCellsDefaultMaterial();
+        }
+
+        private void OnEntitiesGroupUnhovered(EntitiesGroup unhoveredEntitiesGroup)
+        {
+            OnCellUnhovered(unhoveredEntitiesGroup.cell);
         }
 
         private void HighlightShorterPathCells()
@@ -167,6 +186,34 @@ namespace FrostfallSaga.Kingdom
         }
         #endregion
 
+        #region Entities groups mouse events binding and unbinding
+        private void BindEntitiesGroupsMouseEvents()
+        {
+            HeroGroup.onEntityGroupHovered += OnEntitiesGroupHovered;
+            HeroGroup.onEntityGroupUnhovered += OnEntitiesGroupUnhovered;
+            HeroGroup.onEntityGroupClicked += OnEntitiesGroupClicked;
+            EnemiesGroups.ForEach(enemiesGroup =>
+            {
+                enemiesGroup.onEntityGroupHovered += OnEntitiesGroupHovered;
+                enemiesGroup.onEntityGroupUnhovered += OnEntitiesGroupUnhovered;
+                enemiesGroup.onEntityGroupClicked += OnEntitiesGroupClicked;
+            });
+        }
+
+        private void UnbindEntitiesGroupsMouseEvents()
+        {
+            HeroGroup.onEntityGroupHovered -= OnEntitiesGroupHovered;
+            HeroGroup.onEntityGroupUnhovered -= OnEntitiesGroupUnhovered;
+            HeroGroup.onEntityGroupClicked -= OnEntitiesGroupClicked;
+            EnemiesGroups.ForEach(enemiesGroup =>
+            {
+                enemiesGroup.onEntityGroupHovered -= OnEntitiesGroupHovered;
+                enemiesGroup.onEntityGroupUnhovered -= OnEntitiesGroupUnhovered;
+                enemiesGroup.onEntityGroupClicked -= OnEntitiesGroupClicked;
+            });
+        }
+        #endregion
+
         #region Setup and tear down
         private void OnEnable()
         {
@@ -207,6 +254,11 @@ namespace FrostfallSaga.Kingdom
             _entitiesGroupsMovementController.OnAllEntitiesMoved += OnAllEntitiesMoved;
             _entitiesGroupsMovementController.OnEnemiesGroupEncountered += OnEnemiesGroupEncounteredDuringMovement;
             BindCellMouseEvents();
+
+            if (HeroGroup != null)
+            {
+                BindEntitiesGroupsMouseEvents();
+            }
         }
 
         private void OnDisable()
@@ -215,6 +267,11 @@ namespace FrostfallSaga.Kingdom
             _entitiesGroupsMovementController.OnEnemiesGroupEncountered -= OnEnemiesGroupEncounteredDuringMovement;
             _enemiesGroupSpawner.onEntitiesGroupSpawned -= OnEnemiesGroupSpawned;
             UnbindCellMouseEvents();
+
+            if (HeroGroup != null)
+            {
+                UnbindEntitiesGroupsMouseEvents();
+            }
         }
         #endregion
     }

@@ -1,6 +1,6 @@
-using UnityEngine;
 using Cinemachine;
 using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight
 {

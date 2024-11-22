@@ -1,11 +1,11 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 using FrostfallSaga.Core;
+using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
-using FrostfallSaga.EntitiesVisual;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom.EntitiesGroups
 {
@@ -17,9 +17,10 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
     {
         public int movePoints;
         public Cell cell;
-        [field:SerializeField] public Transform CameraAnchor { get; private set; }
+        [field: SerializeField] public Transform CameraAnchor { get; private set; }
         public Action<EntitiesGroup> onEntityGroupHovered;
         public Action<EntitiesGroup> onEntityGroupUnhovered;
+        public Action<EntitiesGroup> onEntityGroupClicked;
         public Action<EntitiesGroup, Cell> onEntityGroupMoved;
         public Entity[] Entities { get; protected set; }
         private Entity _displayedEntity;
@@ -34,8 +35,19 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             }
             if (cell == null)
             {
-                Debug.LogError("Entity group " + name + " does not have a cell.");
-                return;
+                try
+                {
+                    Cell _tryToGetStartCell = GameObject.Find("Cell[0;0]").GetComponent<Cell>();
+                    if (_tryToGetStartCell.IsFree())
+                    {
+                        cell = _tryToGetStartCell;
+                    }
+                }
+                catch
+                {
+                    Debug.LogError("Entity group " + name + " does not have a cell.");
+                    return;
+                }
             }
 
             if (_displayedEntity == null)
@@ -100,6 +112,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             newDisplayedEntity.GetComponentInChildren<EntityVisualMovementController>().UpdateParentToMove(gameObject);
             newDisplayedEntity.EntityMouseEventsController.OnElementHover += OnDisplayedEntityHovered;
             newDisplayedEntity.EntityMouseEventsController.OnElementUnhover += OnDisplayedEntityUnhovered;
+            newDisplayedEntity.EntityMouseEventsController.OnLeftMouseUp += OnDisplayedEntityClicked;
             newDisplayedEntity.EntityVisualMovementController.onMoveEnded += OnMoveEnded;
             _displayedEntity = newDisplayedEntity;
         }
@@ -114,9 +127,14 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             onEntityGroupHovered?.Invoke(this);
         }
 
-        private void OnDisplayedEntityUnhovered(Entity hoveredEntity)
+        private void OnDisplayedEntityUnhovered(Entity unhoveredEntity)
         {
             onEntityGroupUnhovered?.Invoke(this);
+        }
+
+        private void OnDisplayedEntityClicked(Entity clickedEntity)
+        {
+            onEntityGroupClicked?.Invoke(this);
         }
 
         private void OnDisable()
@@ -125,6 +143,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             {
                 _displayedEntity.EntityMouseEventsController.OnElementHover -= OnDisplayedEntityHovered;
                 _displayedEntity.EntityMouseEventsController.OnElementUnhover -= OnDisplayedEntityUnhovered;
+                _displayedEntity.EntityMouseEventsController.OnLeftMouseUp -= OnDisplayedEntityClicked;
             }
         }
 

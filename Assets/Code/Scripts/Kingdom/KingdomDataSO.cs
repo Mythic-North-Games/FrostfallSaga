@@ -1,5 +1,5 @@
-using UnityEngine;
 using FrostfallSaga.Kingdom.EntitiesGroups;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
 {

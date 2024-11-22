@@ -6,7 +6,7 @@ using FrostfallSaga.Kingdom;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Fight;
-using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Abilities;
 
 namespace FrostfallSaga.KingdomToFight
 {
@@ -76,6 +76,8 @@ namespace FrostfallSaga.KingdomToFight
                 entityConfiguration.EntityID,
                 entityConfiguration.EntityIcon,
                 fighterConfiguration.ExtractFighterStats(),
+                fighterConfiguration.FighterClass,
+                fighterConfiguration.PersonalityTrait,
                 fighterConfiguration.DirectAttackTargeter,
                 fighterConfiguration.DirectAttackActionPointsCost,
                 fighterConfiguration.DirectAttackEffects,
@@ -84,8 +86,14 @@ namespace FrostfallSaga.KingdomToFight
                     fighterConfiguration.AvailableActiveAbilities,
                     fighterConfiguration.ActiveAbilitiesCapacity
                 ),
-                fighterConfiguration.ReceiveDamageAnimationStateName,
-                fighterConfiguration.HealSelfAnimationStateName
+                GetRandomPassiveAbilities(
+                    fighterConfiguration.AvailablePassiveAbilities,
+                    fighterConfiguration.PassiveAbilitiesCapacity
+                ),
+                fighterConfiguration.ReceiveDamageAnimationName,
+                fighterConfiguration.HealSelfAnimationName,
+                fighterConfiguration.ReduceStatAnimationName,
+                fighterConfiguration.IncreaseStatAnimationName
             );
         }
 
@@ -101,13 +109,18 @@ namespace FrostfallSaga.KingdomToFight
                 entityConfiguration.EntityID,
                 entityConfiguration.EntityIcon,
                 fighterConfiguration.ExtractFighterStats(),
+                fighterConfiguration.FighterClass,
+                fighterConfiguration.PersonalityTrait,
                 fighterConfiguration.DirectAttackTargeter,
                 fighterConfiguration.DirectAttackActionPointsCost,
                 fighterConfiguration.DirectAttackEffects,
                 fighterConfiguration.DirectAttackAnimation,
                 fighterConfiguration.EquipedActiveAbilities,
-                fighterConfiguration.ReceiveDamageAnimationStateName,
-                fighterConfiguration.HealSelfAnimationStateName
+                fighterConfiguration.EquipedPassiveAbilities,
+                fighterConfiguration.ReceiveDamageAnimationName,
+                fighterConfiguration.HealSelfAnimationName,
+                fighterConfiguration.ReduceStatAnimationName,
+                fighterConfiguration.IncreaseStatAnimationName
             );
         }
 
@@ -154,10 +167,10 @@ namespace FrostfallSaga.KingdomToFight
         }
         #endregion
 
-        private static ActiveAbilityToAnimation[] GetRandomActiveAbilities(ActiveAbilityToAnimation[] activeAbalities, int count)
+        private static ActiveAbilitySO[] GetRandomActiveAbilities(ActiveAbilitySO[] activeAbalities, int count)
         {
-            List<ActiveAbilityToAnimation> availableActiveAbilities = new(activeAbalities);
-            List<ActiveAbilityToAnimation> equipedActiveAbilities = new();
+            List<ActiveAbilitySO> availableActiveAbilities = new(activeAbalities);
+            List<ActiveAbilitySO> equipedActiveAbilities = new();
             while (equipedActiveAbilities.Count < count && availableActiveAbilities.Count > 0)
             {
                 int randomActiveAbilityIndex = Randomizer.GetRandomIntBetween(0, availableActiveAbilities.Count);
@@ -165,6 +178,19 @@ namespace FrostfallSaga.KingdomToFight
                 availableActiveAbilities.RemoveAt(randomActiveAbilityIndex);
             }
             return equipedActiveAbilities.ToArray();
+        }
+
+        private static PassiveAbilitySO[] GetRandomPassiveAbilities(PassiveAbilitySO[] availablePassiveAbilities, int passiveAbilitiesCapacity)
+        {
+            int nbPassiveAbilitiesToAdd = Randomizer.GetRandomIntBetween(0, passiveAbilitiesCapacity);
+            List<PassiveAbilitySO> equipedPassiveAbilities = new();
+            while (equipedPassiveAbilities.Count < nbPassiveAbilitiesToAdd && availablePassiveAbilities.Length > 0)
+            {
+                int randomPassiveAbilityIndex = Randomizer.GetRandomIntBetween(0, availablePassiveAbilities.Length);
+                equipedPassiveAbilities.Add(availablePassiveAbilities[randomPassiveAbilityIndex]);
+                availablePassiveAbilities = availablePassiveAbilities.Where((_, index) => index != randomPassiveAbilityIndex).ToArray();
+            }
+            return equipedPassiveAbilities.ToArray();
         }
     }
 }

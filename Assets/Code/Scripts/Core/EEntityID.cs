@@ -6,5 +6,7 @@ namespace FrostfallSaga.Core
         JOMSVIKING1,
         JOMSVIKING2,
         SKELETON,
+        GOBELIN,
+
     }
 }

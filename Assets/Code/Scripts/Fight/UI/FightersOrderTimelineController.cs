@@ -1,14 +1,14 @@
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace FrostfallSaga.Fight.UI
 {
-    public class FightersOrderTimelineController : MonoBehaviour
+    public class FightersOrderTimelineController : BaseUIController
     {
-        [SerializeField] private UIDocument _uiDoc;
         [SerializeField] private FightManager _fightManager;
 
         private static readonly string TIMELINE_UI_NAME = "TimelinePanel";
@@ -59,7 +59,7 @@ namespace FrostfallSaga.Fight.UI
         {
             List<VisualElement> characterContainers = new();
 
-            int availableCharacterContainersCount = _uiDoc.rootVisualElement.Q(TIMELINE_UI_NAME).childCount;
+            int availableCharacterContainersCount = _uiDoc.rootVisualElement.Q(TIMELINE_UI_NAME).childCount - 1;
             for (int containerIndex = 0; containerIndex < availableCharacterContainersCount; containerIndex++)
             {
                 characterContainers.Add(_uiDoc.rootVisualElement.Q($"{CHARACTER_CONTAINER_UI_NAME}{containerIndex}"));
