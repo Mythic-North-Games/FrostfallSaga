@@ -1,4 +1,4 @@
-namespace FrostfallSaga.Fight.Effects
+namespace FrostfallSaga.Fight
 {
     public enum EMagicalElement
     {

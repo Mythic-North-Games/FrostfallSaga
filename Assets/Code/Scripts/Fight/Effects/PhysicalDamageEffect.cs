@@ -12,6 +12,13 @@ namespace FrostfallSaga.Fight.Effects
     {
         [SerializeField, Range(0, 9999)] public int PhysicalDamageAmount;
 
+        public PhysicalDamageEffect() {}
+
+        public PhysicalDamageEffect(int physicalDamageAmount)
+        {
+            PhysicalDamageAmount = physicalDamageAmount;
+        }
+
         public override void ApplyEffect(
             Fighter receiver,
             bool isMasterstroke,

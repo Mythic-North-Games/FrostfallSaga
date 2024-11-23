@@ -119,7 +119,7 @@ namespace FrostfallSaga.Fight.Controllers
             if (
                 _fighterIsTargetingForDirectAttack &&
                 hoveredFightCell != _possessedFighter.cell &&
-                _possessedFighter.DirectAttackTargeter.IsCellTargetable(
+                _possessedFighter.Weapon.AttackTargeter.IsCellTargetable(
                     _currentFightGrid,
                     _possessedFighter.cell,
                     hoveredFightCell,
@@ -127,7 +127,7 @@ namespace FrostfallSaga.Fight.Controllers
                 )
             )
             {
-                HighlightTargeterCells(_possessedFighter.DirectAttackTargeter, hoveredFightCell);
+                HighlightTargeterCells(_possessedFighter.Weapon.AttackTargeter, hoveredFightCell);
             }
             else if (
                 _fighterIsTargetingForActiveAbility &&
@@ -145,7 +145,7 @@ namespace FrostfallSaga.Fight.Controllers
             }
             else if (
                 !_fighterIsTargetingForActiveAbility &&
-                !_fighterIsTargetingForDirectAttack && 
+                !_fighterIsTargetingForDirectAttack &&
                 hoveredFightCell != _possessedFighter.cell
             )
             {
@@ -177,7 +177,7 @@ namespace FrostfallSaga.Fight.Controllers
 
             if (_fighterIsTargetingForDirectAttack)
             {
-                ResetTargeterCellsMaterial(_possessedFighter.DirectAttackTargeter, unhoveredFightCell);
+                ResetTargeterCellsMaterial(_possessedFighter.Weapon.AttackTargeter, unhoveredFightCell);
             }
             else if (_fighterIsTargetingForActiveAbility)
             {
@@ -259,7 +259,7 @@ namespace FrostfallSaga.Fight.Controllers
                 StopTargetingForDirectAttack();
                 return;
             }
-            if (_possessedFighter.DirectAttackActionPointsCost > _possessedFighter.GetActionPoints())
+            if (_possessedFighter.Weapon.UseActionPointsCost > _possessedFighter.GetActionPoints())
             {
                 Debug.Log("Fighter " + _possessedFighter.name + " does not have enough action points to execute its direct attack.");
                 return;
@@ -274,7 +274,7 @@ namespace FrostfallSaga.Fight.Controllers
                 ResetShorterPathCellsDefaultMaterial();
             }
 
-            FightCell[] cellsAvailableForTargeting = _possessedFighter.DirectAttackTargeter.GetAllCellsAvailableForTargeting(
+            FightCell[] cellsAvailableForTargeting = _possessedFighter.Weapon.AttackTargeter.GetAllCellsAvailableForTargeting(
                 _currentFightGrid,
                 _possessedFighter.cell,
                 _fighterTeams
@@ -293,7 +293,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             try
             {
-                FightCell[] targetedCells = _possessedFighter.DirectAttackTargeter.Resolve(
+                FightCell[] targetedCells = _possessedFighter.Weapon.AttackTargeter.Resolve(
                     _currentFightGrid,
                     _possessedFighter.cell,
                     clickedCell,
@@ -319,7 +319,7 @@ namespace FrostfallSaga.Fight.Controllers
         private void StopTargetingForDirectAttack()
         {
             _fighterIsTargetingForDirectAttack = false;
-            _possessedFighter.DirectAttackTargeter.GetAllCellsAvailableForTargeting(
+            _possessedFighter.Weapon.AttackTargeter.GetAllCellsAvailableForTargeting(
                 _currentFightGrid,
                 _possessedFighter.cell,
                 _fighterTeams

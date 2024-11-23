@@ -1,5 +1,5 @@
 using System;
-using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight;
 using FrostfallSaga.Fight.Fighters;
 using NUnit.Framework;
 

@@ -1,11 +1,12 @@
 ﻿using System;
-using FrostfallSaga.Fight.Effects;
-using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Fight.FightCells;
-using FrostfallSaga.Fight.Abilities;
 using NUnit.Framework;
 using UnityEngine;
+using FrostfallSaga.Grid;
+using FrostfallSaga.Fight;
+using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Abilities;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
