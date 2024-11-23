@@ -20,30 +20,30 @@ MonoBehaviour:
   <ClassTenacity>k__BackingField: 0
   <ClassPhysicalResistance>k__BackingField: 0
   <ClassMagicalResistances>k__BackingField:
-  - magicalElement: 0
+  - element: 0
     value: 0
-  - magicalElement: 1
+  - element: 1
     value: 0
-  - magicalElement: 2
+  - element: 2
     value: 0
-  - magicalElement: 3
+  - element: 3
     value: 0
-  - magicalElement: 4
+  - element: 4
     value: 0
-  - magicalElement: 5
+  - element: 5
     value: 0
   <ClassMagicalStrengths>k__BackingField:
-  - magicalElement: 0
+  - element: 0
     value: 0
-  - magicalElement: 1
+  - element: 1
     value: 0
-  - magicalElement: 2
+  - element: 2
     value: 0
-  - magicalElement: 3
+  - element: 3
     value: 0
-  - magicalElement: 4
+  - element: 4
     value: 0
-  - magicalElement: 5
+  - element: 5
     value: 0
   <ClassDodgeChance>k__BackingField: 0
   <ClassMasterstrokeChance>k__BackingField: 0

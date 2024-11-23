@@ -153,7 +153,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             try
             {
-                FightCell[] targetedCells = fighter.DirectAttackTargeter.GetRandomTargetCells(
+                FightCell[] targetedCells = fighter.Weapon.AttackTargeter.GetRandomTargetCells(
                     fightGrid, fighter.cell, _fighterTeams
                 );
                 fighter.MovementController.RotateTowardsCell(targetedCells[0]);

@@ -1,9 +1,7 @@
-using System;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using FrostfallSaga.Fight;
-using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Editors;
 
 namespace FrostfallSaga.FFSEditor.Fight
@@ -40,22 +38,13 @@ namespace FrostfallSaga.FFSEditor.Fight
                 currentY = DrawPropertyField(position, property, "initialStats", currentY);
                 currentY = DrawPropertyField(position, property, "fighterClass", currentY);
                 currentY = DrawPropertyField(position, property, "personalityTrait", currentY);
-                currentY = DrawPropertyField(position, property, "directAttackTargeter", currentY);
-                currentY = DrawPropertyField(position, property, "directAttackActionPointsCost", currentY);
-                currentY = DrawPropertyField(position, property, "directAttackAnimation", currentY);
+                currentY = DrawPropertyField(position, property, "inventory", currentY);
                 currentY = DrawPropertyField(position, property, "activeAbilities", currentY);
                 currentY = DrawPropertyField(position, property, "passiveAbilities", currentY);
                 currentY = DrawPropertyField(position, property, "receiveDamageAnimationName", currentY);
                 currentY = DrawPropertyField(position, property, "healSelfAnimationName", currentY);
                 currentY = DrawPropertyField(position, property, "reduceStatAnimationName", currentY);
-                currentY = DrawPropertyField(position, property, "increaseStatAnimationName", currentY);
-
-                // Draw ReorderableList for directAttackEffects
-                SerializedProperty effectsProperty = property.FindPropertyRelative("directAttackEffects");
-                currentY = BuildAndDrawReorderableList<AEffect>(
-                    new Rect(position.x, currentY, position.width, EditorGUIUtility.singleLineHeight),
-                    effectsProperty
-                );
+                DrawPropertyField(position, property, "increaseStatAnimationName", currentY);
 
                 EditorGUI.indentLevel--;
             }

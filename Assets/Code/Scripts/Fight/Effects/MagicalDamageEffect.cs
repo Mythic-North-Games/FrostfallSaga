@@ -13,6 +13,14 @@ namespace FrostfallSaga.Fight.Effects
         [SerializeField, Range(0, 9999)] public int MagicalDamageAmount;
         [SerializeField] public EMagicalElement MagicalElement;
 
+        public MagicalDamageEffect() {}
+
+        public MagicalDamageEffect(int magicalDamageAmount, EMagicalElement magicalElement)
+        {
+            MagicalDamageAmount = magicalDamageAmount;
+            MagicalElement = magicalElement;
+        }
+
         public override void ApplyEffect(
             Fighter receiver,
             bool isMasterstroke,
