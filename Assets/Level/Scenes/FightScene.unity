@@ -5610,9 +5610,15 @@ MonoBehaviour:
     directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
     activeAbilities:
     - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+<<<<<<< HEAD
     - {fileID: 11400000, guid: 436fd3c6fdddb5b05a6357cf2d05e708, type: 2}
     - {fileID: 11400000, guid: 30ab05920ca8f7448aeace60fbb87c63, type: 2}
     - {fileID: 11400000, guid: 2e4c98e0eeb351d4a981ce5c113a2ae5, type: 2}
+=======
+    - {fileID: 11400000, guid: 3d87480334b9b4742a045fc9f48e94c5, type: 2}
+    - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
+    - {fileID: 11400000, guid: 5f043d044d913ad4682a195b63aa9106, type: 2}
+>>>>>>> 6585ad3 (Added the fireBall Animation)
     - {fileID: 11400000, guid: ec1b5a01f965feb48abc59d1f1ed3355, type: 2}
     passiveAbilities:
     - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}

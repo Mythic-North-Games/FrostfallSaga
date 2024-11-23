@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 74d6fc3aef92aff40b9f8d2a642b9a5e
+=======
+guid: 3ca381b0acf6ff94c8f0bc1a690b6ffe
+>>>>>>> 6585ad3 (Added the fireBall Animation)
 timeCreated: 1585014505
 licenseType: Store
 TextureImporter:
