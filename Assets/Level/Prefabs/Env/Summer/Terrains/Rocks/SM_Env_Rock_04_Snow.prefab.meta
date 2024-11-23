@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 182e62439847d0f0eba7cd40b50afbb0
+=======
+guid: c2d25abb876779e4d8289221f17bff95
+>>>>>>> c1d7cd3 (Change CellHeight Animation)
 timeCreated: 1489448834
 licenseType: Store
 NativeFormatImporter:
