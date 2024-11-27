@@ -36,8 +36,7 @@ namespace FrostfallSaga.Fight.Effects
             }
 
             // Apply physical damage
-            receiver.PhysicalWithstand(finalDamageAmount);
-            receiver.onEffectReceived?.Invoke(receiver, initiator, this, isMasterstroke);
+            receiver.PhysicalWithstand(finalDamageAmount, isMasterstroke);
 
             // Increase god favors points if enabled
             if (adjustGodFavorsPoints && initiator != null)

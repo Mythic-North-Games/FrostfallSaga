@@ -20,7 +20,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.GetStatsForTests().physicalResistance = fighterPhysicalResistance;
 
             // Act
-            fighter.PhysicalWithstand(damageAmount);
+            fighter.PhysicalWithstand(damageAmount, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);
@@ -41,7 +41,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.GetStatsForTests().physicalResistance = fighterPhysicalResistance;
 
             // Act
-            fighter.PhysicalWithstand(damageAmount);
+            fighter.PhysicalWithstand(damageAmount, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);
@@ -62,7 +62,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.GetStatsForTests().physicalResistance = fighterPhysicalResistance;
 
             // Act
-            fighter.PhysicalWithstand(damageAmount);
+            fighter.PhysicalWithstand(damageAmount, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);
@@ -83,7 +83,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.GetStatsForTests().physicalResistance = fighterPhysicalResistance;
 
             // Act
-            fighter.PhysicalWithstand(damageAmount);
+            fighter.PhysicalWithstand(damageAmount, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);
@@ -104,7 +104,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.GetStatsForTests().physicalResistance = fighterPhysicalResistance;
 
             // Act
-            fighter.PhysicalWithstand(damageAmount);
+            fighter.PhysicalWithstand(damageAmount, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);

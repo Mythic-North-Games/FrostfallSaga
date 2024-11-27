@@ -18,7 +18,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.GetStatsForTests().health = initialFighterHealth;
 
             // Act
-            fighter.Heal(healAmount);
+            fighter.Heal(healAmount, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);
@@ -37,7 +37,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.GetStatsForTests().health = initialFighterHealth;
 
             // Act
-            fighter.Heal(healAmount);
+            fighter.Heal(healAmount, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);
@@ -56,7 +56,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.GetStatsForTests().health = initialFighterHealth;
 
             // Act
-            fighter.Heal(healAmount);
+            fighter.Heal(healAmount, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);
@@ -76,7 +76,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int expectedFighterHealth = fighter.GetStatsForTests().maxHealth;
 
             // Act
-            fighter.Heal(healAmount);
+            fighter.Heal(healAmount, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);
@@ -96,7 +96,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 
 
             // Act
-            fighter.Heal(healAmount);
+            fighter.Heal(healAmount, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);

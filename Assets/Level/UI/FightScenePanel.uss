@@ -309,40 +309,21 @@
 }
 
 .ProgressBar_Text {
-    position: absolute;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    margin-top: 2px;
-    margin-right: 2px;
-    align-self: stretch;
-    align-items: flex-start;
     -unity-font: url("project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&guid=450220f72e21c774d8a3289a8e0e8843&type=3#MorrisRomanBlack");
     -unity-font-definition: initial;
     -unity-font-style: normal;
-    top: 20%;
-    left: 2%;
-    font-size: 12%;
-    -unity-text-align: middle-left;
-    height: 50%;
-    flex-direction: column;
-    justify-content: flex-start;
+    font-size: 290%;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    left: 22.5%;
+    top: -3%;
 }
 
 .ProgressBar_Icon {
-    flex-grow: 1;
     position: absolute;
-    right: 0;
-    height: 75%;
-    max-height: 100%;
-    background-image: url("project://database/Assets/Art/UI/icon_global/health.png?fileID=2800000&guid=aef5c149668f63047b20fcb07fdfbe15&type=3#health");
-    -unity-background-image-tint-color: rgba(255, 7, 7, 0.94);
-    width: 8%;
-    max-width: 8%;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    top: 12.5%;
+    -unity-background-scale-mode: stretch-to-fill;
+    height: 90%;
+    width: 20%;
+    margin-top: 1%;
+    margin-left: 1%;
 }

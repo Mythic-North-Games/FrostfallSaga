@@ -29,7 +29,6 @@ namespace FrostfallSaga.Fight.Effects
 
             // Do the update
             receiver.UpdateMutableStat(StatToUpdate, finalUpdateAmount);
-            receiver.onEffectReceived?.Invoke(receiver, initiator, this, false);
             Debug.Log($"{receiver.name} {StatToUpdate} updated by {finalUpdateAmount}.");
 
             // Increase god favors points if enbabled

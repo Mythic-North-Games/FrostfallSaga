@@ -40,12 +40,6 @@ namespace FrostfallSaga.Fight.Effects
                 }
             }
 
-            // Trigger the effect received event if at least one buff or debuff was applied
-            if (atLeastOneBuff || atLeastOneDebuff)
-            {
-                receiver.onEffectReceived?.Invoke(receiver, initiator, this, false);
-            }
-
             // Increase god favors points if enabled
             if (!adjustGodFavorsPoints || initiator != null) return;
             if (atLeastOneBuff) initiator.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.BUFF);

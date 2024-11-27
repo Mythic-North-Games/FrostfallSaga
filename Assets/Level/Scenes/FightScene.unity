@@ -2216,7 +2216,7 @@ MonoBehaviour:
   _allowZoom: 1
   _minFOV: 20
   _maxFOV: 120
-  _baseFOV: 75
+  _baseFOV: 50
   _zoomMultiplier: 5
   _allowTranslation: 1
   _mouseFollowTarget: {fileID: 2086321100}
@@ -5371,7 +5371,7 @@ MonoBehaviour:
       dexterity: 1
       tenacity: 0
       physicalResistance: 1
-      dodgeChance: 0
+      dodgeChance: 1
       masterstrokeChance: 1
       initiative: 3
     fighterClass: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
@@ -5477,8 +5477,8 @@ MonoBehaviour:
     directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
     activeAbilities:
     - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-    - {fileID: 11400000, guid: 3d87480334b9b4742a045fc9f48e94c5, type: 2}
-    - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
+    - {fileID: 11400000, guid: 436fd3c6fdddb5b05a6357cf2d05e708, type: 2}
+    - {fileID: 11400000, guid: 30ab05920ca8f7448aeace60fbb87c63, type: 2}
     - {fileID: 11400000, guid: 2e4c98e0eeb351d4a981ce5c113a2ae5, type: 2}
     - {fileID: 11400000, guid: ec1b5a01f965feb48abc59d1f1ed3355, type: 2}
     passiveAbilities:
@@ -6914,6 +6914,7 @@ GameObject:
   - component: {fileID: 1952024164}
   - component: {fileID: 1952024165}
   - component: {fileID: 1952024166}
+  - component: {fileID: 1952024167}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -6994,6 +6995,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
   _fightManager: {fileID: 1678739252}
+--- !u!114 &1952024167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952024161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0103d22dfc97eb4ddb7a9991e93afc33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDoc: {fileID: 1952024162}
+  _effectsUIPanel: {fileID: 9197481963319205126, guid: a703f84178f43ab4b9656507bc067c78, type: 3}
+  _displayDuration: 2
+  _damageStyleClass: damageLabel
+  _healStyleClass: healLabel
+  _buffAppliedStyleClass: buffLabel
+  _debuffAppliedStyleClass: debuffLabel
+  _statusRemovedStyleClass: 
+  _dodgeStyleClass: dodgeLabel
+  _masterstrokeStyleClass: masterstrokeLabel
+  _statIcons:
+  - element: 0
+    value: {fileID: 2800000, guid: aef5c149668f63047b20fcb07fdfbe15, type: 3}
+  - element: 3
+    value: {fileID: 2800000, guid: e6b98d28e1ca0cf4c9abac72040c1e0e, type: 3}
+  _fightersGenerator: {fileID: 1644039837}
 --- !u!1 &1963673181
 GameObject:
   m_ObjectHideFlags: 0

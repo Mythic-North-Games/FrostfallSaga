@@ -89,17 +89,23 @@ namespace FrostfallSaga.Fight.Fighters
         // <Fighter that used an active ability>
         public Action<Fighter> onActiveAbilityEnded;
 
-        // <Fighter that dodged, Fighter that attacked>
-        public Action<Fighter, Fighter> onActionDodged;
+        // <Fighter that dodged>
+        public Action<Fighter> onActionDodged;
 
-        // <Fighter that received, Fighter that attacked, Effect that was received, If masterstroke>
-        public Action<Fighter, Fighter, AEffect, bool> onEffectReceived;
+        // <Fighter that received damages, the damages taken, if masterstroke>
+        public Action<Fighter, int, bool> onDamageReceived;
+
+        // <Fighter that received heal, the heal amount received, if masterstroke>
+        public Action<Fighter, int, bool> onHealReceived;
 
         // <Fighter that received, Status that was applied>
         public Action<Fighter, AStatus> onStatusApplied;
 
         // <Fighter that received, Status that was removed>
         public Action<Fighter, AStatus> onStatusRemoved;
+
+        // <Fighter that received, stat that was updated, the updated amount>
+        public Action<Fighter, EFighterMutableStat, float> onStatMutationReceived;
 
         // <Fighter that received, Status that was applied>
         public Action<Fighter, PassiveAbilitySO> onPassiveAbilityApplied;
@@ -245,7 +251,8 @@ namespace FrostfallSaga.Fight.Fighters
         /// Method to withstand a physical attack.
         /// </summary>
         /// <param name="physicalDamageAmount">The damage taken before withstanding.</param>
-        public void PhysicalWithstand(int physicalDamageAmount)
+        /// <param name="isMasterstroke">True if the attack is a masterstroke.</param>
+        public void PhysicalWithstand(int physicalDamageAmount, bool isMasterstroke)
         {
             // Play the receive damage animation
             PlayAnimationIfAny(_receiveDamageAnimationName);
@@ -256,12 +263,10 @@ namespace FrostfallSaga.Fight.Fighters
 
             // Decrease the health of the fighter
             DecreaseHealth(inflictedPhysicalDamageAmount);
-            Debug.Log($"{name} + received {inflictedPhysicalDamageAmount} physical damages");
-        }
 
-        private int GetArmorPhysicalResistance()
-        {
-            return _inventory.GetArmorPieces().Sum(armorPiece => armorPiece.PhysicalResistance);
+            // Trigger damage received event
+            onDamageReceived?.Invoke(this, inflictedPhysicalDamageAmount, isMasterstroke);
+            Debug.Log($"{name} + received {inflictedPhysicalDamageAmount} physical damages");
         }
 
         /// <summary>
@@ -269,7 +274,8 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="magicalDamageAmount">The damage amount to resist to.</param>
         /// <param name="magicalElement">The magical element to resist.</param>
-        public void MagicalWithstand(int magicalDamageAmount, EMagicalElement magicalElement)
+        /// <param name="isMasterstroke">True if the attack is a masterstroke.</param>
+        public void MagicalWithstand(int magicalDamageAmount, EMagicalElement magicalElement, bool isMasterstroke)
         {
             // Check if the magical resistance element is set
             if (!_stats.magicalResistances.ContainsKey(magicalElement))
@@ -286,38 +292,22 @@ namespace FrostfallSaga.Fight.Fighters
 
             // Decrease the health of the fighter
             DecreaseHealth(inflictedMagicalDamageAmount);
+
+            // Trigger damage received event
+            onDamageReceived?.Invoke(this, inflictedMagicalDamageAmount, isMasterstroke);
             Debug.Log($"{name} + received {inflictedMagicalDamageAmount} {magicalElement} magical damages");
-        }
-
-        private Dictionary<EMagicalElement, int> GetArmorMagicalResistances()
-        {
-            Dictionary<EMagicalElement, int> armorMagicalResistances = new();
-            foreach (EMagicalElement magicalElement in Enum.GetValues(typeof(EMagicalElement)))
-            {
-                armorMagicalResistances.Add(magicalElement, 0);
-            }
-
-            foreach (ArmorSO armorPiece in _inventory.GetArmorPieces())
-            {
-                Dictionary<EMagicalElement, int> armorPieceMagicalResistances = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
-                    armorPiece.MagicalResistances
-                );
-                foreach (KeyValuePair<EMagicalElement, int> magicalResistance in armorPieceMagicalResistances)
-                {
-                    armorMagicalResistances[magicalResistance.Key] += magicalResistance.Value;
-                }
-            }
-            return armorMagicalResistances;
         }
 
         /// <summary>
         /// Heals the fighter by the given amount.
         /// </summary>
         /// <param name="healAmount">The amount of health to restore.</param>
-        public void Heal(int healAmount)
+        /// <param name="isMasterstroke">True if the heal is a masterstroke.</param>
+        public void Heal(int healAmount, bool isMasterstroke)
         {
             PlayAnimationIfAny(_healSelfAnimationName);
             IncreaseHealth(healAmount);
+            onHealReceived?.Invoke(this, healAmount, isMasterstroke);
             Debug.Log($"{name} + has been healed by {healAmount}.");
         }
 
@@ -325,10 +315,11 @@ namespace FrostfallSaga.Fight.Fighters
         /// Receives raw damages without any resistance calculation.
         /// </summary>
         /// <param name="damages">The damages to receive.</param>
-        public void ReceiveRawDamages(int damages)
+        public void ReceiveRawDamages(int damages, bool isMasterstroke)
         {
             PlayAnimationIfAny(_receiveDamageAnimationName);
             DecreaseHealth(damages);
+            onDamageReceived?.Invoke(this, damages, isMasterstroke);
             Debug.Log($"{name} + received {damages} raw damages.");
         }
 
@@ -381,6 +372,8 @@ namespace FrostfallSaga.Fight.Fighters
             {
                 PlayAnimationIfAny(amount > 0 ? _increaseStatAnimationName : _reduceStatAnimationName);
             }
+
+            onStatMutationReceived?.Invoke(this, mutableStat, amount);
         }
 
         /// <summary>
@@ -431,6 +424,17 @@ namespace FrostfallSaga.Fight.Fighters
         public void ApplyStatus(AStatus statusToApply)
         {
             StatusesManager.ApplyStatus(statusToApply);
+            onStatusApplied?.Invoke(this, statusToApply);
+        }
+
+        /// <summary>
+        /// Remove a given status to the fighter.
+        /// </summary>
+        /// <param name="statusToRemove">The status to remove.</param>
+        public void RemoveStatus(AStatus statusToRemove)
+        {
+            StatusesManager.RemoveStatus(statusToRemove);
+            onStatusRemoved?.Invoke(this, statusToRemove);
         }
 
         /// <summary>
@@ -733,6 +737,32 @@ namespace FrostfallSaga.Fight.Fighters
             return targeter.GetAllResolvedCellsSequences(fightGrid, cell, fightersTeams, cellAlterations).Any(
                 cellsSequence => cellsSequence.Contains(target.cell)
             );
+        }
+
+        private int GetArmorPhysicalResistance()
+        {
+            return _inventory.GetArmorPieces().Sum(armorPiece => armorPiece.PhysicalResistance);
+        }
+
+        private Dictionary<EMagicalElement, int> GetArmorMagicalResistances()
+        {
+            Dictionary<EMagicalElement, int> armorMagicalResistances = new();
+            foreach (EMagicalElement magicalElement in Enum.GetValues(typeof(EMagicalElement)))
+            {
+                armorMagicalResistances.Add(magicalElement, 0);
+            }
+
+            foreach (ArmorSO armorPiece in _inventory.GetArmorPieces())
+            {
+                Dictionary<EMagicalElement, int> armorPieceMagicalResistances = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
+                    armorPiece.MagicalResistances
+                );
+                foreach (KeyValuePair<EMagicalElement, int> magicalResistance in armorPieceMagicalResistances)
+                {
+                    armorMagicalResistances[magicalResistance.Key] += magicalResistance.Value;
+                }
+            }
+            return armorMagicalResistances;
         }
         #endregion
 

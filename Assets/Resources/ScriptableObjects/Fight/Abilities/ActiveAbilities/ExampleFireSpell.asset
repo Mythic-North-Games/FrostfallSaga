@@ -32,7 +32,7 @@ MonoBehaviour:
   <ActionPointsCost>k__BackingField: 2
   <GodFavorsPointsCost>k__BackingField: 0
   <Dodgable>k__BackingField: 0
-  <Masterstrokable>k__BackingField: 0
+  <Masterstrokable>k__BackingField: 1
   MasterstrokeEffects:
   - rid: 7528321416264941568
   CellAlterations: []
@@ -53,9 +53,10 @@ MonoBehaviour:
     - rid: 7528321416264941569
       type: {class: BleedStatus, ns: FrostfallSaga.Fight.Statuses, asm: FrostfallSaga.Fight}
       data:
-        <StatusType>k__BackingField: 1
         <Name>k__BackingField: Bleed
         <Description>k__BackingField: The fighter's health is reduced.
+        <Icon>k__BackingField: {fileID: 0}
+        <StatusType>k__BackingField: 1
         <IsPermanent>k__BackingField: 0
         <Duration>k__BackingField: 4
         <TriggerOnFirstApply>k__BackingField: 1

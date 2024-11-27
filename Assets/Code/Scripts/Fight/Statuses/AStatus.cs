@@ -7,9 +7,11 @@ namespace FrostfallSaga.Fight.Statuses
     [Serializable]
     public abstract class AStatus
     {
-        [field: SerializeField] public EStatusType StatusType { get; protected set; }
-        [field: SerializeField] public string Name { get; protected set; }
+        [field: SerializeField, Header("For the UI")] public string Name { get; protected set; }
         [field: SerializeField] public string Description { get; protected set; }
+        [field: SerializeField] public Sprite Icon { get; protected set; }
+
+        [field: SerializeField, Header("Status parameters")] public EStatusType StatusType { get; protected set; }
         [field: SerializeField] public bool IsPermanent { get; protected set; }
         [field: SerializeField] public int Duration { get; protected set; }
         [field: SerializeField] public bool TriggerOnFirstApply { get; protected set; }
