@@ -588,44 +588,30 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
         /// <param name="fightersTeams">The teams of the fighters in the fight.</param>
         /// <param name="target">The optional target to check if the active ability can be used on.</param>
+        /// <param name="effects">The optionnal effect to apply.</param>
         /// <returns>True if he has enough actions points and if an active ability targeter can be resolved around him.</returns>
-        public bool CanUseAtLeastOneActiveAbility(
+        public bool CanUseAtLeastOneActiveAbility<T>(
             HexGrid fightGrid,
             Dictionary<Fighter, bool> fightersTeams,
-            Fighter target = null
-        )
+            Fighter target = null,
+            List<T> effects = null
+        ) where T : AEffect
         {
-            return ActiveAbilitiesToAnimation.Any( 
-                activeAbilityToAnimation => CanUseActiveAbility(
-                    fightGrid,
-                    activeAbilityToAnimation.activeAbility,
-                    fightersTeams,
-                    target
-                )
-            );
-        }
-
-        /// <summary>
-        /// Returns whether the fighter can use one if its active ability in the given context or not.
-        /// </summary>
-        /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
-        /// <param name="fightersTeams">The teams of the fighters in the fight.</param>
-        /// <param name="target">The optional target to check if the active ability can be used on.</param>
-        /// <returns>True if he has enough actions points and if an active ability targeter can be resolved around him.</returns>
-        public bool CanUseAtLeastOneHealAbility(
-            HexGrid fightGrid,
-            Dictionary<Fighter, bool> fightersTeams,
-            Fighter target = null
-        )
-        {
-            return ActiveAbilitiesToAnimation.Any(
-                activeAbilityToAnimation => CanUseHealAbility(
-                    fightGrid,
-                    activeAbilityToAnimation.activeAbility,
-                    fightersTeams,
-                    target
-                )
-            );
+            return ActiveAbilitiesToAnimation.Any
+                (
+                    activeAbilityToAnimation =>
+                    {
+                        ActiveAbilitySO activeAbility = activeAbilityToAnimation.activeAbility;
+                        if (!CanUseHealAbility(fightGrid, activeAbility, fightersTeams, target)) return false;
+                        if (!CanUseActiveAbility(fightGrid, activeAbility, fightersTeams, target)) return false;
+                        if(effects != null && effects.Any())
+                        {
+                            AEffect[] abilityEffects = activeAbility.Effects;
+                            return effects.All(effect => abilityEffects.Any(e => e is T && e.GetType() == effect.GetType()));
+                        }
+                        return true;
+                    }
+                );
         }
 
         /// <summary>
@@ -739,7 +725,7 @@ namespace FrostfallSaga.Fight.Fighters
             return (
                 CanMove(fightGrid) ||
                 CanDirectAttack(fightGrid, fightersTeams) ||
-                CanUseAtLeastOneActiveAbility(fightGrid, fightersTeams)
+                CanUseAtLeastOneActiveAbility<AEffect>(fightGrid, fightersTeams)
             );
         }
 

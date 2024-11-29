@@ -1,6 +1,7 @@
 ﻿using FrostfallSaga.BehaviourTree;
 using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees;
+using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
 using System.Collections.Generic;
@@ -69,7 +70,7 @@ namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.FighterBehav
         private bool CanHealFighter(Fighter fighter)
         {
             return (
-                _possessedFighter.CanUseAtLeastOneHealAbility(_fightGrid, _fighterTeams, fighter) // Change for healing and not activeabilty
+                _possessedFighter.CanUseAtLeastOneActiveAbility<HealEffect>(_fightGrid, _fighterTeams, fighter) // Change for healing and not activeabilty
                 );
         }
 
