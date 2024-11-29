@@ -24,4 +24,4 @@ MonoBehaviour:
   <ClassDodgeChance>k__BackingField: 0
   <ClassMasterstrokeChance>k__BackingField: 0
   <ClassInitiative>k__BackingField: 0
-  <God>k__BackingField: {fileID: 0}
+  <God>k__BackingField: {fileID: 11400000, guid: 2176992d9b076f25d8008e229a68f76a, type: 2}
