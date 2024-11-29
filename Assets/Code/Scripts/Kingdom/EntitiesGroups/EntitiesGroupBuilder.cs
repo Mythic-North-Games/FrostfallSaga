@@ -1,8 +1,8 @@
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Kingdom.Entities;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom.EntitiesGroups
 {

@@ -1,11 +1,11 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 using FrostfallSaga.Core;
+using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
-using FrostfallSaga.EntitiesVisual;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom.EntitiesGroups
 {
@@ -17,7 +17,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
     {
         public int movePoints;
         public Cell cell;
-        [field:SerializeField] public Transform CameraAnchor { get; private set; }
+        [field: SerializeField] public Transform CameraAnchor { get; private set; }
         public Action<EntitiesGroup> onEntityGroupHovered;
         public Action<EntitiesGroup> onEntityGroupUnhovered;
         public Action<EntitiesGroup> onEntityGroupClicked;

@@ -250,4 +250,99 @@
 }
 
 .unity-progress-bar {
+    height: 12%;
+    max-height: 12%;
+}
+
+.ProgressBar_Container {
+    flex-grow: 1;
+    max-height: 27%;
+    min-height: 27%;
+    height: 27%;
+}
+
+.ProgressBar_Background {
+    flex-grow: 1;
+    background-color: rgba(60, 139, 93, 0.9);
+}
+
+.ProgressBar_Progress {
+    flex-grow: 1;
+    background-color: rgb(48, 188, 34);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 2px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+    width: 50%;
+    max-width: 100%;
+    -unity-background-image-tint-color: rgb(56, 56, 56);
+    position: relative;
+    height: 100%;
+    max-height: none;
+}
+
+.ProgressBar_Progress:hover {
+    flex-grow: 1;
+    background-color: rgb(48, 188, 34);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 2px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+    width: 50%;
+    max-width: 100%;
+    -unity-background-image-tint-color: rgb(56, 56, 56);
+    position: relative;
+    height: 100%;
+    max-height: none;
+    transition-property: all, ignored, ignored;
+    transition-duration: 0s, 0s, 0s;
+    transition-timing-function: ease, ease, ease;
+    transition-delay: 0s, 0s, 0s;
+}
+
+.ProgressBar_Text {
+    position: absolute;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 2px;
+    margin-right: 2px;
+    align-self: stretch;
+    align-items: flex-start;
+    -unity-font: url("project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&guid=450220f72e21c774d8a3289a8e0e8843&type=3#MorrisRomanBlack");
+    -unity-font-definition: initial;
+    -unity-font-style: normal;
+    top: 20%;
+    left: 2%;
+    font-size: 12%;
+    -unity-text-align: middle-left;
+    height: 50%;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.ProgressBar_Icon {
+    flex-grow: 1;
+    position: absolute;
+    right: 0;
+    height: 75%;
+    max-height: 100%;
+    background-image: url("project://database/Assets/Art/UI/icon_global/health.png?fileID=2800000&guid=aef5c149668f63047b20fcb07fdfbe15&type=3#health");
+    -unity-background-image-tint-color: rgba(255, 7, 7, 0.94);
+    width: 8%;
+    max-width: 8%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    top: 12.5%;
 }

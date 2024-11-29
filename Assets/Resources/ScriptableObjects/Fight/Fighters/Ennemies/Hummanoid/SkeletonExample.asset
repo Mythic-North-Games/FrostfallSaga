@@ -15,25 +15,11 @@ MonoBehaviour:
   <FighterClass>k__BackingField: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 11400000, guid: 770ae372dc3abe843a19020cabaa49fb, type: 2}
   <AvailableActiveAbilities>k__BackingField:
-  - activeAbility: {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-    animation: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
-  ActiveAbilitiesCapacity: 5
+  - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+  <ActiveAbilitiesCapacity>k__BackingField: 0
   <AvailablePassiveAbilities>k__BackingField:
-  - {fileID: 0}
-  PassiveAbilitiesCapacity: 5
-  <DirectAttackTargeter>k__BackingField:
-    <OriginCellRange>k__BackingField: 0
-    <CellsSequence>k__BackingField: []
-    <StartFromInitiator>k__BackingField: 0
-    <FighterMandatory>k__BackingField: 0
-    <TargetsToExclude>k__BackingField: 
-    <RelativeHeightsToExclude>k__BackingField: 
-    <StopedAtInacessibles>k__BackingField: 0
-    <StopedAtXthHigherHeightDifference>k__BackingField: 0
-    <StopedAtXthLowerHeightDifference>k__BackingField: 0
-    <StopedAtXthEncounteredFighters>k__BackingField: 0
-  DirectAttackEffects: []
-  <DirectAttackActionPointsCost>k__BackingField: 2
+  - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
+  <PassiveAbilitiesCapacity>k__BackingField: 0
   <MaxHealth>k__BackingField: 70
   <MaxActionPoints>k__BackingField: 3
   <MaxMovePoints>k__BackingField: 3
@@ -42,16 +28,30 @@ MonoBehaviour:
   <Tenacity>k__BackingField: 0.15
   <PhysicalResistance>k__BackingField: 3
   <MagicalResistances>k__BackingField:
-  - magicalElement: 0
+  - element: 0
     value: 0
-  - magicalElement: 0
+  - element: 1
+    value: 0
+  - element: 2
+    value: 0
+  - element: 3
+    value: 0
+  - element: 4
+    value: 0
+  - element: 5
     value: 0
   <MagicalStrengths>k__BackingField:
-  - magicalElement: 0
+  - element: 0
     value: 0
-  - magicalElement: 0
+  - element: 1
     value: 0
-  - magicalElement: 0
+  - element: 2
+    value: 0
+  - element: 3
+    value: 0
+  - element: 4
+    value: 0
+  - element: 5
     value: 0
   <DodgeChance>k__BackingField: 0
   <MasterstrokeChance>k__BackingField: 0
@@ -61,6 +61,3 @@ MonoBehaviour:
   <ReceiveDamageAnimationName>k__BackingField: 
   <ReduceStatAnimationName>k__BackingField: 
   <IncreaseStatAnimationName>k__BackingField: 
-  references:
-    version: 2
-    RefIds: []

@@ -1,13 +1,14 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Grid.Cells;
+using System.Linq;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.UI;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Abilities;
+using UnityEngine;
+using FrostfallSaga.Grid;
+using FrostfallSaga.Grid.Cells;
 
 namespace FrostfallSaga.Fight.Controllers
 {
@@ -28,7 +29,7 @@ namespace FrostfallSaga.Fight.Controllers
         private FightCell[] _currentMovePath = { };
         private bool _fighterIsActing;
         private bool _fighterIsTargetingForDirectAttack;
-        private ActiveAbilityToAnimation _currentActiveAbility;
+        private ActiveAbilitySO _currentActiveAbility;
         private bool _fighterIsTargetingForActiveAbility;
 
         public void Setup(
@@ -118,7 +119,7 @@ namespace FrostfallSaga.Fight.Controllers
             if (
                 _fighterIsTargetingForDirectAttack &&
                 hoveredFightCell != _possessedFighter.cell &&
-                _possessedFighter.DirectAttackTargeter.IsCellTargetable(
+                _possessedFighter.Weapon.AttackTargeter.IsCellTargetable(
                     _currentFightGrid,
                     _possessedFighter.cell,
                     hoveredFightCell,
@@ -126,25 +127,25 @@ namespace FrostfallSaga.Fight.Controllers
                 )
             )
             {
-                HighlightTargeterCells(_possessedFighter.DirectAttackTargeter, hoveredFightCell);
+                HighlightTargeterCells(_possessedFighter.Weapon.AttackTargeter, hoveredFightCell);
             }
             else if (
                 _fighterIsTargetingForActiveAbility &&
                 (
-                    _currentActiveAbility.activeAbility.Targeter.GetAllCellsAvailableForTargeting(
+                    _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
                         _currentFightGrid,
                         _possessedFighter.cell,
                         _fighterTeams,
-                        _currentActiveAbility.activeAbility.CellAlterations
+                        _currentActiveAbility.CellAlterations
                     ).Contains(hoveredFightCell)
                 )
             )
             {
-                HighlightTargeterCells(_currentActiveAbility.activeAbility.Targeter, hoveredFightCell);
+                HighlightTargeterCells(_currentActiveAbility.Targeter, hoveredFightCell);
             }
             else if (
                 !_fighterIsTargetingForActiveAbility &&
-                !_fighterIsTargetingForDirectAttack && 
+                !_fighterIsTargetingForDirectAttack &&
                 hoveredFightCell != _possessedFighter.cell
             )
             {
@@ -176,11 +177,11 @@ namespace FrostfallSaga.Fight.Controllers
 
             if (_fighterIsTargetingForDirectAttack)
             {
-                ResetTargeterCellsMaterial(_possessedFighter.DirectAttackTargeter, unhoveredFightCell);
+                ResetTargeterCellsMaterial(_possessedFighter.Weapon.AttackTargeter, unhoveredFightCell);
             }
             else if (_fighterIsTargetingForActiveAbility)
             {
-                ResetTargeterCellsMaterial(_currentActiveAbility.activeAbility.Targeter, unhoveredFightCell);
+                ResetTargeterCellsMaterial(_currentActiveAbility.Targeter, unhoveredFightCell);
             }
             else if (
                 !_fighterIsTargetingForActiveAbility &&
@@ -258,7 +259,7 @@ namespace FrostfallSaga.Fight.Controllers
                 StopTargetingForDirectAttack();
                 return;
             }
-            if (_possessedFighter.DirectAttackActionPointsCost > _possessedFighter.GetActionPoints())
+            if (_possessedFighter.Weapon.UseActionPointsCost > _possessedFighter.GetActionPoints())
             {
                 Debug.Log("Fighter " + _possessedFighter.name + " does not have enough action points to execute its direct attack.");
                 return;
@@ -273,7 +274,7 @@ namespace FrostfallSaga.Fight.Controllers
                 ResetShorterPathCellsDefaultMaterial();
             }
 
-            FightCell[] cellsAvailableForTargeting = _possessedFighter.DirectAttackTargeter.GetAllCellsAvailableForTargeting(
+            FightCell[] cellsAvailableForTargeting = _possessedFighter.Weapon.AttackTargeter.GetAllCellsAvailableForTargeting(
                 _currentFightGrid,
                 _possessedFighter.cell,
                 _fighterTeams
@@ -292,7 +293,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             try
             {
-                FightCell[] targetedCells = _possessedFighter.DirectAttackTargeter.Resolve(
+                FightCell[] targetedCells = _possessedFighter.Weapon.AttackTargeter.Resolve(
                     _currentFightGrid,
                     _possessedFighter.cell,
                     clickedCell,
@@ -318,7 +319,7 @@ namespace FrostfallSaga.Fight.Controllers
         private void StopTargetingForDirectAttack()
         {
             _fighterIsTargetingForDirectAttack = false;
-            _possessedFighter.DirectAttackTargeter.GetAllCellsAvailableForTargeting(
+            _possessedFighter.Weapon.AttackTargeter.GetAllCellsAvailableForTargeting(
                 _currentFightGrid,
                 _possessedFighter.cell,
                 _fighterTeams
@@ -329,7 +330,7 @@ namespace FrostfallSaga.Fight.Controllers
 
         #region Active ability handling
 
-        private void OnActiveAbilityClicked(ActiveAbilityToAnimation clickedAbility)
+        private void OnActiveAbilityClicked(ActiveAbilitySO clickedAbility)
         {
             if (_fighterIsActing)
             {
@@ -341,12 +342,12 @@ namespace FrostfallSaga.Fight.Controllers
                 StopTargetingActiveActiveAbility();
                 return;
             }
-            if (clickedAbility.activeAbility.ActionPointsCost > _possessedFighter.GetActionPoints())
+            if (clickedAbility.ActionPointsCost > _possessedFighter.GetActionPoints())
             {
                 Debug.Log("Fighter " + _possessedFighter.name + " does not have enough action points to execute the ability");
                 return;
             }
-            if (clickedAbility.activeAbility.GodFavorsPointsCost > _possessedFighter.GetGodFavorsPoints())
+            if (clickedAbility.GodFavorsPointsCost > _possessedFighter.GetGodFavorsPoints())
             {
                 Debug.Log("Fighter " + _possessedFighter.name + " does not have enough god favors points to execute the ability");
                 return;
@@ -363,11 +364,11 @@ namespace FrostfallSaga.Fight.Controllers
 
             _currentActiveAbility = clickedAbility;
             FightCell[] cellsAvailableForTargeting =
-                _currentActiveAbility.activeAbility.Targeter.GetAllCellsAvailableForTargeting(
+                _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
                     _currentFightGrid,
                     _possessedFighter.cell,
                     _fighterTeams,
-                    _currentActiveAbility.activeAbility.CellAlterations
+                    _currentActiveAbility.CellAlterations
                 );
             cellsAvailableForTargeting.ToList().ForEach(
                 cell => cell.HighlightController.UpdateCurrentDefaultMaterial(_cellHighlightMaterial)
@@ -384,14 +385,14 @@ namespace FrostfallSaga.Fight.Controllers
         {
             try
             {
-                FightCell[] targetedCells = _currentActiveAbility.activeAbility.Targeter.Resolve(
+                FightCell[] targetedCells = _currentActiveAbility.Targeter.Resolve(
                     _currentFightGrid,
                     _possessedFighter.cell,
                     clickedCell,
                     _fighterTeams
                 );
                 StopTargetingActiveActiveAbility();
-                ResetTargeterCellsMaterial(_currentActiveAbility.activeAbility.Targeter, clickedCell);
+                ResetTargeterCellsMaterial(_currentActiveAbility.Targeter, clickedCell);
                 _fighterIsActing = true;
                 _possessedFighter.UseActiveAbility(_currentActiveAbility, targetedCells);
                 onFighterActionStarted?.Invoke(_possessedFighter);
@@ -413,11 +414,11 @@ namespace FrostfallSaga.Fight.Controllers
         {
             _fighterIsTargetingForActiveAbility = false;
             _possessedFighter.cell.HighlightController.ResetToInitialMaterial();
-            _currentActiveAbility.activeAbility.Targeter.GetAllCellsAvailableForTargeting(
+            _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
                 _currentFightGrid,
                 _possessedFighter.cell,
                 _fighterTeams,
-                _currentActiveAbility.activeAbility.CellAlterations
+                _currentActiveAbility.CellAlterations
             ).ToList().ForEach(cell => cell.HighlightController.ResetToInitialMaterial());
         }
 
@@ -572,16 +573,16 @@ namespace FrostfallSaga.Fight.Controllers
         private void BindPossessedFighterEventsForTurn(Fighter _possessedFighter)
         {
             _possessedFighter.onFighterMoved += OnFighterMoved;
-            _possessedFighter.onFighterDirectAttackEnded += OnFighterDirectAttackEnded;
-            _possessedFighter.onFighterActiveAbilityEnded += OnFighterActiveAbilityEnded;
+            _possessedFighter.onDirectAttackEnded += OnFighterDirectAttackEnded;
+            _possessedFighter.onActiveAbilityEnded += OnFighterActiveAbilityEnded;
             _possessedFighter.onFighterDied += OnPossessedFighterDied;
         }
 
         private void UnbindFighterEventsForTurn()
         {
             _possessedFighter.onFighterMoved -= OnFighterMoved;
-            _possessedFighter.onFighterDirectAttackEnded -= OnFighterDirectAttackEnded;
-            _possessedFighter.onFighterActiveAbilityEnded -= OnFighterActiveAbilityEnded;
+            _possessedFighter.onDirectAttackEnded -= OnFighterDirectAttackEnded;
+            _possessedFighter.onActiveAbilityEnded -= OnFighterActiveAbilityEnded;
             _possessedFighter.onFighterDied -= OnPossessedFighterDied;
         }
 

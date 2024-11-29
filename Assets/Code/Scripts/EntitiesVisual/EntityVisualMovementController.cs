@@ -1,7 +1,7 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using UnityEngine;
 
 namespace FrostfallSaga.EntitiesVisual
 {
@@ -35,7 +35,7 @@ namespace FrostfallSaga.EntitiesVisual
         {
             _targetCell = newTargetCell;
             _targetCellPosition = newTargetCell.GetCenter();
-    
+
             RotateTowardsCell(newTargetCell);
             _isMoving = true;
             _isLastMove = isLastMove;
@@ -49,7 +49,7 @@ namespace FrostfallSaga.EntitiesVisual
                 EntityVisualAnimationController.PlayAnimationState("Jump");
             }
         }
-        
+
         public void RotateTowardsCell(Cell targetCell)
         {
             _targetRotation = Quaternion.LookRotation(targetCell.GetCenter());
@@ -132,11 +132,11 @@ namespace FrostfallSaga.EntitiesVisual
             return _isMoving && _parentToMove.transform.position == _targetCellPosition;
         }
 
-        #if UNITY_EDITOR
-            public void SetParentToMoveForTests(GameObject parentToMove)
-            {
-                _parentToMove = parentToMove;
-            }
-        #endif
+#if UNITY_EDITOR
+        public void SetParentToMoveForTests(GameObject parentToMove)
+        {
+            _parentToMove = parentToMove;
+        }
+#endif
     }
 }

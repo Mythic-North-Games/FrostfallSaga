@@ -8,6 +8,7 @@ using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks;
+using FrostfallSaga.Fight.Abilities;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 {
@@ -34,13 +35,13 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             }
 
             // Filter the active abilities that can be used on the target
-            List<ActiveAbilityToAnimation> useableAbilitiesToAnimation = _possessedFighter.ActiveAbilitiesToAnimation.Where(
-                activeAbilityToAnimation => _possessedFighter.CanUseActiveAbility(
-                    _fightGrid, activeAbilityToAnimation.activeAbility, _fighterTeams, target
+            List<ActiveAbilitySO> useableAbilities = _possessedFighter.ActiveAbilities.Where(
+                activeAbility => _possessedFighter.CanUseActiveAbility(
+                    _fightGrid, activeAbility, _fighterTeams, target
                 )
             ).ToList();
 
-            ActiveAbilityToAnimation preferedAbilityToAnimation = null;
+            ActiveAbilitySO preferedAbility = null;
             bool useActiveAbility = false;
             bool canUseDirectAttack = _possessedFighter.CanDirectAttack(_fightGrid, _fighterTeams, target);
 
@@ -48,35 +49,30 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             switch (damagePreference)
             {
                 case EDamagePreference.RANDOM:
-                    preferedAbilityToAnimation = Randomizer.GetRandomElementFromArray(useableAbilitiesToAnimation.ToArray());
-                    float directAttackChance = 1f / (useableAbilitiesToAnimation.Count + 1);
+                    preferedAbility = Randomizer.GetRandomElementFromArray(useableAbilities.ToArray());
+                    float directAttackChance = 1f / (useableAbilities.Count + 1);
                     useActiveAbility = !Randomizer.GetBooleanOnChance(directAttackChance) || !canUseDirectAttack;
                     break;
 
                 case EDamagePreference.MAXIMIZE_DAMAGE:
-                    preferedAbilityToAnimation = useableAbilitiesToAnimation.OrderByDescending(
-                        abilityToAnimation => abilityToAnimation.activeAbility.GetDamagesPotential(_possessedFighter, target)
-                    ).First();
+                    preferedAbility = useableAbilities.OrderByDescending(
+                        ability => ability.GetDamagesPotential(_possessedFighter, target)
+                    ).FirstOrDefault();
                     useActiveAbility = (
-                        preferedAbilityToAnimation.activeAbility.GetDamagesPotential(_possessedFighter, target) >
-                        GetPotentialsDamageOfDirectAttack(_possessedFighter.DirectAttackEffects.ToList(), target)
+                        preferedAbility != null && 
+                        preferedAbility.GetDamagesPotential(_possessedFighter, target) >
+                        _possessedFighter.Weapon.GetPotentialsDamagesOnTarget(_possessedFighter, target)
                     ) || !canUseDirectAttack;
                     break;
 
                 case EDamagePreference.MINIMIZE_COST:
-                    preferedAbilityToAnimation = useableAbilitiesToAnimation.OrderBy(
-                        abilityToAnimation => abilityToAnimation.activeAbility.ActionPointsCost
-                    ).First();
-                    useActiveAbility = (
-                        preferedAbilityToAnimation.activeAbility.ActionPointsCost < _possessedFighter.DirectAttackActionPointsCost
-                    ) || !canUseDirectAttack;
+                    preferedAbility = useableAbilities.OrderBy(ability => ability.ActionPointsCost).First();
+                    useActiveAbility = preferedAbility.ActionPointsCost < _possessedFighter.Weapon.UseActionPointsCost || !canUseDirectAttack;
                     break;
             }
 
             // Get damage action target cells
-            Targeter damageActionTargeter = useActiveAbility ?
-                preferedAbilityToAnimation.activeAbility.Targeter :
-                _possessedFighter.DirectAttackTargeter;
+            Targeter damageActionTargeter = useActiveAbility ? preferedAbility.Targeter : _possessedFighter.Weapon.AttackTargeter;
             FightCell[] targetCells = _possessedFighter.GetFirstTouchingCellSequence(
                 damageActionTargeter, target, _fightGrid, _fighterTeams
             );
@@ -95,32 +91,25 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             // Do the action
             if (useActiveAbility)
             {
-                _possessedFighter.onFighterActiveAbilityEnded += OnPossessedFighterFinishedDamageAction;
+                _possessedFighter.onActiveAbilityEnded += OnPossessedFighterFinishedDamageAction;
                 _possessedFighter.UseActiveAbility(
-                    preferedAbilityToAnimation,
+                    preferedAbility,
                     targetCells
                 );
             }
             else
             {
-                _possessedFighter.onFighterDirectAttackEnded += OnPossessedFighterFinishedDamageAction;
+                _possessedFighter.onDirectAttackEnded += OnPossessedFighterFinishedDamageAction;
                 _possessedFighter.UseDirectAttack(targetCells);
             }
             return NodeState.SUCCESS;
         }
 
-        private int GetPotentialsDamageOfDirectAttack(List<AEffect> effects, Fighter target)
-        {
-            return effects.Sum(
-                effect => effect.GetPotentialEffectDamages(_possessedFighter, target, effect.Masterstrokable)
-            );
-        }
-
         private void OnPossessedFighterFinishedDamageAction(Fighter possessedFighter)
         {
             SetSharedData(FBTNode.ACTION_RUNNING_SHARED_DATA_KEY, false);
-            possessedFighter.onFighterActiveAbilityEnded -= OnPossessedFighterFinishedDamageAction;
-            possessedFighter.onFighterDirectAttackEnded -= OnPossessedFighterFinishedDamageAction;
+            possessedFighter.onActiveAbilityEnded -= OnPossessedFighterFinishedDamageAction;
+            possessedFighter.onDirectAttackEnded -= OnPossessedFighterFinishedDamageAction;
         }
     }
 }

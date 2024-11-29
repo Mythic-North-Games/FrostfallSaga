@@ -1,9 +1,9 @@
 using System;
+using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Grid;
 using NUnit.Framework;
 using UnityEngine;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.FightCells;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
@@ -12,7 +12,9 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
     {
         HexGrid grid;
         Fighter attacker;
-        int attackerDamages;
+        int minAttackerDamages;
+        int maxAttackerDamages;
+
 
         [SetUp]
         public void Setup()
@@ -25,7 +27,8 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             attacker.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
 
-            attackerDamages = ((PhysicalDamageEffect)attacker.DirectAttackEffects[0]).PhysicalDamageAmount;
+            minAttackerDamages = attacker.Weapon.MinPhysicalDamages;
+            maxAttackerDamages = attacker.Weapon.MaxPhysicalDamages;
         }
 
         [Test]
@@ -36,20 +39,24 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             receiver.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, receiver, new Vector2Int(0, 1));
 
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.DirectAttackActionPointsCost;
-            int expectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - attackerDamages);
+            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.Weapon.UseActionPointsCost;
+            int minExpectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - maxAttackerDamages);
+            int maxExpectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - minAttackerDamages);
 
             FightCell[] targetedCells = { receiver.cell };
 
             // Act
+            attacker.onDirectAttackEnded += (Fighter attacker) =>
+            {
+                /// ASSERTS ///
+                // Check actions points have been decreased
+                Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
+
+                // Check effects have been applied
+                Assert.GreaterOrEqual(receiver.GetStatsForTests().health, minExpectedReceiverHealth);
+                Assert.LessOrEqual(receiver.GetStatsForTests().health, maxExpectedReceiverHealth);
+            };
             attacker.UseDirectAttack(targetedCells);
-
-            /// ASSERTS ///
-            // Check actions points have been decreased
-            Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
-
-            // Check effects have been applied
-            Assert.AreEqual(expectedReceiverHealth, receiver.GetStatsForTests().health);
         }
 
         [Test]
@@ -66,9 +73,13 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             FightTestsHelper.SetupFighterPositionOnGrid(grid, receiver2, new Vector2Int(1, 0));
             receiver2.name = "Receiver 2";
 
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.DirectAttackActionPointsCost;
-            int expectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - attackerDamages);
-            int expectedReceiverHealth2 = Math.Max(0, receiver2.GetStatsForTests().health - attackerDamages);
+            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.Weapon.UseActionPointsCost;
+
+            int minExpectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - maxAttackerDamages);
+            int maxExpectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - minAttackerDamages);
+
+            int minExpectedReceiverHealth2 = Math.Max(0, receiver2.GetStatsForTests().health - maxAttackerDamages);
+            int maxExpectedReceiverHealth2 = Math.Max(0, receiver2.GetStatsForTests().health - minAttackerDamages);
 
             FightCell[] targetedCells = {
                 receiver.cell,
@@ -77,15 +88,19 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             };
 
             // Act
+            attacker.onDirectAttackEnded += (Fighter attacker) =>
+            {
+                /// ASSERTS ///
+                Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
+
+                // Check effects have been applied
+                Assert.GreaterOrEqual(receiver.GetStatsForTests().health, minExpectedReceiverHealth);
+                Assert.LessOrEqual(receiver.GetStatsForTests().health, maxExpectedReceiverHealth);
+
+                Assert.GreaterOrEqual(receiver2.GetStatsForTests().health, minExpectedReceiverHealth2);
+                Assert.LessOrEqual(receiver2.GetStatsForTests().health, maxExpectedReceiverHealth2);
+            };
             attacker.UseDirectAttack(targetedCells);
-
-            /// ASSERTS ///
-            // Check actions points have been decreased
-            Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
-
-            // Check effects have been applied
-            Assert.AreEqual(expectedReceiverHealth, receiver.GetStatsForTests().health);
-            Assert.AreEqual(expectedReceiverHealth2, receiver2.GetStatsForTests().health);
         }
 
         [Test]
@@ -95,20 +110,22 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             Fighter notTargetedFighter = FightTestsHelper.CreateFighter();
             notTargetedFighter.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, notTargetedFighter, new Vector2Int(0, 1));
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.DirectAttackActionPointsCost;
+            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.Weapon.UseActionPointsCost;
             int expectedNotTargetedFighterHealth = notTargetedFighter.GetStatsForTests().health;
 
             FightCell[] targetedCells = { (FightCell)grid.CellsByCoordinates[new(1, 1)] };
 
             // Act
+            attacker.onDirectAttackEnded += (Fighter attacker) =>
+            {
+                /// ASSERTS ///
+                // Check actions points have been decreased
+                Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
+
+                // Check no effect have been applied to other fighter
+                Assert.AreEqual(expectedNotTargetedFighterHealth, notTargetedFighter.GetStatsForTests().health);
+            };
             attacker.UseDirectAttack(targetedCells);
-
-            /// ASSERTS ///
-            // Check actions points have been decreased
-            Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
-
-            // Check no effect have been applied to other fighter
-            Assert.AreEqual(expectedNotTargetedFighterHealth, notTargetedFighter.GetStatsForTests().health);
         }
 
         [Test]

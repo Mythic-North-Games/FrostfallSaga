@@ -12,38 +12,32 @@ namespace FrostfallSaga.Fight.Effects
     {
         [SerializeField, Range(0, 9999)] public int PhysicalDamageAmount;
 
+        public PhysicalDamageEffect() {}
+
+        public PhysicalDamageEffect(int physicalDamageAmount)
+        {
+            PhysicalDamageAmount = physicalDamageAmount;
+        }
+
         public override void ApplyEffect(
             Fighter receiver,
+            bool isMasterstroke,
             Fighter initiator = null,
-            bool canMasterstroke = true,
-            bool canDodge = true,
             bool adjustGodFavorsPoints = true
         )
         {
-            // Try dodge if enabled
-            if (canDodge && TryDodge(receiver))
-            {
-                Debug.Log($"{receiver.name} dodged heal effect.");
-                return;
-            }
-
             int finalDamageAmount = PhysicalDamageAmount;
-            bool masterstrokeSucceeded = false;
 
-            // Calculate masterstroke
-            if (canMasterstroke && initiator != null)
+            // Increase damage amount if masterstroke
+            if (isMasterstroke && initiator != null)
             {
-                finalDamageAmount = TryMasterstroke(initiator, PhysicalDamageAmount);
-                masterstrokeSucceeded = finalDamageAmount != PhysicalDamageAmount;
-                if (masterstrokeSucceeded)
-                {
-                    Debug.Log($"Masterstroke succeeded, damage amount increased to {finalDamageAmount}.");
-                }
+                finalDamageAmount = ApplyMasterstroke(PhysicalDamageAmount);                
+                Debug.Log($"Masterstroke succeeded, damage amount increased to {finalDamageAmount}.");
             }
 
             // Apply physical damage
             receiver.PhysicalWithstand(finalDamageAmount);
-            receiver.onEffectReceived?.Invoke(receiver, initiator, this, masterstrokeSucceeded);
+            receiver.onEffectReceived?.Invoke(receiver, initiator, this, isMasterstroke);
 
             // Increase god favors points if enabled
             if (adjustGodFavorsPoints && initiator != null)
@@ -57,7 +51,7 @@ namespace FrostfallSaga.Fight.Effects
             // Physical damage effects cannot be restored
         }
 
-        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke = true)
+        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke)
         {
             return PhysicalDamageAmount * (canMasterstroke ? 2 : 1);
         }

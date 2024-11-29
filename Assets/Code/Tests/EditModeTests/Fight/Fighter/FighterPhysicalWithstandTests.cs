@@ -1,5 +1,5 @@
-using NUnit.Framework;
 using FrostfallSaga.Fight.Fighters;
+using NUnit.Framework;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {

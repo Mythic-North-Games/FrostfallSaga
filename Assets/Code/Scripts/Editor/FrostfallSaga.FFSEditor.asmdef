@@ -5,7 +5,9 @@
         "FrostfallSaga.Grid",
         "FrostfallSaga.Fight",
         "FrostfallSaga.KingdomToFight",
-        "FrostfallSaga.GameObjectVisuals"
+        "FrostfallSaga.GameObjectVisuals",
+        "FrostfallSaga.Procedural",
+        "FrostfallSaga.GameItems"
     ],
     "includePlatforms": [
         "Editor"

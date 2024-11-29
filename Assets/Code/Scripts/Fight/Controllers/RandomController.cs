@@ -8,6 +8,7 @@ using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Abilities;
 
 namespace FrostfallSaga.Fight.Controllers
 {
@@ -152,7 +153,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             try
             {
-                FightCell[] targetedCells = fighter.DirectAttackTargeter.GetRandomTargetCells(
+                FightCell[] targetedCells = fighter.Weapon.AttackTargeter.GetRandomTargetCells(
                     fightGrid, fighter.cell, _fighterTeams
                 );
                 fighter.MovementController.RotateTowardsCell(targetedCells[0]);
@@ -177,14 +178,14 @@ namespace FrostfallSaga.Fight.Controllers
         #region Active ability handling
         private void MakeFighterUseActiveAbility(Fighter fighter, HexGrid fightGrid)
         {
-            ActiveAbilityToAnimation activeAbilityToUse = GetRandomUsableActiveAbility(fighter, fightGrid);
+            ActiveAbilitySO activeAbilityToUse = GetRandomUsableActiveAbility(fighter, fightGrid);
             try
             {
-                FightCell[] targetedCells = activeAbilityToUse.activeAbility.Targeter.GetRandomTargetCells(
+                FightCell[] targetedCells = activeAbilityToUse.Targeter.GetRandomTargetCells(
                     fightGrid, fighter.cell, _fighterTeams
                 );
                 fighter.MovementController.RotateTowardsCell(targetedCells[0]);
-                Debug.Log($"Fighter {fighter.name} is using its active ability {activeAbilityToUse.activeAbility.Name}");
+                Debug.Log($"Fighter {fighter.name} is using its active ability {activeAbilityToUse.Name}");
 
                 fighter.UseActiveAbility(activeAbilityToUse, targetedCells);
                 onFighterActionStarted?.Invoke(fighter);
@@ -192,7 +193,7 @@ namespace FrostfallSaga.Fight.Controllers
             catch (TargeterUnresolvableException)
             {
                 Debug.LogError(
-                    $"Fighter {fighter.name} can't use the active ability {activeAbilityToUse.activeAbility.Name}. " +
+                    $"Fighter {fighter.name} can't use the active ability {activeAbilityToUse.Name}. " +
                     "It should not have been triggered."
                 );
             }
@@ -206,12 +207,12 @@ namespace FrostfallSaga.Fight.Controllers
             _possessedFighter.StartCoroutine(DoNextAction());
         }
 
-        private ActiveAbilityToAnimation GetRandomUsableActiveAbility(Fighter fighter, HexGrid fightGrid)
+        private ActiveAbilitySO GetRandomUsableActiveAbility(Fighter fighter, HexGrid fightGrid)
         {
-            List<ActiveAbilityToAnimation> usableActiveAbilities = new();
-            fighter.ActiveAbilitiesToAnimation.ToList()
-                .FindAll(activeAbilityToAnimation => fighter.CanUseActiveAbility(fightGrid, activeAbilityToAnimation.activeAbility, _fighterTeams))
-                .ForEach(activeAbilityToAnimation => usableActiveAbilities.Add(activeAbilityToAnimation));
+            List<ActiveAbilitySO> usableActiveAbilities = new();
+            fighter.ActiveAbilities.ToList()
+                .FindAll(activeAbility => fighter.CanUseActiveAbility(fightGrid, activeAbility, _fighterTeams))
+                .ForEach(activeAbility => usableActiveAbilities.Add(activeAbility));
             return Randomizer.GetRandomElementFromArray(usableActiveAbilities.ToArray());
         }
         #endregion
@@ -234,16 +235,16 @@ namespace FrostfallSaga.Fight.Controllers
         private void BindFighterEventsForTurn(Fighter fighterToPlay)
         {
             fighterToPlay.onFighterMoved += OnFighterMoved;
-            fighterToPlay.onFighterDirectAttackEnded += OnFighterDirectAttackEnded;
-            fighterToPlay.onFighterActiveAbilityEnded += OnFighterActiveAbilityEnded;
+            fighterToPlay.onDirectAttackEnded += OnFighterDirectAttackEnded;
+            fighterToPlay.onActiveAbilityEnded += OnFighterActiveAbilityEnded;
             fighterToPlay.onFighterDied += OnPossessedFighterDied;
         }
 
         private void UnbindFighterEventsForTurn(Fighter fighterToPlay)
         {
             fighterToPlay.onFighterMoved -= OnFighterMoved;
-            fighterToPlay.onFighterDirectAttackEnded -= OnFighterDirectAttackEnded;
-            fighterToPlay.onFighterActiveAbilityEnded -= OnFighterActiveAbilityEnded;
+            fighterToPlay.onDirectAttackEnded -= OnFighterDirectAttackEnded;
+            fighterToPlay.onActiveAbilityEnded -= OnFighterActiveAbilityEnded;
             fighterToPlay.onFighterDied -= OnPossessedFighterDied;
         }
 

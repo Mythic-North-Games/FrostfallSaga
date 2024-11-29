@@ -22,7 +22,12 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
         {
             foreach (var effect in Effects)
             {
-                effect.ApplyEffect(receiver, initator: null, canMasterstroke: false, canDodge: false);
+                effect.ApplyEffect(
+                    receiver,
+                    isMasterstroke: false,
+                    initator: null,
+                    adjustGodFavorsPoints: true
+                );
             }
 
             onTrapTriggered?.Invoke();

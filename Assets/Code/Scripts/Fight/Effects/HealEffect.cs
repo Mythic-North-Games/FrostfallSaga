@@ -14,36 +14,23 @@ namespace FrostfallSaga.Fight.Effects
 
         public override void ApplyEffect(
             Fighter receiver,
+            bool isMasterstroke,
             Fighter initiator = null,
-            bool canMasterstroke = true,
-            bool canDodge = true,
             bool adjustGodFavorsPoints = true
         )
         {
-            // Try dodge if enabled
-            if (canDodge && TryDodge(receiver))
-            {
-                Debug.Log($"{receiver.name} dodged heal effect.");
-                return;
-            }
-
             int finalHealAmount = HealAmount;
-            bool masterstrokeSucceeded = false;
 
-            // Calculate masterstroke heal
-            if (canMasterstroke)
+            // Increase heal amount if masterstroke
+            if (isMasterstroke)
             {
-                finalHealAmount = TryMasterstroke(initiator, HealAmount);
-                masterstrokeSucceeded = finalHealAmount != HealAmount;
-                if (masterstrokeSucceeded)
-                {
-                    Debug.Log($"Masterstroke succeeded, heal amount increased to {finalHealAmount}.");
-                }
+                finalHealAmount = ApplyMasterstroke(HealAmount);
+                Debug.Log($"Masterstroke succeeded, heal amount increased to {finalHealAmount}.");
             }
 
             // Apply the heal
             receiver.Heal(finalHealAmount);
-            receiver.onEffectReceived?.Invoke(receiver, initiator, this, masterstrokeSucceeded);
+            receiver.onEffectReceived?.Invoke(receiver, initiator, this, isMasterstroke);
             Debug.Log($"Healed {receiver.name} for {finalHealAmount} health.");
 
             // Increase god favors points if enabled
@@ -58,7 +45,7 @@ namespace FrostfallSaga.Fight.Effects
             // Heal effects cannot be restored
         }
 
-        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke = true)
+        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke)
         {
             return 0;
         }

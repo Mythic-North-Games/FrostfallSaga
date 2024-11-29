@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
-using FrostfallSaga.Fight.Effects;
-using FrostfallSaga.Fight.Targeters;
+using FrostfallSaga.Core;
+using FrostfallSaga.Fight;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
@@ -13,13 +14,10 @@ namespace FrostfallSaga.KingdomToFight
     {
         [field: SerializeField] public FighterClassSO FighterClass { get; private set; }
         [field: SerializeField] public PersonalityTraitSO PersonalityTrait { get; private set; }
-        [field: SerializeField] public ActiveAbilityToAnimation[] AvailableActiveAbilities { get; private set; }
-        [field: SerializeField] public int ActiveAbilitiesCapacity = 5;
+        [field: SerializeField] public ActiveAbilitySO[] AvailableActiveAbilities { get; private set; }
+        [field: SerializeField] public int ActiveAbilitiesCapacity { get; private set; }
         [field: SerializeField] public PassiveAbilitySO[] AvailablePassiveAbilities { get; private set; }
-        [field: SerializeField] public int PassiveAbilitiesCapacity = 5;
-        [field: SerializeField] public Targeter DirectAttackTargeter { get; private set; }
-        [SerializeReference] public AEffect[] DirectAttackEffects = { };
-        [field: SerializeField] public int DirectAttackActionPointsCost { get; private set; }
+        [field: SerializeField] public int PassiveAbilitiesCapacity { get; private set; }
 
         #region Base stats
         [field: SerializeField, Range(0, 9999)] public int MaxHealth { get; private set; }
@@ -29,10 +27,10 @@ namespace FrostfallSaga.KingdomToFight
         [field: SerializeField, Range(0, 9999)] public int Dexterity { get; private set; }
         [field: SerializeField, Range(0, 9999)] public float Tenacity { get; private set; }
         [field: SerializeField, Range(0, 9999)] public int PhysicalResistance { get; private set; }
-        [field: SerializeField] public MagicalElementToValue[] MagicalResistances { get; private set; }
-        [field: SerializeField] public MagicalElementToValue[] MagicalStrengths { get; private set; }
-        [field: SerializeField, Range(0, 9999)] public float DodgeChance { get; private set; }
-        [field: SerializeField, Range(0, 9999)] public float MasterstrokeChance { get; private set; }
+        [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MagicalResistances { get; private set; }
+        [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MagicalStrengths { get; private set; }
+        [field: SerializeField, Range(0, 1)] public float DodgeChance { get; private set; }
+        [field: SerializeField, Range(0, 1)] public float MasterstrokeChance { get; private set; }
         [field: SerializeField, Range(0, 9999)] public int Initiative { get; private set; }
         #endregion
 
@@ -43,6 +41,49 @@ namespace FrostfallSaga.KingdomToFight
         [field: SerializeField] public string ReduceStatAnimationName { get; private set; }
         [field: SerializeField] public string IncreaseStatAnimationName { get; private set; }
         #endregion
+
+        public FighterConfigurationSO()
+        {
+            FighterClass = null;
+            PersonalityTrait = null;
+            AvailableActiveAbilities = Array.Empty<ActiveAbilitySO>();
+            ActiveAbilitiesCapacity = 0;
+            AvailablePassiveAbilities = Array.Empty<PassiveAbilitySO>();
+            PassiveAbilitiesCapacity = 0;
+            MaxHealth = 0;
+            MaxActionPoints = 0;
+            MaxMovePoints = 0;
+            Strength = 0;
+            Dexterity = 0;
+            Tenacity = 0;
+            PhysicalResistance = 0;
+            MagicalResistances = new SElementToValue<EMagicalElement, int>[]
+            {
+                new(EMagicalElement.FIRE, 0),
+                new(EMagicalElement.WATER, 0),
+                new(EMagicalElement.ICE, 0),
+                new(EMagicalElement.WIND, 0),
+                new(EMagicalElement.LIGHTNING, 0),
+                new(EMagicalElement.EARTH, 0)
+            };
+            MagicalResistances = new SElementToValue<EMagicalElement, int>[]
+            {
+                new(EMagicalElement.FIRE, 0),
+                new(EMagicalElement.WATER, 0),
+                new(EMagicalElement.ICE, 0),
+                new(EMagicalElement.WIND, 0),
+                new(EMagicalElement.LIGHTNING, 0),
+                new(EMagicalElement.EARTH, 0)
+            };
+            DodgeChance = 0;
+            MasterstrokeChance = 0;
+            Initiative = 0;
+            DirectAttackAnimation = null;
+            HealSelfAnimationName = "";
+            ReceiveDamageAnimationName = "";
+            ReduceStatAnimationName = "";
+            IncreaseStatAnimationName = "";
+        }
 
         public virtual FighterStats ExtractFighterStats()
         {
@@ -58,8 +99,8 @@ namespace FrostfallSaga.KingdomToFight
                 dexterity = Dexterity,
                 tenacity = Tenacity,
                 physicalResistance = PhysicalResistance,
-                magicalResistances = MagicalElementToValue.GetDictionaryFromArray(MagicalResistances),
-                magicalStrengths = MagicalElementToValue.GetDictionaryFromArray(MagicalStrengths),
+                magicalResistances = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(MagicalResistances),
+                magicalStrengths = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(MagicalStrengths),
                 dodgeChance = DodgeChance,
                 masterstrokeChance = MasterstrokeChance,
                 initiative = Initiative

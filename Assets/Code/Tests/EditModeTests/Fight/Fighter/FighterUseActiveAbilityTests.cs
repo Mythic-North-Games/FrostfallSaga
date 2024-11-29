@@ -1,11 +1,12 @@
 ﻿using System;
-using UnityEngine;
 using NUnit.Framework;
+using UnityEngine;
 using FrostfallSaga.Grid;
-using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight;
 using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Abilities;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
@@ -27,7 +28,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             attacker.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
 
-            fireDamages = ((MagicalDamageEffect)attacker.ActiveAbilitiesToAnimation[0].activeAbility.Effects[0]).MagicalDamageAmount;
+            fireDamages = ((MagicalDamageEffect)attacker.ActiveAbilities[0].Effects[0]).MagicalDamageAmount;
         }
 
         [Test]
@@ -38,10 +39,10 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             Fighter receiver = FightTestsHelper.CreateFighter();
             receiver.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, receiver, new Vector2Int(0, 1));
-            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilitiesToAnimation[0];
-            MagicalDamageEffect magicalDamageEffect = (MagicalDamageEffect)activeAbilityToUse.activeAbility.Effects[0];
+            ActiveAbilitySO activeAbilityToUse = attacker.ActiveAbilities[0];
+            MagicalDamageEffect magicalDamageEffect = (MagicalDamageEffect)activeAbilityToUse.Effects[0];
 
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.activeAbility.ActionPointsCost;
+            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
             int expectedReceiverHealth = (
                 receiver.GetStatsForTests().health -
                 fireDamages +
@@ -51,14 +52,16 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             FightCell[] targetedCells = { receiver.cell };
 
             // Act
+            attacker.onActiveAbilityEnded += (Fighter attacker) =>
+            {
+                /// ASSERTS ///
+                // Check actions points have been decreased
+                Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
+
+                // Check effects have been applied
+                Assert.AreEqual(expectedReceiverHealth, receiver.GetStatsForTests().health);
+            };
             attacker.UseActiveAbility(activeAbilityToUse, targetedCells);
-
-            /// ASSERTS ///
-            // Check actions points have been decreased
-            Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
-
-            // Check effects have been applied
-            Assert.AreEqual(expectedReceiverHealth, receiver.GetStatsForTests().health);
         }
 
         [Test]
@@ -81,9 +84,9 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             receiver2.name = "Receiver 2";
             receiver2.GetStatsForTests().magicalResistances[EMagicalElement.FIRE] = 0;
 
-            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilitiesToAnimation[0];
+            ActiveAbilitySO activeAbilityToUse = attacker.ActiveAbilities[0];
 
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.activeAbility.ActionPointsCost;
+            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
             int expectedReceiverHealth = (
                 receiver.GetStatsForTests().health -
                 fireDamages +
@@ -102,15 +105,17 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             };
 
             // Act
+            attacker.onActiveAbilityEnded += (Fighter attacker) =>
+            {
+                /// ASSERTS ///
+                // Check actions points have been decreased
+                Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
+
+                // Check effects have been applied
+                Assert.AreEqual(expectedReceiverHealth, receiver.GetStatsForTests().health);
+                Assert.AreEqual(expectedReceiverHealth2, receiver2.GetStatsForTests().health);
+            };
             attacker.UseActiveAbility(activeAbilityToUse, targetedCells);
-
-            /// ASSERTS ///
-            // Check actions points have been decreased
-            Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
-
-            // Check effects have been applied
-            Assert.AreEqual(expectedReceiverHealth, receiver.GetStatsForTests().health);
-            Assert.AreEqual(expectedReceiverHealth2, receiver2.GetStatsForTests().health);
         }
 
         [Test]
@@ -125,22 +130,24 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             notTargetedFighter.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, notTargetedFighter, new Vector2Int(0, 1));
 
-            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilitiesToAnimation[0];
+            ActiveAbilitySO activeAbilityToUse = attacker.ActiveAbilities[0];
 
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.activeAbility.ActionPointsCost;
+            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
             int expectedNotTargetedFighterHealth = notTargetedFighter.GetStatsForTests().health;
 
             FightCell[] targetedCells = { (FightCell)grid.CellsByCoordinates[new(1, 1)] };
 
             // Act
+            attacker.onActiveAbilityEnded += (Fighter attacker) =>
+            {
+                /// ASSERTS ///
+                // Check actions points have been decreased
+                Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
+
+                // Check no effect have been applied to other fighter
+                Assert.AreEqual(expectedNotTargetedFighterHealth, notTargetedFighter.GetStatsForTests().health);
+            };
             attacker.UseActiveAbility(activeAbilityToUse, targetedCells);
-
-            /// ASSERTS ///
-            // Check actions points have been decreased
-            Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
-
-            // Check no effect have been applied to other fighter
-            Assert.AreEqual(expectedNotTargetedFighterHealth, notTargetedFighter.GetStatsForTests().health);
         }
 
         [Test]
@@ -151,7 +158,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
-            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilitiesToAnimation[0];
+            ActiveAbilitySO activeAbilityToUse = attacker.ActiveAbilities[0];
             FightCell[] targetedCells = { };
 
             // Act
@@ -167,7 +174,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             attacker.SetStatsForTests();
             attacker.GetStatsForTests().actionPoints = 1;
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
-            ActiveAbilityToAnimation activeAbilityToUse = attacker.ActiveAbilitiesToAnimation[0];
+            ActiveAbilitySO activeAbilityToUse = attacker.ActiveAbilities[0];
             FightCell[] targetedCells = { (FightCell)grid.CellsByCoordinates[new(0, 1)] };
 
             // Act

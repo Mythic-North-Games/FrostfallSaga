@@ -7,16 +7,19 @@ namespace FrostfallSaga.Fight.Statuses
     [Serializable]
     public class SlownessStatus : AStatus
     {
+        private static readonly string NAME = "Slowness";
+        private static readonly string DESCRIPTION = "The fighter's initiative is reduced.";
+
         [field: SerializeField] public int InitiativeReduction { get; private set; }
 
         public SlownessStatus()
         {
             StatusType = EStatusType.SLOWNESS;
+            Name = NAME;
+            Description = DESCRIPTION;
         }
 
         public SlownessStatus(
-            string name,
-            string description,
             bool isPermanent,
             int duration,
             bool triggerOnFirstApply,
@@ -25,7 +28,7 @@ namespace FrostfallSaga.Fight.Statuses
             FighterBuffVisualsController visualsController,
             int initiativeReduction
         )
-            : base(EStatusType.SLOWNESS, name, description, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+            : base(EStatusType.SLOWNESS, NAME, DESCRIPTION, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
         {
             InitiativeReduction = initiativeReduction;
         }

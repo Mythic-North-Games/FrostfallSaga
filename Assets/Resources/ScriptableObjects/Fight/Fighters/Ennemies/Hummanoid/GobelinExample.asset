@@ -13,26 +13,42 @@ MonoBehaviour:
   m_Name: GobelinExample
   m_EditorClassIdentifier: 
   <FighterClass>k__BackingField: {fileID: 11400000, guid: 8d3cfbd8265f5e54cb7a7563a0ae8f1b, type: 2}
+  <PersonalityTrait>k__BackingField: {fileID: 0}
   <AvailableActiveAbilities>k__BackingField:
-  - activeAbility: {fileID: 0}
-    animation: {fileID: 0}
+  - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
   ActiveAbilitiesCapacity: 5
-  <DirectAttackTargeter>k__BackingField: {fileID: 11400000, guid: dc8968a2b6f65754facef2409f8bfed8, type: 2}
-  <DirectAttackEffects>k__BackingField:
-  - {fileID: 0}
+  <AvailablePassiveAbilities>k__BackingField: []
+  PassiveAbilitiesCapacity: 0
+  <DirectAttackTargeter>k__BackingField:
+    <OriginCellRange>k__BackingField: 0
+    <CellsSequence>k__BackingField: []
+    <StartFromInitiator>k__BackingField: 0
+    <FighterMandatory>k__BackingField: 0
+    <TargetsToExclude>k__BackingField: 
+    <RelativeHeightsToExclude>k__BackingField: 
+    <StopedAtInacessibles>k__BackingField: 0
+    <StopedAtXthHigherHeightDifference>k__BackingField: 0
+    <StopedAtXthLowerHeightDifference>k__BackingField: 0
+    <StopedAtXthEncounteredFighters>k__BackingField: 0
+  DirectAttackEffects: []
   <DirectAttackActionPointsCost>k__BackingField: 1
-  <DirectAttackAnimation>k__BackingField: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
-  <HealSelfAnimationStateName>k__BackingField: 
-  <ReceiveDamageAnimationStateName>k__BackingField: Hurt
   <MaxHealth>k__BackingField: 0
   <MaxActionPoints>k__BackingField: 0
   <MaxMovePoints>k__BackingField: 0
   <Strength>k__BackingField: 0
   <Dexterity>k__BackingField: 0
   <Tenacity>k__BackingField: 0
-  <Dodge>k__BackingField: 0
   <PhysicalResistance>k__BackingField: 0
   <MagicalResistances>k__BackingField: []
   <MagicalStrengths>k__BackingField: []
-  <Masterstroke>k__BackingField: 0
+  <DodgeChance>k__BackingField: 0
+  <MasterstrokeChance>k__BackingField: 0
   <Initiative>k__BackingField: 0
+  <DirectAttackAnimation>k__BackingField: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
+  <HealSelfAnimationName>k__BackingField: 
+  <ReceiveDamageAnimationName>k__BackingField: 
+  <ReduceStatAnimationName>k__BackingField: 
+  <IncreaseStatAnimationName>k__BackingField: 
+  references:
+    version: 2
+    RefIds: []
