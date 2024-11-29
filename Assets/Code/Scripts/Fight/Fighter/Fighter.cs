@@ -11,10 +11,10 @@ using FrostfallSaga.Fight.FightCells.Impediments;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.Effects;
-using FrostfallSaga.Fight.Abilities;
-using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Fight.GameItems;
+using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -597,21 +597,29 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
         /// <param name="fightersTeams">The teams of the fighters in the fight.</param>
         /// <param name="target">The optional target to check if the active ability can be used on.</param>
+        /// <param name="mandatoryEffectTypes">The optionnal effect to apply.</param>
         /// <returns>True if he has enough actions points and if an active ability targeter can be resolved around him.</returns>
         public bool CanUseAtLeastOneActiveAbility(
             HexGrid fightGrid,
             Dictionary<Fighter, bool> fightersTeams,
-            Fighter target = null
+            Fighter target = null,
+            ListOfTypes<AEffect> mandatoryEffectTypes = null
         )
         {
-            return ActiveAbilities.Any(
-                activeAbility => CanUseActiveAbility(
-                    fightGrid,
-                    activeAbility,
-                    fightersTeams,
-                    target
-                )
-            );
+            return ActiveAbilities.Any
+                (
+                    activeAbility =>
+                    {
+                        if (!CanUseActiveAbility(fightGrid, activeAbility, fightersTeams, target)) return false;
+                        if (mandatoryEffectTypes != null && mandatoryEffectTypes.Any())
+                        {
+
+                            AEffect[] abilityEffects = activeAbility.Effects;
+                            return mandatoryEffectTypes.Any(effect => abilityEffects.Any(e => e.GetType() == effect.GetType()));
+                        }
+                        return true;
+                    }
+                );
         }
 
         /// <summary>
