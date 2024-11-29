@@ -70,7 +70,7 @@ namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.FighterBehav
         private bool CanHealFighter(Fighter fighter)
         {
             return (
-                _possessedFighter.CanUseAtLeastOneActiveAbility<HealEffect>(_fightGrid, _fighterTeams, fighter) // Change for healing and not activeabilty
+                _possessedFighter.CanUseAtLeastOneActiveAbility(_fightGrid, _fighterTeams, fighter) // Change for healing and not activeabilty
                 );
         }
 

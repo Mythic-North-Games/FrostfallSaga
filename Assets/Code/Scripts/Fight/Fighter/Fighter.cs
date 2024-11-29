@@ -13,6 +13,7 @@ using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
 using FrostfallSaga.Fight.FightCells.Impediments;
+using FrostfallSaga.Core;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -590,12 +591,12 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="target">The optional target to check if the active ability can be used on.</param>
         /// <param name="effects">The optionnal effect to apply.</param>
         /// <returns>True if he has enough actions points and if an active ability targeter can be resolved around him.</returns>
-        public bool CanUseAtLeastOneActiveAbility<T>(
+        public bool CanUseAtLeastOneActiveAbility(
             HexGrid fightGrid,
             Dictionary<Fighter, bool> fightersTeams,
             Fighter target = null,
-            List<T> effects = null
-        ) where T : AEffect
+            ListOfTypes<AEffect> mandatoryEffectTypes = null
+        ) 
         {
             return ActiveAbilitiesToAnimation.Any
                 (
@@ -604,10 +605,10 @@ namespace FrostfallSaga.Fight.Fighters
                         ActiveAbilitySO activeAbility = activeAbilityToAnimation.activeAbility;
                         if (!CanUseHealAbility(fightGrid, activeAbility, fightersTeams, target)) return false;
                         if (!CanUseActiveAbility(fightGrid, activeAbility, fightersTeams, target)) return false;
-                        if(effects != null && effects.Any())
+                        if(mandatoryEffectTypes != null && mandatoryEffectTypes.Any())
                         {
                             AEffect[] abilityEffects = activeAbility.Effects;
-                            return effects.All(effect => abilityEffects.Any(e => e is T && e.GetType() == effect.GetType()));
+                            return mandatoryEffectTypes.Any(effect => abilityEffects.Any(e => e.GetType() == effect.GetType()));
                         }
                         return true;
                     }
@@ -725,7 +726,7 @@ namespace FrostfallSaga.Fight.Fighters
             return (
                 CanMove(fightGrid) ||
                 CanDirectAttack(fightGrid, fightersTeams) ||
-                CanUseAtLeastOneActiveAbility<AEffect>(fightGrid, fightersTeams)
+                CanUseAtLeastOneActiveAbility(fightGrid, fightersTeams)
             );
         }
 
