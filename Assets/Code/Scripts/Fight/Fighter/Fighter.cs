@@ -595,7 +595,7 @@ namespace FrostfallSaga.Fight.Fighters
             Fighter target = null
         )
         {
-            return ActiveAbilitiesToAnimation.Any(
+            return ActiveAbilitiesToAnimation.Any( 
                 activeAbilityToAnimation => CanUseActiveAbility(
                     fightGrid,
                     activeAbilityToAnimation.activeAbility,
@@ -604,6 +604,76 @@ namespace FrostfallSaga.Fight.Fighters
                 )
             );
         }
+
+        /// <summary>
+        /// Returns whether the fighter can use one if its active ability in the given context or not.
+        /// </summary>
+        /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
+        /// <param name="fightersTeams">The teams of the fighters in the fight.</param>
+        /// <param name="target">The optional target to check if the active ability can be used on.</param>
+        /// <returns>True if he has enough actions points and if an active ability targeter can be resolved around him.</returns>
+        public bool CanUseAtLeastOneHealAbility(
+            HexGrid fightGrid,
+            Dictionary<Fighter, bool> fightersTeams,
+            Fighter target = null
+        )
+        {
+            return ActiveAbilitiesToAnimation.Any(
+                activeAbilityToAnimation => CanUseHealAbility(
+                    fightGrid,
+                    activeAbilityToAnimation.activeAbility,
+                    fightersTeams,
+                    target
+                )
+            );
+        }
+
+        /// <summary>
+        /// Returns whether the fighter can use the given active ability in the given context or not.
+        /// </summary>
+        /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
+        /// <param name="activeAbility">The active ability to check if it can be used.</param>
+        /// <param name="fightersTeams">The teams of the fighters in the fight.</param>
+        /// <param name="target">The optional target to check if the active ability can be used on.</param>
+        /// <returns>True if he has enough actions points and if the active ability targeter can be resolved around him.</returns>
+        public bool CanUseHealAbility(
+            HexGrid fightGrid,
+            ActiveAbilitySO activeAbility,
+            Dictionary<Fighter, bool> fightersTeams,
+            Fighter target = null
+        )
+        {
+            return (
+                activeAbility.ActionPointsCost <= _stats.actionPoints &&
+                activeAbility.GodFavorsPointsCost <= _godFavorsPoints &&
+                (
+                    (
+                        activeAbility.Targeter.AtLeastOneCellResolvable(
+                            fightGrid,
+                            cell,
+                            fightersTeams,
+                            activeAbility.CellAlterations
+                        ) &&
+                        target == null
+                    ) && HasHealSpell() &&
+                    CanUseTargeterOnFighter(activeAbility.Targeter, target, fightGrid, fightersTeams, activeAbility.CellAlterations)
+                )
+            );
+        }
+
+        private bool HasHealSpell()
+        {
+            List<ActiveAbilitySO> activeAbilities = new List<ActiveAbilitySO>();
+
+            return activeAbilities
+                .SelectMany(ability => ability.Effects)
+                .OfType<HealEffect>()
+                .Any();
+
+
+
+        }
+
 
         /// <summary>
         /// Returns the potential first touching cell sequence of the targeter on the target.
