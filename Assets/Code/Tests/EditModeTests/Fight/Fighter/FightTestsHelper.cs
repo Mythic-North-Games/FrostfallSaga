@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
+using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.KingdomToFight;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.GameItems;
 
 namespace FrostfallSaga.EditModeTests.FightTests
 {
@@ -32,17 +34,19 @@ namespace FrostfallSaga.EditModeTests.FightTests
 
         private static void SetupFighterFromNonPersistingConfiguration(Fighter fighter, FighterConfigurationSO fighterConfiguration)
         {
+            Inventory testInventory = new();
+            testInventory.AddItem(Resources.Load<WeaponSO>("EditModeTests/ScriptableObjects/TestWeapon"));
+
             fighter.Setup(
                 new(
                     fighterConfiguration.name,
                     Guid.NewGuid().ToString(),
+                    EntityID.HERO,
                     null,
                     fighterConfiguration.ExtractFighterStats(),
                     fighterConfiguration.FighterClass,
                     fighterConfiguration.PersonalityTrait,
-                    fighterConfiguration.DirectAttackTargeter,
-                    fighterConfiguration.DirectAttackActionPointsCost,
-                    fighterConfiguration.DirectAttackEffects,
+                    testInventory,
                     fighterConfiguration.DirectAttackAnimation,
                     fighterConfiguration.AvailableActiveAbilities,
                     fighterConfiguration.AvailablePassiveAbilities,

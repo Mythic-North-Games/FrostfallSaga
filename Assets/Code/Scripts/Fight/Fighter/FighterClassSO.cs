@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using FrostfallSaga.Core;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -12,8 +13,8 @@ namespace FrostfallSaga.Fight.Fighters
         [field: SerializeField] public int ClassDexterity { get; private set; }
         [field: SerializeField] public float ClassTenacity { get; private set; }
         [field: SerializeField] public int ClassPhysicalResistance { get; private set; }
-        [field: SerializeField] public MagicalElementToValue[] ClassMagicalResistances { get; private set; }
-        [field: SerializeField] public MagicalElementToValue[] ClassMagicalStrengths { get; private set; }
+        [field: SerializeField] public SElementToValue<EMagicalElement, int>[] ClassMagicalResistances { get; private set; }
+        [field: SerializeField] public SElementToValue<EMagicalElement, int>[] ClassMagicalStrengths { get; private set; }
         [field: SerializeField] public float ClassDodgeChance { get; private set; }
         [field: SerializeField] public float ClassMasterstrokeChance { get; private set; }
         [field: SerializeField] public int ClassInitiative { get; private set; }

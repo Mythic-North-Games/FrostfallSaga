@@ -58,7 +58,14 @@ namespace FrostfallSaga.Fight.Abilities
             Fighter[] targets = GetTargets(initator, fighterTeams);
             foreach (Fighter target in targets)
             {
-                Effects.ToList().ForEach(effect => effect.ApplyEffect(target, initator, false, false, false));
+                Effects.ToList().ForEach(
+                    effect => effect.ApplyEffect(
+                        receiver: target,
+                        isMasterstroke: false,
+                        initator: initator,
+                        adjustGodFavorsPoints: false
+                    )
+                );
             }
 
             if (VisualsController == null)

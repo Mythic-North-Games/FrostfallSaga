@@ -1,6 +1,6 @@
+using FrostfallSaga.Grid;
 using UnityEditor;
 using UnityEngine;
-using FrostfallSaga.Grid;
 
 namespace FrostfallSaga.FFSEditor.Grid
 {
@@ -15,6 +15,7 @@ namespace FrostfallSaga.FFSEditor.Grid
 
             if (GUILayout.Button("Generate Hex Mesh"))
             {
+                hexGridMeshGenerator.Initialize();
                 hexGridMeshGenerator.GenerateCells();
             }
 

@@ -1,0 +1,12 @@
+.test_damageStyle {
+    -unity-text-align: upper-center;
+    -unity-font-definition: initial;
+    -unity-font: url("project://database/Assets/Art/UI/fonts/NorseBold-2Kge.otf?fileID=12800000&guid=2f906922239f6b94b80224d6ea0dc88e&type=3#NorseBold-2Kge");
+    -unity-text-outline-color: rgb(41, 17, 5);
+    font-size: 200%;
+    -unity-font-style: bold;
+    color: rgb(109, 2, 2);
+    -unity-text-outline-width: 1.4px;
+    text-shadow: 20px 20px 2px rgba(0, 0, 0, 0.6);
+    letter-spacing: 0;
+}

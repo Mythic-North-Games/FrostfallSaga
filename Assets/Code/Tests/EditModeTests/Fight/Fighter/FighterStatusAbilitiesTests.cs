@@ -25,8 +25,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             Assert.IsNotNull(fighter, "Le fighter n'est pas initialisé");
             Assert.IsNotNull(statusManager, "Le StatusEffectManager n'est pas initialisé");
             bleedStatus = new BleedStatus(
-                "Bleed",
-                "Bleed the target",
                 false,
                 3,
                 false,
@@ -36,8 +34,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
                 10
             );
             weaknessStatus = new WeaknessStatus(
-                "Weakness",
-                "Weaken the target",
                 false,
                 3,
                 false,
@@ -47,8 +43,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
                 10
             );
             paralysisStatus = new ParalysisStatus(
-                "Paralysis",
-                "Paralyze the target",
                 false,
                 3,
                 false,

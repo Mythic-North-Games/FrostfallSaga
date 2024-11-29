@@ -14,6 +14,9 @@ namespace FrostfallSaga.FFSEditor.Fight
         private SerializedProperty effectsProperty;
         private ReorderableList effectsList;
 
+        private readonly static string MASTERSTOKE_EFFECTS_PROPERTY_NAME = "MasterstrokeEffects";
+        private SerializedProperty masterstrokeEffectsProperty;
+        private ReorderableList masterstrokeEffectsList;
 
         private readonly static string CELL_ALTERATIONS_PROPERTY_NAME = "CellAlterations";
         private SerializedProperty cellAlterationsProperty;
@@ -24,6 +27,9 @@ namespace FrostfallSaga.FFSEditor.Fight
             effectsProperty = serializedObject.FindProperty(EFFECTS_PROPERTY_NAME);
             effectsList = AbstractListEditorBuilder.BuildAbstractList<AEffect>(serializedObject, effectsProperty);
 
+            masterstrokeEffectsProperty = serializedObject.FindProperty(MASTERSTOKE_EFFECTS_PROPERTY_NAME);
+            masterstrokeEffectsList = AbstractListEditorBuilder.BuildAbstractList<AEffect>(serializedObject, masterstrokeEffectsProperty);
+
             cellAlterationsProperty = serializedObject.FindProperty(CELL_ALTERATIONS_PROPERTY_NAME);
             cellAlterationsList = AbstractListEditorBuilder.BuildAbstractList<AFightCellAlteration>(serializedObject, cellAlterationsProperty);
         }
@@ -32,10 +38,18 @@ namespace FrostfallSaga.FFSEditor.Fight
         {
             serializedObject.Update();
 
-            DrawPropertiesExcluding(serializedObject, EFFECTS_PROPERTY_NAME, CELL_ALTERATIONS_PROPERTY_NAME);
+            DrawPropertiesExcluding(
+                serializedObject,
+                EFFECTS_PROPERTY_NAME,
+                MASTERSTOKE_EFFECTS_PROPERTY_NAME,
+                CELL_ALTERATIONS_PROPERTY_NAME
+            );
 
             EditorGUILayout.Space();
             effectsList.DoLayoutList();
+
+            EditorGUILayout.Space();
+            masterstrokeEffectsList.DoLayoutList();
 
             EditorGUILayout.Space();
             cellAlterationsList.DoLayoutList();

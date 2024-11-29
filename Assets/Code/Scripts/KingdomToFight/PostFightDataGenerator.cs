@@ -1,8 +1,8 @@
 using System.Linq;
-using UnityEngine;
-using FrostfallSaga.Kingdom;
 using FrostfallSaga.Fight;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Kingdom;
+using UnityEngine;
 
 namespace FrostfallSaga.KingdomToFight
 {

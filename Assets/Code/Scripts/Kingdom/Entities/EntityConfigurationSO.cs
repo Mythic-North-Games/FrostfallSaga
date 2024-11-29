@@ -1,4 +1,5 @@
 using UnityEngine;
+using FrostfallSaga.Core;
 
 namespace FrostfallSaga.Kingdom.Entities
 {

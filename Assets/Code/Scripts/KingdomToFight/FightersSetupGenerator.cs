@@ -6,8 +6,8 @@ using FrostfallSaga.Kingdom;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Fight;
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.GameItems;
 
 namespace FrostfallSaga.KingdomToFight
 {
@@ -71,16 +71,18 @@ namespace FrostfallSaga.KingdomToFight
             string entitySessionId
         )
         {
+            Inventory defaultInventory = new();
+            defaultInventory.AddItem(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath));
+
             return new(
                 fighterConfiguration.name,
                 entitySessionId,
+                entityConfiguration.EntityID,
                 entityConfiguration.EntityIcon,
                 fighterConfiguration.ExtractFighterStats(),
                 fighterConfiguration.FighterClass,
                 fighterConfiguration.PersonalityTrait,
-                fighterConfiguration.DirectAttackTargeter,
-                fighterConfiguration.DirectAttackActionPointsCost,
-                fighterConfiguration.DirectAttackEffects,
+                defaultInventory,
                 fighterConfiguration.DirectAttackAnimation,
                 GetRandomActiveAbilities(
                     fighterConfiguration.AvailableActiveAbilities,
@@ -99,27 +101,26 @@ namespace FrostfallSaga.KingdomToFight
 
         private FighterSetup GenerateFighterSetupFromPersistingConfiguration(
             EntityConfigurationSO entityConfiguration,
-            PersistedFighterConfigurationSO fighterConfiguration,
+            PersistedFighterConfigurationSO persistedFighterConfiguration,
             string entitySessionId
         )
         {
             return new(
-                fighterConfiguration.name,
+                persistedFighterConfiguration.name,
                 entitySessionId,
+                entityConfiguration.EntityID,
                 entityConfiguration.EntityIcon,
-                fighterConfiguration.ExtractFighterStats(),
-                fighterConfiguration.FighterClass,
-                fighterConfiguration.PersonalityTrait,
-                fighterConfiguration.DirectAttackTargeter,
-                fighterConfiguration.DirectAttackActionPointsCost,
-                fighterConfiguration.DirectAttackEffects,
-                fighterConfiguration.DirectAttackAnimation,
-                fighterConfiguration.EquipedActiveAbilities,
-                fighterConfiguration.EquipedPassiveAbilities,
-                fighterConfiguration.ReceiveDamageAnimationName,
-                fighterConfiguration.HealSelfAnimationName,
-                fighterConfiguration.ReduceStatAnimationName,
-                fighterConfiguration.IncreaseStatAnimationName
+                persistedFighterConfiguration.ExtractFighterStats(),
+                persistedFighterConfiguration.FighterClass,
+                persistedFighterConfiguration.PersonalityTrait,
+                persistedFighterConfiguration.Inventory,
+                persistedFighterConfiguration.DirectAttackAnimation,
+                persistedFighterConfiguration.EquipedActiveAbilities,
+                persistedFighterConfiguration.EquipedPassiveAbilities,
+                persistedFighterConfiguration.ReceiveDamageAnimationName,
+                persistedFighterConfiguration.HealSelfAnimationName,
+                persistedFighterConfiguration.ReduceStatAnimationName,
+                persistedFighterConfiguration.IncreaseStatAnimationName
             );
         }
 
@@ -166,10 +167,10 @@ namespace FrostfallSaga.KingdomToFight
         }
         #endregion
 
-        private static ActiveAbilityToAnimation[] GetRandomActiveAbilities(ActiveAbilityToAnimation[] activeAbalities, int count)
+        private static ActiveAbilitySO[] GetRandomActiveAbilities(ActiveAbilitySO[] activeAbalities, int count)
         {
-            List<ActiveAbilityToAnimation> availableActiveAbilities = new(activeAbalities);
-            List<ActiveAbilityToAnimation> equipedActiveAbilities = new();
+            List<ActiveAbilitySO> availableActiveAbilities = new(activeAbalities);
+            List<ActiveAbilitySO> equipedActiveAbilities = new();
             while (equipedActiveAbilities.Count < count && availableActiveAbilities.Count > 0)
             {
                 int randomActiveAbilityIndex = Randomizer.GetRandomIntBetween(0, availableActiveAbilities.Count);

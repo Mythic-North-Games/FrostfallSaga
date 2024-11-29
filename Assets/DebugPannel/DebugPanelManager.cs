@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,7 +16,7 @@ namespace FrostfallSaga.DebugPanel
         [SerializeField] PanelSettings myPanelSetting;
         private void Awake()
         {
-            if(Instance == null)
+            if (Instance == null)
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
@@ -32,16 +30,16 @@ namespace FrostfallSaga.DebugPanel
         private VisualElement debugPanelElement;
         void GenrateUIElements()
         {
-            if(UIDInstance == null)
+            if (UIDInstance == null)
             {
                 uiDocumentObject = new GameObject("UIDocument");
                 UIDInstance = uiDocumentObject.AddComponent<UIDocument>();
 
-                UIDInstance.visualTreeAsset = myTreeAssetMember;  
+                UIDInstance.visualTreeAsset = myTreeAssetMember;
                 UIDInstance.panelSettings = myPanelSetting;
 
                 DontDestroyOnLoad(uiDocumentObject);
-                
+
                 uiDocumentObject.SetActive(false);
             }
         }
@@ -58,7 +56,7 @@ namespace FrostfallSaga.DebugPanel
             {
                 bool isActive = uiDocumentObject.activeSelf;
                 uiDocumentObject.SetActive(!isActive);
-                if(!isActive)
+                if (!isActive)
                     MapMethodsToButtons();
             }
         }
@@ -77,11 +75,11 @@ namespace FrostfallSaga.DebugPanel
                         && m.GetParameters().Length == 0
                         && IsUserDefinedType(component.GetType()) // Filtres sur les workspaces
                         && m.IsDefined(typeof(DebugPanelAttribute))) // Vérifier si la méthode contient l'atribute de debug
-                .Select(m => new 
+                .Select(m => new
                 {
-                    Method = m, 
-                    Component = component, 
-                    Attribute = (DebugPanelAttribute)m.GetCustomAttribute(typeof(DebugPanelAttribute)) 
+                    Method = m,
+                    Component = component,
+                    Attribute = (DebugPanelAttribute)m.GetCustomAttribute(typeof(DebugPanelAttribute))
                 })
                 )
                 .ToList();
@@ -102,7 +100,7 @@ namespace FrostfallSaga.DebugPanel
             BaseButtonCont.Clear();
             MiscButtonCont.Clear();
             // Créer des boutons pour chaque méthode et les ajouter au conteneur
-            foreach (var methodInfo  in methods)
+            foreach (var methodInfo in methods)
             {
                 Button button = new Button();
                 button.AddToClassList("btnCmd");
@@ -121,7 +119,7 @@ namespace FrostfallSaga.DebugPanel
                         Debug.LogWarning($"No instance of component {methodInfo.Method.DeclaringType.Name} found.");
                     }
                 };
-                switch(category.ToLower())
+                switch (category.ToLower())
                 {
                     case "action":
                         ActionButtonCont.Add(button);
@@ -134,7 +132,7 @@ namespace FrostfallSaga.DebugPanel
                         break;
                 }
                 // Ajouter le bouton au conteneur
-                
+
                 button.MarkDirtyRepaint();
                 if (ActionButtonCont.parent == null)
                 {

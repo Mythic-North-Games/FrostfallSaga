@@ -14,17 +14,10 @@ namespace FrostfallSaga.Fight.Effects
         [field: SerializeField] public int Amount;
         [field: SerializeField] public bool UsePercentage;
 
-        public UpdateMutableStatEffect()
-        {
-            Masterstrokable = false;
-            Dodgable = false;
-        }
-
         public override void ApplyEffect(
             Fighter receiver,
+            bool isMasterstroke,
             Fighter initiator = null,
-            bool canMasterstroke = true,
-            bool canDodge = true,
             bool adjustGodFavorsPoints = true
         )
         {
@@ -58,7 +51,7 @@ namespace FrostfallSaga.Fight.Effects
             receiver.UpdateMutableStat(StatToUpdate, -finalUpdateAmount);
         }
 
-        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke = true)
+        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke)
         {
             return 0;
         }

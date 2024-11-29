@@ -1,5 +1,5 @@
-using UnityEngine;
 using FrostfallSaga.Core;
+using UnityEngine;
 
 namespace FrostfallSaga.Grid.Cells
 {
@@ -8,24 +8,18 @@ namespace FrostfallSaga.Grid.Cells
     /// </summary>
     public class Cell : MonoBehaviour
     {
-        [field: SerializeField, Header("Coordinates"), Tooltip("Contain coordinates")]
-        public Vector2Int Coordinates { get; private set; }
-
+        [field: SerializeField, Header("Coordinates"), Tooltip("Contain coordinates")] public Vector2Int Coordinates { get; private set; }
         [property: SerializeField]
         public Vector2Int AxialCoordinates
         {
             get { return HexMetrics.OffsetToAxial(Coordinates); }
         }
         [field: SerializeField] public float WorldHeightPerUnit { get; private set; } = 0.8f;
-
-        [field: SerializeField, Header("Cell characteristics"), Tooltip("Contain cell characteristics")]
-        public TerrainTypeSO TerrainType { get; private set; }
-
+        [field: SerializeField, Header("Cell characteristics"), Tooltip("Contain cell characteristics")] public TerrainTypeSO TerrainType { get; private set; }
+        [field: SerializeField, Tooltip("Biome type")] public BiomeTypeSO BiomeType { get; private set; }
         [field: SerializeField] public ECellHeight Height { get; private set; }
 
-        [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")]
-        public MaterialHighlightable HighlightController { get; private set; }
-
+        [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")] public MaterialHighlightable HighlightController { get; private set; }
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
 
         private void Awake()
@@ -45,12 +39,15 @@ namespace FrostfallSaga.Grid.Cells
             Vector2Int coordinates,
             ECellHeight cellHeight,
             float hexSize,
-            TerrainTypeSO terrainType
+            TerrainTypeSO terrainType,
+            BiomeTypeSO biomeType
         )
         {
 
             Coordinates = coordinates;
             Height = cellHeight;
+            TerrainType = terrainType;
+            BiomeType = biomeType;
             SetTerrain(terrainType);
             SetPositionForCellHeight(Height);
             SetCellMouseEventsControllerFromGameObjectTree();

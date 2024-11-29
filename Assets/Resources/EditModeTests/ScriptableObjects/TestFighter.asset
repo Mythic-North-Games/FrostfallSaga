@@ -15,23 +15,10 @@ MonoBehaviour:
   <FighterClass>k__BackingField: {fileID: 11400000, guid: 300401a09f127304391e9390e710e20f, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 0}
   <AvailableActiveAbilities>k__BackingField:
-  - activeAbility: {fileID: 11400000, guid: 96b49d2c6e60f09488401b8474900905, type: 2}
-    animation: {fileID: 0}
-  ActiveAbilitiesCapacity: 5
-  <DirectAttackTargeter>k__BackingField:
-    <OriginCellRange>k__BackingField: 0
-    <CellsSequence>k__BackingField: []
-    <StartFromInitiator>k__BackingField: 0
-    <FighterMandatory>k__BackingField: 0
-    <TargetsToExclude>k__BackingField: 
-    <RelativeHeightsToExclude>k__BackingField: 
-    <StopedAtInacessibles>k__BackingField: 0
-    <StopedAtXthHigherHeightDifference>k__BackingField: 0
-    <StopedAtXthLowerHeightDifference>k__BackingField: 0
-    <StopedAtXthEncounteredFighters>k__BackingField: 0
-  DirectAttackEffects:
-  - rid: 3629974059018878979
-  <DirectAttackActionPointsCost>k__BackingField: 2
+  - {fileID: 11400000, guid: 96b49d2c6e60f09488401b8474900905, type: 2}
+  <ActiveAbilitiesCapacity>k__BackingField: 0
+  <AvailablePassiveAbilities>k__BackingField: []
+  <PassiveAbilitiesCapacity>k__BackingField: 0
   <MaxHealth>k__BackingField: 100
   <MaxActionPoints>k__BackingField: 5
   <MaxMovePoints>k__BackingField: 5
@@ -40,30 +27,30 @@ MonoBehaviour:
   <Tenacity>k__BackingField: 0
   <PhysicalResistance>k__BackingField: 0
   <MagicalResistances>k__BackingField:
-  - magicalElement: 0
+  - element: 0
     value: 3
-  - magicalElement: 1
+  - element: 1
     value: 0
-  - magicalElement: 2
+  - element: 2
     value: 0
-  - magicalElement: 3
+  - element: 3
     value: 0
-  - magicalElement: 4
+  - element: 4
     value: 0
-  - magicalElement: 5
+  - element: 5
     value: 0
   <MagicalStrengths>k__BackingField:
-  - magicalElement: 0
+  - element: 0
     value: 3
-  - magicalElement: 1
+  - element: 1
     value: 0
-  - magicalElement: 2
+  - element: 2
     value: 0
-  - magicalElement: 3
+  - element: 3
     value: 0
-  - magicalElement: 4
+  - element: 4
     value: 0
-  - magicalElement: 5
+  - element: 5
     value: 0
   <DodgeChance>k__BackingField: 0
   <MasterstrokeChance>k__BackingField: 0
@@ -73,14 +60,3 @@ MonoBehaviour:
   <ReceiveDamageAnimationName>k__BackingField: 
   <ReduceStatAnimationName>k__BackingField: 
   <IncreaseStatAnimationName>k__BackingField: 
-  references:
-    version: 2
-    RefIds:
-    - rid: 3629974059018878979
-      type: {class: PhysicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
-      data:
-        Name: Test direct attack effect
-        Description: 
-        Dodgable: 0
-        Masterstrokable: 0
-        PhysicalDamageAmount: 10

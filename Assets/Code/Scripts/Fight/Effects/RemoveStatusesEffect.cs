@@ -17,9 +17,8 @@ namespace FrostfallSaga.Fight.Effects
 
         public override void ApplyEffect(
             Fighter receiver,
+            bool isMasterstroke,
             Fighter initiator = null,
-            bool canMasterstroke = true,
-            bool canDodge = true,
             bool adjustGodFavorsPoints = true
         )
         {
@@ -33,6 +32,7 @@ namespace FrostfallSaga.Fight.Effects
                     Debug.Log($"Status {status.Name} removed from {receiver.name}.");
                 }
             }
+            receiver.onEffectReceived?.Invoke(receiver, initiator, this, false);
 
             // Increase god favors points if enabled
             if (adjustGodFavorsPoints && initiator != null)
@@ -46,7 +46,7 @@ namespace FrostfallSaga.Fight.Effects
             // Remove statuses effect cannot be restored
         }
 
-        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke = true)
+        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke)
         {
             return 0;
         }

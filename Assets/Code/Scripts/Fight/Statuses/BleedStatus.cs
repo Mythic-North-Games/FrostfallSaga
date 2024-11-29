@@ -7,16 +7,19 @@ namespace FrostfallSaga.Fight.Statuses
     [Serializable]
     public class BleedStatus : AStatus
     {
+        private static readonly string NAME = "Bleed";
+        private static readonly string DESCRIPTION = "The fighter's health is reduced.";
+
         [field: SerializeField] public int BleedingDamage { get; private set; }
 
         public BleedStatus()
         {
             StatusType = EStatusType.BLEED;
+            Name = NAME;
+            Description = DESCRIPTION;
         }
 
         public BleedStatus(
-            string name,
-            string description,
             bool isPermanent,
             int duration,
             bool triggerOnFirstApply,
@@ -25,7 +28,7 @@ namespace FrostfallSaga.Fight.Statuses
             FighterBuffVisualsController visualsController,
             int bleedingDamage
         )
-            : base(EStatusType.BLEED, name, description, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+            : base(EStatusType.BLEED, NAME, DESCRIPTION, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
         {
             BleedingDamage = bleedingDamage;
         }
