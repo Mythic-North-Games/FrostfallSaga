@@ -9,11 +9,13 @@ namespace FrostfallSaga.Fight.UI
 {
     public class FightersOrderTimelineController : BaseUIController
     {
-        [SerializeField] private FightManager _fightManager;
-
         private static readonly string TIMELINE_UI_NAME = "TimelinePanel";
         private static readonly string CHARACTER_CONTAINER_UI_NAME = "TimelineCharacterContainer";
         private static readonly string CHARACTER_BACKGROUND_UI_NAME = "TimelineCharacterBackground";
+
+        [SerializeField] private FightManager _fightManager;
+        [SerializeField] private FighterDetailsPanelController _fighterDetailsPanelController;
+        [SerializeField] private int _fighterDetailsXOffset = 20;
 
         private void OnFightersTurnOrderUpdated(Fighter[] fighters)
         {
@@ -47,11 +49,28 @@ namespace FrostfallSaga.Fight.UI
             {
                 name = $"{CHARACTER_BACKGROUND_UI_NAME}{characterContainer.name[^1]}"
             };
-            characterBackground.style.backgroundImage = new(fighter.FighterIcon);
+            characterBackground.style.backgroundImage = new(fighter.Icon);
             characterBackground.style.width = new(new Length(90, LengthUnit.Percent));
             characterBackground.style.height = new(new Length(90, LengthUnit.Percent));
             characterBackground.style.marginLeft = new(new Length(5, LengthUnit.Percent));
             characterBackground.style.marginTop = new(new Length(5, LengthUnit.Percent));
+            characterBackground.RegisterCallback<MouseOverEvent>(evt =>
+                {
+                    Vector2Int timelinePosition = new(
+                        (int)_uiDoc.rootVisualElement.Q(TIMELINE_UI_NAME).layout.x,
+                        (int)_uiDoc.rootVisualElement.Q(TIMELINE_UI_NAME).layout.y
+                    );
+                    Vector2Int panelSize = _fighterDetailsPanelController.GetPanelSize();
+                    Vector2Int displayPosition = new(
+                        timelinePosition.x - panelSize.x - _fighterDetailsXOffset,
+                        timelinePosition.y
+                    );
+                    _fighterDetailsPanelController.Display(fighter, displayPosition);
+                }
+            );
+            characterBackground.RegisterCallback<MouseOutEvent>(
+                evt => _fighterDetailsPanelController.Hide()
+            );
             characterContainer.Add(characterBackground);
         }
 

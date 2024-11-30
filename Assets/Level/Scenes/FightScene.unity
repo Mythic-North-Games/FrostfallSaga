@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571328, b: 0.3069218, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5356,10 +5356,11 @@ MonoBehaviour:
   _fighterPrefab: {fileID: 4700538115128749028, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
   _preFightData: {fileID: 11400000, guid: 04c5351ee75a07946b88b4758739fc4a, type: 2}
   _devAlliesFighterSetup:
-  - name: Hero
+  - name: Tiline
     sessionId: 
     entityID: 0
     icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
+    diamondIcon: {fileID: 21300000, guid: 54602b48bb6b71e4b967d9777b79ae1e, type: 3}
     initialStats:
       health: 100
       maxHealth: 100
@@ -5371,7 +5372,139 @@ MonoBehaviour:
       dexterity: 1
       tenacity: 0
       physicalResistance: 1
-      dodgeChance: 1
+      dodgeChance: 0
+      masterstrokeChance: 1
+      initiative: 3
+    fighterClass: {fileID: 11400000, guid: 8d3cfbd8265f5e54cb7a7563a0ae8f1b, type: 2}
+    personalityTrait: {fileID: 0}
+    inventory:
+      <WeaponSlot>k__BackingField:
+        <Item>k__BackingField: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
+        <ItemCount>k__BackingField: 1
+        <MaxItemCount>k__BackingField: 1
+      <HelmetSlot>k__BackingField:
+        <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 1
+      <ChestplateSlot>k__BackingField:
+        <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 1
+      <GlovesSlot>k__BackingField:
+        <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 1
+      <LeggingsSlot>k__BackingField:
+        <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 1
+      <BootsSlot>k__BackingField:
+        <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 1
+      <BagSlots>k__BackingField:
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
+    activeAbilities:
+    - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+    - {fileID: 11400000, guid: 436fd3c6fdddb5b05a6357cf2d05e708, type: 2}
+    - {fileID: 11400000, guid: 30ab05920ca8f7448aeace60fbb87c63, type: 2}
+    - {fileID: 11400000, guid: 2e4c98e0eeb351d4a981ce5c113a2ae5, type: 2}
+    - {fileID: 11400000, guid: ec1b5a01f965feb48abc59d1f1ed3355, type: 2}
+    passiveAbilities:
+    - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
+    receiveDamageAnimationName: Hurt
+    healSelfAnimationName: 
+    reduceStatAnimationName: Hurt
+    increaseStatAnimationName: 
+  - name: Kerniche
+    sessionId: 
+    entityID: 0
+    icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
+    diamondIcon: {fileID: 21300000, guid: 54602b48bb6b71e4b967d9777b79ae1e, type: 3}
+    initialStats:
+      health: 100
+      maxHealth: 100
+      actionPoints: 5
+      maxActionPoints: 5
+      movePoints: 4
+      maxMovePoints: 4
+      strength: 1
+      dexterity: 1
+      tenacity: 0
+      physicalResistance: 1
+      dodgeChance: 0
       masterstrokeChance: 1
       initiative: 3
     fighterClass: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
@@ -5492,6 +5625,7 @@ MonoBehaviour:
     sessionId: 
     entityID: 0
     icon: {fileID: 21300000, guid: f6fc899a423eacb4a87e6c0bb5acb040, type: 3}
+    diamondIcon: {fileID: 0}
     initialStats:
       health: 100
       maxHealth: 100
@@ -6915,6 +7049,8 @@ GameObject:
   - component: {fileID: 1952024165}
   - component: {fileID: 1952024166}
   - component: {fileID: 1952024167}
+  - component: {fileID: 1952024168}
+  - component: {fileID: 1952024169}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -6967,6 +7103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
   _fightManager: {fileID: 1678739252}
+  _fighterDetailsPanelController: {fileID: 1952024169}
+  _fighterDetailsPanelYOffset: 20
 --- !u!114 &1952024165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6981,6 +7119,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
   _fightManager: {fileID: 1678739252}
+  _fighterDetailsPanelController: {fileID: 1952024169}
+  _fighterDetailsXOffset: 20
 --- !u!114 &1952024166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7014,7 +7154,6 @@ MonoBehaviour:
   _healStyleClass: healLabel
   _buffAppliedStyleClass: buffLabel
   _debuffAppliedStyleClass: debuffLabel
-  _statusRemovedStyleClass: 
   _dodgeStyleClass: dodgeLabel
   _masterstrokeStyleClass: masterstrokeLabel
   _statIcons:
@@ -7023,6 +7162,36 @@ MonoBehaviour:
   - element: 3
     value: {fileID: 2800000, guid: e6b98d28e1ca0cf4c9abac72040c1e0e, type: 3}
   _fightersGenerator: {fileID: 1644039837}
+--- !u!114 &1952024168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952024161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1be106528f785f443ae4322ce7aff800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDoc: {fileID: 1952024162}
+  _floatingBarUIPanel: {fileID: 9197481963319205126, guid: 8e946bee0261af8448bed4da75f9cc6d, type: 3}
+  _yOffset: 10
+  _fightersGenerator: {fileID: 1644039837}
+--- !u!114 &1952024169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952024161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc142501585ec14ebebb834d826d1f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDoc: {fileID: 1952024162}
+  _fighterDetailsUIPanel: {fileID: 9197481963319205126, guid: d00385b87258a224ab3b968089d24399, type: 3}
 --- !u!1 &1963673181
 GameObject:
   m_ObjectHideFlags: 0

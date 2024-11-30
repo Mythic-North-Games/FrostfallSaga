@@ -48,7 +48,7 @@ MonoBehaviour:
       data:
         <Name>k__BackingField: Weakness
         <Description>k__BackingField: 
-        <Icon>k__BackingField: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+        <Icon>k__BackingField: {fileID: 21300000, guid: 34974e1ee8b6a9b4d969ffebd6d984d2, type: 3}
         <StatusType>k__BackingField: 3
         <IsPermanent>k__BackingField: 0
         <Duration>k__BackingField: 3

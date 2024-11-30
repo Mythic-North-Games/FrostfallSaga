@@ -200,9 +200,9 @@ namespace FrostfallSaga.Fight.Controllers
 
         }
 
-        private void OnFighterActiveAbilityEnded(Fighter fighter)
+        private void OnFighterActiveAbilityEnded(Fighter fighter, ActiveAbilitySO usedAbility)
         {
-            Debug.Log($"Fighter {fighter.name} has finished using its active ability.");
+            Debug.Log($"Fighter {fighter.name} has finished using its active ability {usedAbility.name}.");
             onFighterActionEnded?.Invoke(fighter);
             _possessedFighter.StartCoroutine(DoNextAction());
         }

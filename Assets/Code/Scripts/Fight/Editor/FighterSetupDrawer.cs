@@ -35,6 +35,7 @@ namespace FrostfallSaga.FFSEditor.Fight
                 currentY = DrawPropertyField(position, property, "name", currentY);
                 currentY = DrawPropertyField(position, property, "sessionId", currentY);
                 currentY = DrawPropertyField(position, property, "icon", currentY);
+                currentY = DrawPropertyField(position, property, "diamondIcon", currentY);
                 currentY = DrawPropertyField(position, property, "initialStats", currentY);
                 currentY = DrawPropertyField(position, property, "fighterClass", currentY);
                 currentY = DrawPropertyField(position, property, "personalityTrait", currentY);

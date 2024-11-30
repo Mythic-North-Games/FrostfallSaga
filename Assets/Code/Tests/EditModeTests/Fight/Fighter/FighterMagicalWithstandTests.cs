@@ -131,7 +131,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.SetStatsForTests();
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances[EMagicalElement.FIRE] = 0;
-            fighter.GetStatsForTests().magicalResistances[EMagicalElement.WATER] = fighterMagicalResistance;
+            fighter.GetStatsForTests().magicalResistances[EMagicalElement.ICE] = fighterMagicalResistance;
 
             // Act
             fighter.MagicalWithstand(damageAmount, damageMagicalElement, false);

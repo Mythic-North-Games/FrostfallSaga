@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.Effects;
 
 namespace FrostfallSaga.Fight
 {
@@ -98,8 +97,9 @@ namespace FrostfallSaga.Fight
                     { EMagicalElement.FIRE, 0 },
                     { EMagicalElement.ICE, 0 },
                     { EMagicalElement.LIGHTNING, 0 },
-                    { EMagicalElement.WATER, 0 },
-                    { EMagicalElement.WIND, 0 }
+                    { EMagicalElement.EARTH, 0 },
+                    { EMagicalElement.LIGHT, 0 },
+                    { EMagicalElement.DARKNESS, 0 }
                 };
             }
 
@@ -114,8 +114,9 @@ namespace FrostfallSaga.Fight
                     { EMagicalElement.FIRE, 0 },
                     { EMagicalElement.ICE, 0 },
                     { EMagicalElement.LIGHTNING, 0 },
-                    { EMagicalElement.WATER, 0 },
-                    { EMagicalElement.WIND, 0 }
+                    { EMagicalElement.EARTH, 0 },
+                    { EMagicalElement.LIGHT, 0 },
+                    { EMagicalElement.DARKNESS, 0 }
                 };
             }
         }

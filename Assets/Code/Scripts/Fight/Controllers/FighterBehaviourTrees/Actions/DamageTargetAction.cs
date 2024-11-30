@@ -91,7 +91,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             // Do the action
             if (useActiveAbility)
             {
-                _possessedFighter.onActiveAbilityEnded += OnPossessedFighterFinishedDamageAction;
+                _possessedFighter.onActiveAbilityEnded += (fighter, usedAbility ) => OnPossessedFighterFinishedDamageAction(fighter);
                 _possessedFighter.UseActiveAbility(
                     preferedAbility,
                     targetCells
@@ -99,7 +99,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             }
             else
             {
-                _possessedFighter.onDirectAttackEnded += OnPossessedFighterFinishedDamageAction;
+                _possessedFighter.onDirectAttackEnded += (fighter) => OnPossessedFighterFinishedDamageAction(fighter);
                 _possessedFighter.UseDirectAttack(targetCells);
             }
             return NodeState.SUCCESS;
@@ -108,8 +108,6 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
         private void OnPossessedFighterFinishedDamageAction(Fighter possessedFighter)
         {
             SetSharedData(FBTNode.ACTION_RUNNING_SHARED_DATA_KEY, false);
-            possessedFighter.onActiveAbilityEnded -= OnPossessedFighterFinishedDamageAction;
-            possessedFighter.onDirectAttackEnded -= OnPossessedFighterFinishedDamageAction;
         }
     }
 }

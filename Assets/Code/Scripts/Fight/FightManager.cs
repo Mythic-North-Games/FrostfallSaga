@@ -340,6 +340,15 @@ namespace FrostfallSaga.Fight
         }
         #endregion
 
+        public Fighter[] GetMatesOfFighter(Fighter fighter)
+        {
+            if (_allies.Contains(fighter))
+            {
+                return _allies.Select(ally => ally).Where(ally => ally != fighter).ToArray();
+            }
+            return _enemies.Select(enemy => enemy).Where(enemy => enemy != fighter).ToArray();
+        }
+
         private enum EWinner
         {
             ALLIES,

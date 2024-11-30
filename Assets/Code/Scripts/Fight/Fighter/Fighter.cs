@@ -10,7 +10,6 @@ using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.FightCells.Impediments;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
 using FrostfallSaga.Fight.Targeters;
-using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Fight.Statuses;
@@ -42,7 +41,7 @@ namespace FrostfallSaga.Fight.Fighters
         [SerializeField] private FighterStats _stats = new();
         [field: SerializeField] private FighterStats _initialStats = new();
         [SerializeField] private int _godFavorsPoints;
-        [field: SerializeField] private FighterClassSO _fighterClass;
+        [field: SerializeField] public FighterClassSO FighterClass { get; private set; }
         [field: SerializeField] public PersonalityTraitSO PersonalityTrait { get; private set; }
         [SerializeField] private Inventory _inventory;
         [field: SerializeField] public WeaponSO Weapon { get; private set; }
@@ -68,7 +67,9 @@ namespace FrostfallSaga.Fight.Fighters
         ////////////////
         // For the UI //
         ////////////////
-        [field: SerializeField, Header("For the UI")] public Sprite FighterIcon { get; private set; }
+        [field: SerializeField, Header("For the UI")] public string FighterName { get; private set; }
+        [field: SerializeField] public Sprite Icon { get; private set; }
+        [field: SerializeField] public Sprite DiamondIcon { get; private set; }
 
         /////////////////////////
         // For world coherence //
@@ -83,11 +84,17 @@ namespace FrostfallSaga.Fight.Fighters
         // <Fighter that moved>
         public Action<Fighter> onFighterMoved;
 
+        // <Fighter that is going to attack>
+        public Action<Fighter> onDirectAttackStarted;
+
         // <Fighter that attacked>
         public Action<Fighter> onDirectAttackEnded;
 
         // <Fighter that used an active ability>
-        public Action<Fighter> onActiveAbilityEnded;
+        public Action<Fighter, ActiveAbilitySO> onActiveAbilityStarted;
+
+        // <Fighter that used an active ability>
+        public Action<Fighter, ActiveAbilitySO> onActiveAbilityEnded;
 
         // <Fighter that dodged>
         public Action<Fighter> onActionDodged;
@@ -142,9 +149,11 @@ namespace FrostfallSaga.Fight.Fighters
         {
             EntitySessionId = fighterSetup.sessionId;
             EntityID = fighterSetup.entityID;
-            FighterIcon = fighterSetup.icon;
+            FighterName = fighterSetup.name;
+            Icon = fighterSetup.icon;
+            DiamondIcon = fighterSetup.diamondIcon;
             _initialStats = fighterSetup.initialStats;
-            _fighterClass = fighterSetup.fighterClass;
+            FighterClass = fighterSetup.fighterClass;
             PersonalityTrait = fighterSetup.personalityTrait;
             _inventory = fighterSetup.inventory;
             Weapon = _inventory.GetWeapon();
@@ -208,7 +217,9 @@ namespace FrostfallSaga.Fight.Fighters
 
             // Trigger the direct attack
             DirectAttackManager.onDirectAttackEnded += OnDirectAttackEnded;
+            _stats.actionPoints -= Weapon.UseActionPointsCost;
             DirectAttackManager.DirectAttack(targetedCells.ToList());
+            onDirectAttackStarted?.Invoke(this);
         }
 
         /// <summary>
@@ -245,6 +256,8 @@ namespace FrostfallSaga.Fight.Fighters
             // Trigger the ability
             activeAbility.onActiveAbilityEnded += OnActiveAbilityEnded;
             activeAbility.Trigger(targetedCells, this);
+            _stats.actionPoints -= activeAbility.ActionPointsCost;
+            onActiveAbilityStarted?.Invoke(this, activeAbility);
         }
 
         /// <summary>
@@ -349,7 +362,7 @@ namespace FrostfallSaga.Fight.Fighters
                     Math.Min(0, _stats.dexterity += (int)amount);
                     break;
                 case EFighterMutableStat.Tenacity:
-                    Math.Min(0, _stats.tenacity += amount);
+                    Math.Min(0, _stats.tenacity += (int)amount);
                     break;
                 case EFighterMutableStat.DodgeChance:
                     Math.Min(0, _stats.dodgeChance += amount);
@@ -424,7 +437,6 @@ namespace FrostfallSaga.Fight.Fighters
         public void ApplyStatus(AStatus statusToApply)
         {
             StatusesManager.ApplyStatus(statusToApply);
-            onStatusApplied?.Invoke(this, statusToApply);
         }
 
         /// <summary>
@@ -434,7 +446,6 @@ namespace FrostfallSaga.Fight.Fighters
         public void RemoveStatus(AStatus statusToRemove)
         {
             StatusesManager.RemoveStatus(statusToRemove);
-            onStatusRemoved?.Invoke(this, statusToRemove);
         }
 
         /// <summary>
@@ -462,15 +473,13 @@ namespace FrostfallSaga.Fight.Fighters
         public void OnDirectAttackEnded()
         {
             DirectAttackManager.onDirectAttackEnded -= OnDirectAttackEnded;
-            _stats.actionPoints -= Weapon.UseActionPointsCost;
             onDirectAttackEnded?.Invoke(this);
         }
 
         private void OnActiveAbilityEnded(ActiveAbilitySO activeAbility)
         {
             activeAbility.onActiveAbilityEnded -= OnActiveAbilityEnded;
-            _stats.actionPoints -= activeAbility.ActionPointsCost;
-            onActiveAbilityEnded?.Invoke(this);
+            onActiveAbilityEnded?.Invoke(this, activeAbility);
         }
 
         #endregion
@@ -491,11 +500,27 @@ namespace FrostfallSaga.Fight.Fighters
 
         public int GetStrength() => _stats.strength;
 
+        public int GetDexterity() => _stats.dexterity;
+
+        public int GetTenacity() => _stats.tenacity;
+
+        public int GetPhysicalResistance() => _stats.physicalResistance;
+
+        public float GetMasterstrokeChance() => _stats.masterstrokeChance;
+
+        public float GetDodgeChance() => _stats.dodgeChance;
+
+        public int GetInitiative() => _stats.initiative;
+
         public int GetGodFavorsPoints() => _godFavorsPoints;
+
+        public Dictionary<EMagicalElement, int> GetMagicalStrengths() => _stats.magicalStrengths;
+
+        public Dictionary<EMagicalElement, int> GetMagicalResistances() => _stats.magicalResistances;
 
         public void TryIncreaseGodFavorsPointsForAction(EGodFavorsAction action)
         {
-            Dictionary<EGodFavorsAction, int> amountPerAction = GodFavorsActionToInt.GetDictionaryFromArray(_fighterClass.God.FavorGivingActions);
+            Dictionary<EGodFavorsAction, int> amountPerAction = GodFavorsActionToInt.GetDictionaryFromArray(FighterClass.God.FavorGivingActions);
             if (amountPerAction.Keys.Contains(action))
             {
                 _godFavorsPoints += amountPerAction[action];
@@ -520,16 +545,15 @@ namespace FrostfallSaga.Fight.Fighters
             };
         }
 
-        public int GetInitiative() => _stats.initiative;
+        /// <summary>
+        /// Returns a dictionary of all statuses that are currently active on the fighter.
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<AStatus, (bool isActive, int duration)> GetStatuses() => StatusesManager.GetStatuses();
 
         public FighterCollider GetWeaponCollider()
         {
             return GetComponent<FighterCollider>();
-        }
-
-        public void DecreaseActionPoints(int amount)
-        {
-            _stats.actionPoints = Math.Max(0, _stats.actionPoints - amount);
         }
 
         public void ResetMovementAndActionPoints()
@@ -540,26 +564,26 @@ namespace FrostfallSaga.Fight.Fighters
 
         private void ResetStatsToDefaultConfiguration()
         {
-            _stats.maxHealth = _initialStats.maxHealth + _fighterClass.ClassMaxHealth;
+            _stats.maxHealth = _initialStats.maxHealth + FighterClass.ClassMaxHealth;
             _stats.health = _initialStats.maxHealth;
-            _stats.maxActionPoints = _initialStats.maxActionPoints + _fighterClass.ClassMaxActionPoints;
+            _stats.maxActionPoints = _initialStats.maxActionPoints + FighterClass.ClassMaxActionPoints;
             _stats.actionPoints = _initialStats.maxActionPoints;
-            _stats.maxMovePoints = _initialStats.maxMovePoints + _fighterClass.ClassMaxMovePoints;
+            _stats.maxMovePoints = _initialStats.maxMovePoints + FighterClass.ClassMaxMovePoints;
             _stats.movePoints = _initialStats.maxMovePoints;
-            _stats.strength = _initialStats.strength + _fighterClass.ClassMaxMovePoints;
-            _stats.dexterity = _initialStats.dexterity + _fighterClass.ClassDexterity;
-            _stats.tenacity = _initialStats.tenacity + _fighterClass.ClassTenacity;
-            _stats.physicalResistance = _initialStats.physicalResistance + _fighterClass.ClassPhysicalResistance;
+            _stats.strength = _initialStats.strength + FighterClass.ClassMaxMovePoints;
+            _stats.dexterity = _initialStats.dexterity + FighterClass.ClassDexterity;
+            _stats.tenacity = _initialStats.tenacity + FighterClass.ClassTenacity;
+            _stats.physicalResistance = _initialStats.physicalResistance + FighterClass.ClassPhysicalResistance;
 
             _stats.magicalResistances = _initialStats.magicalResistances;
-            _stats.AddMagicalResistances(SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(_fighterClass.ClassMagicalResistances));
+            _stats.AddMagicalResistances(SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(FighterClass.ClassMagicalResistances));
 
             _stats.magicalStrengths = _initialStats.magicalStrengths;
-            _stats.AddMagicalStrengths(SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(_fighterClass.ClassMagicalStrengths));
+            _stats.AddMagicalStrengths(SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(FighterClass.ClassMagicalStrengths));
 
-            _stats.dodgeChance = _initialStats.dodgeChance + _fighterClass.ClassDodgeChance;
-            _stats.masterstrokeChance = _initialStats.masterstrokeChance + _fighterClass.ClassMasterstrokeChance;
-            _stats.initiative = _initialStats.initiative + _fighterClass.ClassInitiative;
+            _stats.dodgeChance = _initialStats.dodgeChance + FighterClass.ClassDodgeChance;
+            _stats.masterstrokeChance = _initialStats.masterstrokeChance + FighterClass.ClassMasterstrokeChance;
+            _stats.initiative = _initialStats.initiative + FighterClass.ClassInitiative;
         }
 
         #endregion

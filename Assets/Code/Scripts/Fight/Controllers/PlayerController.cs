@@ -405,7 +405,7 @@ namespace FrostfallSaga.Fight.Controllers
             }
         }
 
-        private void OnFighterActiveAbilityEnded(Fighter _possessedFighter)
+        private void OnFighterActiveAbilityEnded(Fighter _possessedFighter, ActiveAbilitySO usedAbility)
         {
             EndFighterAction();
         }

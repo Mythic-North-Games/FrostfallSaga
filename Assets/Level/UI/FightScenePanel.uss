@@ -91,115 +91,23 @@
 
 .AbilitiesBackgroundStyle {
     flex-grow: 1;
-    width: 15%;
-    height: 87%;
     -unity-slice-scale: 1px;
     position: relative;
     background-image: url("project://database/Assets/Art/UI/AbillityParts/EmptyAbilityBackground.png?fileID=2800000&guid=e317b3f3bbbe0444fb034ff574616f3f&type=3#EmptyAbilityBackground");
     left: auto;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    max-width: 14%;
-    max-height: 87%;
     background-color: rgba(0, 0, 0, 0);
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
     justify-content: flex-start;
     align-self: center;
+    margin-right: 2%;
+    height: 100%;
 }
 
 .AbilitiesBackgroundStyle:hover {
-    flex-grow: 1;
-    width: 50px;
-    height: 50px;
-    -unity-slice-scale: 1px;
-    position: relative;
-    background-image: url("project://database/Assets/Art/UI/AbillityParts/EmptyAbilityBackground.png?fileID=2800000&guid=e317b3f3bbbe0444fb034ff574616f3f&type=3#EmptyAbilityBackground");
-    left: auto;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    max-width: 50px;
-    max-height: 50px;
-    background-color: rgba(0, 0, 0, 0);
-    border-left-color: rgba(0, 0, 0, 0);
-    border-right-color: rgba(0, 0, 0, 0);
-    border-top-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    justify-content: flex-start;
-    align-self: center;
     scale: 1.1 1.1;
-}
-
-.InventoryBoutonStyle {
-    position: absolute;
-    right: 3%;
-    height: 60%;
-    justify-content: flex-start;
-    align-items: stretch;
-    width: 8.5%;
-    top: 25%;
-    background-image: url('project://database/Assets/AssetsUHD/AssetsUHD/Inventory.png?fileID=2800000&guid=253870dad2acb974d908bf96f9e389c6&type=3#Inventory');
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    background-color: rgba(188, 188, 188, 0);
-    overflow: hidden;
-    visibility: visible;
-    display: flex;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    scale: 1 1;
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 0;
-    max-height: 60%;
-    max-width: 8.5%;
-}
-
-.InventoryBoutonStyle:hover {
-    position: absolute;
-    right: 3%;
-    height: 50px;
-    justify-content: flex-start;
-    align-items: stretch;
-    width: 50px;
-    top: 25%;
-    background-image: url('project://database/Assets/AssetsUHD/AssetsUHD/Inventory.png?fileID=2800000&guid=253870dad2acb974d908bf96f9e389c6&type=3#Inventory');
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    background-color: rgba(188, 188, 188, 0);
-    overflow: hidden;
-    visibility: visible;
-    display: flex;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    scale: 1.1 1.1;
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 0;
 }
 
 .TimelineCharacter {
@@ -249,11 +157,6 @@
     max-height: 100%;
 }
 
-.unity-progress-bar {
-    height: 12%;
-    max-height: 12%;
-}
-
 .ProgressBar_Container {
     flex-grow: 1;
     max-height: 27%;
@@ -267,22 +170,10 @@
 }
 
 .ProgressBar_Progress {
-    flex-grow: 1;
     background-color: rgb(48, 188, 34);
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    margin-top: 2px;
-    margin-right: 2px;
-    margin-bottom: 2px;
-    margin-left: 2px;
-    width: 50%;
-    max-width: 100%;
     -unity-background-image-tint-color: rgb(56, 56, 56);
-    position: relative;
-    height: 100%;
-    max-height: none;
+    width: 50%;
+    flex-grow: 1;
 }
 
 .ProgressBar_Progress:hover {
