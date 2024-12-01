@@ -20,7 +20,7 @@ MonoBehaviour:
   <Targeter>k__BackingField:
     <OriginCellRange>k__BackingField: 2
     <CellsSequence>k__BackingField:
-    - {x: 0, y: 0}
+    - {x: 0, y: 1}
     <StartFromInitiator>k__BackingField: 0
     <FighterMandatory>k__BackingField: 0
     <TargetsToExclude>k__BackingField: 
