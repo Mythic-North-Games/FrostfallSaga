@@ -220,10 +220,10 @@ namespace FrostfallSaga.Fight.Fighters
             }
 
             // Trigger the direct attack
-            DirectAttackManager.onDirectAttackEnded += OnDirectAttackEnded;
-            _stats.actionPoints -= Weapon.UseActionPointsCost;
-            DirectAttackManager.DirectAttack(targetedCells.ToList());
             onDirectAttackStarted?.Invoke(this);
+            _stats.actionPoints -= Weapon.UseActionPointsCost;
+            DirectAttackManager.onDirectAttackEnded += OnDirectAttackEnded;
+            DirectAttackManager.DirectAttack(targetedCells.ToList());
         }
 
         /// <summary>
@@ -258,10 +258,10 @@ namespace FrostfallSaga.Fight.Fighters
             }
 
             // Trigger the ability
-            activeAbility.onActiveAbilityEnded += OnActiveAbilityEnded;
-            activeAbility.Trigger(targetedCells, this);
             _stats.actionPoints -= activeAbility.ActionPointsCost;
             onActiveAbilityStarted?.Invoke(this, activeAbility);
+            activeAbility.onActiveAbilityEnded += OnActiveAbilityEnded;
+            activeAbility.Trigger(targetedCells, this);
         }
 
         /// <summary>
