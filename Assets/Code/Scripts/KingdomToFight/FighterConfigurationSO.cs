@@ -25,7 +25,7 @@ namespace FrostfallSaga.KingdomToFight
         [field: SerializeField, Range(0, 9999)] public int MaxMovePoints { get; private set; }
         [field: SerializeField, Range(0, 9999)] public int Strength { get; private set; }
         [field: SerializeField, Range(0, 9999)] public int Dexterity { get; private set; }
-        [field: SerializeField, Range(0, 9999)] public float Tenacity { get; private set; }
+        [field: SerializeField, Range(0, 9999)] public int Tenacity { get; private set; }
         [field: SerializeField, Range(0, 9999)] public int PhysicalResistance { get; private set; }
         [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MagicalResistances { get; private set; }
         [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MagicalStrengths { get; private set; }
@@ -60,20 +60,21 @@ namespace FrostfallSaga.KingdomToFight
             MagicalResistances = new SElementToValue<EMagicalElement, int>[]
             {
                 new(EMagicalElement.FIRE, 0),
-                new(EMagicalElement.WATER, 0),
                 new(EMagicalElement.ICE, 0),
-                new(EMagicalElement.WIND, 0),
                 new(EMagicalElement.LIGHTNING, 0),
-                new(EMagicalElement.EARTH, 0)
+                new(EMagicalElement.EARTH, 0),
+                new(EMagicalElement.LIGHT, 0),
+                new(EMagicalElement.DARKNESS, 0)
             };
             MagicalResistances = new SElementToValue<EMagicalElement, int>[]
             {
                 new(EMagicalElement.FIRE, 0),
-                new(EMagicalElement.WATER, 0),
                 new(EMagicalElement.ICE, 0),
-                new(EMagicalElement.WIND, 0),
                 new(EMagicalElement.LIGHTNING, 0),
-                new(EMagicalElement.EARTH, 0)
+                new(EMagicalElement.EARTH, 0),
+                new(EMagicalElement.LIGHT, 0),
+                new(EMagicalElement.DARKNESS, 0)
+
             };
             DodgeChance = 0;
             MasterstrokeChance = 0;

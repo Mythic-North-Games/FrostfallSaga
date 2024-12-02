@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d7712d5cb44194fb2a3da2beb333d3, type: 3}
   m_Name: ThiefClass
   m_EditorClassIdentifier: 
+  <ClassName>k__BackingField: Rogue
   <ClassMaxHealth>k__BackingField: 0
   <ClassMaxActionPoints>k__BackingField: 0
   <ClassMaxMovePoints>k__BackingField: 0
@@ -19,8 +20,32 @@ MonoBehaviour:
   <ClassDexterity>k__BackingField: 0
   <ClassTenacity>k__BackingField: 0
   <ClassPhysicalResistance>k__BackingField: 0
-  <ClassMagicalResistances>k__BackingField: []
-  <ClassMagicalStrengths>k__BackingField: []
+  <ClassMagicalResistances>k__BackingField:
+  - element: 0
+    value: 0
+  - element: 1
+    value: 0
+  - element: 2
+    value: 0
+  - element: 3
+    value: 0
+  - element: 4
+    value: 0
+  - element: 5
+    value: 0
+  <ClassMagicalStrengths>k__BackingField:
+  - element: 0
+    value: 0
+  - element: 1
+    value: 0
+  - element: 2
+    value: 0
+  - element: 3
+    value: 0
+  - element: 4
+    value: 0
+  - element: 5
+    value: 0
   <ClassDodgeChance>k__BackingField: 0
   <ClassMasterstrokeChance>k__BackingField: 0
   <ClassInitiative>k__BackingField: 0

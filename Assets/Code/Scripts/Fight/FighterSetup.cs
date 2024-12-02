@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.GameItems;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
@@ -16,6 +15,7 @@ namespace FrostfallSaga.Fight
         public string sessionId;
         public EntityID entityID;
         public Sprite icon;
+        public Sprite diamondIcon;
         public FighterStats initialStats;
         public FighterClassSO fighterClass;
         public PersonalityTraitSO personalityTrait;
@@ -32,7 +32,8 @@ namespace FrostfallSaga.Fight
             string name,
             string sessionId,
             EntityID entityID,
-            Sprite fighterIcon,
+            Sprite icon,
+            Sprite diamondIcon,
             FighterStats initialStats,
             FighterClassSO fighterClass,
             PersonalityTraitSO personalityTrait,
@@ -49,7 +50,8 @@ namespace FrostfallSaga.Fight
             this.name = name;
             this.sessionId = sessionId;
             this.entityID = entityID;
-            this.icon = fighterIcon;
+            this.icon = icon;
+            this.diamondIcon = diamondIcon;
             this.initialStats = initialStats;
             this.fighterClass = fighterClass;
             this.personalityTrait = personalityTrait;

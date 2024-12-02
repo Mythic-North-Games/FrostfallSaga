@@ -7,14 +7,14 @@ namespace FrostfallSaga.Kingdom.Entities
     /// </summary>
     public class EntityBuilder : MonoBehaviour
     {
-        [SerializeField] private GameObject BlankEntityPrefab;
         [SerializeField] private string EntityConfigurationsBaseResourcePath;
 
         public Entity BuildEntity(EntityData entityData)
         {
-            GameObject entityPrefab = Instantiate(BlankEntityPrefab);
-            Entity entity = entityPrefab.GetComponent<Entity>();
-            entity.Setup(entityData);
+            EntityConfigurationSO entityConfiguration = Resources.Load<EntityConfigurationSO>(entityData.entityConfigurationResourcePath);
+            GameObject entityGO = Instantiate(entityConfiguration.EntityPrefab);
+            Entity entity = entityGO.GetComponent<Entity>();
+            entity.Setup(entityConfiguration, entityData.sessionId, entityData.isDead);
             return entity;
         }
 
@@ -22,7 +22,7 @@ namespace FrostfallSaga.Kingdom.Entities
         {
             return new()
             {
-                sessionId = entity.sessionId,
+                sessionId = entity.SessionId,
                 isDead = entity.IsDead,
                 entityConfigurationResourcePath = $"{EntityConfigurationsBaseResourcePath}/{entity.EntityConfiguration.EntityID}"
             };

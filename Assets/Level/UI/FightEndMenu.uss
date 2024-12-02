@@ -12,7 +12,7 @@
 .Statistics_Text_Style {
     height: 20%;
     color: rgb(255, 255, 255);
-    font-size: 25px;
+    font-size: 35px;
     -unity-paragraph-spacing: 50px;
     -unity-text-align: middle-center;
     top: 5%;

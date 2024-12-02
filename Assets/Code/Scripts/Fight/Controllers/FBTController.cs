@@ -12,6 +12,7 @@ namespace FrostfallSaga.Fight.Controllers
     public class FBTController : AFighterController
     {
         private FighterBehaviourTree _fbt;
+        private FightManager _fightManager;
         private Fighter _possessedFighter;
 
         private int _timeBetweenActionsInSec;
@@ -25,9 +26,12 @@ namespace FrostfallSaga.Fight.Controllers
             enabled = false;    // Only run when playing a turn.
         }
 
-        public void Setup(int timeBetweenActionsInSec = 2)
+        public void Setup(FightManager fightManager, int timeBetweenActionsInSec = 2)
         {
+            _fightManager = fightManager;
             _timeBetweenActionsInSec = timeBetweenActionsInSec;
+
+            _fightManager.onFightEnded += OnFightEnded;
         }
 
         /// <summary>
@@ -36,7 +40,7 @@ namespace FrostfallSaga.Fight.Controllers
         /// <param name="fighterToPlay">The fighter to control.</param>
         /// <param name="fighterTeams">All the fighters of the fight and their corresponding team.</param>
         /// <param name="fightGrid">The fight grid.</param>
-        public override void PlayTurn(Fighter fighterToPlay, Dictionary<Fighter, bool> fighterTeams, HexGrid fightGrid)
+        public override void PlayTurn(Fighter fighterToPlay)
         {
             if (fighterToPlay.PersonalityTrait == null)
             {
@@ -48,8 +52,8 @@ namespace FrostfallSaga.Fight.Controllers
             _fbt = FighterBehaviourTreeFactory.CreateBehaviourTree(
                 fighterToPlay.PersonalityTrait.FighterBehaviourTreeID,
                 fighterToPlay,
-                fightGrid,
-                fighterTeams
+                _fightManager.FightGrid,
+                _fightManager.FighterTeams
             );
             _firstExecution = true;
             _waitingBeforeNextAction = true;
@@ -98,6 +102,11 @@ namespace FrostfallSaga.Fight.Controllers
                 onFighterActionStarted?.Invoke(_possessedFighter);
             }
             _firstExecution = false;
+        }
+
+        private void OnFightEnded(Fighter[] _allies, Fighter[] _enemies)
+        {
+            enabled = false;
         }
     }
 }

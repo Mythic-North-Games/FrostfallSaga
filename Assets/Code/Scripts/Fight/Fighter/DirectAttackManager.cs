@@ -29,7 +29,7 @@ namespace FrostfallSaga.Fight.Fighters
                         {
                             if (cell.Fighter.TryDodge())
                             {
-                                cell.Fighter.onActionDodged?.Invoke(cell.Fighter, _controlledFighter);
+                                cell.Fighter.onActionDodged?.Invoke(cell.Fighter);
                                 return;
                             }
                             ApplyEffectsOnFighter(
@@ -53,7 +53,7 @@ namespace FrostfallSaga.Fight.Fighters
         {
             if (touchedFighter.TryDodge())
             {
-                touchedFighter.onActionDodged?.Invoke(touchedFighter, _controlledFighter);
+                touchedFighter.onActionDodged?.Invoke(touchedFighter);
                 return;
             }
             ApplyEffectsOnFighter(

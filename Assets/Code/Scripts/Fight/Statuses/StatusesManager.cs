@@ -23,10 +23,12 @@ namespace FrostfallSaga.Fight.Statuses
             if (status.IsPermanent)
             {
                 _permanentStatuses.Add(status);
+                _fighter.onStatusApplied?.Invoke(_fighter, status);
             }
             else
             {
                 _temporaryStatuses[status] = (true, status.Duration);
+                _fighter.onStatusApplied?.Invoke(_fighter, status);
             }
 
             if (status.TriggerOnFirstApply)
@@ -73,12 +75,29 @@ namespace FrostfallSaga.Fight.Statuses
             {
                 statusToRemove.RemoveStatus(_fighter);
                 _temporaryStatuses.Remove(statusToRemove);
+                _fighter.onStatusRemoved?.Invoke(_fighter, statusToRemove);
             }
         }
 
+        /// <summary>
+        /// Returns a dictionary of all statuses that are currently active on the fighter.
+        /// </summary>
+        /// <returns></returns>
         public Dictionary<AStatus, (bool isActive, int duration)> GetStatuses()
         {
-            return _temporaryStatuses;
+            Dictionary<AStatus, (bool isActive, int duration)> statuses = new();
+
+            foreach (AStatus status in _permanentStatuses)
+            {
+                statuses[status] = (true, -1);
+            }
+
+            foreach (KeyValuePair<AStatus, (bool isActive, int duration)> status in _temporaryStatuses)
+            {
+                statuses[status.Key] = status.Value;
+            }
+
+            return statuses;
         }
     }
 }

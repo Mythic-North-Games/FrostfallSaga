@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AllEnemyEntities
   m_EditorClassIdentifier: 
   <AvailableEntities>k__BackingField:
-  - {fileID: 4179958532800742833, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
+  - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}

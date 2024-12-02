@@ -20,28 +20,25 @@ namespace FrostfallSaga.Fight.Controllers
         public int maxActionsPerTurn = 4;
         public int timeBetweenActionsInSec = 2;
 
+        private FightManager _fightManager;
         private Fighter _possessedFighter;
-        private Dictionary<Fighter, bool> _fighterTeams;
-        private HexGrid _fightGrid;
+
         private int _numberOfActionsToDoForTurn;
         private int _numberOfActionsDoneForTurn;
 
-        public void Setup(int maxActionsPerTurn = 4, int timeBetweenActionsInSec = 2)
+        public void Setup(FightManager fightManager, int maxActionsPerTurn = 4, int timeBetweenActionsInSec = 2)
         {
             this.maxActionsPerTurn = maxActionsPerTurn;
             this.timeBetweenActionsInSec = timeBetweenActionsInSec;
+            _fightManager = fightManager;
             _possessedFighter = null;
-            _fighterTeams = null;
-            _fightGrid = null;
             _numberOfActionsToDoForTurn = 0;
             _numberOfActionsDoneForTurn = 0;
         }
 
-        public override void PlayTurn(Fighter fighterToPlay, Dictionary<Fighter, bool> fighterTeams, HexGrid fightGrid)
+        public override void PlayTurn(Fighter fighterToPlay)
         {
             _possessedFighter = fighterToPlay;
-            _fighterTeams = fighterTeams;
-            _fightGrid = fightGrid;
             BindFighterEventsForTurn(fighterToPlay);
 
             _numberOfActionsToDoForTurn = Randomizer.GetRandomIntBetween(1, maxActionsPerTurn);
@@ -59,11 +56,11 @@ namespace FrostfallSaga.Fight.Controllers
             {
                 doableActions.Add(FighterAction.MOVE);
             }
-            if (fighterThatWillAct.CanDirectAttack(fightGrid, _fighterTeams))
+            if (fighterThatWillAct.CanDirectAttack(fightGrid, _fightManager.FighterTeams))
             {
                 doableActions.Add(FighterAction.DIRECT_ATTACK);
             }
-            if (fighterThatWillAct.CanUseAtLeastOneActiveAbility(fightGrid, _fighterTeams))
+            if (fighterThatWillAct.CanUseAtLeastOneActiveAbility(fightGrid, _fightManager.FighterTeams))
             {
                 doableActions.Add(FighterAction.ACTIVE_ABILITY);
             }
@@ -76,7 +73,10 @@ namespace FrostfallSaga.Fight.Controllers
         /// </summary>
         private IEnumerator DoNextAction()
         {
-            if (!_possessedFighter.CanAct(_fightGrid, _fighterTeams) || _numberOfActionsDoneForTurn == _numberOfActionsToDoForTurn)
+            if (!_possessedFighter.CanAct(
+                _fightManager.FightGrid, _fightManager.FighterTeams) ||
+                _numberOfActionsDoneForTurn == _numberOfActionsToDoForTurn
+            )
             {
                 UnbindFighterEventsForTurn(_possessedFighter);
                 onFighterTurnEnded?.Invoke(_possessedFighter);
@@ -85,16 +85,16 @@ namespace FrostfallSaga.Fight.Controllers
 
             yield return new WaitForSeconds(timeBetweenActionsInSec);
 
-            switch (GetRandomDoableAction(_possessedFighter, _fightGrid))
+            switch (GetRandomDoableAction(_possessedFighter, _fightManager.FightGrid))
             {
                 case FighterAction.MOVE:
-                    MakeFighterMove(_possessedFighter, _fightGrid);
+                    MakeFighterMove(_possessedFighter, _fightManager.FightGrid);
                     break;
                 case FighterAction.DIRECT_ATTACK:
-                    MakeFighterDirectAttack(_possessedFighter, _fightGrid);
+                    MakeFighterDirectAttack(_possessedFighter, _fightManager.FightGrid);
                     break;
                 case FighterAction.ACTIVE_ABILITY:
-                    MakeFighterUseActiveAbility(_possessedFighter, _fightGrid);
+                    MakeFighterUseActiveAbility(_possessedFighter, _fightManager.FightGrid);
                     break;
                 default:
                     break;
@@ -154,7 +154,7 @@ namespace FrostfallSaga.Fight.Controllers
             try
             {
                 FightCell[] targetedCells = fighter.Weapon.AttackTargeter.GetRandomTargetCells(
-                    fightGrid, fighter.cell, _fighterTeams
+                    fightGrid, fighter.cell, _fightManager.FighterTeams
                 );
                 fighter.MovementController.RotateTowardsCell(targetedCells[0]);
                 Debug.Log($"Fighter {fighter.name} is direct attacking.");
@@ -182,7 +182,7 @@ namespace FrostfallSaga.Fight.Controllers
             try
             {
                 FightCell[] targetedCells = activeAbilityToUse.Targeter.GetRandomTargetCells(
-                    fightGrid, fighter.cell, _fighterTeams
+                    fightGrid, fighter.cell, _fightManager.FighterTeams
                 );
                 fighter.MovementController.RotateTowardsCell(targetedCells[0]);
                 Debug.Log($"Fighter {fighter.name} is using its active ability {activeAbilityToUse.Name}");
@@ -200,9 +200,9 @@ namespace FrostfallSaga.Fight.Controllers
 
         }
 
-        private void OnFighterActiveAbilityEnded(Fighter fighter)
+        private void OnFighterActiveAbilityEnded(Fighter fighter, ActiveAbilitySO usedAbility)
         {
-            Debug.Log($"Fighter {fighter.name} has finished using its active ability.");
+            Debug.Log($"Fighter {fighter.name} has finished using its active ability {usedAbility.name}.");
             onFighterActionEnded?.Invoke(fighter);
             _possessedFighter.StartCoroutine(DoNextAction());
         }
@@ -211,7 +211,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             List<ActiveAbilitySO> usableActiveAbilities = new();
             fighter.ActiveAbilities.ToList()
-                .FindAll(activeAbility => fighter.CanUseActiveAbility(fightGrid, activeAbility, _fighterTeams))
+                .FindAll(activeAbility => fighter.CanUseActiveAbility(fightGrid, activeAbility, _fightManager.FighterTeams))
                 .ForEach(activeAbility => usableActiveAbilities.Add(activeAbility));
             return Randomizer.GetRandomElementFromArray(usableActiveAbilities.ToArray());
         }

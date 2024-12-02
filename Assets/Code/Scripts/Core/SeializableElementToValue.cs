@@ -16,10 +16,10 @@ namespace FrostfallSaga.Core
             this.value = value;
         }
 
-        public static Dictionary<T, U> GetDictionaryFromArray(SElementToValue<T, U>[] magicalElementToValues)
+        public static Dictionary<T, U> GetDictionaryFromArray(SElementToValue<T, U>[] elementToValues)
         {
             Dictionary<T, U> dictionary = new();
-            foreach (var magicalElementToValue in magicalElementToValues)
+            foreach (var magicalElementToValue in elementToValues)
             {
                 dictionary.Add(magicalElementToValue.element, magicalElementToValue.value);
             }
