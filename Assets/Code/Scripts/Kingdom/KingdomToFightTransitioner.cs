@@ -16,7 +16,7 @@ namespace FrostfallSaga.Kingdom
         [SerializeField] private KingdomDataSO _kingdomData;
         [SerializeField] private SceneTransitioner _sceneTransitioner;
         [SerializeField] private float _readyToFightAnimationDuration = 2f;
-        [SerializeField] private float _delayBeforeLoadingSceneAfterReadyAnimation = 2f;
+        [SerializeField] private float _delayBeforeLoadingSceneAfterReadyAnimation = 10f;
         [SerializeField] private string _fightSceneName;
 
         private Action _onEncounterAnimationEnded;
@@ -113,18 +113,6 @@ namespace FrostfallSaga.Kingdom
 
             _entitiesGroupsManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
             _onEncounterAnimationEnded += OnEncounterAnimationEnded;
-        }
-
-        private void OnDisable()
-        {
-            if (_entitiesGroupsManager == null)
-            {
-                Debug.LogWarning("No entities groups manager found. Can't tear down properly.");
-                return;
-            }
-
-            _entitiesGroupsManager.onEnemiesGroupEncountered -= OnEnemiesGroupEncountered;
-            _onEncounterAnimationEnded -= OnEncounterAnimationEnded;
         }
         #endregion
     }

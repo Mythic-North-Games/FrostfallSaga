@@ -18,7 +18,7 @@ MonoBehaviour:
   Effects:
   - rid: 7528321518192033795
   <Targeter>k__BackingField:
-    <OriginCellRange>k__BackingField: 4
+    <OriginCellRange>k__BackingField: 6
     <CellsSequence>k__BackingField:
     - {x: 0, y: 0}
     <StartFromInitiator>k__BackingField: 0

@@ -4,7 +4,6 @@ using UnityEngine;
 using FrostfallSaga.Core;
 using FrostfallSaga.Kingdom;
 using FrostfallSaga.Kingdom.Entities;
-using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Fight;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.GameItems;
@@ -13,15 +12,9 @@ namespace FrostfallSaga.KingdomToFight
 {
     public class FightersGenerator : MonoBehaviour
     {
-        [SerializeField] private GameObject _fighterPrefab;
         [SerializeField] private EntityToFighterDBSO _entityToFighterDB;
         [SerializeField] private PreFightDataSO _preFightData;
         [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
-
-        private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup, bool heroGroupInitiating)
-        {
-            GenerateAndSaveFightersForFight(heroGroup.Entities, enemiesGroup.Entities);
-        }
 
         private void GenerateAndSaveFightersForFight(Entity[] heroGroupEntities, Entity[] enemiesGroupEntities)
         {
@@ -41,7 +34,7 @@ namespace FrostfallSaga.KingdomToFight
                     GenerateFighterSetupFromPersistingConfiguration(
                         allyEntity.EntityConfiguration,
                         allyFighterConfiguration,
-                        allyEntity.sessionId
+                        allyEntity.SessionId
                     )
                 );
             }
@@ -56,7 +49,7 @@ namespace FrostfallSaga.KingdomToFight
                     GenerateFighterSetupFromNonPersistingConfiguration(
                         enemyEntity.EntityConfiguration,
                         enemyFighterConfiguration,
-                        enemyEntity.sessionId
+                        enemyEntity.SessionId
                     )
                 );
             }
@@ -150,22 +143,10 @@ namespace FrostfallSaga.KingdomToFight
                 return;
             }
 
-            _entitiesGroupsManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
-        }
-
-        private void OnDisable()
-        {
-            if (_entitiesGroupsManager == null)
+            _entitiesGroupsManager.onEnemiesGroupEncountered += (heroGroup, enemiesGroup, hereGroupInitiated) =>
             {
-                _entitiesGroupsManager = FindObjectOfType<EntitiesGroupsManager>();
-            }
-            if (_entitiesGroupsManager == null)
-            {
-                Debug.LogWarning("No entities groups manager found. Can't tear down properly.");
-                return;
-            }
-
-            _entitiesGroupsManager.onEnemiesGroupEncountered -= OnEnemiesGroupEncountered;
+                GenerateAndSaveFightersForFight(heroGroup.Entities, enemiesGroup.Entities);
+            };
         }
         #endregion
 

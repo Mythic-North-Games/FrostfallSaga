@@ -23,7 +23,7 @@ namespace FrostfallSaga.Fight.FightConditions
             {
                 finalThreshold = (int) (fighter.GetMaxHealth() * Threshold / 100f);
             }
-            return StatConditionType.CompareIntegers(fighter.GetHealth(), finalThreshold);
+            return fighter.GetHealth() > 0 && StatConditionType.CompareIntegers(fighter.GetHealth(), finalThreshold);
         }
 
         public override string GetName()

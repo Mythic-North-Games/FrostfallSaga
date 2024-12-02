@@ -47,7 +47,7 @@ namespace FrostfallSaga.Fight.Effects
                 finalUpdateAmount = (int)(receiver.GetMutableStat(StatToUpdate) * Amount / 100f);
             }
 
-            receiver.UpdateMutableStat(StatToUpdate, -finalUpdateAmount);
+            receiver.UpdateMutableStat(StatToUpdate, -finalUpdateAmount, triggerAnimation: true, triggerEvent: false);
         }
 
         public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke)

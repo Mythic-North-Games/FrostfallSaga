@@ -5,11 +5,13 @@ using UnityEngine.UIElements;
 using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
+using System;
 
 namespace FrostfallSaga.Fight.UI
 {
     public class FighterFloatingBarController : BaseUIController
     {
+        private static readonly string FLOATING_BAR_CONTAINER_UI_NAME = "FSF_Panel";
         private static readonly string CHARACTER_TRAIT_ICON_UI_NAME = "CharacterTraitIcon";
         private static readonly string HP_LABEL_UI_NAME = "LifeLabel";
         private static readonly string HP_PROGRESS_UI_NAME = "LifeProgress";
@@ -17,9 +19,9 @@ namespace FrostfallSaga.Fight.UI
         private static readonly string STATUS_CONTAINER_UI_NAME = "StatusContainer";
 
         [SerializeField, Header("UI options")] private VisualTreeAsset _floatingBarUIPanel;
-        [SerializeField] private int _yOffset;
 
         [SerializeField] private FightersGenerator _fightersGenerator;
+        [SerializeField] private FightManager _fightManager;
         private Dictionary<Fighter, TemplateContainer> _fighterFloatingBars = new();
 
         private void OnFightersGenerated(Fighter[] allies, Fighter[] enemies)
@@ -28,9 +30,10 @@ namespace FrostfallSaga.Fight.UI
             {
                 fighter.onDamageReceived += (fighter, damageAmount, isMasterstroke) => UpdateHealthBar(fighter);
                 fighter.onHealReceived += (fighter, healAmount, isMasterstroke) => UpdateHealthBar(fighter);
-                fighter.onStatMutationReceived += (fighter, stat, value) => UpdateHealthBar(fighter);
+                fighter.onNonMagicalStatMutated += (fighter, stat, value) => UpdateHealthBar(fighter);
                 fighter.onStatusApplied += (fighter, status) => UpdateStatuses(fighter);
                 fighter.onStatusRemoved += (fighter, status) => UpdateStatuses(fighter);
+                fighter.onFighterDied += (fighter) => _fighterFloatingBars[fighter].RemoveFromHierarchy();
                 _fighterFloatingBars.Add(fighter, SpawnFloatingBarPanelForFighter(fighter));
                 UpdateHealthBar(fighter);
                 UpdateCharacterTrait(fighter);
@@ -38,11 +41,22 @@ namespace FrostfallSaga.Fight.UI
             }
         }
 
+        private void OnFightEnded(Fighter[] _allies, Fighter[] _enemies)
+        {
+            foreach (Fighter fighter in _fighterFloatingBars.Keys)
+            {
+                _fighterFloatingBars[fighter].RemoveFromHierarchy();
+            }
+            _fighterFloatingBars.Clear();
+        }
+
         private TemplateContainer SpawnFloatingBarPanelForFighter(Fighter fighter)
         {
             TemplateContainer floatingBar = _floatingBarUIPanel.Instantiate();
             floatingBar.name = $"{fighter.name}FloatingBarPanel";
+            floatingBar.transform.position = ComputeFloatingBarPosition(fighter, floatingBar);
             _uiDoc.rootVisualElement.Add(floatingBar);
+            floatingBar.SendToBack();
             return floatingBar;
         }
 
@@ -100,19 +114,33 @@ namespace FrostfallSaga.Fight.UI
         {
             foreach (Fighter fighter in _fighterFloatingBars.Keys)
             {
-                Vector3 fighterScreenPosition = Camera.main.WorldToScreenPoint(fighter.transform.position);
                 TemplateContainer floatingBar = _fighterFloatingBars[fighter];
-                Rect panelLayout = floatingBar.Q<VisualElement>(HP_LABEL_UI_NAME).layout;
-                floatingBar.style.left = fighterScreenPosition.x - (int)(panelLayout.width * 2.25);
-                floatingBar.style.top = Screen.height - fighterScreenPosition.y - _yOffset;
+                floatingBar.transform.position = ComputeFloatingBarPosition(fighter, floatingBar);
             }
         }
+
+        private Vector2 ComputeFloatingBarPosition(Fighter fighter, TemplateContainer floatingBar)
+        {
+            // Convert the fighter's world position to screen space (pixels)
+            Vector3 fighterScreenPosition = Camera.main.WorldToScreenPoint(fighter.transform.position);
+
+            // Convert the fighter's screen position to UI space
+            Vector2 fighterUIPosition = RuntimePanelUtils.ScreenToPanel(_uiDoc.rootVisualElement.panel, fighterScreenPosition);
+
+            // Compute the floating bar's position offset
+            Rect panelLayout = floatingBar.Q<VisualElement>(FLOATING_BAR_CONTAINER_UI_NAME).layout;
+            float xOffset = -(panelLayout.width / 2); // Center horizontally
+
+            return new(fighterUIPosition.x + xOffset, Screen.height - fighterUIPosition.y);
+        }
+
 
         #region Setup & teardown
 
         private void Awake()
         {
             _fightersGenerator.onFightersGenerated += OnFightersGenerated;
+            _fightManager.onFightEnded += OnFightEnded;
         }
 
         #endregion

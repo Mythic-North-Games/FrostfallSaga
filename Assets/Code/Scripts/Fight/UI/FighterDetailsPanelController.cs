@@ -54,13 +54,14 @@ namespace FrostfallSaga.Fight.UI
         {
             fighter.onDamageReceived += (fighter, damageAmount, isMasterstroke) => UpdateHealthBar(fighter);
             fighter.onHealReceived += (fighter, healAmount, isMasterstroke) => UpdateHealthBar(fighter);
-            fighter.onStatMutationReceived += (fighter, stat, value) => {
+            fighter.onNonMagicalStatMutated += (fighter, stat, value) =>
+            {
                 UpdateHealthBar(fighter);
                 UpdateActionBar(fighter);
                 UpdateMoveBar(fighter);
                 UpdateNonMagicalStats(fighter);
-                UpdateMagicalStats(fighter);
             };
+            fighter.onMagicalStatMutated += (fighter, magicalElement, value, isResistance) => UpdateMagicalStats(fighter);
             fighter.onStatusApplied += (fighter, status) => UpdateStatuses(fighter);
             fighter.onStatusRemoved += (fighter, status) => UpdateStatuses(fighter);
 

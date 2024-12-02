@@ -3,7 +3,6 @@
     color: rgb(255, 255, 255);
     -unity-font: url("project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&guid=450220f72e21c774d8a3289a8e0e8843&type=3#MorrisRomanBlack");
     -unity-font-definition: initial;
-    font-size: 25px;
     margin-left: 10px;
 }
 
@@ -11,7 +10,7 @@
     color: rgb(249, 249, 249);
     -unity-font-definition: initial;
     -unity-font: url("project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&guid=450220f72e21c774d8a3289a8e0e8843&type=3#MorrisRomanBlack");
-    font-size: 25px;
+    font-size: 32px;
 }
 
 .element_IconStatGem {
@@ -22,7 +21,7 @@
 
 .statusContainer {
     background-image: url("project://database/Assets/Art/UI/aggressiveIcon.png?fileID=2800000&guid=34974e1ee8b6a9b4d969ffebd6d984d2&type=3#aggressiveIcon");
-    max-width: 10.5%;
+    max-width: 10.75%;
     margin-right: 0.75%;
     margin-left: 0.5%;
     max-height: 77%;
@@ -50,7 +49,7 @@
     -unity-font: url("project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&guid=450220f72e21c774d8a3289a8e0e8843&type=3#MorrisRomanBlack");
     -unity-font-definition: initial;
     -unity-font-style: normal;
-    font-size: 180%;
+    font-size: 35px;
     color: rgb(255, 255, 255);
     position: absolute;
     left: 20%;

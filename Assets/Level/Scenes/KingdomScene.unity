@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571328, b: 0.3069218, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -21129,7 +21129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164c5103b607fa94d9228dadfc76299a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fighterPrefab: {fileID: 4700538115128749028, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
   _entityToFighterDB: {fileID: 11400000, guid: 5b59511f8282269448cd76048dc19e4a, type: 2}
   _preFightData: {fileID: 11400000, guid: 04c5351ee75a07946b88b4758739fc4a, type: 2}
   _entitiesGroupsManager: {fileID: 899991118}
@@ -22414,7 +22413,7 @@ MonoBehaviour:
   _kingdomData: {fileID: 11400000, guid: ac5e333e2b50f47429757a255117b179, type: 2}
   _sceneTransitioner: {fileID: 26075752}
   _readyToFightAnimationDuration: 2
-  _delayBeforeLoadingSceneAfterReadyAnimation: 1
+  _delayBeforeLoadingSceneAfterReadyAnimation: 3
   _fightSceneName: FightScene
 --- !u!1 &1449699357
 GameObject:
@@ -34739,17 +34738,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 2047304806}
-  _allowZoom: 1
-  _minFOV: 20
-  _maxFOV: 120
-  _baseFOV: 75
-  _zoomMultiplier: 5
-  _allowTranslation: 1
-  _mouseFollowTarget: {fileID: 1554826829}
-  _mouseTargetOffset: {x: 0.1, y: 0.1}
-  _maxTranslationSpeed: 30
-  _minY: 2
-  _maxY: 10
+  <AllowZoom>k__BackingField: 1
+  <MinFOV>k__BackingField: 20
+  <MaxFOV>k__BackingField: 120
+  <BaseFOV>k__BackingField: 75
+  <ZoomMultiplier>k__BackingField: 5
+  <AllowTranslation>k__BackingField: 1
+  MouseFollowTarget: {fileID: 1554826829}
+  <MouseTargetOffset>k__BackingField: {x: 0.1, y: 0.1}
+  <MaxTranslationSpeed>k__BackingField: 30
+  <MinY>k__BackingField: 2
+  <MaxY>k__BackingField: 10
 --- !u!1 &2049503086
 GameObject:
   m_ObjectHideFlags: 0
@@ -36703,6 +36702,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2558807845756278398, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
+      propertyPath: _blankEntitiesGroupPrefab
+      value: 
+      objectReference: {fileID: 3450558515000110669, guid: 63221ca6dadc41d4f8fb43e41ec3f9f1, type: 3}
     - target: {fileID: 3463758716024169161, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.3228564

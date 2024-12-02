@@ -15,7 +15,7 @@ namespace FrostfallSaga.Fight.UI
 
         [SerializeField] private FightManager _fightManager;
         [SerializeField] private FighterDetailsPanelController _fighterDetailsPanelController;
-        [SerializeField] private int _fighterDetailsXOffset = 20;
+        [SerializeField] private Vector2Int _fighterDetailsOffset = new(-20, -50);
 
         private void OnFightersTurnOrderUpdated(Fighter[] fighters)
         {
@@ -57,13 +57,13 @@ namespace FrostfallSaga.Fight.UI
             characterBackground.RegisterCallback<MouseOverEvent>(evt =>
                 {
                     Vector2Int timelinePosition = new(
-                        (int)_uiDoc.rootVisualElement.Q(TIMELINE_UI_NAME).layout.x,
-                        (int)_uiDoc.rootVisualElement.Q(TIMELINE_UI_NAME).layout.y
+                        (int)_uiDoc.rootVisualElement.Q(TIMELINE_UI_NAME).worldBound.x,
+                        (int)_uiDoc.rootVisualElement.Q(TIMELINE_UI_NAME).worldBound.y
                     );
                     Vector2Int panelSize = _fighterDetailsPanelController.GetPanelSize();
                     Vector2Int displayPosition = new(
-                        timelinePosition.x - panelSize.x - _fighterDetailsXOffset,
-                        timelinePosition.y
+                        timelinePosition.x - panelSize.x + _fighterDetailsOffset.x,
+                        timelinePosition.y + _fighterDetailsOffset.y
                     );
                     _fighterDetailsPanelController.Display(fighter, displayPosition);
                 }

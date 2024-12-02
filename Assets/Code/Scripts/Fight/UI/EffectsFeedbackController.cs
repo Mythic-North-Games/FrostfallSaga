@@ -13,10 +13,10 @@ namespace FrostfallSaga.Fight.UI
         private static readonly string CONTAINER_UI_NAME = "EffectFeedbackContainer";
         private static readonly string EFFECT_LABEL_UI_NAME = "EffectFeedbackLabel";
         private static readonly string EFFECT_ICON_UI_NAME = "EffectFeedbackIcon";
-        private static readonly int Y_OFFSET = 100;
 
         [SerializeField, Header("UI options")] private VisualTreeAsset _effectsUIPanel;
         [SerializeField] private float _displayDuration = 2f;
+        [SerializeField] private Vector2Int _displayMarginFromFighter = new(1, 1);
         [SerializeField] private string _damageStyleClass;
         [SerializeField] private string _healStyleClass;
         [SerializeField] private string _buffAppliedStyleClass;
@@ -24,8 +24,9 @@ namespace FrostfallSaga.Fight.UI
         [SerializeField] private string _dodgeStyleClass;
         [SerializeField] private string _masterstrokeStyleClass;
         [SerializeField] private SElementToValue<EFighterMutableStat, Texture2D>[] _statIcons;
+        [SerializeField, Header("Needed components")] private FightersGenerator _fightersGenerator;
+        [SerializeField] private CameraController _fightCameraController;
 
-        [SerializeField] private FightersGenerator _fightersGenerator;
         private Dictionary<Fighter, List<TemplateContainer>> _fighterEffectsPanel = new();
 
         private void OnFightersGenerated(Fighter[] allies, Fighter[] enemies)
@@ -36,7 +37,7 @@ namespace FrostfallSaga.Fight.UI
                 fighter.onDamageReceived += OnFighterReceivedDamages;
                 fighter.onHealReceived += OnFighterReceivedHeal;
                 fighter.onActionDodged += OnFighterDodged;
-                fighter.onStatMutationReceived += OnFighterStatMutationReceived;
+                fighter.onNonMagicalStatMutated += OnFighterNonMagicalStatMutated;
             }
         }
 
@@ -64,7 +65,7 @@ namespace FrostfallSaga.Fight.UI
             if (isMasterstroke)
             {
                 TemplateContainer masterstrokePanel = SpawnEffectPanelForFighter(receiver);
-                masterstrokePanel.Q<Label>(EFFECT_LABEL_UI_NAME).text = "Critical!";
+                masterstrokePanel.Q<Label>(EFFECT_LABEL_UI_NAME).text = "Masterstroke!";
                 masterstrokePanel.Q<Label>(EFFECT_LABEL_UI_NAME).AddToClassList(_healStyleClass);
                 masterstrokePanel.Q<Label>(EFFECT_LABEL_UI_NAME).AddToClassList(_masterstrokeStyleClass);
             }
@@ -73,7 +74,8 @@ namespace FrostfallSaga.Fight.UI
             effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).text = $"{healAmount}{(isMasterstroke ? "!" : "")}";
             effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).AddToClassList(_healStyleClass);
             if (isMasterstroke) effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).AddToClassList(_masterstrokeStyleClass);
-            StartCoroutine(DisplayWaitAndRemove(receiver, effectsPanel));
+
+            _fighterEffectsPanel[receiver].ForEach(panel => StartCoroutine(DisplayWaitAndRemove(receiver, panel)));
         }
 
         private void OnFighterDodged(Fighter dodger)
@@ -84,7 +86,7 @@ namespace FrostfallSaga.Fight.UI
             StartCoroutine(DisplayWaitAndRemove(dodger, effectsPanel));
         }
 
-        private void OnFighterStatMutationReceived(Fighter fighter, EFighterMutableStat statType, float mutationAmount)
+        private void OnFighterNonMagicalStatMutated(Fighter fighter, EFighterMutableStat statType, float mutationAmount)
         {
 
             Dictionary<EFighterMutableStat, Texture2D> statIcons =
@@ -113,10 +115,17 @@ namespace FrostfallSaga.Fight.UI
 
         private TemplateContainer SpawnEffectPanelForFighter(Fighter fighter)
         {
+            // Intantiate the effect panel
             TemplateContainer effectsPanel = _effectsUIPanel.Instantiate();
+
+            // Prepare the panel
             effectsPanel.name = $"{fighter.name}EffectFeedbackPanel{_fighterEffectsPanel[fighter].Count}";
             effectsPanel.Q<VisualElement>(EFFECT_ICON_UI_NAME).style.backgroundImage = null;
+
+            effectsPanel.transform.position = GetRandomSpawnPositionAroundFighter(fighter);
             HidePanel(effectsPanel);
+
+            // Add the panel to the UI
             _uiDoc.rootVisualElement.Add(effectsPanel);
             _fighterEffectsPanel[fighter].Add(effectsPanel);
             return effectsPanel;
@@ -132,20 +141,29 @@ namespace FrostfallSaga.Fight.UI
             effectsPanel.Q<VisualElement>(CONTAINER_UI_NAME).AddToClassList("effectFeedbackContainerHidden");
         }
 
-        private void Update()
+        private Vector2 GetRandomSpawnPositionAroundFighter(Fighter fighter)
         {
-            foreach (Fighter fighter in _fighterEffectsPanel.Keys)
-            {
-                Vector3 fighterScreenPosition = Camera.main.WorldToScreenPoint(fighter.transform.position);
-                for (int i = 0; i < _fighterEffectsPanel[fighter].Count; i++)
-                {
-                    TemplateContainer effectsPanel = _fighterEffectsPanel[fighter][i];
-                    Rect panelLayout = effectsPanel.Q<VisualElement>(CONTAINER_UI_NAME).layout;
-                    effectsPanel.style.left = fighterScreenPosition.x - panelLayout.width / 2;
-                    effectsPanel.style.top = Screen.height - fighterScreenPosition.y - Y_OFFSET;
-                    effectsPanel.style.marginTop = i * panelLayout.height;
-                }
-            }
+            // Convert the world-space center to screen space
+            Vector3 fighterScreenPosition = Camera.main.WorldToScreenPoint(fighter.transform.position);
+
+            // Get the camera's FOV scaling factor
+            float fovScale = GetFovScalingFactor();
+
+            // Apply FOV scaling to the margin
+            float scaledMarginX = _displayMarginFromFighter.x * 2 * fovScale;
+            float scaledMarginY = _displayMarginFromFighter.y * fovScale;
+
+            // Calculate a random position around the center in screen space
+            return new Vector2(
+                Random.Range(fighterScreenPosition.x - scaledMarginX, fighterScreenPosition.x + scaledMarginX),
+                Screen.height - Random.Range(fighterScreenPosition.y - scaledMarginY, fighterScreenPosition.y + scaledMarginY)
+            );
+        }
+
+        private float GetFovScalingFactor()
+        {
+            // Scale proportionally to the base FOV
+            return _fightCameraController.BaseFOV / Camera.main.fieldOfView;
         }
 
         #region Setup & teardown

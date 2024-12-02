@@ -12,8 +12,9 @@ namespace FrostfallSaga.Fight.UI
 {
     public class FighterActionPanelController : BaseUIController
     {
-        private static readonly string ACTION_PANEL_ROOT_UI_NAME = "RootActionPanel";
+        private static readonly string ACTION_PANEL_ROOT_UI_NAME = "ActionPanel";
         private static readonly string ABILITY_BUTTON_UI_NAME = "AbilityButton";
+        private static readonly string ABILITY_UNUSABLE_CLASS_NAME = "AbilitiesUnusable";
         private static readonly string DIRECT_ATTACK_BUTTON_UI_NAME = "AbilityButton0";
         private static readonly string END_TURN_BUTTON_UI_NAME = "EndTurnButton";
         private static readonly string NAME_LABEL_UI_NAME = "FighterNameLabel";
@@ -34,8 +35,6 @@ namespace FrostfallSaga.Fight.UI
         public Action onEndTurnClicked;
 
         [SerializeField] private FightManager _fightManager;
-        [SerializeField] private FighterDetailsPanelController _fighterDetailsPanelController;
-        [SerializeField] private int _fighterDetailsPanelYOffset = 20;
 
         private readonly Dictionary<Button, ActiveAbilitySO> _buttonToActiveAbility = new();
 
@@ -45,7 +44,8 @@ namespace FrostfallSaga.Fight.UI
         /// <param name="isVisible">True to display, False to hide.</param>
         public void SetIsVisible(bool isVisible)
         {
-            _uiDoc.rootVisualElement.Q(ACTION_PANEL_ROOT_UI_NAME).style.display = isVisible ? DisplayStyle.Flex : DisplayStyle.None;
+            _uiDoc.rootVisualElement.Q(ACTION_PANEL_ROOT_UI_NAME).style.visibility = isVisible ? Visibility.Visible : Visibility.Hidden;
+            _uiDoc.rootVisualElement.Q(END_TURN_BUTTON_UI_NAME).style.visibility = isVisible ? Visibility.Visible : Visibility.Hidden;
         }
 
         private void OnFighterTurnBegan(Fighter currentFighter, bool isAlly)
@@ -56,14 +56,36 @@ namespace FrostfallSaga.Fight.UI
             {
                 currentFighter.onDamageReceived += (fighter, damage, isMasterstroke) => UpdateLifeBar(fighter);
                 currentFighter.onHealReceived += (fighter, damage, isMasterstroke) => UpdateLifeBar(fighter);
-                currentFighter.onDirectAttackStarted += (fighter) => UpdateActionBar(fighter);
-                currentFighter.onDirectAttackEnded += (fighter) => UpdateActionBar(fighter);
-                currentFighter.onActiveAbilityStarted += (fighter, usedAbility) => UpdateActionBar(fighter);
-                currentFighter.onActiveAbilityEnded += (fighter, usedAbility) => UpdateActionBar(fighter);
+                currentFighter.onDirectAttackStarted += (fighter) =>
+                {
+                    UpdateActionBar(fighter);
+                    UpdateAbilityButtons(fighter);
+                };
+                currentFighter.onDirectAttackEnded += (fighter) =>
+                {
+                    UpdateActionBar(fighter);
+                    UpdateAbilityButtons(fighter);
+                };
+                currentFighter.onActiveAbilityStarted += (fighter, usedAbility) => 
+                {
+                    UpdateActionBar(fighter);
+                    UpdateAbilityButtons(fighter);
+                };
+                currentFighter.onActiveAbilityEnded += (fighter, usedAbility) =>
+                {
+                    UpdateActionBar(fighter);
+                    UpdateAbilityButtons(fighter);
+                };
                 currentFighter.onFighterMoved += (fighter) => UpdateMoveBar(fighter);
                 currentFighter.onStatusApplied += (fighter, status) => UpdateStatuses(fighter);
                 currentFighter.onStatusRemoved += (fighter, status) => UpdateStatuses(fighter);
-                currentFighter.onStatMutationReceived += (fighter, stat, value) => UpdateFighterDetails(fighter);
+                currentFighter.onNonMagicalStatMutated += (fighter, mutatedStat, amount) =>
+                {
+                    UpdateLifeBar(fighter);
+                    UpdateActionBar(fighter);
+                    UpdateMoveBar(fighter);
+                    UpdateAbilityButtons(fighter);
+                };
                 UpdateActionPanelForFighter(currentFighter);
                 UpdateFighterIcons(currentFighter);
             }
@@ -147,60 +169,16 @@ namespace FrostfallSaga.Fight.UI
             VisualElement mate1IconContainer = _uiDoc.rootVisualElement.Q<VisualElement>(MATE1_ICON_CONTAINER_UI_NAME);
             VisualElement mate2IconContainer = _uiDoc.rootVisualElement.Q<VisualElement>(MATE2_ICON_CONTAINER_UI_NAME);
 
-            // Update playing fighter icon & fighter details panel
+            // Update playing fighter icon
             playingFighterIconContainer.style.backgroundImage = new(playingFighter.DiamondIcon);
-            playingFighterIconContainer.RegisterCallback<MouseOverEvent>(evt =>
-                {
-                    Vector2Int panelDisplayPosition = new(
-                        (int)_uiDoc.rootVisualElement.Q(MATE1_ICON_CONTAINER_UI_NAME).layout.x,
-                        (int)_uiDoc.rootVisualElement.Q(MATE1_ICON_CONTAINER_UI_NAME).layout.y - _fighterDetailsPanelYOffset
-                    );
-                    _fighterDetailsPanelController.Display(playingFighter, panelDisplayPosition);
-                }
-            );
-            playingFighterIconContainer.RegisterCallback<MouseOutEvent>(
-                evt => _fighterDetailsPanelController.Hide()
-            );
 
             // Set mate icons to null by default
             mate1IconContainer.style.backgroundImage = null;
             mate2IconContainer.style.backgroundImage = null;
 
             Fighter[] mates = _fightManager.GetMatesOfFighter(playingFighter);
-            if (mates.Length > 0)
-            {
-                // Update mate 1 icon & fighter details panel
-                mate1IconContainer.style.backgroundImage = new(mates[0].DiamondIcon);
-                mate1IconContainer.RegisterCallback<MouseOverEvent>(evt =>
-                    {
-                        Vector2Int panelDisplayPosition = new(
-                            (int)_uiDoc.rootVisualElement.Q(MATE1_ICON_CONTAINER_UI_NAME).layout.x,
-                            (int)_uiDoc.rootVisualElement.Q(MATE1_ICON_CONTAINER_UI_NAME).layout.y - _fighterDetailsPanelYOffset
-                        );
-                        _fighterDetailsPanelController.Display(mates[0], panelDisplayPosition);
-                    }
-                );
-                mate1IconContainer.RegisterCallback<MouseOutEvent>(
-                    evt => _fighterDetailsPanelController.Hide()
-                );
-            }
-            if (mates.Length > 1)
-            {
-                // Update mate 2 icon & fighter details panel
-                mate2IconContainer.style.backgroundImage = new(mates[1].DiamondIcon);
-                mate2IconContainer.RegisterCallback<MouseOverEvent>(evt =>
-                    {
-                        Vector2Int panelDisplayPosition = new(
-                            (int)_uiDoc.rootVisualElement.Q(MATE1_ICON_CONTAINER_UI_NAME).layout.x,
-                            (int)_uiDoc.rootVisualElement.Q(MATE1_ICON_CONTAINER_UI_NAME).layout.y - _fighterDetailsPanelYOffset
-                        );
-                        _fighterDetailsPanelController.Display(mates[1], panelDisplayPosition);
-                    }
-                );
-                mate2IconContainer.RegisterCallback<MouseOutEvent>(
-                    evt => _fighterDetailsPanelController.Hide()
-                );
-            }
+            if (mates.Length > 0) mate1IconContainer.style.backgroundImage = new(mates[0].DiamondIcon);
+            if (mates.Length > 1) mate2IconContainer.style.backgroundImage = new(mates[1].DiamondIcon);
         }
 
         private void UpdateAbilityButtons(Fighter fighter)
@@ -213,7 +191,7 @@ namespace FrostfallSaga.Fight.UI
             {
                 if (i <= abilitiesButtonCount)
                 {
-                    SetupAbilityButton(ability, i);
+                    SetupAbilityButton(fighter, ability, i);
                 }
                 else
                 {
@@ -223,16 +201,31 @@ namespace FrostfallSaga.Fight.UI
             });
         }
 
-        private void SetupAbilityButton(ActiveAbilitySO activeAbility, int slotIndex)
+        private void SetupAbilityButton(Fighter fighter, ActiveAbilitySO activeAbility, int slotIndex)
         {
             Button abilityButton = _uiDoc.rootVisualElement.Q<Button>($"{ABILITY_BUTTON_UI_NAME}{slotIndex}");
             abilityButton.style.backgroundImage = new(activeAbility.IconSprite);
+            if (!fighter.CanUseActiveAbility(_fightManager.FightGrid, activeAbility, _fightManager.FighterTeams))
+            {
+                abilityButton.AddToClassList(ABILITY_UNUSABLE_CLASS_NAME);
+                abilityButton.SetEnabled(false);
+            }
+            else
+            {
+                abilityButton.RemoveFromClassList(ABILITY_UNUSABLE_CLASS_NAME);
+                abilityButton.SetEnabled(true);
+            }
             _buttonToActiveAbility.Add(abilityButton, activeAbility);
         }
 
         private void OnFighterTurnEnded(Fighter currentFighter, bool isAlly)
         {
             SetIsVisible(!isAlly);
+        }
+
+        private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
+        {
+            Destroy(_uiDoc);
         }
 
         private void OnDirectAttackButtonClicked(ClickEvent _clickEvent)
@@ -303,26 +296,7 @@ namespace FrostfallSaga.Fight.UI
 
             _fightManager.onFighterTurnBegan += OnFighterTurnBegan;
             _fightManager.onFighterTurnEnded += OnFighterTurnEnded;
-        }
-
-        private void OnDisable()
-        {
-            if (_uiDoc != null && _uiDoc.rootVisualElement != null)
-            {
-                Button directAttackButton = _uiDoc.rootVisualElement.Q<Button>(DIRECT_ATTACK_BUTTON_UI_NAME);
-                Button endTurnButton = _uiDoc.rootVisualElement.Q<Button>(END_TURN_BUTTON_UI_NAME);
-
-                directAttackButton.UnregisterCallback<ClickEvent>(OnDirectAttackButtonClicked);
-                GetAbilitiesButtons().ToList().ForEach(
-                    abilityButton => abilityButton.UnregisterCallback<ClickEvent>(OnActiveAbilityButtonClicked)
-                );
-                endTurnButton.UnregisterCallback<ClickEvent>(OnEndTurnButtonClicked);
-            }
-            if (_fightManager != null)
-            {
-                _fightManager.onFighterTurnBegan -= OnFighterTurnBegan;
-                _fightManager.onFighterTurnEnded -= OnFighterTurnEnded;
-            }
+            _fightManager.onFightEnded += OnFightEnded;
         }
 
         #endregion

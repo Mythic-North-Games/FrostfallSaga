@@ -3,10 +3,9 @@ namespace FrostfallSaga.Core
     public enum EntityID
     {
         HERO,
-        JOMSVIKING1,
-        JOMSVIKING2,
+        COMPANION1,
+        COMPANION2,
         SKELETON,
         GOBELIN,
-
     }
 }

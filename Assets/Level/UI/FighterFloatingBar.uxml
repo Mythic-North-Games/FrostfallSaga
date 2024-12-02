@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Level/UI/FightStatsFlottante.uss?fileID=7433441132597879392&amp;guid=4b97681fdaf5e6449862d9ace9e8d3e0&amp;type=3#FightStatsFlottante" />
-    <ui:VisualElement name="FSF_Panel" style="width: 190px; height: 32px; flex-direction: column-reverse;">
+    <Style src="project://database/Assets/Level/UI/FighterFloatingBar.uss?fileID=7433441132597879392&amp;guid=4b97681fdaf5e6449862d9ace9e8d3e0&amp;type=3#FighterFloatingBar" />
+    <ui:VisualElement name="FSF_Panel" style="width: 190px; height: 32px; flex-direction: column-reverse; position: absolute;">
         <ui:VisualElement name="BottomPanel" style="height: 60%; width: 100%;">
             <ui:VisualElement name="LifeBarContainer" style="background-color: rgba(159, 45, 38, 0.9); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; -unity-background-scale-mode: stretch-to-fill; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; height: 100%; width: 100%;">
                 <ui:VisualElement name="LifeProgress" style="flex-grow: 1; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; background-color: rgb(212, 59, 65); width: 50%;" />

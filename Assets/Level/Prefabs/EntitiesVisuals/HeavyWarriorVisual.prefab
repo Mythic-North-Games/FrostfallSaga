@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 163358067756540733, guid: e1431dca8e9442a48a141a9f5e47c982, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 8597359a2c9181049aac29d63db82f86, type: 3}
+    - target: {fileID: 163358067756540733, guid: e1431dca8e9442a48a141a9f5e47c982, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 32313348c9c409942b4efcdf6aab1ea0, type: 2}

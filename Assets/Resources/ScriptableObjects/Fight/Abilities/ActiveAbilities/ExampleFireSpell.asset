@@ -18,7 +18,7 @@ MonoBehaviour:
   Effects:
   - rid: 3629974515939016704
   <Targeter>k__BackingField:
-    <OriginCellRange>k__BackingField: 2
+    <OriginCellRange>k__BackingField: 6
     <CellsSequence>k__BackingField:
     - {x: 0, y: 0}
     <StartFromInitiator>k__BackingField: 0
@@ -42,5 +42,5 @@ MonoBehaviour:
     - rid: 3629974515939016704
       type: {class: MagicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
-        MagicalDamageAmount: 20
+        MagicalDamageAmount: 100
         MagicalElement: 0

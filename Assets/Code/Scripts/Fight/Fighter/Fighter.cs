@@ -112,7 +112,10 @@ namespace FrostfallSaga.Fight.Fighters
         public Action<Fighter, AStatus> onStatusRemoved;
 
         // <Fighter that received, stat that was updated, the updated amount>
-        public Action<Fighter, EFighterMutableStat, float> onStatMutationReceived;
+        public Action<Fighter, EFighterMutableStat, float> onNonMagicalStatMutated;
+
+        // <Fighter that received, magical element, the updated amount, if resistance (false for strength)>
+        public Action<Fighter, EMagicalElement, int, bool> onMagicalStatMutated;
 
         // <Fighter that received, Status that was applied>
         public Action<Fighter, PassiveAbilitySO> onPassiveAbilityApplied;
@@ -342,7 +345,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="mutableStat">The mutable stat to increase or reduce.</param>
         /// <param name="amount">The amount to increase or reduce.</param>
         /// <param name="triggerAnimation">True to trigger the stat update animation, false otherwise.</param>
-        public void UpdateMutableStat(EFighterMutableStat mutableStat, float amount, bool triggerAnimation = true)
+        public void UpdateMutableStat(EFighterMutableStat mutableStat, float amount, bool triggerAnimation = true, bool triggerEvent = true)
         {
             switch (mutableStat)
             {
@@ -381,12 +384,8 @@ namespace FrostfallSaga.Fight.Fighters
                     return;
             }
 
-            if (triggerAnimation)
-            {
-                PlayAnimationIfAny(amount > 0 ? _increaseStatAnimationName : _reduceStatAnimationName);
-            }
-
-            onStatMutationReceived?.Invoke(this, mutableStat, amount);
+            if (triggerAnimation) PlayAnimationIfAny(amount > 0 ? _increaseStatAnimationName : _reduceStatAnimationName);
+            if (triggerEvent) onNonMagicalStatMutated?.Invoke(this, mutableStat, amount);
         }
 
         /// <summary>
@@ -396,7 +395,13 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="amount">The amount to increase or reduce.</param>
         /// <param name="isResistance">True to update magical resistance stat, false to update magical strength</param>
         /// <param name="triggerAnimation">True to trigger the stat update animation, false otherwise.</param>
-        public void UpdateMagicalStat(EMagicalElement magicalElement, int amount, bool isResistance, bool triggerAnimation = true)
+        public void UpdateMagicalStat(
+            EMagicalElement magicalElement,
+            int amount,
+            bool isResistance,
+            bool triggerAnimation = true,
+            bool triggerEvent = true
+        )
         {
             try
             {
@@ -409,10 +414,8 @@ namespace FrostfallSaga.Fight.Fighters
                     _stats.magicalStrengths[magicalElement] = Math.Min(0, _stats.magicalStrengths[magicalElement] += amount);
                 }
 
-                if (triggerAnimation)
-                {
-                    PlayAnimationIfAny(amount > 0 ? _increaseStatAnimationName : _reduceStatAnimationName);
-                }
+                if (triggerAnimation) PlayAnimationIfAny(amount > 0 ? _increaseStatAnimationName : _reduceStatAnimationName);
+                if (triggerEvent) onMagicalStatMutated?.Invoke(this, magicalElement, amount, isResistance);
                 Debug.Log($"{name} {magicalElement} {(isResistance ? "resistance" : "strength")} has been modified by {amount}.");
             }
             catch (NullReferenceException)

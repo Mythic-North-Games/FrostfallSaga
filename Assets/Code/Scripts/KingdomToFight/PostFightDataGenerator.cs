@@ -26,10 +26,10 @@ namespace FrostfallSaga.KingdomToFight
         private void SavePostFightData(Fighter[] allies, Fighter[] enemies)
         {
             _postFightData.alliesState = new();
-            allies.ToList().ForEach(ally => _postFightData.alliesState.Add(ally.EntitySessionId, new(ally.GetHealth())));
+            allies.ToList().ForEach(ally => _postFightData.alliesState.Add(new(ally.EntitySessionId, new(ally.GetHealth()))));
 
             _postFightData.enemiesState = new();
-            enemies.ToList().ForEach(enemy => _postFightData.enemiesState.Add(enemy.EntitySessionId, new(enemy.GetHealth())));
+            enemies.ToList().ForEach(enemy => _postFightData.enemiesState.Add(new(enemy.EntitySessionId, new(enemy.GetHealth()))));
 
             _postFightData.enabled = true;
         }
@@ -52,14 +52,6 @@ namespace FrostfallSaga.KingdomToFight
             }
 
             _fightManager.onFightEnded += OnFightEnded;
-        }
-
-        private void OnDisable()
-        {
-            if (_fightManager != null)
-            {
-                _fightManager.onFightEnded -= OnFightEnded;
-            }
         }
 
         #endregion

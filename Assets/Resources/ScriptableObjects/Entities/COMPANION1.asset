@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bc562c7cdab31240b6e99c3650435c8, type: 3}
-  m_Name: JOMSVIKING2
+  m_Name: COMPANION1
   m_EditorClassIdentifier: 
   <EntityID>k__BackingField: 2
-  <EntityIcon>k__BackingField: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
+  <Icon>k__BackingField: {fileID: 0}
+  <DiamondIcon>k__BackingField: {fileID: 0}
+  <EntityPrefab>k__BackingField: {fileID: 3433075431542448143, guid: ed66f60321a9b26419233eec6cf526e0, type: 3}

@@ -16,6 +16,7 @@ namespace FrostfallSaga.Fight
     /// </summary>
     public class FightManager : MonoBehaviour
     {
+        [field: SerializeField] public int RoundCount { get; private set; }
         public Dictionary<Fighter, bool> FighterTeams
         {
             get => GetFighterTeamsAsDict(_allies, _enemies);
@@ -28,7 +29,7 @@ namespace FrostfallSaga.Fight
 
         // Needed external components
         [SerializeField] private FightersGenerator _fightersGenerator;
-        [SerializeField] private HexGrid _fightGrid;
+        [field: SerializeField] public HexGrid FightGrid { get; private set; }
         [SerializeField] private FighterActionPanelController _actionPanel;
         [SerializeField] private Material _cellHighlightMaterial;
         [SerializeField] private Material _cellActionableHighlightMaterial;
@@ -39,6 +40,7 @@ namespace FrostfallSaga.Fight
         private FBTController _fbtController;
         private RandomController _randomController;
 
+        // Internal state
         private List<Fighter> _allies;
         private List<Fighter> _enemies;
         private Queue<Fighter> _fightersTurnOrder;
@@ -50,8 +52,9 @@ namespace FrostfallSaga.Fight
             _playingFighter = null;
             _allies = new(allies);
             _enemies = new(enemies);
+            RoundCount = 0;
             SubscribeToFightersEvents();
-            PositionFightersOnGrid(_fightGrid, _allies.ToArray(), _enemies.ToArray());
+            PositionFightersOnGrid(FightGrid, _allies.ToArray(), _enemies.ToArray());
             UpdateFightersTurnOrder(GetFightersTurnOrder(_allies.Concat(_enemies).ToArray()));
             UpdateFightersPassiveAbilities();
             PlayNextFighterTurn();
@@ -59,12 +62,14 @@ namespace FrostfallSaga.Fight
 
         private void PlayNextFighterTurn()
         {
+            RoundCount++;
+
             _playingFighter = _fightersTurnOrder.Dequeue();
             _playingFighter.StatusesManager.UpdateStatuses(EStatusTriggerTime.StartOfTurn);
 
             AFighterController controller = GetControllerForFighter(_playingFighter);
             onFighterTurnBegan(_playingFighter, _allies.Contains(_playingFighter));
-            controller.PlayTurn(_playingFighter, FighterTeams, _fightGrid);
+            controller.PlayTurn(_playingFighter);
         }
 
         private AFighterController GetControllerForFighter(Fighter fighter)
@@ -175,11 +180,11 @@ namespace FrostfallSaga.Fight
 
         private void OnEnable()
         {
-            if (_fightGrid == null)
+            if (FightGrid == null)
             {
-                _fightGrid = FindObjectOfType<HexGrid>();
+                FightGrid = FindObjectOfType<HexGrid>();
             }
-            if (_fightGrid == null)
+            if (FightGrid == null)
             {
                 Debug.LogError("No fight grid found.");
                 return;
@@ -197,6 +202,7 @@ namespace FrostfallSaga.Fight
             // Setup controllers
             _playerController = gameObject.AddComponent<PlayerController>();
             _playerController.Setup(
+                this,
                 _actionPanel,
                 _cellHighlightMaterial,
                 _cellActionableHighlightMaterial,
@@ -207,12 +213,12 @@ namespace FrostfallSaga.Fight
             _playerController.onFighterActionEnded += OnFighterActionEnded;
 
             _fbtController = gameObject.AddComponent<FBTController>();
-            _fbtController.Setup();
+            _fbtController.Setup(this);
             _fbtController.onFighterTurnEnded += OnFighterTurnEnded;
             _fbtController.onFighterActionEnded += OnFighterActionEnded;
 
             _randomController = gameObject.AddComponent<RandomController>();
-            _randomController.Setup();
+            _randomController.Setup(this);
             _randomController.onFighterTurnEnded += OnFighterTurnEnded;
             _randomController.onFighterActionEnded += OnFighterActionEnded;
 
@@ -326,7 +332,7 @@ namespace FrostfallSaga.Fight
 
         private void UpdateFightGridCellsAlterations()
         {
-            FightCell[] cells = Array.ConvertAll(_fightGrid.GetCells(), cell => (FightCell)cell);
+            FightCell[] cells = Array.ConvertAll(FightGrid.GetCells(), cell => (FightCell)cell);
             foreach (FightCell cell in cells)
             {
                 cell.UpdateAlterations();
@@ -335,8 +341,8 @@ namespace FrostfallSaga.Fight
 
         private void UpdateFightersPassiveAbilities()
         {
-            _allies.ForEach(ally => ally.PassiveAbilitiesManager.UpdatePassiveAbilities(_fightGrid, FighterTeams));
-            _enemies.ForEach(enemy => enemy.PassiveAbilitiesManager.UpdatePassiveAbilities(_fightGrid, FighterTeams));
+            _allies.ForEach(ally => ally.PassiveAbilitiesManager.UpdatePassiveAbilities(FightGrid, FighterTeams));
+            _enemies.ForEach(enemy => enemy.PassiveAbilitiesManager.UpdatePassiveAbilities(FightGrid, FighterTeams));
         }
         #endregion
 
