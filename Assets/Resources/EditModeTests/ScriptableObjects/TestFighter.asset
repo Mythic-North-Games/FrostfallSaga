@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50862a0fc6cf7d64c9f705ea8e91f54b, type: 3}
   m_Name: TestFighter
   m_EditorClassIdentifier: 
-  <FighterClass>k__BackingField: {fileID: 11400000, guid: 300401a09f127304391e9390e710e20f, type: 2}
+  <FighterClass>k__BackingField: {fileID: 11400000, guid: 9b0974f28b354c34ea64a6bd06d679f7, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 0}
   <AvailableActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: 96b49d2c6e60f09488401b8474900905, type: 2}

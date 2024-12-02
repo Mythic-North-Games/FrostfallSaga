@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5745,7 +5745,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 436fd3c6fdddb5b05a6357cf2d05e708, type: 2}
     - {fileID: 11400000, guid: 30ab05920ca8f7448aeace60fbb87c63, type: 2}
     - {fileID: 11400000, guid: 2e4c98e0eeb351d4a981ce5c113a2ae5, type: 2}
-    - {fileID: 11400000, guid: ec1b5a01f965feb48abc59d1f1ed3355, type: 2}
+    - {fileID: 11400000, guid: b22ba3c2797bc25439231a90f23620ab, type: 2}
     passiveAbilities:
     - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
     receiveDamageAnimationName: Hurt
