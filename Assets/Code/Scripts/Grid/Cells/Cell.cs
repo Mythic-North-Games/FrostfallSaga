@@ -125,23 +125,20 @@ namespace FrostfallSaga.Grid.Cells
 
         private void SetPositionForCellHeight(ECellHeight cellHeight, float duration)
         {
-            print(duration);
-            if ( duration == 0)
+            if (duration == 0)
             {
-
                 transform.position = new Vector3(transform.position.x, (float)cellHeight, transform.position.z);
             }
             else
             {
-              
                 StartCoroutine(SmoothMoveToHeight(cellHeight, duration));
             }
         }
 
         private IEnumerator SmoothMoveToHeight(ECellHeight targetHeight, float duration)
         {
-            float startHeight = transform.position.y; 
-            float targetY = (float)targetHeight;    
+            float startHeight = transform.position.y;
+            float targetY = (float)targetHeight;
             float elapsedTime = 0f;
 
             while (elapsedTime < duration)
@@ -149,10 +146,9 @@ namespace FrostfallSaga.Grid.Cells
                 elapsedTime += Time.deltaTime;
                 float newY = Mathf.Lerp(startHeight, targetY, elapsedTime / duration);
                 transform.position = new Vector3(transform.position.x, newY, transform.position.z);
-                yield return null; 
+                yield return null;
             }
 
-           
             transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
         }
 
