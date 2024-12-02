@@ -41,14 +41,6 @@ namespace FrostfallSaga.Fight
             _fightEndMenuController.onContinueClicked += OnContinueClicked;
         }
 
-        private void OnDisable()
-        {
-            if (_fightEndMenuController != null)
-            {
-                _fightEndMenuController.onContinueClicked -= OnContinueClicked;
-            }
-        }
-
         #endregion
     }
 }

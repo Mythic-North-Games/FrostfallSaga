@@ -12,6 +12,13 @@ namespace FrostfallSaga.Fight.Effects
     {
         [SerializeField, Range(0, 9999)] public int PhysicalDamageAmount;
 
+        public PhysicalDamageEffect() {}
+
+        public PhysicalDamageEffect(int physicalDamageAmount)
+        {
+            PhysicalDamageAmount = physicalDamageAmount;
+        }
+
         public override void ApplyEffect(
             Fighter receiver,
             bool isMasterstroke,
@@ -29,8 +36,7 @@ namespace FrostfallSaga.Fight.Effects
             }
 
             // Apply physical damage
-            receiver.PhysicalWithstand(finalDamageAmount);
-            receiver.onEffectReceived?.Invoke(receiver, initiator, this, isMasterstroke);
+            receiver.PhysicalWithstand(finalDamageAmount, isMasterstroke);
 
             // Increase god favors points if enabled
             if (adjustGodFavorsPoints && initiator != null)

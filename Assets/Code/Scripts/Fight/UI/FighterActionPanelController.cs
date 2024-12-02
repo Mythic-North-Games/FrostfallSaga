@@ -6,22 +6,37 @@ using UnityEngine.UIElements;
 using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.Statuses;
 
 namespace FrostfallSaga.Fight.UI
 {
     public class FighterActionPanelController : BaseUIController
     {
+        private static readonly string ACTION_PANEL_ROOT_UI_NAME = "ActionPanel";
+        private static readonly string ABILITY_BUTTON_UI_NAME = "AbilityButton";
+        private static readonly string ABILITY_UNUSABLE_CLASS_NAME = "AbilitiesUnusable";
+        private static readonly string DIRECT_ATTACK_BUTTON_UI_NAME = "AbilityButton0";
+        private static readonly string END_TURN_BUTTON_UI_NAME = "EndTurnButton";
+        private static readonly string NAME_LABEL_UI_NAME = "FighterNameLabel";
+        private static readonly string HP_LABEL_UI_NAME = "ProgressLifeBar_Label";
+        private static readonly string HP_PROGRESS_UI_NAME = "ProgressLifeBar_Progress";
+        private static readonly string AP_LABEL_UI_NAME = "ProgressActionBar_Label";
+        private static readonly string AP_PROGRESS_UI_NAME = "ProgressActionBar_Progress";
+        private static readonly string MP_LABEL_UI_NAME = "ProgressMoveBar_Label";
+        private static readonly string MP_PROGRESS_UI_NAME = "ProgressMoveBar_Progress";
+        private static readonly string STATUSES_CONTAINER_UI_NAME = "Statuses_Panel";
+        private static readonly string STATUS_CONTAINER_UI_NAME = "StatusContainer";
+        private static readonly string PLAYING_FIGHTER_ICON_CONTAINER_UI_NAME = "TeamMatePanel1Frame";
+        private static readonly string MATE1_ICON_CONTAINER_UI_NAME = "TeamMatePanel2Frame";
+        private static readonly string MATE2_ICON_CONTAINER_UI_NAME = "TeamMatePanel3Frame";
+
         public Action onDirectAttackClicked;
         public Action<ActiveAbilitySO> onActiveAbilityClicked;
         public Action onEndTurnClicked;
 
         [SerializeField] private FightManager _fightManager;
-        private readonly Dictionary<Button, ActiveAbilitySO> _buttonToActiveAbility = new();
 
-        private static readonly string ACTION_PANEL_ROOT = "RootActionPanel";
-        private static readonly string ABILITY_BUTTON_UI_NAME = "AbilityButton";
-        private static readonly string DIRECT_ATTACK_BUTTON_UI_NAME = "AbilityButton0";
-        private static readonly string END_TURN_BUTTON_UI_NAME = "EndTurnButton";        
+        private readonly Dictionary<Button, ActiveAbilitySO> _buttonToActiveAbility = new();
 
         /// <summary>
         /// Displays or hides the entire action panel.
@@ -29,19 +44,144 @@ namespace FrostfallSaga.Fight.UI
         /// <param name="isVisible">True to display, False to hide.</param>
         public void SetIsVisible(bool isVisible)
         {
-            _uiDoc.rootVisualElement.Q(ACTION_PANEL_ROOT).style.display = isVisible ? DisplayStyle.Flex : DisplayStyle.None;
+            _uiDoc.rootVisualElement.Q(ACTION_PANEL_ROOT_UI_NAME).style.visibility = isVisible ? Visibility.Visible : Visibility.Hidden;
+            _uiDoc.rootVisualElement.Q(END_TURN_BUTTON_UI_NAME).style.visibility = isVisible ? Visibility.Visible : Visibility.Hidden;
         }
 
         private void OnFighterTurnBegan(Fighter currentFighter, bool isAlly)
         {
+
             SetIsVisible(isAlly);
             if (isAlly)
             {
+                currentFighter.onDamageReceived += (fighter, damage, isMasterstroke) => UpdateLifeBar(fighter);
+                currentFighter.onHealReceived += (fighter, damage, isMasterstroke) => UpdateLifeBar(fighter);
+                currentFighter.onDirectAttackStarted += (fighter) =>
+                {
+                    UpdateActionBar(fighter);
+                    UpdateAbilityButtons(fighter);
+                };
+                currentFighter.onDirectAttackEnded += (fighter) =>
+                {
+                    UpdateActionBar(fighter);
+                    UpdateAbilityButtons(fighter);
+                };
+                currentFighter.onActiveAbilityStarted += (fighter, usedAbility) => 
+                {
+                    UpdateActionBar(fighter);
+                    UpdateAbilityButtons(fighter);
+                };
+                currentFighter.onActiveAbilityEnded += (fighter, usedAbility) =>
+                {
+                    UpdateActionBar(fighter);
+                    UpdateAbilityButtons(fighter);
+                };
+                currentFighter.onFighterMoved += (fighter) => UpdateMoveBar(fighter);
+                currentFighter.onStatusApplied += (fighter, status) => UpdateStatuses(fighter);
+                currentFighter.onStatusRemoved += (fighter, status) => UpdateStatuses(fighter);
+                currentFighter.onNonMagicalStatMutated += (fighter, mutatedStat, amount) =>
+                {
+                    UpdateLifeBar(fighter);
+                    UpdateActionBar(fighter);
+                    UpdateMoveBar(fighter);
+                    UpdateAbilityButtons(fighter);
+                };
                 UpdateActionPanelForFighter(currentFighter);
+                UpdateFighterIcons(currentFighter);
             }
         }
 
         private void UpdateActionPanelForFighter(Fighter fighter)
+        {
+            UpdateAbilityButtons(fighter);
+            UpdateFighterDetails(fighter);
+        }
+
+        private void UpdateFighterDetails(Fighter fighter)
+        {
+            Label fighterNameLabel = _uiDoc.rootVisualElement.Q<Label>(NAME_LABEL_UI_NAME);
+            fighterNameLabel.text = fighter.name;
+
+            UpdateLifeBar(fighter);
+            UpdateActionBar(fighter);
+            UpdateMoveBar(fighter);
+            UpdateStatuses(fighter);
+        }
+
+        private void UpdateLifeBar(Fighter fighter)
+        {
+            Label fighterHpLabel = _uiDoc.rootVisualElement.Q<Label>(HP_LABEL_UI_NAME);
+            VisualElement fighterHpProgress = _uiDoc.rootVisualElement.Q<VisualElement>(HP_PROGRESS_UI_NAME);
+            fighterHpLabel.text = $"{fighter.GetHealth()}/{fighter.GetMaxHealth()}";
+            fighterHpProgress.style.width = new Length(
+                (float)fighter.GetHealth() / fighter.GetMaxHealth() * 100,
+                LengthUnit.Percent
+            );
+        }
+
+        private void UpdateActionBar(Fighter fighter)
+        {
+            Label fighterApLabel = _uiDoc.rootVisualElement.Q<Label>(AP_LABEL_UI_NAME);
+            VisualElement fighterApProgress = _uiDoc.rootVisualElement.Q<VisualElement>(AP_PROGRESS_UI_NAME);
+            fighterApLabel.text = $"{fighter.GetActionPoints()}/{fighter.GetMaxActionPoints()}";
+            fighterApProgress.style.width = new Length(
+                (float)fighter.GetActionPoints() / fighter.GetMaxActionPoints() * 100,
+                LengthUnit.Percent
+            );
+        }
+
+        private void UpdateMoveBar(Fighter fighter)
+        {
+            Label fighterMpLabel = _uiDoc.rootVisualElement.Q<Label>(MP_LABEL_UI_NAME);
+            VisualElement fighterMpProgress = _uiDoc.rootVisualElement.Q<VisualElement>(MP_PROGRESS_UI_NAME);
+            fighterMpLabel.text = $"{fighter.GetMovePoints()}/{fighter.GetMaxMovePoints()}";
+            fighterMpProgress.style.width = new Length(
+                (float)fighter.GetMovePoints() / fighter.GetMaxMovePoints() * 100,
+                LengthUnit.Percent
+            );
+        }
+
+        private void UpdateStatuses(Fighter fighter)
+        {
+            int maxStatusesContainers = _uiDoc.rootVisualElement.Q<VisualElement>(STATUSES_CONTAINER_UI_NAME).childCount;
+            Dictionary<AStatus, (bool isActive, int duration)> currentFighterStatuses = fighter.GetStatuses();
+            for (int i = 1; i <= currentFighterStatuses.Count; i++)
+            {
+                if (i > maxStatusesContainers)
+                {
+                    break;
+                }
+                VisualElement statusContainer = _uiDoc.rootVisualElement.Q<VisualElement>($"{STATUS_CONTAINER_UI_NAME}{i}");
+                statusContainer.style.backgroundImage = new(currentFighterStatuses.ElementAt(i - 1).Key.Icon);
+            }
+
+            for (int i = currentFighterStatuses.Count + 1; i <= maxStatusesContainers; i++)
+            {
+                VisualElement statusContainer = _uiDoc.rootVisualElement.Q<VisualElement>($"{STATUS_CONTAINER_UI_NAME}{i}");
+                statusContainer.style.backgroundImage = null;
+            }
+        }
+
+        private void UpdateFighterIcons(Fighter playingFighter)
+        {
+            // Get UI elements
+            VisualElement playingFighterIconContainer = _uiDoc.rootVisualElement.Q<VisualElement>(PLAYING_FIGHTER_ICON_CONTAINER_UI_NAME);
+            VisualElement mate1IconContainer = _uiDoc.rootVisualElement.Q<VisualElement>(MATE1_ICON_CONTAINER_UI_NAME);
+            VisualElement mate2IconContainer = _uiDoc.rootVisualElement.Q<VisualElement>(MATE2_ICON_CONTAINER_UI_NAME);
+
+            // Update playing fighter icon
+            playingFighterIconContainer.style.backgroundImage = new(playingFighter.DiamondIcon);
+
+            // Set mate icons to null by default
+            mate1IconContainer.style.backgroundImage = null;
+            mate2IconContainer.style.backgroundImage = null;
+
+            Fighter[] mates = _fightManager.GetMatesOfFighter(playingFighter);
+            if (mates.Length > 0) mate1IconContainer.style.backgroundImage = new(mates[0].DiamondIcon);
+            if (mates.Length > 1) mate2IconContainer.style.backgroundImage = new(mates[1].DiamondIcon);
+        }
+
+        private void UpdateAbilityButtons(Fighter fighter)
         {
             _buttonToActiveAbility.Clear();
             int abilitiesButtonCount = GetAbilitiesButtons().Length;
@@ -51,7 +191,7 @@ namespace FrostfallSaga.Fight.UI
             {
                 if (i <= abilitiesButtonCount)
                 {
-                    SetupAbilityButton(ability, i);
+                    SetupAbilityButton(fighter, ability, i);
                 }
                 else
                 {
@@ -61,16 +201,31 @@ namespace FrostfallSaga.Fight.UI
             });
         }
 
-        private void SetupAbilityButton(ActiveAbilitySO activeAbility, int slotIndex)
+        private void SetupAbilityButton(Fighter fighter, ActiveAbilitySO activeAbility, int slotIndex)
         {
             Button abilityButton = _uiDoc.rootVisualElement.Q<Button>($"{ABILITY_BUTTON_UI_NAME}{slotIndex}");
             abilityButton.style.backgroundImage = new(activeAbility.IconSprite);
+            if (!fighter.CanUseActiveAbility(_fightManager.FightGrid, activeAbility, _fightManager.FighterTeams))
+            {
+                abilityButton.AddToClassList(ABILITY_UNUSABLE_CLASS_NAME);
+                abilityButton.SetEnabled(false);
+            }
+            else
+            {
+                abilityButton.RemoveFromClassList(ABILITY_UNUSABLE_CLASS_NAME);
+                abilityButton.SetEnabled(true);
+            }
             _buttonToActiveAbility.Add(abilityButton, activeAbility);
         }
 
         private void OnFighterTurnEnded(Fighter currentFighter, bool isAlly)
         {
             SetIsVisible(!isAlly);
+        }
+
+        private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
+        {
+            Destroy(_uiDoc);
         }
 
         private void OnDirectAttackButtonClicked(ClickEvent _clickEvent)
@@ -141,26 +296,7 @@ namespace FrostfallSaga.Fight.UI
 
             _fightManager.onFighterTurnBegan += OnFighterTurnBegan;
             _fightManager.onFighterTurnEnded += OnFighterTurnEnded;
-        }
-
-        private void OnDisable()
-        {
-            if (_uiDoc != null && _uiDoc.rootVisualElement != null)
-            {
-                Button directAttackButton = _uiDoc.rootVisualElement.Q<Button>(DIRECT_ATTACK_BUTTON_UI_NAME);
-                Button endTurnButton = _uiDoc.rootVisualElement.Q<Button>(END_TURN_BUTTON_UI_NAME);
-
-                directAttackButton.UnregisterCallback<ClickEvent>(OnDirectAttackButtonClicked);
-                GetAbilitiesButtons().ToList().ForEach(
-                    abilityButton => abilityButton.UnregisterCallback<ClickEvent>(OnActiveAbilityButtonClicked)
-                );
-                endTurnButton.UnregisterCallback<ClickEvent>(OnEndTurnButtonClicked);
-            }
-            if (_fightManager != null)
-            {
-                _fightManager.onFighterTurnBegan -= OnFighterTurnBegan;
-                _fightManager.onFighterTurnEnded -= OnFighterTurnEnded;
-            }
+            _fightManager.onFightEnded += OnFightEnded;
         }
 
         #endregion

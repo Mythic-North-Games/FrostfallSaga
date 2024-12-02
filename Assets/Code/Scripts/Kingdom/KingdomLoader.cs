@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Cinemachine;
+using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
-using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -31,7 +32,7 @@ namespace FrostfallSaga.Kingdom
             }
 
             Debug.Log("Start loading kingdom.");
-            Destroy(FindObjectOfType<EntitiesGroup>().gameObject);
+            FindObjectsOfType<EntitiesGroup>().ToList().ForEach(entityGroup => DestroyImmediate(entityGroup.gameObject));
             LoadKingdomAsBeforeFight();
             if (!_postFightData.AlliesHaveWon())
             {
@@ -62,10 +63,13 @@ namespace FrostfallSaga.Kingdom
 
         private void UpdateEntitiesGroupAfterFight(EntitiesGroup entitiesGroupToUpdate)
         {
-            foreach (KeyValuePair<string, PostFightFighterState> postFighterData in _postFightData.alliesState)
+            Dictionary<string, PostFightFighterState> alliesStateDict = SElementToValue<string, PostFightFighterState>.GetDictionaryFromArray(
+                _postFightData.alliesState.ToArray()
+            );
+            foreach (KeyValuePair<string, PostFightFighterState> postFighterData in alliesStateDict)
             {
                 Entity entityToUpdate = entitiesGroupToUpdate.Entities.ToList().Find(
-                    entity => entity.sessionId == postFighterData.Key
+                    entity => entity.SessionId == postFighterData.Key
                 );
                 entityToUpdate.IsDead = postFighterData.Value.lastingHealth == 0;
                 if (entitiesGroupToUpdate.GetDisplayedEntity() == entityToUpdate && entityToUpdate.IsDead)

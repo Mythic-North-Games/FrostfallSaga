@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.GameItems;
 
 namespace FrostfallSaga.KingdomToFight
 {
@@ -11,6 +12,7 @@ namespace FrostfallSaga.KingdomToFight
         [field: SerializeField] public ActiveAbilitySO[] EquipedActiveAbilities { get; private set; }
         [field: SerializeField] public PassiveAbilitySO[] EquipedPassiveAbilities { get; private set; }
         [field: SerializeField] public int Health { get; private set; }
+        [field: SerializeField] public Inventory Inventory { get; private set; }
 
         public PersistedFighterConfigurationSO() : base()
         {

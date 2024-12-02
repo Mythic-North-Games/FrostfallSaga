@@ -41,7 +41,12 @@ namespace FrostfallSaga.Fight.Statuses
 
         protected override void DoRemoveStatus(Fighter fighter)
         {
-            fighter.UpdateMutableStat(EFighterMutableStat.Initiative, -InitiativeReduction, false);
+            fighter.UpdateMutableStat(
+                EFighterMutableStat.Initiative,
+                -InitiativeReduction,
+                triggerAnimation: false,
+                triggerEvent: false
+            );
             Debug.Log($"{fighter.name}'s initiative is back to normal !");
         }
     }
