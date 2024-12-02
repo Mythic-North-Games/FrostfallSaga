@@ -29,7 +29,6 @@ namespace FrostfallSaga.Fight.Effects
 
             // Do the update
             receiver.UpdateMutableStat(StatToUpdate, finalUpdateAmount);
-            receiver.onEffectReceived?.Invoke(receiver, initiator, this, false);
             Debug.Log($"{receiver.name} {StatToUpdate} updated by {finalUpdateAmount}.");
 
             // Increase god favors points if enbabled
@@ -48,7 +47,7 @@ namespace FrostfallSaga.Fight.Effects
                 finalUpdateAmount = (int)(receiver.GetMutableStat(StatToUpdate) * Amount / 100f);
             }
 
-            receiver.UpdateMutableStat(StatToUpdate, -finalUpdateAmount);
+            receiver.UpdateMutableStat(StatToUpdate, -finalUpdateAmount, triggerAnimation: true, triggerEvent: false);
         }
 
         public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke)

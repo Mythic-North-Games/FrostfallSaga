@@ -52,7 +52,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             FightCell[] targetedCells = { receiver.cell };
 
             // Act
-            attacker.onActiveAbilityEnded += (Fighter attacker) =>
+            attacker.onActiveAbilityEnded += (Fighter attacker, ActiveAbilitySO usedAbility) =>
             {
                 /// ASSERTS ///
                 // Check actions points have been decreased
@@ -105,7 +105,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             };
 
             // Act
-            attacker.onActiveAbilityEnded += (Fighter attacker) =>
+            attacker.onActiveAbilityEnded += (Fighter attacker, ActiveAbilitySO usedAbility) =>
             {
                 /// ASSERTS ///
                 // Check actions points have been decreased
@@ -138,7 +138,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             FightCell[] targetedCells = { (FightCell)grid.CellsByCoordinates[new(1, 1)] };
 
             // Act
-            attacker.onActiveAbilityEnded += (Fighter attacker) =>
+            attacker.onActiveAbilityEnded += (Fighter attacker, ActiveAbilitySO usedAbility) =>
             {
                 /// ASSERTS ///
                 // Check actions points have been decreased

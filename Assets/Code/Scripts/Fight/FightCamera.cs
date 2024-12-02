@@ -35,6 +35,7 @@ namespace FrostfallSaga.Fight
             }
 
             _fightManager.onFighterTurnBegan += OnFighterTurnBegan;
+            _fightManager.onFightEnded += OnFightEnded;
         }
 
         private void OnFighterTurnBegan(Fighter fighter, bool _isAlly)
@@ -42,15 +43,9 @@ namespace FrostfallSaga.Fight
             _camera.Follow = fighter.CameraAnchor;
         }
 
-        private void OnDisable()
+        private void OnFightEnded(Fighter[] _allies, Fighter[] _enemies)
         {
-            if (_fightManager == null)
-            {
-                Debug.LogWarning("Fight camera does not find a fight manager to unwork with.");
-                return;
-            }
-
-            _fightManager.onFighterTurnBegan -= OnFighterTurnBegan;
+            _camera.enabled = false;
         }
     }
 }

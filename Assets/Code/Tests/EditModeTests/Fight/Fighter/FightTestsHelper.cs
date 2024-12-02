@@ -43,6 +43,7 @@ namespace FrostfallSaga.EditModeTests.FightTests
                     Guid.NewGuid().ToString(),
                     EntityID.HERO,
                     null,
+                    null,
                     fighterConfiguration.ExtractFighterStats(),
                     fighterConfiguration.FighterClass,
                     fighterConfiguration.PersonalityTrait,

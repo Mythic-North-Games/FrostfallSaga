@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FrostfallSaga.Core;
 using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
@@ -7,8 +8,8 @@ namespace FrostfallSaga.Kingdom
     [CreateAssetMenu(fileName = "PostFightData", menuName = "ScriptableObjects/Fight/PostFightData", order = 0)]
     public class PostFightDataSO : ScriptableObject
     {
-        public Dictionary<string, PostFightFighterState> alliesState;
-        public Dictionary<string, PostFightFighterState> enemiesState;
+        public List<SElementToValue<string, PostFightFighterState>> alliesState;
+        public List<SElementToValue<string, PostFightFighterState>> enemiesState;
         public bool enabled = false;
 
         public bool AlliesHaveWon()
@@ -18,9 +19,10 @@ namespace FrostfallSaga.Kingdom
                 throw new Exception("No post fight state set. Can't determine whether the allies have won or not.");
             }
 
-            foreach (PostFightFighterState allyState in alliesState.Values)
+            Dictionary<string, PostFightFighterState> alliesStateDict = SElementToValue<string, PostFightFighterState>.GetDictionaryFromArray(alliesState.ToArray());
+            foreach (PostFightFighterState allyState in alliesStateDict.Values)
             {
-                if (allyState.lastingHealth != 0)
+                if (allyState.lastingHealth > 0)
                 {
                     return true;
                 }

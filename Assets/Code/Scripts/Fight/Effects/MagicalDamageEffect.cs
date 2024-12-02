@@ -38,8 +38,7 @@ namespace FrostfallSaga.Fight.Effects
             }
 
             // Apply magical damage
-            receiver.MagicalWithstand(finalDamageAmount, MagicalElement);
-            receiver.onEffectReceived?.Invoke(receiver, initiator, this, isMasterstroke);
+            receiver.MagicalWithstand(finalDamageAmount, MagicalElement, isMasterstroke);
             Debug.Log($"Dealt {finalDamageAmount} magical damage of {MagicalElement} to {receiver.name}.");
 
             // Increase god favors points if enabled

@@ -16,9 +16,9 @@ MonoBehaviour:
   <Description>k__BackingField: Apply fire on cell
   <IconSprite>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
   Effects:
-  - rid: 3629974059018879022
+  - rid: 3629974515939016704
   <Targeter>k__BackingField:
-    <OriginCellRange>k__BackingField: 2
+    <OriginCellRange>k__BackingField: 6
     <CellsSequence>k__BackingField:
     - {x: 0, y: 1}
     <StartFromInitiator>k__BackingField: 0
@@ -32,34 +32,15 @@ MonoBehaviour:
   <ActionPointsCost>k__BackingField: 2
   <GodFavorsPointsCost>k__BackingField: 0
   <Dodgable>k__BackingField: 0
-  <Masterstrokable>k__BackingField: 0
-  MasterstrokeEffects:
-  - rid: 7528321416264941568
+  <Masterstrokable>k__BackingField: 1
+  MasterstrokeEffects: []
   CellAlterations: []
   <Animation>k__BackingField: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 3629974059018879022
+    - rid: 3629974515939016704
       type: {class: MagicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
-        MagicalDamageAmount: 20
+        MagicalDamageAmount: 100
         MagicalElement: 0
-    - rid: 7528321416264941568
-      type: {class: ApplyStatusesEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
-      data:
-        StatusesToApply:
-        - rid: 7528321416264941569
-    - rid: 7528321416264941569
-      type: {class: BleedStatus, ns: FrostfallSaga.Fight.Statuses, asm: FrostfallSaga.Fight}
-      data:
-        <StatusType>k__BackingField: 1
-        <Name>k__BackingField: Bleed
-        <Description>k__BackingField: The fighter's health is reduced.
-        <IsPermanent>k__BackingField: 0
-        <Duration>k__BackingField: 4
-        <TriggerOnFirstApply>k__BackingField: 1
-        <IsRecurring>k__BackingField: 1
-        <TriggerTime>k__BackingField: 1
-        <VisualsController>k__BackingField: {fileID: 11400000, guid: e549f4ec3ffc32845ba84beb73ada695, type: 2}
-        <BleedingDamage>k__BackingField: 10

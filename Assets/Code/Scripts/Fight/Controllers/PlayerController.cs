@@ -17,14 +17,13 @@ namespace FrostfallSaga.Fight.Controllers
     /// </summary>
     public class PlayerController : AFighterController
     {
+        private FightManager _fightManager;
+        private Fighter _possessedFighter;
+
         private FighterActionPanelController _actionPanel;
         private Material _cellHighlightMaterial;
         private Material _cellActionableHighlightMaterial;
         private Material _cellInaccessibleHighlightMaterial;
-
-        private HexGrid _currentFightGrid;
-        private Fighter _possessedFighter;
-        private Dictionary<Fighter, bool> _fighterTeams;
 
         private FightCell[] _currentMovePath = { };
         private bool _fighterIsActing;
@@ -33,19 +32,23 @@ namespace FrostfallSaga.Fight.Controllers
         private bool _fighterIsTargetingForActiveAbility;
 
         public void Setup(
+            FightManager fightManager,
             FighterActionPanelController actionPanel,
             Material cellHighlightMaterial,
             Material cellActionableHighlightMaterial,
             Material cellInaccessibleHighlightMaterial
         )
         {
+            _fightManager = fightManager;
             _actionPanel = actionPanel;
             _cellHighlightMaterial = cellHighlightMaterial;
             _cellActionableHighlightMaterial = cellActionableHighlightMaterial;
             _cellInaccessibleHighlightMaterial = cellInaccessibleHighlightMaterial;
+
+            _fightManager.onFightEnded += OnFightEnded;
         }
 
-        public override void PlayTurn(Fighter fighterToPlay, Dictionary<Fighter, bool> fighterTeams, HexGrid fightGrid)
+        public override void PlayTurn(Fighter fighterToPlay)
         {
             if (_actionPanel == null)
             {
@@ -68,17 +71,15 @@ namespace FrostfallSaga.Fight.Controllers
                 return;
             }
 
-            _currentFightGrid = fightGrid;
             _possessedFighter = fighterToPlay;
-            _fighterTeams = fighterTeams;
             _fighterIsActing = false;
             _fighterIsTargetingForActiveAbility = false;
             _fighterIsTargetingForDirectAttack = false;
 
             BindPossessedFighterEventsForTurn(fighterToPlay);
-            BindFightersMouseEvents(fighterTeams.Keys.ToList());
+            BindFightersMouseEvents(_fightManager.FighterTeams.Keys.ToList());
             BindUIEventsForTurn();
-            BindCellMouseEventsForTurn(fightGrid);
+            BindCellMouseEventsForTurn(_fightManager.FightGrid);
         }
 
         private void OnCellClicked(Cell clickedCell)
@@ -120,10 +121,10 @@ namespace FrostfallSaga.Fight.Controllers
                 _fighterIsTargetingForDirectAttack &&
                 hoveredFightCell != _possessedFighter.cell &&
                 _possessedFighter.Weapon.AttackTargeter.IsCellTargetable(
-                    _currentFightGrid,
+                    _fightManager.FightGrid,
                     _possessedFighter.cell,
                     hoveredFightCell,
-                    _fighterTeams
+                    _fightManager.FighterTeams
                 )
             )
             {
@@ -133,9 +134,9 @@ namespace FrostfallSaga.Fight.Controllers
                 _fighterIsTargetingForActiveAbility &&
                 (
                     _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
-                        _currentFightGrid,
+                        _fightManager.FightGrid,
                         _possessedFighter.cell,
-                        _fighterTeams,
+                        _fightManager.FighterTeams,
                         _currentActiveAbility.CellAlterations
                     ).Contains(hoveredFightCell)
                 )
@@ -151,7 +152,7 @@ namespace FrostfallSaga.Fight.Controllers
             {
                 _currentMovePath = Array.ConvertAll(
                     CellsPathFinding.GetShorterPath(
-                        _currentFightGrid,
+                        _fightManager.FightGrid,
                         _possessedFighter.cell,
                         hoveredFightCell,
                         includeOccupiedNeighbors: false
@@ -215,13 +216,21 @@ namespace FrostfallSaga.Fight.Controllers
             onFighterActionEnded?.Invoke(_possessedFighter);
         }
 
+        private void OnFightEnded(Fighter[] _allies, Fighter[] _enemies)
+        {
+            UnbindFighterEventsForTurn();
+            UnbindCellMouseEvents(_fightManager.FightGrid);
+            UnbindUIEventsForTurn();
+            UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
+        }
+
         #region Movement handling
 
         private void MakeFighterMove(FightCell destinationCell)
         {
             FightCell[] movePath = Array.ConvertAll(
                 CellsPathFinding.GetShorterPath(
-                    _currentFightGrid,
+                    _fightManager.FightGrid,
                     _possessedFighter.cell,
                     destinationCell
                 ), cell => (FightCell)cell
@@ -275,9 +284,9 @@ namespace FrostfallSaga.Fight.Controllers
             }
 
             FightCell[] cellsAvailableForTargeting = _possessedFighter.Weapon.AttackTargeter.GetAllCellsAvailableForTargeting(
-                _currentFightGrid,
+                _fightManager.FightGrid,
                 _possessedFighter.cell,
-                _fighterTeams
+                _fightManager.FighterTeams
             );
             cellsAvailableForTargeting.ToList().ForEach(
                 cell => cell.HighlightController.UpdateCurrentDefaultMaterial(_cellHighlightMaterial)
@@ -294,10 +303,10 @@ namespace FrostfallSaga.Fight.Controllers
             try
             {
                 FightCell[] targetedCells = _possessedFighter.Weapon.AttackTargeter.Resolve(
-                    _currentFightGrid,
+                    _fightManager.FightGrid,
                     _possessedFighter.cell,
                     clickedCell,
-                    _fighterTeams
+                    _fightManager.FighterTeams
                 );
                 StopTargetingForDirectAttack();
                 _fighterIsActing = true;
@@ -320,9 +329,9 @@ namespace FrostfallSaga.Fight.Controllers
         {
             _fighterIsTargetingForDirectAttack = false;
             _possessedFighter.Weapon.AttackTargeter.GetAllCellsAvailableForTargeting(
-                _currentFightGrid,
+                _fightManager.FightGrid,
                 _possessedFighter.cell,
-                _fighterTeams
+                _fightManager.FighterTeams
             ).ToList().ForEach(cell => cell.HighlightController.ResetToInitialMaterial());
         }
 
@@ -365,9 +374,9 @@ namespace FrostfallSaga.Fight.Controllers
             _currentActiveAbility = clickedAbility;
             FightCell[] cellsAvailableForTargeting =
                 _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
-                    _currentFightGrid,
+                    _fightManager.FightGrid,
                     _possessedFighter.cell,
-                    _fighterTeams,
+                    _fightManager.FighterTeams,
                     _currentActiveAbility.CellAlterations
                 );
             cellsAvailableForTargeting.ToList().ForEach(
@@ -386,10 +395,10 @@ namespace FrostfallSaga.Fight.Controllers
             try
             {
                 FightCell[] targetedCells = _currentActiveAbility.Targeter.Resolve(
-                    _currentFightGrid,
+                    _fightManager.FightGrid,
                     _possessedFighter.cell,
                     clickedCell,
-                    _fighterTeams
+                    _fightManager.FighterTeams
                 );
                 StopTargetingActiveActiveAbility();
                 ResetTargeterCellsMaterial(_currentActiveAbility.Targeter, clickedCell);
@@ -405,7 +414,7 @@ namespace FrostfallSaga.Fight.Controllers
             }
         }
 
-        private void OnFighterActiveAbilityEnded(Fighter _possessedFighter)
+        private void OnFighterActiveAbilityEnded(Fighter _possessedFighter, ActiveAbilitySO usedAbility)
         {
             EndFighterAction();
         }
@@ -415,9 +424,9 @@ namespace FrostfallSaga.Fight.Controllers
             _fighterIsTargetingForActiveAbility = false;
             _possessedFighter.cell.HighlightController.ResetToInitialMaterial();
             _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
-                _currentFightGrid,
+                _fightManager.FightGrid,
                 _possessedFighter.cell,
-                _fighterTeams,
+                _fightManager.FighterTeams,
                 _currentActiveAbility.CellAlterations
             ).ToList().ForEach(cell => cell.HighlightController.ResetToInitialMaterial());
         }
@@ -452,9 +461,9 @@ namespace FrostfallSaga.Fight.Controllers
         private void EndPossessedFighterTurn()
         {
             UnbindFighterEventsForTurn();
-            UnbindCellMouseEvents(_currentFightGrid);
+            UnbindCellMouseEvents(_fightManager.FightGrid);
             UnbindUIEventsForTurn();
-            UnbindEntitiesGroupsMouseEvents(_fighterTeams.Keys.ToList());
+            UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
             onFighterTurnEnded?.Invoke(_possessedFighter);
         }
 
@@ -469,9 +478,9 @@ namespace FrostfallSaga.Fight.Controllers
                 return;
             }
             UnbindFighterEventsForTurn();
-            UnbindCellMouseEvents(_currentFightGrid);
+            UnbindCellMouseEvents(_fightManager.FightGrid);
             UnbindUIEventsForTurn();
-            UnbindEntitiesGroupsMouseEvents(_fighterTeams.Keys.ToList());
+            UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
         }
 
         #endregion
@@ -508,17 +517,17 @@ namespace FrostfallSaga.Fight.Controllers
             try
             {
                 FightCell[] targetedCells = targeter.Resolve(
-                    _currentFightGrid,
+                    _fightManager.FightGrid,
                     _possessedFighter.cell,
                     originCell,
-                    _fighterTeams
+                    _fightManager.FighterTeams
                 );
                 targetedCells.ToList().ForEach(cell => cell.HighlightController.Highlight(_cellActionableHighlightMaterial));
             }
             catch (TargeterUnresolvableException)
             {
                 FightCell[] targetedCells = targeter.GetCellsFromSequence(
-                    _currentFightGrid,
+                    _fightManager.FightGrid,
                     _possessedFighter.cell,
                     originCell
                 );
@@ -531,7 +540,7 @@ namespace FrostfallSaga.Fight.Controllers
         private void ResetTargeterCellsMaterial(Targeter targeter, FightCell originCell)
         {
             FightCell[] targetedCells = targeter.GetCellsFromSequence(
-                _currentFightGrid,
+                _fightManager.FightGrid,
                 _possessedFighter.cell,
                 originCell
             );

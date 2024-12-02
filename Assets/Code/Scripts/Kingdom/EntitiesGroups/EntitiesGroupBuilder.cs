@@ -21,7 +21,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             List<Entity> entities = new();
             entitiesGroupData.entitiesData.ToList().ForEach(entityData => entities.Add(_entityBuilder.BuildEntity(entityData)));
             entitiesGroup.UpdateEntities(entities.ToArray());
-            entitiesGroup.UpdateDisplayedEntity(entities.Find(entity => entity.sessionId == entitiesGroupData.displayedEntitySessionId));
+            entitiesGroup.UpdateDisplayedEntity(entities.Find(entity => entity.SessionId == entitiesGroupData.displayedEntitySessionId));
             entitiesGroup.movePoints = entitiesGroupData.movePoints;
             entitiesGroup.TeleportToCell(grid.CellsByCoordinates[new(entitiesGroupData.cellX, entitiesGroupData.cellY)]);
             return entitiesGroup;
@@ -35,7 +35,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
                 cellX = entitiesGroup.cell.Coordinates.x,
                 cellY = entitiesGroup.cell.Coordinates.y,
                 entitiesData = GetEntitiesData(entitiesGroup),
-                displayedEntitySessionId = entitiesGroup.GetDisplayedEntity().sessionId
+                displayedEntitySessionId = entitiesGroup.GetDisplayedEntity().SessionId
             };
         }
 

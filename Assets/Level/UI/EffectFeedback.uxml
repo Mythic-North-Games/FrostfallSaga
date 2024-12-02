@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/EffectFeedback.uss?fileID=7433441132597879392&amp;guid=e45d47ab7fcd71349a01eb26fe77650a&amp;type=3#EffectFeedback" />
+    <ui:VisualElement name="EffectFeedbackContainer" class="effectFeedbackContainerDefault" style="transition-duration: 0.2s; position: absolute; flex-grow: 1;">
+        <ui:VisualElement name="EffectFeedbackIcon" style="background-image: url(&quot;project://database/Assets/Art/UI/CharacterPanel/Strenght%20Icon.png?fileID=2800000&amp;guid=e6b98d28e1ca0cf4c9abac72040c1e0e&amp;type=3#Strenght Icon&quot;); -unity-background-scale-mode: scale-to-fit; height: 100%; flex-grow: 0.75;" />
+        <ui:Label tabindex="-1" text="99" parse-escape-sequences="false" display-tooltip-when-elided="true" name="EffectFeedbackLabel" enable-rich-text="true" class="effectLabelDefault" style="flex-grow: 1;" />
+    </ui:VisualElement>
+</ui:UXML>

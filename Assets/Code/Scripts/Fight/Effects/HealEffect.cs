@@ -29,8 +29,7 @@ namespace FrostfallSaga.Fight.Effects
             }
 
             // Apply the heal
-            receiver.Heal(finalHealAmount);
-            receiver.onEffectReceived?.Invoke(receiver, initiator, this, isMasterstroke);
+            receiver.Heal(finalHealAmount, isMasterstroke);
             Debug.Log($"Healed {receiver.name} for {finalHealAmount} health.");
 
             // Increase god favors points if enabled
