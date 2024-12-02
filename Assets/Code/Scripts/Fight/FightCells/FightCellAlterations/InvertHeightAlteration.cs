@@ -31,13 +31,13 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
         public override void Apply(FightCell cell)
         {
             _previousHeight = cell.Height;
-            cell.UpdateHeight(GetInvertedHeight(cell.Height));
+            cell.UpdateHeight(GetInvertedHeight(cell.Height),0);
             onAlterationApplied?.Invoke(cell, this);
         }
 
         public override void Remove(FightCell cell)
         {
-            cell.UpdateHeight(_previousHeight);
+            cell.UpdateHeight(_previousHeight,0);
             onAlterationRemoved?.Invoke(cell, this);
         }
 

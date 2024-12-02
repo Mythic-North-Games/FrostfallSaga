@@ -16,7 +16,7 @@ namespace FrostfallSaga.FFSEditor.Grid
 
             if (GUILayout.Button("Update High"))
             {
-                cell.UpdateHeight(cell.Height);
+                cell.UpdateHeight(cell.Height,0);
             }
             else if (GUILayout.Button("Get Neighbors"))
             {
