@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: bc803651ae841a44fb7b74216201101e
 =======
 guid: 5eadba4cbe7946949a3badbc506dff2c
 >>>>>>> 6585ad3 (Added the fireBall Animation)
+=======
+guid: 5eadba4cbe7946949a3badbc506dff2c
+>>>>>>> b585b3a3219fe0fa28e5de89a5950686929328f0
 timeCreated: 1489448840
 licenseType: Store
 NativeFormatImporter:

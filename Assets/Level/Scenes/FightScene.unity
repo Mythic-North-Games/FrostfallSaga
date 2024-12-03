@@ -5618,7 +5618,10 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3d87480334b9b4742a045fc9f48e94c5, type: 2}
     - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
     - {fileID: 11400000, guid: 5f043d044d913ad4682a195b63aa9106, type: 2}
+<<<<<<< HEAD
 >>>>>>> 6585ad3 (Added the fireBall Animation)
+=======
+>>>>>>> b585b3a3219fe0fa28e5de89a5950686929328f0
     - {fileID: 11400000, guid: ec1b5a01f965feb48abc59d1f1ed3355, type: 2}
     passiveAbilities:
     - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}

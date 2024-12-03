@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 1105312cafc4b3a438798c0e440484f9
 =======
 guid: 2be62a877cb43314aa530ca700f1f3b5
 >>>>>>> 6585ad3 (Added the fireBall Animation)
+=======
+guid: 2be62a877cb43314aa530ca700f1f3b5
+>>>>>>> b585b3a3219fe0fa28e5de89a5950686929328f0
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

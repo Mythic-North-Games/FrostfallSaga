@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 137b97e61d5d1784bb93ceb877e2c78e
 =======
 guid: 2042136cce711f7499a2eb5509f8f817
 >>>>>>> 6585ad3 (Added the fireBall Animation)
+=======
+guid: 2042136cce711f7499a2eb5509f8f817
+>>>>>>> b585b3a3219fe0fa28e5de89a5950686929328f0
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
