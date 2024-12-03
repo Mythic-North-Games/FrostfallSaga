@@ -11,8 +11,8 @@ namespace FrostfallSaga.Kingdom.Entities
         [field: SerializeField] public EntityVisualAnimationController EntityAnimationController { get; private set; }
         [field: SerializeField] public EntityVisualMovementController EntityVisualMovementController { get; private set; }
         [field: SerializeField] public EntityMouseEventsController EntityMouseEventsController { get; private set; }
-        public bool IsDead { get; set; }
-        public string sessionId;
+        [field: SerializeField] public bool IsDead { get; set; }
+        [field: SerializeField] public string SessionId { get; private set; }
 
         public void ShowVisual()
         {
@@ -47,11 +47,12 @@ namespace FrostfallSaga.Kingdom.Entities
             return EntityAnimationController.gameObject.activeSelf;
         }
 
-        public void Setup(EntityData entityData)
+        public void Setup(EntityConfigurationSO configuration, string sessionId, bool isDead)
         {
-            sessionId = entityData.sessionId;
-            IsDead = entityData.isDead;
-            EntityConfiguration = Resources.Load<EntityConfigurationSO>(entityData.entityConfigurationResourcePath);
+            EntityConfiguration = configuration;
+            SessionId = sessionId;
+            IsDead = isDead;
+            name = $"{EntityConfiguration.EntityID}_{SessionId}";
         }
 
         #region Components setup
@@ -80,7 +81,8 @@ namespace FrostfallSaga.Kingdom.Entities
                 Debug.LogWarning("Entity " + name + " does not have an entity configuration.");
             }
 
-            sessionId = Guid.NewGuid().ToString();
+            SessionId = Guid.NewGuid().ToString();
+            name = $"{EntityConfiguration.EntityID}_{SessionId}";
         }
 
         #endregion

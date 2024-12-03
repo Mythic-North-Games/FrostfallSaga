@@ -13,6 +13,14 @@ namespace FrostfallSaga.Fight.Effects
         [SerializeField, Range(0, 9999)] public int MagicalDamageAmount;
         [SerializeField] public EMagicalElement MagicalElement;
 
+        public MagicalDamageEffect() {}
+
+        public MagicalDamageEffect(int magicalDamageAmount, EMagicalElement magicalElement)
+        {
+            MagicalDamageAmount = magicalDamageAmount;
+            MagicalElement = magicalElement;
+        }
+
         public override void ApplyEffect(
             Fighter receiver,
             bool isMasterstroke,
@@ -30,8 +38,7 @@ namespace FrostfallSaga.Fight.Effects
             }
 
             // Apply magical damage
-            receiver.MagicalWithstand(finalDamageAmount, MagicalElement);
-            receiver.onEffectReceived?.Invoke(receiver, initiator, this, isMasterstroke);
+            receiver.MagicalWithstand(finalDamageAmount, MagicalElement, isMasterstroke);
             Debug.Log($"Dealt {finalDamageAmount} magical damage of {MagicalElement} to {receiver.name}.");
 
             // Increase god favors points if enabled

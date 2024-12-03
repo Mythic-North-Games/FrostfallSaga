@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: SKELETON
   m_EditorClassIdentifier: 
   <EntityID>k__BackingField: 3
-  <EntityIcon>k__BackingField: {fileID: 21300000, guid: f6fc899a423eacb4a87e6c0bb5acb040, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: f6fc899a423eacb4a87e6c0bb5acb040, type: 3}
+  <DiamondIcon>k__BackingField: {fileID: 0}
+  <EntityPrefab>k__BackingField: {fileID: 8960940676332231868, guid: ffd14caba15bf4242a0eaa8bb5de0df2, type: 3}

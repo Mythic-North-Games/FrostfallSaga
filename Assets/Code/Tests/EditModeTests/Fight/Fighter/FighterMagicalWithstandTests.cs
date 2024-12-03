@@ -1,5 +1,5 @@
 using System;
-using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight;
 using FrostfallSaga.Fight.Fighters;
 using NUnit.Framework;
 
@@ -23,7 +23,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
 
             // Act
-            fighter.MagicalWithstand(damageAmount, damageMagicalElement);
+            fighter.MagicalWithstand(damageAmount, damageMagicalElement, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);
@@ -45,7 +45,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
 
             // Act
-            fighter.MagicalWithstand(damageAmount, damageMagicalElement);
+            fighter.MagicalWithstand(damageAmount, damageMagicalElement, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);
@@ -67,7 +67,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
 
             // Act
-            fighter.MagicalWithstand(damageAmount, damageMagicalElement);
+            fighter.MagicalWithstand(damageAmount, damageMagicalElement, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);
@@ -89,7 +89,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
 
             // Act
-            fighter.MagicalWithstand(damageAmount, damageMagicalElement);
+            fighter.MagicalWithstand(damageAmount, damageMagicalElement, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);
@@ -111,7 +111,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
 
             // Act
-            fighter.MagicalWithstand(damageAmount, damageMagicalElement);
+            fighter.MagicalWithstand(damageAmount, damageMagicalElement, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);
@@ -131,10 +131,10 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.SetStatsForTests();
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances[EMagicalElement.FIRE] = 0;
-            fighter.GetStatsForTests().magicalResistances[EMagicalElement.WATER] = fighterMagicalResistance;
+            fighter.GetStatsForTests().magicalResistances[EMagicalElement.ICE] = fighterMagicalResistance;
 
             // Act
-            fighter.MagicalWithstand(damageAmount, damageMagicalElement);
+            fighter.MagicalWithstand(damageAmount, damageMagicalElement, false);
 
             // Assert
             Assert.AreEqual(expectedFighterHealth, fighter.GetStatsForTests().health);
@@ -155,7 +155,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fighter.GetStatsForTests().magicalResistances.Remove(EMagicalElement.FIRE);
 
             // Act & Assert
-            Assert.Throws<NullReferenceException>(() => fighter.MagicalWithstand(damageAmount, damageMagicalElement));
+            Assert.Throws<NullReferenceException>(() => fighter.MagicalWithstand(damageAmount, damageMagicalElement, false));
         }
     }
 }

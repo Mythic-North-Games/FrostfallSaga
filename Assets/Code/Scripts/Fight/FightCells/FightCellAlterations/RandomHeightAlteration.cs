@@ -34,13 +34,13 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
             _previousHeight = cell.Height;
             cell.UpdateHeight(
                 Randomizer.GetRandomElementFromEnum<ECellHeight>(toExclude: new[] { cell.Height })
-            );
+            ,0);
             onAlterationApplied?.Invoke(cell, this);
         }
 
         public override void Remove(FightCell cell)
         {
-            cell.UpdateHeight(_previousHeight);
+            cell.UpdateHeight(_previousHeight,0);
             onAlterationRemoved?.Invoke(cell, this);
         }
     }

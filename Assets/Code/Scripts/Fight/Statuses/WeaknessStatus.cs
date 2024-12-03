@@ -41,7 +41,12 @@ namespace FrostfallSaga.Fight.Statuses
 
         protected override void DoRemoveStatus(Fighter fighter)
         {
-            fighter.UpdateMutableStat(EFighterMutableStat.Strength, StrengthReduction, false);
+            fighter.UpdateMutableStat(
+                EFighterMutableStat.Strength,
+                StrengthReduction,
+                triggerAnimation: false,
+                triggerEvent: false
+            );
             Debug.Log($"{fighter.name}'s strength is back to normal !");
         }
     }
