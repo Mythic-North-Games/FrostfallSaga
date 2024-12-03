@@ -11,20 +11,23 @@ namespace FrostfallSaga.Fight.UI
     /// </summary>
     public class FightEndMenuController : BaseUIController
     {
+        private static readonly string RESULT_LABEL_UI_NAME = "FightResultLabel";
+        private static readonly string ROUND_COUNT_LAEBL_UI_NAME = "RoundCountLabel";
+
         public Action onContinueClicked;
 
         [SerializeField] private FightManager _fightManager;
 
         private void Start()
         {
-            _uiDoc.rootVisualElement.style.display = DisplayStyle.None;
+            _uiDoc.rootVisualElement.style.visibility = Visibility.Hidden;
         }
 
         private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
         {
-            _uiDoc.rootVisualElement.style.display = DisplayStyle.Flex;
-            Label textWin = _uiDoc.rootVisualElement.Q("FightResultText") as Label;
-            textWin.text = AlliesHaveWon(allies) ? "Winner" : "Looser";
+            _uiDoc.rootVisualElement.style.visibility = Visibility.Visible;
+            _uiDoc.rootVisualElement.Q<Label>(RESULT_LABEL_UI_NAME).text = AlliesHaveWon(allies) ? "Winner" : "Looser";
+            _uiDoc.rootVisualElement.Q<Label>(ROUND_COUNT_LAEBL_UI_NAME).text = $"Rounds: {_fightManager.RoundCount}";
         }
 
         private bool AlliesHaveWon(Fighter[] allies)

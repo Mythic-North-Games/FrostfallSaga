@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed76780450250d459f565d5a3c2309a, type: 3}
   m_Name: KingdomData
   m_EditorClassIdentifier: 
-  <HexGrid>k__BackingField: {fileID: 0}
-  <HeroGroup>k__BackingField: {fileID: 0}
-  <EnemiesGroups>k__BackingField: []
+  heroGroupData:
+    movePoints: 0
+    cellX: 0
+    cellY: 0
+    entitiesData: []
+    displayedEntitySessionId: 
+  enemiesGroupsData: []

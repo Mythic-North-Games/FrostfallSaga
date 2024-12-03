@@ -28,11 +28,10 @@ namespace FrostfallSaga.Fight.Effects
             {
                 if (RemovableStatusTypes.Contains(status.StatusType))
                 {
-                    receiver.StatusesManager.RemoveStatus(status);
+                    receiver.RemoveStatus(status);
                     Debug.Log($"Status {status.Name} removed from {receiver.name}.");
                 }
             }
-            receiver.onEffectReceived?.Invoke(receiver, initiator, this, false);
 
             // Increase god favors points if enabled
             if (adjustGodFavorsPoints && initiator != null)

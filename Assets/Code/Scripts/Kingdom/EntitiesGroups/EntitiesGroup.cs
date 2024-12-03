@@ -30,7 +30,6 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             Entities = GetComponentsInChildren<Entity>();
             if (Entities == null || Entities.Length == 0)
             {
-                Debug.LogError("Entity group " + name + " does not have entities");
                 return;
             }
             if (cell == null)
@@ -85,7 +84,6 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             Entities = new List<Entity>(newMembers).ToArray();
             Entities.ToList().ForEach(entity =>
             {
-                entity.name = Enum.GetName(typeof(EntityID), entity.EntityConfiguration.EntityID) + entity.sessionId;
                 entity.transform.parent = transform;
                 entity.transform.localPosition = new(0, 0, 0);
             });
@@ -148,7 +146,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         }
 
         public static Entity[] GenerateRandomEntities(
-            GameObject[] availableEntitiesPrefab,
+            EntityConfigurationSO[] availableEntitiesConfig,
             int minNumberOfEntities = 1,
             int maxNumberOfEntities = 3
         )
@@ -157,7 +155,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
 
             while (entities.Count < minNumberOfEntities)
             {
-                GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntitiesPrefab));
+                GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntitiesConfig).EntityPrefab);
                 entities.Add(entityPrefab.GetComponent<Entity>());
             }
 
@@ -171,7 +169,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             {
                 if (Randomizer.GetBooleanOnChance(0.5f))
                 {
-                    GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntitiesPrefab));
+                    GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntitiesConfig).EntityPrefab);
                     entities.Add(entityPrefab.GetComponent<Entity>());
                 }
             }

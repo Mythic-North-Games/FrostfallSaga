@@ -1,5 +1,21 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+guid: 72767c6d43d249d65a8bbf1f13325671
+=======
+guid: 6078a8c296f3ee24ba10155535b2702d
+>>>>>>> c1d7cd3 (Change CellHeight Animation)
+=======
+guid: 6078a8c296f3ee24ba10155535b2702d
+>>>>>>> 52597f92ab7678653bd7f34dc990f0b966812572
+=======
 guid: 47b21e653c278a041bccb8c17d5a2806
+>>>>>>> 6585ad3 (Added the fireBall Animation)
+=======
+guid: 47b21e653c278a041bccb8c17d5a2806
+>>>>>>> b585b3a3219fe0fa28e5de89a5950686929328f0
 timeCreated: 1489448832
 licenseType: Store
 NativeFormatImporter:

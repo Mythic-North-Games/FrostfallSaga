@@ -62,144 +62,25 @@
     left: 10px;
 }
 
-.AbilitiesStyle {
-    flex-grow: 1;
-    width: 51px;
-    height: auto;
-    -unity-slice-scale: 1px;
-    position: relative;
-    background-image: url("project://database/Assets/Art/UI/AbillityParts/EmptyAbilityFrame.png?fileID=2800000&guid=14be2285d7b0afd4ebdf7bd83ba72352&type=3#EmptyAbilityFrame");
-    left: auto;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    max-width: 100%;
-    max-height: 100%;
-    background-color: rgba(0, 0, 0, 0);
-    border-left-color: rgba(0, 0, 0, 0);
-    border-right-color: rgba(0, 0, 0, 0);
-    border-top-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    justify-content: flex-start;
-    align-self: center;
-}
-
 .AbilitiesBackgroundStyle {
     flex-grow: 1;
-    width: 15%;
-    height: 87%;
     -unity-slice-scale: 1px;
     position: relative;
     background-image: url("project://database/Assets/Art/UI/AbillityParts/EmptyAbilityBackground.png?fileID=2800000&guid=e317b3f3bbbe0444fb034ff574616f3f&type=3#EmptyAbilityBackground");
     left: auto;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    max-width: 14%;
-    max-height: 87%;
     background-color: rgba(0, 0, 0, 0);
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
     justify-content: flex-start;
     align-self: center;
+    margin-right: 2%;
+    height: 100%;
 }
 
 .AbilitiesBackgroundStyle:hover {
-    flex-grow: 1;
-    width: 50px;
-    height: 50px;
-    -unity-slice-scale: 1px;
-    position: relative;
-    background-image: url("project://database/Assets/Art/UI/AbillityParts/EmptyAbilityBackground.png?fileID=2800000&guid=e317b3f3bbbe0444fb034ff574616f3f&type=3#EmptyAbilityBackground");
-    left: auto;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    max-width: 50px;
-    max-height: 50px;
-    background-color: rgba(0, 0, 0, 0);
-    border-left-color: rgba(0, 0, 0, 0);
-    border-right-color: rgba(0, 0, 0, 0);
-    border-top-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    justify-content: flex-start;
-    align-self: center;
     scale: 1.1 1.1;
-}
-
-.InventoryBoutonStyle {
-    position: absolute;
-    right: 3%;
-    height: 60%;
-    justify-content: flex-start;
-    align-items: stretch;
-    width: 8.5%;
-    top: 25%;
-    background-image: url('project://database/Assets/AssetsUHD/AssetsUHD/Inventory.png?fileID=2800000&guid=253870dad2acb974d908bf96f9e389c6&type=3#Inventory');
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    background-color: rgba(188, 188, 188, 0);
-    overflow: hidden;
-    visibility: visible;
-    display: flex;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    scale: 1 1;
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 0;
-    max-height: 60%;
-    max-width: 8.5%;
-}
-
-.InventoryBoutonStyle:hover {
-    position: absolute;
-    right: 3%;
-    height: 50px;
-    justify-content: flex-start;
-    align-items: stretch;
-    width: 50px;
-    top: 25%;
-    background-image: url('project://database/Assets/AssetsUHD/AssetsUHD/Inventory.png?fileID=2800000&guid=253870dad2acb974d908bf96f9e389c6&type=3#Inventory');
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    background-color: rgba(188, 188, 188, 0);
-    overflow: hidden;
-    visibility: visible;
-    display: flex;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    scale: 1.1 1.1;
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 0;
 }
 
 .TimelineCharacter {
@@ -249,11 +130,6 @@
     max-height: 100%;
 }
 
-.unity-progress-bar {
-    height: 12%;
-    max-height: 12%;
-}
-
 .ProgressBar_Container {
     flex-grow: 1;
     max-height: 27%;
@@ -267,22 +143,10 @@
 }
 
 .ProgressBar_Progress {
-    flex-grow: 1;
     background-color: rgb(48, 188, 34);
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    margin-top: 2px;
-    margin-right: 2px;
-    margin-bottom: 2px;
-    margin-left: 2px;
-    width: 50%;
-    max-width: 100%;
     -unity-background-image-tint-color: rgb(56, 56, 56);
-    position: relative;
-    height: 100%;
-    max-height: none;
+    width: 50%;
+    flex-grow: 1;
 }
 
 .ProgressBar_Progress:hover {
@@ -309,40 +173,25 @@
 }
 
 .ProgressBar_Text {
-    position: absolute;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    margin-top: 2px;
-    margin-right: 2px;
-    align-self: stretch;
-    align-items: flex-start;
     -unity-font: url("project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&guid=450220f72e21c774d8a3289a8e0e8843&type=3#MorrisRomanBlack");
     -unity-font-definition: initial;
     -unity-font-style: normal;
-    top: 20%;
-    left: 2%;
-    font-size: 12%;
-    -unity-text-align: middle-left;
-    height: 50%;
-    flex-direction: column;
-    justify-content: flex-start;
+    font-size: 290%;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    left: 22.5%;
+    top: -3%;
 }
 
 .ProgressBar_Icon {
-    flex-grow: 1;
     position: absolute;
-    right: 0;
-    height: 75%;
-    max-height: 100%;
-    background-image: url("project://database/Assets/Art/UI/icon_global/health.png?fileID=2800000&guid=aef5c149668f63047b20fcb07fdfbe15&type=3#health");
-    -unity-background-image-tint-color: rgba(255, 7, 7, 0.94);
-    width: 8%;
-    max-width: 8%;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    top: 12.5%;
+    -unity-background-scale-mode: stretch-to-fill;
+    height: 90%;
+    width: 20%;
+    margin-top: 1%;
+    margin-left: 1%;
+}
+
+.AbilitiesUnusable {
+    -unity-background-image-tint-color: rgb(96, 96, 96);
 }

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/Materials/Vfx/PolygonParticleFX_Cutout_Round 1.mat.meta
 guid: ebd7acfa138e0ed4b9d4e898fb3d6083
+========
+guid: 8169c28c04c8ce5498224b4fff27cc22
+>>>>>>>> b585b3a3219fe0fa28e5de89a5950686929328f0:Assets/Art/Materials/Vfx/PolygonParticleFX_Circle.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

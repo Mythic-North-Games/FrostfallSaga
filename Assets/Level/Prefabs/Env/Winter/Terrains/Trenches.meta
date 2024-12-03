@@ -1,5 +1,21 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+guid: b8d9d3f79509f67639ec5cf93b26fb88
+=======
+guid: 66df4f4afd97edc4e943f9040ec5af42
+>>>>>>> c1d7cd3 (Change CellHeight Animation)
+=======
+guid: 66df4f4afd97edc4e943f9040ec5af42
+>>>>>>> 52597f92ab7678653bd7f34dc990f0b966812572
+=======
 guid: 771d2873fda91b341a65c38efeb906f9
+>>>>>>> 6585ad3 (Added the fireBall Animation)
+=======
+guid: 771d2873fda91b341a65c38efeb906f9
+>>>>>>> b585b3a3219fe0fa28e5de89a5950686929328f0
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

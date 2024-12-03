@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da193dd40594838478753a1ca3c659df, type: 3}
+  m_Name: PostFightData
+  m_EditorClassIdentifier: 
+  alliesState:
+  - element: 5825a737-5328-43ad-946a-652c44ed9f91
+    value:
+      lastingHealth: 60
+  - element: 8cc1dabe-3232-4ab4-9d7f-e76ae2d878b2
+    value:
+      lastingHealth: 60
+  - element: e2a086f6-12fc-4839-8f9c-4c2c201e6099
+    value:
+      lastingHealth: 60
+  enemiesState:
+  - element: fcce9a1d-583a-4a31-b6dd-ff82257b7590
+    value:
+      lastingHealth: 0
+  - element: 18df24c1-8fbe-48a7-8d81-431066ceaa4a
+    value:
+      lastingHealth: 0
+  - element: cccafec5-160e-430c-8af2-afe44f56cc8c
+    value:
+      lastingHealth: 0
+  enabled: 0
