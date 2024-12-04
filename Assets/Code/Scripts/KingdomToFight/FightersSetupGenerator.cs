@@ -69,7 +69,7 @@ namespace FrostfallSaga.KingdomToFight
 
             return new(
                 fighterConfiguration.FighterPrefab,
-                fighterConfiguration.name,
+                entityConfiguration.name,
                 entitySessionId,
                 entityConfiguration.EntityID,
                 entityConfiguration.Icon,
@@ -102,7 +102,7 @@ namespace FrostfallSaga.KingdomToFight
         {
             return new(
                 persistedFighterConfiguration.FighterPrefab,
-                persistedFighterConfiguration.name,
+                entityConfiguration.name,
                 entitySessionId,
                 entityConfiguration.EntityID,
                 entityConfiguration.Icon,

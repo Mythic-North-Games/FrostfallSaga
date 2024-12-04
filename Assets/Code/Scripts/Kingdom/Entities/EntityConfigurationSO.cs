@@ -8,6 +8,7 @@ namespace FrostfallSaga.Kingdom.Entities
     public class EntityConfigurationSO : ScriptableObject
     {
         [field: SerializeField] public EntityID EntityID { get; private set; }
+        [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public Sprite Icon { get; private set; }
         [field: SerializeField] public Sprite DiamondIcon { get; private set; }
         [field: SerializeField] public GameObject EntityPrefab { get; private set; }

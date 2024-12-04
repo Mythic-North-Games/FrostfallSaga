@@ -5384,7 +5384,7 @@ MonoBehaviour:
   _preFightData: {fileID: 11400000, guid: 04c5351ee75a07946b88b4758739fc4a, type: 2}
   _devAlliesFighterSetup:
   - fighterPrefab: {fileID: 4700538115128749028, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
-    name: Tiline
+    name: Nicolaz
     sessionId: 
     entityID: 0
     icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
@@ -5517,7 +5517,7 @@ MonoBehaviour:
     reduceStatAnimationName: Hurt
     increaseStatAnimationName: 
   - fighterPrefab: {fileID: 4700538115128749028, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
-    name: Kerniche
+    name: Floryan
     sessionId: 
     entityID: 0
     icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
@@ -5651,11 +5651,11 @@ MonoBehaviour:
     increaseStatAnimationName: 
   _devEnemiesFighterSetup:
   - fighterPrefab: {fileID: 7775086033136974095, guid: bc2d5945b1c5d0048a26641c833c7a34, type: 3}
-    name: Skeleton2
+    name: Skeleton
     sessionId: 
     entityID: 0
     icon: {fileID: 21300000, guid: f6fc899a423eacb4a87e6c0bb5acb040, type: 3}
-    diamondIcon: {fileID: 0}
+    diamondIcon: {fileID: 21300000, guid: d9743836dfaa5e64fa533ec9bd2a2440, type: 3}
     initialStats:
       health: 100
       maxHealth: 100
@@ -5783,7 +5783,7 @@ MonoBehaviour:
     sessionId: 
     entityID: 0
     icon: {fileID: 21300000, guid: f6fc899a423eacb4a87e6c0bb5acb040, type: 3}
-    diamondIcon: {fileID: 0}
+    diamondIcon: {fileID: 21300000, guid: d9743836dfaa5e64fa533ec9bd2a2440, type: 3}
     initialStats:
       health: 100
       maxHealth: 100
