@@ -32,6 +32,7 @@ namespace FrostfallSaga.FFSEditor.Fight
                 EditorGUI.indentLevel++;
 
                 // Draw each property of FighterSetup
+                currentY = DrawPropertyField(position, property, "fighterPrefab", currentY);
                 currentY = DrawPropertyField(position, property, "name", currentY);
                 currentY = DrawPropertyField(position, property, "sessionId", currentY);
                 currentY = DrawPropertyField(position, property, "icon", currentY);

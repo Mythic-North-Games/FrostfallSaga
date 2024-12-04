@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50862a0fc6cf7d64c9f705ea8e91f54b, type: 3}
   m_Name: SkeletonExample
   m_EditorClassIdentifier: 
+  <FighterPrefab>k__BackingField: {fileID: 7775086033136974095, guid: bc2d5945b1c5d0048a26641c833c7a34, type: 3}
   <FighterClass>k__BackingField: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 11400000, guid: 770ae372dc3abe843a19020cabaa49fb, type: 2}
   <AvailableActiveAbilities>k__BackingField:
@@ -25,7 +26,7 @@ MonoBehaviour:
   <MaxMovePoints>k__BackingField: 3
   <Strength>k__BackingField: 4
   <Dexterity>k__BackingField: 2
-  <Tenacity>k__BackingField: 0.15
+  <Tenacity>k__BackingField: 0
   <PhysicalResistance>k__BackingField: 3
   <MagicalResistances>k__BackingField:
   - element: 0

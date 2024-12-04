@@ -10,7 +10,6 @@ namespace FrostfallSaga.Fight
     {
         public Action<Fighter[], Fighter[]> onFightersGenerated;
 
-        [SerializeField] private GameObject _fighterPrefab;
         [SerializeField] private PreFightDataSO _preFightData;
         [SerializeField] private FighterSetup[] _devAlliesFighterSetup;
         [SerializeField] private FighterSetup[] _devEnemiesFighterSetup;
@@ -48,7 +47,7 @@ namespace FrostfallSaga.Fight
 
         private Fighter SpawnAndSetupFighter(FighterSetup fighterSetup, string nameSuffix = "")
         {
-            GameObject fighterGameObject = Instantiate(_fighterPrefab);
+            GameObject fighterGameObject = Instantiate(fighterSetup.fighterPrefab);
             fighterGameObject.name = new($"{fighterSetup.name}{nameSuffix}");
             Fighter fighter = fighterGameObject.GetComponent<Fighter>();
             fighter.Setup(fighterSetup);
@@ -56,36 +55,13 @@ namespace FrostfallSaga.Fight
         }
 
         #region Setup & Teardown
-        private void OnEnable()
+        private void Awake()
         {
             if (_preFightData == null)
             {
                 Debug.LogError("No PreFightData scriptable object given. Can't generate fighters.");
                 return;
             }
-            if (_fighterPrefab == null)
-            {
-                Debug.LogError("No fighter prefab given. Can't generate fighters.");
-                return;
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (_preFightData == null)
-            {
-                Debug.LogWarning("No PreFightData scriptable object given. Can't tear down properly.");
-                return;
-            }
-            if (_fighterPrefab == null)
-            {
-                Debug.LogWarning("No fighter prefab given. Can't tear down properly.");
-                return;
-            }
-        }
-
-        private void Awake()
-        {
             if (_devAlliesFighterSetup == null || _devAlliesFighterSetup.Length == 0)
             {
                 return;

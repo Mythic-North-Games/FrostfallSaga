@@ -39,6 +39,7 @@ namespace FrostfallSaga.EditModeTests.FightTests
 
             fighter.Setup(
                 new(
+                    null,
                     fighterConfiguration.name,
                     Guid.NewGuid().ToString(),
                     EntityID.HERO,

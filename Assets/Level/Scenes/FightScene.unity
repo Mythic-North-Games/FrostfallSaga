@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: c6039f0f5035af147b8c1933d9ba115b, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -371,6 +371,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1552556}
   <CellMouseEventsController>k__BackingField: {fileID: 1552555}
   <Fighter>k__BackingField: {fileID: 0}
@@ -527,6 +528,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: db5ca4ec135671f4fb5b8d838c384162, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 79057628}
   <CellMouseEventsController>k__BackingField: {fileID: 79057627}
   <Fighter>k__BackingField: {fileID: 0}
@@ -683,6 +685,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 8938c5d5577b725409e564ab9665711a, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 123816655}
   <CellMouseEventsController>k__BackingField: {fileID: 123816654}
   <Fighter>k__BackingField: {fileID: 0}
@@ -839,6 +842,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 336955049}
   <CellMouseEventsController>k__BackingField: {fileID: 336955048}
   <Fighter>k__BackingField: {fileID: 0}
@@ -995,6 +999,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: db5ca4ec135671f4fb5b8d838c384162, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 360621776}
   <CellMouseEventsController>k__BackingField: {fileID: 360621775}
   <Fighter>k__BackingField: {fileID: 0}
@@ -1151,6 +1156,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 378703780}
   <CellMouseEventsController>k__BackingField: {fileID: 378703779}
   <Fighter>k__BackingField: {fileID: 0}
@@ -1307,6 +1313,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 526452952}
   <CellMouseEventsController>k__BackingField: {fileID: 526452951}
   <Fighter>k__BackingField: {fileID: 0}
@@ -1463,6 +1470,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 754450361}
   <CellMouseEventsController>k__BackingField: {fileID: 754450360}
   <Fighter>k__BackingField: {fileID: 0}
@@ -1619,6 +1627,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 766735506}
   <CellMouseEventsController>k__BackingField: {fileID: 766735505}
   <Fighter>k__BackingField: {fileID: 0}
@@ -1838,6 +1847,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 812750941}
   <CellMouseEventsController>k__BackingField: {fileID: 812750940}
   <Fighter>k__BackingField: {fileID: 0}
@@ -2322,6 +2332,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 8938c5d5577b725409e564ab9665711a, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1013469048}
   <CellMouseEventsController>k__BackingField: {fileID: 1013469047}
   <Fighter>k__BackingField: {fileID: 0}
@@ -2478,6 +2489,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1221148969}
   <CellMouseEventsController>k__BackingField: {fileID: 1221148968}
   <Fighter>k__BackingField: {fileID: 0}
@@ -2634,6 +2646,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1227448208}
   <CellMouseEventsController>k__BackingField: {fileID: 1227448207}
   <Fighter>k__BackingField: {fileID: 0}
@@ -2858,6 +2871,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1268112468}
   <CellMouseEventsController>k__BackingField: {fileID: 1268112467}
   <Fighter>k__BackingField: {fileID: 0}
@@ -3014,6 +3028,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1299436920}
   <CellMouseEventsController>k__BackingField: {fileID: 1299436919}
   <Fighter>k__BackingField: {fileID: 0}
@@ -3170,6 +3185,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1319446125}
   <CellMouseEventsController>k__BackingField: {fileID: 1319446124}
   <Fighter>k__BackingField: {fileID: 0}
@@ -3326,6 +3342,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1363200881}
   <CellMouseEventsController>k__BackingField: {fileID: 1363200880}
   <Fighter>k__BackingField: {fileID: 0}
@@ -3482,6 +3499,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1386503956}
   <CellMouseEventsController>k__BackingField: {fileID: 1386503955}
   <Fighter>k__BackingField: {fileID: 0}
@@ -3638,6 +3656,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1402734558}
   <CellMouseEventsController>k__BackingField: {fileID: 1402734557}
   <Fighter>k__BackingField: {fileID: 0}
@@ -3794,6 +3813,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: db5ca4ec135671f4fb5b8d838c384162, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1503119632}
   <CellMouseEventsController>k__BackingField: {fileID: 1503119631}
   <Fighter>k__BackingField: {fileID: 0}
@@ -3950,6 +3970,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1521486671}
   <CellMouseEventsController>k__BackingField: {fileID: 1521486670}
   <Fighter>k__BackingField: {fileID: 0}
@@ -4153,6 +4174,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1557887464}
   <CellMouseEventsController>k__BackingField: {fileID: 1557887463}
   <Fighter>k__BackingField: {fileID: 0}
@@ -4309,6 +4331,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1562598820}
   <CellMouseEventsController>k__BackingField: {fileID: 1562598819}
   <Fighter>k__BackingField: {fileID: 0}
@@ -4465,6 +4488,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1571966749}
   <CellMouseEventsController>k__BackingField: {fileID: 1571966748}
   <Fighter>k__BackingField: {fileID: 0}
@@ -4621,6 +4645,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1578752823}
   <CellMouseEventsController>k__BackingField: {fileID: 1578752822}
   <Fighter>k__BackingField: {fileID: 0}
@@ -4895,6 +4920,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1602148942}
   <CellMouseEventsController>k__BackingField: {fileID: 1602148941}
   <Fighter>k__BackingField: {fileID: 0}
@@ -5051,6 +5077,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1616460934}
   <CellMouseEventsController>k__BackingField: {fileID: 1616460933}
   <Fighter>k__BackingField: {fileID: 0}
@@ -5207,6 +5234,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1643082502}
   <CellMouseEventsController>k__BackingField: {fileID: 1643082501}
   <Fighter>k__BackingField: {fileID: 0}
@@ -5353,10 +5381,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012eac00980d68e42aee8f0fa6c34ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fighterPrefab: {fileID: 4700538115128749028, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
   _preFightData: {fileID: 11400000, guid: 04c5351ee75a07946b88b4758739fc4a, type: 2}
   _devAlliesFighterSetup:
-  - name: Tiline
+  - fighterPrefab: {fileID: 4700538115128749028, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
+    name: Tiline
     sessionId: 
     entityID: 0
     icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
@@ -5488,7 +5516,8 @@ MonoBehaviour:
     healSelfAnimationName: 
     reduceStatAnimationName: Hurt
     increaseStatAnimationName: 
-  - name: Kerniche
+  - fighterPrefab: {fileID: 4700538115128749028, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
+    name: Kerniche
     sessionId: 
     entityID: 0
     icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
@@ -5620,140 +5649,9 @@ MonoBehaviour:
     healSelfAnimationName: 
     reduceStatAnimationName: Hurt
     increaseStatAnimationName: 
-  - name: Khreiss
-    sessionId: 
-    entityID: 0
-    icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
-    diamondIcon: {fileID: 21300000, guid: 54602b48bb6b71e4b967d9777b79ae1e, type: 3}
-    initialStats:
-      health: 100
-      maxHealth: 100
-      actionPoints: 5
-      maxActionPoints: 5
-      movePoints: 4
-      maxMovePoints: 4
-      strength: 1
-      dexterity: 1
-      tenacity: 0
-      physicalResistance: 1
-      dodgeChance: 0
-      masterstrokeChance: 1
-      initiative: 3
-    fighterClass: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
-    personalityTrait: {fileID: 0}
-    inventory:
-      <WeaponSlot>k__BackingField:
-        <Item>k__BackingField: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
-        <ItemCount>k__BackingField: 1
-        <MaxItemCount>k__BackingField: 1
-      <HelmetSlot>k__BackingField:
-        <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 1
-      <ChestplateSlot>k__BackingField:
-        <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 1
-      <GlovesSlot>k__BackingField:
-        <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 1
-      <LeggingsSlot>k__BackingField:
-        <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 1
-      <BootsSlot>k__BackingField:
-        <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 1
-      <BagSlots>k__BackingField:
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-      - <Item>k__BackingField: {fileID: 0}
-        <ItemCount>k__BackingField: 0
-        <MaxItemCount>k__BackingField: 99
-    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
-    activeAbilities:
-    - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-    - {fileID: 11400000, guid: 436fd3c6fdddb5b05a6357cf2d05e708, type: 2}
-    - {fileID: 11400000, guid: 30ab05920ca8f7448aeace60fbb87c63, type: 2}
-    - {fileID: 11400000, guid: 2e4c98e0eeb351d4a981ce5c113a2ae5, type: 2}
-    - {fileID: 11400000, guid: b22ba3c2797bc25439231a90f23620ab, type: 2}
-    passiveAbilities:
-    - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
-    receiveDamageAnimationName: Hurt
-    healSelfAnimationName: 
-    reduceStatAnimationName: Hurt
-    increaseStatAnimationName: 
   _devEnemiesFighterSetup:
-  - name: Skeleton
+  - fighterPrefab: {fileID: 7775086033136974095, guid: bc2d5945b1c5d0048a26641c833c7a34, type: 3}
+    name: Skeleton
     sessionId: 
     entityID: 0
     icon: {fileID: 21300000, guid: f6fc899a423eacb4a87e6c0bb5acb040, type: 3}
@@ -5934,6 +5832,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1655980202}
   <CellMouseEventsController>k__BackingField: {fileID: 1655980201}
   <Fighter>k__BackingField: {fileID: 0}
@@ -6126,6 +6025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e1437369a964c4c8c7c54d4cdb92d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <RoundCount>k__BackingField: 0
   _fightersGenerator: {fileID: 1644039837}
   <FightGrid>k__BackingField: {fileID: 0}
   _actionPanel: {fileID: 1952024164}
@@ -6186,6 +6086,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 8938c5d5577b725409e564ab9665711a, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1732888620}
   <CellMouseEventsController>k__BackingField: {fileID: 1732888619}
   <Fighter>k__BackingField: {fileID: 0}
@@ -6342,6 +6243,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1734760625}
   <CellMouseEventsController>k__BackingField: {fileID: 1734760624}
   <Fighter>k__BackingField: {fileID: 0}
@@ -6498,6 +6400,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 8938c5d5577b725409e564ab9665711a, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1797578811}
   <CellMouseEventsController>k__BackingField: {fileID: 1797578810}
   <Fighter>k__BackingField: {fileID: 0}
@@ -6654,6 +6557,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1804818217}
   <CellMouseEventsController>k__BackingField: {fileID: 1804818216}
   <Fighter>k__BackingField: {fileID: 0}
@@ -6898,6 +6802,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1827644588}
   <CellMouseEventsController>k__BackingField: {fileID: 1827644587}
   <Fighter>k__BackingField: {fileID: 0}
@@ -7054,6 +6959,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 1848357344}
   <CellMouseEventsController>k__BackingField: {fileID: 1848357343}
   <Fighter>k__BackingField: {fileID: 0}
@@ -7447,6 +7353,7 @@ MonoBehaviour:
   <TerrainType>k__BackingField: {fileID: 11400000, guid: c7cb3b8aeb7ed2d499ab7e5e73dca04c, type: 2}
   <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 2143618907}
   <CellMouseEventsController>k__BackingField: {fileID: 2143618906}
   <Fighter>k__BackingField: {fileID: 0}
