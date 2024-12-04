@@ -17,7 +17,7 @@ namespace FrostfallSaga.Fight.GameItems
         [field: SerializeField] public int MaxPhysicalDamages { get; private set; }
         [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MinMagicalDamages { get; private set; }
         [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MaxMagicalDamages { get; private set; }
-        [field: SerializeField] public SElementToValue<EntityID, float>[] FightersStrengths { get; private set; }
+        [field: SerializeField] public SElementToValue<EntityID, float>[] FightersStrengths { get; private set; } = {};
         [SerializeReference] public List<AEffect> SpecialEffects;
 
         public WeaponSO()
@@ -54,6 +54,11 @@ namespace FrostfallSaga.Fight.GameItems
         private int GetComputedPhysicalDamages(EntityID targetEntityID, bool atMax = false)
         {
             int finalDamages = GetRandomPhysicalDamagesInRange(atMax);
+            if (FightersStrengths == null || FightersStrengths.Length == 0)
+            {
+                return finalDamages;
+            }
+
             Dictionary<EntityID, float> fightersStrength = SElementToValue<EntityID, float>.GetDictionaryFromArray(
                 FightersStrengths
             );
