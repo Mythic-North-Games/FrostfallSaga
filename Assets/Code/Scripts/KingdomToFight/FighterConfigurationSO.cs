@@ -12,6 +12,7 @@ namespace FrostfallSaga.KingdomToFight
     [CreateAssetMenu(fileName = "Fighter", menuName = "ScriptableObjects/Fight/Fighter", order = 0)]
     public class FighterConfigurationSO : ScriptableObject
     {
+        [field: SerializeField] public GameObject FighterPrefab { get; private set; }
         [field: SerializeField] public FighterClassSO FighterClass { get; private set; }
         [field: SerializeField] public PersonalityTraitSO PersonalityTrait { get; private set; }
         [field: SerializeField] public ActiveAbilitySO[] AvailableActiveAbilities { get; private set; }
@@ -44,6 +45,7 @@ namespace FrostfallSaga.KingdomToFight
 
         public FighterConfigurationSO()
         {
+            FighterPrefab = null;
             FighterClass = null;
             PersonalityTrait = null;
             AvailableActiveAbilities = Array.Empty<ActiveAbilitySO>();

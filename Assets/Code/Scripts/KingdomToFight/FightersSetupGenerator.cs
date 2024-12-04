@@ -68,6 +68,7 @@ namespace FrostfallSaga.KingdomToFight
             defaultInventory.AddItem(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath));
 
             return new(
+                fighterConfiguration.FighterPrefab,
                 fighterConfiguration.name,
                 entitySessionId,
                 entityConfiguration.EntityID,
@@ -100,6 +101,7 @@ namespace FrostfallSaga.KingdomToFight
         )
         {
             return new(
+                persistedFighterConfiguration.FighterPrefab,
                 persistedFighterConfiguration.name,
                 entitySessionId,
                 entityConfiguration.EntityID,

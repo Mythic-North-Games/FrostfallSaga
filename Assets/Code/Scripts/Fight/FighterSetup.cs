@@ -11,6 +11,7 @@ namespace FrostfallSaga.Fight
     [Serializable]
     public class FighterSetup
     {
+        public GameObject fighterPrefab;
         public string name;
         public string sessionId;
         public EntityID entityID;
@@ -29,6 +30,7 @@ namespace FrostfallSaga.Fight
         public string increaseStatAnimationName;
 
         public FighterSetup(
+            GameObject fighterPrefab,
             string name,
             string sessionId,
             EntityID entityID,
@@ -47,6 +49,7 @@ namespace FrostfallSaga.Fight
             string increaseStatAnimationName
         )
         {
+            this.fighterPrefab = fighterPrefab;
             this.name = name;
             this.sessionId = sessionId;
             this.entityID = entityID;
