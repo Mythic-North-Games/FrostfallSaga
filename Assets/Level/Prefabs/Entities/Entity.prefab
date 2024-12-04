@@ -74,7 +74,8 @@ MonoBehaviour:
   <EntityAnimationController>k__BackingField: {fileID: 5397621050021520523}
   <EntityVisualMovementController>k__BackingField: {fileID: 7324726607953446367}
   <EntityMouseEventsController>k__BackingField: {fileID: 4558270950398422724}
-  sessionId: 
+  <IsDead>k__BackingField: 0
+  <SessionId>k__BackingField: 
 --- !u!114 &4558270950398422724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,6 +96,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1747195423429429190}
     m_Modifications:
+    - target: {fileID: 163358067756540733, guid: e1431dca8e9442a48a141a9f5e47c982, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 8597359a2c9181049aac29d63db82f86, type: 3}
     - target: {fileID: 163358067756540733, guid: e1431dca8e9442a48a141a9f5e47c982, type: 3}
       propertyPath: m_Controller
       value: 

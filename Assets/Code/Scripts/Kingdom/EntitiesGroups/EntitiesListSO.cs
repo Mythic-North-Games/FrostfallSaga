@@ -1,4 +1,5 @@
 using UnityEngine;
+using FrostfallSaga.Kingdom.Entities;
 
 namespace FrostfallSaga.Kingdom.EntitiesGroups
 {
@@ -9,6 +10,6 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
     [CreateAssetMenu(fileName = "EntitiesList", menuName = "ScriptableObjects/Entities/EntitiesList", order = 0)]
     public class EntitiesListSO : ScriptableObject
     {
-        [field: SerializeField] public GameObject[] AvailableEntities { get; private set; }
+        [field: SerializeField] public EntityConfigurationSO[] AvailableEntities { get; private set; }
     }
 }

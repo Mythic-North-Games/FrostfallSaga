@@ -35,7 +35,7 @@ namespace FrostfallSaga.Fight.Statuses
 
         protected override void DoApplyStatus(Fighter fighter)
         {
-            fighter.ReceiveRawDamages(BleedingDamage);
+            fighter.ReceiveRawDamages(BleedingDamage, false);
             Debug.Log($"{fighter.name} is bleeding and loses ${BleedingDamage} HP! ==> Health : ${fighter.GetHealth()}");
         }
 
