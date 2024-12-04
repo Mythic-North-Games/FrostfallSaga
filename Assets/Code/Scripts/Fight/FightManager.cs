@@ -43,20 +43,29 @@ namespace FrostfallSaga.Fight
         // Internal state
         private List<Fighter> _allies;
         private List<Fighter> _enemies;
-        private Queue<Fighter> _fightersTurnOrder;
-        private Fighter[] _initialFightersTurnOrder;
+        private List<Fighter> _fightersTurnOrder;
         private Fighter _playingFighter;
 
         private void OnFightersGenerated(Fighter[] allies, Fighter[] enemies)
         {
+            // Init
             _playingFighter = null;
             _allies = new(allies);
             _enemies = new(enemies);
             RoundCount = 0;
             SubscribeToFightersEvents();
+
+            // Position fighters on grid
             PositionFightersOnGrid(FightGrid, _allies.ToArray(), _enemies.ToArray());
-            UpdateFightersTurnOrder(GetFightersTurnOrder(_allies.Concat(_enemies).ToArray()));
+
+            // Update fighters turn order
+            _fightersTurnOrder = GetAbsoluteFightersTurnOrder(_allies.Concat(_enemies).ToArray());
+            onFightersTurnOrderUpdated?.Invoke(_fightersTurnOrder.ToArray());
+
+            // Update fighters passive abilities
             UpdateFightersPassiveAbilities();
+
+            // Launch first turn
             PlayNextFighterTurn();
         }
 
@@ -64,7 +73,7 @@ namespace FrostfallSaga.Fight
         {
             RoundCount++;
 
-            _playingFighter = _fightersTurnOrder.Dequeue();
+            _playingFighter = _fightersTurnOrder[0];
             _playingFighter.StatusesManager.UpdateStatuses(EStatusTriggerTime.StartOfTurn);
 
             AFighterController controller = GetControllerForFighter(_playingFighter);
@@ -100,7 +109,8 @@ namespace FrostfallSaga.Fight
             UpdateFightGridCellsAlterations();
 
             // Update turn order
-            _fightersTurnOrder.Enqueue(fighterThatPlayed);
+            _fightersTurnOrder.RemoveAt(0);
+            _fightersTurnOrder.Add(fighterThatPlayed);
             onFightersTurnOrderUpdated?.Invoke(_fightersTurnOrder.ToArray());
 
             // Launch next turn
@@ -119,13 +129,6 @@ namespace FrostfallSaga.Fight
 
             // Update fighter passive abilities
             UpdateFightersPassiveAbilities();
-
-            // Update turn order if needed
-            Queue<Fighter> updatedFighterTurnsOrder = GetFightersTurnOrder(_allies.Concat(_enemies).ToArray());
-            if (!CompareFighterTurnOrder(updatedFighterTurnsOrder.ToArray(), _initialFightersTurnOrder))
-            {
-                UpdateFightersTurnOrder(updatedFighterTurnsOrder);
-            }
         }
 
         private void OnFighterDied(Fighter fighterThatDied)
@@ -141,11 +144,8 @@ namespace FrostfallSaga.Fight
             UpdateFightersPassiveAbilities();
 
             // Update order
-            Queue<Fighter> updatedFighterTurnsOrder = GetFightersTurnOrder(_allies.Concat(_enemies).ToArray());
-            if (!CompareFighterTurnOrder(updatedFighterTurnsOrder.ToArray(), _initialFightersTurnOrder))
-            {
-                UpdateFightersTurnOrder(updatedFighterTurnsOrder);
-            }
+            _fightersTurnOrder.Remove(fighterThatDied);
+            onFightersTurnOrderUpdated?.Invoke(_fightersTurnOrder.ToArray());
 
             // If suicide, end fight if needed, otherwise end fighter turn
             if (fighterThatDied == _playingFighter)
@@ -160,12 +160,6 @@ namespace FrostfallSaga.Fight
             }
         }
 
-        private void UpdateFightersTurnOrder(Queue<Fighter> newFightersTurnOrder)
-        {
-            _fightersTurnOrder = newFightersTurnOrder;
-            _initialFightersTurnOrder = newFightersTurnOrder.ToArray();
-            onFightersTurnOrderUpdated?.Invoke(_fightersTurnOrder.ToArray());
-        }
 
         private bool HasFightEnded()
         {
@@ -303,31 +297,13 @@ namespace FrostfallSaga.Fight
             return EWinner.NO_ONE;
         }
 
-        private Queue<Fighter> GetFightersTurnOrder(Fighter[] fighters)
+        private List<Fighter> GetAbsoluteFightersTurnOrder(Fighter[] fighters)
         {
             return new(
                 fighters
                     .Where(fighter => fighter.GetHealth() > 0)
                     .OrderByDescending(fighter => fighter.GetInitiative())
             );
-        }
-
-        private bool CompareFighterTurnOrder(Fighter[] order1, Fighter[] order2)
-        {
-            if (order1.Length != order2.Length)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < order1.Length; i++)
-            {
-                if (order1[i] != order2[i])
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
 
         private void UpdateFightGridCellsAlterations()

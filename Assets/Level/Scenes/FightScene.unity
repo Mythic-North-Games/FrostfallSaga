@@ -5651,6 +5651,134 @@ MonoBehaviour:
     increaseStatAnimationName: 
   _devEnemiesFighterSetup:
   - fighterPrefab: {fileID: 7775086033136974095, guid: bc2d5945b1c5d0048a26641c833c7a34, type: 3}
+    name: Skeleton2
+    sessionId: 
+    entityID: 0
+    icon: {fileID: 21300000, guid: f6fc899a423eacb4a87e6c0bb5acb040, type: 3}
+    diamondIcon: {fileID: 0}
+    initialStats:
+      health: 100
+      maxHealth: 100
+      actionPoints: 5
+      maxActionPoints: 5
+      movePoints: 4
+      maxMovePoints: 4
+      strength: 1
+      dexterity: 1
+      tenacity: 0
+      physicalResistance: 1
+      dodgeChance: 0
+      masterstrokeChance: 0
+      initiative: 1
+    fighterClass: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
+    personalityTrait: {fileID: 11400000, guid: 770ae372dc3abe843a19020cabaa49fb, type: 2}
+    inventory:
+      <WeaponSlot>k__BackingField:
+        <Item>k__BackingField: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
+        <ItemCount>k__BackingField: 1
+        <MaxItemCount>k__BackingField: 1
+      <HelmetSlot>k__BackingField:
+        <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 1
+      <ChestplateSlot>k__BackingField:
+        <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 1
+      <GlovesSlot>k__BackingField:
+        <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 1
+      <LeggingsSlot>k__BackingField:
+        <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 1
+      <BootsSlot>k__BackingField:
+        <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 1
+      <BagSlots>k__BackingField:
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+      - <Item>k__BackingField: {fileID: 0}
+        <ItemCount>k__BackingField: 0
+        <MaxItemCount>k__BackingField: 99
+    directAttackAnimation: {fileID: 0}
+    activeAbilities:
+    - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+    passiveAbilities: []
+    receiveDamageAnimationName: Hurt
+    healSelfAnimationName: 
+    reduceStatAnimationName: Hurt
+    increaseStatAnimationName: 
+  - fighterPrefab: {fileID: 7775086033136974095, guid: bc2d5945b1c5d0048a26641c833c7a34, type: 3}
     name: Skeleton
     sessionId: 
     entityID: 0
