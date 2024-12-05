@@ -21,6 +21,8 @@ MonoBehaviour:
     <OriginCellRange>k__BackingField: 3
     <CellsSequence>k__BackingField:
     - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 2, y: 0}
     <StartFromInitiator>k__BackingField: 0
     <FighterMandatory>k__BackingField: 0
     <TargetsToExclude>k__BackingField: 
@@ -44,7 +46,7 @@ MonoBehaviour:
       type: {class: MagicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
         MagicalDamageAmount: 20
-        MagicalElement: 2
+        MagicalElement: 1
     - rid: 7528321416264941568
       type: {class: ApplyStatusesEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
@@ -53,9 +55,10 @@ MonoBehaviour:
     - rid: 7528321416264941569
       type: {class: BleedStatus, ns: FrostfallSaga.Fight.Statuses, asm: FrostfallSaga.Fight}
       data:
-        <StatusType>k__BackingField: 0
         <Name>k__BackingField: Freezed
         <Description>k__BackingField: The fighter's speed is reduced
+        <Icon>k__BackingField: {fileID: 0}
+        <StatusType>k__BackingField: 0
         <IsPermanent>k__BackingField: 0
         <Duration>k__BackingField: 4
         <TriggerOnFirstApply>k__BackingField: 1

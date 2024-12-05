@@ -35,7 +35,7 @@ MonoBehaviour:
   MasterstrokeEffects: []
   CellAlterations:
   - rid: 3629974199755079683
-  <Animation>k__BackingField: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
+  <Animation>k__BackingField: {fileID: 11400000, guid: 508ffba12f5416243a12eb040fa53586, type: 2}
   references:
     version: 2
     RefIds:
