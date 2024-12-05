@@ -21,6 +21,7 @@ namespace FrostfallSaga.Grid.Cells
 
         [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")] public MaterialHighlightable HighlightController { get; private set; }
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
+        private HexGrid ParentGrid;
 
         private void Awake()
         {
@@ -48,10 +49,10 @@ namespace FrostfallSaga.Grid.Cells
             Height = cellHeight;
             TerrainType = terrainType;
             BiomeType = biomeType;
+            ParentGrid = GetComponentInParent<HexGrid>();
             SetTerrain(terrainType);
             SetPositionForCellHeight(Height);
             SetCellMouseEventsControllerFromGameObjectTree();
-
             HighlightController = GetComponentInChildren<MaterialHighlightable>();
             if (HighlightController != null)
             {
@@ -97,7 +98,12 @@ namespace FrostfallSaga.Grid.Cells
             Renderer renderer = GetComponentInChildren<Renderer>();
             if (renderer != null && TerrainType != null && TerrainType.CellMaterial != null)
             {
-                renderer.material = TerrainType.CellMaterial;
+                if (TerrainType.VisualsTerrain.Length != 0)
+                {
+                    GameObject visualTerrain = Randomizer.GetRandomElementFromArray(TerrainType.VisualsTerrain);
+                    GameObject newVisualTerrain = Instantiate<GameObject>(visualTerrain, transform.position, Randomizer.GetRandomRotationY(transform.rotation), transform);
+                    newVisualTerrain.name = "Visual" + name;
+                }
             }
             else
             {
@@ -107,8 +113,7 @@ namespace FrostfallSaga.Grid.Cells
 
         public Vector3 GetCenter()
         {
-            HexGrid grid = GetComponentInParent<HexGrid>();
-            Vector3 center = HexMetrics.Center(grid.HexSize, Coordinates.x, Coordinates.y, grid.HexOrientation);
+            Vector3 center = HexMetrics.Center(ParentGrid.HexSize, Coordinates.x, Coordinates.y, ParentGrid.HexOrientation);
             center.y = GetYPosition();
             return center;
         }

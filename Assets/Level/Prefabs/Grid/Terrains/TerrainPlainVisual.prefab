@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3929082853208758289}
   m_Layer: 0
   m_Name: TerrainPlainVisual
-  m_TagString: Untagged
+  m_TagString: CellVisual
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

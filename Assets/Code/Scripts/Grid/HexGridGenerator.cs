@@ -41,10 +41,9 @@ namespace FrostfallSaga.Grid
         public void Initialize()
         {
             Validator.Validator.ValidateRequiredFields(this);
-            
+
             _perlinTerrainManager = new PerlinTerrainManager(NoiseScale, Seed);
             _voronoiBiomeManager = new VoronoiBiomeManager(HexGrid.Width, HexGrid.Height, AvailableBiomes.Length, Seed);
-
             _lastSeed = Seed;
         }
 
@@ -160,17 +159,25 @@ namespace FrostfallSaga.Grid
                     return availableTerrains[i];
                 }
             }
-            return availableTerrains[terrainCount]; // -1
+            return availableTerrains[terrainCount];
         }
 
         public void ClearCells()
         {
             GameObject[] cells = GameObject.FindGameObjectsWithTag("Cell");
+            GameObject[] cellsVisual = GameObject.FindGameObjectsWithTag("CellVisual");
             if (cells != null)
             {
                 foreach (GameObject cell in cells)
                 {
                     DestroyImmediate(cell);
+                }
+            }
+            if (cellsVisual != null)
+            {
+                foreach (GameObject visual in cellsVisual)
+                {
+                    DestroyImmediate(visual);
                 }
             }
         }

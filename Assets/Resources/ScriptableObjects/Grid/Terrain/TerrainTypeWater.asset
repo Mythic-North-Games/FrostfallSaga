@@ -20,3 +20,4 @@ MonoBehaviour:
   <InitiativePoint>k__BackingField: 0
   <IsAccessible>k__BackingField: 0
   <CellMaterial>k__BackingField: {fileID: 2100000, guid: 37616b845b7fa2e4ab8fd3c5b5c949e7, type: 2}
+  <VisualsTerrain>k__BackingField: []
