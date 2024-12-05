@@ -4,23 +4,17 @@ using UnityEngine;
 using FrostfallSaga.Core;
 using FrostfallSaga.Kingdom;
 using FrostfallSaga.Kingdom.Entities;
-using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Fight;
 using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.GameItems;
 
 namespace FrostfallSaga.KingdomToFight
 {
     public class FightersGenerator : MonoBehaviour
     {
-        [SerializeField] private GameObject _fighterPrefab;
         [SerializeField] private EntityToFighterDBSO _entityToFighterDB;
         [SerializeField] private PreFightDataSO _preFightData;
         [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
-
-        private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup, bool heroGroupInitiating)
-        {
-            GenerateAndSaveFightersForFight(heroGroup.Entities, enemiesGroup.Entities);
-        }
 
         private void GenerateAndSaveFightersForFight(Entity[] heroGroupEntities, Entity[] enemiesGroupEntities)
         {
@@ -40,7 +34,7 @@ namespace FrostfallSaga.KingdomToFight
                     GenerateFighterSetupFromPersistingConfiguration(
                         allyEntity.EntityConfiguration,
                         allyFighterConfiguration,
-                        allyEntity.sessionId
+                        allyEntity.SessionId
                     )
                 );
             }
@@ -55,7 +49,7 @@ namespace FrostfallSaga.KingdomToFight
                     GenerateFighterSetupFromNonPersistingConfiguration(
                         enemyEntity.EntityConfiguration,
                         enemyFighterConfiguration,
-                        enemyEntity.sessionId
+                        enemyEntity.SessionId
                     )
                 );
             }
@@ -70,16 +64,20 @@ namespace FrostfallSaga.KingdomToFight
             string entitySessionId
         )
         {
+            Inventory defaultInventory = new();
+            defaultInventory.AddItem(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath));
+
             return new(
-                fighterConfiguration.name,
+                fighterConfiguration.FighterPrefab,
+                entityConfiguration.name,
                 entitySessionId,
-                entityConfiguration.EntityIcon,
+                entityConfiguration.EntityID,
+                entityConfiguration.Icon,
+                entityConfiguration.DiamondIcon,
                 fighterConfiguration.ExtractFighterStats(),
                 fighterConfiguration.FighterClass,
                 fighterConfiguration.PersonalityTrait,
-                fighterConfiguration.DirectAttackTargeter,
-                fighterConfiguration.DirectAttackActionPointsCost,
-                fighterConfiguration.DirectAttackEffects,
+                defaultInventory,
                 fighterConfiguration.DirectAttackAnimation,
                 GetRandomActiveAbilities(
                     fighterConfiguration.AvailableActiveAbilities,
@@ -98,27 +96,28 @@ namespace FrostfallSaga.KingdomToFight
 
         private FighterSetup GenerateFighterSetupFromPersistingConfiguration(
             EntityConfigurationSO entityConfiguration,
-            PersistedFighterConfigurationSO fighterConfiguration,
+            PersistedFighterConfigurationSO persistedFighterConfiguration,
             string entitySessionId
         )
         {
             return new(
-                fighterConfiguration.name,
+                persistedFighterConfiguration.FighterPrefab,
+                entityConfiguration.name,
                 entitySessionId,
-                entityConfiguration.EntityIcon,
-                fighterConfiguration.ExtractFighterStats(),
-                fighterConfiguration.FighterClass,
-                fighterConfiguration.PersonalityTrait,
-                fighterConfiguration.DirectAttackTargeter,
-                fighterConfiguration.DirectAttackActionPointsCost,
-                fighterConfiguration.DirectAttackEffects,
-                fighterConfiguration.DirectAttackAnimation,
-                fighterConfiguration.EquipedActiveAbilities,
-                fighterConfiguration.EquipedPassiveAbilities,
-                fighterConfiguration.ReceiveDamageAnimationName,
-                fighterConfiguration.HealSelfAnimationName,
-                fighterConfiguration.ReduceStatAnimationName,
-                fighterConfiguration.IncreaseStatAnimationName
+                entityConfiguration.EntityID,
+                entityConfiguration.Icon,
+                entityConfiguration.DiamondIcon,
+                persistedFighterConfiguration.ExtractFighterStats(),
+                persistedFighterConfiguration.FighterClass,
+                persistedFighterConfiguration.PersonalityTrait,
+                persistedFighterConfiguration.Inventory,
+                persistedFighterConfiguration.DirectAttackAnimation,
+                persistedFighterConfiguration.EquipedActiveAbilities,
+                persistedFighterConfiguration.EquipedPassiveAbilities,
+                persistedFighterConfiguration.ReceiveDamageAnimationName,
+                persistedFighterConfiguration.HealSelfAnimationName,
+                persistedFighterConfiguration.ReduceStatAnimationName,
+                persistedFighterConfiguration.IncreaseStatAnimationName
             );
         }
 
@@ -146,22 +145,10 @@ namespace FrostfallSaga.KingdomToFight
                 return;
             }
 
-            _entitiesGroupsManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
-        }
-
-        private void OnDisable()
-        {
-            if (_entitiesGroupsManager == null)
+            _entitiesGroupsManager.onEnemiesGroupEncountered += (heroGroup, enemiesGroup, hereGroupInitiated) =>
             {
-                _entitiesGroupsManager = FindObjectOfType<EntitiesGroupsManager>();
-            }
-            if (_entitiesGroupsManager == null)
-            {
-                Debug.LogWarning("No entities groups manager found. Can't tear down properly.");
-                return;
-            }
-
-            _entitiesGroupsManager.onEnemiesGroupEncountered -= OnEnemiesGroupEncountered;
+                GenerateAndSaveFightersForFight(heroGroup.Entities, enemiesGroup.Entities);
+            };
         }
         #endregion
 

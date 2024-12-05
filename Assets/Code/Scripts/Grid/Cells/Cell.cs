@@ -1,4 +1,6 @@
 using FrostfallSaga.Core;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace FrostfallSaga.Grid.Cells
@@ -17,7 +19,10 @@ namespace FrostfallSaga.Grid.Cells
         [field: SerializeField] public float WorldHeightPerUnit { get; private set; } = 0.8f;
         [field: SerializeField, Header("Cell characteristics"), Tooltip("Contain cell characteristics")] public TerrainTypeSO TerrainType { get; private set; }
         [field: SerializeField, Tooltip("Biome type")] public BiomeTypeSO BiomeType { get; private set; }
+
         [field: SerializeField] public ECellHeight Height { get; private set; }
+        [field: SerializeField] public float UpdateHeightDuration { get; private set; }
+
 
         [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")] public MaterialHighlightable HighlightController { get; private set; }
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
@@ -51,7 +56,7 @@ namespace FrostfallSaga.Grid.Cells
             BiomeType = biomeType;
             ParentGrid = GetComponentInParent<HexGrid>();
             SetTerrain(terrainType);
-            SetPositionForCellHeight(Height);
+            SetPositionForCellHeight(Height, UpdateHeightDuration);
             SetCellMouseEventsControllerFromGameObjectTree();
             HighlightController = GetComponentInChildren<MaterialHighlightable>();
             if (HighlightController != null)
@@ -86,10 +91,10 @@ namespace FrostfallSaga.Grid.Cells
         /// Updates the cell height and y position in the world.
         /// </summary>
         /// <param name="newCellHeight">The new cell height.</param>
-        public void UpdateHeight(ECellHeight newCellHeight)
+        public void UpdateHeight(ECellHeight newCellHeight, float cellAlterationDuration)
         {
             Height = newCellHeight;
-            SetPositionForCellHeight(Height);
+            SetPositionForCellHeight(Height, cellAlterationDuration);
         }
 
         public void SetTerrain(TerrainTypeSO terrainType)
@@ -123,9 +128,33 @@ namespace FrostfallSaga.Grid.Cells
             return WorldHeightPerUnit + ((int)Height + 1);
         }
 
-        private void SetPositionForCellHeight(ECellHeight cellHeight)
+        private void SetPositionForCellHeight(ECellHeight cellHeight, float duration)
         {
-            transform.position = new Vector3(transform.position.x, (float)cellHeight, transform.position.z);
+            if (duration == 0)
+            {
+                transform.position = new Vector3(transform.position.x, (float)cellHeight, transform.position.z);
+            }
+            else
+            {
+                StartCoroutine(SmoothMoveToHeight(cellHeight, duration));
+            }
+        }
+
+        private IEnumerator SmoothMoveToHeight(ECellHeight targetHeight, float duration)
+        {
+            float startHeight = transform.position.y;
+            float targetY = (float)targetHeight;
+            float elapsedTime = 0f;
+
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime;
+                float newY = Mathf.Lerp(startHeight, targetY, elapsedTime / duration);
+                transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+                yield return null;
+            }
+
+            transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
         }
 
         private void SetCellVisualFromGameObjectTree()

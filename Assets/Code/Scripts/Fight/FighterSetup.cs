@@ -1,25 +1,26 @@
 using System;
 using UnityEngine;
-using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.Targeters;
-using FrostfallSaga.Fight.Abilities.AbilityAnimation;
+using FrostfallSaga.Fight.GameItems;
 using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 
 namespace FrostfallSaga.Fight
 {
     [Serializable]
     public class FighterSetup
     {
+        public GameObject fighterPrefab;
         public string name;
         public string sessionId;
+        public EntityID entityID;
         public Sprite icon;
+        public Sprite diamondIcon;
         public FighterStats initialStats;
         public FighterClassSO fighterClass;
         public PersonalityTraitSO personalityTrait;
-        public Targeter directAttackTargeter;
-        public int directAttackActionPointsCost;
-        [SerializeReference] public AEffect[] directAttackEffects = { };
+        public Inventory inventory;
         public AAbilityAnimationSO directAttackAnimation;
         public ActiveAbilitySO[] activeAbilities;
         public PassiveAbilitySO[] passiveAbilities;
@@ -29,15 +30,16 @@ namespace FrostfallSaga.Fight
         public string increaseStatAnimationName;
 
         public FighterSetup(
+            GameObject fighterPrefab,
             string name,
             string sessionId,
-            Sprite fighterIcon,
+            EntityID entityID,
+            Sprite icon,
+            Sprite diamondIcon,
             FighterStats initialStats,
             FighterClassSO fighterClass,
             PersonalityTraitSO personalityTrait,
-            Targeter directAttackTargeter,
-            int directAttackActionPointsCost,
-            AEffect[] directAttackEffects,
+            Inventory inventory,
             AAbilityAnimationSO directAttackAnimation,
             ActiveAbilitySO[] activeAbilities,
             PassiveAbilitySO[] passiveAbilities,
@@ -47,15 +49,16 @@ namespace FrostfallSaga.Fight
             string increaseStatAnimationName
         )
         {
+            this.fighterPrefab = fighterPrefab;
             this.name = name;
             this.sessionId = sessionId;
-            this.icon = fighterIcon;
+            this.entityID = entityID;
+            this.icon = icon;
+            this.diamondIcon = diamondIcon;
             this.initialStats = initialStats;
             this.fighterClass = fighterClass;
             this.personalityTrait = personalityTrait;
-            this.directAttackTargeter = directAttackTargeter;
-            this.directAttackActionPointsCost = directAttackActionPointsCost;
-            this.directAttackEffects = directAttackEffects;
+            this.inventory = inventory;
             this.directAttackAnimation = directAttackAnimation;
             this.activeAbilities = activeAbilities;
             this.passiveAbilities = passiveAbilities;

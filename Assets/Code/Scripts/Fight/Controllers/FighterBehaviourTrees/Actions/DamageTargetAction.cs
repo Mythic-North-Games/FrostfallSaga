@@ -57,21 +57,22 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
                 case EDamagePreference.MAXIMIZE_DAMAGE:
                     preferedAbility = useableAbilities.OrderByDescending(
                         ability => ability.GetDamagesPotential(_possessedFighter, target)
-                    ).First();
+                    ).FirstOrDefault();
                     useActiveAbility = (
+                        preferedAbility != null && 
                         preferedAbility.GetDamagesPotential(_possessedFighter, target) >
-                        GetPotentialsDamageOfDirectAttack(_possessedFighter.DirectAttackEffects.ToList(), target)
+                        _possessedFighter.Weapon.GetPotentialsDamagesOnTarget(_possessedFighter, target)
                     ) || !canUseDirectAttack;
                     break;
 
                 case EDamagePreference.MINIMIZE_COST:
                     preferedAbility = useableAbilities.OrderBy(ability => ability.ActionPointsCost).First();
-                    useActiveAbility = preferedAbility.ActionPointsCost < _possessedFighter.DirectAttackActionPointsCost || !canUseDirectAttack;
+                    useActiveAbility = preferedAbility.ActionPointsCost < _possessedFighter.Weapon.UseActionPointsCost || !canUseDirectAttack;
                     break;
             }
 
             // Get damage action target cells
-            Targeter damageActionTargeter = useActiveAbility ? preferedAbility.Targeter : _possessedFighter.DirectAttackTargeter;
+            Targeter damageActionTargeter = useActiveAbility ? preferedAbility.Targeter : _possessedFighter.Weapon.AttackTargeter;
             FightCell[] targetCells = _possessedFighter.GetFirstTouchingCellSequence(
                 damageActionTargeter, target, _fightGrid, _fighterTeams
             );
@@ -90,7 +91,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             // Do the action
             if (useActiveAbility)
             {
-                _possessedFighter.onActiveAbilityEnded += OnPossessedFighterFinishedDamageAction;
+                _possessedFighter.onActiveAbilityEnded += (fighter, usedAbility ) => OnPossessedFighterFinishedDamageAction(fighter);
                 _possessedFighter.UseActiveAbility(
                     preferedAbility,
                     targetCells
@@ -98,24 +99,15 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             }
             else
             {
-                _possessedFighter.onDirectAttackEnded += OnPossessedFighterFinishedDamageAction;
+                _possessedFighter.onDirectAttackEnded += (fighter) => OnPossessedFighterFinishedDamageAction(fighter);
                 _possessedFighter.UseDirectAttack(targetCells);
             }
             return NodeState.SUCCESS;
         }
 
-        private int GetPotentialsDamageOfDirectAttack(List<AEffect> effects, Fighter target)
-        {
-            return effects.Sum(
-                effect => effect.GetPotentialEffectDamages(_possessedFighter, target, true)
-            );
-        }
-
         private void OnPossessedFighterFinishedDamageAction(Fighter possessedFighter)
         {
             SetSharedData(FBTNode.ACTION_RUNNING_SHARED_DATA_KEY, false);
-            possessedFighter.onActiveAbilityEnded -= OnPossessedFighterFinishedDamageAction;
-            possessedFighter.onDirectAttackEnded -= OnPossessedFighterFinishedDamageAction;
         }
     }
 }

@@ -123,7 +123,7 @@ namespace FrostfallSaga.Grid
                 {
                     randomCellHeight = (ECellHeight)Randomizer.GetRandomIntBetween(-1, 2);
                 }
-                cell.UpdateHeight(randomCellHeight);
+                cell.UpdateHeight(randomCellHeight,0);
             }
         }
 

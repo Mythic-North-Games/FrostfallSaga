@@ -2,18 +2,19 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.EntitiesVisual;
-using FrostfallSaga.Fight.Effects;
-using FrostfallSaga.Fight.Abilities;
-using FrostfallSaga.Fight.Targeters;
-using FrostfallSaga.Fight.Statuses;
-using FrostfallSaga.Fight.Abilities.AbilityAnimation;
-using FrostfallSaga.Fight.FightCells.FightCellAlterations;
+using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.FightCells.Impediments;
-using FrostfallSaga.Core;
+using FrostfallSaga.Fight.FightCells.FightCellAlterations;
+using FrostfallSaga.Fight.Targeters;
+using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.Abilities.AbilityAnimation;
+using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight.Statuses;
+using FrostfallSaga.Fight.GameItems;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -32,19 +33,20 @@ namespace FrostfallSaga.Fight.Fighters
         ////////////////////////
         [field: SerializeField, Header("Mechanics managers")] public StatusesManager StatusesManager { get; private set; }
         [field: SerializeField] public PassiveAbilitiesManager PassiveAbilitiesManager { get; private set; }
+        [field: SerializeField] public DirectAttackManager DirectAttackManager { get; private set; }
 
         //////////////////////
         // Fight properties //
         //////////////////////
-        [SerializeField, Header("Fight properties")] private FighterStats _stats = new();
+        [field: SerializeField, Header("Fight properties")] public EntityID EntityID { get; private set; }
+        [SerializeField] private FighterStats _stats = new();
         [field: SerializeField] private FighterStats _initialStats = new();
         [SerializeField] private int _godFavorsPoints;
-        [field: SerializeField] private FighterClassSO _fighterClass;
+        [field: SerializeField] public FighterClassSO FighterClass { get; private set; }
         [field: SerializeField] public PersonalityTraitSO PersonalityTrait { get; private set; }
-        [field: SerializeField] public Targeter DirectAttackTargeter { get; private set; }
-        [field: SerializeField] public int DirectAttackActionPointsCost { get; private set; }
-        [field: SerializeField] public AEffect[] DirectAttackEffects { get; private set; }
-        [SerializeField] private AAbilityAnimationSO _directAttackAnimation;
+        [SerializeField] private Inventory _inventory;
+        [field: SerializeField] public WeaponSO Weapon { get; private set; }
+        [field: SerializeField] public AAbilityAnimationSO DirectAttackAnimation { get; private set; }
         [field: SerializeField] public ActiveAbilitySO[] ActiveAbilities { get; private set; }
         [field: SerializeField] public PassiveAbilitySO[] PassiveAbilities { get; private set; }
         [field: SerializeField] public bool IsParalyzed { get; private set; }
@@ -66,7 +68,9 @@ namespace FrostfallSaga.Fight.Fighters
         ////////////////
         // For the UI //
         ////////////////
-        [field: SerializeField, Header("For the UI")] public Sprite FighterIcon { get; private set; }
+        [field: SerializeField, Header("For the UI")] public string FighterName { get; private set; }
+        [field: SerializeField] public Sprite Icon { get; private set; }
+        [field: SerializeField] public Sprite DiamondIcon { get; private set; }
 
         /////////////////////////
         // For world coherence //
@@ -81,23 +85,38 @@ namespace FrostfallSaga.Fight.Fighters
         // <Fighter that moved>
         public Action<Fighter> onFighterMoved;
 
+        // <Fighter that is going to attack>
+        public Action<Fighter> onDirectAttackStarted;
+
         // <Fighter that attacked>
         public Action<Fighter> onDirectAttackEnded;
 
         // <Fighter that used an active ability>
-        public Action<Fighter> onActiveAbilityEnded;
+        public Action<Fighter, ActiveAbilitySO> onActiveAbilityStarted;
 
-        // <Fighter that dodged, Fighter that attacked>
-        public Action<Fighter, Fighter> onActionDodged;
+        // <Fighter that used an active ability>
+        public Action<Fighter, ActiveAbilitySO> onActiveAbilityEnded;
 
-        // <Fighter that received, Fighter that attacked, Effect that was received, If masterstroke>
-        public Action<Fighter, Fighter, AEffect, bool> onEffectReceived;
+        // <Fighter that dodged>
+        public Action<Fighter> onActionDodged;
+
+        // <Fighter that received damages, the damages taken, if masterstroke>
+        public Action<Fighter, int, bool> onDamageReceived;
+
+        // <Fighter that received heal, the heal amount received, if masterstroke>
+        public Action<Fighter, int, bool> onHealReceived;
 
         // <Fighter that received, Status that was applied>
         public Action<Fighter, AStatus> onStatusApplied;
 
         // <Fighter that received, Status that was removed>
         public Action<Fighter, AStatus> onStatusRemoved;
+
+        // <Fighter that received, stat that was updated, the updated amount>
+        public Action<Fighter, EFighterMutableStat, float> onNonMagicalStatMutated;
+
+        // <Fighter that received, magical element, the updated amount, if resistance (false for strength)>
+        public Action<Fighter, EMagicalElement, int, bool> onMagicalStatMutated;
 
         // <Fighter that received, Status that was applied>
         public Action<Fighter, PassiveAbilitySO> onPassiveAbilityApplied;
@@ -112,6 +131,7 @@ namespace FrostfallSaga.Fight.Fighters
         {
             StatusesManager = new StatusesManager(this);
             PassiveAbilitiesManager = new PassiveAbilitiesManager(this);
+            DirectAttackManager = new DirectAttackManager(this);
         }
 
         private void Awake()
@@ -132,14 +152,16 @@ namespace FrostfallSaga.Fight.Fighters
         public void Setup(FighterSetup fighterSetup)
         {
             EntitySessionId = fighterSetup.sessionId;
-            FighterIcon = fighterSetup.icon;
+            EntityID = fighterSetup.entityID;
+            FighterName = fighterSetup.name;
+            Icon = fighterSetup.icon;
+            DiamondIcon = fighterSetup.diamondIcon;
             _initialStats = fighterSetup.initialStats;
-            _fighterClass = fighterSetup.fighterClass;
+            FighterClass = fighterSetup.fighterClass;
             PersonalityTrait = fighterSetup.personalityTrait;
-            DirectAttackTargeter = fighterSetup.directAttackTargeter;
-            DirectAttackActionPointsCost = fighterSetup.directAttackActionPointsCost;
-            DirectAttackEffects = fighterSetup.directAttackEffects;
-            _directAttackAnimation = fighterSetup.directAttackAnimation;
+            _inventory = fighterSetup.inventory;
+            Weapon = _inventory.GetWeapon();
+            DirectAttackAnimation = fighterSetup.directAttackAnimation;
             ActiveAbilities = fighterSetup.activeAbilities;
             PassiveAbilities = fighterSetup.passiveAbilities;
             _receiveDamageAnimationName = fighterSetup.receiveDamageAnimationName;
@@ -192,36 +214,16 @@ namespace FrostfallSaga.Fight.Fighters
                 throw new ArgumentException("A direct attack can't be used without one or more target cells");
             }
 
-            if (DirectAttackActionPointsCost > _stats.actionPoints)
+            if (Weapon.UseActionPointsCost > _stats.actionPoints)
             {
                 throw new InvalidOperationException("Fighter " + name + " does not have enough actions points to use its direct attack.");
             }
 
-            // Trigger the direct attack (with or without animation)
-            if (_directAttackAnimation == null)
-            {
-                Debug.LogWarning($"No animation attached to direct attack for fighter {name}");
-                targetedCells.ToList()
-                    .Where(cell => cell.HasFighter()).ToList()
-                    .ForEach(cell =>
-                        {
-                            if (cell.Fighter.TryDodge())
-                            {
-                                cell.Fighter.onActionDodged?.Invoke(cell.Fighter, this);
-                                return;
-                            }
-                            ApplyEffectsOnFighter(DirectAttackEffects, cell.Fighter, TryMasterstroke());
-                        }
-                    );
-                _stats.actionPoints -= DirectAttackActionPointsCost;
-                onDirectAttackEnded?.Invoke(this);
-            }
-            else
-            {
-                _directAttackAnimation.onFighterTouched += OnDirectAttackTouchedFighter;
-                _directAttackAnimation.onAnimationEnded += OnDirectAttackAnimationEnded;
-                _directAttackAnimation.Execute(this, targetedCells);
-            }
+            // Trigger the direct attack
+            onDirectAttackStarted?.Invoke(this);
+            _stats.actionPoints -= Weapon.UseActionPointsCost;
+            DirectAttackManager.onDirectAttackEnded += OnDirectAttackEnded;
+            DirectAttackManager.DirectAttack(targetedCells.ToList());
         }
 
         /// <summary>
@@ -256,6 +258,8 @@ namespace FrostfallSaga.Fight.Fighters
             }
 
             // Trigger the ability
+            _stats.actionPoints -= activeAbility.ActionPointsCost;
+            onActiveAbilityStarted?.Invoke(this, activeAbility);
             activeAbility.onActiveAbilityEnded += OnActiveAbilityEnded;
             activeAbility.Trigger(targetedCells, this);
         }
@@ -264,12 +268,22 @@ namespace FrostfallSaga.Fight.Fighters
         /// Method to withstand a physical attack.
         /// </summary>
         /// <param name="physicalDamageAmount">The damage taken before withstanding.</param>
-        public void PhysicalWithstand(int physicalDamageAmount)
+        /// <param name="isMasterstroke">True if the attack is a masterstroke.</param>
+        public void PhysicalWithstand(int physicalDamageAmount, bool isMasterstroke)
         {
+            // Play the receive damage animation
             PlayAnimationIfAny(_receiveDamageAnimationName);
+
+            // Compute the inflicted physical damage amount
             int inflictedPhysicalDamageAmount = Math.Max(0, physicalDamageAmount - _stats.physicalResistance);
-            Debug.Log($"{name} + received {inflictedPhysicalDamageAmount} physical damages");
+            inflictedPhysicalDamageAmount -= GetArmorPhysicalResistance();
+
+            // Decrease the health of the fighter
             DecreaseHealth(inflictedPhysicalDamageAmount);
+
+            // Trigger damage received event
+            onDamageReceived?.Invoke(this, inflictedPhysicalDamageAmount, isMasterstroke);
+            Debug.Log($"{name} + received {inflictedPhysicalDamageAmount} physical damages");
         }
 
         /// <summary>
@@ -277,28 +291,40 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="magicalDamageAmount">The damage amount to resist to.</param>
         /// <param name="magicalElement">The magical element to resist.</param>
-        public void MagicalWithstand(int magicalDamageAmount, EMagicalElement magicalElement)
+        /// <param name="isMasterstroke">True if the attack is a masterstroke.</param>
+        public void MagicalWithstand(int magicalDamageAmount, EMagicalElement magicalElement, bool isMasterstroke)
         {
-
+            // Check if the magical resistance element is set
             if (!_stats.magicalResistances.ContainsKey(magicalElement))
             {
                 throw new NullReferenceException($"Magical resistance element {magicalElement} is not set for fighter {name}");
             }
 
+            // Play the receive damage animation
             PlayAnimationIfAny(_receiveDamageAnimationName);
+
+            // Compute the inflicted magical damage amount
             int inflictedMagicalDamageAmount = Math.Max(0, magicalDamageAmount - _stats.magicalResistances[magicalElement]);
-            Debug.Log($"{name} + received {inflictedMagicalDamageAmount} {magicalElement} magical damages");
+            inflictedMagicalDamageAmount -= GetArmorMagicalResistances()[magicalElement];
+
+            // Decrease the health of the fighter
             DecreaseHealth(inflictedMagicalDamageAmount);
+
+            // Trigger damage received event
+            onDamageReceived?.Invoke(this, inflictedMagicalDamageAmount, isMasterstroke);
+            Debug.Log($"{name} + received {inflictedMagicalDamageAmount} {magicalElement} magical damages");
         }
 
         /// <summary>
         /// Heals the fighter by the given amount.
         /// </summary>
         /// <param name="healAmount">The amount of health to restore.</param>
-        public void Heal(int healAmount)
+        /// <param name="isMasterstroke">True if the heal is a masterstroke.</param>
+        public void Heal(int healAmount, bool isMasterstroke)
         {
             PlayAnimationIfAny(_healSelfAnimationName);
             IncreaseHealth(healAmount);
+            onHealReceived?.Invoke(this, healAmount, isMasterstroke);
             Debug.Log($"{name} + has been healed by {healAmount}.");
         }
 
@@ -306,10 +332,11 @@ namespace FrostfallSaga.Fight.Fighters
         /// Receives raw damages without any resistance calculation.
         /// </summary>
         /// <param name="damages">The damages to receive.</param>
-        public void ReceiveRawDamages(int damages)
+        public void ReceiveRawDamages(int damages, bool isMasterstroke)
         {
             PlayAnimationIfAny(_receiveDamageAnimationName);
             DecreaseHealth(damages);
+            onDamageReceived?.Invoke(this, damages, isMasterstroke);
             Debug.Log($"{name} + received {damages} raw damages.");
         }
 
@@ -319,7 +346,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="mutableStat">The mutable stat to increase or reduce.</param>
         /// <param name="amount">The amount to increase or reduce.</param>
         /// <param name="triggerAnimation">True to trigger the stat update animation, false otherwise.</param>
-        public void UpdateMutableStat(EFighterMutableStat mutableStat, float amount, bool triggerAnimation = true)
+        public void UpdateMutableStat(EFighterMutableStat mutableStat, float amount, bool triggerAnimation = true, bool triggerEvent = true)
         {
             switch (mutableStat)
             {
@@ -339,7 +366,7 @@ namespace FrostfallSaga.Fight.Fighters
                     Math.Min(0, _stats.dexterity += (int)amount);
                     break;
                 case EFighterMutableStat.Tenacity:
-                    Math.Min(0, _stats.tenacity += amount);
+                    Math.Min(0, _stats.tenacity += (int)amount);
                     break;
                 case EFighterMutableStat.DodgeChance:
                     Math.Min(0, _stats.dodgeChance += amount);
@@ -358,10 +385,8 @@ namespace FrostfallSaga.Fight.Fighters
                     return;
             }
 
-            if (triggerAnimation)
-            {
-                PlayAnimationIfAny(amount > 0 ? _increaseStatAnimationName : _reduceStatAnimationName);
-            }
+            if (triggerAnimation) PlayAnimationIfAny(amount > 0 ? _increaseStatAnimationName : _reduceStatAnimationName);
+            if (triggerEvent) onNonMagicalStatMutated?.Invoke(this, mutableStat, amount);
         }
 
         /// <summary>
@@ -371,7 +396,13 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="amount">The amount to increase or reduce.</param>
         /// <param name="isResistance">True to update magical resistance stat, false to update magical strength</param>
         /// <param name="triggerAnimation">True to trigger the stat update animation, false otherwise.</param>
-        public void UpdateMagicalStat(EMagicalElement magicalElement, int amount, bool isResistance, bool triggerAnimation = true)
+        public void UpdateMagicalStat(
+            EMagicalElement magicalElement,
+            int amount,
+            bool isResistance,
+            bool triggerAnimation = true,
+            bool triggerEvent = true
+        )
         {
             try
             {
@@ -384,10 +415,8 @@ namespace FrostfallSaga.Fight.Fighters
                     _stats.magicalStrengths[magicalElement] = Math.Min(0, _stats.magicalStrengths[magicalElement] += amount);
                 }
 
-                if (triggerAnimation)
-                {
-                    PlayAnimationIfAny(amount > 0 ? _increaseStatAnimationName : _reduceStatAnimationName);
-                }
+                if (triggerAnimation) PlayAnimationIfAny(amount > 0 ? _increaseStatAnimationName : _reduceStatAnimationName);
+                if (triggerEvent) onMagicalStatMutated?.Invoke(this, magicalElement, amount, isResistance);
                 Debug.Log($"{name} {magicalElement} {(isResistance ? "resistance" : "strength")} has been modified by {amount}.");
             }
             catch (NullReferenceException)
@@ -415,6 +444,15 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
         /// <summary>
+        /// Remove a given status to the fighter.
+        /// </summary>
+        /// <param name="statusToRemove">The status to remove.</param>
+        public void RemoveStatus(AStatus statusToRemove)
+        {
+            StatusesManager.RemoveStatus(statusToRemove);
+        }
+
+        /// <summary>
         /// Make the fighter try to dodge something.
         /// </summary>
         /// <returns>True if the dodge is successfull, false otherwise</returns>
@@ -436,29 +474,16 @@ namespace FrostfallSaga.Fight.Fighters
 
         #region Actions process management
 
-        public void OnDirectAttackTouchedFighter(Fighter touchedFighter)
+        public void OnDirectAttackEnded()
         {
-            if (cell.Fighter.TryDodge())
-            {
-                cell.Fighter.onActionDodged?.Invoke(cell.Fighter, this);
-                return;
-            }
-            ApplyEffectsOnFighter(DirectAttackEffects, cell.Fighter, TryMasterstroke());
-        }
-
-        public void OnDirectAttackAnimationEnded(Fighter initiator)
-        {
-            _directAttackAnimation.onFighterTouched -= OnDirectAttackTouchedFighter;
-            _directAttackAnimation.onAnimationEnded -= OnDirectAttackAnimationEnded;
-            _stats.actionPoints -= DirectAttackActionPointsCost;
-            onDirectAttackEnded?.Invoke(initiator);
+            DirectAttackManager.onDirectAttackEnded -= OnDirectAttackEnded;
+            onDirectAttackEnded?.Invoke(this);
         }
 
         private void OnActiveAbilityEnded(ActiveAbilitySO activeAbility)
         {
             activeAbility.onActiveAbilityEnded -= OnActiveAbilityEnded;
-            _stats.actionPoints -= activeAbility.ActionPointsCost;
-            onActiveAbilityEnded?.Invoke(this);
+            onActiveAbilityEnded?.Invoke(this, activeAbility);
         }
 
         #endregion
@@ -479,11 +504,27 @@ namespace FrostfallSaga.Fight.Fighters
 
         public int GetStrength() => _stats.strength;
 
+        public int GetDexterity() => _stats.dexterity;
+
+        public int GetTenacity() => _stats.tenacity;
+
+        public int GetPhysicalResistance() => _stats.physicalResistance;
+
+        public float GetMasterstrokeChance() => _stats.masterstrokeChance;
+
+        public float GetDodgeChance() => _stats.dodgeChance;
+
+        public int GetInitiative() => _stats.initiative;
+
         public int GetGodFavorsPoints() => _godFavorsPoints;
+
+        public Dictionary<EMagicalElement, int> GetMagicalStrengths() => _stats.magicalStrengths;
+
+        public Dictionary<EMagicalElement, int> GetMagicalResistances() => _stats.magicalResistances;
 
         public void TryIncreaseGodFavorsPointsForAction(EGodFavorsAction action)
         {
-            Dictionary<EGodFavorsAction, int> amountPerAction = GodFavorsActionToInt.GetDictionaryFromArray(_fighterClass.God.FavorGivingActions);
+            Dictionary<EGodFavorsAction, int> amountPerAction = GodFavorsActionToInt.GetDictionaryFromArray(FighterClass.God.FavorGivingActions);
             if (amountPerAction.Keys.Contains(action))
             {
                 _godFavorsPoints += amountPerAction[action];
@@ -508,7 +549,11 @@ namespace FrostfallSaga.Fight.Fighters
             };
         }
 
-        public int GetInitiative() => _stats.initiative;
+        /// <summary>
+        /// Returns a dictionary of all statuses that are currently active on the fighter.
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<AStatus, (bool isActive, int duration)> GetStatuses() => StatusesManager.GetStatuses();
 
         public FighterCollider GetWeaponCollider()
         {
@@ -523,26 +568,26 @@ namespace FrostfallSaga.Fight.Fighters
 
         private void ResetStatsToDefaultConfiguration()
         {
-            _stats.maxHealth = _initialStats.maxHealth + _fighterClass.ClassMaxHealth;
+            _stats.maxHealth = _initialStats.maxHealth + FighterClass.ClassMaxHealth;
             _stats.health = _initialStats.maxHealth;
-            _stats.maxActionPoints = _initialStats.maxActionPoints + _fighterClass.ClassMaxActionPoints;
+            _stats.maxActionPoints = _initialStats.maxActionPoints + FighterClass.ClassMaxActionPoints;
             _stats.actionPoints = _initialStats.maxActionPoints;
-            _stats.maxMovePoints = _initialStats.maxMovePoints + _fighterClass.ClassMaxMovePoints;
+            _stats.maxMovePoints = _initialStats.maxMovePoints + FighterClass.ClassMaxMovePoints;
             _stats.movePoints = _initialStats.maxMovePoints;
-            _stats.strength = _initialStats.strength + _fighterClass.ClassMaxMovePoints;
-            _stats.dexterity = _initialStats.dexterity + _fighterClass.ClassDexterity;
-            _stats.tenacity = _initialStats.tenacity + _fighterClass.ClassTenacity;
-            _stats.physicalResistance = _initialStats.physicalResistance + _fighterClass.ClassPhysicalResistance;
+            _stats.strength = _initialStats.strength + FighterClass.ClassMaxMovePoints;
+            _stats.dexterity = _initialStats.dexterity + FighterClass.ClassDexterity;
+            _stats.tenacity = _initialStats.tenacity + FighterClass.ClassTenacity;
+            _stats.physicalResistance = _initialStats.physicalResistance + FighterClass.ClassPhysicalResistance;
 
             _stats.magicalResistances = _initialStats.magicalResistances;
-            _stats.AddMagicalResistances(MagicalElementToValue.GetDictionaryFromArray(_fighterClass.ClassMagicalResistances));
+            _stats.AddMagicalResistances(SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(FighterClass.ClassMagicalResistances));
 
             _stats.magicalStrengths = _initialStats.magicalStrengths;
-            _stats.AddMagicalStrengths(MagicalElementToValue.GetDictionaryFromArray(_fighterClass.ClassMagicalStrengths));
+            _stats.AddMagicalStrengths(SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(FighterClass.ClassMagicalStrengths));
 
-            _stats.dodgeChance = _initialStats.dodgeChance + _fighterClass.ClassDodgeChance;
-            _stats.masterstrokeChance = _initialStats.masterstrokeChance + _fighterClass.ClassMasterstrokeChance;
-            _stats.initiative = _initialStats.initiative + _fighterClass.ClassInitiative;
+            _stats.dodgeChance = _initialStats.dodgeChance + FighterClass.ClassDodgeChance;
+            _stats.masterstrokeChance = _initialStats.masterstrokeChance + FighterClass.ClassMasterstrokeChance;
+            _stats.initiative = _initialStats.initiative + FighterClass.ClassInitiative;
         }
 
         #endregion
@@ -569,12 +614,12 @@ namespace FrostfallSaga.Fight.Fighters
         /// <returns>True if he has enough actions points and if the direct attack targeter can be resolved around him.</returns>
         public bool CanDirectAttack(HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams, Fighter target = null)
         {
-            return DirectAttackActionPointsCost <= _stats.actionPoints && (
+            return Weapon.UseActionPointsCost <= _stats.actionPoints && (
                 (
-                    DirectAttackTargeter.AtLeastOneCellResolvable(fightGrid, cell, fightersTeams) &&
+                    Weapon.AttackTargeter.AtLeastOneCellResolvable(fightGrid, cell, fightersTeams) &&
                     target == null
                 ) ||
-                CanUseTargeterOnFighter(DirectAttackTargeter, target, fightGrid, fightersTeams)
+                CanUseTargeterOnFighter(Weapon.AttackTargeter, target, fightGrid, fightersTeams)
             );
         }
 
@@ -584,21 +629,29 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
         /// <param name="fightersTeams">The teams of the fighters in the fight.</param>
         /// <param name="target">The optional target to check if the active ability can be used on.</param>
+        /// <param name="mandatoryEffectTypes">The optionnal effect to apply.</param>
         /// <returns>True if he has enough actions points and if an active ability targeter can be resolved around him.</returns>
         public bool CanUseAtLeastOneActiveAbility(
             HexGrid fightGrid,
             Dictionary<Fighter, bool> fightersTeams,
-            Fighter target = null
+            Fighter target = null,
+            ListOfTypes<AEffect> mandatoryEffectTypes = null
         )
         {
-            return ActiveAbilities.Any(
-                activeAbility => CanUseActiveAbility(
-                    fightGrid,
-                    activeAbility,
-                    fightersTeams,
-                    target
-                )
-            );
+            return ActiveAbilities.Any
+                (
+                    activeAbility =>
+                    {
+                        if (!CanUseActiveAbility(fightGrid, activeAbility, fightersTeams, target)) return false;
+                        if (mandatoryEffectTypes != null && mandatoryEffectTypes.Any())
+                        {
+
+                            AEffect[] abilityEffects = activeAbility.Effects;
+                            return mandatoryEffectTypes.Any(effect => abilityEffects.Any(e => e.GetType() == effect.GetType()));
+                        }
+                        return true;
+                    }
+                );
         }
 
         /// <summary>
@@ -691,28 +744,6 @@ namespace FrostfallSaga.Fight.Fighters
             }
         }
 
-        /// <summary>
-        /// Apply a list of effects to the targeted fighter.
-        /// </summary>
-        /// <param name="effectsToApply">The effects to apply.</param>
-        /// <param name="target">The fighter to apply the effects to.</param>
-        /// <param name="isMasterstroke">If the initiator made a masterstroke.</param>
-        private void ApplyEffectsOnFighter(
-            AEffect[] effectsToApply,
-            Fighter target,
-            bool isMasterstroke
-        )
-        {
-            effectsToApply.ToList().ForEach(
-                effect => effect.ApplyEffect(
-                    receiver: target,
-                    isMasterstroke: isMasterstroke,
-                    initator: this,
-                    adjustGodFavorsPoints: true
-                )
-            );
-        }
-
         private void DecreaseHealth(int amount)
         {
             _stats.health = Math.Clamp(_stats.health - amount, 0, _stats.maxHealth);
@@ -742,6 +773,32 @@ namespace FrostfallSaga.Fight.Fighters
             return targeter.GetAllResolvedCellsSequences(fightGrid, cell, fightersTeams, cellAlterations).Any(
                 cellsSequence => cellsSequence.Contains(target.cell)
             );
+        }
+
+        private int GetArmorPhysicalResistance()
+        {
+            return _inventory.GetArmorPieces().Sum(armorPiece => armorPiece.PhysicalResistance);
+        }
+
+        private Dictionary<EMagicalElement, int> GetArmorMagicalResistances()
+        {
+            Dictionary<EMagicalElement, int> armorMagicalResistances = new();
+            foreach (EMagicalElement magicalElement in Enum.GetValues(typeof(EMagicalElement)))
+            {
+                armorMagicalResistances.Add(magicalElement, 0);
+            }
+
+            foreach (ArmorSO armorPiece in _inventory.GetArmorPieces())
+            {
+                Dictionary<EMagicalElement, int> armorPieceMagicalResistances = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
+                    armorPiece.MagicalResistances
+                );
+                foreach (KeyValuePair<EMagicalElement, int> magicalResistance in armorPieceMagicalResistances)
+                {
+                    armorMagicalResistances[magicalResistance.Key] += magicalResistance.Value;
+                }
+            }
+            return armorMagicalResistances;
         }
         #endregion
 

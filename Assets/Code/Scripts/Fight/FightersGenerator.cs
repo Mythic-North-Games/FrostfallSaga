@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.Effects;
 
 namespace FrostfallSaga.Fight
 {
@@ -11,7 +10,6 @@ namespace FrostfallSaga.Fight
     {
         public Action<Fighter[], Fighter[]> onFightersGenerated;
 
-        [SerializeField] private GameObject _fighterPrefab;
         [SerializeField] private PreFightDataSO _preFightData;
         [SerializeField] private FighterSetup[] _devAlliesFighterSetup;
         [SerializeField] private FighterSetup[] _devEnemiesFighterSetup;
@@ -49,7 +47,7 @@ namespace FrostfallSaga.Fight
 
         private Fighter SpawnAndSetupFighter(FighterSetup fighterSetup, string nameSuffix = "")
         {
-            GameObject fighterGameObject = Instantiate(_fighterPrefab);
+            GameObject fighterGameObject = Instantiate(fighterSetup.fighterPrefab);
             fighterGameObject.name = new($"{fighterSetup.name}{nameSuffix}");
             Fighter fighter = fighterGameObject.GetComponent<Fighter>();
             fighter.Setup(fighterSetup);
@@ -57,36 +55,13 @@ namespace FrostfallSaga.Fight
         }
 
         #region Setup & Teardown
-        private void OnEnable()
+        private void Awake()
         {
             if (_preFightData == null)
             {
                 Debug.LogError("No PreFightData scriptable object given. Can't generate fighters.");
                 return;
             }
-            if (_fighterPrefab == null)
-            {
-                Debug.LogError("No fighter prefab given. Can't generate fighters.");
-                return;
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (_preFightData == null)
-            {
-                Debug.LogWarning("No PreFightData scriptable object given. Can't tear down properly.");
-                return;
-            }
-            if (_fighterPrefab == null)
-            {
-                Debug.LogWarning("No fighter prefab given. Can't tear down properly.");
-                return;
-            }
-        }
-
-        private void Awake()
-        {
             if (_devAlliesFighterSetup == null || _devAlliesFighterSetup.Length == 0)
             {
                 return;
@@ -98,8 +73,9 @@ namespace FrostfallSaga.Fight
                     { EMagicalElement.FIRE, 0 },
                     { EMagicalElement.ICE, 0 },
                     { EMagicalElement.LIGHTNING, 0 },
-                    { EMagicalElement.WATER, 0 },
-                    { EMagicalElement.WIND, 0 }
+                    { EMagicalElement.EARTH, 0 },
+                    { EMagicalElement.LIGHT, 0 },
+                    { EMagicalElement.DARKNESS, 0 }
                 };
             }
 
@@ -114,8 +90,9 @@ namespace FrostfallSaga.Fight
                     { EMagicalElement.FIRE, 0 },
                     { EMagicalElement.ICE, 0 },
                     { EMagicalElement.LIGHTNING, 0 },
-                    { EMagicalElement.WATER, 0 },
-                    { EMagicalElement.WIND, 0 }
+                    { EMagicalElement.EARTH, 0 },
+                    { EMagicalElement.LIGHT, 0 },
+                    { EMagicalElement.DARKNESS, 0 }
                 };
             }
         }

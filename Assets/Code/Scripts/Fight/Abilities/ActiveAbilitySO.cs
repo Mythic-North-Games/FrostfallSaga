@@ -86,7 +86,7 @@ namespace FrostfallSaga.Fight.Abilities
         {
             if (Dodgable && receiver.TryDodge())
             {
-                receiver.onActionDodged?.Invoke(initiator, receiver);
+                receiver.onActionDodged?.Invoke(initiator);
                 Debug.Log($"{receiver.name} dodged the ability {Name}");
                 return;
             }

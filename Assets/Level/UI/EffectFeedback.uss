@@ -1,0 +1,54 @@
+.effectFeedbackContainerDefault {
+    flex-direction: row;
+    align-items: center;
+    max-width: 190px;
+    max-height: 50px;
+    justify-content: flex-start;
+}
+
+.effectFeedbackContainerHidden {
+    translate: 50px 0;
+    opacity: 0;
+    scale: 0.8 0.8;
+}
+
+.effectLabelDefault {
+    -unity-font-definition: initial;
+    -unity-font: url("project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&guid=450220f72e21c774d8a3289a8e0e8843&type=3#MorrisRomanBlack");
+    font-size: 400%;
+    -unity-font-style: italic;
+    flex-grow: 1;
+}
+
+.damageLabel {
+    color: rgb(168, 13, 13);
+    -unity-text-outline-color: rgba(119, 0, 0, 0);
+    font-size: 400%;
+}
+
+.healLabel {
+    color: rgb(0, 122, 40);
+    -unity-text-outline-color: rgba(0, 77, 26, 0);
+    font-size: 400%;
+}
+
+.buffLabel {
+    color: rgb(12, 111, 149);
+    font-size: 400%;
+}
+
+.debuffLabel {
+    color: rgb(191, 57, 2);
+    font-size: 400%;
+}
+
+.dodgeLabel {
+    color: rgb(67, 67, 67);
+    -unity-text-outline-color: rgba(0, 77, 26, 0);
+    font-size: 400%;
+}
+
+.masterstrokeLabel {
+    font-size: 600%;
+    -unity-font-style: italic;
+}

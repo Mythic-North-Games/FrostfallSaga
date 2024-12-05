@@ -15,7 +15,6 @@ namespace FrostfallSaga.Core
         {
             if (_uiDoc == null)
             {
-                Debug.LogError($"No UIDocument assigned to UI controller {name}.");
                 return false;
             }
 
