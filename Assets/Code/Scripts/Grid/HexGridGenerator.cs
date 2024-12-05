@@ -41,10 +41,9 @@ namespace FrostfallSaga.Grid
         public void Initialize()
         {
             Validator.Validator.ValidateRequiredFields(this);
-            
+
             _perlinTerrainManager = new PerlinTerrainManager(NoiseScale, Seed);
             _voronoiBiomeManager = new VoronoiBiomeManager(HexGrid.Width, HexGrid.Height, AvailableBiomes.Length, Seed);
-
             _lastSeed = Seed;
         }
 
@@ -124,7 +123,7 @@ namespace FrostfallSaga.Grid
                 {
                     randomCellHeight = (ECellHeight)Randomizer.GetRandomIntBetween(-1, 2);
                 }
-                cell.UpdateHeight(randomCellHeight,0);
+                cell.UpdateHeight(randomCellHeight, 0);
             }
         }
 
