@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using RandomSys = System.Random;
 using RandomUnity = UnityEngine.Random;
 
@@ -46,6 +47,10 @@ namespace FrostfallSaga.Core
             }
 
             return (T) values.GetValue(randomIndex);
+        }
+        public static Quaternion GetRandomRotationY(Quaternion rotation)
+        {
+            return Quaternion.Euler(rotation.x, RandomUnity.Range(0f, 360.0f), rotation.z);
         }
     }
 }
