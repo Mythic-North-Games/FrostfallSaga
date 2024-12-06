@@ -31,6 +31,7 @@ namespace FrostfallSaga.Grid.Cells
 
         private void Awake()
         {
+            ParentGrid = GetComponentInParent<HexGrid>();
             SetCellVisualFromGameObjectTree();
             SetCellMouseEventsControllerFromGameObjectTree();
         }
@@ -55,7 +56,6 @@ namespace FrostfallSaga.Grid.Cells
             Height = cellHeight;
             TerrainType = terrainType;
             BiomeType = biomeType;
-            ParentGrid = GetComponentInParent<HexGrid>();
             SetTerrain(terrainType);
             SetPositionForCellHeight(Height, UpdateHeightDuration);
             SetCellMouseEventsControllerFromGameObjectTree();
