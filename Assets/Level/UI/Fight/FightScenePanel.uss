@@ -149,29 +149,6 @@
     flex-grow: 1;
 }
 
-.ProgressBar_Progress:hover {
-    flex-grow: 1;
-    background-color: rgb(48, 188, 34);
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    margin-top: 2px;
-    margin-right: 2px;
-    margin-bottom: 2px;
-    margin-left: 2px;
-    width: 50%;
-    max-width: 100%;
-    -unity-background-image-tint-color: rgb(56, 56, 56);
-    position: relative;
-    height: 100%;
-    max-height: none;
-    transition-property: all, ignored, ignored;
-    transition-duration: 0s, 0s, 0s;
-    transition-timing-function: ease, ease, ease;
-    transition-delay: 0s, 0s, 0s;
-}
-
 .ProgressBar_Text {
     -unity-font: url("project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&guid=450220f72e21c774d8a3289a8e0e8843&type=3#MorrisRomanBlack");
     -unity-font-definition: initial;

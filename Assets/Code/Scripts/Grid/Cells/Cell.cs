@@ -28,7 +28,6 @@ namespace FrostfallSaga.Grid.Cells
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
         private HexGrid ParentGrid;
 
-
         private void Awake()
         {
             ParentGrid = GetComponentInParent<HexGrid>();
@@ -105,7 +104,7 @@ namespace FrostfallSaga.Grid.Cells
             Renderer renderer = GetComponentInChildren<Renderer>();
             if (renderer != null && TerrainType != null && TerrainType.CellMaterial != null)
             {
-                if (TerrainType.VisualsTerrain.Length != 0)
+                if (TerrainType.VisualsTerrain != null && TerrainType.VisualsTerrain.Length != 0)
                 {
                     GameObject visualTerrain = Randomizer.GetRandomElementFromArray(TerrainType.VisualsTerrain);
                     GameObject newVisualTerrain = Instantiate<GameObject>(visualTerrain, transform.position, Randomizer.GetRandomRotationY(transform.rotation), transform);

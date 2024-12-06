@@ -23,3 +23,4 @@ MonoBehaviour:
   <CellMaterial>k__BackingField: {fileID: 2100000, guid: 078d226569761e041a447d5baa46bd8b, type: 2}
   <VisualsTerrain>k__BackingField:
   - {fileID: 598771669309824393, guid: 5ed308d886c2d0348bd01c2942c0e46f, type: 3}
+  - {fileID: 598771669309824393, guid: b385916507626d74fa2494d1fc7ede38, type: 3}

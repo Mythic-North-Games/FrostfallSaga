@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0d19874b5c3d4b48bb202016a3e0c19, type: 3}
+  m_Name: BiomeTypeFrozenDarkForest
+  m_EditorClassIdentifier: 
+  <TypeName>k__BackingField: Frozen Dark Forest
+  <TypeDescription>k__BackingField: Large, dark-looking forest covered by snow. Few
+    people dare to venture there.
+  <TerrainTypeSO>k__BackingField:
+  - {fileID: 11400000, guid: 3742fe7691f993745b6eb4ee8c7a34b9, type: 2}
+  <BiomeMaterial>k__BackingField: {fileID: 0}
