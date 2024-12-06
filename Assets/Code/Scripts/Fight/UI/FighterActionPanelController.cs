@@ -50,42 +50,10 @@ namespace FrostfallSaga.Fight.UI
 
         private void OnFighterTurnBegan(Fighter currentFighter, bool isAlly)
         {
-
             SetIsVisible(isAlly);
             if (isAlly)
             {
-                currentFighter.onDamageReceived += (fighter, damage, isMasterstroke) => UpdateLifeBar(fighter);
-                currentFighter.onHealReceived += (fighter, damage, isMasterstroke) => UpdateLifeBar(fighter);
-                currentFighter.onDirectAttackStarted += (fighter) =>
-                {
-                    UpdateActionBar(fighter);
-                    UpdateAbilityButtons(fighter);
-                };
-                currentFighter.onDirectAttackEnded += (fighter) =>
-                {
-                    UpdateActionBar(fighter);
-                    UpdateAbilityButtons(fighter);
-                };
-                currentFighter.onActiveAbilityStarted += (fighter, usedAbility) => 
-                {
-                    UpdateActionBar(fighter);
-                    UpdateAbilityButtons(fighter);
-                };
-                currentFighter.onActiveAbilityEnded += (fighter, usedAbility) =>
-                {
-                    UpdateActionBar(fighter);
-                    UpdateAbilityButtons(fighter);
-                };
-                currentFighter.onFighterMoved += (fighter) => UpdateMoveBar(fighter);
-                currentFighter.onStatusApplied += (fighter, status) => UpdateStatuses(fighter);
-                currentFighter.onStatusRemoved += (fighter, status) => UpdateStatuses(fighter);
-                currentFighter.onNonMagicalStatMutated += (fighter, mutatedStat, amount) =>
-                {
-                    UpdateLifeBar(fighter);
-                    UpdateActionBar(fighter);
-                    UpdateMoveBar(fighter);
-                    UpdateAbilityButtons(fighter);
-                };
+                RegisterFighterEvents(currentFighter);
                 UpdateActionPanelForFighter(currentFighter);
                 UpdateFighterIcons(currentFighter);
             }
@@ -221,6 +189,10 @@ namespace FrostfallSaga.Fight.UI
         private void OnFighterTurnEnded(Fighter currentFighter, bool isAlly)
         {
             SetIsVisible(!isAlly);
+            if (isAlly)
+            {
+                UnregisterFighterEvents(currentFighter);
+            }
         }
 
         private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
@@ -259,6 +231,56 @@ namespace FrostfallSaga.Fight.UI
             }
 
             return abilitiesButtons.ToArray();
+        }
+
+        private void RegisterFighterEvents(Fighter fighter)
+        {
+            fighter.onDamageReceived += (fighter, damage, isMasterstroke) => UpdateLifeBar(fighter);
+            fighter.onHealReceived += (fighter, damage, isMasterstroke) => UpdateLifeBar(fighter);
+            fighter.onDirectAttackStarted += (fighter) =>
+            {
+                UpdateActionBar(fighter);
+                UpdateAbilityButtons(fighter);
+            };
+            fighter.onDirectAttackEnded += (fighter) =>
+            {
+                UpdateActionBar(fighter);
+                UpdateAbilityButtons(fighter);
+            };
+            fighter.onActiveAbilityStarted += (fighter, usedAbility) =>
+            {
+                UpdateActionBar(fighter);
+                UpdateAbilityButtons(fighter);
+            };
+            fighter.onActiveAbilityEnded += (fighter, usedAbility) =>
+            {
+                UpdateActionBar(fighter);
+                UpdateAbilityButtons(fighter);
+            };
+            fighter.onFighterMoved += (fighter) => UpdateMoveBar(fighter);
+            fighter.onStatusApplied += (fighter, status) => UpdateStatuses(fighter);
+            fighter.onStatusRemoved += (fighter, status) => UpdateStatuses(fighter);
+            fighter.onNonMagicalStatMutated += (fighter, mutatedStat, amount) =>
+            {
+                UpdateLifeBar(fighter);
+                UpdateActionBar(fighter);
+                UpdateMoveBar(fighter);
+                UpdateAbilityButtons(fighter);
+            };
+        }
+
+        private void UnregisterFighterEvents(Fighter fighter)
+        {
+            fighter.onDamageReceived = null;
+            fighter.onHealReceived = null;
+            fighter.onDirectAttackStarted = null;
+            fighter.onDirectAttackEnded = null;
+            fighter.onActiveAbilityStarted = null;
+            fighter.onActiveAbilityEnded = null;
+            fighter.onFighterMoved = null;
+            fighter.onStatusApplied = null;
+            fighter.onStatusRemoved = null;
+            fighter.onNonMagicalStatMutated = null;
         }
 
         #region Setup & tear down
