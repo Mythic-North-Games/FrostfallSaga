@@ -26,8 +26,6 @@ namespace FrostfallSaga.Grid.Cells
 
         [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")] public MaterialHighlightable HighlightController { get; private set; }
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
-        private HexGrid ParentGrid;
-
 
         private void Awake()
         {
@@ -55,7 +53,6 @@ namespace FrostfallSaga.Grid.Cells
             Height = cellHeight;
             TerrainType = terrainType;
             BiomeType = biomeType;
-            ParentGrid = GetComponentInParent<HexGrid>();
             SetTerrain(terrainType);
             SetPositionForCellHeight(Height, UpdateHeightDuration);
             SetCellMouseEventsControllerFromGameObjectTree();
@@ -105,7 +102,7 @@ namespace FrostfallSaga.Grid.Cells
             Renderer renderer = GetComponentInChildren<Renderer>();
             if (renderer != null && TerrainType != null && TerrainType.CellMaterial != null)
             {
-                if (TerrainType.VisualsTerrain.Length != 0)
+                if (TerrainType.VisualsTerrain != null && TerrainType.VisualsTerrain.Length != 0)
                 {
                     GameObject visualTerrain = Randomizer.GetRandomElementFromArray(TerrainType.VisualsTerrain);
                     GameObject newVisualTerrain = Instantiate<GameObject>(visualTerrain, transform.position, Randomizer.GetRandomRotationY(transform.rotation), transform);
@@ -120,7 +117,8 @@ namespace FrostfallSaga.Grid.Cells
 
         public Vector3 GetCenter()
         {
-            Vector3 center = HexMetrics.Center(ParentGrid.HexSize, Coordinates.x, Coordinates.y, ParentGrid.HexOrientation);
+            HexGrid _hexgrid = GetComponentInParent<HexGrid>();
+            Vector3 center = HexMetrics.Center(_hexgrid.HexSize, Coordinates.x, Coordinates.y, _hexgrid.HexOrientation);
             center.y = GetYPosition();
             return center;
         }
