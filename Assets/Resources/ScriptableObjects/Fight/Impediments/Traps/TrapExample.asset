@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7321d28e8e2df4cbb953100a3a8f86, type: 3}
   m_Name: TrapExample
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: 919132149155446097, guid: 39857cfad1651644682ff5b772e6e697, type: 3}
+  <Prefab>k__BackingField: {fileID: 142830, guid: 7ba9a699d2470cc4e8144d9d65024324, type: 3}
   <Destroyable>k__BackingField: 1
   SpawnController:
     rid: 3629974220633014276
@@ -39,8 +39,4 @@ MonoBehaviour:
     - rid: 3629974220633014278
       type: {class: PhysicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
-        Name: Physical damage test
-        Description: 
-        Dodgable: 0
-        Masterstrokable: 0
         PhysicalDamageAmount: 10

@@ -28,8 +28,8 @@ MonoBehaviour:
     <TargetsToExclude>k__BackingField: 
     <RelativeHeightsToExclude>k__BackingField: 
     <StopedAtInacessibles>k__BackingField: 0
-    <StopedAtXthHigherHeightDifference>k__BackingField: 0
-    <StopedAtXthLowerHeightDifference>k__BackingField: 0
+    <StopedAtXthHigherHeightDifference>k__BackingField: 2
+    <StopedAtXthLowerHeightDifference>k__BackingField: 1
     <StopedAtXthEncounteredFighters>k__BackingField: 0
   <ActionPointsCost>k__BackingField: 2
   <GodFavorsPointsCost>k__BackingField: 0
