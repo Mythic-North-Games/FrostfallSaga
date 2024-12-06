@@ -408,7 +408,7 @@ namespace FrostfallSaga.Fight.Targeters
                     fightersEncountered++;
                 }
 
-                if (fightersEncountered == xthFighter)
+                if (fightersEncountered == xthFighter + 1)
                 {
                     targetedCells = targetedCells.Take(i).ToList();
                     break;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b15bc642ab647f4db22884ea96f1dc9, type: 3}
   m_Name: HealingAbilityAnimation
   m_EditorClassIdentifier: 
-  <ProjectilePrefab>k__BackingField: {fileID: 1881552412633134, guid: da7875cab77480d49972b42ca872af40, type: 3}
+  <ProjectilePrefab>k__BackingField: {fileID: 1881552412633134, guid: abce9b235d508934fad99724c75873cc, type: 3}
   Executor:
     rid: 8058038187200872451
   references:

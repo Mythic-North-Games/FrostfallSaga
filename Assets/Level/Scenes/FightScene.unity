@@ -33604,13 +33604,12 @@ MonoBehaviour:
     healSelfAnimationName: 
     reduceStatAnimationName: Hurt
     increaseStatAnimationName: 
-  _devEnemiesFighterSetup:
-  - fighterPrefab: {fileID: 7775086033136974095, guid: bc2d5945b1c5d0048a26641c833c7a34, type: 3}
-    name: Skeleton
+  - fighterPrefab: {fileID: 4700538115128749028, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
+    name: Floryan
     sessionId: 
     entityID: 0
-    icon: {fileID: 21300000, guid: f6fc899a423eacb4a87e6c0bb5acb040, type: 3}
-    diamondIcon: {fileID: 21300000, guid: d9743836dfaa5e64fa533ec9bd2a2440, type: 3}
+    icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
+    diamondIcon: {fileID: 21300000, guid: 54602b48bb6b71e4b967d9777b79ae1e, type: 3}
     initialStats:
       health: 100
       maxHealth: 100
@@ -33623,10 +33622,10 @@ MonoBehaviour:
       tenacity: 0
       physicalResistance: 1
       dodgeChance: 0
-      masterstrokeChance: 0
-      initiative: 1
+      masterstrokeChance: 1
+      initiative: 3
     fighterClass: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
-    personalityTrait: {fileID: 11400000, guid: 770ae372dc3abe843a19020cabaa49fb, type: 2}
+    personalityTrait: {fileID: 0}
     inventory:
       <WeaponSlot>k__BackingField:
         <Item>k__BackingField: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
@@ -33725,14 +33724,18 @@ MonoBehaviour:
       - <Item>k__BackingField: {fileID: 0}
         <ItemCount>k__BackingField: 0
         <MaxItemCount>k__BackingField: 99
-    directAttackAnimation: {fileID: 0}
+    directAttackAnimation: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
     activeAbilities:
-    - {fileID: 11400000, guid: b22ba3c2797bc25439231a90f23620ab, type: 2}
-    passiveAbilities: []
+    - {fileID: 11400000, guid: 5f043d044d913ad4682a195b63aa9106, type: 2}
+    - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
+    - {fileID: 11400000, guid: 3d87480334b9b4742a045fc9f48e94c5, type: 2}
+    passiveAbilities:
+    - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
     receiveDamageAnimationName: Hurt
     healSelfAnimationName: 
     reduceStatAnimationName: Hurt
     increaseStatAnimationName: 
+  _devEnemiesFighterSetup:
   - fighterPrefab: {fileID: 7775086033136974095, guid: bc2d5945b1c5d0048a26641c833c7a34, type: 3}
     name: Skeleton
     sessionId: 
