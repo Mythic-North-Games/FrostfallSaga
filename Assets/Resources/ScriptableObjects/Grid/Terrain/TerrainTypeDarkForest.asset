@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: TerrainTypeDarkForest
   m_EditorClassIdentifier: 
   <TypeName>k__BackingField: Dark Forest
-  <TypeDescription>k__BackingField: dark wood forest. It decrease your vigilance.
+  <TypeDescription>k__BackingField: Dark wood forest. It decrease your vigilance.
   <HealthPoint>k__BackingField: 0
   <MovePoint>k__BackingField: 0
   <RangePoint>k__BackingField: 0
   <InitiativePoint>k__BackingField: -1
   <IsAccessible>k__BackingField: 1
   <CellMaterial>k__BackingField: {fileID: 2100000, guid: 249af61232f20414ca3eb7fb6299c738, type: 2}
+  <VisualsTerrain>k__BackingField:
+  - {fileID: 598771669309824393, guid: a740c78d0319b87438f25d7ff3f0f1ca, type: 3}
+  - {fileID: 598771669309824393, guid: a43d239064c03264f907fec0680c5d97, type: 3}
