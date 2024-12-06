@@ -27,7 +27,7 @@ namespace FrostfallSaga.Audio
         public void PlaySoundEffectClip(AudioClip audioClip, Transform spawnTransform, float volume)
         {
             float clipLength = audioClip.length;
-            AudioSource audioSource = Instantiate(soundEffectObject, spawnTransform.position, Quaternion.identity);
+            AudioSource audioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
             audioSource.clip = audioClip;
             audioSource.volume = volume;
             audioSource.Play();
