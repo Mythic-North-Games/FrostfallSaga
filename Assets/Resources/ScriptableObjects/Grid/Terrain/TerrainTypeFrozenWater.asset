@@ -24,3 +24,5 @@ MonoBehaviour:
   <VisualsTerrain>k__BackingField:
   - {fileID: 598771669309824393, guid: 9998be6008133c749a3bfdd63214c172, type: 3}
   - {fileID: 598771669309824393, guid: 3901b3f5140d7ca42ba076571300540e, type: 3}
+  - {fileID: 598771669309824393, guid: 4e19d0e72c712a649a9409d17ab617a6, type: 3}
+  - {fileID: 598771669309824393, guid: 91efedeb0547982418be4777886458e0, type: 3}
