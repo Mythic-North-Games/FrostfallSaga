@@ -391,7 +391,8 @@ namespace FrostfallSaga.Fight.Controllers
                     _fightManager.FightGrid,
                     _possessedFighter.cell,
                     clickedCell,
-                    _fightManager.FighterTeams
+                    _fightManager.FighterTeams,
+                    _currentActiveAbility.CellAlterations
                 );
                 StopTargetingActiveActiveAbility();
                 ResetTargeterCellsMaterial(_currentActiveAbility.Targeter, clickedCell);

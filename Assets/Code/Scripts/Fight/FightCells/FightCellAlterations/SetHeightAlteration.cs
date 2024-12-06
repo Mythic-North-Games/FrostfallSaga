@@ -15,7 +15,7 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         private ECellHeight _previousHeight;
 
-        [field: SerializeField] public float cellAlterationDuration { get; protected set; }
+        [field: SerializeField] public float CellAlterationDuration { get; protected set; }
 
         public SetHeightAlteration()
         {
@@ -32,18 +32,19 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
             Sprite icon
         ) : base(isPermanent, duration,  true, true, name, description, icon)
         {
+            CellAlterationDuration = cellAlterationDuration;
         }
 
         public override void Apply(FightCell cell)
         {
             _previousHeight = cell.Height;
-            cell.UpdateHeight(TargetHeight, cellAlterationDuration);
+            cell.UpdateHeight(TargetHeight, CellAlterationDuration);
             onAlterationApplied?.Invoke(cell, this);
         }
 
         public override void Remove(FightCell cell)
         {
-            cell.UpdateHeight(_previousHeight, cellAlterationDuration);
+            cell.UpdateHeight(_previousHeight, CellAlterationDuration);
             onAlterationRemoved?.Invoke(cell, this);
         }
     }
