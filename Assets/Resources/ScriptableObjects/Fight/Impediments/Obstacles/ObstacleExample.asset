@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12969dd273b10b843b086c6df821cae8, type: 3}
   m_Name: ObstacleExample
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: 141144, guid: ff035ed65485ed7d19bd26ba1182f76c, type: 3}
+  <Prefab>k__BackingField: {fileID: 100000, guid: 56fe64965ee4c6a418cb1159c8279a31, type: 3}
   <Destroyable>k__BackingField: 1
   SpawnController:
     rid: 3629974059018879019

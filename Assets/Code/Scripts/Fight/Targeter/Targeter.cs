@@ -89,6 +89,11 @@ namespace FrostfallSaga.Fight.Targeters
             }
 
             FightCell[] targetedCells = GetCellsFromSequence(fightGrid, initiatorCell, originCell, cellAlterations);
+            if (targetedCells.Length == 0)
+            {
+                throw new TargeterUnresolvableException("An alteration is blocking the origin cell.");
+            }
+
             if (FighterMandatory)
             {
                 CheckAtLeastOneFighterPresent(targetedCells);
@@ -160,6 +165,11 @@ namespace FrostfallSaga.Fight.Targeters
             AFightCellAlteration[] cellAlterations = null
         )
         {
+            if (CellsSequence.Length == 1 && IsCellBlockedByAlterations(originCell, cellAlterations))
+            {
+                return new FightCell[0];
+            }
+
             List<FightCell> targetedCells = new()
             {
                 originCell
@@ -175,7 +185,10 @@ namespace FrostfallSaga.Fight.Targeters
                         CellsSequence[i],
                         direction
                     );
-                    if (fightGrid.CellsByCoordinates.TryGetValue(nextCellCoordinates, out Cell nextCell))
+                    if (
+                        fightGrid.CellsByCoordinates.TryGetValue(nextCellCoordinates, out Cell nextCell) &&
+                        !IsCellBlockedByAlterations((FightCell)nextCell, cellAlterations)
+                    )
                     {
                         targetedCells.Add((FightCell)nextCell);
                     }
@@ -184,7 +197,7 @@ namespace FrostfallSaga.Fight.Targeters
                 {
                     Vector2Int nextCellCoordinates = targetedCells.First().Coordinates + CellsSequence[i];
                     if (
-                        fightGrid.CellsByCoordinates.TryGetValue(nextCellCoordinates, out Cell nextCell) && 
+                        fightGrid.CellsByCoordinates.TryGetValue(nextCellCoordinates, out Cell nextCell) &&
                         !IsCellBlockedByAlterations((FightCell)nextCell, cellAlterations)
                     )
                     {
@@ -408,7 +421,7 @@ namespace FrostfallSaga.Fight.Targeters
                     fightersEncountered++;
                 }
 
-                if (fightersEncountered == xthFighter)
+                if (fightersEncountered == xthFighter + 1)
                 {
                     targetedCells = targetedCells.Take(i).ToList();
                     break;
@@ -472,11 +485,14 @@ namespace FrostfallSaga.Fight.Targeters
 
         private bool IsCellBlockedByAlterations(FightCell cell, AFightCellAlteration[] cellAlterations)
         {
-            return cellAlterations != null && cell.GetAlterations().Any(
-                activeCellAlteration => cellAlterations.Any(
-                    possibleCellAlteration =>
-                        !activeCellAlteration.CanBeReplaced &&
-                        activeCellAlteration.GetType() == possibleCellAlteration.GetType()
+            return cellAlterations != null && (
+                    cellAlterations.Any(alteration => alteration is SetHeightAlteration && ((SetHeightAlteration)alteration).TargetHeight == cell.Height) ||
+                    cell.GetAlterations().Any(
+                        activeCellAlteration => cellAlterations.Any(
+                            possibleCellAlteration =>
+                                !activeCellAlteration.CanBeReplaced &&
+                                activeCellAlteration.GetType() == possibleCellAlteration.GetType()
+                        )
                 )
             );
         }

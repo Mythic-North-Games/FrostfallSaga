@@ -29,6 +29,7 @@ namespace FrostfallSaga.Grid.Cells
 
         private void Awake()
         {
+            ParentGrid = GetComponentInParent<HexGrid>();
             SetCellVisualFromGameObjectTree();
             SetCellMouseEventsControllerFromGameObjectTree();
         }

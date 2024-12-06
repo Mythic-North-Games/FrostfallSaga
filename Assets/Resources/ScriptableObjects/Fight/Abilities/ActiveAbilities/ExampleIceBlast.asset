@@ -18,16 +18,17 @@ MonoBehaviour:
   Effects:
   - rid: 3629974059018879022
   <Targeter>k__BackingField:
-    <OriginCellRange>k__BackingField: 3
+    <OriginCellRange>k__BackingField: 1
     <CellsSequence>k__BackingField:
     - {x: 0, y: 0}
     - {x: 1, y: 0}
     - {x: 2, y: 0}
-    <StartFromInitiator>k__BackingField: 0
+    - {x: 3, y: 0}
+    <StartFromInitiator>k__BackingField: 1
     <FighterMandatory>k__BackingField: 0
     <TargetsToExclude>k__BackingField: 
     <RelativeHeightsToExclude>k__BackingField: 
-    <StopedAtInacessibles>k__BackingField: 0
+    <StopedAtInacessibles>k__BackingField: 1
     <StopedAtXthHigherHeightDifference>k__BackingField: 0
     <StopedAtXthLowerHeightDifference>k__BackingField: 0
     <StopedAtXthEncounteredFighters>k__BackingField: 0

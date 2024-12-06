@@ -6,6 +6,7 @@ using UnityEngine;
 namespace FrostfallSaga.FFSEditor.Grid
 {
     [CustomEditor(typeof(Cell))]
+    [CanEditMultipleObjects]
     public class CellEditor : Editor
     {
         public override void OnInspectorGUI()

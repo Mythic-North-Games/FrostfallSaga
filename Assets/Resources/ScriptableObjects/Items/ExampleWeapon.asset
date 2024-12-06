@@ -33,7 +33,7 @@ MonoBehaviour:
   <MaxPhysicalDamages>k__BackingField: 10
   <MinMagicalDamages>k__BackingField: []
   <MaxMagicalDamages>k__BackingField: []
-  <FightersStrenghts>k__BackingField: []
+  <FightersStrengths>k__BackingField: []
   SpecialEffects:
   - rid: 7528321466759380992
   references:
@@ -47,9 +47,10 @@ MonoBehaviour:
     - rid: 7528321466759380993
       type: {class: BleedStatus, ns: FrostfallSaga.Fight.Statuses, asm: FrostfallSaga.Fight}
       data:
-        <StatusType>k__BackingField: 1
         <Name>k__BackingField: Bleed
         <Description>k__BackingField: The fighter's health is reduced.
+        <Icon>k__BackingField: {fileID: 0}
+        <StatusType>k__BackingField: 1
         <IsPermanent>k__BackingField: 0
         <Duration>k__BackingField: 3
         <TriggerOnFirstApply>k__BackingField: 0
