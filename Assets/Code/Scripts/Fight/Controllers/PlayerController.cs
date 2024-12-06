@@ -228,21 +228,14 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void MakeFighterMove(FightCell destinationCell)
         {
-            FightCell[] movePath = Array.ConvertAll(
-                CellsPathFinding.GetShorterPath(
-                    _fightManager.FightGrid,
-                    _possessedFighter.cell,
-                    destinationCell
-                ), cell => (FightCell)cell
-            );
-            if (movePath.Length > _possessedFighter.GetMovePoints())
+            if (_currentMovePath.Length > _possessedFighter.GetMovePoints())
             {
                 return;
             }
 
             ResetShorterPathCellsDefaultMaterial();
             _fighterIsActing = true;
-            _possessedFighter.Move(movePath);
+            _possessedFighter.Move(_currentMovePath);
             onFighterActionStarted?.Invoke(_possessedFighter);
         }
 
