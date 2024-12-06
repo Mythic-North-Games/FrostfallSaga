@@ -81,7 +81,11 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
                     CellsPathFinding.GetShorterPath(
                         _fightGrid,
                         _possessedFighter.cell,
-                        fighter.cell
+                        fighter.cell,
+                        includeInaccessibleNeighbors: false,
+                        includeHeightInaccessibleNeighbors: false,
+                        includeOccupiedNeighbors: false,
+                        checkLastCell: false
                     ), cell => (FightCell)cell
                 );
 

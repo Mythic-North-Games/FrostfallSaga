@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FrostfallSaga.Grid.Cells;
 using UnityEngine;
 
@@ -38,9 +39,12 @@ namespace FrostfallSaga.Grid
             Cell cellToGetTheNeighbors,
             bool includeInaccessibleNeighbors = false,
             bool includeHeightInaccessibleNeighbors = false,
-            bool includeOccupiedNeighbors = false
+            bool includeOccupiedNeighbors = false,
+            Cell[] mandatoryCells = null
         )
         {
+            mandatoryCells ??= new Cell[0];
+
             List<Cell> neighbors = new();
             Vector2Int[] directionsToCheck = cellToGetTheNeighbors.Coordinates.y % 2 == 0 ?
                 directionsToCheckIfHeightEven :
@@ -54,6 +58,7 @@ namespace FrostfallSaga.Grid
                 {
                     Cell currentNeighbor = cellsByCoordinates[neighborCoord];
                     if (
+                        mandatoryCells.Contains(currentNeighbor) ||
                         (includeOccupiedNeighbors || currentNeighbor.IsFree()) &&
                         (includeInaccessibleNeighbors || currentNeighbor.IsTerrainAccessible()) &&
                         (
