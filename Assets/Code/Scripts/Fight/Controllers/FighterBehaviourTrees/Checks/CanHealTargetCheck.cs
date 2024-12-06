@@ -89,7 +89,8 @@ namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.FighterBehav
                         _possessedFighter.cell,
                         fighter.cell,
                         includeInaccessibleNeighbors: true,
-                        includeHeightInaccessibleNeighbors: true
+                        includeHeightInaccessibleNeighbors: true,
+                        includeOccupiedNeighbors: true
                     ).Length
                 ).First(),
                 _ => null

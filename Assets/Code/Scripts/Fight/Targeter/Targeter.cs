@@ -81,7 +81,8 @@ namespace FrostfallSaga.Fight.Targeters
                 initiatorCell,
                 originCell,
                 includeInaccessibleNeighbors: true,
-                includeHeightInaccessibleNeighbors: true
+                includeHeightInaccessibleNeighbors: true,
+                includeOccupiedNeighbors: true
             ).Length;
             if (distanceToInitiator > OriginCellRange)
             {

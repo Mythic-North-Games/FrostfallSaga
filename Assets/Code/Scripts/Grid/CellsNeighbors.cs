@@ -38,7 +38,7 @@ namespace FrostfallSaga.Grid
             Cell cellToGetTheNeighbors,
             bool includeInaccessibleNeighbors = false,
             bool includeHeightInaccessibleNeighbors = false,
-            bool includeOccupiedNeighbors = true
+            bool includeOccupiedNeighbors = false
         )
         {
             List<Cell> neighbors = new();

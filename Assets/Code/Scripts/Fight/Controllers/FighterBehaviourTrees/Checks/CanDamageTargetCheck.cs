@@ -94,7 +94,8 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
                         _possessedFighter.cell,
                         fighter.cell,
                         includeInaccessibleNeighbors: true,
-                        includeHeightInaccessibleNeighbors: true
+                        includeHeightInaccessibleNeighbors: true,
+                        includeOccupiedNeighbors: true
                     ).Length
                 ).First(),
                 _ => null,

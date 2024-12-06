@@ -25,7 +25,7 @@ namespace FrostfallSaga.Grid
             Cell endCell,
             bool includeInaccessibleNeighbors = false,
             bool includeHeightInaccessibleNeighbors = false,
-            bool includeOccupiedNeighbors = true
+            bool includeOccupiedNeighbors = false
         )
         {
             PriorityQueue<Cell> frontier = new();
