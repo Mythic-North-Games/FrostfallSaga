@@ -26,6 +26,7 @@ namespace FrostfallSaga.Grid.Cells
 
         [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")] public MaterialHighlightable HighlightController { get; private set; }
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
+        private HexGrid ParentGrid;
 
         private void Awake()
         {
@@ -118,8 +119,7 @@ namespace FrostfallSaga.Grid.Cells
 
         public Vector3 GetCenter()
         {
-            HexGrid _hexgrid = GetComponentInParent<HexGrid>();
-            Vector3 center = HexMetrics.Center(_hexgrid.HexSize, Coordinates.x, Coordinates.y, _hexgrid.HexOrientation);
+            Vector3 center = HexMetrics.Center(ParentGrid.HexSize, Coordinates.x, Coordinates.y, ParentGrid.HexOrientation);
             center.y = GetYPosition();
             return center;
         }
