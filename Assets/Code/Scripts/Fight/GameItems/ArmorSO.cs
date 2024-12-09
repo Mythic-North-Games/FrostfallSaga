@@ -8,6 +8,6 @@ namespace FrostfallSaga.Fight.GameItems
     {
         [field: SerializeField] public int PhysicalResistance { get; private set; }
         [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MagicalResistances { get; private set; }
-        [field: SerializeField] public SElementToValue<EntityID, float>[] FightersStrengths { get; private set; }
+        [field: SerializeField] public SElementToValue<EEntityID, float>[] FightersStrengths { get; private set; }
     }
 }
