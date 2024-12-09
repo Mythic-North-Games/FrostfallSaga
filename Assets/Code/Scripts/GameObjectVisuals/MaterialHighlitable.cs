@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FrostfallSaga.Core
+namespace FrostfallSaga.GameObjectVisuals
 {
     /// <summary>
     /// Add the possibility to highlight the visual aspects of the element through materials.

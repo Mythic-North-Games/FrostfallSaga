@@ -4,7 +4,8 @@
     "references": [
         "FrostfallSaga.Validator",
         "FrostfallSaga.Core",
-        "FrostfallSaga.Procedural"
+        "FrostfallSaga.Procedural",
+        "FrostfallSaga.GameObjectVisuals"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
