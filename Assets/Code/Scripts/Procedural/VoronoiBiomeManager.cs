@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using FrostfallSaga.Core;
 using UnityEngine;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Procedural
 {

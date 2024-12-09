@@ -2,7 +2,7 @@
     "name": "FrostfallSaga.Procedural",
     "rootNamespace": "FrostfallSaga.Procedural",
     "references": [
-        "GUID:0271b88b97b7c234f90b4be2ef460370"
+        "FrostfallSaga.Utils"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

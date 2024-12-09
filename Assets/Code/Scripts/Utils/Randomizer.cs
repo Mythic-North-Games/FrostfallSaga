@@ -3,7 +3,7 @@ using UnityEngine;
 using RandomSys = System.Random;
 using RandomUnity = UnityEngine.Random;
 
-namespace FrostfallSaga.Core
+namespace FrostfallSaga.Utils
 {
     public static class Randomizer
     {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Cinemachine;
-using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Kingdom
 {

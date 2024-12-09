@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FrostfallSaga.Grid
+namespace FrostfallSaga.Utils
 {
     public class PriorityQueue<T>
     {

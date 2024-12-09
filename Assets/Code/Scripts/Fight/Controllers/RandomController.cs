@@ -3,12 +3,12 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Fight.Controllers
 {

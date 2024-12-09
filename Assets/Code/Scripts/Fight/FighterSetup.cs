@@ -14,7 +14,7 @@ namespace FrostfallSaga.Fight
         public GameObject fighterPrefab;
         public string name;
         public string sessionId;
-        public EntityID entityID;
+        public EEntityID entityID;
         public Sprite icon;
         public Sprite diamondIcon;
         public FighterStats initialStats;
@@ -33,7 +33,7 @@ namespace FrostfallSaga.Fight
             GameObject fighterPrefab,
             string name,
             string sessionId,
-            EntityID entityID,
+            EEntityID entityID,
             Sprite icon,
             Sprite diamondIcon,
             FighterStats initialStats,

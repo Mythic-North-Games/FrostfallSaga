@@ -1,6 +1,6 @@
 namespace FrostfallSaga.Core
 {
-    public enum EntityID
+    public enum EEntityID
     {
         HERO,
         COMPANION1,

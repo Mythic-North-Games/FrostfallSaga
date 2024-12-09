@@ -2,12 +2,13 @@
     "name": "FrostfallSaga.Fight",
     "rootNamespace": "FrostfallSaga.Fight",
     "references": [
+        "Cinemachine",
         "FrostfallSaga.Core",
         "FrostfallSaga.Grid",
         "FrostfallSaga.EntitiesVisual",
         "FrostfallSaga.BehaviourTree",
-        "Cinemachine",
-        "FrostfallSaga.GameObjectVisuals"
+        "FrostfallSaga.GameObjectVisuals",
+        "FrostfallSaga.Utils"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
