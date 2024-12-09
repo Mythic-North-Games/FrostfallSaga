@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace FrostfallSaga.Core
 {
+    /// <summary>
+    /// Instantiates game objects in the world under a given default parent.
+    /// </summary>
     public class WorldGameObjectInstantiator : MonoBehaviour
     {
         private static string DEFAULT_WORLD_GO_PARENT_NAME = "WORLD";
@@ -24,9 +27,14 @@ namespace FrostfallSaga.Core
             }
         }
 
-        public GameObject Instantiate(GameObject prefab)
+        /// <summary>
+        /// Instantiates a game object in the world under the default parent.
+        /// </summary>
+        /// <param name="gameObject">The game object to instantiate.</param>
+        /// <returns>The instantiated game object.</returns>
+        public GameObject Instantiate(GameObject gameObject)
         {
-            return Instantiate(prefab, DefaultWorldGOParent.transform);
+            return Instantiate(gameObject, DefaultWorldGOParent.transform);
         }
     }
 }
