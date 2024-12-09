@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Kingdom
 {

@@ -15,6 +15,7 @@ using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Fight.GameItems;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Fight.Fighters
 {

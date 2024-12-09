@@ -1,5 +1,6 @@
 using UnityEngine;
 using FrostfallSaga.Core;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Fight.GameItems
 {

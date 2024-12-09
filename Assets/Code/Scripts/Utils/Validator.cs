@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-namespace FrostfallSaga.Validator
+namespace FrostfallSaga.Utils
 {
     public static class Validator
     {

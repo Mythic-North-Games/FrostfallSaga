@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FrostfallSaga.Core
+namespace FrostfallSaga.Utils
 {
     public class ListOfTypes<T> : List<Type>
     {

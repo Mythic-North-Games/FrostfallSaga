@@ -5,6 +5,7 @@ using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Fight.GameItems
 {
