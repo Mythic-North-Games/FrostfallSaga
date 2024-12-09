@@ -18,7 +18,7 @@ namespace FrostfallSaga.Fight.GameItems
         [field: SerializeField] public int MaxPhysicalDamages { get; private set; }
         [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MinMagicalDamages { get; private set; }
         [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MaxMagicalDamages { get; private set; }
-        [field: SerializeField] public SElementToValue<EntityID, float>[] FightersStrengths { get; private set; } = {};
+        [field: SerializeField] public SElementToValue<EEntityID, float>[] FightersStrengths { get; private set; } = {};
         [SerializeReference] public List<AEffect> SpecialEffects;
 
         public WeaponSO()
@@ -26,7 +26,7 @@ namespace FrostfallSaga.Fight.GameItems
             SlotTag = EItemSlotTag.WEAPON;
         }
 
-        public AEffect[] GetWeaponEffects(EntityID targetEntityID, bool atMax = false)
+        public AEffect[] GetWeaponEffects(EEntityID targetEntityID, bool atMax = false)
         {
             List<AEffect> effects = new()
             {
@@ -46,13 +46,13 @@ namespace FrostfallSaga.Fight.GameItems
 
         #region Physical damages computation
 
-        public PhysicalDamageEffect GetPhysicalDamagesEffect(EntityID targetEntityID, bool atMax = false)
+        public PhysicalDamageEffect GetPhysicalDamagesEffect(EEntityID targetEntityID, bool atMax = false)
         {
             int finalDamages = GetComputedPhysicalDamages(targetEntityID, atMax);
             return new PhysicalDamageEffect(finalDamages);
         }
 
-        private int GetComputedPhysicalDamages(EntityID targetEntityID, bool atMax = false)
+        private int GetComputedPhysicalDamages(EEntityID targetEntityID, bool atMax = false)
         {
             int finalDamages = GetRandomPhysicalDamagesInRange(atMax);
             if (FightersStrengths == null || FightersStrengths.Length == 0)
@@ -60,7 +60,7 @@ namespace FrostfallSaga.Fight.GameItems
                 return finalDamages;
             }
 
-            Dictionary<EntityID, float> fightersStrength = SElementToValue<EntityID, float>.GetDictionaryFromArray(
+            Dictionary<EEntityID, float> fightersStrength = SElementToValue<EEntityID, float>.GetDictionaryFromArray(
                 FightersStrengths
             );
 
@@ -89,7 +89,7 @@ namespace FrostfallSaga.Fight.GameItems
 
         #region Magical damages computation
 
-        public MagicalDamageEffect[] GetMagicalDamagesEffect(EntityID targetEntityID, bool atMax = false)
+        public MagicalDamageEffect[] GetMagicalDamagesEffect(EEntityID targetEntityID, bool atMax = false)
         {
             Dictionary<EMagicalElement, int> finalDamages = GetComputedMagicalDamages(targetEntityID, atMax);
             List<MagicalDamageEffect> magicalDamageEffects = new();
@@ -100,10 +100,10 @@ namespace FrostfallSaga.Fight.GameItems
             return magicalDamageEffects.ToArray();
         }
 
-        private Dictionary<EMagicalElement, int> GetComputedMagicalDamages(EntityID targetEntityID, bool atMax = false)
+        private Dictionary<EMagicalElement, int> GetComputedMagicalDamages(EEntityID targetEntityID, bool atMax = false)
         {
             Dictionary<EMagicalElement, int> finalDamages = GetRandomMagicalDamagesInRange(atMax);
-            Dictionary<EntityID, float> fightersStrength = SElementToValue<EntityID, float>.GetDictionaryFromArray(
+            Dictionary<EEntityID, float> fightersStrength = SElementToValue<EEntityID, float>.GetDictionaryFromArray(
                 FightersStrengths
             );
 
