@@ -2,11 +2,11 @@ using UnityEditor;
 using UnityEngine;
 using FrostfallSaga.Fight.FightCells;
 
-namespace FrostfallSaga.FFSEditor.Grid
+namespace FrostfallSaga.FFSEditor.Fight
 {
     [CustomEditor(typeof(FightCell))]
     [CanEditMultipleObjects]
-    public class CellEditor : Editor
+    public class FightCellEditor : Editor
     {
         public override void OnInspectorGUI()
         {
