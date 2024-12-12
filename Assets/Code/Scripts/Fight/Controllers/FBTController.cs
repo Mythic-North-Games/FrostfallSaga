@@ -93,9 +93,9 @@ namespace FrostfallSaga.Fight.Controllers
             _fbt.Execute();
             if (_fbt.HasTurnEnded())
             {
+                enabled = false;
                 onFighterActionEnded?.Invoke(_possessedFighter);
                 onFighterTurnEnded?.Invoke(_possessedFighter);
-                enabled = false;
             }
             else
             {

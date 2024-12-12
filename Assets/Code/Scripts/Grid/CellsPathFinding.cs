@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using FrostfallSaga.Grid.Cells;
 using UnityEngine;
+using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Grid
 {
@@ -18,6 +19,7 @@ namespace FrostfallSaga.Grid
         /// <param name="includeInaccessibleNeighbors">If the inaccessible cells should be included.</param>
         /// <param name="includeHeightInaccessibleNeighbors">If only the height inaccessible cells should be included.</param>
         /// <param name="includeOccupiedNeighbors">If the occupied cells should be included.</param>
+        /// <param name="checkLastCell">If the endCell should be included even if not free.</param>
         /// <returns>An ordered array of Cell representing the shorter path from the startCell to the endCell.</returns>
         public static Cell[] GetShorterPath(
             HexGrid hexGrid,
@@ -25,9 +27,12 @@ namespace FrostfallSaga.Grid
             Cell endCell,
             bool includeInaccessibleNeighbors = false,
             bool includeHeightInaccessibleNeighbors = false,
-            bool includeOccupiedNeighbors = true
+            bool includeOccupiedNeighbors = false,
+            bool checkLastCell = true
         )
         {
+            Cell[] mandatoryCells = checkLastCell ? new Cell[0] : new Cell[] { endCell };
+
             PriorityQueue<Cell> frontier = new();
             frontier.Enqueue(startCell, 0);
 
@@ -51,7 +56,8 @@ namespace FrostfallSaga.Grid
                         currentCell,
                         includeInaccessibleNeighbors,
                         includeHeightInaccessibleNeighbors,
-                        includeOccupiedNeighbors
+                        includeOccupiedNeighbors,
+                        mandatoryCells
                     )
                 )
                 {

@@ -1,9 +1,9 @@
 using System.Linq;
 using System.Collections.Generic;
 using FrostfallSaga.BehaviourTree;
-using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 {
@@ -94,7 +94,8 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
                         _possessedFighter.cell,
                         fighter.cell,
                         includeInaccessibleNeighbors: true,
-                        includeHeightInaccessibleNeighbors: true
+                        includeHeightInaccessibleNeighbors: true,
+                        includeOccupiedNeighbors: true
                     ).Length
                 ).First(),
                 _ => null,
