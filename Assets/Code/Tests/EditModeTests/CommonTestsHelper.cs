@@ -1,8 +1,8 @@
 using UnityEngine;
-using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.GameObjectVisuals;
 
 namespace FrostfallSaga.EditModeTests
 {
