@@ -1,6 +1,6 @@
 using System;
-using FrostfallSaga.Core;
 using UnityEngine;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Procedural
 {

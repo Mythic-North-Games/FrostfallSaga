@@ -15,6 +15,7 @@ using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Fight.GameItems;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Fight.Fighters
 {
@@ -38,7 +39,7 @@ namespace FrostfallSaga.Fight.Fighters
         //////////////////////
         // Fight properties //
         //////////////////////
-        [field: SerializeField, Header("Fight properties")] public EntityID EntityID { get; private set; }
+        [field: SerializeField, Header("Fight properties")] public EEntityID EntityID { get; private set; }
         [SerializeField] private FighterStats _stats = new();
         [field: SerializeField] private FighterStats _initialStats = new();
         [SerializeField] private int _godFavorsPoints;
