@@ -2,11 +2,12 @@
     "name": "FrostfallSaga.KingdomToFight",
     "rootNamespace": "FrostfallSaga.KingdomToFight",
     "references": [
+        "Cinemachine",
+        "FrostfallSaga.Core",
         "FrostfallSaga.Kingdom",
         "FrostfallSaga.Fight",
-        "FrostfallSaga.Core",
-        "Cinemachine",
-        "FrostfallSaga.GameItems"
+        "FrostfallSaga.GameItems",
+        "FrostfallSaga.Utils"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

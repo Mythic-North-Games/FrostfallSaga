@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Fight.UI
 {

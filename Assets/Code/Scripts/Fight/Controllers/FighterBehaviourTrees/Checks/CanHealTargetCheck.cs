@@ -1,11 +1,11 @@
-﻿using FrostfallSaga.BehaviourTree;
-using FrostfallSaga.Core;
+﻿using System.Linq;
+using System.Collections.Generic;
+using FrostfallSaga.BehaviourTree;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
-using System.Collections.Generic;
-using System.Linq;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.FighterBehaviourTrees.Checks
 {
