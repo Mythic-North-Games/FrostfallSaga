@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
-using FrostfallSaga.Core;
 using FrostfallSaga.Fight;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
+using FrostfallSaga.Utils;
 
 
 namespace FrostfallSaga.KingdomToFight
