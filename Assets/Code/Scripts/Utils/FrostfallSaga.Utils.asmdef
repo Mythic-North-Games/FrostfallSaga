@@ -1,6 +1,6 @@
 {
-    "name": "FrostfallSaga.Validator",
-    "rootNamespace": "FrostfallSaga.Validator",
+    "name": "FrostfallSaga.Utils",
+    "rootNamespace": "FrostfallSaga.Utils",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

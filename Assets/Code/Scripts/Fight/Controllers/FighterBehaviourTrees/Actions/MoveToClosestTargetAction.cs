@@ -35,7 +35,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
                 return NodeState.FAILURE;
             }
 
-            FightCell[] pathToClosestFighter = GetShortPathToClosestFighter(fightersToMoveTowards);
+            FightCell[] pathToClosestFighter = GetShorterPathToClosestFighter(fightersToMoveTowards);
 
             // If we are already in melee with the closest fighter, don't move.
             if (pathToClosestFighter.Length == 0)
@@ -72,16 +72,20 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             return targetsToMoveTo;
         }
 
-        private FightCell[] GetShortPathToClosestFighter(List<Fighter> fightersToMoveTowards)
+        private FightCell[] GetShorterPathToClosestFighter(List<Fighter> fightersToMoveTowards)
         {
             FightCell[] shortestPath = { };
             foreach (Fighter fighter in fightersToMoveTowards)
             {
                 FightCell[] path = Array.ConvertAll(
-                        CellsPathFinding.GetShorterPath(
+                    CellsPathFinding.GetShorterPath(
                         _fightGrid,
                         _possessedFighter.cell,
-                        fighter.cell
+                        fighter.cell,
+                        includeInaccessibleNeighbors: false,
+                        includeHeightInaccessibleNeighbors: false,
+                        includeOccupiedNeighbors: false,
+                        checkLastCell: false
                     ), cell => (FightCell)cell
                 );
 

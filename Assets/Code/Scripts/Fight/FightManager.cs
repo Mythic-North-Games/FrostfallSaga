@@ -218,30 +218,6 @@ namespace FrostfallSaga.Fight
 
             _fightersGenerator.onFightersGenerated += OnFightersGenerated;
         }
-
-        private void OnDisable()
-        {
-            if (_fightersGenerator != null)
-            {
-                _fightersGenerator.onFightersGenerated -= OnFightersGenerated;
-            }
-
-            if (_playerController != null)
-            {
-                _playerController.onFighterTurnEnded -= OnFighterTurnEnded;
-                _playerController.onFighterActionEnded += OnFighterActionEnded;
-            }
-            if (_fbtController != null)
-            {
-                _fbtController.onFighterTurnEnded -= OnFighterTurnEnded;
-                _fbtController.onFighterActionEnded -= OnFighterActionEnded;
-            }
-            if (_randomController != null)
-            {
-                _randomController.onFighterTurnEnded -= OnFighterTurnEnded;
-                _randomController.onFighterActionEnded -= OnFighterActionEnded;
-            }
-        }
         #endregion
 
         #region Private helper methods

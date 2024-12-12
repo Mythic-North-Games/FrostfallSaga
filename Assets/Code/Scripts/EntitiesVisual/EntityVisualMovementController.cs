@@ -1,7 +1,7 @@
 using System;
+using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
-using UnityEngine;
 
 namespace FrostfallSaga.EntitiesVisual
 {
@@ -33,11 +33,14 @@ namespace FrostfallSaga.EntitiesVisual
 
         public void Move(Cell currentCell, Cell newTargetCell, bool isLastMove)
         {
+            Vector3 direction = (newTargetCell.GetCenter() - _parentToMove.transform.position).normalized;
+            _targetRotation = Quaternion.LookRotation(direction);
+            _isRotating = true;
+
             _targetCell = newTargetCell;
             _targetCellPosition = newTargetCell.GetCenter();
-
-            RotateTowardsCell(newTargetCell);
             _isMoving = true;
+
             _isLastMove = isLastMove;
 
             if (CellsNeighbors.GetHeightDifference(currentCell, newTargetCell) == 0)
@@ -124,12 +127,12 @@ namespace FrostfallSaga.EntitiesVisual
 
         private bool HasReachedTargetRotation()
         {
-            return _isRotating && _parentToMove.transform.rotation == _targetRotation;
+            return Quaternion.Angle(_parentToMove.transform.rotation, _targetRotation) < 0.1f;
         }
 
         private bool HasReachedTargetLocation()
         {
-            return _isMoving && _parentToMove.transform.position == _targetCellPosition;
+            return _parentToMove.transform.position == _targetCellPosition;
         }
 
 #if UNITY_EDITOR

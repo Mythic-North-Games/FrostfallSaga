@@ -1,8 +1,7 @@
-using FrostfallSaga.Core;
+using UnityEngine;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Procedural;
-using FrostfallSaga.Validator;
-using UnityEngine;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Grid
 {
@@ -40,7 +39,7 @@ namespace FrostfallSaga.Grid
         /// </summary>
         public void Initialize()
         {
-            Validator.Validator.ValidateRequiredFields(this);
+            Validator.ValidateRequiredFields(this);
 
             _perlinTerrainManager = new PerlinTerrainManager(NoiseScale, Seed);
             _voronoiBiomeManager = new VoronoiBiomeManager(HexGrid.Width, HexGrid.Height, AvailableBiomes.Length, Seed);

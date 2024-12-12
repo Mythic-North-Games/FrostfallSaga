@@ -2,10 +2,11 @@
     "name": "FrostfallSaga.Kingdom",
     "rootNamespace": "FrostfallSaga.Kingdom",
     "references": [
+        "Cinemachine",
         "FrostfallSaga.Core",
         "FrostfallSaga.Grid",
         "FrostfallSaga.EntitiesVisual",
-        "Cinemachine"
+        "FrostfallSaga.Utils"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
