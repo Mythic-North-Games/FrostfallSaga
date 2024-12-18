@@ -7,6 +7,22 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
     public class FighterMagicalWithstandTests
     {
+        private Fighter fighter;
+
+        [SetUp]
+        public void Setup()
+        {
+            fighter = FightTestsHelper.CreateFighter();
+            fighter.SetStatsForTests();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            UnityEngine.Object.DestroyImmediate(fighter.gameObject);
+            fighter = null;
+        }
+
         [Test]
         public void MagicalWithstand_PositiveAmountAndResistanceToElement_Test()
         {
@@ -17,8 +33,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int fighterMagicalResistance = 5;
             int expectedFighterHealth = initialFighterHealth - (damageAmount - fighterMagicalResistance);
 
-            Fighter fighter = FightTestsHelper.CreateFighter();
-            fighter.SetStatsForTests();
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
 
@@ -39,8 +53,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int fighterMagicalResistance = 20;
             int expectedFighterHealth = initialFighterHealth;
 
-            Fighter fighter = FightTestsHelper.CreateFighter();
-            fighter.SetStatsForTests();
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
 
@@ -61,8 +73,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int fighterMagicalResistance = 5;
             int expectedFighterHealth = initialFighterHealth;
 
-            Fighter fighter = FightTestsHelper.CreateFighter();
-            fighter.SetStatsForTests();
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
 
@@ -83,8 +93,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int fighterMagicalResistance = 5;
             int expectedFighterHealth = initialFighterHealth;
 
-            Fighter fighter = FightTestsHelper.CreateFighter();
-            fighter.SetStatsForTests();
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
 
@@ -105,8 +113,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int fighterMagicalResistance = 20;
             int expectedFighterHealth = 0;
 
-            Fighter fighter = FightTestsHelper.CreateFighter();
-            fighter.SetStatsForTests();
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
 
@@ -127,8 +133,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int fighterMagicalResistance = 20;
             int expectedFighterHealth = initialFighterHealth - damageAmount;
 
-            Fighter fighter = FightTestsHelper.CreateFighter();
-            fighter.SetStatsForTests();
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances[EMagicalElement.FIRE] = 0;
             fighter.GetStatsForTests().magicalResistances[EMagicalElement.ICE] = fighterMagicalResistance;
@@ -149,8 +153,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int initialFighterHealth = 50;
             int expectedFighterHealth = initialFighterHealth - damageAmount;
 
-            Fighter fighter = FightTestsHelper.CreateFighter();
-            fighter.SetStatsForTests();
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances.Remove(EMagicalElement.FIRE);
 

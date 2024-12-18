@@ -31,6 +31,18 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             fireDamages = ((MagicalDamageEffect)attacker.ActiveAbilities[0].Effects[0]).MagicalDamageAmount;
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            UnityEngine.Object.DestroyImmediate(grid.gameObject);
+            grid = null;
+
+            UnityEngine.Object.DestroyImmediate(attacker.gameObject);
+            attacker = null;
+
+            fireDamages = 0;
+        }
+
         [Test]
         public void UseActiveAbility_OneReceiver_Test()
         {
