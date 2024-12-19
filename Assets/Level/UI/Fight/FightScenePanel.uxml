@@ -1,87 +1,51 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="WhiteDiamondContainer" src="project://database/Assets/Level/UI/Components/WhiteDiamondContainer.uxml?fileID=9197481963319205126&amp;guid=0cb67aec6c6f8a96a9da9d0aba980a43&amp;type=3#WhiteDiamondContainer" />
+    <ui:Template name="StatusesBar" src="project://database/Assets/Level/UI/Components/StatusesBar.uxml?fileID=9197481963319205126&amp;guid=495c80ca846d4147698ec2e485a822e6&amp;type=3#StatusesBar" />
+    <ui:Template name="ProgressBars" src="project://database/Assets/Level/UI/Components/ProgressBars.uxml?fileID=9197481963319205126&amp;guid=73cc8529925e73d4a9097dd4e72cd77f&amp;type=3#ProgressBars" />
     <Style src="project://database/Assets/Level/UI/Fight/FightScenePanel.uss?fileID=7433441132597879392&amp;guid=e5eb9d2bf6d4bff42afd0f1a4c723e76&amp;type=3#FightScenePanel" />
-    <ui:VisualElement name="RootActionPanel" style="flex-grow: 1; position: absolute; width: 100%; height: 18%; justify-content: space-between; top: auto; -unity-background-image-tint-color: rgba(213, 0, 0, 0.31); background-color: rgba(213, 0, 0, 0); flex-direction: row; align-self: auto; align-items: auto; bottom: -2%; padding-bottom: 1.5%;">
-        <ui:VisualElement name="TeamInfoPanel" style="flex-grow: 1; width: 40%; height: 200%; bottom: 0; background-color: rgba(0, 0, 255, 0); flex-direction: row; display: flex; visibility: visible; margin-bottom: 1%;">
-            <ui:VisualElement name="VisualDownPanelLeft" style="flex-grow: 1; background-image: none; width: 40%; height: 50%; align-self: flex-end;" />
-            <ui:VisualElement name="TeamRotationSystem" style="flex-grow: 1; position: absolute; width: 75%; height: 100%; background-color: rgba(36, 228, 38, 0);">
-                <ui:VisualElement name="TeamMatePanelMainCharacter" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; bottom: 0; left: 14.5%; width: 130%; height: 70%; align-items: stretch; align-self: auto; flex-direction: row;">
-                    <ui:VisualElement name="TeamMatePanel1Background" style="flex-grow: 1; left: auto; width: 31%; background-image: url(&quot;project://database/Assets/Art/UI/CharacterParts/TeamFrame.png?fileID=2800000&amp;guid=25ff3775975c72b45bc91c2eb9fa1477&amp;type=3#TeamFrame&quot;); max-width: 31%; height: 100%; max-height: 100%;">
-                        <ui:VisualElement name="TeamMatePanel1Frame" style="flex-grow: 1; background-image: none;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="TeamMateStatPanel1" style="flex-grow: 1; bottom: auto; height: 65%; max-height: 65%; top: 35%; width: 100%; max-width: 50%;">
-                        <ui:Label tabindex="-1" text="NameFighter" parse-escape-sequences="true" display-tooltip-when-elided="true" name="FighterNameLabel" enable-rich-text="true" style="top: 0; color: rgb(255, 250, 250); -unity-font-style: bold; -unity-font: url(&quot;project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&amp;guid=450220f72e21c774d8a3289a8e0e8843&amp;type=3#MorrisRomanBlack&quot;); -unity-text-align: middle-left; -unity-font-definition: initial; margin-top: 2%; margin-bottom: 0; height: 19%; font-size: 30%; margin-right: 0; margin-left: 2%; padding-right: 0; padding-left: 0; padding-top: 2%; padding-bottom: 2%; -unity-text-outline-width: initial; text-shadow: 0 0 0 rgba(0, 0, 0, 0); letter-spacing: initial; word-spacing: initial; -unity-paragraph-spacing: initial; text-overflow: clip; white-space: nowrap; max-height: none; max-width: none; width: 100%; -unity-slice-scale: initial; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
-                        <ui:VisualElement name="Statuses_Panel" style="flex-grow: 1; flex-direction: row;">
-                            <ui:VisualElement name="StatusContainer1" style="flex-grow: 1; width: 11%; max-width: 11%; height: 100%; max-height: 100%;" />
-                            <ui:VisualElement name="StatusContainer2" style="flex-grow: 1; width: 11%; max-width: 11%; height: 100%; max-height: 100%;" />
-                            <ui:VisualElement name="StatusContainer3" style="flex-grow: 1; width: 11%; max-width: 11%; height: 100%; max-height: 100%;" />
-                            <ui:VisualElement name="StatusContainer4" style="flex-grow: 1; width: 11%; max-width: 11%; height: 100%; max-height: 100%;" />
-                            <ui:VisualElement name="StatusContainer5" style="flex-grow: 1; width: 11%; max-width: 11%; height: 100%; max-height: 100%;" />
-                            <ui:VisualElement name="StatusContainer6" style="flex-grow: 1; width: 11%; max-width: 11%; height: 100%; max-height: 100%;" />
-                            <ui:VisualElement name="StatusContainer7" style="flex-grow: 1; width: 11%; max-width: 11%; height: 100%; max-height: 100%;" />
-                            <ui:VisualElement name="StatusContainer8" style="flex-grow: 1; width: 11%; max-width: 11%; height: 100%; max-height: 100%;" />
-                            <ui:VisualElement name="StatusContainer9" style="flex-grow: 1; width: 11%; max-width: 11%; height: 100%; max-height: 100%;" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="ProgressLifeBar_Container" class="ProgressBar_Container" style="top: auto; background-color: rgba(101, 117, 151, 0);">
-                            <ui:VisualElement name="ProgressLifeBar_Background" class="ProgressBar_Background" style="background-color: rgba(132, 41, 36, 0.9);">
-                                <ui:VisualElement name="ProgressLifeBar_Progress" class="ProgressBar_Progress" style="background-color: rgb(229, 70, 76);" />
-                                <ui:VisualElement name="ProgressLifeBar_Icon" class="ProgressBar_Icon" style="background-image: url(&quot;project://database/Assets/Art/UI/icon_global/health.png?fileID=2800000&amp;guid=aef5c149668f63047b20fcb07fdfbe15&amp;type=3#health&quot;); width: 10%;" />
-                                <ui:Label tabindex="-1" text="1899/3000" parse-escape-sequences="false" display-tooltip-when-elided="true" name="ProgressLifeBar_Label" class="ProgressBar_Text" style="left: 12.5%; top: -5%;" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                        <ui:VisualElement name="ProgressActionMoveBar_PanelContainer" style="flex-grow: 1; flex-direction: row; bottom: auto; height: 27%; max-height: 27%; top: auto;">
-                            <ui:VisualElement name="ProgressActionBar_Container" class="ProgressBar_Container" style="flex-grow: 1; max-height: 100%; min-height: 27%; height: 100%; width: 50%;">
-                                <ui:VisualElement name="ProgressActionBar_Background" class="ProgressBar_Background" style="flex-grow: 1; background-color: rgba(60, 139, 93, 0.9);">
-                                    <ui:VisualElement name="ProgressActionBar_Progress" class="ProgressBar_Progress" style="background-color: rgb(48, 188, 34); -unity-background-image-tint-color: rgb(56, 56, 56);" />
-                                    <ui:VisualElement name="ProgressActionBar_Icon" class="ProgressBar_Icon" style="background-image: url(&quot;project://database/Assets/Art/UI/icon_global/flash.png?fileID=2800000&amp;guid=f073f9ad2cf09c0499395af71535be9f&amp;type=3#flash&quot;);" />
-                                    <ui:Label text="7/10" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ProgressActionBar_Label" enable-rich-text="true" class="ProgressBar_Text" />
-                                </ui:VisualElement>
-                            </ui:VisualElement>
-                            <ui:VisualElement name="ProgressMoveBar_Container" class="ProgressBar_Container" style="flex-grow: 1; max-height: 100%; min-height: auto; height: 100%; width: 50%; max-width: 50%;">
-                                <ui:VisualElement name="ProgressMoveBar_Background" class="ProgressBar_Background" style="flex-grow: 1; background-color: rgba(95, 149, 195, 0.9);">
-                                    <ui:VisualElement name="ProgressMoveBar_Progress" class="ProgressBar_Progress" style="background-color: rgb(91, 183, 250); -unity-background-image-tint-color: rgb(56, 56, 56); white-space: normal; text-overflow: clip;" />
-                                    <ui:VisualElement name="ProgressMoveBar_Icon" class="ProgressBar_Icon" style="background-image: url(&quot;project://database/Assets/Art/UI/icon_global/feets.png?fileID=2800000&amp;guid=d36f9fe6b5ebc9e4ab529b9c39ddbe59&amp;type=3#feets&quot;);" />
-                                    <ui:Label text="6/9" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ProgressMoveBar_Label" enable-rich-text="true" class="ProgressBar_Text" />
-                                </ui:VisualElement>
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="TeamMatePanelOtherCharacter" style="flex-grow: 1; left: 8.5%; top: 15%; position: absolute; width: 52%; height: 36%; max-width: 53%; max-height: 36%; flex-direction: row; justify-content: flex-start; align-self: auto; flex-wrap: nowrap;">
-                    <ui:VisualElement name="TeamMatePanel2Background" class="TeamMatePanelBackgroundStyle" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/CharacterParts/TeamFrame.png?fileID=2800000&amp;guid=25ff3775975c72b45bc91c2eb9fa1477&amp;type=3#TeamFrame&quot;); -unity-background-scale-mode: stretch-to-fill; -unity-background-image-tint-color: rgb(255, 255, 255); display: flex; visibility: visible; overflow: visible; position: absolute; left: auto; top: auto; width: 38%; height: 100%; max-width: 38%; max-height: 100%;">
-                        <ui:VisualElement name="TeamMatePanel2Frame" class="TeamMatePanelFrameStyle" style="top: auto; left: auto; width: 100%; height: 100%; position: relative; background-image: none;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="TeamMatePanel3Background" class="TeamMatePanelBackgroundStyle" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/CharacterParts/TeamFrame.png?fileID=2800000&amp;guid=25ff3775975c72b45bc91c2eb9fa1477&amp;type=3#TeamFrame&quot;); -unity-background-scale-mode: stretch-to-fill; -unity-background-image-tint-color: rgb(255, 255, 255); display: flex; visibility: visible; overflow: visible; position: relative; left: 62%; top: auto; width: 38%; height: 100%; right: auto; max-width: 38%; max-height: 100%;">
-                        <ui:VisualElement name="TeamMatePanel3Frame" class="TeamMatePanelFrameStyle" style="flex-grow: 1; position: absolute; top: auto; height: 100%; left: auto; width: 100%; background-color: rgba(200, 0, 255, 0); background-image: none;" />
-                    </ui:VisualElement>
+    <Style src="project://database/Assets/Level/UI/globalStyles.uss?fileID=7433441132597879392&amp;guid=1849fa32056df9a58b3c371fd6e7ddf2&amp;type=3#globalStyles" />
+    <ui:VisualElement name="RootActionPanel" style="flex-grow: 1; position: absolute; width: 100%; height: 18%; justify-content: space-between; top: auto; flex-direction: row; align-self: auto; align-items: auto; bottom: -2%; padding-bottom: 1.5%;">
+        <ui:VisualElement name="TeamInfoPanel" style="margin-bottom: 1%; width: 40%; height: 200%; justify-content: flex-end;">
+            <ui:VisualElement name="TeamMatePanelOtherCharacter" style="justify-content: space-between; align-self: auto; flex-direction: row; width: 43%; height: 40%; position: absolute; top: 13%; left: 2.5%;">
+                <ui:Instance template="WhiteDiamondContainer" name="TeamMateIconContainer1" class="teamMateContainer" />
+                <ui:Instance template="WhiteDiamondContainer" name="TeamMateIconContainer2" class="teamMateContainer" />
+            </ui:VisualElement>
+            <ui:VisualElement name="TeamMatePanelMainCharacter" style="flex-direction: row; margin-left: 10%; align-items: flex-end; height: 65%;">
+                <ui:Instance template="WhiteDiamondContainer" name="PlayingCharacterIconContainer" style="width: 30%; height: 100%;" />
+                <ui:VisualElement name="PlayingFighterDetails" style="padding-left: 3%; width: 60%;">
+                    <ui:Instance template="StatusesBar" name="StatusesBar" style="height: 15%;" />
+                    <ui:Label name="FighterNameLabel" text="Fighter&apos;s name" class="defaultText" style="-unity-font-style: bold; color: rgb(255, 255, 255); font-size: 30px;" />
+                    <ui:Instance template="ProgressBars" name="ProgressBars" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="ActionPanel" style="flex-grow: 1; width: 50%; height: 100%; background-color: rgba(0, 0, 255, 0); align-items: stretch; flex-direction: column; background-image: none; padding-right: 10%;">
-            <ui:VisualElement name="AbilitiesPanel" style="flex-direction: row; height: 50%; margin-top: 8%; width: 80%;">
-                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="true" name="AbilityButton0" class="AbilitiesBackgroundStyle" />
-                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="AbilityButton1" class="AbilitiesBackgroundStyle" />
-                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="AbilityButton2" class="AbilitiesBackgroundStyle" />
-                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="AbilityButton3" class="AbilitiesBackgroundStyle" />
-                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="AbilityButton4" class="AbilitiesBackgroundStyle" />
-                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="AbilityButton5" class="AbilitiesBackgroundStyle" />
+        <ui:VisualElement name="ActionPanel" style="align-items: flex-start; height: 50%; width: 50%; padding-right: 10%; flex-direction: row; margin-bottom: 1%;">
+            <ui:VisualElement name="DirectAttackButton" class="directAttackButton" style="flex-grow: 1;" />
+            <ui:VisualElement name="AbilitiesContainer" class="abilitiesContainer" style="height: 100%; width: 90%;">
+                <ui:Button name="AbilityButton0" class="abilitiesButton" />
+                <ui:Button name="AbilityButton1" class="abilitiesButton" />
+                <ui:Button name="AbilityButton2" class="abilitiesButton" />
+                <ui:Button name="AbilityButton3" class="abilitiesButton" />
+                <ui:Button name="AbilityButton4" class="abilitiesButton" />
+                <ui:Button name="AbilityButton5" class="abilitiesButton" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="EndTurnButton" class="SettingBouton" style="background-color: rgba(207, 34, 34, 0); overflow: hidden; width: 12%; height: 50%; align-items: stretch; align-self: auto; max-width: 12%; max-height: 50%; flex-direction: row; flex-wrap: nowrap; justify-content: space-between; bottom: 10%;">
-            <ui:VisualElement name="EndTurnButton_IconHourglass" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/icon_global/hourglass.png?fileID=2800000&amp;guid=59698b652a80ef84c855c4138a8296d7&amp;type=3#hourglass&quot;); width: 20%; height: 50%; left: 20%; max-height: 50%; max-width: 20%; top: 25%; -unity-background-scale-mode: scale-to-fit;" />
-            <ui:Label tabindex="-1" text="End turn" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EndTurnButton_Label" style="-unity-font-definition: initial; -unity-font: url(&quot;project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&amp;guid=450220f72e21c774d8a3289a8e0e8843&amp;type=3#MorrisRomanBlack&quot;); font-size: 28%; margin-top: 3%; margin-right: 4%; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+        <ui:Button name="EndTurnButton" class="endTurnButton endTurnButtonHover">
+            <ui:VisualElement name="EndTurnButtonIconHourglass" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Icons/hourglassIcon.png?fileID=2800000&amp;guid=59698b652a80ef84c855c4138a8296d7&amp;type=3#hourglassIcon&quot;); width: 20%; height: 50%; left: 20%; max-height: 50%; max-width: 20%; top: 25%; -unity-background-scale-mode: scale-to-fit;" />
+            <ui:Label text="End turn" name="EndTurnButtonLabel" class="defaultText" style="font-size: 28px; color: rgb(255, 255, 255); -unity-font-style: bold; margin-top: 0; margin-right: 10px; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
         </ui:Button>
     </ui:VisualElement>
-    <ui:VisualElement name="TimelinePanel" style="background-image: none; background-color: rgba(238, 30, 38, 0); -unity-background-image-tint-color: rgba(213, 0, 0, 0); align-self: flex-end; top: 10%; justify-content: flex-start; position: absolute; width: 5.75%; height: 62%; flex-direction: column;">
+    <ui:VisualElement name="TimelinePanel" class="timelinePanel">
         <ui:VisualElement name="RoundPanel" style="flex-direction: row; align-items: center; align-self: flex-end; justify-content: space-around; width: 100%; right: 0; margin-bottom: 0; background-color: rgba(0, 0, 0, 0.67); padding-bottom: 7px; padding-top: 7px; padding-right: 4px; padding-left: 4px; font-size: 12px;">
-            <ui:Label tabindex="-1" text="Round" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RoundPanel_RoundText" style="-unity-font: url(&quot;project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&amp;guid=450220f72e21c774d8a3289a8e0e8843&amp;type=3#MorrisRomanBlack&quot;); -unity-font-definition: initial; color: rgb(255, 255, 255); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 28%;" />
-            <ui:Label tabindex="-1" text="12" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RoundPanel_TextNumRound" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; -unity-font: url(&quot;project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&amp;guid=450220f72e21c774d8a3289a8e0e8843&amp;type=3#MorrisRomanBlack&quot;); -unity-font-definition: initial; -unity-text-align: middle-center; color: rgb(255, 244, 244); font-size: 28%;" />
+            <ui:Label tabindex="-1" text="Round" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RoundPanel_RoundText" class="defaultText" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 29px; color: rgb(255, 255, 255);" />
+            <ui:Label tabindex="-1" text="12" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RoundPanel_TextNumRound" class="defaultText" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); font-size: 28px;" />
         </ui:VisualElement>
-        <ui:VisualElement name="TimelineCharacterContainer0" class="TimelineCharacter" style="height: 16.66%; max-height: 16.66%; width: 100%; max-width: 100%;" />
-        <ui:VisualElement name="TimelineCharacterContainer1" class="TimelineCharacter" style="height: 16.66%; max-height: 16.66%; width: 100%; max-width: 100%;" />
-        <ui:VisualElement name="TimelineCharacterContainer2" class="TimelineCharacter" style="height: 16.66%; max-height: 16.66%; width: 100%; max-width: 100%;" />
-        <ui:VisualElement name="TimelineCharacterContainer3" class="TimelineCharacter" style="height: 16.66%; max-height: 16.66%; width: 100%; max-width: 100%;" />
-        <ui:VisualElement name="TimelineCharacterContainer4" class="TimelineCharacter" style="height: 16.66%; max-height: 16.66%; width: 100%; max-width: 100%;" />
-        <ui:VisualElement name="TimelineCharacterContainer5" class="TimelineCharacter" style="height: 16.66%; max-height: 16.66%; width: 100%; max-width: 100%;" />
+        <ui:VisualElement name="TimelineCharacterContainer0" class="timelineCharacterContainer" />
+        <ui:VisualElement name="TimelineCharacterContainer1" class="timelineCharacterContainer" />
+        <ui:VisualElement name="TimelineCharacterContainer2" class="timelineCharacterContainer" />
+        <ui:VisualElement name="TimelineCharacterContainer3" class="timelineCharacterContainer" />
+        <ui:VisualElement name="TimelineCharacterContainer4" class="timelineCharacterContainer" />
+        <ui:VisualElement name="TimelineCharacterContainer5" class="timelineCharacterContainer" />
     </ui:VisualElement>
     <ui:VisualElement name="SettingsPanel" style="width: 10%; height: 10%; align-self: flex-end; background-color: rgba(0, 0, 44, 0); -unity-background-image-tint-color: rgba(0, 0, 0, 0); -unity-background-scale-mode: stretch-to-fill; justify-content: center; align-items: stretch; visibility: visible; overflow: visible; opacity: 1; display: none; left: auto; background-image: none; right: 0; top: 0; position: absolute;">
         <ui:Button parse-escape-sequences="false" display-tooltip-when-elided="true" name="SettingBouton" enable-rich-text="true" focusable="true" class="SettingBouton" style="left: 50%; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; top: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;">

@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Components/FighterStatStyles.uss?fileID=7433441132597879392&amp;guid=4a4089305efb072c198bee37cc2998b8&amp;type=3#FighterStatStyles" />
+    <ui:VisualElement name="StatContainer" class="statContainer">
+        <ui:VisualElement name="StatIcon" class="statIcon" style="background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Icons/strenghtIcon.png?fileID=2800000&amp;guid=e6b98d28e1ca0cf4c9abac72040c1e0e&amp;type=3#strenghtIcon&quot;); background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: rgb(255, 255, 255); color: rgb(255, 255, 255);" />
+        <ui:Label tabindex="-1" text="89" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatLabel" class="statLabel" />
+    </ui:VisualElement>
+</ui:UXML>

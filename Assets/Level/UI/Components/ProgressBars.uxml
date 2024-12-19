@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Components/ProgressBarsStyles.uss?fileID=7433441132597879392&amp;guid=5eacfa582bafea38fb63b4fb5e7fe4a4&amp;type=3#ProgressBarsStyles" />
+    <ui:VisualElement name="ProgressBarsContainer">
+        <ui:VisualElement name="LifeBarContainer" class="progressBarContainer">
+            <ui:VisualElement name="LifeBarBackground" class="progressBarBackground" style="background-color: rgba(132, 41, 36, 0.9);">
+                <ui:VisualElement name="LifeBarProgress" class="progressBarProgress" style="background-color: rgb(229, 70, 76);" />
+                <ui:VisualElement name="LifeBarIcon" class="progressBarIcon" style="background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Icons/healthIcon.png?fileID=2800000&amp;guid=aef5c149668f63047b20fcb07fdfbe15&amp;type=3#healthIcon&quot;);" />
+                <ui:Label tabindex="-1" text="1899/3000" name="LifeBarLabel" class="progressBarText" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="ActionAndMoveBarsContainer" class="progressBarContainer" style="flex-direction: row;">
+            <ui:VisualElement name="ActionBarBackground" class="progressBarBackground" style="background-color: rgb(0, 159, 26);">
+                <ui:VisualElement name="ActionBarProgress" class="progressBarProgress" style="background-color: rgb(48, 188, 34); -unity-background-image-tint-color: rgb(56, 56, 56);" />
+                <ui:VisualElement name="ActionBarIcon" class="progressBarIcon" style="background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Icons/flashIcon.png?fileID=2800000&amp;guid=f073f9ad2cf09c0499395af71535be9f&amp;type=3#flashIcon&quot;);" />
+                <ui:Label text="7/10" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ActionBarLabel" enable-rich-text="true" class="progressBarText" />
+            </ui:VisualElement>
+            <ui:VisualElement name="MoveBarBackground" class="progressBarBackground" style="background-color: rgb(62, 140, 192);">
+                <ui:VisualElement name="MoveBarProgress" class="progressBarProgress" style="background-color: rgb(50, 193, 255);" />
+                <ui:VisualElement name="MoveBarIcon" class="progressBarIcon" style="background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Icons/feetsIcon.png?fileID=2800000&amp;guid=d36f9fe6b5ebc9e4ab529b9c39ddbe59&amp;type=3#feetsIcon&quot;);" />
+                <ui:Label text="6/9" name="MoveBarLabel" class="progressBarText" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

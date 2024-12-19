@@ -1,23 +1,14 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Level/UI/Fight/FighterFloatingBar.uss?fileID=7433441132597879392&amp;guid=4b97681fdaf5e6449862d9ace9e8d3e0&amp;type=3#FighterFloatingBar" />
-    <ui:VisualElement name="FSF_Panel" picking-mode="Ignore" style="width: 190px; height: 32px; flex-direction: column-reverse; position: absolute;">
+    <ui:Template name="StatusesBar" src="project://database/Assets/Level/UI/Components/StatusesBar.uxml?fileID=9197481963319205126&amp;guid=495c80ca846d4147698ec2e485a822e6&amp;type=3#StatusesBar" />
+    <Style src="project://database/Assets/Level/UI/globalStyles.uss?fileID=7433441132597879392&amp;guid=1849fa32056df9a58b3c371fd6e7ddf2&amp;type=3#globalStyles" />
+    <ui:VisualElement name="FighterFloatingBar" picking-mode="Ignore" style="flex-direction: column-reverse; width: 190px; height: 32px;">
         <ui:VisualElement name="BottomPanel" picking-mode="Ignore" style="height: 60%; width: 100%;">
             <ui:VisualElement name="LifeBarContainer" picking-mode="Ignore" style="background-color: rgba(159, 45, 38, 0.9); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; -unity-background-scale-mode: stretch-to-fill; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; height: 100%; width: 100%;">
                 <ui:VisualElement name="LifeProgress" picking-mode="Ignore" style="flex-grow: 1; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; background-color: rgb(212, 59, 65); width: 50%;" />
-                <ui:Label tabindex="-1" text="99/100" parse-escape-sequences="true" display-tooltip-when-elided="true" name="LifeLabel" enable-rich-text="false" picking-mode="Ignore" style="-unity-font-definition: initial; -unity-font: url(&quot;project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&amp;guid=450220f72e21c774d8a3289a8e0e8843&amp;type=3#MorrisRomanBlack&quot;); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; color: rgb(236, 236, 236); position: absolute; left: 40%; top: 13%; font-size: 18px; -unity-text-align: middle-left; -unity-font-style: normal;" />
+                <ui:Label text="99/100" name="LifeLabel" picking-mode="Ignore" class="defaultText" style="position: absolute; top: 20%; left: 42%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; color: rgb(255, 255, 255); font-size: 18px;" />
             </ui:VisualElement>
-            <ui:VisualElement name="CharacterTraitIcon" picking-mode="Ignore" style="position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/aggressiveIcon.png?fileID=2800000&amp;guid=34974e1ee8b6a9b4d969ffebd6d984d2&amp;type=3#aggressiveIcon&quot;); width: 18%; height: 175%; left: 92%; bottom: -35%;" />
+            <ui:VisualElement name="PersonalityTraitIcon" picking-mode="Ignore" style="position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Icons/aggressiveIcon.png?fileID=2800000&amp;guid=34974e1ee8b6a9b4d969ffebd6d984d2&amp;type=3#aggressiveIcon&quot;); width: 18%; height: 175%; left: 92%; bottom: -35%;" />
         </ui:VisualElement>
-        <ui:VisualElement name="StatusesContainer" picking-mode="Ignore" style="height: 30%; margin-bottom: 1.25%; flex-direction: row; width: 100%; justify-content: space-between;">
-            <ui:VisualElement name="StatusContainer1" picking-mode="Ignore" class="statusContainer" />
-            <ui:VisualElement name="StatusContainer2" picking-mode="Ignore" class="statusContainer" style="flex-grow: 1;" />
-            <ui:VisualElement name="StatusContainer3" picking-mode="Ignore" class="statusContainer" style="flex-grow: 1;" />
-            <ui:VisualElement name="StatusContainer4" picking-mode="Ignore" class="statusContainer" style="flex-grow: 1;" />
-            <ui:VisualElement name="StatusContainer5" picking-mode="Ignore" class="statusContainer" style="flex-grow: 1;" />
-            <ui:VisualElement name="StatusContainer6" picking-mode="Ignore" class="statusContainer" style="flex-grow: 1;" />
-            <ui:VisualElement name="StatusContainer7" picking-mode="Ignore" class="statusContainer" style="flex-grow: 1;" />
-            <ui:VisualElement name="StatusContainer8" picking-mode="Ignore" class="statusContainer" style="flex-grow: 1;" />
-            <ui:VisualElement name="StatusContainer9" picking-mode="Ignore" class="statusContainer" style="flex-grow: 1;" />
-        </ui:VisualElement>
+        <ui:Instance template="StatusesBar" name="StatusesBar" style="height: 40%;" />
     </ui:VisualElement>
 </ui:UXML>

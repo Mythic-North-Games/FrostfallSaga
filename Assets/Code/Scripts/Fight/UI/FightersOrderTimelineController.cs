@@ -114,21 +114,6 @@ namespace FrostfallSaga.Fight.UI
             _fightManager.onFightersTurnOrderUpdated += OnFightersTurnOrderUpdated;
         }
 
-        private void OnDisable()
-        {
-            if (_fightManager == null)
-            {
-                _fightManager = FindObjectOfType<FightManager>();
-            }
-            if (_fightManager == null)
-            {
-                Debug.LogWarning("No FightManager found. Can't tear down properly.");
-                return;
-            }
-
-            _fightManager.onFightersTurnOrderUpdated -= OnFightersTurnOrderUpdated;
-        }
-
         #endregion
     }
 }

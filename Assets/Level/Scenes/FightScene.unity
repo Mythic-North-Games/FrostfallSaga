@@ -124640,6 +124640,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
   _fighterDetailsUIPanel: {fileID: 9197481963319205126, guid: d00385b87258a224ab3b968089d24399, type: 3}
+  _fighterStatIcons:
+  - element: 3
+    value: {fileID: 2800000, guid: e6b98d28e1ca0cf4c9abac72040c1e0e, type: 3}
+  - element: 4
+    value: {fileID: 2800000, guid: c602fd8b2264cac4ca5f9824576a8808, type: 3}
+  - element: 5
+    value: {fileID: 2800000, guid: 552a39c783629744a81436d7108d5e86, type: 3}
+  - element: 6
+    value: {fileID: 2800000, guid: bb21073f6f09a0d4bb2e78f5d739bdc8, type: 3}
+  - element: 9
+    value: {fileID: 2800000, guid: b9ff060170a9afe4eaad137638b2b65c, type: 3}
+  - element: 10
+    value: {fileID: 2800000, guid: 695a5ab3835fad14dbb6c5d571396e88, type: 3}
+  - element: 11
+    value: {fileID: 2800000, guid: 6c32bcc4ac5f8ec48b93309c2b7b1aef, type: 3}
+  _magicalElementIcons:
+  - element: 0
+    value: {fileID: 2800000, guid: 63a7459c7f7b7f24289d4c72b8eb8a6e, type: 3}
+  - element: 1
+    value: {fileID: 2800000, guid: e8c0290d9b28b6847901109deed9970f, type: 3}
+  - element: 2
+    value: {fileID: 2800000, guid: 25afa91d08dce2c41a09ab3b2efd0e7e, type: 3}
+  - element: 3
+    value: {fileID: 2800000, guid: 0724a26512e0d174ca1dca37827fe433, type: 3}
+  - element: 4
+    value: {fileID: 2800000, guid: 1c65da544d518d940a57b202f90f74a1, type: 3}
+  - element: 5
+    value: {fileID: 2800000, guid: db0c21c6a1db0b9469195ed4686d6350, type: 3}
 --- !u!1 &1952535869
 GameObject:
   m_ObjectHideFlags: 0
