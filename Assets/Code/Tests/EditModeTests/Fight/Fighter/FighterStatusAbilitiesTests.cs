@@ -14,16 +14,9 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         WeaknessStatus weaknessStatus;
         ParalysisStatus paralysisStatus;
 
-
-        [SetUp]
-        public void Setup()
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
         {
-            fighter = FightTestsHelper.CreateFighter();
-            fighter.name = "Sofiane";
-            fighter.GetStatsForTests().strength = 40;
-            statusManager = fighter.StatusesManager;
-            Assert.IsNotNull(fighter, "Le fighter n'est pas initialisé");
-            Assert.IsNotNull(statusManager, "Le StatusEffectManager n'est pas initialisé");
             bleedStatus = new BleedStatus(
                 false,
                 3,
@@ -50,6 +43,23 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
                 EStatusTriggerTime.StartOfTurn,
                 null
             );
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+            fighter = FightTestsHelper.CreateFighter();
+            fighter.name = "Sofiane";
+            fighter.GetStatsForTests().strength = 40;
+            statusManager = fighter.StatusesManager;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            Object.DestroyImmediate(fighter.gameObject);
+            fighter = null;
+            statusManager = null;
         }
 
         [Test]
