@@ -68,8 +68,17 @@ namespace FrostfallSaga.Utils.Inputs
 
         private void OnMouseEnter()
         {
-            _isMouseInside = true;
-            OnElementHover?.Invoke(_target);
+            if (_isMouseInside) return;
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, ~LayerMask.GetMask("Ignore Raycast")))
+            {
+                if (hit.collider.gameObject == gameObject)
+                {
+                    _isMouseInside = true;
+                    OnElementHover?.Invoke(_target);
+                }
+            }
         }
 
         private void Update()
@@ -120,6 +129,15 @@ namespace FrostfallSaga.Utils.Inputs
 
         private void OnMouseExit()
         {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, ~LayerMask.GetMask("Ignore Raycast")))
+            {
+                if (hit.collider.gameObject == gameObject)
+                {
+                    return;
+                }
+            }
+
             _isMouseInside = false;
             OnElementUnhover?.Invoke(_target);
         }
