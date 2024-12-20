@@ -28,6 +28,7 @@ namespace FrostfallSaga.Fight.UI
             {
                 // Spawn the floating bar for the fighter
                 _fighterFloatingBars.Add(fighter, SpawnFloatingBarPanelForFighter(fighter));
+                _fighterFloatingBarsPositioner.Add(fighter, SpawnFloatingBarPositioner(fighter, _fighterFloatingBars[fighter]));
                 _fighterStatusesBarController = new(_fighterFloatingBars[fighter]);
 
                 // Start listening to the fighter's events
@@ -42,9 +43,7 @@ namespace FrostfallSaga.Fight.UI
                     Destroy(_fighterFloatingBarsPositioner[fighter]);
                 };
 
-                // Spawn bars
-                _fighterFloatingBars.Add(fighter, SpawnFloatingBarPanelForFighter(fighter));
-                _fighterFloatingBarsPositioner.Add(fighter, SpawnFloatingBarPositioner(fighter, _fighterFloatingBars[fighter]));
+                // Update the floating bar data
                 UpdateHealthBar(fighter);
                 UpdateCharacterTrait(fighter);
                 _fighterStatusesBarController.UpdateStatuses(fighter);
