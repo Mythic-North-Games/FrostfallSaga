@@ -110,7 +110,7 @@ namespace FrostfallSaga.Grid.Cells
                     GameObject visualTerrain = Randomizer.GetRandomElementFromArray(TerrainType.VisualsTerrain);
                     GameObject newVisualTerrain = Instantiate<GameObject>(visualTerrain, transform.position, Randomizer.GetRandomRotationY(transform.rotation), transform);
                     newVisualTerrain.name = "Visual" + name;
-                    SetLayerRecursively(newVisualTerrain, 2);
+                    LayerUtility.SetLayerRecursively(newVisualTerrain, 2);
                 }
             }
             else
@@ -176,22 +176,6 @@ namespace FrostfallSaga.Grid.Cells
             {
                 Debug.LogError("Cell " + name + " doesn't have a cell mouse controller as child.");
             }
-        }
-
-        private void SetLayerRecursively(GameObject parent, int layer)
-        {
-            if (parent == null) return;
-
-            parent.layer = layer;
-
-            foreach (Transform child in parent.transform)
-            {
-                if (child != null && child.gameObject != null)
-                {
-                    child.gameObject.layer = layer;
-                }
-            }
-
         }
 
         public static Vector2Int GetHexDirection(Cell initiatorCell, Cell targetCell)
