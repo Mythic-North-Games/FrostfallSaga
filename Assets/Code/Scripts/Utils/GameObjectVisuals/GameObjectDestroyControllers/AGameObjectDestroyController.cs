@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace FrostfallSaga.GameObjectVisuals.GameObjectDestroyControllers
+namespace FrostfallSaga.Utils.GameObjectVisuals.GameObjectDestroyControllers
 {
     /// <summary>
     /// Base class for all GameObject destroy controllers.

@@ -1,6 +1,6 @@
 using UnityEngine;
-using FrostfallSaga.GameObjectVisuals.GameObjectSpawnControllers;
-using FrostfallSaga.GameObjectVisuals.GameObjectDestroyControllers;
+using FrostfallSaga.Utils.GameObjectVisuals.GameObjectSpawnControllers;
+using FrostfallSaga.Utils.GameObjectVisuals.GameObjectDestroyControllers;
 
 namespace FrostfallSaga.Fight.FightCells.Impediments
 {

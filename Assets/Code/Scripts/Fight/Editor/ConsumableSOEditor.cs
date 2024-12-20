@@ -1,8 +1,8 @@
 using UnityEditor;
 using UnityEditorInternal;
-using FrostfallSaga.Editors;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.GameItems;
+using FrostfallSaga.Utils.Editor;
 
 namespace FrostfallSaga.FFSEditor.Fight
 {

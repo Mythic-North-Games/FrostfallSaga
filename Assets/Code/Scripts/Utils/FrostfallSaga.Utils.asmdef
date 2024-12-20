@@ -1,7 +1,9 @@
 {
     "name": "FrostfallSaga.Utils",
     "rootNamespace": "FrostfallSaga.Utils",
-    "references": [],
+    "references": [
+        "Cinemachine"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

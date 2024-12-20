@@ -1,4 +1,4 @@
-using FrostfallSaga.Core;
+using FrostfallSaga.Utils.Inputs;
 
 namespace FrostfallSaga.Grid.Cells
 {

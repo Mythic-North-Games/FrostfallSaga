@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FrostfallSaga.Core;
+using UnityEngine;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
-using UnityEngine;
+using FrostfallSaga.Utils.Scenes;
 
 namespace FrostfallSaga.Kingdom
 {

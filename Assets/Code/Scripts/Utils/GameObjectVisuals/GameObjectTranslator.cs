@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace FrostfallSaga.GameObjectVisuals
+namespace FrostfallSaga.Utils.GameObjectVisuals
 {
     /// <summary>
     /// Helper class to move an object around the world.

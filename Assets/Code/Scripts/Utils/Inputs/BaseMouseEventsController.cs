@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace FrostfallSaga.Core
+namespace FrostfallSaga.Utils.Inputs
 {
 
     /// <summary>
@@ -38,9 +38,10 @@ namespace FrostfallSaga.Core
             DOWN = 1,
         }
 
+        protected bool blockWhenMouseOverUI = true;
         protected bool _isMouseInside = false;
         protected T _target;
-        protected List<BaseUIController> _scenesUIControllers = new();
+        protected List<UIDocument> _scenesUIDocuments = new();
         protected bool _mouseWasInsideUI = false;
 
         private void Awake()
@@ -62,19 +63,31 @@ namespace FrostfallSaga.Core
                 Debug.LogError("Target of type " + typeof(T).ToString() + " not found in parent, current or children components. Will not send events.");
             }
 
-            _scenesUIControllers = FindObjectsOfType<BaseUIController>().ToList();
+            _scenesUIDocuments = FindObjectsOfType<UIDocument>().ToList();
         }
 
         private void OnMouseEnter()
         {
-            _isMouseInside = true;
-            OnElementHover?.Invoke(_target);
+            if (_isMouseInside) return;
+
+            Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, ~LayerMask.GetMask("Ignore Raycast")))
+            {
+                if (hit.collider.gameObject == gameObject)
+                {
+                    _isMouseInside = true;
+                    OnElementHover?.Invoke(_target);
+                }
+            }
         }
 
         private void Update()
         {
-            // If any of the UI controllers has mouse inside, do nothing
-            if (_scenesUIControllers.Any(uiController => uiController.IsMouseOverUIDocument())) // * If performance problem one day, this could be an improvement.
+            // If any of the UI documents has mouse inside, do nothing
+            if (
+                blockWhenMouseOverUI && 
+                _scenesUIDocuments.Any(uiDoc => IsMouseOverUIDocument(uiDoc))
+            ) // * If performance problem one day, this could be an improvement.
             {
                 if (!_mouseWasInsideUI)
                 {
@@ -116,6 +129,15 @@ namespace FrostfallSaga.Core
 
         private void OnMouseExit()
         {
+            Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, ~LayerMask.GetMask("Ignore Raycast")))
+            {
+                if (hit.collider.gameObject == gameObject)
+                {
+                    return;
+                }
+            }
+
             _isMouseInside = false;
             OnElementUnhover?.Invoke(_target);
         }
@@ -146,6 +168,21 @@ namespace FrostfallSaga.Core
             {
                 OnMiddleMouseDown?.Invoke(_target);
             }
+        }
+
+        private bool IsMouseOverUIDocument(UIDocument uiDoc)
+        {
+            // Get the root VisualElement of the UIDocument
+            VisualElement root = uiDoc.rootVisualElement;
+
+            // Get the current mouse position
+            Vector2 mousePosition = Input.mousePosition;
+            mousePosition.y = Screen.height - mousePosition.y; // Convert to UI Toolkit's coordinate system
+
+            // Check if the mouse is over any element in the root
+            VisualElement pickedElement = root.panel.Pick(mousePosition);
+
+            return pickedElement != null; // Returns true if the mouse is over any UI element
         }
     }
 }

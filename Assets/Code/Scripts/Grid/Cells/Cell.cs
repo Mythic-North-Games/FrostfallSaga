@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using FrostfallSaga.Core;
-using FrostfallSaga.GameObjectVisuals;
+using FrostfallSaga.Utils.GameObjectVisuals;
 using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Grid.Cells
@@ -110,6 +110,7 @@ namespace FrostfallSaga.Grid.Cells
                     GameObject visualTerrain = Randomizer.GetRandomElementFromArray(TerrainType.VisualsTerrain);
                     GameObject newVisualTerrain = Instantiate<GameObject>(visualTerrain, transform.position, Randomizer.GetRandomRotationY(transform.rotation), transform);
                     newVisualTerrain.name = "Visual" + name;
+                    LayerUtils.SetLayerRecursively(newVisualTerrain, 2);
                 }
             }
             else
