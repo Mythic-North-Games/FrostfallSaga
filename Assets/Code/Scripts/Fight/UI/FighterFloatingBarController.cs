@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Utils.UI;
 
 namespace FrostfallSaga.Fight.UI
 {
     public class FighterFloatingBarController : BaseUIController
     {
-        private static readonly string FLOATING_BAR_CONTAINER_UI_NAME = "FSF_Panel";
-        private static readonly string CHARACTER_TRAIT_ICON_UI_NAME = "CharacterTraitIcon";
+        private static readonly string FLOATING_BAR_CONTAINER_UI_NAME = "FighterFloatingBar";
+        private static readonly string PERSONALITY_TRAIT_ICON_UI_NAME = "PersonalityTraitIcon";
         private static readonly string HP_LABEL_UI_NAME = "LifeLabel";
         private static readonly string HP_PROGRESS_UI_NAME = "LifeProgress";
-        private static readonly string STATUSES_CONTAINER_UI_NAME = "StatusesContainer";
-        private static readonly string STATUS_CONTAINER_UI_NAME = "StatusContainer";
 
         [SerializeField, Header("UI options")] private VisualTreeAsset _floatingBarUIPanel;
 
         [SerializeField] private FightersGenerator _fightersGenerator;
         [SerializeField] private FightManager _fightManager;
+        private FighterStatusesBarController _fighterStatusesBarController;
         private Dictionary<Fighter, TemplateContainer> _fighterFloatingBars = new();
         private Dictionary<Fighter, WorldUIPositioner> _fighterFloatingBarsPositioner = new();
 
@@ -28,21 +26,28 @@ namespace FrostfallSaga.Fight.UI
         {
             foreach (Fighter fighter in allies.Concat(enemies))
             {
+                // Spawn the floating bar for the fighter
+                _fighterFloatingBars.Add(fighter, SpawnFloatingBarPanelForFighter(fighter));
+                _fighterStatusesBarController = new(_fighterFloatingBars[fighter]);
+
+                // Start listening to the fighter's events
                 fighter.onDamageReceived += (fighter, damageAmount, isMasterstroke) => UpdateHealthBar(fighter);
                 fighter.onHealReceived += (fighter, healAmount, isMasterstroke) => UpdateHealthBar(fighter);
                 fighter.onNonMagicalStatMutated += (fighter, stat, value) => UpdateHealthBar(fighter);
-                fighter.onStatusApplied += (fighter, status) => UpdateStatuses(fighter);
-                fighter.onStatusRemoved += (fighter, status) => UpdateStatuses(fighter);
+                fighter.onStatusApplied += (fighter, status) => _fighterStatusesBarController.UpdateStatuses(fighter);
+                fighter.onStatusRemoved += (fighter, status) => _fighterStatusesBarController.UpdateStatuses(fighter);
                 fighter.onFighterDied += (fighter) =>
                 {
                     _fighterFloatingBars[fighter].RemoveFromHierarchy();
                     Destroy(_fighterFloatingBarsPositioner[fighter]);
                 };
+
+                // Spawn bars
                 _fighterFloatingBars.Add(fighter, SpawnFloatingBarPanelForFighter(fighter));
                 _fighterFloatingBarsPositioner.Add(fighter, SpawnFloatingBarPositioner(fighter, _fighterFloatingBars[fighter]));
                 UpdateHealthBar(fighter);
                 UpdateCharacterTrait(fighter);
-                UpdateStatuses(fighter);
+                _fighterStatusesBarController.UpdateStatuses(fighter);
             }
         }
 
@@ -59,6 +64,7 @@ namespace FrostfallSaga.Fight.UI
         {
             // Instantiate and setup floating bar
             TemplateContainer floatingBar = _floatingBarUIPanel.Instantiate();
+            floatingBar.style.position = Position.Absolute;
             floatingBar.name = $"{fighter.name}FloatingBarPanel";
 
             // Place in existing hierarchie
@@ -99,7 +105,7 @@ namespace FrostfallSaga.Fight.UI
         private void UpdateCharacterTrait(Fighter fighter)
         {
             TemplateContainer floatingBar = _fighterFloatingBars[fighter];
-            VisualElement characterTraitIcon = floatingBar.Q<VisualElement>(CHARACTER_TRAIT_ICON_UI_NAME);
+            VisualElement characterTraitIcon = floatingBar.Q<VisualElement>(PERSONALITY_TRAIT_ICON_UI_NAME);
             if (fighter.PersonalityTrait == null)
             {
                 characterTraitIcon.visible = false;
@@ -107,29 +113,6 @@ namespace FrostfallSaga.Fight.UI
             else
             {
                 characterTraitIcon.style.backgroundImage = new(fighter.PersonalityTrait.Icon);
-            }
-        }
-
-        private void UpdateStatuses(Fighter fighter)
-        {
-            TemplateContainer floatingBar = _fighterFloatingBars[fighter];
-
-            int maxStatusesContainers = floatingBar.Q<VisualElement>(STATUSES_CONTAINER_UI_NAME).childCount;
-            Dictionary<AStatus, (bool isActive, int duration)> currentFighterStatuses = fighter.GetStatuses();
-            for (int i = 1; i <= currentFighterStatuses.Count; i++)
-            {
-                if (i > maxStatusesContainers)
-                {
-                    break;
-                }
-                VisualElement statusContainer = floatingBar.Q<VisualElement>($"{STATUS_CONTAINER_UI_NAME}{i}");
-                statusContainer.style.backgroundImage = new(currentFighterStatuses.ElementAt(i - 1).Key.Icon);
-            }
-
-            for (int i = currentFighterStatuses.Count + 1; i <= maxStatusesContainers; i++)
-            {
-                VisualElement statusContainer = floatingBar.Q<VisualElement>($"{STATUS_CONTAINER_UI_NAME}{i}");
-                statusContainer.style.backgroundImage = null;
             }
         }
 

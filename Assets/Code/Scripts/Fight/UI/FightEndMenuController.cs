@@ -13,6 +13,7 @@ namespace FrostfallSaga.Fight.UI
     {
         private static readonly string RESULT_LABEL_UI_NAME = "FightResultLabel";
         private static readonly string ROUND_COUNT_LAEBL_UI_NAME = "RoundCountLabel";
+        private static readonly string CONTINUE_BUTTON_UI_NAME = "ContinueButton";
 
         public Action onContinueClicked;
 
@@ -75,7 +76,7 @@ namespace FrostfallSaga.Fight.UI
 
             _fightManager.onFightEnded += OnFightEnded;
 
-            Button continueButton = _uiDoc.rootVisualElement.Q("EndFightNextButton") as Button;
+            Button continueButton = _uiDoc.rootVisualElement.Q<Button>(CONTINUE_BUTTON_UI_NAME);
             continueButton.RegisterCallback<ClickEvent>(OnContinueButtonClicked);
 
         }

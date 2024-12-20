@@ -1,174 +1,122 @@
-.SettingBouton {
-    background-image: url("project://database/Assets/Art/UI/sliders/SliderArrow.png?fileID=2800000&guid=9ee871b18a0bae64eb4872f6fbf24bd9&type=3#SliderArrow");
+.teamMateContainer {
+    width: 40%;
+}
+
+.directAttackButton {
+    background-image: url("project://database/Assets/Art/UI/UIKit/Icons/swordIcon.png?fileID=2800000&guid=c76bf23a91b91f547963ba85711ce108&type=3#swordIcon");
+    width: 10%;
+    height: 100%;
+    -unity-background-scale-mode: scale-and-crop;
+    margin-right: 5%;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.directAttackButton:hover {
+    background-image: url("project://database/Assets/Art/UI/UIKit/Icons/swordIcon.png?fileID=2800000&guid=c76bf23a91b91f547963ba85711ce108&type=3#swordIcon");
+    width: 10%;
+    height: 100%;
+    -unity-background-scale-mode: scale-and-crop;
+    margin-right: 5%;
+    scale: 1.1 1.1;
+    translate: 0 -10%;
+}
+
+.abilitiesContainer {
+    flex-direction: row;
+}
+
+.abilitiesButton {
+    flex-grow: 1;
+    background-image: url("project://database/Assets/Art/UI/UIKit/Backgrounds/fadedWhiteCircleBackground.png?fileID=2800000&guid=e317b3f3bbbe0444fb034ff574616f3f&type=3#fadedWhiteCircleBackground");
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(0, 0, 0, 0);
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out-cubic;
     -unity-background-image-tint-color: rgb(255, 255, 255);
-    background-color: rgba(188, 188, 188, 0);
-    color: rgb(255, 255, 255);
-    -unity-font-style: bold;
-    margin-left: 0;
-    margin-bottom: 0;
-    margin-right: 0;
-    margin-top: 0;
-    -unity-background-scale-mode: stretch-to-fill;
-    width: 100%;
-    height: 80%;
     border-top-width: 0;
     border-right-width: 0;
     border-bottom-width: 0;
     border-left-width: 0;
 }
 
-.SettingBouton:hover {
-    background-image: url("project://database/Assets/Art/UI/sliders/SliderArrow.png?fileID=2800000&guid=9ee871b18a0bae64eb4872f6fbf24bd9&type=3#SliderArrow");
-    -unity-background-image-tint-color: rgb(221, 55, 55);
-    background-color: rgba(221, 55, 55, 0);
-    color: rgb(255, 255, 255);
-    -unity-font-style: bold;
-    margin-left: 0;
-    margin-bottom: 0;
-    margin-right: 0;
-    margin-top: 0;
-    -unity-background-scale-mode: stretch-to-fill;
-    right: auto;
-    transition-timing-function: ease, ease;
-    transition-delay: 0s, 0s;
-    transition-duration: 0.15s, 0s;
-}
-
-.SettingBouton:hover#SettingSharpIcon {
-    background-image: url("project://database/Assets/Art/UI/icon_global/Settings_sharp_icon.png?fileID=2800000&guid=bbd786871a733a348bc6815b76d8011e&type=3#Settings_sharp_icon");
-    -unity-background-image-tint-color: rgb(249, 0, 0);
-    background-color: rgba(224, 28, 28, 0);
-    color: rgb(255, 255, 255);
-    -unity-font-style: bold;
-    margin-left: 0;
-    margin-bottom: 0;
-    margin-right: 0;
-    margin-top: 0;
-    -unity-background-scale-mode: stretch-to-fill;
-    right: auto;
-    scale: 1 1;
-    transform-origin: left;
-    translate: -45% 0;
-    transition-timing-function: ease, ease;
-    transition-delay: 0s, 0s;
-    transition-duration: 0.5s, 0s;
-}
-
-.Setting_Sharp_Icon {
+.abilitiesButton:hover {
     flex-grow: 1;
-    background-image: url("project://database/Assets/Art/UI/icon_global/Settings_sharp_icon.png?fileID=2800000&guid=bbd786871a733a348bc6815b76d8011e&type=3#Settings_sharp_icon");
-    width: 20px;
-    height: 20px;
-    left: 10px;
-}
-
-.AbilitiesBackgroundStyle {
-    flex-grow: 1;
-    -unity-slice-scale: 1px;
-    position: relative;
-    background-image: url("project://database/Assets/Art/UI/AbillityParts/EmptyAbilityBackground.png?fileID=2800000&guid=e317b3f3bbbe0444fb034ff574616f3f&type=3#EmptyAbilityBackground");
-    left: auto;
+    background-image: url("project://database/Assets/Art/UI/UIKit/Backgrounds/fadedWhiteCircleBackground.png?fileID=2800000&guid=e317b3f3bbbe0444fb034ff574616f3f&type=3#fadedWhiteCircleBackground");
+    -unity-background-scale-mode: scale-to-fit;
     background-color: rgba(0, 0, 0, 0);
-    border-left-color: rgba(0, 0, 0, 0);
-    border-right-color: rgba(0, 0, 0, 0);
-    border-top-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
-    justify-content: flex-start;
-    align-self: center;
-    margin-right: 2%;
-    height: 100%;
-}
-
-.AbilitiesBackgroundStyle:hover {
     scale: 1.1 1.1;
+    translate: 0 -10%;
 }
 
-.TimelineCharacter {
-    top: 0;
+.abilitiesUnusable {
+    flex-grow: 1;
+    background-image: url("project://database/Assets/Art/UI/UIKit/Backgrounds/fadedWhiteCircleBackground.png?fileID=2800000&guid=e317b3f3bbbe0444fb034ff574616f3f&type=3#fadedWhiteCircleBackground");
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(0, 0, 0, 0);
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out-cubic;
+    -unity-background-image-tint-color: rgb(90, 90, 90);
+}
+
+.endTurnButton {
+    width: 12%;
+    height: 50%;
+    max-width: 12%;
+    max-height: 50%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    bottom: 10%;
+    background-image: url("project://database/Assets/Art/UI/UIKit/Sliders/arrowSlider.png?fileID=2800000&guid=9ee871b18a0bae64eb4872f6fbf24bd9&type=3#arrowSlider");
+    background-color: rgba(188, 188, 188, 0);
+    justify-content: space-between;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    right: 0.1%;
+    -unity-background-image-tint-color: rgb(29, 29, 29);
+    transition-timing-function: ease-in-out-cubic;
+    transition-duration: 0.1s;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.endTurnButton:hover {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.timelinePanel {
+    align-self: flex-end;
+    top: 10%;
+    justify-content: flex-start;
+    position: absolute;
+    width: 5.75%;
+    height: 62%;
+    flex-direction: column;
+}
+
+.timelineCharacterContainer {
     width: 100%;
-    position: relative;
-    right: auto;
-    left: 0;
-    background-color: rgba(0, 0, 220, 0);
     height: 16.66%;
-    background-image: url("project://database/Assets/Art/UI/CharacterParts/CharBackground.png?fileID=2800000&guid=bc4a83db463c6254e9042aec6229f409&type=3#CharBackground");
+    background-image: url("project://database/Assets/Art/UI/UIKit/Backgrounds/fadedBlackSquareBackground.png?fileID=2800000&guid=bc4a83db463c6254e9042aec6229f409&type=3#fadedBlackSquareBackground");
     min-width: auto;
     min-height: auto;
     max-width: 100%;
     max-height: 16.66%;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out-cubic;
 }
 
-.TimelineCharacter:hover {
-    background-color: rgba(240, 240, 240, 0);
-    background-image: url("project://database/Assets/Art/UI/CharacterParts/CharBackground.png?fileID=2800000&guid=bc4a83db463c6254e9042aec6229f409&type=3#CharBackground");
-    -unity-background-image-tint-color: rgb(255, 255, 255);
-    scale: 1.2 1.2;
-    z-index: 100000;
-    min-width: 50px;
-    min-height: 50px;
-    width: 50px;
-    height: 50px;
-}
-
-.TeamMatePanelFrameStyle {
-    flex-grow: 1;
-    position: absolute;
-    top: 0;
-    height: 100%;
-    left: 0;
+.timelineCharacterContainer:hover {
     width: 100%;
-    background-color: rgba(200, 0, 255, 0);
-    background-image: url("project://database/Assets/Art/UI/CharacterParts/TeamFrame.png?fileID=2800000&guid=25ff3775975c72b45bc91c2eb9fa1477&type=3#TeamFrame");
-}
-
-.TeamMatePanelBackgroundStyle {
-    background-image: url("project://database/Assets/Art/UI/CharacterParts/TeamBackground.png?fileID=2800000&guid=79b0441b51852244fa74bd121bd0822e&type=3#TeamBackground");
-    position: absolute;
-    width: 38%;
-    height: 100%;
-    max-width: 38%;
-    max-height: 100%;
-}
-
-.ProgressBar_Container {
-    flex-grow: 1;
-    max-height: 27%;
-    min-height: 27%;
-    height: 27%;
-}
-
-.ProgressBar_Background {
-    flex-grow: 1;
-    background-color: rgba(60, 139, 93, 0.9);
-}
-
-.ProgressBar_Progress {
-    background-color: rgb(48, 188, 34);
-    -unity-background-image-tint-color: rgb(56, 56, 56);
-    width: 50%;
-    flex-grow: 1;
-}
-
-.ProgressBar_Text {
-    -unity-font: url("project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&guid=450220f72e21c774d8a3289a8e0e8843&type=3#MorrisRomanBlack");
-    -unity-font-definition: initial;
-    -unity-font-style: normal;
-    font-size: 290%;
-    color: rgb(255, 255, 255);
-    position: absolute;
-    left: 22.5%;
-    top: -3%;
-}
-
-.ProgressBar_Icon {
-    position: absolute;
-    -unity-background-scale-mode: stretch-to-fill;
-    height: 90%;
-    width: 20%;
-    margin-top: 1%;
-    margin-left: 1%;
-}
-
-.AbilitiesUnusable {
-    -unity-background-image-tint-color: rgb(96, 96, 96);
+    height: 16.66%;
+    background-image: url("project://database/Assets/Art/UI/UIKit/Backgrounds/fadedBlackSquareBackground.png?fileID=2800000&guid=bc4a83db463c6254e9042aec6229f409&type=3#fadedBlackSquareBackground");
+    scale: 1.1 1.1;
 }

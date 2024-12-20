@@ -1,3 +1,0 @@
-Health : #FF6666
-PA : #93BBD1
-PE : #72EB91

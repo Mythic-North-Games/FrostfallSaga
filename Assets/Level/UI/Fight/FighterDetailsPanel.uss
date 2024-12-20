@@ -1,75 +1,14 @@
-.text_Panel {
+.fighterNameLabel {
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    color: rgb(255, 255, 255);
     margin-top: 0;
-    color: rgb(255, 255, 255);
-    -unity-font: url("project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&guid=450220f72e21c774d8a3289a8e0e8843&type=3#MorrisRomanBlack");
-    -unity-font-definition: initial;
-    margin-left: 10px;
-}
-
-.text_StatGen {
-    color: rgb(249, 249, 249);
-    -unity-font-definition: initial;
-    -unity-font: url("project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&guid=450220f72e21c774d8a3289a8e0e8843&type=3#MorrisRomanBlack");
-    font-size: 32px;
-}
-
-.element_IconStatGem {
-    -unity-background-scale-mode: scale-to-fit;
-    width: 30%;
-    height: 100%;
-}
-
-.statusContainer {
-    background-image: url("project://database/Assets/Art/UI/aggressiveIcon.png?fileID=2800000&guid=34974e1ee8b6a9b4d969ffebd6d984d2&type=3#aggressiveIcon");
-    max-width: 10.75%;
-    margin-right: 0.75%;
-    margin-left: 0.5%;
-    max-height: 77%;
-    height: 80%;
-}
-
-.ProgressBar_Container {
-    flex-grow: 1;
-    min-height: 20%;
-}
-
-.ProgressBar_Background {
-    flex-grow: 1;
-    background-color: rgba(60, 139, 93, 0.9);
-}
-
-.ProgressBar_Progress {
-    background-color: rgb(48, 188, 34);
-    -unity-background-image-tint-color: rgb(56, 56, 56);
-    width: 50%;
-    flex-grow: 1;
-}
-
-.ProgressBar_Text {
-    -unity-font: url("project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&guid=450220f72e21c774d8a3289a8e0e8843&type=3#MorrisRomanBlack");
-    -unity-font-definition: initial;
-    -unity-font-style: normal;
-    font-size: 35px;
-    color: rgb(255, 255, 255);
-    position: absolute;
-    left: 20%;
-}
-
-.ProgressBar_Icon {
-    position: absolute;
-    -unity-background-scale-mode: stretch-to-fill;
-    height: 90%;
-    width: 20%;
-    margin-top: 1%;
-    margin-left: 1%;
-}
-
-.statContainer {
-    flex-grow: 1;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    justify-content: flex-start;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
 }
 
 .statsContainerPanel {
@@ -79,19 +18,28 @@
     padding-left: 3%;
 }
 
+.statContainer {
+    width: 100%;
+    flex-grow: 1;
+}
+
 .fighterDetailsPanelDefault {
     flex-grow: 1;
-    width: 300px;
-    height: 300px;
-    background-color: rgba(0, 0, 0, 0.57);
-    max-height: 400px;
+    background-color: rgba(0, 0, 0, 0.59);
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
+    width: 500px;
+    height: 700px;
+    max-height: 700px;
 }
 
 .fighterDetailsPanelHidden {
-    translate: 0 200px;
+    position: absolute;
+    height: 700px;
+    width: 500px;
+    max-height: 700px;
+    translate: 0 100px;
     opacity: 0;
 }

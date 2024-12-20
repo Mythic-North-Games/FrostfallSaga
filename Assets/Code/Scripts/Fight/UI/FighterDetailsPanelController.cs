@@ -1,9 +1,8 @@
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.Statuses;
+using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.UI;
 
 namespace FrostfallSaga.Fight.UI
@@ -14,56 +13,55 @@ namespace FrostfallSaga.Fight.UI
         private static readonly string PANEL_UI_NAME = "FighterDetailsPanel";
         private static readonly string PANEL_HIDDEN_CLASS_NAME = "fighterDetailsPanelHidden";
 
-        private static readonly string ICON_UI_NAME = "Icon";
+        private static readonly string FIGHTER_ICON_UI_NAME = "WhiteDiamondBackground";
         private static readonly string NAME_LABEL_UI_NAME = "NameLabel";
         private static readonly string CLASS_LABEL_UI_NAME = "ClassLabel";
 
-        private static readonly string HEALTH_LABEL_UI_NAME = "ProgressLifeBar_Label";
-        private static readonly string HEALTH_BAR_UI_NAME = "ProgressLifeBar_Progress";
-        private static readonly string ACTION_POINTS_LABEL_UI_NAME = "ProgressActionBar_Label";
-        private static readonly string ACTION_POINTS_BAR_UI_NAME = "ProgressActionBar_Progress";
-        private static readonly string MOVE_POINTS_LABEL_UI_NAME = "ProgressMoveBar_Label";
-        private static readonly string MOVE_POINTS_BAR_UI_NAME = "ProgressMoveBar_Progress";
+        private static readonly string PROGRESS_BARS_CONTAINER_UI_NAME = "ProgressBars";
+        private static readonly string STATUSES_BAR_CONTAINER_UI_NAME = "StatusesBar";
 
-        private static readonly string STATUSES_CONTAINER_UI_NAME = "StatusesContainer";
-        private static readonly string STATUS_CONTAINER_UI_NAME = "StatusContainer";
+        private static readonly string STRENGTH_STAT_CONTAINER_UI_NAME = "StrengthStatContainer";
+        private static readonly string DEXTERITY_STAT_CONTAINER_UI_NAME = "DexterityStatContainer";
+        private static readonly string TENACITY_STAT_CONTAINER_NAME = "TenacityStatContainer";
+        private static readonly string PHYSICAL_RESISTANCE_STAT_CONTAINER_NAME = "PhysicalResistanceStatContainer";
+        private static readonly string DODGE_STAT_CONTAINER_NAME = "DodgeStatContainer";
+        private static readonly string MASTERSTROKE_STAT_CONTAINER_NAME = "MasterstrokeStatContainer";
+        private static readonly string INITIATIVE_STAT_CONTAINER_NAME = "InitiativeStatContainer";
 
-        private static readonly string STRENGTH_LABEL_UI_NAME = "StrengthLabel";
-        private static readonly string DEXTERITY_LABEL_UI_NAME = "DexterityLabel";
-        private static readonly string TENACITY_LABEL_UI_NAME = "TenacityLabel";
-        private static readonly string PHYSICAL_RESISTANCE_LABEL_UI_NAME = "PhysicalResistanceLabel";
-        private static readonly string DODGE_LABEL_UI_NAME = "DodgeLabel";
-        private static readonly string MASTERSTROKE_LABEL_UI_NAME = "MasterstrokeLabel";
-        private static readonly string INITIATIVE_LABEL_UI_NAME = "InitiativeLabel";
-
-        private static readonly string MAGICAL_STRENGTHS_LABEL_UI_NAME = "StrengthLabel";
-        private static readonly string MAGICAL_RESISTANCES_LABEL_UI_NAME = "ResistanceLabel";
+        private static readonly string MAGICAL_STRENGTHS_STAT_CONTAINER_NAME = "StrengthStatContainer";
+        private static readonly string MAGICAL_RESISTANCES_STAT_CONTAINER_NAME = "ResistanceStatContainer";
         #endregion
 
         [SerializeField] private VisualTreeAsset _fighterDetailsUIPanel;
+        [SerializeField] private SElementToValue<EFighterMutableStat, Texture2D>[] _fighterStatIcons;
+        [SerializeField] private SElementToValue<EMagicalElement, Texture2D>[] _magicalElementIcons;
+
         private TemplateContainer _detailsPanel;
+        private FighterProgressBarsController _progressBarsController;
+        private FighterStatusesBarController _statusesBarController;
 
         private void Start()
         {
             _detailsPanel = _fighterDetailsUIPanel.Instantiate();
+            _detailsPanel.style.position = Position.Absolute;
+            _detailsPanel.AddToClassList(PANEL_HIDDEN_CLASS_NAME);
+            SetupStatIcons();
             _uiDoc.rootVisualElement.Add(_detailsPanel);
             Hide();
         }
 
         public void Display(Fighter fighter, Vector2Int displayPosition)
         {
-            fighter.onDamageReceived += (fighter, damageAmount, isMasterstroke) => UpdateHealthBar(fighter);
-            fighter.onHealReceived += (fighter, healAmount, isMasterstroke) => UpdateHealthBar(fighter);
+            fighter.onDamageReceived += (fighter, damageAmount, isMasterstroke) => _progressBarsController.UpdateHealthBar(fighter);
+            fighter.onHealReceived += (fighter, healAmount, isMasterstroke) => _progressBarsController.UpdateHealthBar(fighter);
             fighter.onNonMagicalStatMutated += (fighter, stat, value) =>
             {
-                UpdateHealthBar(fighter);
-                UpdateActionBar(fighter);
-                UpdateMoveBar(fighter);
+                _progressBarsController.UpdateAllBars(fighter);
                 UpdateNonMagicalStats(fighter);
             };
             fighter.onMagicalStatMutated += (fighter, magicalElement, value, isResistance) => UpdateMagicalStats(fighter);
-            fighter.onStatusApplied += (fighter, status) => UpdateStatuses(fighter);
-            fighter.onStatusRemoved += (fighter, status) => UpdateStatuses(fighter);
+            fighter.onStatusApplied += (fighter, status) => _statusesBarController.UpdateStatuses(fighter);
+            fighter.onStatusRemoved += (fighter, status) => _statusesBarController.UpdateStatuses(fighter);
 
             UpdatePanelData(fighter);
             _detailsPanel.style.left = new Length(displayPosition.x, LengthUnit.Pixel);
@@ -86,58 +84,32 @@ namespace FrostfallSaga.Fight.UI
 
         private void UpdatePanelData(Fighter fighter)
         {
+            _progressBarsController = new(_detailsPanel.Q(PROGRESS_BARS_CONTAINER_UI_NAME));
+            _statusesBarController = new(_detailsPanel.Q(STATUSES_BAR_CONTAINER_UI_NAME));
+
             UpdateMainInfo(fighter);
-            UpdateHealthBar(fighter);
-            UpdateActionBar(fighter);
-            UpdateMoveBar(fighter);
+            _progressBarsController.UpdateAllBars(fighter);
+            _statusesBarController.UpdateStatuses(fighter);
             UpdateNonMagicalStats(fighter);
             UpdateMagicalStats(fighter);
-            UpdateStatuses(fighter);
         }
 
         private void UpdateMainInfo(Fighter fighter)
         {
-            _detailsPanel.Q<VisualElement>(ICON_UI_NAME).style.backgroundImage = new(fighter.DiamondIcon);
+            _detailsPanel.Q<VisualElement>(FIGHTER_ICON_UI_NAME).style.backgroundImage = new(fighter.DiamondIcon);
             _detailsPanel.Q<Label>(NAME_LABEL_UI_NAME).text = fighter.FighterName;
             _detailsPanel.Q<Label>(CLASS_LABEL_UI_NAME).text = fighter.FighterClass.ClassName;
         }
 
-        private void UpdateHealthBar(Fighter fighter)
-        {
-            _detailsPanel.Q<Label>(HEALTH_LABEL_UI_NAME).text = $"{fighter.GetHealth()}/{fighter.GetMaxHealth()}";
-            _detailsPanel.Q<VisualElement>(HEALTH_BAR_UI_NAME).style.width = new Length(
-                (float)fighter.GetHealth() / fighter.GetMaxHealth() * 100,
-                LengthUnit.Percent
-            );
-        }
-
-        private void UpdateActionBar(Fighter fighter)
-        {
-            _detailsPanel.Q<Label>(ACTION_POINTS_LABEL_UI_NAME).text = $"{fighter.GetActionPoints()}/{fighter.GetMaxActionPoints()}";
-            _detailsPanel.Q<VisualElement>(ACTION_POINTS_BAR_UI_NAME).style.width = new Length(
-                (float)fighter.GetActionPoints() / fighter.GetMaxActionPoints() * 100,
-                LengthUnit.Percent
-            );
-        }
-
-        private void UpdateMoveBar(Fighter fighter)
-        {
-            _detailsPanel.Q<Label>(MOVE_POINTS_LABEL_UI_NAME).text = $"{fighter.GetMovePoints()}/{fighter.GetMaxMovePoints()}";
-            _detailsPanel.Q<VisualElement>(MOVE_POINTS_BAR_UI_NAME).style.width = new Length(
-                (float)fighter.GetMovePoints() / fighter.GetMaxMovePoints() * 100,
-                LengthUnit.Percent
-            );
-        }
-
         private void UpdateNonMagicalStats(Fighter fighter)
         {
-            _detailsPanel.Q<Label>(STRENGTH_LABEL_UI_NAME).text = fighter.GetStrength().ToString();
-            _detailsPanel.Q<Label>(DEXTERITY_LABEL_UI_NAME).text = fighter.GetDexterity().ToString();
-            _detailsPanel.Q<Label>(TENACITY_LABEL_UI_NAME).text = fighter.GetTenacity().ToString();
-            _detailsPanel.Q<Label>(PHYSICAL_RESISTANCE_LABEL_UI_NAME).text = fighter.GetPhysicalResistance().ToString();
-            _detailsPanel.Q<Label>(DODGE_LABEL_UI_NAME).text = fighter.GetDodgeChance().ToString();
-            _detailsPanel.Q<Label>(MASTERSTROKE_LABEL_UI_NAME).text = fighter.GetMasterstrokeChance().ToString();
-            _detailsPanel.Q<Label>(INITIATIVE_LABEL_UI_NAME).text = fighter.GetInitiative().ToString();
+            _detailsPanel.Q(STRENGTH_STAT_CONTAINER_UI_NAME).Q<Label>("StatLabel").text = fighter.GetStrength().ToString();
+            _detailsPanel.Q(DEXTERITY_STAT_CONTAINER_UI_NAME).Q<Label>("StatLabel").text = fighter.GetDexterity().ToString();
+            _detailsPanel.Q(TENACITY_STAT_CONTAINER_NAME).Q<Label>("StatLabel").text = fighter.GetTenacity().ToString();
+            _detailsPanel.Q(PHYSICAL_RESISTANCE_STAT_CONTAINER_NAME).Q<Label>("StatLabel").text = fighter.GetPhysicalResistance().ToString();
+            _detailsPanel.Q(DODGE_STAT_CONTAINER_NAME).Q<Label>("StatLabel").text = fighter.GetDodgeChance().ToString();
+            _detailsPanel.Q(MASTERSTROKE_STAT_CONTAINER_NAME).Q<Label>("StatLabel").text = fighter.GetMasterstrokeChance().ToString();
+            _detailsPanel.Q(INITIATIVE_STAT_CONTAINER_NAME).Q<Label>("StatLabel").text = fighter.GetInitiative().ToString();
         }
 
         private void UpdateMagicalStats(Fighter fighter)
@@ -147,30 +119,42 @@ namespace FrostfallSaga.Fight.UI
                 string elementName = magicalResistance.Key.ToUIString();
                 int resistance = magicalResistance.Value;
 
-                _detailsPanel.Q<Label>($"{elementName}{MAGICAL_STRENGTHS_LABEL_UI_NAME}").text = resistance.ToString();
-                _detailsPanel.Q<Label>($"{elementName}{MAGICAL_RESISTANCES_LABEL_UI_NAME}").text = resistance.ToString();
+                _detailsPanel.Q($"{elementName}{MAGICAL_STRENGTHS_STAT_CONTAINER_NAME}").Q<Label>("StatLabel").text = resistance.ToString();
+                _detailsPanel.Q($"{elementName}{MAGICAL_RESISTANCES_STAT_CONTAINER_NAME}").Q<Label>("StatLabel").text = resistance.ToString();
             }
         }
 
-        private void UpdateStatuses(Fighter fighter)
+        private void SetupStatIcons()
         {
-            int maxStatusesContainers = _detailsPanel.Q<VisualElement>(STATUSES_CONTAINER_UI_NAME).childCount;
-            Dictionary<AStatus, (bool isActive, int duration)> currentFighterStatuses = fighter.GetStatuses();
-            for (int i = 1; i <= currentFighterStatuses.Count; i++)
-            {
-                if (i > maxStatusesContainers)
-                {
-                    break;
-                }
-                VisualElement statusContainer = _detailsPanel.Q<VisualElement>($"{STATUS_CONTAINER_UI_NAME}{i}");
-                statusContainer.style.backgroundImage = new(currentFighterStatuses.ElementAt(i - 1).Key.Icon);
-            }
+            Dictionary<EFighterMutableStat, Texture2D> statIcons =
+                SElementToValue<EFighterMutableStat, Texture2D>.GetDictionaryFromArray(
+                    _fighterStatIcons
+                );
 
-            for (int i = currentFighterStatuses.Count + 1; i <= maxStatusesContainers; i++)
+            AssignSingleStatIcon(_detailsPanel.Q(STRENGTH_STAT_CONTAINER_UI_NAME), statIcons[EFighterMutableStat.Strength]);
+            AssignSingleStatIcon(_detailsPanel.Q(DEXTERITY_STAT_CONTAINER_UI_NAME), statIcons[EFighterMutableStat.Dexterity]);
+            AssignSingleStatIcon(_detailsPanel.Q(TENACITY_STAT_CONTAINER_NAME), statIcons[EFighterMutableStat.Tenacity]);
+            AssignSingleStatIcon(_detailsPanel.Q(PHYSICAL_RESISTANCE_STAT_CONTAINER_NAME), statIcons[EFighterMutableStat.PhysicalResistance]);
+            AssignSingleStatIcon(_detailsPanel.Q(DODGE_STAT_CONTAINER_NAME), statIcons[EFighterMutableStat.DodgeChance]);
+            AssignSingleStatIcon(_detailsPanel.Q(MASTERSTROKE_STAT_CONTAINER_NAME), statIcons[EFighterMutableStat.MasterstrokeChance]);
+            AssignSingleStatIcon(_detailsPanel.Q(INITIATIVE_STAT_CONTAINER_NAME), statIcons[EFighterMutableStat.Initiative]);
+
+            Dictionary<EMagicalElement, Texture2D> magicalElementIcons =
+                SElementToValue<EMagicalElement, Texture2D>.GetDictionaryFromArray(
+                    _magicalElementIcons
+                );
+            
+            foreach (KeyValuePair<EMagicalElement, Texture2D> magicalElementIcon in magicalElementIcons)
             {
-                VisualElement statusContainer = _detailsPanel.Q<VisualElement>($"{STATUS_CONTAINER_UI_NAME}{i}");
-                statusContainer.style.backgroundImage = null;
+                string elementName = magicalElementIcon.Key.ToUIString();
+                AssignSingleStatIcon(_detailsPanel.Q($"{elementName}{MAGICAL_STRENGTHS_STAT_CONTAINER_NAME}"), magicalElementIcon.Value);
+                AssignSingleStatIcon(_detailsPanel.Q($"{elementName}{MAGICAL_RESISTANCES_STAT_CONTAINER_NAME}"), magicalElementIcon.Value);
             }
+        }
+
+        private void AssignSingleStatIcon(VisualElement statContainer, Texture2D icon)
+        {
+            statContainer.Q<VisualElement>("StatIcon").style.backgroundImage = new(icon);
         }
     }
 }

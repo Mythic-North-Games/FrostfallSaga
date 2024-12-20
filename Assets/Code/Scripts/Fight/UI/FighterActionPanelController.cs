@@ -5,37 +5,32 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Abilities;
-using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Utils.UI;
 
 namespace FrostfallSaga.Fight.UI
 {
     public class FighterActionPanelController : BaseUIController
     {
-        private static readonly string ACTION_PANEL_ROOT_UI_NAME = "ActionPanel";
-        private static readonly string ABILITY_BUTTON_UI_NAME = "AbilityButton";
-        private static readonly string ABILITY_UNUSABLE_CLASS_NAME = "AbilitiesUnusable";
-        private static readonly string DIRECT_ATTACK_BUTTON_UI_NAME = "AbilityButton0";
-        private static readonly string END_TURN_BUTTON_UI_NAME = "EndTurnButton";
         private static readonly string NAME_LABEL_UI_NAME = "FighterNameLabel";
-        private static readonly string HP_LABEL_UI_NAME = "ProgressLifeBar_Label";
-        private static readonly string HP_PROGRESS_UI_NAME = "ProgressLifeBar_Progress";
-        private static readonly string AP_LABEL_UI_NAME = "ProgressActionBar_Label";
-        private static readonly string AP_PROGRESS_UI_NAME = "ProgressActionBar_Progress";
-        private static readonly string MP_LABEL_UI_NAME = "ProgressMoveBar_Label";
-        private static readonly string MP_PROGRESS_UI_NAME = "ProgressMoveBar_Progress";
-        private static readonly string STATUSES_CONTAINER_UI_NAME = "Statuses_Panel";
-        private static readonly string STATUS_CONTAINER_UI_NAME = "StatusContainer";
-        private static readonly string PLAYING_FIGHTER_ICON_CONTAINER_UI_NAME = "TeamMatePanel1Frame";
-        private static readonly string MATE1_ICON_CONTAINER_UI_NAME = "TeamMatePanel2Frame";
-        private static readonly string MATE2_ICON_CONTAINER_UI_NAME = "TeamMatePanel3Frame";
+        private static readonly string PROGRESS_BARS_CONTAINER_UI_NAME = "ProgressBarsContainer";
+        private static readonly string STATUSES_BAR_CONTAINER_UI_NAME = "StatusesBar";
+        private static readonly string PLAYING_CHARACTER_ICON_CONTAINER_UI_NAME = "PlayingCharacterIconContainer";
+        private static readonly string MATE1_ICON_CONTAINER_UI_NAME = "TeamMateIconContainer1";
+        private static readonly string MATE2_ICON_CONTAINER_UI_NAME = "TeamMateIconContainer2";
+        private static readonly string ACTION_PANEL_ROOT_UI_NAME = "ActionPanel";
+        private static readonly string ABILITIES_CONTAINER_UI_NAME = "AbilitiesContainer";
+        private static readonly string ABILITY_BUTTON_UI_NAME = "AbilityButton";
+        private static readonly string DIRECT_ATTACK_BUTTON_UI_NAME = "DirectAttackButton";
+        private static readonly string END_TURN_BUTTON_UI_NAME = "EndTurnButton";
+        private static readonly string ABILITY_UNUSABLE_CLASS_NAME = "abilitiesUnusable";
 
         public Action onDirectAttackClicked;
         public Action<ActiveAbilitySO> onActiveAbilityClicked;
         public Action onEndTurnClicked;
 
         [SerializeField] private FightManager _fightManager;
-
+        private FighterProgressBarsController _progressBarsController;
+        private FighterStatusesBarController _statusesBarController;
         private readonly Dictionary<Button, ActiveAbilitySO> _buttonToActiveAbility = new();
 
         /// <summary>
@@ -70,72 +65,18 @@ namespace FrostfallSaga.Fight.UI
             Label fighterNameLabel = _uiDoc.rootVisualElement.Q<Label>(NAME_LABEL_UI_NAME);
             fighterNameLabel.text = fighter.name;
 
-            UpdateLifeBar(fighter);
-            UpdateActionBar(fighter);
-            UpdateMoveBar(fighter);
-            UpdateStatuses(fighter);
-        }
-
-        private void UpdateLifeBar(Fighter fighter)
-        {
-            Label fighterHpLabel = _uiDoc.rootVisualElement.Q<Label>(HP_LABEL_UI_NAME);
-            VisualElement fighterHpProgress = _uiDoc.rootVisualElement.Q<VisualElement>(HP_PROGRESS_UI_NAME);
-            fighterHpLabel.text = $"{fighter.GetHealth()}/{fighter.GetMaxHealth()}";
-            fighterHpProgress.style.width = new Length(
-                (float)fighter.GetHealth() / fighter.GetMaxHealth() * 100,
-                LengthUnit.Percent
-            );
-        }
-
-        private void UpdateActionBar(Fighter fighter)
-        {
-            Label fighterApLabel = _uiDoc.rootVisualElement.Q<Label>(AP_LABEL_UI_NAME);
-            VisualElement fighterApProgress = _uiDoc.rootVisualElement.Q<VisualElement>(AP_PROGRESS_UI_NAME);
-            fighterApLabel.text = $"{fighter.GetActionPoints()}/{fighter.GetMaxActionPoints()}";
-            fighterApProgress.style.width = new Length(
-                (float)fighter.GetActionPoints() / fighter.GetMaxActionPoints() * 100,
-                LengthUnit.Percent
-            );
-        }
-
-        private void UpdateMoveBar(Fighter fighter)
-        {
-            Label fighterMpLabel = _uiDoc.rootVisualElement.Q<Label>(MP_LABEL_UI_NAME);
-            VisualElement fighterMpProgress = _uiDoc.rootVisualElement.Q<VisualElement>(MP_PROGRESS_UI_NAME);
-            fighterMpLabel.text = $"{fighter.GetMovePoints()}/{fighter.GetMaxMovePoints()}";
-            fighterMpProgress.style.width = new Length(
-                (float)fighter.GetMovePoints() / fighter.GetMaxMovePoints() * 100,
-                LengthUnit.Percent
-            );
-        }
-
-        private void UpdateStatuses(Fighter fighter)
-        {
-            int maxStatusesContainers = _uiDoc.rootVisualElement.Q<VisualElement>(STATUSES_CONTAINER_UI_NAME).childCount;
-            Dictionary<AStatus, (bool isActive, int duration)> currentFighterStatuses = fighter.GetStatuses();
-            for (int i = 1; i <= currentFighterStatuses.Count; i++)
-            {
-                if (i > maxStatusesContainers)
-                {
-                    break;
-                }
-                VisualElement statusContainer = _uiDoc.rootVisualElement.Q<VisualElement>($"{STATUS_CONTAINER_UI_NAME}{i}");
-                statusContainer.style.backgroundImage = new(currentFighterStatuses.ElementAt(i - 1).Key.Icon);
-            }
-
-            for (int i = currentFighterStatuses.Count + 1; i <= maxStatusesContainers; i++)
-            {
-                VisualElement statusContainer = _uiDoc.rootVisualElement.Q<VisualElement>($"{STATUS_CONTAINER_UI_NAME}{i}");
-                statusContainer.style.backgroundImage = null;
-            }
+            _progressBarsController.UpdateHealthBar(fighter);
+            _progressBarsController.UpdateActionBar(fighter);
+            _progressBarsController.UpdateMoveBar(fighter);
+            _statusesBarController.UpdateStatuses(fighter);
         }
 
         private void UpdateFighterIcons(Fighter playingFighter)
         {
             // Get UI elements
-            VisualElement playingFighterIconContainer = _uiDoc.rootVisualElement.Q<VisualElement>(PLAYING_FIGHTER_ICON_CONTAINER_UI_NAME);
-            VisualElement mate1IconContainer = _uiDoc.rootVisualElement.Q<VisualElement>(MATE1_ICON_CONTAINER_UI_NAME);
-            VisualElement mate2IconContainer = _uiDoc.rootVisualElement.Q<VisualElement>(MATE2_ICON_CONTAINER_UI_NAME);
+            VisualElement playingFighterIconContainer = _uiDoc.rootVisualElement.Q(PLAYING_CHARACTER_ICON_CONTAINER_UI_NAME).Q("WhiteDiamondBackground");
+            VisualElement mate1IconContainer = _uiDoc.rootVisualElement.Q(MATE1_ICON_CONTAINER_UI_NAME).Q("WhiteDiamondBackground");
+            VisualElement mate2IconContainer = _uiDoc.rootVisualElement.Q(MATE2_ICON_CONTAINER_UI_NAME).Q("WhiteDiamondBackground");
 
             // Update playing fighter icon
             playingFighterIconContainer.style.backgroundImage = new(playingFighter.DiamondIcon);
@@ -154,7 +95,7 @@ namespace FrostfallSaga.Fight.UI
             _buttonToActiveAbility.Clear();
             int abilitiesButtonCount = GetAbilitiesButtons().Length;
 
-            int i = 1;
+            int i = 0;
             fighter.ActiveAbilities.ToList().ForEach(ability =>
             {
                 if (i <= abilitiesButtonCount)
@@ -222,11 +163,10 @@ namespace FrostfallSaga.Fight.UI
         {
             List<Button> abilitiesButtons = new();
 
-            int i = 1;
-            VisualElement abilitiesPanel = _uiDoc.rootVisualElement.Q("AbilitiesPanel");
-            while (i < abilitiesPanel.childCount)
+            VisualElement abilitiesContainer = _uiDoc.rootVisualElement.Q(ABILITIES_CONTAINER_UI_NAME);
+            for (int i = 0; i < abilitiesContainer.childCount; i++)
             {
-                abilitiesButtons.Add(abilitiesPanel.Q<Button>($"{ABILITY_BUTTON_UI_NAME}{i}"));
+                abilitiesButtons.Add(abilitiesContainer.Q<Button>($"{ABILITY_BUTTON_UI_NAME}{i}"));
                 i++;
             }
 
@@ -235,36 +175,36 @@ namespace FrostfallSaga.Fight.UI
 
         private void RegisterFighterEvents(Fighter fighter)
         {
-            fighter.onDamageReceived += (fighter, damage, isMasterstroke) => UpdateLifeBar(fighter);
-            fighter.onHealReceived += (fighter, damage, isMasterstroke) => UpdateLifeBar(fighter);
+            fighter.onDamageReceived += (fighter, damage, isMasterstroke) => _progressBarsController.UpdateHealthBar(fighter);
+            fighter.onHealReceived += (fighter, damage, isMasterstroke) => _progressBarsController.UpdateHealthBar(fighter);
             fighter.onDirectAttackStarted += (fighter) =>
             {
-                UpdateActionBar(fighter);
+                _progressBarsController.UpdateActionBar(fighter);
                 UpdateAbilityButtons(fighter);
             };
             fighter.onDirectAttackEnded += (fighter) =>
             {
-                UpdateActionBar(fighter);
+                _progressBarsController.UpdateActionBar(fighter);
                 UpdateAbilityButtons(fighter);
             };
             fighter.onActiveAbilityStarted += (fighter, usedAbility) =>
             {
-                UpdateActionBar(fighter);
+                _progressBarsController.UpdateActionBar(fighter);
                 UpdateAbilityButtons(fighter);
             };
             fighter.onActiveAbilityEnded += (fighter, usedAbility) =>
             {
-                UpdateActionBar(fighter);
+                _progressBarsController.UpdateActionBar(fighter);
                 UpdateAbilityButtons(fighter);
             };
-            fighter.onFighterMoved += (fighter) => UpdateMoveBar(fighter);
-            fighter.onStatusApplied += (fighter, status) => UpdateStatuses(fighter);
-            fighter.onStatusRemoved += (fighter, status) => UpdateStatuses(fighter);
+            fighter.onFighterMoved += (fighter) => _progressBarsController.UpdateMoveBar(fighter);
+            fighter.onStatusApplied += (fighter, status) => _statusesBarController.UpdateStatuses(fighter);
+            fighter.onStatusRemoved += (fighter, status) => _statusesBarController.UpdateStatuses(fighter);
             fighter.onNonMagicalStatMutated += (fighter, mutatedStat, amount) =>
             {
-                UpdateLifeBar(fighter);
-                UpdateActionBar(fighter);
-                UpdateMoveBar(fighter);
+                _progressBarsController.UpdateHealthBar(fighter);
+                _progressBarsController.UpdateActionBar(fighter);
+                _progressBarsController.UpdateMoveBar(fighter);
                 UpdateAbilityButtons(fighter);
             };
         }
@@ -307,7 +247,10 @@ namespace FrostfallSaga.Fight.UI
                 return;
             }
 
-            Button directAttackButton = _uiDoc.rootVisualElement.Q<Button>(DIRECT_ATTACK_BUTTON_UI_NAME);
+            _progressBarsController = new FighterProgressBarsController(_uiDoc.rootVisualElement.Q(PROGRESS_BARS_CONTAINER_UI_NAME));
+            _statusesBarController = new FighterStatusesBarController(_uiDoc.rootVisualElement.Q(STATUSES_BAR_CONTAINER_UI_NAME));
+
+            VisualElement directAttackButton = _uiDoc.rootVisualElement.Q<VisualElement>(DIRECT_ATTACK_BUTTON_UI_NAME);
             Button endTurnButton = _uiDoc.rootVisualElement.Q<Button>(END_TURN_BUTTON_UI_NAME);
 
             directAttackButton.RegisterCallback<ClickEvent>(OnDirectAttackButtonClicked);
