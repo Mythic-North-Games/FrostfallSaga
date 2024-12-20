@@ -6,7 +6,7 @@ namespace FrostfallSaga.Utils
     /// A utility class for managing layers of GameObjects in Unity.
     /// Provides methods for checking and setting layers for GameObjects, including recursively setting layers for children.
     /// </summary>
-    public static class LayerUtility
+    public static class LayerUtils
     {
         /// <summary>
         /// Checks if a GameObject is on a specified layer by name.

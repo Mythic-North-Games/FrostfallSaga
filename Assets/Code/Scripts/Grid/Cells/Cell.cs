@@ -110,7 +110,7 @@ namespace FrostfallSaga.Grid.Cells
                     GameObject visualTerrain = Randomizer.GetRandomElementFromArray(TerrainType.VisualsTerrain);
                     GameObject newVisualTerrain = Instantiate<GameObject>(visualTerrain, transform.position, Randomizer.GetRandomRotationY(transform.rotation), transform);
                     newVisualTerrain.name = "Visual" + name;
-                    LayerUtility.SetLayerRecursively(newVisualTerrain, 2);
+                    LayerUtils.SetLayerRecursively(newVisualTerrain, 2);
                 }
             }
             else
