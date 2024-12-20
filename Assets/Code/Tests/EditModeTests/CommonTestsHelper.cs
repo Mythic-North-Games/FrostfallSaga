@@ -2,7 +2,7 @@ using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.FightCells;
-using FrostfallSaga.GameObjectVisuals;
+using FrostfallSaga.Utils.GameObjectVisuals;
 
 namespace FrostfallSaga.EditModeTests
 {

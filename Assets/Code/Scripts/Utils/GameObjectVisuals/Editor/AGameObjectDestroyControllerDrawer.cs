@@ -1,6 +1,6 @@
 using UnityEditor;
-using FrostfallSaga.Editors;
-using FrostfallSaga.GameObjectVisuals.GameObjectDestroyControllers;
+using FrostfallSaga.Utils.Editor;
+using FrostfallSaga.Utils.GameObjectVisuals.GameObjectDestroyControllers;
 
 namespace FrostfallSaga.FFSEditor.GameObjectVisuals
 {

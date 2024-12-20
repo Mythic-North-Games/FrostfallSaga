@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace FrostfallSaga.GameObjectVisuals.GameObjectSpawnControllers
+namespace FrostfallSaga.Utils.GameObjectVisuals.GameObjectSpawnControllers
 {
     /// <summary>
     /// Base class for all GameObject spawn controllers.

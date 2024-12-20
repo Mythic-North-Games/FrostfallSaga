@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FrostfallSaga.Core
+namespace FrostfallSaga.Utils
 {
     public class MonoBehaviourPersistingSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {

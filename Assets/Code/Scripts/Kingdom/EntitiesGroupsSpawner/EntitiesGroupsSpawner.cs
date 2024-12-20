@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils;
+using FrostfallSaga.Utils.GameObjectVisuals;
 
 namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
 {

@@ -1,6 +1,6 @@
 using UnityEditor;
 using UnityEditorInternal;
-using FrostfallSaga.Editors;
+using FrostfallSaga.Utils.Editor;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.FightConditions;

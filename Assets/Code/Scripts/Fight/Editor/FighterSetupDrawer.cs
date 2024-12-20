@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using FrostfallSaga.Fight;
-using FrostfallSaga.Editors;
+using FrostfallSaga.Utils.Editor;
 
 namespace FrostfallSaga.FFSEditor.Fight
 {

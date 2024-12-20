@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace FrostfallSaga.Core
+namespace FrostfallSaga.Utils.Scenes
 {
     public class SceneTransitioner : MonoBehaviourPersistingSingleton<MonoBehaviour>
     {

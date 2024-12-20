@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Core;
+using FrostfallSaga.Utils.GameObjectVisuals;
 
 namespace FrostfallSaga.Fight
 {

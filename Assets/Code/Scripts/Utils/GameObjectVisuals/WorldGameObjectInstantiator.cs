@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FrostfallSaga.Core
+namespace FrostfallSaga.Utils.GameObjectVisuals
 {
     /// <summary>
     /// Instantiates game objects in the world under a given default parent.
