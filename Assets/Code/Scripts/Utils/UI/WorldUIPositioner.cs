@@ -17,7 +17,7 @@ namespace FrostfallSaga.Utils.UI
         private Vector2 _offset;
 
         public void Setup(
-            IPanel displayPanel,
+            UIDocument documentToDisplayOn,
             VisualElement elementToAttach,
             Transform anchor,
             bool centerOnX = false,
@@ -25,7 +25,7 @@ namespace FrostfallSaga.Utils.UI
             Vector2 offset = new()
         )
         {
-            _displayPanel = displayPanel;
+            _displayPanel = documentToDisplayOn.rootVisualElement.panel;
             _elementToAttach = elementToAttach;
             _anchor = anchor;
             _centerOnX = centerOnX;

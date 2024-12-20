@@ -73,7 +73,7 @@ namespace FrostfallSaga.Fight.UI
             VisualElement floatingBarRoot = floatingBar.Q<VisualElement>(FLOATING_BAR_CONTAINER_UI_NAME);
             WorldUIPositioner floatingBarPositioner = gameObject.AddComponent<WorldUIPositioner>();
             floatingBarPositioner.Setup(
-                _uiDoc.rootVisualElement.panel,
+                _uiDoc,
                 floatingBarRoot,
                 fighter.transform,
                 centerOnX: true,
