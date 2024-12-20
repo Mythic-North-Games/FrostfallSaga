@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-namespace FrostfallSaga.Editors
+namespace FrostfallSaga.Utils.Editor
 {
     public static class AbstractListEditorBuilder
     {

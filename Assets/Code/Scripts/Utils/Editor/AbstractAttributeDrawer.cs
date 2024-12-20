@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace FrostfallSaga.Editors
+namespace FrostfallSaga.Utils.Editor
 {
     public class AbstractAttributeDrawer<T> : PropertyDrawer
     {

@@ -3,10 +3,10 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-using FrostfallSaga.Core;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Statuses;
+using FrostfallSaga.Utils.UI;
 
 namespace FrostfallSaga.Fight.UI
 {

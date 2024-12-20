@@ -1,6 +1,6 @@
-using FrostfallSaga.Core;
-using FrostfallSaga.Fight.UI;
 using UnityEngine;
+using FrostfallSaga.Fight.UI;
+using FrostfallSaga.Utils.Scenes;
 
 namespace FrostfallSaga.Fight
 {

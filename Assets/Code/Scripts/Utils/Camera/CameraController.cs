@@ -3,7 +3,7 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace FrostfallSaga.Core
+namespace FrostfallSaga.Utils.Camera
 {
     public class CameraController : MonoBehaviour
     {
@@ -75,7 +75,7 @@ namespace FrostfallSaga.Core
         {
             // Raycast from the mouse position into the world, using the plane at the Y position of the target
             Plane plane = new(Vector3.up, new Vector3(0, MouseFollowTarget.position.y, 0));
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
 
             // Raycast to find where the mouse hits the plane
             if (plane.Raycast(ray, out float distance))

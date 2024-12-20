@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FrostfallSaga.GameObjectVisuals;
+using FrostfallSaga.Utils.GameObjectVisuals;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
 using System.Linq;
