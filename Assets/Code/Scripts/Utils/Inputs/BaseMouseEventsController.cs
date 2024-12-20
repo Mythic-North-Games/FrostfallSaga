@@ -70,7 +70,7 @@ namespace FrostfallSaga.Utils.Inputs
         {
             if (_isMouseInside) return;
 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, ~LayerMask.GetMask("Ignore Raycast")))
             {
                 if (hit.collider.gameObject == gameObject)
@@ -129,7 +129,7 @@ namespace FrostfallSaga.Utils.Inputs
 
         private void OnMouseExit()
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, ~LayerMask.GetMask("Ignore Raycast")))
             {
                 if (hit.collider.gameObject == gameObject)
