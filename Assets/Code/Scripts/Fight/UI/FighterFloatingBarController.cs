@@ -19,8 +19,8 @@ namespace FrostfallSaga.Fight.UI
         [SerializeField] private FightersGenerator _fightersGenerator;
         [SerializeField] private FightManager _fightManager;
         private FighterStatusesBarController _fighterStatusesBarController;
-        private Dictionary<Fighter, TemplateContainer> _fighterFloatingBars = new();
-        private Dictionary<Fighter, WorldUIPositioner> _fighterFloatingBarsPositioner = new();
+        private readonly Dictionary<Fighter, TemplateContainer> _fighterFloatingBars = new();
+        private readonly Dictionary<Fighter, WorldUIPositioner> _fighterFloatingBarsPositioner = new();
 
         private void OnFightersGenerated(Fighter[] allies, Fighter[] enemies)
         {
