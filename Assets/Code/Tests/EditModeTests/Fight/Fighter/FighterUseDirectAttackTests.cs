@@ -1,9 +1,8 @@
 using System;
-using FrostfallSaga.Fight.Effects;
-using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
 using NUnit.Framework;
 using UnityEngine;
+using FrostfallSaga.Grid;
+using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
@@ -29,6 +28,19 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 
             minAttackerDamages = attacker.Weapon.MinPhysicalDamages;
             maxAttackerDamages = attacker.Weapon.MaxPhysicalDamages;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            UnityEngine.Object.DestroyImmediate(grid.gameObject);
+            grid = null;
+
+            UnityEngine.Object.DestroyImmediate(attacker.gameObject);
+            attacker = null;
+
+            minAttackerDamages = 0;
+            maxAttackerDamages = 0;
         }
 
         [Test]

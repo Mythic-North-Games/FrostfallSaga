@@ -5,6 +5,22 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
     public class FighterPhysicalWithstandTests
     {
+        private Fighter fighter;
+
+        [SetUp]
+        public void Setup()
+        {
+            fighter = FightTestsHelper.CreateFighter();
+            fighter.SetStatsForTests();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            UnityEngine.Object.DestroyImmediate(fighter.gameObject);
+            fighter = null;
+        }
+
         [Test]
         public void PhysicalWithstand_PositiveAmountAdded_Test()
         {
@@ -14,8 +30,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int fighterPhysicalResistance = 5;
             int expectedFighterHealth = initialFighterHealth - (damageAmount - fighterPhysicalResistance);
 
-            Fighter fighter = FightTestsHelper.CreateFighter();
-            fighter.SetStatsForTests();
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().physicalResistance = fighterPhysicalResistance;
 
@@ -35,8 +49,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int fighterPhysicalResistance = 20;
             int expectedFighterHealth = initialFighterHealth;
 
-            Fighter fighter = FightTestsHelper.CreateFighter();
-            fighter.SetStatsForTests();
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().physicalResistance = fighterPhysicalResistance;
 
@@ -56,8 +68,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int fighterPhysicalResistance = 5;
             int expectedFighterHealth = initialFighterHealth;
 
-            Fighter fighter = FightTestsHelper.CreateFighter();
-            fighter.SetStatsForTests();
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().physicalResistance = fighterPhysicalResistance;
 
@@ -77,8 +87,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int fighterPhysicalResistance = 5;
             int expectedFighterHealth = initialFighterHealth;
 
-            Fighter fighter = FightTestsHelper.CreateFighter();
-            fighter.SetStatsForTests();
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().physicalResistance = fighterPhysicalResistance;
 
@@ -98,8 +106,6 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int fighterPhysicalResistance = 5;
             int expectedFighterHealth = 0;
 
-            Fighter fighter = FightTestsHelper.CreateFighter();
-            fighter.SetStatsForTests();
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().physicalResistance = fighterPhysicalResistance;
 

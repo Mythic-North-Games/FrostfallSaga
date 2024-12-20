@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace FrostfallSaga.Core
+namespace FrostfallSaga.Utils
 {
     [Serializable]
     public class SElementToValue<T, U>

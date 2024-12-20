@@ -2,12 +2,12 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using FrostfallSaga.Core;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Fight.Targeters
 {
@@ -81,7 +81,8 @@ namespace FrostfallSaga.Fight.Targeters
                 initiatorCell,
                 originCell,
                 includeInaccessibleNeighbors: true,
-                includeHeightInaccessibleNeighbors: true
+                includeHeightInaccessibleNeighbors: true,
+                includeOccupiedNeighbors: true
             ).Length;
             if (distanceToInitiator > OriginCellRange)
             {

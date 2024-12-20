@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Core;
 
 namespace FrostfallSaga.Fight
 {
@@ -10,6 +11,7 @@ namespace FrostfallSaga.Fight
     {
         public Action<Fighter[], Fighter[]> onFightersGenerated;
 
+        [SerializeField] private WorldGameObjectInstantiator _worldGameObjectInstantiator;
         [SerializeField] private PreFightDataSO _preFightData;
         [SerializeField] private FighterSetup[] _devAlliesFighterSetup;
         [SerializeField] private FighterSetup[] _devEnemiesFighterSetup;
@@ -47,7 +49,7 @@ namespace FrostfallSaga.Fight
 
         private Fighter SpawnAndSetupFighter(FighterSetup fighterSetup, string nameSuffix = "")
         {
-            GameObject fighterGameObject = Instantiate(fighterSetup.fighterPrefab);
+            GameObject fighterGameObject = _worldGameObjectInstantiator.Instantiate(fighterSetup.fighterPrefab);
             fighterGameObject.name = new($"{fighterSetup.name}{nameSuffix}");
             Fighter fighter = fighterGameObject.GetComponent<Fighter>();
             fighter.Setup(fighterSetup);
@@ -57,6 +59,16 @@ namespace FrostfallSaga.Fight
         #region Setup & Teardown
         private void Awake()
         {
+            if (_worldGameObjectInstantiator == null)
+            {
+                _worldGameObjectInstantiator = FindObjectOfType<WorldGameObjectInstantiator>();
+            }
+            if (_worldGameObjectInstantiator == null)
+            {
+                Debug.LogError("No world game object instantiator found. Can't spawn objects.");
+                return;
+            }
+
             if (_preFightData == null)
             {
                 Debug.LogError("No PreFightData scriptable object given. Can't generate fighters.");
@@ -68,7 +80,7 @@ namespace FrostfallSaga.Fight
             }
             foreach (FighterSetup fighterSetup in _devAlliesFighterSetup)
             {
-                fighterSetup.initialStats.magicalResistances = new() 
+                fighterSetup.initialStats.magicalResistances = new()
                 {
                     { EMagicalElement.FIRE, 0 },
                     { EMagicalElement.ICE, 0 },
@@ -85,7 +97,7 @@ namespace FrostfallSaga.Fight
             }
             foreach (FighterSetup fighterSetup in _devEnemiesFighterSetup)
             {
-                fighterSetup.initialStats.magicalResistances = new() 
+                fighterSetup.initialStats.magicalResistances = new()
                 {
                     { EMagicalElement.FIRE, 0 },
                     { EMagicalElement.ICE, 0 },
