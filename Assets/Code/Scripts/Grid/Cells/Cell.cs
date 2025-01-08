@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using FrostfallSaga.Core;
 using FrostfallSaga.Utils.GameObjectVisuals;
 using FrostfallSaga.Utils;
 

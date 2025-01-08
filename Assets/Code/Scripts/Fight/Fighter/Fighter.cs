@@ -558,7 +558,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         public FighterCollider GetWeaponCollider()
         {
-            return GetComponent<FighterCollider>();
+            return GetComponentInChildren<FighterCollider>();
         }
 
         public void ResetMovementAndActionPoints()
@@ -813,16 +813,21 @@ namespace FrostfallSaga.Fight.Fighters
 
         private void OnExitCellTrapTriggered()
         {
+            cell.onTrapTriggered -= OnExitCellTrapTriggered;
+
             FightCell cellToMoveTo = (FightCell)_currentMovePath.GetNextCellInPath();
+            MovementController.onMoveEnded += OnFighterArrivedAtCell;
             MovementController.Move(cell, cellToMoveTo, _currentMovePath.IsLastMove);
         }
 
         private void OnFighterArrivedAtCell(Cell destinationCell)
         {
-            // Update cells fighter references
-            cell.SetFighter(null);
-            cell.onTrapTriggered -= OnExitCellTrapTriggered;
+            MovementController.onMoveEnded -= OnFighterArrivedAtCell;
 
+            // Update the leaved cell
+            cell.SetFighter(null);
+
+            // Update the cell the fighter is on
             FightCell destinationFightCell = (FightCell)destinationCell;
             destinationFightCell.SetFighter(this);
             cell = destinationFightCell;
@@ -860,8 +865,6 @@ namespace FrostfallSaga.Fight.Fighters
             {
                 return false;
             }
-
-            MovementController.onMoveEnded += OnFighterArrivedAtCell;
             return true;
         }
 
@@ -873,19 +876,6 @@ namespace FrostfallSaga.Fight.Fighters
                 return false;
             }
             return true;
-        }
-
-        public void UnsubscribeToMovementControllerEvents()
-        {
-            if (MovementController != null)
-            {
-                MovementController.onMoveEnded -= OnFighterArrivedAtCell;
-            }
-        }
-
-        private void OnDisable()
-        {
-            UnsubscribeToMovementControllerEvents();
         }
         #endregion
 

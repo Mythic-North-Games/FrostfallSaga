@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5231388834548727728}
-  - component: {fileID: 315477563236345463}
   - component: {fileID: 2378440278713772973}
   - component: {fileID: 6658341164734776728}
+  - component: {fileID: 315477563236345463}
+  - component: {fileID: 7719245428907193690}
   - component: {fileID: 5788510601483087246}
   - component: {fileID: 8872818535934664429}
   - component: {fileID: 7697893219395721440}
@@ -37,28 +38,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &315477563236345463
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6338246483437390999}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5264201581553841347, guid: 8aaf0a3f3237af6408cd90e485a85978, type: 3}
 --- !u!23 &2378440278713772973
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -109,6 +88,55 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6338246483437390999}
   m_Mesh: {fileID: 5264201581553841347, guid: 8aaf0a3f3237af6408cd90e485a85978, type: 3}
+--- !u!64 &315477563236345463
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6338246483437390999}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5264201581553841347, guid: 8aaf0a3f3237af6408cd90e485a85978, type: 3}
+--- !u!54 &7719245428907193690
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6338246483437390999}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!114 &5788510601483087246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +152,9 @@ MonoBehaviour:
   <Coordinates>k__BackingField: {x: 0, y: 0}
   <WorldHeightPerUnit>k__BackingField: 0.8
   <TerrainType>k__BackingField: {fileID: 0}
+  <BiomeType>k__BackingField: {fileID: 0}
   <Height>k__BackingField: 0
+  <UpdateHeightDuration>k__BackingField: 0
   <HighlightController>k__BackingField: {fileID: 0}
   <CellMouseEventsController>k__BackingField: {fileID: 0}
 --- !u!114 &8872818535934664429
