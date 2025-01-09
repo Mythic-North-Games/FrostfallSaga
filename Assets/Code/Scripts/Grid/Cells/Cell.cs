@@ -1,8 +1,7 @@
 using System.Collections;
-using UnityEngine;
-using FrostfallSaga.Core;
-using FrostfallSaga.Utils.GameObjectVisuals;
 using FrostfallSaga.Utils;
+using FrostfallSaga.Utils.GameObjectVisuals;
+using UnityEngine;
 
 namespace FrostfallSaga.Grid.Cells
 {
@@ -20,11 +19,8 @@ namespace FrostfallSaga.Grid.Cells
         [field: SerializeField] public float WorldHeightPerUnit { get; private set; } = 0.8f;
         [field: SerializeField, Header("Cell characteristics"), Tooltip("Contain cell characteristics")] public TerrainTypeSO TerrainType { get; private set; }
         [field: SerializeField, Tooltip("Biome type")] public BiomeTypeSO BiomeType { get; private set; }
-
         [field: SerializeField] public ECellHeight Height { get; private set; }
         [field: SerializeField] public float UpdateHeightDuration { get; private set; }
-
-
         [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")] public MaterialHighlightable HighlightController { get; private set; }
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
         private HexGrid ParentGrid;

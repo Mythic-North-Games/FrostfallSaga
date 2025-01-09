@@ -1,7 +1,7 @@
-using UnityEngine;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Procedural;
 using FrostfallSaga.Utils;
+using UnityEngine;
 
 namespace FrostfallSaga.Grid
 {
@@ -10,14 +10,12 @@ namespace FrostfallSaga.Grid
     /// Responsible for initializing terrain and biome managers and setting up each cell's characteristics based on defined parameters.
     /// </summary>
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshCollider)), ExecuteAlways]
-    public class GridCellsGenerator : MonoBehaviour
+    public class HexGridGenerator : MonoBehaviour
     {
         [Required]
         [field: SerializeField, Header("Default"), Tooltip("Default attributs required")] public HexGrid HexGrid { get; private set; }
         [Required]
-        [field: SerializeField] public Material AlternativeMaterial { get; private set; }
-        [Required]
-        [field: SerializeField, Header("Biomes caracteristics"), Tooltip("Biomes's type")] public BiomeTypeSO[] AvailableBiomes { get; private set; }
+        [field: SerializeField, Header("Biomes characteristics"), Tooltip("Biomes's type")] public BiomeTypeSO[] AvailableBiomes { get; private set; }
         [Required]
         [field: SerializeField, Header("Generators managers"), Tooltip("Generation diffusion"), Range(0.1f, 0.99f)] public float NoiseScale { get; private set; } = 0.2f;
         [Required]
