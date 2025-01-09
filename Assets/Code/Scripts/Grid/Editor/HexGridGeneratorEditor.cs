@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace FrostfallSaga.FFSEditor.Grid
 {
-    [CustomEditor(typeof(GridCellsGenerator))]
+    [CustomEditor(typeof(HexGridGenerator))]
     public class HexGridGeneratorEditor : Editor
     {
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
 
-            GridCellsGenerator hexGridMeshGenerator = (GridCellsGenerator)target;
+            HexGridGenerator hexGridMeshGenerator = (HexGridGenerator)target;
 
             if (GUILayout.Button("Generate Hex Mesh"))
             {
