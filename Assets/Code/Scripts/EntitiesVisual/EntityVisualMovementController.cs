@@ -9,15 +9,19 @@ namespace FrostfallSaga.EntitiesVisual
     {
         [field: SerializeField] public EntityVisualAnimationController EntityVisualAnimationController { get; private set; }
         [field: SerializeField] public float MoveSpeed { get; private set; } = 2.5f;
+        [field: SerializeField] public float JumpSpeed { get; private set; } = 2f;
+        [field: SerializeField] public float JumpForce { get; private set; } = 6f;
         [field: SerializeField] public float RotationSpeed { get; private set; } = 6f;
         [field: SerializeField] public float ReachedDistanceOffset { get; private set; } = 0.01f;
         public Action onRotationEnded;
         public Action<Cell> onMoveEnded;
 
         [SerializeField] private GameObject _parentToMove;
+        private Rigidbody _rigidbody;
         private bool _isMoving = false;
         private bool _isRotating = false;
         private bool _isLastMove = false;
+        private bool _movementIsJump = false;
         private Cell _targetCell;
         private Vector3 _targetCellPosition;
         private Quaternion _targetRotation;
@@ -25,6 +29,7 @@ namespace FrostfallSaga.EntitiesVisual
         private void Start()
         {
             EntityVisualAnimationController = GetComponent<EntityVisualAnimationController>();
+            _rigidbody = GetComponent<Rigidbody>();
             if (_parentToMove == null)
             {
                 _parentToMove = gameObject;
@@ -33,15 +38,14 @@ namespace FrostfallSaga.EntitiesVisual
 
         public void Move(Cell currentCell, Cell newTargetCell, bool isLastMove)
         {
+            _targetCell = newTargetCell;
+            _isLastMove = isLastMove;
+
             Vector3 direction = (newTargetCell.GetCenter() - _parentToMove.transform.position).normalized;
             _targetRotation = Quaternion.LookRotation(direction);
-            _isRotating = true;
 
-            _targetCell = newTargetCell;
             _targetCellPosition = newTargetCell.GetCenter();
-            _isMoving = true;
 
-            _isLastMove = isLastMove;
 
             if (CellsNeighbors.GetHeightDifference(currentCell, newTargetCell) == 0)
             {
@@ -50,7 +54,13 @@ namespace FrostfallSaga.EntitiesVisual
             else
             {
                 EntityVisualAnimationController.PlayAnimationState("Jump");
+                _rigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
+                _movementIsJump = true;
             }
+
+            // Launch rotation and movement when everything is computed
+            _isMoving = true;
+            _isRotating = true;
         }
 
         public void RotateTowardsCell(Cell targetCell)
@@ -85,6 +95,7 @@ namespace FrostfallSaga.EntitiesVisual
 
             if (HasReachedTargetLocation())
             {
+                _movementIsJump = false;
                 _isMoving = false;
                 if (_isLastMove)
                 {
@@ -115,8 +126,9 @@ namespace FrostfallSaga.EntitiesVisual
 
         private void MakeParentMoveTowardsTarget()
         {
+            float currentMovementSpeed = _movementIsJump ? JumpSpeed : MoveSpeed;
             _parentToMove.transform.position = Vector3.MoveTowards(
-                _parentToMove.transform.position, _targetCellPosition, MoveSpeed * Time.deltaTime
+                _parentToMove.transform.position, _targetCellPosition, currentMovementSpeed * Time.deltaTime
             );
         }
 

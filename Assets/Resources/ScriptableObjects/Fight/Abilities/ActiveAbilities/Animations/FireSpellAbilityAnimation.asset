@@ -25,5 +25,5 @@ MonoBehaviour:
         EndLocation: {x: 0, y: 0, z: 0}
         StartRotation: {x: 0, y: 0, z: 0, w: 0}
         EndRotation: {x: 0, y: 0, z: 0, w: 0}
-        MoveSpeed: 10
+        MoveSpeed: 20
         TimeBeforNextMovementStart: 1
