@@ -9,7 +9,7 @@ namespace FrostfallSaga.EntitiesVisual
     {
         [field: SerializeField] public EntityVisualAnimationController EntityVisualAnimationController { get; private set; }
         [field: SerializeField] public float MoveSpeed { get; private set; } = 2.5f;
-        [field: SerializeField] public float JumpSpeed { get; private set; } = 2f;
+        [field: SerializeField] public float JumpSpeed { get; private set; } = 6f;
         [field: SerializeField] public float JumpForce { get; private set; } = 6f;
         [field: SerializeField] public float RotationSpeed { get; private set; } = 6f;
         [field: SerializeField] public float ReachedDistanceOffset { get; private set; } = 0.01f;

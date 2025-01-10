@@ -172,6 +172,8 @@ namespace FrostfallSaga.Utils.Inputs
 
         private bool IsMouseOverUIDocument(UIDocument uiDoc)
         {
+            if (uiDoc == null) return false;
+
             // Get the root VisualElement of the UIDocument
             VisualElement root = uiDoc.rootVisualElement;
 

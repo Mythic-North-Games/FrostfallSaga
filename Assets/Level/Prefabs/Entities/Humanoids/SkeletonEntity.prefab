@@ -2232,7 +2232,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityVisualAnimationController>k__BackingField: {fileID: 0}
-  <MoveSpeed>k__BackingField: 2.5
+  <MoveSpeed>k__BackingField: 8
+  <JumpSpeed>k__BackingField: 6
+  <JumpForce>k__BackingField: 6
   <RotationSpeed>k__BackingField: 6
   <ReachedDistanceOffset>k__BackingField: 0.01
   _parentToMove: {fileID: 0}
