@@ -13,12 +13,12 @@ namespace FrostfallSaga.Kingdom
     {
         [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
         [SerializeField] private EntitiesGroupBuilder _entitiesGroupBuilder;
-        [SerializeField] private KingdomDataSO _kingdomData;
         [SerializeField] private SceneTransitioner _sceneTransitioner;
         [SerializeField] private float _readyToFightAnimationDuration = 2f;
         [SerializeField] private float _delayBeforeLoadingSceneAfterReadyAnimation = 10f;
         [SerializeField] private string _fightSceneName;
 
+        private KingdomState _kingdomState;
         private Action _onEncounterAnimationEnded;
 
         /// <summary>
@@ -80,20 +80,20 @@ namespace FrostfallSaga.Kingdom
 
         private void SaveKingdomData()
         {
-            _kingdomData.heroGroupData = _entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(_entitiesGroupsManager.HeroGroup);
+            _kingdomState.heroGroupData = _entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(_entitiesGroupsManager.HeroGroup);
 
             List<EntitiesGroupData> enemiesGroupsData = new();
             _entitiesGroupsManager.EnemiesGroups.ForEach(group =>
             {
                 enemiesGroupsData.Add(_entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(group));
             });
-            _kingdomData.enemiesGroupsData = enemiesGroupsData.ToArray();
+            _kingdomState.enemiesGroupsData = enemiesGroupsData.ToArray();
 
             Debug.Log("KingdomConfiguration Saved !");
         }
 
         #region Setup and tear down
-        private void OnEnable()
+        private void Awake()
         {
             if (_entitiesGroupsManager == null)
             {
@@ -104,15 +104,11 @@ namespace FrostfallSaga.Kingdom
                 Debug.LogError("No entities groups manager found. Can't transition to fight scene.");
                 return;
             }
-
-            if (_kingdomData == null)
-            {
-                Debug.LogError("No KingdomData scriptable object given. Actual kingdom state will be lost after fight.");
-                return;
-            }
-
             _entitiesGroupsManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
             _onEncounterAnimationEnded += OnEncounterAnimationEnded;
+
+            _kingdomState = KingdomState.Instance;
+
         }
         #endregion
     }

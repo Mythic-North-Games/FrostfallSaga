@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Kingdom
 {
-    [CreateAssetMenu(fileName = "PostFightData", menuName = "ScriptableObjects/Fight/PostFightData", order = 0)]
-    public class PostFightDataSO : ScriptableObject
+    [Serializable]
+    public class PostFightData : MonoBehaviourPersistingSingleton<PostFightData>
     {
         public List<SElementToValue<string, PostFightFighterState>> alliesState;
         public List<SElementToValue<string, PostFightFighterState>> enemiesState;
-        public bool enabled = false;
+        public bool isActive = false;
 
         public bool AlliesHaveWon()
         {
