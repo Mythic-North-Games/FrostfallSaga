@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
@@ -8,19 +9,13 @@ namespace FrostfallSaga.EntitiesVisual
     public class EntityVisualMovementController : MonoBehaviour
     {
         [field: SerializeField] public EntityVisualAnimationController EntityVisualAnimationController { get; private set; }
-        [field: SerializeField] public float MoveSpeed { get; private set; } = 2.5f;
+        [field: SerializeField] public float RunSpeed { get; private set; } = 1f;
+        [field: SerializeField] public float JumpSpeed { get; private set; } = 1.5f;
         [field: SerializeField] public float RotationSpeed { get; private set; } = 6f;
-        [field: SerializeField] public float ReachedDistanceOffset { get; private set; } = 0.01f;
         public Action onRotationEnded;
         public Action<Cell> onMoveEnded;
 
         [SerializeField] private GameObject _parentToMove;
-        private bool _isMoving = false;
-        private bool _isRotating = false;
-        private bool _isLastMove = false;
-        private Cell _targetCell;
-        private Vector3 _targetCellPosition;
-        private Quaternion _targetRotation;
 
         private void Start()
         {
@@ -33,31 +28,28 @@ namespace FrostfallSaga.EntitiesVisual
 
         public void Move(Cell currentCell, Cell newTargetCell, bool isLastMove)
         {
-            Vector3 direction = (newTargetCell.GetCenter() - _parentToMove.transform.position).normalized;
-            _targetRotation = Quaternion.LookRotation(direction);
-            _isRotating = true;
-
-            _targetCell = newTargetCell;
-            _targetCellPosition = newTargetCell.GetCenter();
-            _isMoving = true;
-
-            _isLastMove = isLastMove;
-
-            if (CellsNeighbors.GetHeightDifference(currentCell, newTargetCell) == 0)
-            {
-                EntityVisualAnimationController.PlayAnimationState("Run");
-            }
-            else
+            bool movementIsJump = CellsNeighbors.GetHeightDifference(currentCell, newTargetCell) != 0;
+            if (movementIsJump)
             {
                 EntityVisualAnimationController.PlayAnimationState("Jump");
             }
+            else
+            {
+                EntityVisualAnimationController.PlayAnimationState("Run");
+            }
+
+            MoveTowardsCell(currentCell, newTargetCell, movementIsJump, isLastMove);
+            RotateTowardsCell(newTargetCell);
         }
 
         public void RotateTowardsCell(Cell targetCell)
         {
-            _targetRotation = Quaternion.LookRotation(targetCell.GetCenter());
-            _targetCellPosition = targetCell.GetCenter();
-            _isRotating = true;
+            Vector3 direction = targetCell.GetCenter() - _parentToMove.transform.position;
+            if (direction.sqrMagnitude > 0.001f) // Validate the direction vector
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+                StartCoroutine(SmoothRotate(_parentToMove.transform.rotation, targetRotation, 1f / RotationSpeed));
+            }
         }
 
         public void TeleportToCell(Cell targetCell)
@@ -70,69 +62,88 @@ namespace FrostfallSaga.EntitiesVisual
             _parentToMove = newParentToMove;
         }
 
-        private void Update()
+        private void MoveTowardsCell(Cell currentCell, Cell targetCell, bool isJump, bool isLastMove)
         {
-            if (!IsMovingOrRotating())
+            StartCoroutine(SmoothMove(currentCell, targetCell, isJump, isLastMove));
+        }
+
+        private IEnumerator SmoothMove(Cell currentCell, Cell targetCell, bool isJump, bool isLastMove)
+        {
+            float duration = 1f / (isJump ? JumpSpeed : RunSpeed);
+            float elapsedTime = 0f;
+
+            float heightDifference = CellsNeighbors.GetHeightDifference(currentCell, targetCell);
+            float jumpHeight = Mathf.Max(heightDifference, 1f);
+            if (targetCell.Height > currentCell.Height)
             {
-                return;
+                jumpHeight += 1.5f;
+            }
+            else if (targetCell.Height < currentCell.Height)
+            {
+                jumpHeight += 1f;
             }
 
-            if (HasReachedTargetRotation())
-            {
-                _isRotating = false;
-                onRotationEnded?.Invoke();
-            }
+            Vector3 startPosition = _parentToMove.transform.position;
+            Vector3 endPosition = targetCell.GetCenter();
 
-            if (HasReachedTargetLocation())
+            while (elapsedTime < duration)
             {
-                _isMoving = false;
-                if (_isLastMove)
+                float t = elapsedTime / duration;
+
+                t = Mathf.Lerp(0, 1, t); // Linear interpolation for movement
+                Vector3 position = Vector3.Lerp(startPosition, endPosition, t);
+
+                if (isJump)
                 {
-                    EntityVisualAnimationController.RestoreDefaultAnimation();
+                    float height = Mathf.Sin(t * Mathf.PI) * jumpHeight; // Arc height
+                    position.y += height;
                 }
-                onMoveEnded?.Invoke(_targetCell);
+
+                _parentToMove.transform.position = position;
+                elapsedTime += Time.deltaTime;
+                yield return null;
             }
 
-            if (_isRotating)
+            _parentToMove.transform.position = endPosition;
+
+            if (isLastMove)
             {
-                MakeParentRotateTowardsTarget();
+                EntityVisualAnimationController.RestoreDefaultAnimation();
             }
-            if (_isMoving)
+            onMoveEnded?.Invoke(targetCell);
+        }
+
+        private IEnumerator SmoothRotate(Quaternion startRotation, Quaternion targetRotation, float duration)
+        {
+            float elapsedTime = 0f;
+
+            // Lock target rotation to the Y-axis only
+            Vector3 targetEulerAngles = targetRotation.eulerAngles;
+            targetEulerAngles.x = 0f;
+            targetEulerAngles.z = 0f;
+            targetRotation = Quaternion.Euler(targetEulerAngles);
+
+            while (elapsedTime < duration)
             {
-                MakeParentMoveTowardsTarget();
+                Quaternion smoothedRotation = Quaternion.Slerp(startRotation, targetRotation, elapsedTime / duration);
+
+                // Lock the interpolated rotation to the Y-axis only
+                Vector3 smoothedEulerAngles = smoothedRotation.eulerAngles;
+                smoothedEulerAngles.x = 0f;
+                smoothedEulerAngles.z = 0f;
+                _parentToMove.transform.rotation = Quaternion.Euler(smoothedEulerAngles);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
             }
-        }
 
-        private void MakeParentRotateTowardsTarget()
-        {
-            Vector3 nextRotation = Vector3.RotateTowards(
-                _parentToMove.transform.forward,
-                new Vector3(_targetCellPosition.x, 0, _targetCellPosition.z) - new Vector3(_parentToMove.transform.position.x, 0, _parentToMove.transform.position.z),
-                RotationSpeed * Time.deltaTime, 0.0f
-            );
-            _parentToMove.transform.rotation = Quaternion.LookRotation(nextRotation);
-        }
+            // Ensure final rotation is locked to the Y-axis
+            Vector3 finalEulerAngles = targetRotation.eulerAngles;
+            finalEulerAngles.x = 0f;
+            finalEulerAngles.z = 0f;
+            _parentToMove.transform.rotation = Quaternion.Euler(finalEulerAngles);
 
-        private void MakeParentMoveTowardsTarget()
-        {
-            _parentToMove.transform.position = Vector3.MoveTowards(
-                _parentToMove.transform.position, _targetCellPosition, MoveSpeed * Time.deltaTime
-            );
-        }
-
-        private bool IsMovingOrRotating()
-        {
-            return _isMoving || _isRotating;
-        }
-
-        private bool HasReachedTargetRotation()
-        {
-            return Quaternion.Angle(_parentToMove.transform.rotation, _targetRotation) < 0.1f;
-        }
-
-        private bool HasReachedTargetLocation()
-        {
-            return _parentToMove.transform.position == _targetCellPosition;
+            onRotationEnded?.Invoke();
         }
 
 #if UNITY_EDITOR

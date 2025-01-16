@@ -31,7 +31,6 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
             }
 
             _fighterThatExecutes = fighterThatWillExecute;
-            _fighterThatExecutes.UnsubscribeToMovementControllerEvents();
             _fighterThatExecutes.MovementController.onMoveEnded += OnFighterMoveEnded;
 
             _abilityTargetCells = abilityTargetCells;

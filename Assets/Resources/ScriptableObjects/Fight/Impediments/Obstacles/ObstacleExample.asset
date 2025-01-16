@@ -24,9 +24,10 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 3629974059018879014
       type: {class: ImmediateGameObjectDestroy, ns: FrostfallSaga.GameObjectVisuals.GameObjectDestroyControllers, asm: FrostfallSaga.GameObjectVisuals}
-      data: 
     - rid: 3629974059018879019
       type: {class: ImmediateGameObjectSpawn, ns: FrostfallSaga.GameObjectVisuals.GameObjectSpawnControllers, asm: FrostfallSaga.GameObjectVisuals}
       data:

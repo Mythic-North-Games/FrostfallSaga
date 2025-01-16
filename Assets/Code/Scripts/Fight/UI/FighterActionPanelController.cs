@@ -138,7 +138,7 @@ namespace FrostfallSaga.Fight.UI
 
         private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
         {
-            Destroy(_uiDoc);
+            _uiDoc.rootVisualElement.visible = false;
         }
 
         private void OnDirectAttackButtonClicked(ClickEvent _clickEvent)

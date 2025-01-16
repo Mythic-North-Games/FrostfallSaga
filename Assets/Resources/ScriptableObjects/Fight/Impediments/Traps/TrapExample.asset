@@ -27,6 +27,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 3629974220633014276
       type: {class: ImmediateGameObjectSpawn, ns: FrostfallSaga.GameObjectVisuals.GameObjectSpawnControllers, asm: FrostfallSaga.GameObjectVisuals}
       data:
@@ -35,7 +37,6 @@ MonoBehaviour:
         RotationOffset: {x: 0, y: 0, z: 0, w: 0}
     - rid: 3629974220633014277
       type: {class: ImmediateGameObjectDestroy, ns: FrostfallSaga.GameObjectVisuals.GameObjectDestroyControllers, asm: FrostfallSaga.GameObjectVisuals}
-      data: 
     - rid: 3629974220633014278
       type: {class: PhysicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:

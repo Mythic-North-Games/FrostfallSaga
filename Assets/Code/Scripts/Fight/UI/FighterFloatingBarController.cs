@@ -39,6 +39,7 @@ namespace FrostfallSaga.Fight.UI
                 fighter.onStatusRemoved += (fighter, status) => _fighterStatusesBarController.UpdateStatuses(fighter);
                 fighter.onFighterDied += (fighter) =>
                 {
+                    if (fighter == null || !_fighterFloatingBars.ContainsKey(fighter)) return;
                     _fighterFloatingBars[fighter].RemoveFromHierarchy();
                     Destroy(_fighterFloatingBarsPositioner[fighter]);
                 };
@@ -90,6 +91,8 @@ namespace FrostfallSaga.Fight.UI
 
         private void UpdateHealthBar(Fighter fighter)
         {
+            if (fighter == null || !_fighterFloatingBars.ContainsKey(fighter)) return;
+
             TemplateContainer floatingBar = _fighterFloatingBars[fighter];
             Label healthLabel = floatingBar.Q<Label>(HP_LABEL_UI_NAME);
             VisualElement healthProgress = floatingBar.Q<VisualElement>(HP_PROGRESS_UI_NAME);

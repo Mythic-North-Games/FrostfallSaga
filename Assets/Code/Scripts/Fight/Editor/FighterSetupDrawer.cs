@@ -41,6 +41,7 @@ namespace FrostfallSaga.FFSEditor.Fight
                 currentY = DrawPropertyField(position, property, "fighterClass", currentY);
                 currentY = DrawPropertyField(position, property, "personalityTrait", currentY);
                 currentY = DrawPropertyField(position, property, "inventory", currentY);
+                currentY = DrawPropertyField(position, property, "directAttackAnimation", currentY);
                 currentY = DrawPropertyField(position, property, "activeAbilities", currentY);
                 currentY = DrawPropertyField(position, property, "passiveAbilities", currentY);
                 currentY = DrawPropertyField(position, property, "receiveDamageAnimationName", currentY);

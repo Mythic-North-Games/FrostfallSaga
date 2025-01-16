@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3103501237087295538}
   - component: {fileID: 3168088838836892604}
   - component: {fileID: 3167306784303201012}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BaseAxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2232,7 +2232,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityVisualAnimationController>k__BackingField: {fileID: 0}
-  <MoveSpeed>k__BackingField: 2.5
+  <MoveSpeed>k__BackingField: 8
+  <JumpSpeed>k__BackingField: 6
+  <JumpForce>k__BackingField: 6
   <RotationSpeed>k__BackingField: 6
   <ReachedDistanceOffset>k__BackingField: 0.01
   _parentToMove: {fileID: 0}

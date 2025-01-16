@@ -25,7 +25,6 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
             Executor.onAnimationEnded += OnExecutorAnimationEnded;
 
             FighterCollider fighterWeaponCollider = fighterThatWillExecute.GetWeaponCollider();
-            Debug.Log($"Executing internal ability animation {fighterWeaponCollider}.");
             Executor.Execute(fighterThatWillExecute, abilityTargetCells, AnimationStateName, AnimationDuration, fighterWeaponCollider);
         }
 
