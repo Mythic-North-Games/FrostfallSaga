@@ -85,9 +85,9 @@ namespace FrostfallSaga.Fight.UI
             mate1IconContainer.style.backgroundImage = null;
             mate2IconContainer.style.backgroundImage = null;
 
-            Fighter[] mates = _fightManager.GetMatesOfFighter(playingFighter);
-            if (mates.Length > 0) mate1IconContainer.style.backgroundImage = new(mates[0].DiamondIcon);
-            if (mates.Length > 1) mate2IconContainer.style.backgroundImage = new(mates[1].DiamondIcon);
+            Fighter[] aliveMates = _fightManager.GetMatesOfFighter(playingFighter).Where(mate => mate.GetHealth() > 0).ToArray();
+            if (aliveMates.Length > 0) mate1IconContainer.style.backgroundImage = new(aliveMates[0].DiamondIcon);
+            if (aliveMates.Length > 1) mate2IconContainer.style.backgroundImage = new(aliveMates[1].DiamondIcon);
         }
 
         private void UpdateAbilityButtons(Fighter fighter)
@@ -207,6 +207,7 @@ namespace FrostfallSaga.Fight.UI
                 _progressBarsController.UpdateMoveBar(fighter);
                 UpdateAbilityButtons(fighter);
             };
+            fighter.onFighterDied += (fighter) => UnregisterFighterEvents(fighter);
         }
 
         private void UnregisterFighterEvents(Fighter fighter)

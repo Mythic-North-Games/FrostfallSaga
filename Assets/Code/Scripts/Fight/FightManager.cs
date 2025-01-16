@@ -137,10 +137,7 @@ namespace FrostfallSaga.Fight
             fighterThatDied.gameObject.SetActive(false);
             fighterThatDied.cell.SetFighter(null);
 
-            // Increase god favors points for the fighter that killed the other
-            _playingFighter.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.KILL);
-
-            // Update fighter passive abilities
+            // Update fighters passive abilities because a condition regarding the death could now be met
             UpdateFightersPassiveAbilities();
 
             // Update order
@@ -156,8 +153,14 @@ namespace FrostfallSaga.Fight
                     onFightEnded?.Invoke(_allies.ToArray(), _enemies.ToArray());
                     return;
                 }
-                OnFighterTurnEnded(fighterThatDied);
+                
+                UpdateFightGridCellsAlterations();
+                PlayNextFighterTurn();
+                return;
             }
+
+            // Increase god favors points for the fighter that killed the other
+            _playingFighter.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.KILL);
         }
 
 

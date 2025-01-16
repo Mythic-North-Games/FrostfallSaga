@@ -42,4 +42,5 @@
     max-height: 700px;
     translate: 0 100px;
     opacity: 0;
+    visibility: hidden;
 }
