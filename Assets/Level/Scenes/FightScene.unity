@@ -51428,7 +51428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _worldGameObjectInstantiator: {fileID: 0}
   _devAlliesFighterSetup:
-  - fighterPrefab: {fileID: 4700538115128749028, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
+  - fighterPrefab: {fileID: 2920049516156015753, guid: 7a4c482ae4a298b4d8b64e3439f587dc, type: 3}
     name: Nicolaz
     sessionId: 
     entityID: 0
@@ -51559,7 +51559,7 @@ MonoBehaviour:
     healSelfAnimationName: 
     reduceStatAnimationName: Hurt
     increaseStatAnimationName: 
-  - fighterPrefab: {fileID: 4700538115128749028, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
+  - fighterPrefab: {fileID: 2920049516156015753, guid: 7a4c482ae4a298b4d8b64e3439f587dc, type: 3}
     name: Floryan
     sessionId: 
     entityID: 0
@@ -51690,7 +51690,7 @@ MonoBehaviour:
     healSelfAnimationName: 
     reduceStatAnimationName: Hurt
     increaseStatAnimationName: 
-  - fighterPrefab: {fileID: 4700538115128749028, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
+  - fighterPrefab: {fileID: 2920049516156015753, guid: 7a4c482ae4a298b4d8b64e3439f587dc, type: 3}
     name: Floryan
     sessionId: 
     entityID: 0
@@ -51822,7 +51822,7 @@ MonoBehaviour:
     reduceStatAnimationName: Hurt
     increaseStatAnimationName: 
   _devEnemiesFighterSetup:
-  - fighterPrefab: {fileID: 7775086033136974095, guid: bc2d5945b1c5d0048a26641c833c7a34, type: 3}
+  - fighterPrefab: {fileID: 6324029983913961529, guid: bc2d5945b1c5d0048a26641c833c7a34, type: 3}
     name: Skeleton
     sessionId: 
     entityID: 0
