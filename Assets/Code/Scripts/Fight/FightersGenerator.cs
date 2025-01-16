@@ -12,9 +12,9 @@ namespace FrostfallSaga.Fight
         public Action<Fighter[], Fighter[]> onFightersGenerated;
 
         [SerializeField] private WorldGameObjectInstantiator _worldGameObjectInstantiator;
-        [SerializeField] private PreFightDataSO _preFightData;
         [SerializeField] private FighterSetup[] _devAlliesFighterSetup;
         [SerializeField] private FighterSetup[] _devEnemiesFighterSetup;
+        private PreFightData _preFightData;
 
         private void Start()
         {
@@ -69,11 +69,6 @@ namespace FrostfallSaga.Fight
                 return;
             }
 
-            if (_preFightData == null)
-            {
-                Debug.LogError("No PreFightData scriptable object given. Can't generate fighters.");
-                return;
-            }
             if (_devAlliesFighterSetup == null || _devAlliesFighterSetup.Length == 0)
             {
                 return;
@@ -107,6 +102,8 @@ namespace FrostfallSaga.Fight
                     { EMagicalElement.DARKNESS, 0 }
                 };
             }
+
+            _preFightData = PreFightData.Instance;
         }
         #endregion
     }

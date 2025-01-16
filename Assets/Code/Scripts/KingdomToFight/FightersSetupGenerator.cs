@@ -13,8 +13,9 @@ namespace FrostfallSaga.KingdomToFight
     public class FightersGenerator : MonoBehaviour
     {
         [SerializeField] private EntityToFighterDBSO _entityToFighterDB;
-        [SerializeField] private PreFightDataSO _preFightData;
         [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
+
+        private PreFightData _preFightData;
 
         private void GenerateAndSaveFightersForFight(Entity[] heroGroupEntities, Entity[] enemiesGroupEntities)
         {
@@ -25,7 +26,7 @@ namespace FrostfallSaga.KingdomToFight
             }
 
             List<FighterSetup> alliesFighterSetup = new();
-            foreach (Entity allyEntity in heroGroupEntities)
+            foreach (Entity allyEntity in heroGroupEntities.Where(entity => !entity.IsDead))
             {
                 PersistedFighterConfigurationSO allyFighterConfiguration = (PersistedFighterConfigurationSO)_entityToFighterDB.DB.First(
                     entityToFighter => entityToFighter.entityID == allyEntity.EntityConfiguration.EntityID
@@ -40,7 +41,7 @@ namespace FrostfallSaga.KingdomToFight
             }
 
             List<FighterSetup> enemiesFighterSetup = new();
-            foreach (Entity enemyEntity in enemiesGroupEntities)
+            foreach (Entity enemyEntity in enemiesGroupEntities.Where(entity => !entity.IsDead))
             {
                 FighterConfigurationSO enemyFighterConfiguration = _entityToFighterDB.DB.First(
                     entityToFighter => entityToFighter.entityID == enemyEntity.EntityConfiguration.EntityID
@@ -122,13 +123,8 @@ namespace FrostfallSaga.KingdomToFight
         }
 
         #region Setup and tear down
-        private void OnEnable()
+        private void Awake()
         {
-            if (_preFightData == null)
-            {
-                Debug.LogError("No PreFightData scriptable object assigned to fighters generator.");
-                return;
-            }
             if (_entityToFighterDB == null)
             {
                 Debug.LogError("No EntitiyToFighterDB scriptable object assigned to fighters generator.");
@@ -145,6 +141,7 @@ namespace FrostfallSaga.KingdomToFight
                 return;
             }
 
+            _preFightData = PreFightData.Instance;
             _entitiesGroupsManager.onEnemiesGroupEncountered += (heroGroup, enemiesGroup, hereGroupInitiated) =>
             {
                 GenerateAndSaveFightersForFight(heroGroup.Entities, enemiesGroup.Entities);

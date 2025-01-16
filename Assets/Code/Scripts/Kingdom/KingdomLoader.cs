@@ -14,18 +14,18 @@ namespace FrostfallSaga.Kingdom
     {
         public Action onKingdomLoaded;
 
-        [SerializeField] private KingdomDataSO _kingdomData;
-        [SerializeField] private PostFightDataSO _postFightData;
         [SerializeField] private HexGrid _grid;
         [SerializeField] private EntitiesGroupBuilder _entitiesGroupBuilder;
         [SerializeField] CinemachineVirtualCamera _camera;
 
+        private KingdomState _kingdomState;
+        private PostFightData _postFightData;
         private EntitiesGroup _respawnedHeroGroup;
         private readonly List<EntitiesGroup> _respawnedEnemiesGroups = new();
 
         private void Start()
         {
-            if (!_postFightData.enabled)
+            if (!_postFightData.isActive)
             {
                 Debug.Log("No fight recorded.");
                 return; // For now, the kingdom loader only needs to behave after a fight.
@@ -36,37 +36,38 @@ namespace FrostfallSaga.Kingdom
             LoadKingdomAsBeforeFight();
             if (!_postFightData.AlliesHaveWon())
             {
-                UpdateEntitiesGroupAfterFight(GetFoughtEnemiesGroup());
+                UpdateEntitiesGroupAfterFight(GetFoughtEnemiesGroup(), isHeroGroup: false);
                 Respawn();
                 onKingdomLoaded?.Invoke();
                 return;
             }
 
             DestroyImmediate(GetFoughtEnemiesGroup().gameObject);
-            UpdateEntitiesGroupAfterFight(_respawnedHeroGroup);
-            _postFightData.enabled = false;
+            UpdateEntitiesGroupAfterFight(_respawnedHeroGroup, isHeroGroup: true);
+            _postFightData.isActive = false;
             Debug.Log("Kingdom loaded.");
             onKingdomLoaded?.Invoke();
         }
 
         private void LoadKingdomAsBeforeFight()
         {
-            _respawnedHeroGroup = _entitiesGroupBuilder.BuildEntitiesGroup(_kingdomData.heroGroupData, _grid);
+            _respawnedHeroGroup = _entitiesGroupBuilder.BuildEntitiesGroup(_kingdomState.heroGroupData, _grid);
             _respawnedHeroGroup.name = "HeroGroup";
             _camera.Follow = _respawnedHeroGroup.CameraAnchor;
             _camera.LookAt = _respawnedHeroGroup.CameraAnchor;
-            foreach (EntitiesGroupData enemiesGroupData in _kingdomData.enemiesGroupsData)
+            foreach (EntitiesGroupData enemiesGroupData in _kingdomState.enemiesGroupsData)
             {
                 _respawnedEnemiesGroups.Add(_entitiesGroupBuilder.BuildEntitiesGroup(enemiesGroupData, _grid));
             }
         }
 
-        private void UpdateEntitiesGroupAfterFight(EntitiesGroup entitiesGroupToUpdate)
+        private void UpdateEntitiesGroupAfterFight(EntitiesGroup entitiesGroupToUpdate, bool isHeroGroup = false)
         {
-            Dictionary<string, PostFightFighterState> alliesStateDict = SElementToValue<string, PostFightFighterState>.GetDictionaryFromArray(
-                _postFightData.alliesState.ToArray()
+
+            Dictionary<string, PostFightFighterState> entitiesStateDict = SElementToValue<string, PostFightFighterState>.GetDictionaryFromArray(
+                isHeroGroup ? _postFightData.alliesState.ToArray() : _postFightData.enemiesState.ToArray()
             );
-            foreach (KeyValuePair<string, PostFightFighterState> postFighterData in alliesStateDict)
+            foreach (KeyValuePair<string, PostFightFighterState> postFighterData in entitiesStateDict)
             {
                 Entity entityToUpdate = entitiesGroupToUpdate.Entities.ToList().Find(
                     entity => entity.SessionId == postFighterData.Key
@@ -94,18 +95,6 @@ namespace FrostfallSaga.Kingdom
 
         private void Awake()
         {
-            if (_kingdomData == null)
-            {
-                Debug.LogError("No kingdom data given. Can't know how to load the kingdom.");
-                return;
-            }
-
-            if (_postFightData == null)
-            {
-                Debug.LogError("No post fight data given. Can't know how to load the kingdom.");
-                return;
-            }
-
             if (_grid == null)
             {
                 _grid = FindObjectOfType<HexGrid>();
@@ -125,6 +114,9 @@ namespace FrostfallSaga.Kingdom
                 Debug.LogError("No entities group builder found. Can't re-generate existing entities groups from fight if there are so.");
                 return;
             }
+
+            _kingdomState = KingdomState.Instance;
+            _postFightData = PostFightData.Instance;
         }
 
         #endregion

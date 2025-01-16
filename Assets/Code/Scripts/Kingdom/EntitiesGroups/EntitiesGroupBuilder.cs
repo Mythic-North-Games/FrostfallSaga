@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Kingdom.Entities;
-using UnityEngine;
+using FrostfallSaga.Utils.GameObjectVisuals;
 
 namespace FrostfallSaga.Kingdom.EntitiesGroups
 {
@@ -11,12 +12,13 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
     /// </summary>
     public class EntitiesGroupBuilder : MonoBehaviour
     {
+        [SerializeField] private WorldGameObjectInstantiator _WGOInstantiator;
         [SerializeField] private EntityBuilder _entityBuilder;
         [SerializeField] private GameObject _blankEntitiesGroupPrefab;
 
         public EntitiesGroup BuildEntitiesGroup(EntitiesGroupData entitiesGroupData, HexGrid grid)
         {
-            GameObject entitiesGroupPrefab = Instantiate(_blankEntitiesGroupPrefab);
+            GameObject entitiesGroupPrefab = _WGOInstantiator.Instantiate(_blankEntitiesGroupPrefab);
             EntitiesGroup entitiesGroup = entitiesGroupPrefab.GetComponent<EntitiesGroup>();
             List<Entity> entities = new();
             entitiesGroupData.entitiesData.ToList().ForEach(entityData => entities.Add(_entityBuilder.BuildEntity(entityData)));
