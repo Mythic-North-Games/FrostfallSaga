@@ -167,7 +167,6 @@ namespace FrostfallSaga.Fight.UI
             for (int i = 0; i < abilitiesContainer.childCount; i++)
             {
                 abilitiesButtons.Add(abilitiesContainer.Q<Button>($"{ABILITY_BUTTON_UI_NAME}{i}"));
-                i++;
             }
 
             return abilitiesButtons.ToArray();
@@ -207,7 +206,11 @@ namespace FrostfallSaga.Fight.UI
                 _progressBarsController.UpdateMoveBar(fighter);
                 UpdateAbilityButtons(fighter);
             };
-            fighter.onFighterDied += (fighter) => UnregisterFighterEvents(fighter);
+            fighter.onFighterDied += (fighter) => 
+            {
+                UpdateFighterIcons(fighter);
+                UnregisterFighterEvents(fighter);
+            };
         }
 
         private void UnregisterFighterEvents(Fighter fighter)

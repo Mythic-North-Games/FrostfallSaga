@@ -860,6 +860,10 @@ namespace FrostfallSaga.Fight.Fighters
         #region Getting children & bindings setup
         public bool TrySetupEntitiyVisualMoveController()
         {
+            if (MovementController != null)
+            {
+                return true;
+            }
             MovementController = GetComponent<EntityVisualMovementController>();
             if (MovementController == null)
             {
@@ -870,6 +874,10 @@ namespace FrostfallSaga.Fight.Fighters
 
         private bool TrySetupEntitiyVisualAnimationController()
         {
+            if (AnimationController != null)
+            {
+                return true;
+            }
             AnimationController = GetComponent<EntityVisualAnimationController>();
             if (AnimationController == null)
             {
