@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4032930022639778}
   - component: {fileID: 198904480402425486}
   - component: {fileID: 199201314536175150}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FX_Heal_Symbol_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4911,7 +4911,7 @@ GameObject:
   - component: {fileID: 4051817017717886}
   - component: {fileID: 198854863673475576}
   - component: {fileID: 199169968688633720}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FX_Heal_Sparkles_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9813,7 +9813,7 @@ GameObject:
   - component: {fileID: 199853598618686570}
   - component: {fileID: 6528681100998349666}
   - component: {fileID: 1479996560658110899}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HealingAnimationExample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14714,7 +14714,7 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0

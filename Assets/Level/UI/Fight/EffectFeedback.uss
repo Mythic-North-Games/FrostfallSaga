@@ -7,48 +7,44 @@
 }
 
 .effectFeedbackContainerHidden {
-    translate: 50px 0;
-    opacity: 0;
     scale: 0.8 0.8;
+    visibility: hidden;
+    translate: 0 50px;
 }
 
 .effectLabelDefault {
-    -unity-font-definition: initial;
-    -unity-font: url("project://database/Assets/Art/UI/fonts/MorrisRomanBlack.otf?fileID=12800000&guid=450220f72e21c774d8a3289a8e0e8843&type=3#MorrisRomanBlack");
-    font-size: 400%;
-    -unity-font-style: italic;
-    flex-grow: 1;
+    font-size: 200%;
+    -unity-text-align: middle-left;
+    color: rgb(162, 162, 162);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-text-outline-width: 0.5px;
 }
 
 .damageLabel {
-    color: rgb(168, 13, 13);
-    -unity-text-outline-color: rgba(119, 0, 0, 0);
-    font-size: 400%;
+    font-size: 200%;
+    -unity-text-align: middle-left;
+    color: rgb(162, 162, 162);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-text-outline-width: 0.5px;
 }
 
 .healLabel {
-    color: rgb(0, 122, 40);
-    -unity-text-outline-color: rgba(0, 77, 26, 0);
-    font-size: 400%;
-}
-
-.buffLabel {
-    color: rgb(12, 111, 149);
-    font-size: 400%;
-}
-
-.debuffLabel {
-    color: rgb(191, 57, 2);
-    font-size: 400%;
+    font-size: 200%;
+    -unity-text-align: middle-left;
+    color: rgb(0, 204, 158);
+    -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-text-outline-width: 0.5px;
 }
 
 .dodgeLabel {
     color: rgb(67, 67, 67);
-    -unity-text-outline-color: rgba(0, 77, 26, 0);
-    font-size: 400%;
+    font-size: 200%;
+    -unity-text-outline-width: 0.5px;
+    -unity-text-outline-color: rgb(0, 0, 0);
 }
 
 .masterstrokeLabel {
-    font-size: 600%;
-    -unity-font-style: italic;
+    font-size: 250%;
+    -unity-text-outline-width: 0.75px;
+    -unity-text-outline-color: rgb(0, 0, 0);
 }

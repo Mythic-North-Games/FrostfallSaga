@@ -29,15 +29,14 @@ MonoBehaviour:
     <TargetsToExclude>k__BackingField: 
     <RelativeHeightsToExclude>k__BackingField: 
     <StopedAtInacessibles>k__BackingField: 1
-    <StopedAtXthHigherHeightDifference>k__BackingField: 0
-    <StopedAtXthLowerHeightDifference>k__BackingField: 0
+    <StopedAtXthHigherHeightDifference>k__BackingField: 1
+    <StopedAtXthLowerHeightDifference>k__BackingField: 1
     <StopedAtXthEncounteredFighters>k__BackingField: 0
   <ActionPointsCost>k__BackingField: 2
   <GodFavorsPointsCost>k__BackingField: 0
-  <Dodgable>k__BackingField: 0
+  <Dodgable>k__BackingField: 1
   <Masterstrokable>k__BackingField: 0
-  MasterstrokeEffects:
-  - rid: 7528321416264941568
+  MasterstrokeEffects: []
   CellAlterations: []
   <Animation>k__BackingField: {fileID: 11400000, guid: 22be110847679934abaaf1e248178acb, type: 2}
   references:
@@ -48,22 +47,3 @@ MonoBehaviour:
       data:
         MagicalDamageAmount: 20
         MagicalElement: 1
-    - rid: 7528321416264941568
-      type: {class: ApplyStatusesEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
-      data:
-        StatusesToApply:
-        - rid: 7528321416264941569
-    - rid: 7528321416264941569
-      type: {class: BleedStatus, ns: FrostfallSaga.Fight.Statuses, asm: FrostfallSaga.Fight}
-      data:
-        <Name>k__BackingField: Freezed
-        <Description>k__BackingField: The fighter's speed is reduced
-        <Icon>k__BackingField: {fileID: 0}
-        <StatusType>k__BackingField: 0
-        <IsPermanent>k__BackingField: 0
-        <Duration>k__BackingField: 4
-        <TriggerOnFirstApply>k__BackingField: 1
-        <IsRecurring>k__BackingField: 1
-        <TriggerTime>k__BackingField: 1
-        <VisualsController>k__BackingField: {fileID: 11400000, guid: e549f4ec3ffc32845ba84beb73ada695, type: 2}
-        <BleedingDamage>k__BackingField: 10

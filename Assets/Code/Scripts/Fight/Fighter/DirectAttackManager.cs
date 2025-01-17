@@ -11,6 +11,7 @@ namespace FrostfallSaga.Fight.Fighters
     {
         public Action onDirectAttackEnded;
         private readonly Fighter _controlledFighter;
+        private List<Fighter> _touchedFighters = new List<Fighter>();
 
         public DirectAttackManager(Fighter fighter)
         {
@@ -51,13 +52,19 @@ namespace FrostfallSaga.Fight.Fighters
 
         private void OnDirectAttackTouchedFighter(Fighter touchedFighter)
         {
+            if (_touchedFighters.Contains(touchedFighter))
+            {
+                return;
+            }
+            _touchedFighters.Add(touchedFighter);
+
             if (touchedFighter.TryDodge())
             {
                 touchedFighter.onActionDodged?.Invoke(touchedFighter);
                 return;
             }
             ApplyEffectsOnFighter(
-                _controlledFighter.Weapon.GetWeaponEffects(touchedFighter.EntityID), 
+                _controlledFighter.Weapon.GetWeaponEffects(touchedFighter.EntityID),
                 touchedFighter,
                 _controlledFighter.TryMasterstroke()
             );
@@ -67,6 +74,7 @@ namespace FrostfallSaga.Fight.Fighters
         {
             _controlledFighter.DirectAttackAnimation.onFighterTouched -= OnDirectAttackTouchedFighter;
             _controlledFighter.DirectAttackAnimation.onAnimationEnded -= OnDirectAttackAnimationEnded;
+            _touchedFighters.Clear();
             onDirectAttackEnded?.Invoke();
         }
 
