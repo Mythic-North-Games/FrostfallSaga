@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 915dccd059fadc7e98a54d64837bbce4, type: 3}
+  m_Name: TestCity
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: 
+  <Description>k__BackingField: 
+  <CityPrefab>k__BackingField: {fileID: 0}
+  <CityBackground>k__BackingField: {fileID: 0}
+  <TavernConfiguration>k__BackingField:
+    Name: 
+    RestCost: 0
