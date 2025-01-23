@@ -13,29 +13,29 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 	{
 		private HexGrid grid;
 
-        [SetUp]
-        public void Setup()
-        {
-            grid = CommonTestsHelper.CreatePlainGridForTest(false, 10, 10);
-        }
+		[SetUp]
+		public void Setup()
+		{
+			grid = CommonTestsHelper.CreatePlainGridForTest(false, 10, 10);
+		}
 
-        [TearDown]
-        public void TearDown()
-        {
-            UnityEngine.Object.DestroyImmediate(grid.gameObject);
-            grid = null;
-        }
+		[TearDown]
+		public void TearDown()
+		{
+			UnityEngine.Object.DestroyImmediate(grid.gameObject);
+			grid = null;
+		}
 
 		[Test]
 		public void GenerateRandomMovePathForEntitiesGroup_NoProhibitedCells_LengthMax_Test()
 		{
 			// Arrange
 			int pathLength = 3;
-			HashSet<Cell> prohibitedCells = new();
-			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)], pathLength);
+			HashSet<KingdomCell> prohibitedCells = new();
+			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)] as KingdomCell, pathLength);
 
 			// Act
-			Cell[] path = EntitiesGroupsMovementController.GenerateRandomMovePathForEntitiesGroup(
+			KingdomCell[] path = EntitiesGroupsMovementController.GenerateRandomMovePathForEntitiesGroup(
 				grid,
 				entitiesGroup,
 				prohibitedCells, pathLength
@@ -46,7 +46,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 			Assert.AreEqual(path.Length, pathLength);
 
 			// Assert all cells are unique
-			HashSet<Cell> uniqueCells = new();
+			HashSet<KingdomCell> uniqueCells = new();
 			uniqueCells.UnionWith(path);
 			Assert.AreEqual(uniqueCells.Count, path.Length);
 
@@ -68,17 +68,17 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 		{
 			// Arrange
 			int pathLength = 3;
-			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)], pathLength);
-			HashSet<Cell> prohibitedCells = new()
+			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)] as KingdomCell, pathLength);
+			HashSet<KingdomCell> prohibitedCells = new()
 			{
-				grid.CellsByCoordinates[new(0, 1)]
+				grid.CellsByCoordinates[new(0, 1)] as KingdomCell
 			};
 
 			int repeatExperienceCount = 50;
 			for (int currentExperienceIndex = 0; currentExperienceIndex < repeatExperienceCount; currentExperienceIndex++)
 			{
 				// Act
-				Cell[] path = EntitiesGroupsMovementController.GenerateRandomMovePathForEntitiesGroup(
+				KingdomCell[] path = EntitiesGroupsMovementController.GenerateRandomMovePathForEntitiesGroup(
 					grid,
 					entitiesGroup,
 					prohibitedCells, pathLength
@@ -89,7 +89,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 				Assert.AreEqual(path.Length, pathLength);
 
 				// Assert all cells are unique
-				HashSet<Cell> uniqueCells = new();
+				HashSet<KingdomCell> uniqueCells = new();
 				uniqueCells.UnionWith(path);
 				Assert.AreEqual(uniqueCells.Count, path.Length);
 
@@ -112,8 +112,8 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 		{
 			// Arrange
 			int minPathLength = -3;
-			HashSet<Cell> prohibitedCells = new();
-			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)], minPathLength);
+			HashSet<KingdomCell> prohibitedCells = new();
+			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)] as KingdomCell, minPathLength);
 
 			// Act
 			Assert.Throws<ArgumentException>(() => EntitiesGroupsMovementController.GenerateRandomMovePathForEntitiesGroup(
@@ -129,44 +129,45 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 			// Arrange
 			int minPathLength = 2;
 			EntitiesGroup[] entitiesGroups = {
-				KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)], minPathLength),
-				KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(2, 2)], minPathLength),
-				KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(2, 0)], minPathLength),
+				KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)] as KingdomCell, minPathLength),
+				KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(2, 2)] as KingdomCell, minPathLength),
+				KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(2, 0)] as KingdomCell, minPathLength),
 			};
 
 			// Act
-			Dictionary<EntitiesGroup, Cell[]> pathPerEntitiesGroup = EntitiesGroupsMovementController.GenerateRandomMovePathPerEntitiesGroup(grid, entitiesGroups, minPathLength);
+			Dictionary<EntitiesGroup, KingdomCell[]> pathPerEntitiesGroup =
+				EntitiesGroupsMovementController.GenerateRandomMovePathPerEntitiesGroup(grid, entitiesGroups, minPathLength);
 
 			/// ASSERTS ///
 			for (int testCount = 0; testCount < 20; testCount++)
 			{
 				AssertPathForMultipleEntitiesGroup(grid, pathPerEntitiesGroup);
 			}
-			
+
 		}
 
-		private void AssertPathForMultipleEntitiesGroup(HexGrid grid, Dictionary<EntitiesGroup, Cell[]> pathPerEntitiesGroup)
+		private void AssertPathForMultipleEntitiesGroup(HexGrid grid, Dictionary<EntitiesGroup, KingdomCell[]> pathPerEntitiesGroup)
 		{
-			foreach (KeyValuePair<EntitiesGroup, Cell[]> item in pathPerEntitiesGroup)
+			foreach (KeyValuePair<EntitiesGroup, KingdomCell[]> item in pathPerEntitiesGroup)
 			{
 				EntitiesGroup currentEntitiesGroup = item.Key;
-				Cell[] path = item.Value;
+				KingdomCell[] path = item.Value;
 
 				// Assert all cells are unique
-				HashSet<Cell> uniqueCells = new();
+				HashSet<KingdomCell> uniqueCells = new();
 				uniqueCells.UnionWith(path);
 				Assert.AreEqual(uniqueCells.Count, path.Length);
 
 				// Assert path does not contains prohibited cells
 				foreach (
-					KeyValuePair<EntitiesGroup, Cell[]> otherPathPerEntitiesGroup in pathPerEntitiesGroup.Where(
+					KeyValuePair<EntitiesGroup, KingdomCell[]> otherPathPerEntitiesGroup in pathPerEntitiesGroup.Where(
 						item => item.Key != currentEntitiesGroup
 					)
 				)
 				{
 					Assert.False(path.All(cellOfPath => otherPathPerEntitiesGroup.Value.Contains(cellOfPath)));
 				}
-				
+
 				// Assert all cells form a path (neighbors)
 				for (int i = 0; i < path.Length - 1; i++)
 				{
@@ -174,7 +175,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 				}
 
 				// Assert all cells are accessibles
-				Assert.True(uniqueCells.All(cell => cell.IsFree()));				
+				Assert.True(uniqueCells.All(cell => cell.IsFree()));
 			}
 		}
 	}

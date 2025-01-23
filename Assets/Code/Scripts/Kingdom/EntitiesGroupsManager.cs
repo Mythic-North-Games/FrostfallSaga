@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Kingdom.Cities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.EntitiesGroupsSpawner;
-using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -22,6 +23,7 @@ namespace FrostfallSaga.Kingdom
         [field: SerializeField] public HexGrid KingdomGrid { get; private set; }
         [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
         [field: SerializeField] public List<EntitiesGroup> EnemiesGroups { get; private set; } = new();
+        [field: SerializeField] public City[] Cities { get; private set; }
 
         [SerializeField] private EntitiesGroupsSpawner.EntitiesGroupsSpawner _enemiesGroupSpawner;
         [SerializeField] private KingdomLoader _kingdomLoader;
@@ -31,9 +33,7 @@ namespace FrostfallSaga.Kingdom
 
         private void OnKingdomLoaded()
         {
-            HeroGroup = FindObjectsOfType<EntitiesGroup>().ToList().Find(entitiesGroup => entitiesGroup.name == "HeroGroup");
-            EnemiesGroups = FindObjectsOfType<EntitiesGroup>().ToList().FindAll(entitiesGroup => entitiesGroup.name != "HeroGroup");
-            BindEntitiesGroupsMouseEvents();
+            Setup();
         }
 
         // It's inside this function that the magic happens. It makes the hero group then the enemies move.
@@ -49,12 +49,9 @@ namespace FrostfallSaga.Kingdom
 
             // Ask the movement controller to make the groups do the movements and listen to when it finishes.
             _entitiesGroupsMovementController.MakeHeroGroupThenEnemiesGroupMove(
-                KingdomGrid,
-                HeroGroup,
                 _currentHeroGroupMovePath,
                 EnemiesGroups.ToArray()
             );
-
         }
 
         private void OnEntitiesGroupClicked(EntitiesGroup clickedEntitiesGroup)
@@ -62,9 +59,19 @@ namespace FrostfallSaga.Kingdom
             OnCellClicked(clickedEntitiesGroup.cell);
         }
 
+        private void OnCityClicked(City clickedCity)
+        {
+            OnCellClicked(clickedCity.cell);
+        }
+
         private void OnEnemiesGroupEncounteredDuringMovement(EntitiesGroup encounteredEnemiesGroup, bool heroGroupHasInitiated)
         {
             onEnemiesGroupEncountered?.Invoke(HeroGroup, encounteredEnemiesGroup, heroGroupHasInitiated);
+        }
+
+        private void OnCityEncountered(City encounteredCity)
+        {
+            Debug.Log($"Welcome to {encounteredCity.CityConfiguration.Name}!");
         }
 
         private void OnAllEntitiesMoved()
@@ -72,7 +79,7 @@ namespace FrostfallSaga.Kingdom
             _entitiesAreMoving = false;
             try
             {
-                _enemiesGroupSpawner.TrySpawnEntitiesGroup(GetOccupiedCells());
+                _enemiesGroupSpawner.TrySpawnEntitiesGroup();
             }
             catch (ImpossibleSpawnException)
             {
@@ -88,16 +95,6 @@ namespace FrostfallSaga.Kingdom
             spawnedEnemiesGroup.onEntityGroupClicked += OnEntitiesGroupClicked;
         }
 
-        private Cell[] GetOccupiedCells()
-        {
-            List<Cell> occupiedCells = new()
-            {
-                HeroGroup.cell
-            };
-            EnemiesGroups.ForEach(group => occupiedCells.Add(group.cell));
-            return occupiedCells.ToArray();
-        }
-
         #region Cells hovering and highlighting
         private void OnCellHovered(Cell hoveredCell)
         {
@@ -106,19 +103,24 @@ namespace FrostfallSaga.Kingdom
                 return;
             }
 
-            if (CellHighlightMaterial == null)
-            {
-                Debug.LogError("No highlight material provided. Can't highlight hovered cell.");
-                return;
-            }
-
-            _currentHeroGroupMovePath = new(CellsPathFinding.GetShorterPath(KingdomGrid, HeroGroup.cell, hoveredCell));
+            Cell[] shorterPathToHoveredCell = CellsPathFinding.GetShorterPath(
+                KingdomGrid,
+                HeroGroup.cell,
+                hoveredCell,
+                checkLastCell: false
+            );
+            _currentHeroGroupMovePath = new(shorterPathToHoveredCell);
             HighlightShorterPathCells();
         }
 
         private void OnEntitiesGroupHovered(EntitiesGroup hoveredEntitiesGroup)
         {
             OnCellHovered(hoveredEntitiesGroup.cell);
+        }
+
+        private void OnCityHovered(City hoveredCity)
+        {
+            OnCellHovered(hoveredCity.cell);
         }
 
         private void OnCellUnhovered(Cell hoveredCell)
@@ -129,6 +131,11 @@ namespace FrostfallSaga.Kingdom
         private void OnEntitiesGroupUnhovered(EntitiesGroup unhoveredEntitiesGroup)
         {
             OnCellUnhovered(unhoveredEntitiesGroup.cell);
+        }
+
+        private void OnCityUnhovered(City unhoveredCity)
+        {
+            OnCellUnhovered(unhoveredCity.cell);
         }
 
         private void HighlightShorterPathCells()
@@ -167,23 +174,6 @@ namespace FrostfallSaga.Kingdom
                 cell.CellMouseEventsController.OnLeftMouseUp += OnCellClicked;
             }
         }
-
-        private void UnbindCellMouseEvents()
-        {
-            if (KingdomGrid == null)
-            {
-                Debug.Log("Grid already disabled or destroyed.");
-            }
-            else
-            {
-                foreach (Cell cell in KingdomGrid.GetCells())
-                {
-                    cell.CellMouseEventsController.OnElementHover -= OnCellHovered;
-                    cell.CellMouseEventsController.OnElementUnhover -= OnCellUnhovered;
-                    cell.CellMouseEventsController.OnLeftMouseDown -= OnCellClicked;
-                }
-            }
-        }
         #endregion
 
         #region Entities groups mouse events binding and unbinding
@@ -199,35 +189,23 @@ namespace FrostfallSaga.Kingdom
                 enemiesGroup.onEntityGroupClicked += OnEntitiesGroupClicked;
             });
         }
+        #endregion
 
-        private void UnbindEntitiesGroupsMouseEvents()
+        #region Cities mouse events binding and unbinding
+        private void BindCitiesMouseEvents()
         {
-            HeroGroup.onEntityGroupHovered -= OnEntitiesGroupHovered;
-            HeroGroup.onEntityGroupUnhovered -= OnEntitiesGroupUnhovered;
-            HeroGroup.onEntityGroupClicked -= OnEntitiesGroupClicked;
-            EnemiesGroups.ForEach(enemiesGroup =>
+            foreach (City city in Cities)
             {
-                enemiesGroup.onEntityGroupHovered -= OnEntitiesGroupHovered;
-                enemiesGroup.onEntityGroupUnhovered -= OnEntitiesGroupUnhovered;
-                enemiesGroup.onEntityGroupClicked -= OnEntitiesGroupClicked;
-            });
+                city.MouseEventsController.OnElementHover += OnCityHovered;
+                city.MouseEventsController.OnElementUnhover += OnCityUnhovered;
+                city.MouseEventsController.OnLeftMouseUp += OnCityClicked;
+            }
         }
         #endregion
 
         #region Setup and tear down
-        private void OnEnable()
+        private void Awake()
         {
-            if (KingdomGrid == null)
-            {
-                KingdomGrid = FindObjectOfType<HexGrid>();
-            }
-            if (KingdomGrid == null)
-            {
-                Debug.LogError("No HexGrid found in the scene. The Kingdom manager can't work.");
-                gameObject.SetActive(false);
-                return;
-            }
-
             if (_enemiesGroupSpawner == null)
             {
                 _enemiesGroupSpawner = FindObjectOfType<EntitiesGroupsSpawner.EntitiesGroupsSpawner>();
@@ -248,30 +226,41 @@ namespace FrostfallSaga.Kingdom
                 return;
             }
 
+            if (CellHighlightMaterial == null)
+            {
+                Debug.LogError("No highlight material provided. Can't highlight hovered cell.");
+                return;
+            }
+
             _enemiesGroupSpawner.onEntitiesGroupSpawned += OnEnemiesGroupSpawned;
             _kingdomLoader.onKingdomLoaded += OnKingdomLoaded;
-            _entitiesGroupsMovementController = new();
+
+            _entitiesGroupsMovementController = new(KingdomGrid, HeroGroup);
             _entitiesGroupsMovementController.OnAllEntitiesMoved += OnAllEntitiesMoved;
             _entitiesGroupsMovementController.OnEnemiesGroupEncountered += OnEnemiesGroupEncounteredDuringMovement;
-            BindCellMouseEvents();
-
-            if (HeroGroup != null)
-            {
-                BindEntitiesGroupsMouseEvents();
-            }
+            _entitiesGroupsMovementController.OnCityEncountered += OnCityEncountered;
         }
 
-        private void OnDisable()
+        private void Setup()
         {
-            _entitiesGroupsMovementController.OnAllEntitiesMoved -= OnAllEntitiesMoved;
-            _entitiesGroupsMovementController.OnEnemiesGroupEncountered -= OnEnemiesGroupEncounteredDuringMovement;
-            _enemiesGroupSpawner.onEntitiesGroupSpawned -= OnEnemiesGroupSpawned;
-            UnbindCellMouseEvents();
-
-            if (HeroGroup != null)
+            if (KingdomGrid == null)
             {
-                UnbindEntitiesGroupsMouseEvents();
+                KingdomGrid = FindObjectOfType<HexGrid>();
             }
+            if (KingdomGrid == null)
+            {
+                Debug.LogError("No HexGrid found in the scene. The Kingdom manager can't work.");
+                gameObject.SetActive(false);
+                return;
+            }
+            BindCellMouseEvents();
+
+            HeroGroup = FindObjectsOfType<EntitiesGroup>().ToList().Find(entitiesGroup => entitiesGroup.name == "HeroGroup");
+            EnemiesGroups = FindObjectsOfType<EntitiesGroup>().ToList().FindAll(entitiesGroup => entitiesGroup.name != "HeroGroup");
+            BindEntitiesGroupsMouseEvents();
+
+            Cities = FindObjectsOfType<City>();
+            BindCitiesMouseEvents();
         }
         #endregion
     }

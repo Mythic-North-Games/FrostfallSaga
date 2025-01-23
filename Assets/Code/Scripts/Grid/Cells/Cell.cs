@@ -180,5 +180,11 @@ namespace FrostfallSaga.Grid.Cells
             Vector2Int targetAxial = targetCell.AxialCoordinates;
             return targetAxial - initiatorAxial;
         }
+#if UNITY_EDITOR
+        public void SetParentGridForTests(HexGrid grid)
+        {
+            ParentGrid = grid ;
+        }
+#endif
     }
 }

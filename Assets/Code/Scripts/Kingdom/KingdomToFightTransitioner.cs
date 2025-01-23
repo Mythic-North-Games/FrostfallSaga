@@ -50,12 +50,12 @@ namespace FrostfallSaga.Kingdom
             Entity enemyEntity = enemiesGroup.GetDisplayedEntity();
 
             // Make groups rotate to watch each other
-            heroEntity.EntityVisualMovementController.RotateTowardsCell(enemiesGroup.cell);
-            enemyEntity.EntityVisualMovementController.RotateTowardsCell(heroGroup.cell);
+            heroEntity.MovementController.RotateTowardsCell(enemiesGroup.cell);
+            enemyEntity.MovementController.RotateTowardsCell(heroGroup.cell);
 
             // Play ready to fight animation for a while
-            heroEntity.EntityAnimationController.PlayAnimationState("ReadyToFight");
-            enemyEntity.EntityAnimationController.PlayAnimationState("ReadyToFight");
+            heroEntity.AnimationController.PlayAnimationState("ReadyToFight");
+            enemyEntity.AnimationController.PlayAnimationState("ReadyToFight");
             yield return new WaitForSeconds(_readyToFightAnimationDuration);
 
             // Make initiator group go to the cell of its enemy
