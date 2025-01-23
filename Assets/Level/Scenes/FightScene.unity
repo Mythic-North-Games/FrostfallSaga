@@ -38,6 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -33423,7 +33424,7 @@ MonoBehaviour:
   <HighlightController>k__BackingField: {fileID: 1121291078}
   <CellMouseEventsController>k__BackingField: {fileID: 1121291077}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 11400000, guid: 1e7d9415540cf2c4fa52c1d968bce6a7, type: 2}
 --- !u!114 &1121291077
 MonoBehaviour:
   m_ObjectHideFlags: 0
