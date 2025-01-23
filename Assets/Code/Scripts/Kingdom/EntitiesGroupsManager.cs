@@ -17,6 +17,7 @@ namespace FrostfallSaga.Kingdom
     {
         // Parameters are: Hero group, encountered enemies group, hero group initiating ?
         public Action<EntitiesGroup, EntitiesGroup, bool> onEnemiesGroupEncountered;
+        public Action<City> onCityEncountered;
 
         [field: SerializeField] public Material CellHighlightMaterial { get; private set; }
         [field: SerializeField] public Material CellInaccessibleHighlightMaterial { get; private set; }
@@ -71,7 +72,7 @@ namespace FrostfallSaga.Kingdom
 
         private void OnCityEncountered(City encounteredCity)
         {
-            Debug.Log($"Welcome to {encounteredCity.CityConfiguration.Name}!");
+            onCityEncountered?.Invoke(encounteredCity);
         }
 
         private void OnAllEntitiesMoved()

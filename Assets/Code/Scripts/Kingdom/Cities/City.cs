@@ -14,6 +14,12 @@ namespace FrostfallSaga.Kingdom.Cities
             {
                 MouseEventsController = GetComponent<CityMouseEventsController>();
             }
+            if (CityConfiguration == null)
+            {
+                Debug.LogError("CityConfiguration is not set. Won't be able to display city name.");
+                return;
+            }
+            name = $"{CityConfiguration.Name}City";
         }
 
         private void Start()
