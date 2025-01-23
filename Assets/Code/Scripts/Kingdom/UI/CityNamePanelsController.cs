@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using FrostfallSaga.Kingdom.Cities;
 using FrostfallSaga.Utils.UI;
 
-namespace FrostfallSaga.Kingdom.Cities
+namespace FrostfallSaga.Kingdom.UI
 {
     public class CityNamePanelController : BaseUIController
     {

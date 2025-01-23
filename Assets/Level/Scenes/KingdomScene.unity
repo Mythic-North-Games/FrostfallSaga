@@ -4607,15 +4607,15 @@ PrefabInstance:
       objectReference: {fileID: 732280509}
     - target: {fileID: 6104153602817924182, guid: a802acbd5548421d4b4716479fb7516c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 6.93
       objectReference: {fileID: 0}
     - target: {fileID: 6104153602817924182, guid: a802acbd5548421d4b4716479fb7516c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.6
       objectReference: {fileID: 0}
     - target: {fileID: 6104153602817924182, guid: a802acbd5548421d4b4716479fb7516c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 4.47
       objectReference: {fileID: 0}
     - target: {fileID: 6104153602817924182, guid: a802acbd5548421d4b4716479fb7516c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4647,7 +4647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9205504088214990625, guid: a802acbd5548421d4b4716479fb7516c, type: 3}
       propertyPath: m_Name
-      value: ExampleCity
+      value: SovengardCity
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25948,6 +25948,7 @@ GameObject:
   - component: {fileID: 791242496}
   - component: {fileID: 791242498}
   - component: {fileID: 791242497}
+  - component: {fileID: 791242499}
   m_Layer: 0
   m_Name: KingdomUI
   m_TagString: Untagged
@@ -26002,6 +26003,22 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: b347f84936919e97db12b83cb168f307, type: 3}
   m_SortingOrder: 0
+--- !u!114 &791242499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791242495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7052914262146b45a09f919f0c4b7c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDoc: {fileID: 791242498}
+  <EnterCityPanelTemplate>k__BackingField: {fileID: 9197481963319205126, guid: 29fdbd1f64f773c49a08c2579f02b9df, type: 3}
+  _entitiesGroupsManager: {fileID: 899991118}
+  _citySceneName: CityScene
 --- !u!1 &792418082
 GameObject:
   m_ObjectHideFlags: 0
