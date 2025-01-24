@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1209365568012508299, guid: 267af9c364daa0396863513163f4551c, type: 3}
       propertyPath: m_Name
-      value: BaseCity
+      value: ExampleCity
       objectReference: {fileID: 0}
     - target: {fileID: 4304964046440804348, guid: 267af9c364daa0396863513163f4551c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7509131012806623075, guid: 267af9c364daa0396863513163f4551c, type: 3}
+      propertyPath: <CityBuildingConfiguration>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 051484d2f41c9b40587d385c75ee6b8a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

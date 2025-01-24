@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.Kingdom.Cities;
+using FrostfallSaga.Kingdom.CityBuildings;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils;
 
@@ -12,7 +12,7 @@ namespace FrostfallSaga.Kingdom
     {
         public Action OnAllEntitiesMoved;
         public Action<EntitiesGroup, bool> OnEnemiesGroupEncountered;
-        public Action<City> OnCityEncountered;
+        public Action<CityBuilding> OnCityEncountered;
 
         private HexGrid _kingdomGrid;
         private EntitiesGroup _heroGroup;
@@ -49,7 +49,7 @@ namespace FrostfallSaga.Kingdom
                     OnEnemiesGroupEncountered?.Invoke(collidingEnemiesGroup, true);
                     UnbindEntitiesGroupsMovementEvents();
                 }
-                else if (cellToMoveTo.Occupier is City upcomingCity)
+                else if (cellToMoveTo.Occupier is CityBuilding upcomingCity)
                 {
                     OnCityEncountered?.Invoke(upcomingCity);
                     _heroGroup.GetDisplayedEntity().AnimationController.RestoreDefaultAnimation();  // Hack before real transition to city scene
