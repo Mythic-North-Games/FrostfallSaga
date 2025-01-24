@@ -23,11 +23,11 @@ namespace FrostfallSaga.Grid.Cells
         [field: SerializeField] public float UpdateHeightDuration { get; private set; }
         [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")] public MaterialHighlightable HighlightController { get; private set; }
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
-        private HexGrid ParentGrid;
+        private HexGrid _parentGrid;
 
         private void Awake()
         {
-            ParentGrid = GetComponentInParent<HexGrid>();
+            _parentGrid = GetComponentInParent<HexGrid>();
             SetCellVisualFromGameObjectTree();
             SetCellMouseEventsControllerFromGameObjectTree();
         }
@@ -117,7 +117,7 @@ namespace FrostfallSaga.Grid.Cells
 
         public Vector3 GetCenter()
         {
-            Vector3 center = HexMetrics.Center(ParentGrid.HexSize, Coordinates.x, Coordinates.y, ParentGrid.HexOrientation);
+            Vector3 center = HexMetrics.Center(_parentGrid.HexSize, Coordinates.x, Coordinates.y, _parentGrid.HexOrientation);
             center.y = GetYPosition();
             return center;
         }
@@ -180,11 +180,24 @@ namespace FrostfallSaga.Grid.Cells
             Vector2Int targetAxial = targetCell.AxialCoordinates;
             return targetAxial - initiatorAxial;
         }
-#if UNITY_EDITOR
+        
         public void SetParentGridForTests(HexGrid grid)
         {
-            ParentGrid = grid ;
+            _parentGrid = grid ;
         }
-#endif
+        
+        public override string ToString()
+        {
+            return $"Cell: \n" +
+                   $"- Coordinates: {Coordinates}\n" +
+                   $"- AxialCoordinates: {AxialCoordinates}\n" +
+                   $"- WorldHeightPerUnit: {WorldHeightPerUnit}\n" +
+                   $"- TerrainType: {TerrainType?.name ?? "None"}\n" +
+                   $"- BiomeType: {BiomeType?.name ?? "None"}\n" +
+                   $"- Height: {Height}\n" +
+                   $"- UpdateHeightDuration: {UpdateHeightDuration}\n" +
+                   $"- HighlightController: {(HighlightController != null ? "Set" : "Not Set")}\n" +
+                   $"- CellMouseEventsController: {(CellMouseEventsController != null ? "Set" : "Not Set")}";
+        }
     }
 }
