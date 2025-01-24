@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Effects;
-
+using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 namespace FrostfallSaga.Fight.FightCells.Impediments
 {
     /// <summary>
@@ -15,10 +15,11 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
     {
         [field: SerializeField, Header("Trap definition")] public ETrapTriggerTime[] TriggerTimes { get; private set; }
         [SerializeReference] public AEffect[] Effects = { };
+        [field: SerializeField] public IImpedimentAnimationSO Animation { get; private set; }
 
         public Action onTrapTriggered;
 
-        public void Trigger(Fighter receiver)
+        public void Trigger(Fighter receiver, FightCell targetedCells)
         {
             foreach (var effect in Effects)
             {
@@ -29,8 +30,21 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
                     adjustGodFavorsPoints: true
                 );
             }
-
+            TriggerAnimation(targetedCells, receiver);
             onTrapTriggered?.Invoke();
         }
+
+        public void TriggerAnimation(FightCell targetedCells, Fighter fighter)
+        {
+            if (Animation == null)
+            {
+                Debug.LogWarning($"No animation attached to active ability {Name}.");
+            }
+            else
+            {
+                Animation.Execute(fighter, targetedCells);
+            }
+        }
+       
     }
 }

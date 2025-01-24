@@ -48,7 +48,7 @@ namespace FrostfallSaga.Fight.FightCells
             if (Impediment is TrapSO trap && HasFighter() && trap.TriggerTimes.Contains(triggerTime))
             {
                 trap.onTrapTriggered += () => onTrapTriggered?.Invoke();
-                trap.Trigger(Fighter);
+                trap.Trigger(Fighter, this);
             }
             else
             {
@@ -65,7 +65,7 @@ namespace FrostfallSaga.Fight.FightCells
         {
             if (Impediment is TrapSO trap && HasFighter() && trap.TriggerTimes.Contains(ETrapTriggerTime.OnStay))
             {
-                trap.Trigger(Fighter);
+                trap.Trigger(Fighter, this);
             }
             AlterationsManager.UpdateAlterations();
         }
