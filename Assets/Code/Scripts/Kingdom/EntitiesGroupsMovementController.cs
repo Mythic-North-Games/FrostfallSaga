@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Kingdom.CityBuildings;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils;
 
@@ -11,6 +12,7 @@ namespace FrostfallSaga.Kingdom
     {
         public Action OnAllEntitiesMoved;
         public Action<EntitiesGroup, bool> OnEnemiesGroupEncountered;
+        public Action<CityBuilding> OnCityEncountered;
 
         private HexGrid _kingdomGrid;
         private EntitiesGroup _heroGroup;
@@ -18,34 +20,41 @@ namespace FrostfallSaga.Kingdom
         private EntitiesGroup[] _enemiesGroupsToMove;
         private readonly Dictionary<EntitiesGroup, MovePath> _currentPathPerEnemiesGroup = new();
 
-
+        public EntitiesGroupsMovementController(HexGrid kingdomGrid, EntitiesGroup heroGroup)
+        {
+            _kingdomGrid = kingdomGrid;
+            _heroGroup = heroGroup;
+        }
 
         public void MakeHeroGroupThenEnemiesGroupMove(
-            HexGrid kingdomGrid,
-            EntitiesGroup heroGroup,
             MovePath heroGroupMovePath,
             EntitiesGroup[] enemiesGroupsToMove
         )
         {
-            _kingdomGrid = kingdomGrid;
-            _heroGroup = heroGroup;
             _currentHeroGroupMovePath = heroGroupMovePath;
             _enemiesGroupsToMove = enemiesGroupsToMove;
-
             BindEntitiesGroupsMovementEvents();
             MakeHeroGroupMove();
         }
 
         private void MakeHeroGroupMove()
         {
-            Cell cellToMoveTo = _currentHeroGroupMovePath.GetNextCellInPath();
+            KingdomCell cellToMoveTo = _currentHeroGroupMovePath.GetNextCellInPath() as KingdomCell;
 
             // Check if collide with enemies group
-            EntitiesGroup collidingEnemiesGroup = GetEnemiesGroupThatWillCollide(cellToMoveTo);
-            if (collidingEnemiesGroup != null)
+            if (cellToMoveTo.HasOccupier())
             {
-                UnbindEntitiesGroupsMovementEvents();
-                OnEnemiesGroupEncountered?.Invoke(collidingEnemiesGroup, true);
+                if (cellToMoveTo.Occupier is EntitiesGroup collidingEnemiesGroup)
+                {
+                    OnEnemiesGroupEncountered?.Invoke(collidingEnemiesGroup, true);
+                    UnbindEntitiesGroupsMovementEvents();
+                }
+                else if (cellToMoveTo.Occupier is CityBuilding upcomingCity)
+                {
+                    OnCityEncountered?.Invoke(upcomingCity);
+                    _heroGroup.GetDisplayedEntity().AnimationController.RestoreDefaultAnimation();  // Hack before real transition to city scene
+                    OnAllEntitiesMoved?.Invoke();
+                }
             }
             else
             {
@@ -67,11 +76,11 @@ namespace FrostfallSaga.Kingdom
 
         private void MakeAllEnemiesGroupsMoveSimultaneously()
         {
-            Dictionary<EntitiesGroup, Cell[]> movePathPerEnemiesGroup = GenerateRandomMovePathPerEntitiesGroup(
+            Dictionary<EntitiesGroup, KingdomCell[]> movePathPerEnemiesGroup = GenerateRandomMovePathPerEntitiesGroup(
                 _kingdomGrid,
                 _enemiesGroupsToMove
             );
-            foreach (KeyValuePair<EntitiesGroup, Cell[]> item in movePathPerEnemiesGroup)
+            foreach (KeyValuePair<EntitiesGroup, KingdomCell[]> item in movePathPerEnemiesGroup)
             {
                 _currentPathPerEnemiesGroup.Add(item.Key, new(item.Value));
             }
@@ -96,7 +105,7 @@ namespace FrostfallSaga.Kingdom
         private void MakeEnemiesGroupMove(EntitiesGroup EntitiesGroup)
         {
             MovePath enemiesGroupMovePath = _currentPathPerEnemiesGroup[EntitiesGroup];
-            Cell cellToMoveTo = enemiesGroupMovePath.GetNextCellInPath();
+            KingdomCell cellToMoveTo = enemiesGroupMovePath.GetNextCellInPath() as KingdomCell;
             if (cellToMoveTo == _heroGroup.cell)
             {
                 UnbindEntitiesGroupsMovementEvents();
@@ -185,14 +194,14 @@ namespace FrostfallSaga.Kingdom
         /// <param name="entitiesGroups">The entities groups to generate a move path for.</param>
         /// <param name="minPathLength">The minimum path's length for all the entities groups.</param>
         /// <returns>A move path per entities group.</returns>
-        public static Dictionary<EntitiesGroup, Cell[]> GenerateRandomMovePathPerEntitiesGroup(
+        public static Dictionary<EntitiesGroup, KingdomCell[]> GenerateRandomMovePathPerEntitiesGroup(
             HexGrid grid,
             EntitiesGroup[] entitiesGroups,
             int minPathLength = 0
         )
         {
-            Dictionary<EntitiesGroup, Cell[]> pathPerEntitiesGroup = new();
-            HashSet<Cell> cellsCoveredByEntitiesGroups = new();
+            Dictionary<EntitiesGroup, KingdomCell[]> pathPerEntitiesGroup = new();
+            HashSet<KingdomCell> cellsCoveredByEntitiesGroups = new();
             foreach (EntitiesGroup entitiesGroup in entitiesGroups)
             {
                 cellsCoveredByEntitiesGroups.Add(entitiesGroup.cell);
@@ -200,7 +209,7 @@ namespace FrostfallSaga.Kingdom
 
             foreach (EntitiesGroup entitiesGroup in entitiesGroups)
             {
-                Cell[] path = GenerateRandomMovePathForEntitiesGroup(grid, entitiesGroup, cellsCoveredByEntitiesGroups, minPathLength);
+                KingdomCell[] path = GenerateRandomMovePathForEntitiesGroup(grid, entitiesGroup, cellsCoveredByEntitiesGroups, minPathLength);
                 cellsCoveredByEntitiesGroups.UnionWith(path);
                 pathPerEntitiesGroup.Add(entitiesGroup, path);
             }
@@ -212,13 +221,12 @@ namespace FrostfallSaga.Kingdom
         /// </summary>
         /// <param name="kingdomGrid">The grid to generate the path in.</param>
         /// <param name="entitiesGroup">The entities group to generate a path for.</param>
-        /// <param name="prohibitedCells">A list of unique cells that the given entities group can't go through.</param>
         /// <param name="minPathLength">The minimum path length. Zero by default. If greater than entities groups move points</param>
         /// <returns>A table of Cell that represents the path.</returns>
-        public static Cell[] GenerateRandomMovePathForEntitiesGroup(
+        public static KingdomCell[] GenerateRandomMovePathForEntitiesGroup(
             HexGrid kingdomGrid,
             EntitiesGroup entitiesGroup,
-            HashSet<Cell> prohibitedCells,
+            HashSet<KingdomCell> prohibitedCells,
             int minPathLength = 0
         )
         {
@@ -232,13 +240,14 @@ namespace FrostfallSaga.Kingdom
                 throw new ArgumentException("minPathLength can't be less than zero.");
             }
 
-            List<Cell> randomMovePath = new();
+            List<KingdomCell> randomMovePath = new();
             int numberOfCellsInPath = Randomizer.GetRandomIntBetween(minPathLength, entitiesGroup.movePoints);
 
             Cell currentCellOfPath = entitiesGroup.cell;
             for (int i = 0; i < numberOfCellsInPath; i++)
             {
-                List<Cell> currentCellOfPathNeighbors = new(CellsNeighbors.GetNeighbors(kingdomGrid, currentCellOfPath));
+                Cell[] neighbors = CellsNeighbors.GetNeighbors(kingdomGrid, currentCellOfPath);
+                List<KingdomCell> currentCellOfPathNeighbors = new(Array.ConvertAll(neighbors, cell => cell as KingdomCell));
                 currentCellOfPathNeighbors.Remove(entitiesGroup.cell);
                 currentCellOfPathNeighbors.RemoveAll(cell => randomMovePath.Contains(cell));
                 currentCellOfPathNeighbors.RemoveAll(cell => prohibitedCells.Contains(cell));
@@ -248,7 +257,7 @@ namespace FrostfallSaga.Kingdom
                     break;
                 }
 
-                Cell neighborCellToAdd = Randomizer.GetRandomElementFromArray(currentCellOfPathNeighbors.ToArray());
+                KingdomCell neighborCellToAdd = Randomizer.GetRandomElementFromArray(currentCellOfPathNeighbors.ToArray());
                 randomMovePath.Add(neighborCellToAdd);
                 currentCellOfPath = neighborCellToAdd;
             }

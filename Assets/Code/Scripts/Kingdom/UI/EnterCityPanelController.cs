@@ -1,0 +1,92 @@
+using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UIElements;
+using FrostfallSaga.Utils.UI;
+using FrostfallSaga.Utils.Scenes;
+using FrostfallSaga.Kingdom.CityBuildings;
+
+namespace FrostfallSaga.Kingdom.UI
+{
+    public class EnterCityPanelController : BaseUIController
+    {
+        private static readonly string PANEL_CONTAINER_UI_NAME = "ScreenPanelContainer";
+        private static readonly string CITY_PANEL_CONTAINER_UI_NAME = "CityPanelContainer";
+        private static readonly string NAME_LABEL_UI_NAME = "CityNameLabel";
+        private static readonly string PREVIEW_CONTAINER_UI_NAME = "CityPreview";
+        private static readonly string DESCRIPTION_LABEL_UI_NAME = "DescriptionLabel";
+        private static readonly string ENTER_CITY_BUTTON_UI_NAME = "EnterButton";
+        private static readonly string EXIT_CITY_BUTTON_UI_NAME = "ExitButton";
+        private static readonly string PANEL_HIDDEN_CLASSNAME = "panelContainerHidden";
+        private static readonly string CITY_PANEL_HIDDEN_CLASSNAME = "cityPanelContainerHidden";
+
+        public Action<CityBuilding> onCityEnterClicked;
+
+        [field: SerializeField] public VisualTreeAsset EnterCityPanelTemplate { get; private set; }
+        [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
+
+        private TemplateContainer _cityGatePanel;
+        private CityBuilding _currentCity;
+
+        private void Awake()
+        {
+            if (_entitiesGroupsManager == null)
+            {
+                Debug.LogError("EntitiesGroupsManager is not set. Won't be able to display city enter panel.");
+                return;
+            }
+            _entitiesGroupsManager.onCityEncountered += OnCityEncountered;
+        }
+
+        private void OnCityEncountered(CityBuilding city)
+        {
+            _currentCity = city;
+
+            _cityGatePanel = EnterCityPanelTemplate.Instantiate();
+            _cityGatePanel.Q<Button>(ENTER_CITY_BUTTON_UI_NAME).clicked += OnDisplayClicked;
+            _cityGatePanel.Q<Button>(EXIT_CITY_BUTTON_UI_NAME).clicked += OnExitClicked;
+            SetupCityPanel(city);
+            _uiDoc.rootVisualElement.Add(_cityGatePanel);
+
+            StartCoroutine(DisplayPanel());
+        }
+
+        private IEnumerator DisplayPanel()
+        {
+            _cityGatePanel.Q<VisualElement>(PANEL_CONTAINER_UI_NAME).RemoveFromClassList(PANEL_HIDDEN_CLASSNAME);
+            yield return new WaitForSeconds(0.1f);
+            _cityGatePanel.Q<VisualElement>(CITY_PANEL_CONTAINER_UI_NAME).RemoveFromClassList(CITY_PANEL_HIDDEN_CLASSNAME);
+        }
+
+        private IEnumerator HidePanel()
+        {
+            _cityGatePanel.Q<VisualElement>(CITY_PANEL_CONTAINER_UI_NAME).AddToClassList(CITY_PANEL_HIDDEN_CLASSNAME);
+            yield return new WaitForSeconds(0.1f);
+            _cityGatePanel.Q<VisualElement>(PANEL_CONTAINER_UI_NAME).AddToClassList(PANEL_HIDDEN_CLASSNAME);
+            yield return new WaitForSeconds(0.4f);
+            _cityGatePanel.RemoveFromHierarchy();
+        }
+
+        private void SetupCityPanel(CityBuilding city)
+        {
+            _cityGatePanel.style.flexGrow = 1;
+            _cityGatePanel.Q<VisualElement>(PANEL_CONTAINER_UI_NAME).AddToClassList(PANEL_HIDDEN_CLASSNAME);
+            _cityGatePanel.Q<VisualElement>(CITY_PANEL_CONTAINER_UI_NAME).AddToClassList(CITY_PANEL_HIDDEN_CLASSNAME);
+            _cityGatePanel.Q<VisualElement>(PREVIEW_CONTAINER_UI_NAME).style.backgroundImage = new(city.CityBuildingConfiguration.CityPreview);
+            _cityGatePanel.Q<Label>(NAME_LABEL_UI_NAME).text = city.CityBuildingConfiguration.Name;
+            _cityGatePanel.Q<Label>(DESCRIPTION_LABEL_UI_NAME).text = city.CityBuildingConfiguration.Description;
+        }
+
+        private void OnDisplayClicked()
+        {
+            StartCoroutine(HidePanel());
+            onCityEnterClicked?.Invoke(_currentCity);
+        }
+
+        private void OnExitClicked()
+        {
+            StartCoroutine(HidePanel());
+            _currentCity = null;
+        }
+    }
+}

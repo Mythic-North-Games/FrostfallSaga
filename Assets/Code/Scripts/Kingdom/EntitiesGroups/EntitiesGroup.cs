@@ -13,15 +13,14 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
     /// Represents a group of entities inside the kingdom grid.
     /// It has one entity displayed that can be changed and it can move.
     /// </summary>
-    public class EntitiesGroup : MonoBehaviour
+    public class EntitiesGroup : KingdomCellOccupier
     {
         public int movePoints;
-        public Cell cell;
         [field: SerializeField] public Transform CameraAnchor { get; private set; }
         public Action<EntitiesGroup> onEntityGroupHovered;
         public Action<EntitiesGroup> onEntityGroupUnhovered;
         public Action<EntitiesGroup> onEntityGroupClicked;
-        public Action<EntitiesGroup, Cell> onEntityGroupMoved;
+        public Action<EntitiesGroup, KingdomCell> onEntityGroupMoved;
         public Entity[] Entities { get; protected set; }
         private Entity _displayedEntity;
 
@@ -36,7 +35,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             {
                 try
                 {
-                    Cell _tryToGetStartCell = GameObject.Find("Cell[0;0]").GetComponent<Cell>();
+                    KingdomCell _tryToGetStartCell = GameObject.Find("Cell[0;0]").GetComponent<KingdomCell>();
                     if (_tryToGetStartCell.IsFree())
                     {
                         cell = _tryToGetStartCell;
@@ -57,21 +56,26 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             transform.position = cell.GetCenter();
         }
 
-        public void MoveToCell(Cell targetCell, bool isLastMove)
+        public void MoveToCell(KingdomCell targetCell, bool isLastMove)
         {
-            _displayedEntity.EntityVisualMovementController.Move(cell, targetCell, isLastMove);
+            _displayedEntity.MovementController.Move(cell, targetCell, isLastMove);
+            if (cell != null) cell.SetOccupier(null);
         }
 
-        public void TeleportToCell(Cell targetCell)
+        public void TeleportToCell(KingdomCell targetCell)
         {
-            _displayedEntity.EntityVisualMovementController.TeleportToCell(targetCell);
+            _displayedEntity.MovementController.TeleportToCell(targetCell);
+            if (cell != null) cell.SetOccupier(null);
             cell = targetCell;
+            cell.SetOccupier(this);
         }
 
         private void OnMoveEnded(Cell destinationCell)
         {
-            cell = destinationCell;
-            onEntityGroupMoved?.Invoke(this, destinationCell);
+            KingdomCell kingdomCell = destinationCell as KingdomCell;
+            cell = kingdomCell;
+            cell.SetOccupier(this);
+            onEntityGroupMoved?.Invoke(this, cell);
         }
 
         public Entity GetDisplayedEntity()
@@ -101,17 +105,17 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             Entities.ToList().ForEach(entity => entity.HideVisual());
             if (_displayedEntity != null)
             {
-                _displayedEntity.EntityMouseEventsController.OnElementHover -= OnDisplayedEntityHovered;
-                _displayedEntity.EntityMouseEventsController.OnElementUnhover -= OnDisplayedEntityUnhovered;
-                _displayedEntity.EntityVisualMovementController.onMoveEnded -= OnMoveEnded;
+                _displayedEntity.MouseEventsController.OnElementHover -= OnDisplayedEntityHovered;
+                _displayedEntity.MouseEventsController.OnElementUnhover -= OnDisplayedEntityUnhovered;
+                _displayedEntity.MovementController.onMoveEnded -= OnMoveEnded;
             }
 
             newDisplayedEntity.ShowVisual();
             newDisplayedEntity.GetComponentInChildren<EntityVisualMovementController>().UpdateParentToMove(gameObject);
-            newDisplayedEntity.EntityMouseEventsController.OnElementHover += OnDisplayedEntityHovered;
-            newDisplayedEntity.EntityMouseEventsController.OnElementUnhover += OnDisplayedEntityUnhovered;
-            newDisplayedEntity.EntityMouseEventsController.OnLeftMouseUp += OnDisplayedEntityClicked;
-            newDisplayedEntity.EntityVisualMovementController.onMoveEnded += OnMoveEnded;
+            newDisplayedEntity.MouseEventsController.OnElementHover += OnDisplayedEntityHovered;
+            newDisplayedEntity.MouseEventsController.OnElementUnhover += OnDisplayedEntityUnhovered;
+            newDisplayedEntity.MouseEventsController.OnLeftMouseUp += OnDisplayedEntityClicked;
+            newDisplayedEntity.MovementController.onMoveEnded += OnMoveEnded;
             _displayedEntity = newDisplayedEntity;
         }
 
@@ -139,9 +143,9 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         {
             if (_displayedEntity)
             {
-                _displayedEntity.EntityMouseEventsController.OnElementHover -= OnDisplayedEntityHovered;
-                _displayedEntity.EntityMouseEventsController.OnElementUnhover -= OnDisplayedEntityUnhovered;
-                _displayedEntity.EntityMouseEventsController.OnLeftMouseUp -= OnDisplayedEntityClicked;
+                _displayedEntity.MouseEventsController.OnElementHover -= OnDisplayedEntityHovered;
+                _displayedEntity.MouseEventsController.OnElementUnhover -= OnDisplayedEntityUnhovered;
+                _displayedEntity.MouseEventsController.OnLeftMouseUp -= OnDisplayedEntityClicked;
             }
         }
 

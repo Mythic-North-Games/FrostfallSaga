@@ -42,7 +42,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
             }
         }
 
-        public void TrySpawnEntitiesGroup(Cell[] prohibitedCells)
+        public void TrySpawnEntitiesGroup()
         {
             if (_spawnedEntitiesGroups.Count == MaxEntitiesGroupsOnMap)
             {
@@ -51,7 +51,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
 
             if (_noSpawnInARow == MaxNoSpawnInARow)
             {
-                SpawnEntitiesGroup(prohibitedCells);
+                SpawnEntitiesGroup();
             }
             else
             {
@@ -64,15 +64,15 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
             _spawnedEntitiesGroups.Remove(destroyedEntitiesGroup);
         }
 
-        private void SpawnEntitiesGroup(Cell[] prohibitedCells)
+        private void SpawnEntitiesGroup()
         {
-            Cell[] availableCellsForSpawn = GetAvailableCellsForSpawn(prohibitedCells);
+            KingdomCell[] availableCellsForSpawn = GetAvailableCellsForSpawn();
             if (availableCellsForSpawn.Length == 0)
             {
                 throw new ImpossibleSpawnException("No available cells for spawn found.");
             }
 
-            Cell cellToSpawnTo = Randomizer.GetRandomElementFromArray(availableCellsForSpawn);
+            KingdomCell cellToSpawnTo = Randomizer.GetRandomElementFromArray(availableCellsForSpawn);
             GameObject spawnedEntitiesGroupPrefab = _worldGameObjectInstantiator.Instantiate(EntitiesGroupPrefab);
             spawnedEntitiesGroupPrefab.name = $"{BaseGroupName}{_spawnedEntitiesGroups.Count}";
             EntitiesGroup spawnedEtitiesGroup = spawnedEntitiesGroupPrefab.GetComponent<EntitiesGroup>();
@@ -83,9 +83,13 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
             onEntitiesGroupSpawned?.Invoke(spawnedEtitiesGroup);
         }
 
-        private Cell[] GetAvailableCellsForSpawn(Cell[] prohibitedCells)
+        private KingdomCell[] GetAvailableCellsForSpawn()
         {
-            return _grid.GetCells().Where(cell => !prohibitedCells.Contains(cell) && cell.IsFree()).ToArray();
+            KingdomCell[] kingdomCells = Array.ConvertAll(
+                _grid.GetCells(),
+                cell => cell as KingdomCell
+            );
+            return kingdomCells.Where(cell => cell.IsFree()).ToArray();
         }
 
         #region Setup and tear down
