@@ -28,7 +28,7 @@ namespace FrostfallSaga.Audio
         /// <paramref name="spawnTransform"/> The transform to spawn the audioSource gameObject
         /// <paramref name="audioVolume"/> The volume of the audio clip
         /// </summary>
-        private void PlaySoundEffectClip(AudioClip audioClip, Transform spawnTransform, float audioVolume)
+        public void PlaySoundEffectClip(AudioClip audioClip, Transform spawnTransform, float audioVolume)
         {
             float clipLength = audioClip.length;
             AudioSource audioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
@@ -38,6 +38,10 @@ namespace FrostfallSaga.Audio
             Destroy(audioSource.gameObject, clipLength);
         }
 
+        /// <summary>
+        /// Play a UI sound effect by using the UISounds enum
+        /// <paramref name="sound"/> The sound to play
+        /// </summary>
         public void PlayUISound(UISounds sound)
         {
             AudioClip audioClip;
