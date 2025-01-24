@@ -180,5 +180,19 @@ namespace FrostfallSaga.Grid.Cells
             Vector2Int targetAxial = targetCell.AxialCoordinates;
             return targetAxial - initiatorAxial;
         }
+
+        public override string ToString()
+        {
+            return $"Cell: \n" +
+                   $"- Coordinates: {Coordinates}\n" +
+                   $"- AxialCoordinates: {AxialCoordinates}\n" +
+                   $"- WorldHeightPerUnit: {WorldHeightPerUnit}\n" +
+                   $"- TerrainType: {TerrainType?.name ?? "None"}\n" +
+                   $"- BiomeType: {BiomeType?.name ?? "None"}\n" +
+                   $"- Height: {Height}\n" +
+                   $"- UpdateHeightDuration: {UpdateHeightDuration}\n" +
+                   $"- HighlightController: {(HighlightController != null ? "Set" : "Not Set")}\n" +
+                   $"- CellMouseEventsController: {(CellMouseEventsController != null ? "Set" : "Not Set")}";
+        }
     }
 }

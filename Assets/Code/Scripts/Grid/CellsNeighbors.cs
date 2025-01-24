@@ -57,6 +57,7 @@ namespace FrostfallSaga.Grid
                 if (cellsByCoordinates.ContainsKey(neighborCoord))
                 {
                     Cell currentNeighbor = cellsByCoordinates[neighborCoord];
+                    Debug.Log($"Found neighbor: {currentNeighbor}");
                     if (
                         mandatoryCells.Contains(currentNeighbor) ||
                         (includeOccupiedNeighbors || currentNeighbor.IsFree()) &&
