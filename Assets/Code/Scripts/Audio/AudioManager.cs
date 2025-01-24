@@ -11,6 +11,7 @@ namespace FrostfallSaga.Audio
         /// </summary>
         public static AudioManager instance;
 
+        [SerializeField] private UIAudioClipsConfig uiAudioClipsConfig;
         [SerializeField] private AudioSource audioSourceObject;
 
         private void Awake()
@@ -35,6 +36,42 @@ namespace FrostfallSaga.Audio
             audioSource.volume = audioVolume;
             audioSource.Play();
             Destroy(audioSource.gameObject, clipLength);
+        }
+
+        /// <summary>
+        /// Play a UI sound effect by using the UISounds enum
+        /// <paramref name="sound"/> The sound to play
+        /// </summary>
+        public void PlayUISound(UISounds sound)
+        {
+            AudioClip audioClip;
+            switch (sound)
+            {
+                case UISounds.FightBegin:
+                    audioClip = uiAudioClipsConfig.fightBeginSound;
+                    break;
+                case UISounds.ButtonClick:
+                    audioClip = uiAudioClipsConfig.buttonClickSound;
+                    break;
+                case UISounds.ButtonHover:
+                    audioClip = uiAudioClipsConfig.buttonHoverSound;
+                    break;
+                case UISounds.FightWon:
+                    audioClip = uiAudioClipsConfig.fightWonSound;
+                    break;
+                case UISounds.FightLost:
+                    audioClip = uiAudioClipsConfig.fightLostSound;
+                    break;
+                default:
+                    audioClip = null;
+                    break;
+            }
+
+            if(audioClip != null){
+                PlaySoundEffectClip(audioClip, transform, 1f);
+            } else {
+                Debug.LogError("Audio clip " + sound +" not found");
+            }
         }
     }
 }
