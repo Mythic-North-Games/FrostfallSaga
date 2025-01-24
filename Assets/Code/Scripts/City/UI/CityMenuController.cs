@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using FrostfallSaga.Utils.UI;
 
-namespace FrostfallSaga.City
+namespace FrostfallSaga.City.UI
 {
     public class CityMenuController : BaseUIController
     {
@@ -10,8 +10,13 @@ namespace FrostfallSaga.City
         private readonly static string CITY_BG_UI_NAME = "MainMenuContainer";
         private readonly static string TAVERN_BUTTON_UI_NAME = "TavernButton";
         private readonly static string EXIT_BUTTON_UI_NAME = "ExitButton";
+        private readonly static string LEFT_CONTAINER_UI_NAME = "LeftContainer";
+        private readonly static string TAVERN_DIALOG_ROOT_UI_NAME = "TavernDialog";
 
+        [SerializeField] private CityConfigurationSO _devCityConfiguration;
         private CityConfigurationSO _cityConfiguration;
+        private LeftContainerController _leftContainerController;
+        private TavernDialogController _tavernDialogController;
 
         #region Main menu setup
         private void Start()
@@ -25,13 +30,22 @@ namespace FrostfallSaga.City
             _uiDoc.rootVisualElement.Q<VisualElement>(CITY_BG_UI_NAME).style.backgroundImage = new(_cityConfiguration.CityBackground);
             _uiDoc.rootVisualElement.Q<Button>(TAVERN_BUTTON_UI_NAME).clicked += OnTavernButtonClicked;
             _uiDoc.rootVisualElement.Q<Button>(EXIT_BUTTON_UI_NAME).clicked += OnExitButtonClicked;
+            _tavernDialogController.SetupTavernDialog(_cityConfiguration.TavernConfiguration);
         }
         #endregion
 
-        #region Button callbacks
+        #region Navigation
         private void OnTavernButtonClicked()
         {
             Debug.Log("Tavern button clicked.");
+            _leftContainerController.Hide();
+            _tavernDialogController.Display();
+        }
+
+        private void OnTavernDialogExitButtonClicked()
+        {
+            _tavernDialogController.Hide();
+            _leftContainerController.Display();
         }
 
         private void OnExitButtonClicked()
@@ -43,8 +57,10 @@ namespace FrostfallSaga.City
         #region Class setup
         private void Awake()
         {
-            _cityConfiguration = CityLoadData.Instance.cityConfiguration;
-
+            _cityConfiguration = CityLoadData.Instance.cityConfiguration != null ? CityLoadData.Instance.cityConfiguration : _devCityConfiguration;
+            _leftContainerController = new(_uiDoc.rootVisualElement.Q<VisualElement>(LEFT_CONTAINER_UI_NAME));
+            _tavernDialogController = new(_uiDoc.rootVisualElement.Q<VisualElement>(TAVERN_DIALOG_ROOT_UI_NAME));
+            _tavernDialogController.onExitClicked += OnTavernDialogExitButtonClicked;
         }
         #endregion
     }
