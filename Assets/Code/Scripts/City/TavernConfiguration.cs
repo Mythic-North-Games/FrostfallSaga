@@ -1,6 +1,6 @@
 using System;
 
-namespace FrostfallSaga.Kingdom.Cities
+namespace FrostfallSaga.City
 {
     [Serializable]
     public class TavernConfiguration

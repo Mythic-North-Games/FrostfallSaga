@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using FrostfallSaga.Kingdom.Cities;
 using FrostfallSaga.Utils.UI;
+using FrostfallSaga.Kingdom.CityBuildings;
 
 namespace FrostfallSaga.Kingdom.UI
 {
@@ -26,17 +26,17 @@ namespace FrostfallSaga.Kingdom.UI
 
         private void OnKingdomLoaded()
         {
-            City[] cities = FindObjectsOfType<City>();
-            foreach (City city in cities)
+            CityBuilding[] cities = FindObjectsOfType<CityBuilding>();
+            foreach (CityBuilding city in cities)
             {
                 SetupCityNamePanel(city);
             }
         }
 
-        private void SetupCityNamePanel(City city)
+        private void SetupCityNamePanel(CityBuilding city)
         {
             TemplateContainer cityNamePanel = CityNamePanelTemplate.Instantiate();
-            cityNamePanel.Q<Label>(CITY_LABEL_UI_NAME).text = city.CityConfiguration.Name;
+            cityNamePanel.Q<Label>(CITY_LABEL_UI_NAME).text = city.CityBuildingConfiguration.Name;
 
             WorldUIPositioner cityNamePositioner = gameObject.AddComponent<WorldUIPositioner>();
             cityNamePositioner.Setup(_uiDoc, cityNamePanel, city.CityNamePanelAnchor.transform, offset: DisplayOffset);

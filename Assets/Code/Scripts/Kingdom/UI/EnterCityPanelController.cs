@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
-using FrostfallSaga.Kingdom.Cities;
 using FrostfallSaga.Utils.UI;
 using FrostfallSaga.Utils.Scenes;
+using FrostfallSaga.Kingdom.CityBuildings;
 
 namespace FrostfallSaga.Kingdom.UI
 {
@@ -19,12 +20,13 @@ namespace FrostfallSaga.Kingdom.UI
         private static readonly string PANEL_HIDDEN_CLASSNAME = "panelContainerHidden";
         private static readonly string CITY_PANEL_HIDDEN_CLASSNAME = "cityPanelContainerHidden";
 
+        public Action<CityBuilding> onCityEnterClicked;
+
         [field: SerializeField] public VisualTreeAsset EnterCityPanelTemplate { get; private set; }
         [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
-        [SerializeField] private string _citySceneName;
 
         private TemplateContainer _cityGatePanel;
-        private City _currentCity;
+        private CityBuilding _currentCity;
 
         private void Awake()
         {
@@ -36,7 +38,7 @@ namespace FrostfallSaga.Kingdom.UI
             _entitiesGroupsManager.onCityEncountered += OnCityEncountered;
         }
 
-        private void OnCityEncountered(City city)
+        private void OnCityEncountered(CityBuilding city)
         {
             _currentCity = city;
 
@@ -65,20 +67,20 @@ namespace FrostfallSaga.Kingdom.UI
             _cityGatePanel.RemoveFromHierarchy();
         }
 
-        private void SetupCityPanel(City city)
+        private void SetupCityPanel(CityBuilding city)
         {
             _cityGatePanel.style.flexGrow = 1;
             _cityGatePanel.Q<VisualElement>(PANEL_CONTAINER_UI_NAME).AddToClassList(PANEL_HIDDEN_CLASSNAME);
             _cityGatePanel.Q<VisualElement>(CITY_PANEL_CONTAINER_UI_NAME).AddToClassList(CITY_PANEL_HIDDEN_CLASSNAME);
-            _cityGatePanel.Q<VisualElement>(PREVIEW_CONTAINER_UI_NAME).style.backgroundImage = new(city.CityConfiguration.CityPreview);
-            _cityGatePanel.Q<Label>(NAME_LABEL_UI_NAME).text = city.CityConfiguration.Name;
-            _cityGatePanel.Q<Label>(DESCRIPTION_LABEL_UI_NAME).text = city.CityConfiguration.Description;
+            _cityGatePanel.Q<VisualElement>(PREVIEW_CONTAINER_UI_NAME).style.backgroundImage = new(city.CityBuildingConfiguration.CityPreview);
+            _cityGatePanel.Q<Label>(NAME_LABEL_UI_NAME).text = city.CityBuildingConfiguration.Name;
+            _cityGatePanel.Q<Label>(DESCRIPTION_LABEL_UI_NAME).text = city.CityBuildingConfiguration.Description;
         }
 
         private void OnDisplayClicked()
         {
-            Debug.Log($"Entering city {_currentCity.CityConfiguration.Name}");
-            SceneTransitioner.Instance.FadeInToScene(_citySceneName);
+            StartCoroutine(HidePanel());
+            onCityEnterClicked?.Invoke(_currentCity);
         }
 
         private void OnExitClicked()

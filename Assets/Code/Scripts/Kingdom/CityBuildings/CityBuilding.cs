@@ -1,10 +1,10 @@
 using UnityEngine;
 
-namespace FrostfallSaga.Kingdom.Cities
+namespace FrostfallSaga.Kingdom.CityBuildings
 {
-    public class City : KingdomCellOccupier
+    public class CityBuilding : KingdomCellOccupier
     {
-        [field: SerializeField] public CityConfigurationSO CityConfiguration { get; private set; }
+        [field: SerializeField] public CityBuildingConfigurationSO CityBuildingConfiguration { get; private set; }
         [field: SerializeField] public GameObject CityNamePanelAnchor { get; private set; }
         [field: SerializeField] public CityMouseEventsController MouseEventsController { get; private set; }
 
@@ -14,12 +14,12 @@ namespace FrostfallSaga.Kingdom.Cities
             {
                 MouseEventsController = GetComponent<CityMouseEventsController>();
             }
-            if (CityConfiguration == null)
+            if (CityBuildingConfiguration == null)
             {
-                Debug.LogError("CityConfiguration is not set. Won't be able to display city name.");
+                Debug.LogError("CityBuildingConfiguration is not set. Won't be able to display city name.");
                 return;
             }
-            name = $"{CityConfiguration.Name}City";
+            name = $"{CityBuildingConfiguration.Name}City";
         }
 
         private void Start()

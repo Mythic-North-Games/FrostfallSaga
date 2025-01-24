@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.Kingdom.Cities;
+using FrostfallSaga.Kingdom.CityBuildings;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.EntitiesGroupsSpawner;
 
@@ -17,14 +17,14 @@ namespace FrostfallSaga.Kingdom
     {
         // Parameters are: Hero group, encountered enemies group, hero group initiating ?
         public Action<EntitiesGroup, EntitiesGroup, bool> onEnemiesGroupEncountered;
-        public Action<City> onCityEncountered;
+        public Action<CityBuilding> onCityEncountered;
 
         [field: SerializeField] public Material CellHighlightMaterial { get; private set; }
         [field: SerializeField] public Material CellInaccessibleHighlightMaterial { get; private set; }
         [field: SerializeField] public HexGrid KingdomGrid { get; private set; }
         [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
         [field: SerializeField] public List<EntitiesGroup> EnemiesGroups { get; private set; } = new();
-        [field: SerializeField] public City[] Cities { get; private set; }
+        [field: SerializeField] public CityBuilding[] Cities { get; private set; }
 
         [SerializeField] private EntitiesGroupsSpawner.EntitiesGroupsSpawner _enemiesGroupSpawner;
         [SerializeField] private KingdomLoader _kingdomLoader;
@@ -60,7 +60,7 @@ namespace FrostfallSaga.Kingdom
             OnCellClicked(clickedEntitiesGroup.cell);
         }
 
-        private void OnCityClicked(City clickedCity)
+        private void OnCityClicked(CityBuilding clickedCity)
         {
             OnCellClicked(clickedCity.cell);
         }
@@ -70,7 +70,7 @@ namespace FrostfallSaga.Kingdom
             onEnemiesGroupEncountered?.Invoke(HeroGroup, encounteredEnemiesGroup, heroGroupHasInitiated);
         }
 
-        private void OnCityEncountered(City encounteredCity)
+        private void OnCityEncountered(CityBuilding encounteredCity)
         {
             onCityEncountered?.Invoke(encounteredCity);
         }
@@ -119,7 +119,7 @@ namespace FrostfallSaga.Kingdom
             OnCellHovered(hoveredEntitiesGroup.cell);
         }
 
-        private void OnCityHovered(City hoveredCity)
+        private void OnCityHovered(CityBuilding hoveredCity)
         {
             OnCellHovered(hoveredCity.cell);
         }
@@ -134,7 +134,7 @@ namespace FrostfallSaga.Kingdom
             OnCellUnhovered(unhoveredEntitiesGroup.cell);
         }
 
-        private void OnCityUnhovered(City unhoveredCity)
+        private void OnCityUnhovered(CityBuilding unhoveredCity)
         {
             OnCellUnhovered(unhoveredCity.cell);
         }
@@ -195,7 +195,7 @@ namespace FrostfallSaga.Kingdom
         #region Cities mouse events binding and unbinding
         private void BindCitiesMouseEvents()
         {
-            foreach (City city in Cities)
+            foreach (CityBuilding city in Cities)
             {
                 city.MouseEventsController.OnElementHover += OnCityHovered;
                 city.MouseEventsController.OnElementUnhover += OnCityUnhovered;
@@ -260,7 +260,7 @@ namespace FrostfallSaga.Kingdom
             EnemiesGroups = FindObjectsOfType<EntitiesGroup>().ToList().FindAll(entitiesGroup => entitiesGroup.name != "HeroGroup");
             BindEntitiesGroupsMouseEvents();
 
-            Cities = FindObjectsOfType<City>();
+            Cities = FindObjectsOfType<CityBuilding>();
             BindCitiesMouseEvents();
         }
         #endregion
