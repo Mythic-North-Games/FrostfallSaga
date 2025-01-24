@@ -11,6 +11,7 @@ namespace FrostfallSaga.Audio
         /// </summary>
         public static AudioManager instance;
 
+        [SerializeField] private UIAudioClipsConfig uiAudioClipsConfig;
         [SerializeField] private AudioSource audioSourceObject;
 
         private void Awake()
@@ -27,7 +28,7 @@ namespace FrostfallSaga.Audio
         /// <paramref name="spawnTransform"/> The transform to spawn the audioSource gameObject
         /// <paramref name="audioVolume"/> The volume of the audio clip
         /// </summary>
-        public void PlaySoundEffectClip(AudioClip audioClip, Transform spawnTransform, float audioVolume)
+        private void PlaySoundEffectClip(AudioClip audioClip, Transform spawnTransform, float audioVolume)
         {
             float clipLength = audioClip.length;
             AudioSource audioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
@@ -35,6 +36,38 @@ namespace FrostfallSaga.Audio
             audioSource.volume = audioVolume;
             audioSource.Play();
             Destroy(audioSource.gameObject, clipLength);
+        }
+
+        public void PlayUISound(UISounds sound)
+        {
+            AudioClip audioClip;
+            switch (sound)
+            {
+                case UISounds.FightBegin:
+                    audioClip = uiAudioClipsConfig.fightBeginSound;
+                    break;
+                case UISounds.ButtonClick:
+                    audioClip = uiAudioClipsConfig.buttonClickSound;
+                    break;
+                case UISounds.ButtonHover:
+                    audioClip = uiAudioClipsConfig.buttonHoverSound;
+                    break;
+                case UISounds.FightWon:
+                    audioClip = uiAudioClipsConfig.fightWonSound;
+                    break;
+                case UISounds.FightLost:
+                    audioClip = uiAudioClipsConfig.fightLostSound;
+                    break;
+                default:
+                    audioClip = null;
+                    break;
+            }
+
+            if(audioClip != null){
+                PlaySoundEffectClip(audioClip, transform, 1f);
+            } else {
+                Debug.LogError("Audio clip " + sound +" not found");
+            }
         }
     }
 }
