@@ -5028,7 +5028,7 @@ GameObject:
   - component: {fileID: 125306507}
   - component: {fileID: 125306506}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: UIAudioManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5046,7 +5046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a337116156b60604b92b6cfc653c9566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSourceObject: {fileID: 4094540750882597515, guid: b034ff1c05b1ef24fb9925f182960e04, type: 3}
+  audioSourceObject: {fileID: 5183544978714648164, guid: 068330bdb2ffa3b4ab8af69b67021639, type: 3}
 --- !u!4 &125306507
 Transform:
   m_ObjectHideFlags: 0
