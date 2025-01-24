@@ -28,6 +28,7 @@ namespace FrostfallSaga.Kingdom
             if (!_postFightData.isActive)
             {
                 Debug.Log("No fight recorded.");
+                onKingdomLoaded?.Invoke();
                 return; // For now, the kingdom loader only needs to behave after a fight.
             }
 
@@ -87,7 +88,7 @@ namespace FrostfallSaga.Kingdom
 
         private void Respawn()
         {
-            _respawnedHeroGroup.cell = _grid.CellsByCoordinates[new(0, 0)];
+            _respawnedHeroGroup.cell = _grid.CellsByCoordinates[new(0, 0)] as KingdomCell;
             _respawnedHeroGroup.Entities.ToList().ForEach(entity => entity.IsDead = false);
         }
 

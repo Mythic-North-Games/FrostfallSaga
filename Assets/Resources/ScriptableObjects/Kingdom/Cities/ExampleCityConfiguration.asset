@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 915dccd059fadc7e98a54d64837bbce4, type: 3}
-  m_Name: TestCity
+  m_Name: ExampleCityConfiguration
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
+  <Name>k__BackingField: Sovengard
+  <Description>k__BackingField: Paradise city
   <CityPrefab>k__BackingField: {fileID: 0}
-  <CityBackground>k__BackingField: {fileID: 0}
+  <CityBackground>k__BackingField: {fileID: 21300000, guid: 557d318ab7e708a0188c01e3610b33d6, type: 3}
   <TavernConfiguration>k__BackingField:
-    Name: 
-    RestCost: 0
+    Name: Sovengard's tavern
+    RestCost: 10

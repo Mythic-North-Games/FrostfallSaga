@@ -1,4 +1,4 @@
-using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Kingdom;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using UnityEngine;
 
@@ -6,7 +6,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 {
     public static class KingdomTestsHelper
     {
-        public static EntitiesGroup CreateEntitiesGroup(Cell currentCell, int movePoints = 3)
+        public static EntitiesGroup CreateEntitiesGroup(KingdomCell currentCell, int movePoints = 3)
         {
             GameObject entitiesGroupGameObject = new();
             entitiesGroupGameObject.AddComponent<EntitiesGroup>();
