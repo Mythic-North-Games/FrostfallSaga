@@ -49,6 +49,7 @@ namespace FrostfallSaga.Fight
 
         private Fighter SpawnAndSetupFighter(FighterSetup fighterSetup, string nameSuffix = "")
         {
+            Debug.Log(fighterSetup.name);
             GameObject fighterGameObject = _worldGameObjectInstantiator.Instantiate(fighterSetup.fighterPrefab);
             fighterGameObject.name = new($"{fighterSetup.name}{nameSuffix}");
             Fighter fighter = fighterGameObject.GetComponent<Fighter>();
