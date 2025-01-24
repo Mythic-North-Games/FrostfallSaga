@@ -10,9 +10,9 @@ namespace FrostfallSaga.Audio
         /// Instance a singleton of the AudioManager in the scene
         /// </summary>
         public static AudioManager instance;
-
         [SerializeField] private UIAudioClipsConfig uiAudioClipsConfig;
         [SerializeField] private AudioSource audioSourceObject;
+        private UIAudioClipSelector uIAudioClipSelector;
 
         private void Awake()
         {
@@ -20,6 +20,7 @@ namespace FrostfallSaga.Audio
             {
                 instance = this;
             }
+            uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
         }
 
         /// <summary>
@@ -44,29 +45,7 @@ namespace FrostfallSaga.Audio
         /// </summary>
         public void PlayUISound(UISounds sound)
         {
-            AudioClip audioClip;
-            switch (sound)
-            {
-                case UISounds.FightBegin:
-                    audioClip = uiAudioClipsConfig.fightBeginSound;
-                    break;
-                case UISounds.ButtonClick:
-                    audioClip = uiAudioClipsConfig.buttonClickSound;
-                    break;
-                case UISounds.ButtonHover:
-                    audioClip = uiAudioClipsConfig.buttonHoverSound;
-                    break;
-                case UISounds.FightWon:
-                    audioClip = uiAudioClipsConfig.fightWonSound;
-                    break;
-                case UISounds.FightLost:
-                    audioClip = uiAudioClipsConfig.fightLostSound;
-                    break;
-                default:
-                    audioClip = null;
-                    break;
-            }
-
+            AudioClip audioClip = uIAudioClipSelector.SelectAudioClip(sound);
             if(audioClip != null){
                 PlaySoundEffectClip(audioClip, transform, 1f);
             } else {
