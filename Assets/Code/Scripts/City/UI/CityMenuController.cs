@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using FrostfallSaga.Utils.UI;
+using FrostfallSaga.Utils.Scenes;
 
 namespace FrostfallSaga.City.UI
 {
@@ -14,6 +15,7 @@ namespace FrostfallSaga.City.UI
         private readonly static string TAVERN_DIALOG_ROOT_UI_NAME = "TavernDialog";
 
         [SerializeField] private CityConfigurationSO _devCityConfiguration;
+        [SerializeField] private string _kingdomSceneName;
         private CityConfigurationSO _cityConfiguration;
         private LeftContainerController _leftContainerController;
         private TavernDialogController _tavernDialogController;
@@ -50,7 +52,7 @@ namespace FrostfallSaga.City.UI
 
         private void OnExitButtonClicked()
         {
-            Debug.Log("Exit button clicked.");
+            SceneTransitioner.Instance.FadeInToScene(_kingdomSceneName);
         }
         #endregion
 

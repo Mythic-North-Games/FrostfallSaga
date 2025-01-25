@@ -71,9 +71,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityConfiguration>k__BackingField: {fileID: 0}
-  <EntityAnimationController>k__BackingField: {fileID: 9060926094592426691}
-  <EntityVisualMovementController>k__BackingField: {fileID: 9074993771285576827}
-  <EntityMouseEventsController>k__BackingField: {fileID: 4558270950398422724}
+  <AnimationController>k__BackingField: {fileID: 9060926094592426691}
+  <MovementController>k__BackingField: {fileID: 9074993771285576827}
+  <MouseEventsController>k__BackingField: {fileID: 4558270950398422724}
   <IsDead>k__BackingField: 0
   <SessionId>k__BackingField: 
 --- !u!114 &4558270950398422724

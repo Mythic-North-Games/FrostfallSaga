@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
@@ -12,13 +11,11 @@ namespace FrostfallSaga.Kingdom
     public class KingdomToFightTransitioner : MonoBehaviour
     {
         [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
-        [SerializeField] private EntitiesGroupBuilder _entitiesGroupBuilder;
         [SerializeField] private SceneTransitioner _sceneTransitioner;
         [SerializeField] private float _readyToFightAnimationDuration = 2f;
         [SerializeField] private float _delayBeforeLoadingSceneAfterReadyAnimation = 10f;
         [SerializeField] private string _fightSceneName;
 
-        private KingdomState _kingdomState;
         private Action _onEncounterAnimationEnded;
 
         /// <summary>
@@ -67,7 +64,11 @@ namespace FrostfallSaga.Kingdom
 
         private void OnEncounterAnimationEnded()
         {
-            SaveKingdomData();
+            KingdomState.Instance.SaveKingdomData(
+                _entitiesGroupsManager.HeroGroup,
+                _entitiesGroupsManager.EnemiesGroups,
+                _entitiesGroupsManager.CityBuildings
+            );
             StartCoroutine(StartFightScene());
         }
 
@@ -76,20 +77,6 @@ namespace FrostfallSaga.Kingdom
             yield return new WaitForSeconds(_delayBeforeLoadingSceneAfterReadyAnimation);
             Debug.Log("Transitioning to fight");
             _sceneTransitioner.FadeInToScene(_fightSceneName);
-        }
-
-        private void SaveKingdomData()
-        {
-            _kingdomState.heroGroupData = _entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(_entitiesGroupsManager.HeroGroup);
-
-            List<EntitiesGroupData> enemiesGroupsData = new();
-            _entitiesGroupsManager.EnemiesGroups.ForEach(group =>
-            {
-                enemiesGroupsData.Add(_entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(group));
-            });
-            _kingdomState.enemiesGroupsData = enemiesGroupsData.ToArray();
-
-            Debug.Log("KingdomConfiguration Saved !");
         }
 
         #region Setup and tear down
@@ -106,9 +93,6 @@ namespace FrostfallSaga.Kingdom
             }
             _entitiesGroupsManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
             _onEncounterAnimationEnded += OnEncounterAnimationEnded;
-
-            _kingdomState = KingdomState.Instance;
-
         }
         #endregion
     }

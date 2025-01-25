@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf9b68cef373954fa0d8e82209c712d, type: 3}
   m_Name: PersistedCompanionFighter1
   m_EditorClassIdentifier: 
-  <FighterPrefab>k__BackingField: {fileID: 4700538115128749028, guid: 9a67844a06926d74fb0135f19a139889, type: 3}
+  <FighterPrefab>k__BackingField: {fileID: 2920049516156015753, guid: 7a4c482ae4a298b4d8b64e3439f587dc, type: 3}
   <FighterClass>k__BackingField: {fileID: 11400000, guid: 8d3cfbd8265f5e54cb7a7563a0ae8f1b, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 0}
   <AvailableActiveAbilities>k__BackingField:

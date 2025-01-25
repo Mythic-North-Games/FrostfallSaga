@@ -1,5 +1,6 @@
 using UnityEngine;
 using FrostfallSaga.City;
+using FrostfallSaga.Kingdom;
 using FrostfallSaga.Kingdom.UI;
 using FrostfallSaga.Kingdom.CityBuildings;
 using FrostfallSaga.Utils.Scenes;
@@ -8,6 +9,7 @@ namespace FrostfallSaga.KingdomToCity
 {
     public class CityLoader : MonoBehaviour
     {
+        [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
         [SerializeField] private EnterCityPanelController _enterCityPanelController;
         [SerializeField] private CityBuildingToCityDBSO _cityBuildingToCityDB;
         [SerializeField] private string _citySceneName;
@@ -16,8 +18,14 @@ namespace FrostfallSaga.KingdomToCity
 
         private void OnCityEnterClicked(CityBuilding cityBuilding)
         {
-            Debug.Log($"Loading city scene for {cityBuilding.CityBuildingConfiguration.Name} city building.");
+            Debug.Log($"Saving kingdom state before loading city scene for {cityBuilding.CityBuildingConfiguration.Name}.");
+            KingdomState.Instance.SaveKingdomData(
+                _entitiesGroupsManager.HeroGroup,
+                _entitiesGroupsManager.EnemiesGroups,
+                _entitiesGroupsManager.CityBuildings
+            );
 
+            Debug.Log($"Loading city scene for {cityBuilding.CityBuildingConfiguration.Name} city building.");
             CityConfigurationSO cityConfiguration = _cityBuildingToCityDB.GetCityConfigurationByCityBuildingConfiguration(cityBuilding.CityBuildingConfiguration);
             if (cityConfiguration == null)
             {
@@ -44,6 +52,16 @@ namespace FrostfallSaga.KingdomToCity
             if (_cityBuildingToCityDB == null)
             {
                 Debug.LogError("No CityBuildingToCityDBSO assigned to CityLoader. Won't be able to load city scene correctly.");
+                return;
+            }
+
+            if (_entitiesGroupsManager == null)
+            {
+                _entitiesGroupsManager = FindObjectOfType<EntitiesGroupsManager>();
+            }
+            if (_entitiesGroupsManager == null)
+            {
+                Debug.LogError("No EntitiesGroupsManager found in scene. Won't be able to save kingdom state.");
                 return;
             }
 

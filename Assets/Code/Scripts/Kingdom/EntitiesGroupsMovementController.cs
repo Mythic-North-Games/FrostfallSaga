@@ -52,8 +52,6 @@ namespace FrostfallSaga.Kingdom
                 else if (cellToMoveTo.Occupier is CityBuilding upcomingCity)
                 {
                     OnCityEncountered?.Invoke(upcomingCity);
-                    _heroGroup.GetDisplayedEntity().AnimationController.RestoreDefaultAnimation();  // Hack before real transition to city scene
-                    OnAllEntitiesMoved?.Invoke();
                 }
             }
             else

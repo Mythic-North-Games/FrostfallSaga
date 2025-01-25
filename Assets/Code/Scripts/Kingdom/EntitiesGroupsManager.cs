@@ -24,7 +24,7 @@ namespace FrostfallSaga.Kingdom
         [field: SerializeField] public HexGrid KingdomGrid { get; private set; }
         [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
         [field: SerializeField] public List<EntitiesGroup> EnemiesGroups { get; private set; } = new();
-        [field: SerializeField] public CityBuilding[] Cities { get; private set; }
+        [field: SerializeField] public CityBuilding[] CityBuildings { get; private set; }
 
         [SerializeField] private EntitiesGroupsSpawner.EntitiesGroupsSpawner _enemiesGroupSpawner;
         [SerializeField] private KingdomLoader _kingdomLoader;
@@ -72,6 +72,9 @@ namespace FrostfallSaga.Kingdom
 
         private void OnCityEncountered(CityBuilding encounteredCity)
         {
+            _entitiesAreMoving = false;
+            HeroGroup.GetDisplayedEntity().AnimationController.RestoreDefaultAnimation();
+            HeroGroup.GetDisplayedEntity().MovementController.RotateTowardsCell(encounteredCity.cell);
             onCityEncountered?.Invoke(encounteredCity);
         }
 
@@ -195,7 +198,7 @@ namespace FrostfallSaga.Kingdom
         #region Cities mouse events binding and unbinding
         private void BindCitiesMouseEvents()
         {
-            foreach (CityBuilding city in Cities)
+            foreach (CityBuilding city in CityBuildings)
             {
                 city.MouseEventsController.OnElementHover += OnCityHovered;
                 city.MouseEventsController.OnElementUnhover += OnCityUnhovered;
@@ -235,11 +238,6 @@ namespace FrostfallSaga.Kingdom
 
             _enemiesGroupSpawner.onEntitiesGroupSpawned += OnEnemiesGroupSpawned;
             _kingdomLoader.onKingdomLoaded += OnKingdomLoaded;
-
-            _entitiesGroupsMovementController = new(KingdomGrid, HeroGroup);
-            _entitiesGroupsMovementController.OnAllEntitiesMoved += OnAllEntitiesMoved;
-            _entitiesGroupsMovementController.OnEnemiesGroupEncountered += OnEnemiesGroupEncounteredDuringMovement;
-            _entitiesGroupsMovementController.OnCityEncountered += OnCityEncountered;
         }
 
         private void Setup()
@@ -260,7 +258,12 @@ namespace FrostfallSaga.Kingdom
             EnemiesGroups = FindObjectsOfType<EntitiesGroup>().ToList().FindAll(entitiesGroup => entitiesGroup.name != "HeroGroup");
             BindEntitiesGroupsMouseEvents();
 
-            Cities = FindObjectsOfType<CityBuilding>();
+            _entitiesGroupsMovementController = new(KingdomGrid, HeroGroup);
+            _entitiesGroupsMovementController.OnAllEntitiesMoved += OnAllEntitiesMoved;
+            _entitiesGroupsMovementController.OnEnemiesGroupEncountered += OnEnemiesGroupEncounteredDuringMovement;
+            _entitiesGroupsMovementController.OnCityEncountered += OnCityEncountered;
+
+            CityBuildings = FindObjectsOfType<CityBuilding>();
             BindCitiesMouseEvents();
         }
         #endregion
