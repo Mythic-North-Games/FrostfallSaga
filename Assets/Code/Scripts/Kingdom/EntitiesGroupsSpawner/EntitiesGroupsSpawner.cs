@@ -121,16 +121,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
                 return;
             }
 
-            if (_worldGameObjectInstantiator == null)
-            {
-                _worldGameObjectInstantiator = FindObjectOfType<WorldGameObjectInstantiator>();
-            }
-            if (_worldGameObjectInstantiator == null)
-            {
-                Debug.LogError("No world game object instantiator found. Can't spawn objects.");
-                return;
-            }
-
+            _worldGameObjectInstantiator = WorldGameObjectInstantiator.Instance;
             _kingdomLoader.onKingdomLoaded += OnKingdomLoaded;
         }
         #endregion

@@ -11,7 +11,6 @@ namespace FrostfallSaga.Fight
     {
         public Action<Fighter[], Fighter[]> onFightersGenerated;
 
-        [SerializeField] private WorldGameObjectInstantiator _worldGameObjectInstantiator;
         [SerializeField] private FighterSetup[] _devAlliesFighterSetup;
         [SerializeField] private FighterSetup[] _devEnemiesFighterSetup;
         private PreFightData _preFightData;
@@ -49,7 +48,11 @@ namespace FrostfallSaga.Fight
 
         private Fighter SpawnAndSetupFighter(FighterSetup fighterSetup, string nameSuffix = "")
         {
-            GameObject fighterGameObject = _worldGameObjectInstantiator.Instantiate(fighterSetup.fighterPrefab);
+            if (fighterSetup.fighterPrefab == null)
+            {
+                Debug.LogError($"No fighter prefab attached for {fighterSetup.entityID}. Can't spawn fighter.");
+            }
+            GameObject fighterGameObject = WorldGameObjectInstantiator.Instance.Instantiate(fighterSetup.fighterPrefab);
             fighterGameObject.name = new($"{fighterSetup.name}{nameSuffix}");
             Fighter fighter = fighterGameObject.GetComponent<Fighter>();
             fighter.Setup(fighterSetup);
@@ -59,16 +62,6 @@ namespace FrostfallSaga.Fight
         #region Setup & Teardown
         private void Awake()
         {
-            if (_worldGameObjectInstantiator == null)
-            {
-                _worldGameObjectInstantiator = FindObjectOfType<WorldGameObjectInstantiator>();
-            }
-            if (_worldGameObjectInstantiator == null)
-            {
-                Debug.LogError("No world game object instantiator found. Can't spawn objects.");
-                return;
-            }
-
             if (_devAlliesFighterSetup == null || _devAlliesFighterSetup.Length == 0)
             {
                 return;
