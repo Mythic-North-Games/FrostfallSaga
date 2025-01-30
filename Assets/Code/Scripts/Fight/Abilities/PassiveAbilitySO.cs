@@ -1,7 +1,9 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Grid;
+using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightConditions;
 
@@ -13,8 +15,10 @@ namespace FrostfallSaga.Fight.Abilities
     /// If no conditions are set, the passive ability will be applied to the targets automatically when the fight begins.
     /// </summary>
     [CreateAssetMenu(fileName = "PassiveAbility", menuName = "ScriptableObjects/Fight/Abilities/PassiveAbility", order = 0)]
-    public class PassiveAbilitySO : BaseAbilitySO
+    public class PassiveAbilitySO : ABaseAbility
     {
+        [field: SerializeField] public AEffect[] Effects { get; private set; }
+
         [
             SerializeReference,
             Header("Passive ability specific configuration"),
@@ -41,8 +45,8 @@ namespace FrostfallSaga.Fight.Abilities
         /// <summary>
         /// Applies the passive ability to the given fighter. Effects application, visuals, sounds and events are handled here.
         /// </summary>
-        /// <param name="initator">The fighter that will receive the passive ability.</param>
-        public void Apply(Fighter initator, Dictionary<Fighter, bool> fighterTeams)
+        /// <param name="initiator">The fighter that will receive the passive ability.</param>
+        public void Apply(Fighter initiator, Dictionary<Fighter, bool> fighterTeams)
         {
             if (Targets.Length == 0)
             {
@@ -55,14 +59,14 @@ namespace FrostfallSaga.Fight.Abilities
                 return;
             }
 
-            Fighter[] targets = GetTargets(initator, fighterTeams);
+            Fighter[] targets = GetTargets(initiator, fighterTeams);
             foreach (Fighter target in targets)
             {
                 Effects.ToList().ForEach(
                     effect => effect.ApplyEffect(
                         receiver: target,
                         isMasterstroke: false,
-                        initator: initator,
+                        initiator: initiator,
                         adjustGodFavorsPoints: false
                     )
                 );
@@ -74,18 +78,18 @@ namespace FrostfallSaga.Fight.Abilities
                 return;
             }
 
-            VisualsController.ShowApplicationVisuals(initator);
+            VisualsController.ShowApplicationVisuals(initiator);
             if (!VisualsController.IsShowingRecurringVisuals)
             {
-                VisualsController.ShowRecurringVisuals(initator);
+                VisualsController.ShowRecurringVisuals(initiator);
             }
 
-            initator.onPassiveAbilityApplied?.Invoke(initator, this);
+            initiator.onPassiveAbilityApplied?.Invoke(initiator, this);
         }
 
-        public void Remove(Fighter initator, Dictionary<Fighter, bool> fighterTeams)
+        public void Remove(Fighter initiator, Dictionary<Fighter, bool> fighterTeams)
         {
-            Fighter[] targets = GetTargets(initator, fighterTeams);
+            Fighter[] targets = GetTargets(initiator, fighterTeams);
             foreach (Fighter target in targets)
             {
                 Effects.ToList().ForEach(effect => effect.RestoreEffect(target));
@@ -98,7 +102,7 @@ namespace FrostfallSaga.Fight.Abilities
 
             VisualsController.HideRecurringVisuals();
 
-            initator.onPassiveAbilityRemoved?.Invoke(initator, this);
+            initiator.onPassiveAbilityRemoved?.Invoke(initiator, this);
         }
 
         public bool CheckConditions(Fighter fighter, HexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
@@ -109,7 +113,7 @@ namespace FrostfallSaga.Fight.Abilities
             );
         }
 
-        private Fighter[] GetTargets(Fighter initator, Dictionary<Fighter, bool> fighterTeams)
+        private Fighter[] GetTargets(Fighter initiator, Dictionary<Fighter, bool> fighterTeams)
         {
             List<Fighter> targets = new();
 
@@ -118,19 +122,19 @@ namespace FrostfallSaga.Fight.Abilities
                 switch (target)
                 {
                     case ETarget.SELF:
-                        targets.Add(initator);
+                        targets.Add(initiator);
                         break;
                     case ETarget.ALLIES:
                         targets.AddRange(
                             fighterTeams
-                            .Where(fighterTeam => fighterTeam.Value == fighterTeams[initator])
+                            .Where(fighterTeam => fighterTeam.Value == fighterTeams[initiator])
                             .Select(pair => pair.Key)
                         );
                         break;
                     case ETarget.OPONENTS:
                         targets.AddRange(
                             fighterTeams
-                                .Where(fighterTeam => fighterTeam.Value != fighterTeams[initator])
+                                .Where(fighterTeam => fighterTeam.Value != fighterTeams[initiator])
                                 .Select(pair => pair.Key)
                         );
                         break;

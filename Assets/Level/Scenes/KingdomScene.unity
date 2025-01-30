@@ -4184,7 +4184,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EntitiesGroupPrefab>k__BackingField: {fileID: 2373063617049297155, guid: f9e865b9881c3fb40849619aac6166c7, type: 3}
-  <SpawnableEntities>k__BackingField: {fileID: 11400000, guid: 95f0f95dad381394cb30104b1459300d, type: 2}
+  <SpawnableEntities>k__BackingField:
+  - {fileID: 6060947195042707832, guid: ffd14caba15bf4242a0eaa8bb5de0df2, type: 3}
   <SpawnChance>k__BackingField: 0.5
   <MaxNoSpawnInARow>k__BackingField: 0
   <MaxEntitiesGroupsOnMap>k__BackingField: 3
@@ -44507,8 +44508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164c5103b607fa94d9228dadfc76299a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _entityToFighterDB: {fileID: 11400000, guid: 5b59511f8282269448cd76048dc19e4a, type: 2}
-  _entitiesGroupsManager: {fileID: 899991118}
 --- !u!1 &1386587374
 GameObject:
   m_ObjectHideFlags: 0

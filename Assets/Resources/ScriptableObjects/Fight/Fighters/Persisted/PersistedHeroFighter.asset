@@ -56,7 +56,6 @@ MonoBehaviour:
   <DodgeChance>k__BackingField: 0
   <MasterstrokeChance>k__BackingField: 0
   <Initiative>k__BackingField: 5
-  <DirectAttackAnimation>k__BackingField: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
   <HealSelfAnimationName>k__BackingField: 
   <ReceiveDamageAnimationName>k__BackingField: 
   <ReduceStatAnimationName>k__BackingField: 
@@ -64,11 +63,10 @@ MonoBehaviour:
   <EquipedActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
   <EquipedPassiveAbilities>k__BackingField: []
-  <Health>k__BackingField: 60
   <Inventory>k__BackingField:
     <WeaponSlot>k__BackingField:
-      <Item>k__BackingField: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
-      <ItemCount>k__BackingField: 1
+      <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
     <HelmetSlot>k__BackingField:
       <Item>k__BackingField: {fileID: 0}
@@ -163,3 +161,4 @@ MonoBehaviour:
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
+  <Health>k__BackingField: 60

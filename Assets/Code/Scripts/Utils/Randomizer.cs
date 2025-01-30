@@ -23,6 +23,24 @@ namespace FrostfallSaga.Utils
         {
             return array[_randomizer.Next(0, array.Length)];
         }
+
+        public static T[] GetRandomUniqueElementsFromArray<T>(T[] array, int count)
+        {
+            T[] result = new T[count];
+            T[] copy = new T[array.Length];
+            Array.Copy(array, copy, array.Length);
+
+            for (int i = 0; i < count; i++)
+            {
+                int randomIndex = _randomizer.Next(0, copy.Length);
+                result[i] = copy[randomIndex];
+                copy[randomIndex] = copy[copy.Length - 1];
+                Array.Resize(ref copy, copy.Length - 1);
+            }
+
+            return result;
+        }
+
         public static float GetRandomFloatBetween(float min, float max)
         {
             return RandomUnity.Range(min, max);

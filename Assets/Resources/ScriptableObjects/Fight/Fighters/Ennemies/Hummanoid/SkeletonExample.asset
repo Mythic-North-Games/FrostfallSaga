@@ -57,7 +57,6 @@ MonoBehaviour:
   <DodgeChance>k__BackingField: 0
   <MasterstrokeChance>k__BackingField: 0
   <Initiative>k__BackingField: 5
-  <DirectAttackAnimation>k__BackingField: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
   <HealSelfAnimationName>k__BackingField: 
   <ReceiveDamageAnimationName>k__BackingField: 
   <ReduceStatAnimationName>k__BackingField: 

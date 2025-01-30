@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using FrostfallSaga.Grid;
-using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
@@ -15,7 +14,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
         public Action<EntitiesGroup> onEntitiesGroupSpawned;
 
         [field: SerializeField] public GameObject EntitiesGroupPrefab { get; private set; }
-        [field: SerializeField] public EntitiesListSO SpawnableEntities { get; private set; }
+        [field: SerializeField] public GameObject[] SpawnableEntities { get; private set; }
         [field: SerializeField, Range(0, 1)] public float SpawnChance { get; private set; }
         [field: SerializeField] public int MaxNoSpawnInARow { get; private set; }
         [field: SerializeField] public int MaxEntitiesGroupsOnMap { get; private set; }
@@ -76,7 +75,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
             GameObject spawnedEntitiesGroupPrefab = _worldGameObjectInstantiator.Instantiate(EntitiesGroupPrefab);
             spawnedEntitiesGroupPrefab.name = $"{BaseGroupName}{_spawnedEntitiesGroups.Count}";
             EntitiesGroup spawnedEtitiesGroup = spawnedEntitiesGroupPrefab.GetComponent<EntitiesGroup>();
-            spawnedEtitiesGroup.UpdateEntities(EntitiesGroup.GenerateRandomEntities(SpawnableEntities.AvailableEntities));
+            spawnedEtitiesGroup.UpdateEntities(EntitiesGroup.GenerateRandomEntities(SpawnableEntities));
             spawnedEtitiesGroup.TeleportToCell(cellToSpawnTo);
             _spawnedEntitiesGroups.Add(spawnedEtitiesGroup);
             _noSpawnInARow = 0;
