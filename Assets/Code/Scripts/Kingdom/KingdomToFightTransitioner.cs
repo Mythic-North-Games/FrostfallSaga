@@ -1,20 +1,21 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils.Scenes;
 using FrostfallSaga.Core.GameState;
-using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Core.Entities;
+using FrostfallSaga.Kingdom.CityBuildings;
 
 namespace FrostfallSaga.Kingdom
 {
     public class KingdomToFightTransitioner : MonoBehaviour
     {
-        [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
+        [SerializeField] private KingdomManager _kingdomManager;
         [SerializeField] private SceneTransitioner _sceneTransitioner;
         [SerializeField] private float _readyToFightAnimationDuration = 2f;
         [SerializeField] private float _delayBeforeLoadingSceneAfterReadyAnimation = 10f;
@@ -68,11 +69,7 @@ namespace FrostfallSaga.Kingdom
 
         private void OnEncounterAnimationEnded()
         {
-            KingdomState.Instance.SaveKingdomData(
-                _entitiesGroupsManager.HeroGroup,
-                _entitiesGroupsManager.EnemiesGroups,
-                _entitiesGroupsManager.CityBuildings
-            );
+            _kingdomManager.SaveKingdomState();
             StartCoroutine(StartFightScene());
         }
 
@@ -102,33 +99,19 @@ namespace FrostfallSaga.Kingdom
             GameStateManager.Instance.SavePreFightData(alliesFighterConfigs, enemiesFighterConfigs);
         }
 
-        private void SaveKingdomData()
-        {
-            EntitiesGroupData heroGroupData = _entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(_entitiesGroupsManager.HeroGroup);
-
-            List<EntitiesGroupData> enemiesGroupsData = new();
-            _entitiesGroupsManager.EnemiesGroups.ForEach(group =>
-            {
-                enemiesGroupsData.Add(_entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(group));
-            });
-
-            GameStateManager.Instance.SaveKingdomState(heroGroupData, enemiesGroupsData.ToArray());
-            Debug.Log("KingdomConfiguration Saved !");
-        }
-
         #region Setup and tear down
         private void Awake()
         {
-            if (_entitiesGroupsManager == null)
+            if (_kingdomManager == null)
             {
-                _entitiesGroupsManager = FindObjectOfType<EntitiesGroupsManager>();
+                _kingdomManager = FindObjectOfType<KingdomManager>();
             }
-            if (_entitiesGroupsManager == null)
+            if (_kingdomManager == null)
             {
                 Debug.LogError("No entities groups manager found. Can't transition to fight scene.");
                 return;
             }
-            _entitiesGroupsManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
+            _kingdomManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
             _onEncounterAnimationEnded += OnEncounterAnimationEnded;
         }
         #endregion

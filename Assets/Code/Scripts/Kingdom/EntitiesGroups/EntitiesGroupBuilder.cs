@@ -4,8 +4,8 @@ using UnityEngine;
 using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Kingdom.Entities;
-using FrostfallSaga.Utils.GameObjectVisuals;
 using FrostfallSaga.Utils;
+using FrostfallSaga.Utils.GameObjectVisuals;
 
 namespace FrostfallSaga.Kingdom.EntitiesGroups
 {
@@ -14,8 +14,8 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
     /// </summary>
     public class EntitiesGroupBuilder : MonoBehaviourPersistingSingleton<EntitiesGroupBuilder>
     {
-        [SerializeField] private EntityBuilder _entityBuilder;
-        [SerializeField] private GameObject _blankEntitiesGroupPrefab;
+        private readonly EntityBuilder _entityBuilder = new();
+        private GameObject _blankEntitiesGroupPrefab;
 
         public EntitiesGroup BuildEntitiesGroup(EntitiesGroupData entitiesGroupData, HexGrid grid)
         {
@@ -49,21 +49,9 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             return entitiesData.ToArray();
         }
 
-        #region Setup & tear down
-
         private void Start()
         {
-            if (_entityBuilder == null)
-            {
-                _entityBuilder = FindObjectOfType<EntityBuilder>();
-            }
-
-            if (_entityBuilder == null)
-            {
-                Debug.LogError("EntityBuilder not found. Won't be able to build entities groups.");
-            }
+            _blankEntitiesGroupPrefab = Resources.Load<GameObject>("Prefabs/EntitiesGroups/EmptyEntitiesGroup");
         }
-
-        #endregion
     }
 }

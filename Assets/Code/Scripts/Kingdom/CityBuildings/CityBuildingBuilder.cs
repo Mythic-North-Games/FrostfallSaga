@@ -2,6 +2,7 @@ using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
+using FrostfallSaga.Core.GameState.Kingdom;
 
 namespace FrostfallSaga.Kingdom.CityBuildings
 {
@@ -16,6 +17,15 @@ namespace FrostfallSaga.Kingdom.CityBuildings
             cityBuilding.cell = grid.CellsByCoordinates[new(cityBuildingData.cellX, cityBuildingData.cellY)] as KingdomCell;
             cityBuilding.transform.position = cityBuilding.cell.GetCenter();
             return cityBuilding;
+        }
+
+        public CityBuildingData ExtractCityBuildingDataFromBuilding(CityBuilding cityBuilding)
+        {
+            return new(
+                cityBuilding.CityBuildingConfiguration,
+                cityBuilding.cell.Coordinates.x,
+                cityBuilding.cell.Coordinates.y
+            );
         }
     }
 }

@@ -5,12 +5,12 @@ using UnityEngine;
 using Cinemachine;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Grid;
-using FrostfallSaga.Utils;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Core.GameState.Fight;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
+using FrostfallSaga.Kingdom.CityBuildings;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -28,6 +28,17 @@ namespace FrostfallSaga.Kingdom
 
         private void Start()
         {
+            if (_gameStateManager.IsFirstSceneLaunch())
+            {
+                Debug.Log("First scene launch. No kingdom to load.");
+                onKingdomLoaded?.Invoke();
+                return;
+            }
+
+            Debug.Log("Start loading kingdom.");
+            FindObjectsOfType<EntitiesGroup>().ToList().ForEach(entityGroup => DestroyImmediate(entityGroup.gameObject));
+            LoadKingdomAsBeforeFight();
+
             if (!_gameStateManager.HasFightJustOccured())
             {
                 Debug.Log("No fight recorded.");
@@ -35,9 +46,6 @@ namespace FrostfallSaga.Kingdom
                 return; // For now, the kingdom loader only needs to behave after a fight.
             }
 
-            Debug.Log("Start loading kingdom.");
-            FindObjectsOfType<EntitiesGroup>().ToList().ForEach(entityGroup => DestroyImmediate(entityGroup.gameObject));
-            LoadKingdomAsBeforeFight();
             if (!_gameStateManager.GetPostFightData().AlliesHaveWon())
             {
                 UpdateEntitiesGroupAfterFight(GetFoughtEnemiesGroup(), isHeroGroup: false);
@@ -55,27 +63,30 @@ namespace FrostfallSaga.Kingdom
 
         private void LoadKingdomAsBeforeFight()
         {
+            EntitiesGroupBuilder entitiesGroupBuilder = EntitiesGroupBuilder.Instance;
             KingdomState kingdomState = _gameStateManager.GetKingdomState();
-            _respawnedHeroGroup = _entitiesGroupBuilder.BuildEntitiesGroup(kingdomState.heroGroupData, _grid);
+            _respawnedHeroGroup = entitiesGroupBuilder.BuildEntitiesGroup(kingdomState.heroGroupData, _grid);
             _respawnedHeroGroup.name = "HeroGroup";
             _camera.Follow = _respawnedHeroGroup.CameraAnchor;
             _camera.LookAt = _respawnedHeroGroup.CameraAnchor;
             foreach (EntitiesGroupData enemiesGroupData in kingdomState.enemiesGroupsData)
             {
-                _respawnedEnemiesGroups.Add(_entitiesGroupBuilder.BuildEntitiesGroup(enemiesGroupData, _grid));
+                _respawnedEnemiesGroups.Add(entitiesGroupBuilder.BuildEntitiesGroup(enemiesGroupData, _grid));
             }
 
             // Restore cities
-            foreach(CityBuildingData cityBuildingData in _kingdomState.cityBuildingsData)
+            foreach(CityBuildingData cityBuildingData in kingdomState.cityBuildingsData)
             {
-                _cityBuildings.Add(_cityBuildingBuilder.BuildCityBuilding(cityBuildingData, _grid));
+                _cityBuildings.Add(CityBuildingBuilder.Instance.BuildCityBuilding(cityBuildingData, _grid));
             }
         }
 
         private void AdjustKingdomAfterFight()
         {
+            PostFightData postFightData = _gameStateManager.GetPostFightData();
+
             // If allies have lost, respawn hero group and adjust enemies groups that won
-            if (!_postFightData.AlliesHaveWon())
+            if (!postFightData.AlliesHaveWon())
             {
                 UpdateEntitiesGroupAfterFight(GetFoughtEnemiesGroup(), isHeroGroup: false);
                 Respawn();
@@ -86,7 +97,7 @@ namespace FrostfallSaga.Kingdom
             {
                 DestroyImmediate(GetFoughtEnemiesGroup().gameObject);
                 UpdateEntitiesGroupAfterFight(_respawnedHeroGroup, isHeroGroup: true);
-                _postFightData.isActive = false;
+                postFightData.isActive = false;
             }
         }
 
@@ -136,16 +147,6 @@ namespace FrostfallSaga.Kingdom
             if (_grid == null)
             {
                 Debug.LogError("No grid found. Can't know where to spawn the entities groups.");
-                return;
-            }
-
-            if (_entitiesGroupBuilder == null)
-            {
-                _entitiesGroupBuilder = FindObjectOfType<EntitiesGroupBuilder>();
-            }
-            if (_entitiesGroupBuilder == null)
-            {
-                Debug.LogError("No entities group builder found. Can't re-generate existing entities groups from fight if there are so.");
                 return;
             }
             _gameStateManager = GameStateManager.Instance;

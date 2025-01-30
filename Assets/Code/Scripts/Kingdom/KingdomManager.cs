@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using FrostfallSaga.Core.GameState;
+using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.CityBuildings;
@@ -13,7 +15,7 @@ namespace FrostfallSaga.Kingdom
     /// <summary>
     /// Responsible for managing entities movements and encounters.
     /// </summary>
-    public class EntitiesGroupsManager : MonoBehaviour
+    public class KingdomManager : MonoBehaviour
     {
         // Parameters are: Hero group, encountered enemies group, hero group initiating ?
         public Action<EntitiesGroup, EntitiesGroup, bool> onEnemiesGroupEncountered;
@@ -35,6 +37,27 @@ namespace FrostfallSaga.Kingdom
         private void OnKingdomLoaded()
         {
             Setup();
+        }
+
+        public void SaveKingdomState()
+        {
+            EntitiesGroupBuilder entitiesGroupBuilder = EntitiesGroupBuilder.Instance;
+            EntitiesGroupData heroGroupData = entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(HeroGroup);
+
+            List<EntitiesGroupData> enemiesGroupsData = new();
+            EnemiesGroups.ForEach(group =>
+            {
+                enemiesGroupsData.Add(entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(group));
+            });
+
+            List<CityBuildingData> cityBuildingsData = new();
+            foreach (CityBuilding cityBuilding in CityBuildings)
+            {
+                cityBuildingsData.Add(CityBuildingBuilder.Instance.ExtractCityBuildingDataFromBuilding(cityBuilding));
+            }
+
+            GameStateManager.Instance.SaveKingdomState(heroGroupData, enemiesGroupsData.ToArray(), cityBuildingsData.ToArray());
+            Debug.Log("KingdomConfiguration Saved !");
         }
 
         // It's inside this function that the magic happens. It makes the hero group then the enemies move.

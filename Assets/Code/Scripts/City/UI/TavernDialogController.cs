@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using FrostfallSaga.Core.Cities;
 
 namespace FrostfallSaga.City.UI
 {

@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Utils.UI;
 using FrostfallSaga.Utils.Scenes;
+using FrostfallSaga.Core.GameState;
 
 namespace FrostfallSaga.City.UI
 {
@@ -14,9 +16,9 @@ namespace FrostfallSaga.City.UI
         private readonly static string LEFT_CONTAINER_UI_NAME = "LeftContainer";
         private readonly static string TAVERN_DIALOG_ROOT_UI_NAME = "TavernDialog";
 
-        [SerializeField] private CityConfigurationSO _devCityConfiguration;
+        [SerializeField] private InCityConfigurationSO _devCityConfiguration;
         [SerializeField] private string _kingdomSceneName;
-        private CityConfigurationSO _cityConfiguration;
+        private InCityConfigurationSO _cityConfiguration;
         private LeftContainerController _leftContainerController;
         private TavernDialogController _tavernDialogController;
 
@@ -59,7 +61,8 @@ namespace FrostfallSaga.City.UI
         #region Class setup
         private void Awake()
         {
-            _cityConfiguration = CityLoadData.Instance.cityConfiguration != null ? CityLoadData.Instance.cityConfiguration : _devCityConfiguration;
+            InCityConfigurationSO gameStateConf = GameStateManager.Instance.GetCityConfigurationToLoad();
+            _cityConfiguration = gameStateConf != null ? gameStateConf : _devCityConfiguration;
             _leftContainerController = new(_uiDoc.rootVisualElement.Q<VisualElement>(LEFT_CONTAINER_UI_NAME));
             _tavernDialogController = new(_uiDoc.rootVisualElement.Q<VisualElement>(TAVERN_DIALOG_ROOT_UI_NAME));
             _tavernDialogController.onExitClicked += OnTavernDialogExitButtonClicked;

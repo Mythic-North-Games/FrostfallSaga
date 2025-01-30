@@ -23,19 +23,19 @@ namespace FrostfallSaga.Kingdom.UI
         public Action<CityBuilding> onCityEnterClicked;
 
         [field: SerializeField] public VisualTreeAsset EnterCityPanelTemplate { get; private set; }
-        [SerializeField] private EntitiesGroupsManager _entitiesGroupsManager;
+        [SerializeField] private KingdomManager _kingdomManager;
 
         private TemplateContainer _cityGatePanel;
         private CityBuilding _currentCity;
 
         private void Awake()
         {
-            if (_entitiesGroupsManager == null)
+            if (_kingdomManager == null)
             {
-                Debug.LogError("EntitiesGroupsManager is not set. Won't be able to display city enter panel.");
+                Debug.LogError("KingdomManager is not set. Won't be able to display city enter panel.");
                 return;
             }
-            _entitiesGroupsManager.onCityEncountered += OnCityEncountered;
+            _kingdomManager.onCityEncountered += OnCityEncountered;
         }
 
         private void OnCityEncountered(CityBuilding city)
