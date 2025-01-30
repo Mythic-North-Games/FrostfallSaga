@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc562c7cdab31240b6e99c3650435c8, type: 3}
   m_Name: COMPANION2
   m_EditorClassIdentifier: 
-  <EntityID>k__BackingField: 2
   <Name>k__BackingField: Floryan
   <Icon>k__BackingField: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
   <DiamondIcon>k__BackingField: {fileID: 21300000, guid: 54602b48bb6b71e4b967d9777b79ae1e, type: 3}
-  <EntityPrefab>k__BackingField: {fileID: 4432762545338704991, guid: e0f2e0ebd2fe2154bb88ea014c107f2a, type: 3}
+  <KingdomEntityPrefab>k__BackingField: {fileID: 4432762545338704991, guid: e0f2e0ebd2fe2154bb88ea014c107f2a, type: 3}
+  <FighterConfiguration>k__BackingField: {fileID: 11400000, guid: df382171cf8a1ba4db6687dbbef384ff, type: 2}
+  <Race>k__BackingField: 0

@@ -6,6 +6,10 @@ using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils.Scenes;
+using FrostfallSaga.Core.GameState;
+using FrostfallSaga.Core.Fight;
+using FrostfallSaga.Core.GameState.Kingdom;
+using FrostfallSaga.Core.Entities;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -17,19 +21,18 @@ namespace FrostfallSaga.Kingdom
         [SerializeField] private float _readyToFightAnimationDuration = 2f;
         [SerializeField] private float _delayBeforeLoadingSceneAfterReadyAnimation = 10f;
         [SerializeField] private string _fightSceneName;
-
-        private KingdomState _kingdomState;
         private Action _onEncounterAnimationEnded;
 
         /// <summary>
         /// Start the encounter animation before saving the kingdom state and launching the fight scene.
         /// </summary>
         /// <param name="heroGroup">The hero group.</param>
-        /// <param name="EntitiesGroup">The encountered enemies group.</param>
+        /// <param name="enemiesGroup">The encountered enemies group.</param>
         /// <param name="heroGroupInitiating">True if the hero group is initiating the fight, false otherwise.</param>
-		private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup EntitiesGroup, bool heroGroupInitiating)
+		private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
-            StartCoroutine(StartEncounterAnimation(heroGroup, EntitiesGroup, heroGroupInitiating));
+            SavePreFightData(heroGroup, enemiesGroup);
+            StartCoroutine(StartEncounterAnimation(heroGroup, enemiesGroup, heroGroupInitiating));
         }
 
         /// <summary>
@@ -78,17 +81,36 @@ namespace FrostfallSaga.Kingdom
             _sceneTransitioner.FadeInToScene(_fightSceneName);
         }
 
+        private void SavePreFightData(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup)
+        {
+            KeyValuePair<string, EntityConfigurationSO>[] alliesFighterConfigs = new KeyValuePair<string, EntityConfigurationSO>[heroGroup.Entities.Length];
+            for (int i = 0; i < heroGroup.Entities.Length; i++)
+            {
+                Entity heroGroupEntity = heroGroup.Entities[i];
+                alliesFighterConfigs[i] = new(heroGroupEntity.SessionId, heroGroupEntity.EntityConfiguration);
+            }
+
+            KeyValuePair<string, EntityConfigurationSO>[] enemiesFighterConfigs = new KeyValuePair<string, EntityConfigurationSO>[enemiesGroup.Entities.Length];
+            for (int i = 0; i < enemiesGroup.Entities.Length; i++)
+            {
+                Entity enemyGroupEntity = enemiesGroup.Entities[i];
+                enemiesFighterConfigs[i] = new(enemyGroupEntity.SessionId, enemyGroupEntity.EntityConfiguration);
+            }
+
+            GameStateManager.Instance.SavePreFightData(alliesFighterConfigs, enemiesFighterConfigs);
+        }
+
         private void SaveKingdomData()
         {
-            _kingdomState.heroGroupData = _entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(_entitiesGroupsManager.HeroGroup);
+            EntitiesGroupData heroGroupData = _entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(_entitiesGroupsManager.HeroGroup);
 
             List<EntitiesGroupData> enemiesGroupsData = new();
             _entitiesGroupsManager.EnemiesGroups.ForEach(group =>
             {
                 enemiesGroupsData.Add(_entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(group));
             });
-            _kingdomState.enemiesGroupsData = enemiesGroupsData.ToArray();
 
+            GameStateManager.Instance.SaveKingdomState(heroGroupData, enemiesGroupsData.ToArray());
             Debug.Log("KingdomConfiguration Saved !");
         }
 
@@ -106,9 +128,6 @@ namespace FrostfallSaga.Kingdom
             }
             _entitiesGroupsManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
             _onEncounterAnimationEnded += OnEncounterAnimationEnded;
-
-            _kingdomState = KingdomState.Instance;
-
         }
         #endregion
     }

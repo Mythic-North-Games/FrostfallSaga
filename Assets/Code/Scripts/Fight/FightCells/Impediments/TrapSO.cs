@@ -25,7 +25,7 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
                 effect.ApplyEffect(
                     receiver,
                     isMasterstroke: false,
-                    initator: null,
+                    initiator: null,
                     adjustGodFavorsPoints: true
                 );
             }

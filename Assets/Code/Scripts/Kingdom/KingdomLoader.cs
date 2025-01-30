@@ -4,9 +4,12 @@ using System.Linq;
 using UnityEngine;
 using Cinemachine;
 using FrostfallSaga.Grid;
+using FrostfallSaga.Utils;
+using FrostfallSaga.Core.GameState;
+using FrostfallSaga.Core.GameState.Kingdom;
+using FrostfallSaga.Core.GameState.Fight;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
-using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -18,14 +21,13 @@ namespace FrostfallSaga.Kingdom
         [SerializeField] private EntitiesGroupBuilder _entitiesGroupBuilder;
         [SerializeField] CinemachineVirtualCamera _camera;
 
-        private KingdomState _kingdomState;
-        private PostFightData _postFightData;
+        private GameStateManager _gameStateManager;
         private EntitiesGroup _respawnedHeroGroup;
         private readonly List<EntitiesGroup> _respawnedEnemiesGroups = new();
 
         private void Start()
         {
-            if (!_postFightData.isActive)
+            if (!_gameStateManager.HasFightJustOccured())
             {
                 Debug.Log("No fight recorded.");
                 onKingdomLoaded?.Invoke();
@@ -35,7 +37,7 @@ namespace FrostfallSaga.Kingdom
             Debug.Log("Start loading kingdom.");
             FindObjectsOfType<EntitiesGroup>().ToList().ForEach(entityGroup => DestroyImmediate(entityGroup.gameObject));
             LoadKingdomAsBeforeFight();
-            if (!_postFightData.AlliesHaveWon())
+            if (!_gameStateManager.GetPostFightData().AlliesHaveWon())
             {
                 UpdateEntitiesGroupAfterFight(GetFoughtEnemiesGroup(), isHeroGroup: false);
                 Respawn();
@@ -45,18 +47,19 @@ namespace FrostfallSaga.Kingdom
 
             DestroyImmediate(GetFoughtEnemiesGroup().gameObject);
             UpdateEntitiesGroupAfterFight(_respawnedHeroGroup, isHeroGroup: true);
-            _postFightData.isActive = false;
+            _gameStateManager.CleanPostFightData();
             Debug.Log("Kingdom loaded.");
             onKingdomLoaded?.Invoke();
         }
 
         private void LoadKingdomAsBeforeFight()
         {
-            _respawnedHeroGroup = _entitiesGroupBuilder.BuildEntitiesGroup(_kingdomState.heroGroupData, _grid);
+            KingdomState kingdomState = _gameStateManager.GetKingdomState();
+            _respawnedHeroGroup = _entitiesGroupBuilder.BuildEntitiesGroup(kingdomState.heroGroupData, _grid);
             _respawnedHeroGroup.name = "HeroGroup";
             _camera.Follow = _respawnedHeroGroup.CameraAnchor;
             _camera.LookAt = _respawnedHeroGroup.CameraAnchor;
-            foreach (EntitiesGroupData enemiesGroupData in _kingdomState.enemiesGroupsData)
+            foreach (EntitiesGroupData enemiesGroupData in kingdomState.enemiesGroupsData)
             {
                 _respawnedEnemiesGroups.Add(_entitiesGroupBuilder.BuildEntitiesGroup(enemiesGroupData, _grid));
             }
@@ -64,9 +67,9 @@ namespace FrostfallSaga.Kingdom
 
         private void UpdateEntitiesGroupAfterFight(EntitiesGroup entitiesGroupToUpdate, bool isHeroGroup = false)
         {
-
+            PostFightData postFightData = _gameStateManager.GetPostFightData();
             Dictionary<string, PostFightFighterState> entitiesStateDict = SElementToValue<string, PostFightFighterState>.GetDictionaryFromArray(
-                isHeroGroup ? _postFightData.alliesState.ToArray() : _postFightData.enemiesState.ToArray()
+                isHeroGroup ? postFightData.alliesState.ToArray() : postFightData.enemiesState.ToArray()
             );
             foreach (KeyValuePair<string, PostFightFighterState> postFighterData in entitiesStateDict)
             {
@@ -115,9 +118,7 @@ namespace FrostfallSaga.Kingdom
                 Debug.LogError("No entities group builder found. Can't re-generate existing entities groups from fight if there are so.");
                 return;
             }
-
-            _kingdomState = KingdomState.Instance;
-            _postFightData = PostFightData.Instance;
+            _gameStateManager = GameStateManager.Instance;
         }
 
         #endregion

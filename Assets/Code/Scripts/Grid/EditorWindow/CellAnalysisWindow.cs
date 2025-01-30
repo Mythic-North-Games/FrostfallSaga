@@ -1,7 +1,6 @@
-using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.KingdomToFight;
 using UnityEditor;
 using UnityEngine;
+using FrostfallSaga.Grid.Cells;
 
 namespace FrostfallSaga.Grid
 {

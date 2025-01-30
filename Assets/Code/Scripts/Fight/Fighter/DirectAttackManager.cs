@@ -21,7 +21,7 @@ namespace FrostfallSaga.Fight.Fighters
         public void DirectAttack(List<FightCell> targetedCells)
         {
             // Trigger the direct attack (with or without animation)
-            if (_controlledFighter.DirectAttackAnimation == null)
+            if (_controlledFighter.Weapon.AttackAnimation == null)
             {
                 Debug.LogWarning($"No animation attached to direct attack for fighter {_controlledFighter.name}");
                 targetedCells
@@ -34,7 +34,7 @@ namespace FrostfallSaga.Fight.Fighters
                                 return;
                             }
                             ApplyEffectsOnFighter(
-                                _controlledFighter.Weapon.GetWeaponEffects(cell.Fighter.EntityID),
+                                _controlledFighter.Weapon.GetWeaponEffects(cell.Fighter.Race),
                                 cell.Fighter,
                                 _controlledFighter.TryMasterstroke()
                             );
@@ -44,9 +44,9 @@ namespace FrostfallSaga.Fight.Fighters
             }
             else
             {
-                _controlledFighter.DirectAttackAnimation.onFighterTouched += OnDirectAttackTouchedFighter;
-                _controlledFighter.DirectAttackAnimation.onAnimationEnded += OnDirectAttackAnimationEnded;
-                _controlledFighter.DirectAttackAnimation.Execute(_controlledFighter, targetedCells.ToArray());
+                _controlledFighter.Weapon.AttackAnimation.onFighterTouched += OnDirectAttackTouchedFighter;
+                _controlledFighter.Weapon.AttackAnimation.onAnimationEnded += OnDirectAttackAnimationEnded;
+                _controlledFighter.Weapon.AttackAnimation.Execute(_controlledFighter, targetedCells.ToArray());
             }
         }
 
@@ -64,7 +64,7 @@ namespace FrostfallSaga.Fight.Fighters
                 return;
             }
             ApplyEffectsOnFighter(
-                _controlledFighter.Weapon.GetWeaponEffects(touchedFighter.EntityID),
+                _controlledFighter.Weapon.GetWeaponEffects(touchedFighter.Race),
                 touchedFighter,
                 _controlledFighter.TryMasterstroke()
             );
@@ -72,8 +72,8 @@ namespace FrostfallSaga.Fight.Fighters
 
         private void OnDirectAttackAnimationEnded(Fighter initiator)
         {
-            _controlledFighter.DirectAttackAnimation.onFighterTouched -= OnDirectAttackTouchedFighter;
-            _controlledFighter.DirectAttackAnimation.onAnimationEnded -= OnDirectAttackAnimationEnded;
+            _controlledFighter.Weapon.AttackAnimation.onFighterTouched -= OnDirectAttackTouchedFighter;
+            _controlledFighter.Weapon.AttackAnimation.onAnimationEnded -= OnDirectAttackAnimationEnded;
             _touchedFighters.Clear();
             onDirectAttackEnded?.Invoke();
         }
@@ -94,7 +94,7 @@ namespace FrostfallSaga.Fight.Fighters
                 effect => effect.ApplyEffect(
                     receiver: target,
                     isMasterstroke: isMasterstroke,
-                    initator: _controlledFighter,
+                    initiator: _controlledFighter,
                     adjustGodFavorsPoints: true
                 )
             );

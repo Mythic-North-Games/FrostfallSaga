@@ -13,19 +13,13 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         private TerrainTypeSO _previousTerrainType;
 
-        public SetTerrainAlteration()
-        {
-            CanBeReplaced = true;
-            CanApplyWithFighter = true;
-        }
-
         public SetTerrainAlteration(
-            bool isPermanent,
-            int duration,
             string name,
             string description,
-            Sprite icon
-        ) : base(isPermanent, duration, true, true, name, description, icon)
+            Sprite icon,
+            bool isPermanent,
+            int duration
+        ) : base(name, description, icon, isPermanent, duration, true, true)
         {
         }
 

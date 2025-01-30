@@ -63,7 +63,7 @@ namespace FrostfallSaga.Fight.UI
         private void UpdateFighterDetails(Fighter fighter)
         {
             Label fighterNameLabel = _uiDoc.rootVisualElement.Q<Label>(NAME_LABEL_UI_NAME);
-            fighterNameLabel.text = fighter.name;
+            fighterNameLabel.text = fighter.FighterName;
 
             _progressBarsController.UpdateHealthBar(fighter);
             _progressBarsController.UpdateActionBar(fighter);
