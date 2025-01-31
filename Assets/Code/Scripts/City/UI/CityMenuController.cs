@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using FrostfallSaga.Core;
 using FrostfallSaga.Core.Cities;
+using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Utils.UI;
 using FrostfallSaga.Utils.Scenes;
-using FrostfallSaga.Core.GameState;
 
 namespace FrostfallSaga.City.UI
 {
@@ -17,7 +18,6 @@ namespace FrostfallSaga.City.UI
         private readonly static string TAVERN_DIALOG_ROOT_UI_NAME = "TavernDialog";
 
         [SerializeField] private InCityConfigurationSO _devCityConfiguration;
-        [SerializeField] private string _kingdomSceneName;
         private InCityConfigurationSO _cityConfiguration;
         private LeftContainerController _leftContainerController;
         private TavernDialogController _tavernDialogController;
@@ -54,7 +54,7 @@ namespace FrostfallSaga.City.UI
 
         private void OnExitButtonClicked()
         {
-            SceneTransitioner.Instance.FadeInToScene(_kingdomSceneName);
+            SceneTransitioner.Instance.FadeInToScene(EScenesName.Kingdom.ToString());
         }
         #endregion
 

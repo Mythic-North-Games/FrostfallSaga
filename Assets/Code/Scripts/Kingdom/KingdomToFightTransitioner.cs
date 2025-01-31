@@ -2,14 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FrostfallSaga.Core;
+using FrostfallSaga.Core.GameState;
+using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils.Scenes;
-using FrostfallSaga.Core.GameState;
-using FrostfallSaga.Core.GameState.Kingdom;
-using FrostfallSaga.Core.Entities;
-using FrostfallSaga.Kingdom.CityBuildings;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -19,7 +18,6 @@ namespace FrostfallSaga.Kingdom
         [SerializeField] private SceneTransitioner _sceneTransitioner;
         [SerializeField] private float _readyToFightAnimationDuration = 2f;
         [SerializeField] private float _delayBeforeLoadingSceneAfterReadyAnimation = 10f;
-        [SerializeField] private string _fightSceneName;
         private Action _onEncounterAnimationEnded;
 
         /// <summary>
@@ -77,7 +75,7 @@ namespace FrostfallSaga.Kingdom
         {
             yield return new WaitForSeconds(_delayBeforeLoadingSceneAfterReadyAnimation);
             Debug.Log("Transitioning to fight");
-            _sceneTransitioner.FadeInToScene(_fightSceneName);
+            _sceneTransitioner.FadeInToScene(EScenesName.Fight.ToString());
         }
 
         private void SavePreFightData(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup)
