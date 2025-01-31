@@ -88,7 +88,7 @@ namespace FrostfallSaga.Kingdom
             {
                 DestroyImmediate(GetFoughtEnemiesGroup().gameObject);
                 UpdateEntitiesGroupAfterFight(_respawnedHeroGroup, isHeroGroup: true);
-                postFightData.isActive = false;
+                _gameStateManager.CleanPostFightData();
             }
         }
 
