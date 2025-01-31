@@ -22,6 +22,7 @@ namespace FrostfallSaga.Kingdom
         [SerializeField] CinemachineVirtualCamera _camera;
 
         private GameStateManager _gameStateManager;
+        private GameStateManager _gameStateManager;
         private EntitiesGroup _respawnedHeroGroup;
         private readonly List<EntitiesGroup> _respawnedEnemiesGroups = new();
         private readonly List<CityBuilding> _cityBuildings = new();
@@ -57,6 +58,7 @@ namespace FrostfallSaga.Kingdom
             DestroyImmediate(GetFoughtEnemiesGroup().gameObject);
             UpdateEntitiesGroupAfterFight(_respawnedHeroGroup, isHeroGroup: true);
             _gameStateManager.CleanPostFightData();
+            _gameStateManager.CleanPostFightData();
             Debug.Log("Kingdom loaded.");
             onKingdomLoaded?.Invoke();
         }
@@ -69,6 +71,7 @@ namespace FrostfallSaga.Kingdom
             _respawnedHeroGroup.name = "HeroGroup";
             _camera.Follow = _respawnedHeroGroup.CameraAnchor;
             _camera.LookAt = _respawnedHeroGroup.CameraAnchor;
+            foreach (EntitiesGroupData enemiesGroupData in kingdomState.enemiesGroupsData)
             foreach (EntitiesGroupData enemiesGroupData in kingdomState.enemiesGroupsData)
             {
                 _respawnedEnemiesGroups.Add(entitiesGroupBuilder.BuildEntitiesGroup(enemiesGroupData, _grid));
@@ -109,7 +112,9 @@ namespace FrostfallSaga.Kingdom
         private void UpdateEntitiesGroupAfterFight(EntitiesGroup entitiesGroupToUpdate, bool isHeroGroup = false)
         {
             PostFightData postFightData = _gameStateManager.GetPostFightData();
+            PostFightData postFightData = _gameStateManager.GetPostFightData();
             Dictionary<string, PostFightFighterState> entitiesStateDict = SElementToValue<string, PostFightFighterState>.GetDictionaryFromArray(
+                isHeroGroup ? postFightData.alliesState.ToArray() : postFightData.enemiesState.ToArray()
                 isHeroGroup ? postFightData.alliesState.ToArray() : postFightData.enemiesState.ToArray()
             );
             foreach (KeyValuePair<string, PostFightFighterState> postFighterData in entitiesStateDict)

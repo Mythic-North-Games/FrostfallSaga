@@ -94,5 +94,18 @@ namespace FrostfallSaga.Grid
                 }
             }
         }
+
+        public override string ToString()
+        {
+            return $"HexGrid: \n" +
+                   $"- Width: {Width}\n" +
+                   $"- Height: {Height}\n" +
+                   $"- HexSize: {HexSize}\n" +
+                   $"- HexOrientation: {HexOrientation}\n" +
+                   $"- HexPrefab: {(HexPrefab != null ? HexPrefab.name : "None")}\n" +
+                   $"- Total Cells: {CellsByCoordinates.Count}\n" +
+                   $"- Cells Info: \n" +
+                   $"{string.Join("\n", CellsByCoordinates.Select(kvp => $"  * Coordinates: {kvp.Key}, Cell: {kvp.Value}"))}";
+        }
     }
 }

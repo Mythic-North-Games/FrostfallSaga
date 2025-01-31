@@ -65,8 +65,8 @@ MonoBehaviour:
   <EquipedPassiveAbilities>k__BackingField: []
   <Inventory>k__BackingField:
     <WeaponSlot>k__BackingField:
-      <Item>k__BackingField: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
-      <ItemCount>k__BackingField: 1
+      <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
     <HelmetSlot>k__BackingField:
       <Item>k__BackingField: {fileID: 0}

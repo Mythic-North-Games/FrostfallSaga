@@ -25,9 +25,13 @@ namespace FrostfallSaga.Kingdom
         /// </summary>
         /// <param name="heroGroup">The hero group.</param>
         /// <param name="enemiesGroup">The encountered enemies group.</param>
+        /// <param name="enemiesGroup">The encountered enemies group.</param>
         /// <param name="heroGroupInitiating">True if the hero group is initiating the fight, false otherwise.</param>
 		private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup, bool heroGroupInitiating)
+		private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
+            SavePreFightData(heroGroup, enemiesGroup);
+            StartCoroutine(StartEncounterAnimation(heroGroup, enemiesGroup, heroGroupInitiating));
             SavePreFightData(heroGroup, enemiesGroup);
             StartCoroutine(StartEncounterAnimation(heroGroup, enemiesGroup, heroGroupInitiating));
         }
