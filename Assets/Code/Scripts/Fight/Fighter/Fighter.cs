@@ -526,7 +526,9 @@ namespace FrostfallSaga.Fight.Fighters
 
         public void TryIncreaseGodFavorsPointsForAction(EGodFavorsAction action)
         {
-            Dictionary<EGodFavorsAction, int> amountPerAction = GodFavorsActionToInt.GetDictionaryFromArray(FighterClass.God.FavorGivingActions);
+            Dictionary<EGodFavorsAction, int> amountPerAction = SElementToValue<EGodFavorsAction, int>.GetDictionaryFromArray(
+                FighterClass.God.FavorGivingActions
+            );
             if (amountPerAction.Keys.Contains(action))
             {
                 _godFavorsPoints += amountPerAction[action];
