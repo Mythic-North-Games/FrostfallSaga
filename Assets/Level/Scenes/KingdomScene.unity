@@ -4186,11 +4186,12 @@ MonoBehaviour:
   <EntitiesGroupPrefab>k__BackingField: {fileID: 2373063617049297155, guid: f9e865b9881c3fb40849619aac6166c7, type: 3}
   <SpawnableEntities>k__BackingField:
   - {fileID: 6060947195042707832, guid: ffd14caba15bf4242a0eaa8bb5de0df2, type: 3}
+  <SpawnableEntities>k__BackingField:
+  - {fileID: 6060947195042707832, guid: ffd14caba15bf4242a0eaa8bb5de0df2, type: 3}
   <SpawnChance>k__BackingField: 0.5
   <MaxNoSpawnInARow>k__BackingField: 0
   <MaxEntitiesGroupsOnMap>k__BackingField: 3
   <BaseGroupName>k__BackingField: EnemiesGroup
-  _worldGameObjectInstantiator: {fileID: 1701803461}
   _grid: {fileID: 1557595608}
   _kingdomLoader: {fileID: 483864513}
 --- !u!1 &109036072
@@ -5316,8 +5317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf0e441dff967b529e3572e0a5aa94f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _kingdomManager: {fileID: 899991118}
   _enterCityPanelController: {fileID: 791242499}
-  _cityBuildingToCityDB: {fileID: 11400000, guid: 3b83d56db15f92636bb9354c05215edb, type: 2}
   _citySceneName: CityScene
 --- !u!1 &141876759
 GameObject:
@@ -15888,7 +15889,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grid: {fileID: 1557595608}
-  _entitiesGroupBuilder: {fileID: 8585752689716226892}
   _camera: {fileID: 2047304806}
 --- !u!1 &485399105
 GameObject:
@@ -26065,7 +26065,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 791242498}
   <EnterCityPanelTemplate>k__BackingField: {fileID: 9197481963319205126, guid: 29fdbd1f64f773c49a08c2579f02b9df, type: 3}
-  _entitiesGroupsManager: {fileID: 899991118}
+  _kingdomManager: {fileID: 899991118}
 --- !u!1 &792418082
 GameObject:
   m_ObjectHideFlags: 0
@@ -29614,7 +29614,7 @@ GameObject:
   - component: {fileID: 899991117}
   - component: {fileID: 899991118}
   m_Layer: 0
-  m_Name: EntitiesGroupsManager
+  m_Name: KingdomManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29652,7 +29652,7 @@ MonoBehaviour:
   <KingdomGrid>k__BackingField: {fileID: 1557595608}
   <HeroGroup>k__BackingField: {fileID: 1188308898}
   <EnemiesGroups>k__BackingField: []
-  <Cities>k__BackingField: []
+  <CityBuildings>k__BackingField: []
   _enemiesGroupSpawner: {fileID: 106982315}
   _kingdomLoader: {fileID: 483864513}
 --- !u!1 &900028896
@@ -44464,50 +44464,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1384215790}
   m_Mesh: {fileID: 4300000, guid: 7bfb778410f88d14c9a33fdb553657d4, type: 3}
---- !u!1 &1385638130
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1385638131}
-  - component: {fileID: 1385638132}
-  m_Layer: 0
-  m_Name: FightersSetupGenerator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1385638131
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1385638130}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1920815084}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1385638132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1385638130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 164c5103b607fa94d9228dadfc76299a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1386587374
 GameObject:
   m_ObjectHideFlags: 0
@@ -46049,8 +46005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e823463cf38a754a8520874f3d6c08d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _entitiesGroupsManager: {fileID: 899991118}
-  _entitiesGroupBuilder: {fileID: 8585752689716226892}
+  _kingdomManager: {fileID: 899991118}
   _sceneTransitioner: {fileID: 26075752}
   _readyToFightAnimationDuration: 2
   _delayBeforeLoadingSceneAfterReadyAnimation: 1
@@ -54674,51 +54629,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700456240}
   m_Mesh: {fileID: 4300000, guid: b00d35bf56be3ea46892f2d462b4e9cf, type: 3}
---- !u!1 &1701803459
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1701803460}
-  - component: {fileID: 1701803461}
-  m_Layer: 0
-  m_Name: WorldGameObjectInstantiator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1701803460
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701803459}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1920815084}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1701803461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1701803459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e197b000ad0d1a4d8f9062171775ecd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <DefaultWorldGOParent>k__BackingField: {fileID: 59712509}
 --- !u!1 &1704461828
 GameObject:
   m_ObjectHideFlags: 0
@@ -61441,13 +61351,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1268217345}
-  - {fileID: 1701803460}
   - {fileID: 125306507}
   - {fileID: 483864512}
   - {fileID: 106982314}
   - {fileID: 899991117}
-  - {fileID: 1385638131}
-  - {fileID: 8585752689716226893}
   - {fileID: 1446529809}
   - {fileID: 140945771}
   - {fileID: 26075751}
@@ -69239,91 +69146,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2143855482}
   m_Mesh: {fileID: 4300000, guid: b00d35bf56be3ea46892f2d462b4e9cf, type: 3}
---- !u!1001 &8585752689716226891
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1920815084}
-    m_Modifications:
-    - target: {fileID: 2558807845756278398, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-      propertyPath: _WGOInstantiator
-      value: 
-      objectReference: {fileID: 1701803461}
-    - target: {fileID: 2558807845756278398, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-      propertyPath: _blankEntitiesGroupPrefab
-      value: 
-      objectReference: {fileID: 2373063617049297155, guid: f9e865b9881c3fb40849619aac6166c7, type: 3}
-    - target: {fileID: 3463758716024169161, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463758716024169161, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463758716024169161, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463758716024169161, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463758716024169161, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463758716024169161, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463758716024169161, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463758716024169161, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463758716024169161, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463758716024169161, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5287221617941891833, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-      propertyPath: m_Name
-      value: EntitiesGroupBuilder
-      objectReference: {fileID: 0}
-    - target: {fileID: 7404352440744502259, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-      propertyPath: BlankEntityPrefab
-      value: 
-      objectReference: {fileID: 4179958532800742833, guid: 46a277855bd83dd449ce3e04f34f8eb8, type: 3}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
---- !u!114 &8585752689716226892 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2558807845756278398, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-  m_PrefabInstance: {fileID: 8585752689716226891}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c84ee376d306d504f86b65f8181d9100, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &8585752689716226893 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3463758716024169161, guid: abad61ec1b94ddc4f844f85ae5fd9e67, type: 3}
-  m_PrefabInstance: {fileID: 8585752689716226891}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

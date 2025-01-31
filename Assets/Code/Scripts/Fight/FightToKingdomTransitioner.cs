@@ -1,5 +1,6 @@
 using UnityEngine;
 using FrostfallSaga.Fight.UI;
+using FrostfallSaga.Core;
 using FrostfallSaga.Utils.Scenes;
 
 namespace FrostfallSaga.Fight
@@ -8,12 +9,11 @@ namespace FrostfallSaga.Fight
     {
         [SerializeField] private FightEndMenuController _fightEndMenuController;
         [SerializeField] private SceneTransitioner _sceneTransitioner;
-        [SerializeField] private string _kingdomSceneName;
 
         private void OnContinueClicked()
         {
             Debug.Log("Transitioning to kingdom...");
-            _sceneTransitioner.FadeInToScene(_kingdomSceneName);
+            _sceneTransitioner.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
         }
 
         #region Setup & tear down

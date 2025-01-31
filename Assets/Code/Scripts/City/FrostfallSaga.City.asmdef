@@ -2,6 +2,7 @@
     "name": "FrostfallSaga.City",
     "rootNamespace": "FrostfallSaga.City",
     "references": [
+        "FrostfallSaga.Core",
         "FrostfallSaga.Utils"
     ],
     "includePlatforms": [],

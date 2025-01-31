@@ -7,5 +7,6 @@ namespace FrostfallSaga.Core.GameState.Kingdom
     {
         public EntitiesGroupData heroGroupData;
         public EntitiesGroupData[] enemiesGroupsData;
+        public CityBuildingData[] cityBuildingsData;
     }
 }

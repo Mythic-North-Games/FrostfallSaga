@@ -1,4 +1,5 @@
 using UnityEngine;
+using FrostfallSaga.Core.Cities;
 
 namespace FrostfallSaga.Kingdom.CityBuildings
 {

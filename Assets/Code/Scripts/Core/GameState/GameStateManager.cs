@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
+using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Core.GameState.Fight;
+using FrostfallSaga.Core.GameState.City;
 
 namespace FrostfallSaga.Core.GameState
 {
@@ -13,20 +15,36 @@ namespace FrostfallSaga.Core.GameState
         private KingdomState _kingdomState;
         private PreFightData _preFightData;
         private PostFightData _postFightData;
+        private CityLoadData _cityLoadData;
 
         protected override void Init()
         {
             _kingdomState = new KingdomState();
             _preFightData = new PreFightData();
             _postFightData = new PostFightData();
+            _cityLoadData = new CityLoadData();
         }
+
+        #region General states
+
+        public bool IsFirstSceneLaunch()
+        {
+            return _kingdomState.heroGroupData == null;
+        }
+
+        #endregion
 
         #region Kingdom states
 
-        public void SaveKingdomState(EntitiesGroupData heroGroupData, EntitiesGroupData[] enemiesGroupsData)
+        public void SaveKingdomState(
+            EntitiesGroupData heroGroupData,
+            EntitiesGroupData[] enemiesGroupsData,
+            CityBuildingData[] cityBuildingsData
+        )
         {
             _kingdomState.heroGroupData = heroGroupData;
             _kingdomState.enemiesGroupsData = enemiesGroupsData;
+            _kingdomState.cityBuildingsData = cityBuildingsData;
         }
 
         public KingdomState GetKingdomState()
@@ -87,5 +105,24 @@ namespace FrostfallSaga.Core.GameState
         }
 
         #endregion Fight states
+    
+        #region City states
+
+        public CityLoadData GetCityLoadData()
+        {
+            return _cityLoadData;
+        }
+
+        public InCityConfigurationSO GetCityConfigurationToLoad()
+        {
+            return _cityLoadData.cityConfigurationToLoad;
+        }
+
+        public void SaveCityLoadData(InCityConfigurationSO cityConfiguration)
+        {
+            _cityLoadData.cityConfigurationToLoad = cityConfiguration;
+        }
+
+        #endregion
     }
 }

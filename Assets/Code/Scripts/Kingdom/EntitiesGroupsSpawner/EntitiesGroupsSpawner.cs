@@ -20,7 +20,6 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
         [field: SerializeField] public int MaxEntitiesGroupsOnMap { get; private set; }
         [field: SerializeField] public string BaseGroupName { get; private set; }
 
-        [SerializeField] private WorldGameObjectInstantiator _worldGameObjectInstantiator;
         [SerializeField] private HexGrid _grid;
         [SerializeField] private KingdomLoader _kingdomLoader;
         private int _noSpawnInARow;
@@ -72,7 +71,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
             }
 
             KingdomCell cellToSpawnTo = Randomizer.GetRandomElementFromArray(availableCellsForSpawn);
-            GameObject spawnedEntitiesGroupPrefab = _worldGameObjectInstantiator.Instantiate(EntitiesGroupPrefab);
+            GameObject spawnedEntitiesGroupPrefab = WorldGameObjectInstantiator.Instance.Instantiate(EntitiesGroupPrefab);
             spawnedEntitiesGroupPrefab.name = $"{BaseGroupName}{_spawnedEntitiesGroups.Count}";
             EntitiesGroup spawnedEtitiesGroup = spawnedEntitiesGroupPrefab.GetComponent<EntitiesGroup>();
             spawnedEtitiesGroup.UpdateEntities(EntitiesGroup.GenerateRandomEntities(SpawnableEntities));
@@ -117,16 +116,6 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
             if (_kingdomLoader == null)
             {
                 Debug.LogError("No kingdom loader found. Won't be able to correctly configure spawner after fight.");
-                return;
-            }
-
-            if (_worldGameObjectInstantiator == null)
-            {
-                _worldGameObjectInstantiator = FindObjectOfType<WorldGameObjectInstantiator>();
-            }
-            if (_worldGameObjectInstantiator == null)
-            {
-                Debug.LogError("No world game object instantiator found. Can't spawn objects.");
                 return;
             }
 

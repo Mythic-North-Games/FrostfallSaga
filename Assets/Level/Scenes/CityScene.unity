@@ -201,6 +201,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 445625828}
+  _devCityConfiguration: {fileID: 11400000, guid: b1fdefd386dc5a805b15c3e8e1443fa2, type: 2}
+  _kingdomSceneName: KingdomScene
 --- !u!114 &445625828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,51 +219,6 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 3164a6c47dd46dcc09e518de478b6ad4, type: 3}
   m_SortingOrder: 0
---- !u!1 &600984078
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 600984080}
-  - component: {fileID: 600984079}
-  m_Layer: 0
-  m_Name: WorldGameObjectInstantiator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &600984079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 600984078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e197b000ad0d1a4d8f9062171775ecd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <DefaultWorldGOParent>k__BackingField: {fileID: 616798498}
---- !u!4 &600984080
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 600984078}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1791236485}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &616798498
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,7 +746,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1242875532}
-  - {fileID: 600984080}
   - {fileID: 2109054032}
   - {fileID: 999864227}
   m_Father: {fileID: 0}
