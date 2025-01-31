@@ -1,4 +1,5 @@
 using UnityEngine;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Core.Fight
 {
@@ -10,6 +11,6 @@ namespace FrostfallSaga.Core.Fight
     public class ClassGodSO : ScriptableObject
     {
         [field: SerializeField] public string GodName { get; private set; }
-        [field: SerializeField] public GodFavorsActionToInt[] FavorGivingActions { get; private set; }
+        [field: SerializeField] public SElementToValue<EGodFavorsAction, int>[] FavorGivingActions { get; private set; }
     }
 }
