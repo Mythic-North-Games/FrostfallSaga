@@ -28,10 +28,7 @@ namespace FrostfallSaga.Kingdom
         /// <param name="enemiesGroup">The encountered enemies group.</param>
         /// <param name="heroGroupInitiating">True if the hero group is initiating the fight, false otherwise.</param>
 		private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup, bool heroGroupInitiating)
-		private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
-            SavePreFightData(heroGroup, enemiesGroup);
-            StartCoroutine(StartEncounterAnimation(heroGroup, enemiesGroup, heroGroupInitiating));
             SavePreFightData(heroGroup, enemiesGroup);
             StartCoroutine(StartEncounterAnimation(heroGroup, enemiesGroup, heroGroupInitiating));
         }
@@ -79,7 +76,7 @@ namespace FrostfallSaga.Kingdom
         {
             yield return new WaitForSeconds(_delayBeforeLoadingSceneAfterReadyAnimation);
             Debug.Log("Transitioning to fight");
-            _sceneTransitioner.FadeInToScene(EScenesName.Fight.ToString());
+            _sceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
         }
 
         private void SavePreFightData(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup)

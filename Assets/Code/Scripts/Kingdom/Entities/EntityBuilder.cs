@@ -14,7 +14,6 @@ namespace FrostfallSaga.Kingdom.Entities
             GameObject entityGO = WorldGameObjectInstantiator.Instance.Instantiate(entityData.entityConfiguration.KingdomEntityPrefab);
             Entity entity = entityGO.GetComponent<Entity>();
             entity.Setup(entityData.sessionId, entityData.isDead);
-            entity.Setup(entityData.sessionId, entityData.isDead);
             return entity;
         }
 
@@ -22,7 +21,6 @@ namespace FrostfallSaga.Kingdom.Entities
         {
             return new()
             {
-                entityConfiguration = entity.EntityConfiguration,
                 entityConfiguration = entity.EntityConfiguration,
                 sessionId = entity.SessionId,
                 isDead = entity.IsDead,

@@ -13,7 +13,7 @@ namespace FrostfallSaga.Fight
         private void OnContinueClicked()
         {
             Debug.Log("Transitioning to kingdom...");
-            _sceneTransitioner.FadeInToScene(EScenesName.Kingdom.ToString());
+            _sceneTransitioner.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
         }
 
         #region Setup & tear down

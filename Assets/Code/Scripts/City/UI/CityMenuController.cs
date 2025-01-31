@@ -54,7 +54,7 @@ namespace FrostfallSaga.City.UI
 
         private void OnExitButtonClicked()
         {
-            SceneTransitioner.Instance.FadeInToScene(EScenesName.Kingdom.ToString());
+            SceneTransitioner.Instance.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
         }
         #endregion
 

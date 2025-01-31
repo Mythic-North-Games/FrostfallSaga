@@ -2,20 +2,20 @@ namespace FrostfallSaga.Core
 {
     public enum EScenesName
     {
-        Kingdom,
-        Fight,
-        City
+        KINGDOM,
+        FIGHT,
+        CITY
     }
 
     public static class ESceneNameMethods
     {
-        public static string ToString(this EScenesName sceneName)
+        public static string ToSceneString(this EScenesName sceneName)
         {
             return sceneName switch
             {
-                EScenesName.Kingdom => "KingdomScene",
-                EScenesName.Fight => "FightScene",
-                EScenesName.City => "CityScene",
+                EScenesName.KINGDOM => "KingdomScene",
+                EScenesName.FIGHT => "FightScene",
+                EScenesName.CITY => "CityScene",
                 _ => throw new System.InvalidOperationException("Unknown scene."),
             };
         }
