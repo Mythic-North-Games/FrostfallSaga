@@ -46,6 +46,12 @@ namespace FrostfallSaga.City.UI
             _tavernDialogController.Display();
         }
 
+        private void OnTavernDialogRestButtonClicked()
+        {
+            _tavernDialogController.Hide();
+            _leftContainerController.Display();
+        }
+
         private void OnTavernDialogExitButtonClicked()
         {
             _tavernDialogController.Hide();
@@ -65,6 +71,7 @@ namespace FrostfallSaga.City.UI
             _cityConfiguration = gameStateConf != null ? gameStateConf : _devCityConfiguration;
             _leftContainerController = new(_uiDoc.rootVisualElement.Q<VisualElement>(LEFT_CONTAINER_UI_NAME));
             _tavernDialogController = new(_uiDoc.rootVisualElement.Q<VisualElement>(TAVERN_DIALOG_ROOT_UI_NAME));
+            _tavernDialogController.onRestButtonClicked += OnTavernDialogRestButtonClicked;
             _tavernDialogController.onExitClicked += OnTavernDialogExitButtonClicked;
         }
         #endregion

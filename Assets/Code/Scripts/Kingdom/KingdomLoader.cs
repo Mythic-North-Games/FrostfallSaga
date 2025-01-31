@@ -11,6 +11,7 @@ using FrostfallSaga.Core.GameState.Fight;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.CityBuildings;
+using FrostfallSaga.Core.HeroTeam;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -125,6 +126,7 @@ namespace FrostfallSaga.Kingdom
         {
             _respawnedHeroGroup.cell = _grid.CellsByCoordinates[new(0, 0)] as KingdomCell;
             _respawnedHeroGroup.Entities.ToList().ForEach(entity => entity.IsDead = false);
+            HeroTeam.Instance.FullHealTeam();
         }
 
         #region Setup & tear down

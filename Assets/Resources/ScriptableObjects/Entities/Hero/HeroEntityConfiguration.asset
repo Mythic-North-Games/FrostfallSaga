@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bc562c7cdab31240b6e99c3650435c8, type: 3}
+  m_Name: HeroEntityConfiguration
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Hero
+  <Icon>k__BackingField: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
+  <DiamondIcon>k__BackingField: {fileID: 21300000, guid: 54602b48bb6b71e4b967d9777b79ae1e, type: 3}
+  <KingdomEntityPrefab>k__BackingField: {fileID: 6625618479499792673, guid: 586d2e3fdb9f75641844fef857fd24a8, type: 3}
+  <FighterConfiguration>k__BackingField: {fileID: 11400000, guid: 6cc53fffb81ce5f4f931c9aaa677e913, type: 2}
+  <Race>k__BackingField: 0

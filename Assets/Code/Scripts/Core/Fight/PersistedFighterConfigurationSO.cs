@@ -1,11 +1,10 @@
 using System;
 using UnityEngine;
-using FrostfallSaga.Core.Fight;
 using FrostfallSaga.InventorySystem;
 
 namespace FrostfallSaga.Core.Fight
 {
-    [CreateAssetMenu(fileName = "PersistedFighter", menuName = "ScriptableObjects/Fight/PersistedFighter", order = 0)]
+    [CreateAssetMenu(fileName = "PersistedFighterConfiguration", menuName = "ScriptableObjects/Entities/PersistedFighterConfiguration", order = 0)]
     public class PersistedFighterConfigurationSO : FighterConfigurationSO
     {
         [field: SerializeField] public ABaseAbility[] EquipedActiveAbilities { get; private set; }
@@ -25,6 +24,23 @@ namespace FrostfallSaga.Core.Fight
             FighterStats stats = base.ExtractFighterStats();
             stats.health = Health;
             return stats;
+        }
+
+        public void SetHealth(int amount)
+        {
+            if (amount < 0)
+            {
+                Health = 0;
+            }
+            else if (amount > MaxHealth)
+            {
+                Health = MaxHealth;
+                Debug.LogWarning("Tried to set health above max health. Setting to max health.");
+            }
+            else
+            {
+                Health = amount;
+            }
         }
     }
 }

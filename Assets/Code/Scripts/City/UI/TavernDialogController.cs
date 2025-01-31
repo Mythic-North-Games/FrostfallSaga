@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 using FrostfallSaga.Core.Cities;
+using FrostfallSaga.Core.HeroTeam;
 
 namespace FrostfallSaga.City.UI
 {
@@ -13,6 +14,7 @@ namespace FrostfallSaga.City.UI
         private readonly static string EXIT_BUTTON_UI_NAME = "ExitButton";
         private readonly static string TAVERN_DIALOG_HIDDEN_CLASSNAME = "tavernDialogHidden";
 
+        public Action onRestButtonClicked;
         public Action onExitClicked;
 
         private VisualElement _dialogRoot;
@@ -42,7 +44,9 @@ namespace FrostfallSaga.City.UI
 
         public void OnRestButtonClicked()
         {
-            Debug.Log("Rest button clicked.");
+            HeroTeam.Instance.FullHealTeam();
+            Debug.Log("Team fully healed.");
+            onRestButtonClicked?.Invoke();
         }
 
         public void OnExitButtonClicked()

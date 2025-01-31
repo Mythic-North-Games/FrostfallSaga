@@ -202,7 +202,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 445625828}
   _devCityConfiguration: {fileID: 11400000, guid: b1fdefd386dc5a805b15c3e8e1443fa2, type: 2}
-  _kingdomSceneName: KingdomScene
 --- !u!114 &445625828
 MonoBehaviour:
   m_ObjectHideFlags: 0
