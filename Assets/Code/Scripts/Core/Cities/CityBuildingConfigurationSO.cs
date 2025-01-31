@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FrostfallSaga.Core.Cities
 {
-    [CreateAssetMenu(fileName = "CityBuildingConfigurationSO", menuName = "ScriptableObjects/Kingdom/CityBuildingConfigurationSO", order = 0)]
+    [CreateAssetMenu(fileName = "CityBuildingConfigurationSO", menuName = "ScriptableObjects/Cities/CityBuildingConfigurationSO", order = 0)]
     public class CityBuildingConfigurationSO : ScriptableObject
     {
         [field: SerializeField, Header("City Configuration")] public string Name { get; private set; }

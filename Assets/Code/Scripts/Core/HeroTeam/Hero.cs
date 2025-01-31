@@ -17,7 +17,7 @@ namespace FrostfallSaga.Core.HeroTeam
 
         public void FullHeal()
         {
-            //_persistedFighterConfiguration.SetHealth(_persistedFighterConfiguration.MaxHealth);
+            _persistedFighterConfiguration.SetHealth(_persistedFighterConfiguration.MaxHealth);
         }
     }
 }
