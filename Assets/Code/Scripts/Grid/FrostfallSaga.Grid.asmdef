@@ -3,7 +3,6 @@
     "rootNamespace": "FrostfallSaga.Grid",
     "references": [
         "FrostfallSaga.Validator",
-        "FrostfallSaga.Core",
         "FrostfallSaga.Procedural",
         "FrostfallSaga.GameObjectVisuals",
         "FrostfallSaga.Utils"

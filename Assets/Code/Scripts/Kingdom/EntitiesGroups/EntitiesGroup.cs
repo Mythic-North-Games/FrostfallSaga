@@ -150,7 +150,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         }
 
         public static Entity[] GenerateRandomEntities(
-            EntityConfigurationSO[] availableEntitiesConfig,
+            GameObject[] availableEntityPrefabs,
             int minNumberOfEntities = 1,
             int maxNumberOfEntities = 3
         )
@@ -159,7 +159,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
 
             while (entities.Count < minNumberOfEntities)
             {
-                GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntitiesConfig).EntityPrefab);
+                GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntityPrefabs));
                 entities.Add(entityPrefab.GetComponent<Entity>());
             }
 
@@ -173,7 +173,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             {
                 if (Randomizer.GetBooleanOnChance(0.5f))
                 {
-                    GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntitiesConfig).EntityPrefab);
+                    GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntityPrefabs));
                     entities.Add(entityPrefab.GetComponent<Entity>());
                 }
             }

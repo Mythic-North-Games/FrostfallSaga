@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
@@ -15,13 +16,14 @@ namespace FrostfallSaga.Fight.Abilities
     /// Reperesents an active ability that can be used during a fight.
     /// </summary>
     [CreateAssetMenu(fileName = "ActiveAbility", menuName = "ScriptableObjects/Fight/Abilities/ActiveAbility", order = 0)]
-    public class ActiveAbilitySO : BaseAbilitySO
+    public class ActiveAbilitySO : ABaseAbility
     {
         [field: SerializeField] public Targeter Targeter { get; private set; }
         [field: SerializeField, Range(0, 99)] public int ActionPointsCost { get; private set; }
         [field: SerializeField, Range(0, 99)] public int GodFavorsPointsCost { get; private set; }
         [field: SerializeField] public bool Dodgable { get; private set; }
         [field: SerializeField] public bool Masterstrokable { get; private set; }
+        [SerializeReference] public AEffect[] Effects;
         [SerializeReference] public AEffect[] MasterstrokeEffects = { };
         [SerializeReference] public AFightCellAlteration[] CellAlterations = { };
         [field: SerializeField] public AAbilityAnimationSO Animation { get; private set; }
@@ -97,7 +99,7 @@ namespace FrostfallSaga.Fight.Abilities
                 effect.ApplyEffect(
                     receiver: receiver,
                     isMasterstroke: isMasterstroke,
-                    initator: initiator,
+                    initiator: initiator,
                     adjustGodFavorsPoints: true
                 );
             }
@@ -110,7 +112,7 @@ namespace FrostfallSaga.Fight.Abilities
                     effect.ApplyEffect(
                         receiver: receiver,
                         isMasterstroke: false,  // Masterstroke effects can't be masterstroked
-                        initator: initiator,
+                        initiator: initiator,
                         adjustGodFavorsPoints: false
                     );
                 }

@@ -13,19 +13,13 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
     {
         private ECellHeight _previousHeight;
 
-        public RandomHeightAlteration()
-        {
-            CanBeReplaced = true;
-            CanApplyWithFighter = true;
-        }
-
         public RandomHeightAlteration(
-            bool isPermanent,
-            int duration,
             string name,
             string description,
-            Sprite icon
-        ) : base(isPermanent, duration, true, true, name, description, icon)
+            Sprite icon,
+            bool isPermanent,
+            int duration
+        ) : base(name, description, icon, isPermanent, duration, true, true)
         {
         }
 

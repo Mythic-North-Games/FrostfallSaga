@@ -7,10 +7,9 @@
         "FrostfallSaga.Core",
         "FrostfallSaga.Grid",
         "FrostfallSaga.Kingdom",
+        "FrostfallSaga.InventorySystem",
         "FrostfallSaga.Fight",
-        "FrostfallSaga.KingdomToFight",
         "FrostfallSaga.EntitiesVisual",
-        "FrostfallSaga.GameObjectVisuals",
         "FrostfallSaga.Utils"
     ],
     "includePlatforms": [

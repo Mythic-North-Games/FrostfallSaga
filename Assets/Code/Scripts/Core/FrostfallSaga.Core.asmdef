@@ -2,7 +2,8 @@
     "name": "FrostfallSaga.Core",
     "rootNamespace": "FrostfallSaga.Core",
     "references": [
-        "GUID:4307f53044263cf4b835bd812fc161a4"
+        "FrostfallSaga.Utils",
+        "FrostfallSaga.InventorySystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,16 +1,17 @@
 using System;
-using FrostfallSaga.EntitiesVisual;
 using UnityEngine;
+using FrostfallSaga.Core.Entities;
+using FrostfallSaga.EntitiesVisual;
 
 namespace FrostfallSaga.Kingdom.Entities
 {
     [RequireComponent(typeof(Collider))]
     public class Entity : MonoBehaviour
     {
-        [field: SerializeField] public EntityConfigurationSO EntityConfiguration { get; private set; }
         [field: SerializeField] public EntityVisualAnimationController AnimationController { get; private set; }
         [field: SerializeField] public EntityVisualMovementController MovementController { get; private set; }
         [field: SerializeField] public EntityMouseEventsController MouseEventsController { get; private set; }
+        [field: SerializeField] public EntityConfigurationSO EntityConfiguration { get; private set; }
         [field: SerializeField] public bool IsDead { get; set; }
         [field: SerializeField] public string SessionId { get; private set; }
 
@@ -47,12 +48,10 @@ namespace FrostfallSaga.Kingdom.Entities
             return AnimationController.gameObject.activeSelf;
         }
 
-        public void Setup(EntityConfigurationSO configuration, string sessionId, bool isDead)
+        public void Setup(string sessionId, bool isDead)
         {
-            EntityConfiguration = configuration;
             SessionId = sessionId;
             IsDead = isDead;
-            name = $"{EntityConfiguration.EntityID}_{SessionId}";
         }
 
         #region Components setup
@@ -76,13 +75,8 @@ namespace FrostfallSaga.Kingdom.Entities
                 Debug.LogWarning("Entity " + name + " does not have a mouse events controller.");
             }
 
-            if (EntityConfiguration == null)
-            {
-                Debug.LogWarning("Entity " + name + " does not have an entity configuration.");
-            }
-
             SessionId = Guid.NewGuid().ToString();
-            name = $"{EntityConfiguration.EntityID}_{SessionId}";
+            name = $"{EntityConfiguration.Name}_{SessionId}";
         }
 
         #endregion

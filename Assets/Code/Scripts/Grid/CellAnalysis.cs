@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using UnityEngine;
 
-namespace FrostfallSaga.KingdomToFight
+namespace FrostfallSaga.Grid
 {
     public class CellAnalysis
     {
