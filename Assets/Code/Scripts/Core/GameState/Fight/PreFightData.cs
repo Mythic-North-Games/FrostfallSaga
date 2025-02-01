@@ -9,5 +9,6 @@ namespace FrostfallSaga.Core.GameState.Fight
     {
         public KeyValuePair<string, EntityConfigurationSO>[] alliesEntityConf;
         public KeyValuePair<string, EntityConfigurationSO>[] enemiesEntityConf;
+        public EFightOrigin fightOrigin;
     }
 }

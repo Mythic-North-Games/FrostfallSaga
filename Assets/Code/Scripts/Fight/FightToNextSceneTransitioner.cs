@@ -1,19 +1,30 @@
 using UnityEngine;
-using FrostfallSaga.Fight.UI;
 using FrostfallSaga.Core;
+using FrostfallSaga.Core.GameState;
+using FrostfallSaga.Core.GameState.Fight;
+using FrostfallSaga.Fight.UI;
 using FrostfallSaga.Utils.Scenes;
 
 namespace FrostfallSaga.Fight
 {
-    public class FightToKingdomTransitioner : MonoBehaviour
+    public class FightToNextSceneTransitioner : MonoBehaviour
     {
         [SerializeField] private FightEndMenuController _fightEndMenuController;
         [SerializeField] private SceneTransitioner _sceneTransitioner;
 
         private void OnContinueClicked()
         {
-            Debug.Log("Transitioning to kingdom...");
-            _sceneTransitioner.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
+            GameStateManager gameStateManager = GameStateManager.Instance;
+
+            // Get the scene to transition to
+            EScenesName sceneToTransitionTo = gameStateManager.GetCurrentFightOrigin().ToEScenesName();
+
+            // Clean pre fight data for next fight
+            gameStateManager.CleanPreFightData();
+
+            // Do the transition
+            Debug.Log($"Transitioning back to {sceneToTransitionTo}...");
+            _sceneTransitioner.FadeInToScene(sceneToTransitionTo.ToSceneString());
         }
 
         #region Setup & tear down

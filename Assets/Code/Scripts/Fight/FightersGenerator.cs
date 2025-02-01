@@ -58,14 +58,6 @@ namespace FrostfallSaga.Fight
 
             onFightersGenerated?.Invoke(allies.ToArray(), enemies.ToArray());
             Debug.Log("Fighters generated.");
-
-            if (alliesFighterConf == preFightData.alliesEntityConf)
-            {
-                GameStateManager.Instance.CleanPreFightData();
-                return;
-            }
-
-            Debug.Log("Fight launched in dev mode. Not went through kingdom first.");
         }
 
         private Fighter SpawnAndSetupFighter(
@@ -76,7 +68,7 @@ namespace FrostfallSaga.Fight
         {
             // Spawn fighter game object
             FighterConfigurationSO fighterConfiguration = entityConfiguration.FighterConfiguration;
-            GameObject fighterGameObject = _worldGameObjectInstantiator.Instantiate(fighterConfiguration.FighterPrefab);
+            GameObject fighterGameObject = WorldGameObjectInstantiator.Instance.Instantiate(fighterConfiguration.FighterPrefab);
             fighterGameObject.name = new($"{entityConfiguration.Name}{nameSuffix}");
 
             // Setup spawned fighter
@@ -175,20 +167,5 @@ namespace FrostfallSaga.Fight
                 devEntityConf => new KeyValuePair<string, EntityConfigurationSO>(null, devEntityConf)
             ).ToArray();
         }
-
-        #region Setup & Teardown
-        private void Awake()
-        {
-            if (_worldGameObjectInstantiator == null)
-            {
-                _worldGameObjectInstantiator = FindObjectOfType<WorldGameObjectInstantiator>();
-            }
-            if (_worldGameObjectInstantiator == null)
-            {
-                Debug.LogError("No world game object instantiator found. Can't spawn objects.");
-                return;
-            }
-        }
-        #endregion
     }
 }

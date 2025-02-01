@@ -6,18 +6,18 @@ namespace FrostfallSaga.Core.HeroTeam
 {
     public class Hero
     {
-        private EntityConfigurationSO _entityConfiguration;
-        private PersistedFighterConfigurationSO _persistedFighterConfiguration;
+        public EntityConfigurationSO EntityConfiguration { get; private set; }
+        public PersistedFighterConfigurationSO PersistedFighterConfiguration { get; private set; }
 
         public Hero(string entityConfigurationSOPath)
         {
-            _entityConfiguration = Resources.Load<EntityConfigurationSO>(entityConfigurationSOPath);
-            _persistedFighterConfiguration = (PersistedFighterConfigurationSO)_entityConfiguration.FighterConfiguration;
+            EntityConfiguration = Resources.Load<EntityConfigurationSO>(entityConfigurationSOPath);
+            PersistedFighterConfiguration = (PersistedFighterConfigurationSO)EntityConfiguration.FighterConfiguration;
         }
 
         public void FullHeal()
         {
-            _persistedFighterConfiguration.SetHealth(_persistedFighterConfiguration.MaxHealth);
+            PersistedFighterConfiguration.SetHealth(PersistedFighterConfiguration.MaxHealth);
         }
     }
 }
