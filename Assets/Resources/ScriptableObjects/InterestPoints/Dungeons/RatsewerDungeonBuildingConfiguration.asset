@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Ratsewer
   <Description>k__BackingField: This is a scary dungeon
-  <InterestPointPrefab>k__BackingField: {fileID: 4581906513050517440, guid: b3a20fb3fac03c307937de1e101c6bd2, type: 3}
+  <InterestPointPrefab>k__BackingField: {fileID: 1579975777369734056, guid: 93ef8c6f4f6efe146957172931db7402, type: 3}
   <DungeonPreview>k__BackingField: {fileID: 0}
