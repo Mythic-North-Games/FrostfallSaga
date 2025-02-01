@@ -8,37 +8,56 @@ namespace FrostfallSaga.Utils
         private static readonly object _instanceLock = new object();
         private static bool _quitting = false;
 
+        // Optional flags
+        protected static bool AutoInitializeOnSceneLoad = false;
+        protected static bool PersistAcrossScenes = true;
+
+
+        // This method runs automatically when any scene is loaded
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void InitializeOnSceneLoad()
+        {
+            if (AutoInitializeOnSceneLoad)
+            {
+                var _ = Instance; // Trigger instance creation
+            }
+        }
+
         public static T Instance
         {
             get
             {
                 lock (_instanceLock)
                 {
-                    if (_instance == null & !_quitting)
+                    if (_instance == null && !_quitting)
                     {
-                        _instance = GameObject.FindObjectOfType<T>();
+                        _instance = FindObjectOfType<T>();
                         if (_instance == null)
                         {
                             GameObject go = new GameObject(typeof(T).ToString());
                             _instance = go.AddComponent<T>();
 
-                            DontDestroyOnLoad(_instance.gameObject);
+                            if (PersistAcrossScenes)
+                            {
+                                DontDestroyOnLoad(_instance.gameObject);
+                            }
                         }
                     }
                     return _instance;
                 }
             }
         }
+
         protected virtual void Awake()
         {
             if (_instance == null)
             {
-                _instance = gameObject.GetComponent<T>();
+                _instance = GetComponent<T>();
             }
             else if (_instance.GetInstanceID() != GetInstanceID())
             {
                 Destroy(gameObject);
-                throw new System.Exception(string.Format("Instance of {0} already exists, removing {1}", GetType().FullName, ToString()));
+                throw new System.Exception($"Instance of {GetType().FullName} already exists, removing {ToString()}");
             }
             Init();
         }

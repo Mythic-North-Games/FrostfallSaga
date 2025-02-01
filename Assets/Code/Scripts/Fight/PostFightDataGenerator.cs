@@ -24,14 +24,14 @@ namespace FrostfallSaga.Fight
                 Debug.Log("Dungeon progress saved!");
             }
 
-            if (allies[0].EntitySessionId == null || allies[0].EntitySessionId.Length == 0)
+            if (enemies[0].EntitySessionId == null || enemies[0].EntitySessionId.Length == 0)
             {
                 Debug.Log("No session ID on fighters. No post fight data saved.");
                 gameStateManager.CleanPostFightData();
                 return;
             }
 
-            gameStateManager.SavePostFightData(allies, enemies);
+            gameStateManager.SavePostFightData(enemies);
             Debug.Log("Post fight data saved!");
         }
 

@@ -27,5 +27,10 @@ namespace FrostfallSaga.Kingdom.InterestPoints
                 interestPoint.cell.Coordinates.y
             );
         }
+
+        static InterestPointBuilder()
+        {
+            PersistAcrossScenes = false;
+        }
     }
 }

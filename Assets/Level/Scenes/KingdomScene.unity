@@ -2820,7 +2820,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1557595607}
-  - {fileID: 81043194}
   - {fileID: 490961555}
   - {fileID: 572038298}
   m_Father: {fileID: 0}
@@ -3498,76 +3497,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 79491419}
   m_Mesh: {fileID: 4300000, guid: 7bfb778410f88d14c9a33fdb553657d4, type: 3}
---- !u!1001 &81043193
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 59712510}
-    m_Modifications:
-    - target: {fileID: 993643510643820446, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-      propertyPath: m_Name
-      value: HeroGroup
-      objectReference: {fileID: 0}
-    - target: {fileID: 6237690198601753365, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-      propertyPath: cell
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6237690198601753365, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-      propertyPath: movePoints
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479378783380842521, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479378783380842521, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479378783380842521, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479378783380842521, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479378783380842521, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479378783380842521, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479378783380842521, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479378783380842521, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479378783380842521, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8479378783380842521, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
---- !u!4 &81043194 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8479378783380842521, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-  m_PrefabInstance: {fileID: 81043193}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &82067985
 GameObject:
   m_ObjectHideFlags: 0
@@ -21840,11 +21769,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 674718208}
   m_Mesh: {fileID: 4300000, guid: 7bfb778410f88d14c9a33fdb553657d4, type: 3}
---- !u!4 &675563482 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2174512591085649362, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-  m_PrefabInstance: {fileID: 81043193}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &675590502
 GameObject:
   m_ObjectHideFlags: 0
@@ -29730,7 +29654,7 @@ MonoBehaviour:
   <CellHighlightMaterial>k__BackingField: {fileID: 2100000, guid: 1317001a5366be047821b25e2a15c957, type: 2}
   <CellInaccessibleHighlightMaterial>k__BackingField: {fileID: 2100000, guid: 3a49c1857eb90d545bdc83727456b7b3, type: 2}
   <KingdomGrid>k__BackingField: {fileID: 1557595608}
-  <HeroGroup>k__BackingField: {fileID: 1188308898}
+  <HeroGroup>k__BackingField: {fileID: 0}
   <EnemiesGroups>k__BackingField: []
   <InterestPoints>k__BackingField: []
   _enemiesGroupSpawner: {fileID: 106982315}
@@ -37890,17 +37814,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1188202794}
   m_Mesh: {fileID: 4300000, guid: 7bfb778410f88d14c9a33fdb553657d4, type: 3}
---- !u!114 &1188308898 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6237690198601753365, guid: f1084b6149f947945baf5327fb2cbe98, type: 3}
-  m_PrefabInstance: {fileID: 81043193}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 861661c4898c2a04d89eba7a411a2c3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1190489168
 GameObject:
   m_ObjectHideFlags: 0
@@ -65656,8 +65569,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 675563482}
-  m_Follow: {fileID: 675563482}
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 75
     OrthographicSize: 5

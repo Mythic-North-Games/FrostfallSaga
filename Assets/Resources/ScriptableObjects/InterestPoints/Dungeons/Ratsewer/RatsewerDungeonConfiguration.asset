@@ -17,6 +17,12 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
     <OptionalEnemies>k__BackingField:
     - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
-    <MinOptionalEnemies>k__BackingField: 1
-    <MaxOptionalEnemies>k__BackingField: 3
-  <PreBossFightConfigurations>k__BackingField: []
+    <MinOptionalEnemies>k__BackingField: 2
+    <MaxOptionalEnemies>k__BackingField: 2
+  <PreBossFightConfigurations>k__BackingField:
+  - <MandatoryEnemies>k__BackingField:
+    - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
+    <OptionalEnemies>k__BackingField:
+    - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
+    <MinOptionalEnemies>k__BackingField: 0
+    <MaxOptionalEnemies>k__BackingField: 1

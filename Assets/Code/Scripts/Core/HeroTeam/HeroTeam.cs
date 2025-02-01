@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Utils;
 
@@ -21,15 +22,28 @@ namespace FrostfallSaga.Core.HeroTeam
                 new(string.Format(BASE_ENTITY_CONFIGURATION_SO_CONFIG_PATH, COMPANION1_CONFIG_NAME, COMPANION1_CONFIG_NAME)),
                 new(string.Format(BASE_ENTITY_CONFIGURATION_SO_CONFIG_PATH, COMPANION2_CONFIG_NAME, COMPANION2_CONFIG_NAME))
             };
+            FullHealTeam(); // * For now, we fully heal the team on initialization.
         }
 
         public KeyValuePair<string, EntityConfigurationSO>[] GetHerosForPreFight()
         {
-            return Heroes.ConvertAll(
-                hero => new KeyValuePair<string, EntityConfigurationSO>(null, hero.EntityConfiguration)
-            ).ToArray();
+            return Heroes
+                .Where(hero => !hero.IsDead())
+                .ToList()
+                .ConvertAll(
+                    hero => new KeyValuePair<string, EntityConfigurationSO>(null, hero.EntityConfiguration)
+                )
+                .ToArray();
         }
 
         public void FullHealTeam() => Heroes.ForEach(hero => hero.FullHeal());
+
+        /// <summary>
+        /// Automatically initialize the singleton on scene load.
+        /// </summary>
+        static HeroTeam()
+        {
+            AutoInitializeOnSceneLoad = true;
+        }
     }
 }

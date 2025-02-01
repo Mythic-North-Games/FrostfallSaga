@@ -12,6 +12,7 @@ using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.InterestPoints;
 using FrostfallSaga.Core.HeroTeam;
+using FrostfallSaga.Utils.GameObjectVisuals;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -23,6 +24,8 @@ namespace FrostfallSaga.Kingdom
         [SerializeField] CinemachineVirtualCamera _camera;
 
         private GameStateManager _gameStateManager;
+        private HeroTeam _heroTeam;
+
         private EntitiesGroup _respawnedHeroGroup;
         private readonly List<EntitiesGroup> _respawnedEnemiesGroups = new();
         private readonly List<InterestPoint> _interestPoints = new();
@@ -32,6 +35,7 @@ namespace FrostfallSaga.Kingdom
             if (_gameStateManager.IsFirstSceneLaunch())
             {
                 Debug.Log("First scene launch. No kingdom to load.");
+                FirstSpawnHeroGroup();
                 onKingdomLoaded?.Invoke();
                 return;
             }
@@ -39,6 +43,7 @@ namespace FrostfallSaga.Kingdom
             Debug.Log("Start loading kingdom.");
             DestroyDevOccupiers();
             LoadKingdomAsBeforeFight();
+            RestoreHeroGroup();
 
             if (!_gameStateManager.HasFightJustOccured())
             {
@@ -49,9 +54,12 @@ namespace FrostfallSaga.Kingdom
 
             AdjustKingdomAfterFight();
             _gameStateManager.CleanPostFightData();
+
             Debug.Log("Kingdom loaded.");
             onKingdomLoaded?.Invoke();
         }
+
+        #region Last kingdom state restoration
 
         /// <summary>
         /// If kingdom cell occupiers are placed directly in the scene for dev purposes, destroy them.
@@ -61,43 +69,123 @@ namespace FrostfallSaga.Kingdom
             FindObjectsOfType<KingdomCellOccupier>().ToList().ForEach(occupier => DestroyImmediate(occupier.gameObject));
         }
 
+        /// <summary>
+        /// Load the entities groups and interest points as they were before the fight.
+        /// </summary>
         private void LoadKingdomAsBeforeFight()
         {
             EntitiesGroupBuilder entitiesGroupBuilder = EntitiesGroupBuilder.Instance;
             KingdomState kingdomState = _gameStateManager.GetKingdomState();
-            _respawnedHeroGroup = entitiesGroupBuilder.BuildEntitiesGroup(kingdomState.heroGroupData, _grid);
-            _respawnedHeroGroup.name = "HeroGroup";
-            _camera.Follow = _respawnedHeroGroup.CameraAnchor;
-            _camera.LookAt = _respawnedHeroGroup.CameraAnchor;
+   
             foreach (EntitiesGroupData enemiesGroupData in kingdomState.enemiesGroupsData)
             {
                 _respawnedEnemiesGroups.Add(entitiesGroupBuilder.BuildEntitiesGroup(enemiesGroupData, _grid));
             }
 
-            // Restore interest points
             foreach(InterestPointData interestPointData in kingdomState.interestPointsData)
             {
                 _interestPoints.Add(InterestPointBuilder.Instance.BuildInterestPoint(interestPointData, _grid));
             }
         }
 
+        #endregion
+
+        #region Hero group spawn & restoration
+
+        private void FirstSpawnHeroGroup()
+        {
+            // Spawn an empty entities group prefab
+            GameObject entitesGroupGO = WorldGameObjectInstantiator.Instance.Instantiate(
+                EntitiesGroupBuilder.Instance.BlankEntitiesGroupPrefab
+            );
+            _respawnedHeroGroup = entitesGroupGO.GetComponent<EntitiesGroup>();
+            _respawnedHeroGroup.name = "HeroGroup";
+
+            // Spawn the hero entities
+            List<Entity> heroGroupEntities = new();
+            foreach (Hero hero in _heroTeam.Heroes)
+            {
+                heroGroupEntities.Add(
+                        Instantiate(
+                            hero.EntityConfiguration.KingdomEntityPrefab,
+                            _respawnedHeroGroup.transform
+                        ).GetComponent<Entity>()
+                );
+            }
+
+            // Configure the hero group with the hero entities
+            _respawnedHeroGroup.UpdateEntities(heroGroupEntities.ToArray());
+            _respawnedHeroGroup.movePoints = 10;    // * For now, we give the hero group 10 move points.
+            _respawnedHeroGroup.cell = _grid.CellsByCoordinates[new(0, 0)] as KingdomCell;
+
+            AttachCameraToHeroGroup();
+        }
+
+        private void RestoreHeroGroup()
+        {
+            // Restore the hero group as lastly saved
+            _respawnedHeroGroup = EntitiesGroupBuilder.Instance.BuildEntitiesGroup(_gameStateManager.GetKingdomState().heroGroupData, _grid);
+            _respawnedHeroGroup.name = "HeroGroup";
+
+            // Adjust the entities depending on the hero team state
+            foreach (Hero hero in _heroTeam.Heroes)
+            {
+                Entity entity = _respawnedHeroGroup.Entities.ToList().Find(entity => entity.EntityConfiguration == hero.EntityConfiguration);
+                entity.IsDead = hero.IsDead();
+            }
+
+            // If the hero group is dead, respawn it
+            if (_respawnedHeroGroup.Entities.All(entity => entity.IsDead))
+            {
+                RespawnHeroGroup();
+                AttachCameraToHeroGroup();
+                return;
+            }
+            
+            // Otherwise, update the displayed entity if it's dead
+            if (_respawnedHeroGroup.GetDisplayedEntity().IsDead)
+            {
+                _respawnedHeroGroup.UpdateDisplayedEntity(_respawnedHeroGroup.GetRandomAliveEntity());
+            }
+
+            AttachCameraToHeroGroup();
+        }
+
+        private void RespawnHeroGroup()
+        {
+            _respawnedHeroGroup.cell = _grid.CellsByCoordinates[new(0, 0)] as KingdomCell;
+            _respawnedHeroGroup.Entities.ToList().ForEach(entity => entity.IsDead = false);
+            _heroTeam.FullHealTeam();
+        }
+
+        private void AttachCameraToHeroGroup()
+        {
+            _camera.Follow = _respawnedHeroGroup.CameraAnchor;
+            _camera.LookAt = _respawnedHeroGroup.CameraAnchor;
+        }
+
+        #endregion
+
+        #region Post fight adjustments
+
+        /// <summary>
+        /// Adjust the kingdom after a fight => destroy enemies group that lost, update enemies group that won.
+        /// </summary>
         private void AdjustKingdomAfterFight()
         {
             PostFightData postFightData = _gameStateManager.GetPostFightData();
 
-            // If allies have lost, respawn hero group and adjust enemies groups that won
+            // If allies have lost, adjust enemies groups that won
             if (!postFightData.AlliesHaveWon())
             {
-                UpdateEntitiesGroupAfterFight(GetFoughtEnemiesGroup(), isHeroGroup: false);
-                Respawn();
-                onKingdomLoaded?.Invoke();
-                return;
+                Dictionary<string, PostFightFighterState> enemiesPostFightState = SElementToValue<string, PostFightFighterState>.GetDictionaryFromArray(
+                    postFightData.enemiesState.ToArray()
+                );
+                UpdateEntitiesGroupAfterFight(GetFoughtEnemiesGroup(), enemiesPostFightState);
             }
-            else    // Otherwise, destroy enemies group that lost and adjust hero group
+            else    // Otherwise, destroy enemies group that lost
             {
                 DestroyImmediate(GetFoughtEnemiesGroup().gameObject);
-                UpdateEntitiesGroupAfterFight(_respawnedHeroGroup, isHeroGroup: true);
-                _gameStateManager.CleanPostFightData();
             }
         }
 
@@ -105,14 +193,10 @@ namespace FrostfallSaga.Kingdom
         /// Update entities group data after a fight => lasting health, is dead...
         /// </summary>
         /// <param name="entitiesGroupToUpdate">The entities group to update.</param>
-        /// <param name="isHeroGroup">If the entities group is the hero group or not.</param>
-        private void UpdateEntitiesGroupAfterFight(EntitiesGroup entitiesGroupToUpdate, bool isHeroGroup = false)
+        /// <param name="entitiesState">The post fight state of the entities.</param>
+        private void UpdateEntitiesGroupAfterFight(EntitiesGroup entitiesGroupToUpdate, Dictionary<string, PostFightFighterState> entitiesState)
         {
-            PostFightData postFightData = _gameStateManager.GetPostFightData();
-            Dictionary<string, PostFightFighterState> entitiesStateDict = SElementToValue<string, PostFightFighterState>.GetDictionaryFromArray(
-                isHeroGroup ? postFightData.alliesState.ToArray() : postFightData.enemiesState.ToArray()
-            );
-            foreach (KeyValuePair<string, PostFightFighterState> postFighterData in entitiesStateDict)
+            foreach (KeyValuePair<string, PostFightFighterState> postFighterData in entitiesState)
             {
                 Entity entityToUpdate = entitiesGroupToUpdate.Entities.ToList().Find(
                     entity => entity.SessionId == postFighterData.Key
@@ -130,12 +214,7 @@ namespace FrostfallSaga.Kingdom
             return _respawnedEnemiesGroups.Find(enemiesGroup => enemiesGroup.cell == _respawnedHeroGroup.cell);
         }
 
-        private void Respawn()
-        {
-            _respawnedHeroGroup.cell = _grid.CellsByCoordinates[new(0, 0)] as KingdomCell;
-            _respawnedHeroGroup.Entities.ToList().ForEach(entity => entity.IsDead = false);
-            HeroTeam.Instance.FullHealTeam();
-        }
+        #endregion
 
         #region Setup & tear down
 
@@ -151,6 +230,7 @@ namespace FrostfallSaga.Kingdom
                 return;
             }
             _gameStateManager = GameStateManager.Instance;
+            _heroTeam = HeroTeam.Instance;
         }
 
         #endregion
