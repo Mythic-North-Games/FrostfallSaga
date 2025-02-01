@@ -2232,9 +2232,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityVisualAnimationController>k__BackingField: {fileID: 0}
-  <RunSpeed>k__BackingField: 1
-  <JumpSpeed>k__BackingField: 6
-  <RotationSpeed>k__BackingField: 6
+  <RunSpeed>k__BackingField: 1.75
+  <JumpSpeed>k__BackingField: 1.25
+  <RotationSpeed>k__BackingField: 4
   _parentToMove: {fileID: 0}
 --- !u!1 &3753732779245494965
 GameObject:
@@ -2604,10 +2604,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
     - target: {fileID: 137409143641979883, guid: c0efe57f7e9561143b163beabd1831c3, type: 3}
-      propertyPath: <MouseEventsController>k__BackingField
-      value: 
-      objectReference: {fileID: 7081643504068169393}
-    - target: {fileID: 137409143641979883, guid: c0efe57f7e9561143b163beabd1831c3, type: 3}
       propertyPath: <EntityAnimationController>k__BackingField
       value: 
       objectReference: {fileID: 0}
@@ -2674,14 +2670,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1747195423429429190, guid: c0efe57f7e9561143b163beabd1831c3, type: 3}
   m_PrefabInstance: {fileID: 6702823511474659445}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7081643504068169393 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4558270950398422724, guid: c0efe57f7e9561143b163beabd1831c3, type: 3}
-  m_PrefabInstance: {fileID: 6702823511474659445}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e3dde290e98d424bba49ba4ec611c2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
