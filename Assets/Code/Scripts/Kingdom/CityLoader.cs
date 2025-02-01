@@ -1,8 +1,8 @@
 using UnityEngine;
 using FrostfallSaga.Core;
+using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Kingdom.UI;
-using FrostfallSaga.Kingdom.CityBuildings;
 using FrostfallSaga.Utils.Scenes;
 
 namespace FrostfallSaga.Kingdom
@@ -12,13 +12,13 @@ namespace FrostfallSaga.Kingdom
         [SerializeField] private KingdomManager _kingdomManager;
         [SerializeField] private EnterCityPanelController _enterCityPanelController;
 
-        private void OnCityEnterClicked(CityBuilding cityBuilding)
+        private void OnCityEnterClicked(CityBuildingConfigurationSO cityBuildingConfiguration)
         {
-            Debug.Log($"Saving kingdom state before loading city scene for {cityBuilding.CityBuildingConfiguration.Name}.");
+            Debug.Log($"Saving kingdom state before loading city scene for {cityBuildingConfiguration.Name}.");
             _kingdomManager.SaveKingdomState();
 
-            Debug.Log($"Saving city load data for {cityBuilding.CityBuildingConfiguration.Name}.");
-            GameStateManager.Instance.SaveCityLoadData(cityBuilding.CityBuildingConfiguration.InCityConfiguration);
+            Debug.Log($"Saving city load data for {cityBuildingConfiguration.Name}.");
+            GameStateManager.Instance.SaveCityLoadData(cityBuildingConfiguration.InCityConfiguration);
 
             Debug.Log($"Launching city scene...");
             SceneTransitioner.Instance.FadeInToScene(EScenesName.CITY.ToSceneString());

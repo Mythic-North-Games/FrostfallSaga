@@ -17,9 +17,6 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
     {
         public int movePoints;
         [field: SerializeField] public Transform CameraAnchor { get; private set; }
-        public Action<EntitiesGroup> onEntityGroupHovered;
-        public Action<EntitiesGroup> onEntityGroupUnhovered;
-        public Action<EntitiesGroup> onEntityGroupClicked;
         public Action<EntitiesGroup, KingdomCell> onEntityGroupMoved;
         public Entity[] Entities { get; protected set; }
         private Entity _displayedEntity;
@@ -105,16 +102,11 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             Entities.ToList().ForEach(entity => entity.HideVisual());
             if (_displayedEntity != null)
             {
-                _displayedEntity.MouseEventsController.OnElementHover -= OnDisplayedEntityHovered;
-                _displayedEntity.MouseEventsController.OnElementUnhover -= OnDisplayedEntityUnhovered;
                 _displayedEntity.MovementController.onMoveEnded -= OnMoveEnded;
             }
 
             newDisplayedEntity.ShowVisual();
             newDisplayedEntity.GetComponentInChildren<EntityVisualMovementController>().UpdateParentToMove(gameObject);
-            newDisplayedEntity.MouseEventsController.OnElementHover += OnDisplayedEntityHovered;
-            newDisplayedEntity.MouseEventsController.OnElementUnhover += OnDisplayedEntityUnhovered;
-            newDisplayedEntity.MouseEventsController.OnLeftMouseUp += OnDisplayedEntityClicked;
             newDisplayedEntity.MovementController.onMoveEnded += OnMoveEnded;
             _displayedEntity = newDisplayedEntity;
         }
@@ -122,31 +114,6 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         public Entity GetRandomAliveEntity()
         {
             return Randomizer.GetRandomElementFromArray(Entities.Where(entity => !entity.IsDead).ToArray());
-        }
-
-        private void OnDisplayedEntityHovered(Entity hoveredEntity)
-        {
-            onEntityGroupHovered?.Invoke(this);
-        }
-
-        private void OnDisplayedEntityUnhovered(Entity unhoveredEntity)
-        {
-            onEntityGroupUnhovered?.Invoke(this);
-        }
-
-        private void OnDisplayedEntityClicked(Entity clickedEntity)
-        {
-            onEntityGroupClicked?.Invoke(this);
-        }
-
-        private void OnDisable()
-        {
-            if (_displayedEntity)
-            {
-                _displayedEntity.MouseEventsController.OnElementHover -= OnDisplayedEntityHovered;
-                _displayedEntity.MouseEventsController.OnElementUnhover -= OnDisplayedEntityUnhovered;
-                _displayedEntity.MouseEventsController.OnLeftMouseUp -= OnDisplayedEntityClicked;
-            }
         }
 
         public static Entity[] GenerateRandomEntities(

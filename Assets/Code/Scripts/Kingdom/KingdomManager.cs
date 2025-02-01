@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using FrostfallSaga.Core.Cities;
+using FrostfallSaga.Core.Dungeons;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.Kingdom.CityBuildings;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.EntitiesGroupsSpawner;
+using FrostfallSaga.Kingdom.InterestPoints;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -19,14 +21,15 @@ namespace FrostfallSaga.Kingdom
     {
         // Parameters are: Hero group, encountered enemies group, hero group initiating ?
         public Action<EntitiesGroup, EntitiesGroup, bool> onEnemiesGroupEncountered;
-        public Action<CityBuilding> onCityEncountered;
+        public Action<CityBuildingConfigurationSO> onCityBuildingEncountered;
+        public Action<DungeonBuildingConfigurationSO> onDungeonBuildingEncountered;
 
         [field: SerializeField] public Material CellHighlightMaterial { get; private set; }
         [field: SerializeField] public Material CellInaccessibleHighlightMaterial { get; private set; }
         [field: SerializeField] public HexGrid KingdomGrid { get; private set; }
         [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
         [field: SerializeField] public List<EntitiesGroup> EnemiesGroups { get; private set; } = new();
-        [field: SerializeField] public CityBuilding[] CityBuildings { get; private set; }
+        [field: SerializeField] public InterestPoint[] InterestPoints { get; private set; }
 
         [SerializeField] private EntitiesGroupsSpawner.EntitiesGroupsSpawner _enemiesGroupSpawner;
         [SerializeField] private KingdomLoader _kingdomLoader;
@@ -50,13 +53,13 @@ namespace FrostfallSaga.Kingdom
                 enemiesGroupsData.Add(entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(group));
             });
 
-            List<CityBuildingData> cityBuildingsData = new();
-            foreach (CityBuilding cityBuilding in CityBuildings)
+            List<InterestPointData> interestPointsData = new();
+            foreach (InterestPoint interestPoint in InterestPoints)
             {
-                cityBuildingsData.Add(CityBuildingBuilder.Instance.ExtractCityBuildingDataFromBuilding(cityBuilding));
+                interestPointsData.Add(InterestPointBuilder.Instance.ExtractInterestPointDataFromInterestPoint(interestPoint));
             }
 
-            GameStateManager.Instance.SaveKingdomState(heroGroupData, enemiesGroupsData.ToArray(), cityBuildingsData.ToArray());
+            GameStateManager.Instance.SaveKingdomState(heroGroupData, enemiesGroupsData.ToArray(), interestPointsData.ToArray());
             Debug.Log("KingdomConfiguration Saved !");
         }
 
@@ -78,14 +81,9 @@ namespace FrostfallSaga.Kingdom
             );
         }
 
-        private void OnEntitiesGroupClicked(EntitiesGroup clickedEntitiesGroup)
+        private void OnKingdomCellOccupierClicked(KingdomCellOccupier clickedOccupier)
         {
-            OnCellClicked(clickedEntitiesGroup.cell);
-        }
-
-        private void OnCityClicked(CityBuilding clickedCity)
-        {
-            OnCellClicked(clickedCity.cell);
+            OnCellClicked(clickedOccupier.cell);
         }
 
         private void OnEnemiesGroupEncounteredDuringMovement(EntitiesGroup encounteredEnemiesGroup, bool heroGroupHasInitiated)
@@ -93,12 +91,24 @@ namespace FrostfallSaga.Kingdom
             onEnemiesGroupEncountered?.Invoke(HeroGroup, encounteredEnemiesGroup, heroGroupHasInitiated);
         }
 
-        private void OnCityEncountered(CityBuilding encounteredCity)
+        private void OnInterestPointEncountered(InterestPoint encounteredInterestPoint)
         {
             _entitiesAreMoving = false;
             HeroGroup.GetDisplayedEntity().AnimationController.RestoreDefaultAnimation();
-            HeroGroup.GetDisplayedEntity().MovementController.RotateTowardsCell(encounteredCity.cell);
-            onCityEncountered?.Invoke(encounteredCity);
+            HeroGroup.GetDisplayedEntity().MovementController.RotateTowardsCell(encounteredInterestPoint.cell);
+            TriggerInterestPointEncounter(encounteredInterestPoint);
+        }
+
+        private void TriggerInterestPointEncounter(InterestPoint interestPoint)
+        {
+            if (interestPoint.InterestPointConfiguration is CityBuildingConfigurationSO cityBuildingConfiguration)
+            {
+                onCityBuildingEncountered?.Invoke(cityBuildingConfiguration);
+            }
+            else if (interestPoint.InterestPointConfiguration is DungeonBuildingConfigurationSO dungeonBuildingConfiguration)
+            {
+                onDungeonBuildingEncountered?.Invoke(dungeonBuildingConfiguration);
+            }
         }
 
         private void OnAllEntitiesMoved()
@@ -117,9 +127,9 @@ namespace FrostfallSaga.Kingdom
         private void OnEnemiesGroupSpawned(EntitiesGroup spawnedEnemiesGroup)
         {
             EnemiesGroups.Add(spawnedEnemiesGroup);
-            spawnedEnemiesGroup.onEntityGroupHovered += OnEntitiesGroupHovered;
-            spawnedEnemiesGroup.onEntityGroupUnhovered += OnEntitiesGroupUnhovered;
-            spawnedEnemiesGroup.onEntityGroupClicked += OnEntitiesGroupClicked;
+            spawnedEnemiesGroup.MouseEventsController.OnElementHover += OnKingdomCellOccupierHovered;
+            spawnedEnemiesGroup.MouseEventsController.OnElementUnhover += OnKingdomCellOccupierUnhovered;
+            spawnedEnemiesGroup.MouseEventsController.OnLeftMouseUp += OnKingdomCellOccupierClicked;
         }
 
         #region Cells hovering and highlighting
@@ -140,14 +150,9 @@ namespace FrostfallSaga.Kingdom
             HighlightShorterPathCells();
         }
 
-        private void OnEntitiesGroupHovered(EntitiesGroup hoveredEntitiesGroup)
+        private void OnKingdomCellOccupierHovered(KingdomCellOccupier hoveredOccupier)
         {
-            OnCellHovered(hoveredEntitiesGroup.cell);
-        }
-
-        private void OnCityHovered(CityBuilding hoveredCity)
-        {
-            OnCellHovered(hoveredCity.cell);
+            OnCellHovered(hoveredOccupier.cell);
         }
 
         private void OnCellUnhovered(Cell hoveredCell)
@@ -155,14 +160,9 @@ namespace FrostfallSaga.Kingdom
             ResetShorterPathCellsDefaultMaterial();
         }
 
-        private void OnEntitiesGroupUnhovered(EntitiesGroup unhoveredEntitiesGroup)
+        private void OnKingdomCellOccupierUnhovered(KingdomCellOccupier unhoveredOccupier)
         {
-            OnCellUnhovered(unhoveredEntitiesGroup.cell);
-        }
-
-        private void OnCityUnhovered(CityBuilding unhoveredCity)
-        {
-            OnCellUnhovered(unhoveredCity.cell);
+            OnCellUnhovered(unhoveredOccupier.cell);
         }
 
         private void HighlightShorterPathCells()
@@ -187,45 +187,6 @@ namespace FrostfallSaga.Kingdom
             foreach (Cell cell in _currentHeroGroupMovePath.path)
             {
                 cell.HighlightController.ResetToDefaultMaterial();
-            }
-        }
-        #endregion
-
-        #region Cell mouse events binding and unbinding
-        private void BindCellMouseEvents()
-        {
-            foreach (Cell cell in KingdomGrid.GetCells())
-            {
-                cell.CellMouseEventsController.OnElementHover += OnCellHovered;
-                cell.CellMouseEventsController.OnElementUnhover += OnCellUnhovered;
-                cell.CellMouseEventsController.OnLeftMouseUp += OnCellClicked;
-            }
-        }
-        #endregion
-
-        #region Entities groups mouse events binding and unbinding
-        private void BindEntitiesGroupsMouseEvents()
-        {
-            HeroGroup.onEntityGroupHovered += OnEntitiesGroupHovered;
-            HeroGroup.onEntityGroupUnhovered += OnEntitiesGroupUnhovered;
-            HeroGroup.onEntityGroupClicked += OnEntitiesGroupClicked;
-            EnemiesGroups.ForEach(enemiesGroup =>
-            {
-                enemiesGroup.onEntityGroupHovered += OnEntitiesGroupHovered;
-                enemiesGroup.onEntityGroupUnhovered += OnEntitiesGroupUnhovered;
-                enemiesGroup.onEntityGroupClicked += OnEntitiesGroupClicked;
-            });
-        }
-        #endregion
-
-        #region Cities mouse events binding and unbinding
-        private void BindCitiesMouseEvents()
-        {
-            foreach (CityBuilding city in CityBuildings)
-            {
-                city.MouseEventsController.OnElementHover += OnCityHovered;
-                city.MouseEventsController.OnElementUnhover += OnCityUnhovered;
-                city.MouseEventsController.OnLeftMouseUp += OnCityClicked;
             }
         }
         #endregion
@@ -279,15 +240,36 @@ namespace FrostfallSaga.Kingdom
 
             HeroGroup = FindObjectsOfType<EntitiesGroup>().ToList().Find(entitiesGroup => entitiesGroup.name == "HeroGroup");
             EnemiesGroups = FindObjectsOfType<EntitiesGroup>().ToList().FindAll(entitiesGroup => entitiesGroup.name != "HeroGroup");
-            BindEntitiesGroupsMouseEvents();
 
             _entitiesGroupsMovementController = new(KingdomGrid, HeroGroup);
-            _entitiesGroupsMovementController.OnAllEntitiesMoved += OnAllEntitiesMoved;
-            _entitiesGroupsMovementController.OnEnemiesGroupEncountered += OnEnemiesGroupEncounteredDuringMovement;
-            _entitiesGroupsMovementController.OnCityEncountered += OnCityEncountered;
+            _entitiesGroupsMovementController.onAllEntitiesMoved += OnAllEntitiesMoved;
+            _entitiesGroupsMovementController.onEnemiesGroupEncountered += OnEnemiesGroupEncounteredDuringMovement;
+            _entitiesGroupsMovementController.onInterestPointEncountered += OnInterestPointEncountered;
 
-            CityBuildings = FindObjectsOfType<CityBuilding>();
-            BindCitiesMouseEvents();
+            InterestPoints = FindObjectsOfType<InterestPoint>();
+
+            BindOccupiersMouseEvents();
+        }
+
+        private void BindCellMouseEvents()
+        {
+            foreach (Cell cell in KingdomGrid.GetCells())
+            {
+                cell.CellMouseEventsController.OnElementHover += OnCellHovered;
+                cell.CellMouseEventsController.OnElementUnhover += OnCellUnhovered;
+                cell.CellMouseEventsController.OnLeftMouseUp += OnCellClicked;
+            }
+        }
+
+        private void BindOccupiersMouseEvents()
+        {
+            KingdomCellOccupier[] occupiers = FindObjectsOfType<KingdomCellOccupier>();
+            foreach (KingdomCellOccupier occupier in occupiers)
+            {
+                occupier.MouseEventsController.OnElementHover += OnKingdomCellOccupierHovered;
+                occupier.MouseEventsController.OnElementUnhover += OnKingdomCellOccupierUnhovered;
+                occupier.MouseEventsController.OnLeftMouseUp += OnKingdomCellOccupierClicked;
+            }
         }
         #endregion
     }
