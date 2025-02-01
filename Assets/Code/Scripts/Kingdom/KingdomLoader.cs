@@ -10,7 +10,7 @@ using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Core.GameState.Fight;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
-using FrostfallSaga.Kingdom.CityBuildings;
+using FrostfallSaga.Kingdom.InterestPoints;
 using FrostfallSaga.Core.HeroTeam;
 
 namespace FrostfallSaga.Kingdom
@@ -25,7 +25,7 @@ namespace FrostfallSaga.Kingdom
         private GameStateManager _gameStateManager;
         private EntitiesGroup _respawnedHeroGroup;
         private readonly List<EntitiesGroup> _respawnedEnemiesGroups = new();
-        private readonly List<CityBuilding> _cityBuildings = new();
+        private readonly List<InterestPoint> _interestPoints = new();
 
         private void Start()
         {
@@ -37,7 +37,7 @@ namespace FrostfallSaga.Kingdom
             }
 
             Debug.Log("Start loading kingdom.");
-            FindObjectsOfType<EntitiesGroup>().ToList().ForEach(entityGroup => DestroyImmediate(entityGroup.gameObject));
+            DestroyDevOccupiers();
             LoadKingdomAsBeforeFight();
 
             if (!_gameStateManager.HasFightJustOccured())
@@ -53,6 +53,14 @@ namespace FrostfallSaga.Kingdom
             onKingdomLoaded?.Invoke();
         }
 
+        /// <summary>
+        /// If kingdom cell occupiers are placed directly in the scene for dev purposes, destroy them.
+        /// </summary>
+        private void DestroyDevOccupiers()
+        {
+            FindObjectsOfType<KingdomCellOccupier>().ToList().ForEach(occupier => DestroyImmediate(occupier.gameObject));
+        }
+
         private void LoadKingdomAsBeforeFight()
         {
             EntitiesGroupBuilder entitiesGroupBuilder = EntitiesGroupBuilder.Instance;
@@ -66,10 +74,10 @@ namespace FrostfallSaga.Kingdom
                 _respawnedEnemiesGroups.Add(entitiesGroupBuilder.BuildEntitiesGroup(enemiesGroupData, _grid));
             }
 
-            // Restore cities
-            foreach(CityBuildingData cityBuildingData in kingdomState.cityBuildingsData)
+            // Restore interest points
+            foreach(InterestPointData interestPointData in kingdomState.interestPointsData)
             {
-                _cityBuildings.Add(CityBuildingBuilder.Instance.BuildCityBuilding(cityBuildingData, _grid));
+                _interestPoints.Add(InterestPointBuilder.Instance.BuildInterestPoint(interestPointData, _grid));
             }
         }
 
