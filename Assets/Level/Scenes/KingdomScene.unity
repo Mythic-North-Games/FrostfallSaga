@@ -26061,6 +26061,7 @@ GameObject:
   - component: {fileID: 791242498}
   - component: {fileID: 791242497}
   - component: {fileID: 791242499}
+  - component: {fileID: 791242500}
   m_Layer: 0
   m_Name: KingdomUI
   m_TagString: Untagged
@@ -26129,6 +26130,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 791242498}
   <EnterCityPanelTemplate>k__BackingField: {fileID: 9197481963319205126, guid: 29fdbd1f64f773c49a08c2579f02b9df, type: 3}
+  _kingdomManager: {fileID: 899991118}
+--- !u!114 &791242500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791242495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 888a7d89ffc32b9de9a5c5c32a9a2c9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDoc: {fileID: 791242498}
+  <EnterDungeonPanelTemplate>k__BackingField: {fileID: 9197481963319205126, guid: c57e0225349877ce289e6c2214543dd3, type: 3}
   _kingdomManager: {fileID: 899991118}
 --- !u!1 &792418082
 GameObject:
