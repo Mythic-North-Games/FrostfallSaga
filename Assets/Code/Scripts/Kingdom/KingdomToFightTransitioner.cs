@@ -10,6 +10,7 @@ using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils.Scenes;
+using FrostfallSaga.Core.HeroTeam;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -24,13 +25,12 @@ namespace FrostfallSaga.Kingdom
         /// <summary>
         /// Start the encounter animation before saving the kingdom state and launching the fight scene.
         /// </summary>
-        /// <param name="heroGroup">The hero group.</param>
         /// <param name="enemiesGroup">The encountered enemies group.</param>
         /// <param name="heroGroupInitiating">True if the hero group is initiating the fight, false otherwise.</param>
-		private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup, bool heroGroupInitiating)
+		private void OnEnemiesGroupEncountered(EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
-            SavePreFightData(heroGroup, enemiesGroup);
-            StartCoroutine(StartEncounterAnimation(heroGroup, enemiesGroup, heroGroupInitiating));
+            SavePreFightData(enemiesGroup);
+            StartCoroutine(StartEncounterAnimation(enemiesGroup, heroGroupInitiating));
         }
 
         /// <summary>
@@ -45,8 +45,9 @@ namespace FrostfallSaga.Kingdom
         /// <summary>
 		/// Plays a ready to fight animation then make the initiating group move to the targeted group.
 		/// </summary>
-		private IEnumerator StartEncounterAnimation(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup, bool heroGroupInitiating)
+		private IEnumerator StartEncounterAnimation(EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
+            EntitiesGroup heroGroup = _kingdomManager.HeroGroup;
             Entity heroEntity = heroGroup.GetDisplayedEntity();
             Entity enemyEntity = enemiesGroup.GetDisplayedEntity();
 
@@ -79,15 +80,8 @@ namespace FrostfallSaga.Kingdom
             _sceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
         }
 
-        private void SavePreFightData(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup)
+        private void SavePreFightData(EntitiesGroup enemiesGroup)
         {
-            KeyValuePair<string, EntityConfigurationSO>[] alliesFighterConfigs = new KeyValuePair<string, EntityConfigurationSO>[heroGroup.Entities.Length];
-            for (int i = 0; i < heroGroup.Entities.Length; i++)
-            {
-                Entity heroGroupEntity = heroGroup.Entities[i];
-                alliesFighterConfigs[i] = new(heroGroupEntity.SessionId, heroGroupEntity.EntityConfiguration);
-            }
-
             KeyValuePair<string, EntityConfigurationSO>[] enemiesFighterConfigs = new KeyValuePair<string, EntityConfigurationSO>[enemiesGroup.Entities.Length];
             for (int i = 0; i < enemiesGroup.Entities.Length; i++)
             {
@@ -95,7 +89,11 @@ namespace FrostfallSaga.Kingdom
                 enemiesFighterConfigs[i] = new(enemyGroupEntity.SessionId, enemyGroupEntity.EntityConfiguration);
             }
 
-            GameStateManager.Instance.SavePreFightData(alliesFighterConfigs, enemiesFighterConfigs, EFightOrigin.KINGDOM);
+            GameStateManager.Instance.SavePreFightData(
+                HeroTeam.Instance.GetHerosForPreFight(),
+                enemiesFighterConfigs,
+                EFightOrigin.KINGDOM
+            );
         }
 
         #region Setup and tear down

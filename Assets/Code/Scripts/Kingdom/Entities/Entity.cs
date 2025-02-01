@@ -68,8 +68,8 @@ namespace FrostfallSaga.Kingdom.Entities
                 Debug.LogWarning("Entity " + name + " does not have a movement controller and a visual.");
             }
 
-            name = $"{EntityConfiguration.Name}_{SessionId}";
             SessionId = Guid.NewGuid().ToString();
+            name = $"{EntityConfiguration.Name}_{SessionId}";
             if (EntityConfiguration.FighterConfiguration is PersistedFighterConfigurationSO persistedFighterConfiguration)
             {
                 IsDead = persistedFighterConfiguration.Health == 0;
