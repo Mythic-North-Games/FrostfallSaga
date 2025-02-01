@@ -30,7 +30,7 @@ namespace FrostfallSaga.Kingdom
         {
             if (_enterCityPanelController == null)
             {
-                Debug.LogError("No KingdomManager assigned to CityLoader. Won't be able to load city scene correctly.");
+                Debug.LogError("No enter EnterCityPanelController assigned to CityLoader. Won't be able to load city scene correctly.");
                 return;
             }
 
