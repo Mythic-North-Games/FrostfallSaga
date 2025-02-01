@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Core;
-using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.Entities;
+using FrostfallSaga.Core.GameState;
+using FrostfallSaga.Core.GameState.Fight;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
@@ -94,7 +95,7 @@ namespace FrostfallSaga.Kingdom
                 enemiesFighterConfigs[i] = new(enemyGroupEntity.SessionId, enemyGroupEntity.EntityConfiguration);
             }
 
-            GameStateManager.Instance.SavePreFightData(alliesFighterConfigs, enemiesFighterConfigs);
+            GameStateManager.Instance.SavePreFightData(alliesFighterConfigs, enemiesFighterConfigs, EFightOrigin.KINGDOM);
         }
 
         #region Setup and tear down

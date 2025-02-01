@@ -18,7 +18,7 @@ namespace FrostfallSaga.Core.GameState
         private PreFightData _preFightData;
         private PostFightData _postFightData;
         private CityLoadData _cityLoadData;
-        private DungeonLoadData _dungeonLoadData;
+        private DungeonState _dungeonState;
 
         protected override void Init()
         {
@@ -26,7 +26,7 @@ namespace FrostfallSaga.Core.GameState
             _preFightData = new PreFightData();
             _postFightData = new PostFightData();
             _cityLoadData = new CityLoadData();
-            _dungeonLoadData = new DungeonLoadData();
+            _dungeonState = new DungeonState();
         }
 
         #region General states
@@ -67,11 +67,13 @@ namespace FrostfallSaga.Core.GameState
 
         public void SavePreFightData(
             KeyValuePair<string, EntityConfigurationSO>[] alliesEntityConf,
-            KeyValuePair<string, EntityConfigurationSO>[] enemiesEntityConf
+            KeyValuePair<string, EntityConfigurationSO>[] enemiesEntityConf,
+            EFightOrigin fightOrigin
         )
         {
             _preFightData.alliesEntityConf = alliesEntityConf;
             _preFightData.enemiesEntityConf = enemiesEntityConf;
+            _preFightData.fightOrigin = fightOrigin;
         }
 
         public void CleanPreFightData()
@@ -108,6 +110,11 @@ namespace FrostfallSaga.Core.GameState
             return _postFightData.isActive;
         }
 
+        public EFightOrigin GetCurrentFightOrigin()
+        {
+            return _preFightData.fightOrigin;
+        }
+
         #endregion Fight states
     
         #region City states
@@ -131,19 +138,24 @@ namespace FrostfallSaga.Core.GameState
 
         #region Dungeon states
 
-        public DungeonLoadData GetDungeonLoadData()
+        public DungeonState GetDungeonState()
         {
-            return _dungeonLoadData;
+            return _dungeonState;
         }
 
-        public DungeonConfigurationSO GetDungeonConfigurationToLoad()
+        public void InitDungeonState(DungeonConfigurationSO dungeonConfiguration)
         {
-            return _dungeonLoadData.dungeonConfigurationToLoad;
+            _dungeonState.Init(dungeonConfiguration);
         }
 
-        public void SaveDungeonLoadData(DungeonConfigurationSO dungeonConfiguration)
+        public void SaveDungeonProgress(bool alliesWonLastFight)
         {
-            _dungeonLoadData.dungeonConfigurationToLoad = dungeonConfiguration;
+            _dungeonState.SaveProgress(alliesWonLastFight);
+        }
+
+        public void CleanDungeonState()
+        {
+            _dungeonState.Reset();
         }
 
         #endregion

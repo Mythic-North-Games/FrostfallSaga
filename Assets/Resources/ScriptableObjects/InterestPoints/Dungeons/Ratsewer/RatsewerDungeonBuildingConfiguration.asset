@@ -17,3 +17,4 @@ MonoBehaviour:
     Who knows what you are going to encounter inside...
   <InterestPointPrefab>k__BackingField: {fileID: 1579975777369734056, guid: 93ef8c6f4f6efe146957172931db7402, type: 3}
   <DungeonPreview>k__BackingField: {fileID: 21300000, guid: 3084b2bb5c34611fdb1d9674adf9abfe, type: 3}
+  <DungeonConfiguration>k__BackingField: {fileID: 11400000, guid: 30031eaa451e03f3c83ed19de21f89ab, type: 2}

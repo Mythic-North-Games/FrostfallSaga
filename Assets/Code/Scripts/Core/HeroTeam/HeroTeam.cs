@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Core.HeroTeam
@@ -20,6 +21,13 @@ namespace FrostfallSaga.Core.HeroTeam
                 new(string.Format(BASE_ENTITY_CONFIGURATION_SO_CONFIG_PATH, COMPANION1_CONFIG_NAME, COMPANION1_CONFIG_NAME)),
                 new(string.Format(BASE_ENTITY_CONFIGURATION_SO_CONFIG_PATH, COMPANION2_CONFIG_NAME, COMPANION2_CONFIG_NAME))
             };
+        }
+
+        public KeyValuePair<string, EntityConfigurationSO>[] GetHerosForPreFight()
+        {
+            return Heroes.ConvertAll(
+                hero => new KeyValuePair<string, EntityConfigurationSO>(null, hero.EntityConfiguration)
+            ).ToArray();
         }
 
         public void FullHealTeam() => Heroes.ForEach(hero => hero.FullHeal());
