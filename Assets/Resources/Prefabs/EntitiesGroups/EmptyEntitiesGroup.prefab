@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cell: {fileID: 0}
   <MouseEventsController>k__BackingField: {fileID: 0}
-  movePoints: 0
+  movePoints: 3
   <CameraAnchor>k__BackingField: {fileID: 3677640880969923407}
 --- !u!136 &5525347053112364121
 CapsuleCollider:
