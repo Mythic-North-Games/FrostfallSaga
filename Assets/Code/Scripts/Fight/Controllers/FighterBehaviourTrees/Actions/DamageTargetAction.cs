@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using FrostfallSaga.Grid;
-using FrostfallSaga.BehaviourTree;
+using FrostfallSaga.Utils.Trees.BehaviourTree;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;

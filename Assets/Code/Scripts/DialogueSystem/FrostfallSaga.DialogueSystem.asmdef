@@ -1,0 +1,16 @@
+{
+	"name": "FrostfallSaga.DialogueSystem",
+	"rootNamespace": "FrostfallSaga.DialogueSystem",
+	"references": [
+		"FrostfallSaga.Utils"
+	],
+	"includePlatforms": [],
+	"excludePlatforms": [],
+	"allowUnsafeCode": false,
+	"overrideReferences": false,
+	"precompiledReferences": [],
+	"autoReferenced": true,
+	"defineConstraints": [],
+	"versionDefines": [],
+	"noEngineReferences": false
+}
