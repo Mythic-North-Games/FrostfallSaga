@@ -87,11 +87,8 @@ namespace FrostfallSaga.Core.GameState
             return _postFightData;
         }
 
-        public void SavePostFightData(AFighter[] allies, AFighter[] enemies)
+        public void SavePostFightData(AFighter[] enemies)
         {
-            _postFightData.alliesState = new();
-            allies.ToList().ForEach(ally => _postFightData.alliesState.Add(new(ally.EntitySessionId, new(ally.GetHealth()))));
-
             _postFightData.enemiesState = new();
             enemies.ToList().ForEach(enemy => _postFightData.enemiesState.Add(new(enemy.EntitySessionId, new(enemy.GetHealth()))));
 
@@ -100,7 +97,6 @@ namespace FrostfallSaga.Core.GameState
 
         public void CleanPostFightData()
         {
-            _postFightData.alliesState = null;
             _postFightData.enemiesState = null;
             _postFightData.isActive = false;
         }
@@ -159,5 +155,10 @@ namespace FrostfallSaga.Core.GameState
         }
 
         #endregion
+    
+        static GameStateManager()
+        {
+            AutoInitializeOnSceneLoad = true;
+        }
     }
 }

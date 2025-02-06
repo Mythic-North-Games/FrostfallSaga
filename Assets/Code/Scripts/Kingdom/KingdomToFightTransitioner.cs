@@ -25,13 +25,12 @@ namespace FrostfallSaga.Kingdom
         /// <summary>
         /// Start the encounter animation before saving the kingdom state and launching the fight scene.
         /// </summary>
-        /// <param name="heroGroup">The hero group.</param>
         /// <param name="enemiesGroup">The encountered enemies group.</param>
         /// <param name="heroGroupInitiating">True if the hero group is initiating the fight, false otherwise.</param>
-		private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup, bool heroGroupInitiating)
+		private void OnEnemiesGroupEncountered(EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
             SavePreFightData(enemiesGroup);
-            StartCoroutine(StartEncounterAnimation(heroGroup, enemiesGroup, heroGroupInitiating));
+            StartCoroutine(StartEncounterAnimation(enemiesGroup, heroGroupInitiating));
         }
 
         /// <summary>
@@ -46,8 +45,9 @@ namespace FrostfallSaga.Kingdom
         /// <summary>
 		/// Plays a ready to fight animation then make the initiating group move to the targeted group.
 		/// </summary>
-		private IEnumerator StartEncounterAnimation(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup, bool heroGroupInitiating)
+		private IEnumerator StartEncounterAnimation(EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
+            EntitiesGroup heroGroup = _kingdomManager.HeroGroup;
             Entity heroEntity = heroGroup.GetDisplayedEntity();
             Entity enemyEntity = enemiesGroup.GetDisplayedEntity();
 

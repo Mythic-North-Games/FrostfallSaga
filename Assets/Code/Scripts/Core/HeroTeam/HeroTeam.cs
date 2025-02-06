@@ -21,6 +21,7 @@ namespace FrostfallSaga.Core.HeroTeam
                 new(string.Format(BASE_ENTITY_CONFIGURATION_SO_CONFIG_PATH, COMPANION1_CONFIG_NAME, COMPANION1_CONFIG_NAME)),
                 new(string.Format(BASE_ENTITY_CONFIGURATION_SO_CONFIG_PATH, COMPANION2_CONFIG_NAME, COMPANION2_CONFIG_NAME))
             };
+            FullHealTeam(); // * For now, we fully heal the team on initialization.
         }
 
         public EntityConfigurationSO[] GetHeroesEntityConfig()
@@ -29,5 +30,13 @@ namespace FrostfallSaga.Core.HeroTeam
         }
 
         public void FullHealTeam() => Heroes.ForEach(hero => hero.FullHeal());
+
+        /// <summary>
+        /// Automatically initialize the singleton on scene load.
+        /// </summary>
+        static HeroTeam()
+        {
+            AutoInitializeOnSceneLoad = true;
+        }
     }
 }

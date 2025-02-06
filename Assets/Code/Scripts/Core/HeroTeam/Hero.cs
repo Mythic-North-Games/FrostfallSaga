@@ -15,6 +15,11 @@ namespace FrostfallSaga.Core.HeroTeam
             PersistedFighterConfiguration = (PersistedFighterConfigurationSO)EntityConfiguration.FighterConfiguration;
         }
 
+        public bool IsDead()
+        {
+            return PersistedFighterConfiguration.Health == 0;
+        }
+
         public void FullHeal()
         {
             PersistedFighterConfiguration.SetHealth(PersistedFighterConfiguration.MaxHealth);

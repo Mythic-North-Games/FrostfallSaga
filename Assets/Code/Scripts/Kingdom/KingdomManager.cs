@@ -19,8 +19,8 @@ namespace FrostfallSaga.Kingdom
     /// </summary>
     public class KingdomManager : MonoBehaviour
     {
-        // Parameters are: Hero group, encountered enemies group, hero group initiating ?
-        public Action<EntitiesGroup, EntitiesGroup, bool> onEnemiesGroupEncountered;
+        // Parameters are: Encountered enemies group, hero group initiating ?
+        public Action<EntitiesGroup, bool> onEnemiesGroupEncountered;
         public Action<CityBuildingConfigurationSO> onCityBuildingEncountered;
         public Action<DungeonBuildingConfigurationSO> onDungeonBuildingEncountered;
 
@@ -88,7 +88,7 @@ namespace FrostfallSaga.Kingdom
 
         private void OnEnemiesGroupEncounteredDuringMovement(EntitiesGroup encounteredEnemiesGroup, bool heroGroupHasInitiated)
         {
-            onEnemiesGroupEncountered?.Invoke(HeroGroup, encounteredEnemiesGroup, heroGroupHasInitiated);
+            onEnemiesGroupEncountered?.Invoke(encounteredEnemiesGroup, heroGroupHasInitiated);
         }
 
         private void OnInterestPointEncountered(InterestPoint encounteredInterestPoint)
