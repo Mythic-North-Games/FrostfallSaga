@@ -1,0 +1,192 @@
+.dialogueScreenRootDefault {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.39);
+    justify-content: flex-start;
+}
+
+.dialogueScreenRootHidden {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.39);
+    opacity: 0;
+    justify-content: flex-start;
+}
+
+.dialogueLineContainerLeft {
+    width: 75%;
+    margin-left: 12.5%;
+    height: 33%;
+    margin-bottom: 5%;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.dialogueLineContainerRight {
+    width: 75%;
+    margin-left: 12.5%;
+    height: 33%;
+    margin-bottom: 5%;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.characterIconLeft {
+    background-image: url("project://database/Assets/Art/UI/Portraits/vikingSquarePortrait.jpeg?fileID=2800000&guid=650560cad05210a4396e7d04c5ad61aa&type=3#vikingSquarePortrait");
+    -unity-background-scale-mode: scale-and-crop;
+    position: absolute;
+    left: -5%;
+    width: 30%;
+    height: 200%;
+    bottom: -28%;
+}
+
+.characterIconRight {
+    background-image: url("project://database/Assets/Art/UI/Portraits/vikingSquarePortrait.jpeg?fileID=2800000&guid=650560cad05210a4396e7d04c5ad61aa&type=3#vikingSquarePortrait");
+    -unity-background-scale-mode: scale-and-crop;
+    position: absolute;
+    width: 30%;
+    height: 200%;
+    bottom: -28%;
+    right: -5%;
+}
+
+.dialogueBoxContainerLeft {
+    align-items: flex-start;
+    width: 80%;
+    margin-left: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-right: 0;
+}
+
+.dialogueBoxContainerRight {
+    align-items: flex-end;
+    width: 80%;
+    margin-left: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-right: 0;
+}
+
+.richTextContainerRight {
+    flex-grow: 1;
+    background-color: rgb(25, 25, 25);
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    border-left-color: rgb(225, 225, 225);
+    border-right-color: rgb(225, 225, 225);
+    border-top-color: rgb(225, 225, 225);
+    border-bottom-color: rgb(225, 225, 225);
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.richTextContainerLeft {
+    flex-grow: 1;
+    background-color: rgb(25, 25, 25);
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    border-left-color: rgb(225, 225, 225);
+    border-right-color: rgb(225, 225, 225);
+    border-top-color: rgb(225, 225, 225);
+    border-bottom-color: rgb(225, 225, 225);
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.answersContainerLeft {
+    align-items: flex-end;
+    width: 52.5%;
+    margin-left: 0;
+    justify-content: space-around;
+    margin-top: 7.5%;
+    align-self: flex-end;
+    margin-right: 5%;
+}
+
+.answersContainerRight {
+    align-items: flex-start;
+    width: 52.5%;
+    margin-left: 5%;
+    justify-content: space-around;
+    margin-top: 7.5%;
+}
+
+.answerContainerDefault {
+    flex-grow: 1;
+    align-items: flex-start;
+    background-color: rgba(0, 0, 0, 0.71);
+    padding-top: 2%;
+    padding-right: 3%;
+    padding-bottom: 2%;
+    padding-left: 3%;
+    margin-top: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-right: 0;
+    margin-bottom: 2.5%;
+    margin-left: 0;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.answerContainerHidden {
+    flex-grow: 1;
+    align-items: flex-start;
+    background-color: rgba(0, 0, 0, 0.71);
+    padding-top: 2%;
+    padding-right: 3%;
+    padding-bottom: 2%;
+    padding-left: 3%;
+    margin-top: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-right: 0;
+    margin-bottom: 2.5%;
+    margin-left: 0;
+    translate: -125% 20px;
+    opacity: 0;
+}
+
+.answerLabelDefault {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 40px;
+    color: rgb(225, 225, 225);
+    -unity-font-style: bold;
+    white-space: normal;
+}
