@@ -25,7 +25,6 @@ namespace FrostfallSaga.Kingdom
 
         private GameStateManager _gameStateManager;
         private HeroTeam _heroTeam;
-
         private EntitiesGroup _respawnedHeroGroup;
         private readonly List<EntitiesGroup> _respawnedEnemiesGroups = new();
         private readonly List<InterestPoint> _interestPoints = new();
@@ -54,7 +53,6 @@ namespace FrostfallSaga.Kingdom
 
             AdjustKingdomAfterFight();
             _gameStateManager.CleanPostFightData();
-
             Debug.Log("Kingdom loaded.");
             onKingdomLoaded?.Invoke();
         }
