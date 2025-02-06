@@ -41,7 +41,7 @@ namespace FrostfallSaga.Kingdom.UI
         {
             _currentDungeon = dungeonBuildingConfiguration;
             _dungeonGatePanel = EnterDungeonPanelTemplate.Instantiate();
-            _dungeonGatePanel.Q<Button>(ENTER_DUNGEON_BUTTON_UI_NAME).clicked += OnDisplayClicked;
+            _dungeonGatePanel.Q<Button>(ENTER_DUNGEON_BUTTON_UI_NAME).clicked += OnEnterClicked;
             _dungeonGatePanel.Q<Button>(EXIT_DUNGEON_BUTTON_UI_NAME).clicked += OnExitClicked;
             SetupDungeonPanel(dungeonBuildingConfiguration);
             _uiDoc.rootVisualElement.Add(_dungeonGatePanel);
