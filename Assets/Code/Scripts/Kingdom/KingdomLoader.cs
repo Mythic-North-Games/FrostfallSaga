@@ -53,7 +53,6 @@ namespace FrostfallSaga.Kingdom
 
             AdjustKingdomAfterFight();
             _gameStateManager.CleanPostFightData();
-
             Debug.Log("Kingdom loaded.");
             onKingdomLoaded?.Invoke();
         }
