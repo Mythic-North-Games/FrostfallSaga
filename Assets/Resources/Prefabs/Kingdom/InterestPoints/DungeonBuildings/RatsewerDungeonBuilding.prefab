@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8000647631096034218
+--- !u!1001 &370900502308808483
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,8 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1209365568012508299, guid: 267af9c364daa0396863513163f4551c, type: 3}
       propertyPath: m_Name
-      value: ExampleCity
+      value: RatsewerDungeonBuilding
       objectReference: {fileID: 0}
+    - target: {fileID: 4146391893925370050, guid: 267af9c364daa0396863513163f4551c, type: 3}
+      propertyPath: <InterestPointConfiguration>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 4762792f3dfda5a23abdd8c64aab5bf1, type: 2}
     - target: {fileID: 4304964046440804348, guid: 267af9c364daa0396863513163f4551c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -52,10 +56,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7509131012806623075, guid: 267af9c364daa0396863513163f4551c, type: 3}
-      propertyPath: <CityBuildingConfiguration>k__BackingField
-      value: 
-      objectReference: {fileID: 11400000, guid: 051484d2f41c9b40587d385c75ee6b8a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

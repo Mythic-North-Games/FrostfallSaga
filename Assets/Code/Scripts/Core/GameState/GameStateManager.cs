@@ -39,12 +39,12 @@ namespace FrostfallSaga.Core.GameState
         public void SaveKingdomState(
             EntitiesGroupData heroGroupData,
             EntitiesGroupData[] enemiesGroupsData,
-            CityBuildingData[] cityBuildingsData
+            InterestPointData[] interestPointsData
         )
         {
             _kingdomState.heroGroupData = heroGroupData;
             _kingdomState.enemiesGroupsData = enemiesGroupsData;
-            _kingdomState.cityBuildingsData = cityBuildingsData;
+            _kingdomState.interestPointsData = interestPointsData;
         }
 
         public KingdomState GetKingdomState()
