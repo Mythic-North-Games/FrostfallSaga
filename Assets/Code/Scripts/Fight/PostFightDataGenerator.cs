@@ -1,6 +1,8 @@
+using System.Linq;
 using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Core.GameState;
+using FrostfallSaga.Core.GameState.Fight;
 
 namespace FrostfallSaga.Fight
 {
@@ -10,13 +12,26 @@ namespace FrostfallSaga.Fight
 
         private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
         {
-            if (allies[0].EntitySessionId == null || allies[0].EntitySessionId.Length == 0)
+            GameStateManager gameStateManager = GameStateManager.Instance;
+
+            if (gameStateManager.GetCurrentFightOrigin() == EFightOrigin.DUNGEON)
             {
-                Debug.Log("No session ID on fighters. Dev mod assumed. No post fight data saved.");
-                GameStateManager.Instance.CleanPostFightData();
+                Debug.Log("Saving dungeon progress...");
+
+                bool alliesHaveWon = allies.All(ally => ally.GetHealth() > 0);
+                gameStateManager.SaveDungeonProgress(alliesHaveWon);
+
+                Debug.Log("Dungeon progress saved!");
+            }
+
+            if (enemies[0].EntitySessionId == null || enemies[0].EntitySessionId.Length == 0)
+            {
+                Debug.Log("No session ID on fighters. No post fight data saved.");
+                gameStateManager.CleanPostFightData();
                 return;
             }
-            GameStateManager.Instance.SavePostFightData(allies, enemies);
+
+            gameStateManager.SavePostFightData(enemies);
             Debug.Log("Post fight data saved!");
         }
 

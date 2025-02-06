@@ -5,7 +5,7 @@ using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Core.Fight
 {
-    [CreateAssetMenu(fileName = "Fighter", menuName = "ScriptableObjects/Fight/Fighter", order = 0)]
+    [CreateAssetMenu(fileName = "FighterConfiguration", menuName = "ScriptableObjects/Entities/FighterConfiguration", order = 0)]
     public class FighterConfigurationSO : ScriptableObject
     {
         [field: SerializeField] public GameObject FighterPrefab { get; private set; }
