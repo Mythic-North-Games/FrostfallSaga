@@ -4,9 +4,11 @@ using FrostfallSaga.Utils;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.Cities;
+using FrostfallSaga.Core.Dungeons;
 using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Core.GameState.Fight;
 using FrostfallSaga.Core.GameState.City;
+using FrostfallSaga.Core.GameState.Dungeon;
 
 namespace FrostfallSaga.Core.GameState
 {
@@ -16,6 +18,7 @@ namespace FrostfallSaga.Core.GameState
         private PreFightData _preFightData;
         private PostFightData _postFightData;
         private CityLoadData _cityLoadData;
+        private DungeonLoadData _dungeonLoadData;
 
         protected override void Init()
         {
@@ -23,6 +26,7 @@ namespace FrostfallSaga.Core.GameState
             _preFightData = new PreFightData();
             _postFightData = new PostFightData();
             _cityLoadData = new CityLoadData();
+            _dungeonLoadData = new DungeonLoadData();
         }
 
         #region General states
@@ -121,6 +125,25 @@ namespace FrostfallSaga.Core.GameState
         public void SaveCityLoadData(InCityConfigurationSO cityConfiguration)
         {
             _cityLoadData.cityConfigurationToLoad = cityConfiguration;
+        }
+
+        #endregion
+
+        #region Dungeon states
+
+        public DungeonLoadData GetDungeonLoadData()
+        {
+            return _dungeonLoadData;
+        }
+
+        public DungeonConfigurationSO GetDungeonConfigurationToLoad()
+        {
+            return _dungeonLoadData.dungeonConfigurationToLoad;
+        }
+
+        public void SaveDungeonLoadData(DungeonConfigurationSO dungeonConfiguration)
+        {
+            _dungeonLoadData.dungeonConfigurationToLoad = dungeonConfiguration;
         }
 
         #endregion
