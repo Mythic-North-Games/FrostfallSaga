@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Utils;
 
@@ -25,15 +24,9 @@ namespace FrostfallSaga.Core.HeroTeam
             FullHealTeam(); // * For now, we fully heal the team on initialization.
         }
 
-        public KeyValuePair<string, EntityConfigurationSO>[] GetHerosForPreFight()
+        public EntityConfigurationSO[] GetHeroesEntityConfig()
         {
-            return Heroes
-                .Where(hero => !hero.IsDead())
-                .ToList()
-                .ConvertAll(
-                    hero => new KeyValuePair<string, EntityConfigurationSO>(null, hero.EntityConfiguration)
-                )
-                .ToArray();
+            return Heroes.ConvertAll(hero => hero.EntityConfiguration).ToArray();
         }
 
         public void FullHealTeam() => Heroes.ForEach(hero => hero.FullHeal());

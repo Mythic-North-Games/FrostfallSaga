@@ -28,10 +28,10 @@ namespace FrostfallSaga.Fight
             PreFightData preFightData = GameStateManager.Instance.GetPreFightData();
 
             // Adjust fighter to build based on pre fight data or dev configuration
-            KeyValuePair<string, EntityConfigurationSO>[] alliesFighterConf = (
+            EntityConfigurationSO[] alliesFighterConf = (
                 preFightData.alliesEntityConf != null && preFightData.alliesEntityConf.Length > 0 ?
                 preFightData.alliesEntityConf :
-                BuildDevFighterConfMapping(_devAlliesConfs)
+                _devAlliesConfs
             );
             KeyValuePair<string, EntityConfigurationSO>[] enemiesFighterConf = (
                 preFightData.enemiesEntityConf != null && preFightData.enemiesEntityConf.Length > 0 ?
@@ -42,7 +42,7 @@ namespace FrostfallSaga.Fight
             Debug.Log("Start generating fighters...");
             List<Fighter> allies = new();
             alliesFighterConf.ToList().ForEach(allyFighterConf =>
-                allies.Add(SpawnAndSetupFighter(allyFighterConf.Value, allyFighterConf.Key))
+                allies.Add(SpawnAndSetupFighter(allyFighterConf))
             );
 
             List<Fighter> enemies = new();

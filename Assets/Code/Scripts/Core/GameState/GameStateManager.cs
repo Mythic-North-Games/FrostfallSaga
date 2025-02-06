@@ -66,7 +66,7 @@ namespace FrostfallSaga.Core.GameState
         }
 
         public void SavePreFightData(
-            KeyValuePair<string, EntityConfigurationSO>[] alliesEntityConf,
+            EntityConfigurationSO[] alliesEntityConf,
             KeyValuePair<string, EntityConfigurationSO>[] enemiesEntityConf,
             EFightOrigin fightOrigin
         )

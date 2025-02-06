@@ -90,7 +90,7 @@ namespace FrostfallSaga.Kingdom
             }
 
             GameStateManager.Instance.SavePreFightData(
-                HeroTeam.Instance.GetHerosForPreFight(),
+                HeroTeam.Instance.GetHeroesEntityConfig(),
                 enemiesFighterConfigs,
                 EFightOrigin.KINGDOM
             );
