@@ -40,7 +40,8 @@ namespace FrostfallSaga.Fight.Fighters
         //////////////////////
         // Fight properties //
         //////////////////////
-        [field: SerializeField, Header("Fight properties")] public EEntityRace Race { get; private set; }
+        [field: SerializeField, Header("Fight properties")] public FighterConfigurationSO FighterConfiguration { get; private set; }
+        [field: SerializeField] public EEntityRace Race { get; private set; }
         [SerializeField] private FighterStats _stats = new();
         [field: SerializeField] private FighterStats _initialStats = new();
         [SerializeField] private int _godFavorsPoints;
@@ -155,6 +156,7 @@ namespace FrostfallSaga.Fight.Fighters
         )
         {
             EntitySessionId = sessionId;
+            FighterConfiguration = fighterConfiguration;
             Race = entityConfiguration.Race;
             FighterName = entityConfiguration.Name;
             Icon = entityConfiguration.Icon;
@@ -751,6 +753,10 @@ namespace FrostfallSaga.Fight.Fighters
         private void DecreaseHealth(int amount)
         {
             _stats.health = Math.Clamp(_stats.health - amount, 0, _stats.maxHealth);
+            if (FighterConfiguration is PersistedFighterConfigurationSO persistedFighterConfiguration)
+            {
+                persistedFighterConfiguration.SetHealth(_stats.health);
+            }
             if (_stats.health == 0)
             {
                 onFighterDied?.Invoke(this);
@@ -760,6 +766,10 @@ namespace FrostfallSaga.Fight.Fighters
         private void IncreaseHealth(int amount)
         {
             _stats.health = Math.Clamp(_stats.health + amount, 0, _stats.maxHealth);
+            if (FighterConfiguration is PersistedFighterConfigurationSO persistedFighterConfiguration)
+            {
+                persistedFighterConfiguration.SetHealth(_stats.health);
+            }
             if (_stats.health == 0)
             {
                 onFighterDied?.Invoke(this);

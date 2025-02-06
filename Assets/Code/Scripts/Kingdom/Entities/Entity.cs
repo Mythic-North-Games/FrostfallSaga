@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.EntitiesVisual;
+using FrostfallSaga.Core.Fight;
 
 namespace FrostfallSaga.Kingdom.Entities
 {
@@ -75,8 +76,12 @@ namespace FrostfallSaga.Kingdom.Entities
                 Debug.LogWarning("Entity " + name + " does not have a mouse events controller.");
             }
 
-            SessionId = Guid.NewGuid().ToString();
             name = $"{EntityConfiguration.Name}_{SessionId}";
+            SessionId = Guid.NewGuid().ToString();
+            if (EntityConfiguration.FighterConfiguration is PersistedFighterConfigurationSO persistedFighterConfiguration)
+            {
+                IsDead = persistedFighterConfiguration.Health == 0;
+            }
         }
 
         #endregion
