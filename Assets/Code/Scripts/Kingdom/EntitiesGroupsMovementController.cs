@@ -47,12 +47,12 @@ namespace FrostfallSaga.Kingdom
                 if (cellToMoveTo.Occupier is EntitiesGroup collidingEnemiesGroup)
                 {
                     onEnemiesGroupEncountered?.Invoke(collidingEnemiesGroup, true);
-                    UnbindEntitiesGroupsMovementEvents();
                 }
                 else if (cellToMoveTo.Occupier is InterestPoint upcomingInterestPoint)
                 {
                     onInterestPointEncountered?.Invoke(upcomingInterestPoint);
                 }
+                UnbindEntitiesGroupsMovementEvents();
             }
             else
             {
