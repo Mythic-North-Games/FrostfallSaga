@@ -23,11 +23,9 @@ namespace FrostfallSaga.Core.HeroTeam
             };
         }
 
-        public KeyValuePair<string, EntityConfigurationSO>[] GetHerosForPreFight()
+        public EntityConfigurationSO[] GetHeroesEntityConfig()
         {
-            return Heroes.ConvertAll(
-                hero => new KeyValuePair<string, EntityConfigurationSO>(null, hero.EntityConfiguration)
-            ).ToArray();
+            return Heroes.ConvertAll(hero => hero.EntityConfiguration).ToArray();
         }
 
         public void FullHealTeam() => Heroes.ForEach(hero => hero.FullHeal());

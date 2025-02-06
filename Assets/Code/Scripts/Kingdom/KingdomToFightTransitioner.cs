@@ -10,6 +10,7 @@ using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils.Scenes;
+using FrostfallSaga.Core.HeroTeam;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -29,7 +30,7 @@ namespace FrostfallSaga.Kingdom
         /// <param name="heroGroupInitiating">True if the hero group is initiating the fight, false otherwise.</param>
 		private void OnEnemiesGroupEncountered(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
-            SavePreFightData(heroGroup, enemiesGroup);
+            SavePreFightData(enemiesGroup);
             StartCoroutine(StartEncounterAnimation(heroGroup, enemiesGroup, heroGroupInitiating));
         }
 
@@ -79,15 +80,8 @@ namespace FrostfallSaga.Kingdom
             _sceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
         }
 
-        private void SavePreFightData(EntitiesGroup heroGroup, EntitiesGroup enemiesGroup)
+        private void SavePreFightData(EntitiesGroup enemiesGroup)
         {
-            KeyValuePair<string, EntityConfigurationSO>[] alliesFighterConfigs = new KeyValuePair<string, EntityConfigurationSO>[heroGroup.Entities.Length];
-            for (int i = 0; i < heroGroup.Entities.Length; i++)
-            {
-                Entity heroGroupEntity = heroGroup.Entities[i];
-                alliesFighterConfigs[i] = new(heroGroupEntity.SessionId, heroGroupEntity.EntityConfiguration);
-            }
-
             KeyValuePair<string, EntityConfigurationSO>[] enemiesFighterConfigs = new KeyValuePair<string, EntityConfigurationSO>[enemiesGroup.Entities.Length];
             for (int i = 0; i < enemiesGroup.Entities.Length; i++)
             {
@@ -95,7 +89,11 @@ namespace FrostfallSaga.Kingdom
                 enemiesFighterConfigs[i] = new(enemyGroupEntity.SessionId, enemyGroupEntity.EntityConfiguration);
             }
 
-            GameStateManager.Instance.SavePreFightData(alliesFighterConfigs, enemiesFighterConfigs, EFightOrigin.KINGDOM);
+            GameStateManager.Instance.SavePreFightData(
+                HeroTeam.Instance.GetHeroesEntityConfig(),
+                enemiesFighterConfigs,
+                EFightOrigin.KINGDOM
+            );
         }
 
         #region Setup and tear down

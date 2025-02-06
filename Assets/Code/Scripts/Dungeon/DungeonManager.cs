@@ -54,7 +54,7 @@ namespace FrostfallSaga.Dungeon
         private void PrepareDungeonFight(DungeonFightConfiguration dungeonFightConfiguration)
         {
             _gameStateManager.SavePreFightData(
-                HeroTeam.Instance.GetHerosForPreFight(),
+                HeroTeam.Instance.GetHeroesEntityConfig(),
                 GetDungeonFightEnemies(dungeonFightConfiguration),
                 EFightOrigin.DUNGEON
             );
