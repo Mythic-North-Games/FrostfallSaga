@@ -8,6 +8,13 @@ namespace FrostfallSaga.Core.GameState.Dungeon
         public int CurrentDungeonFightIndex { get; private set; }
         public bool AlliesWonLastFight { get; private set; }
 
+        public void Init(DungeonConfigurationSO dungeonConfiguration)
+        {
+            DungeonConfiguration = dungeonConfiguration;
+            CurrentDungeonFightIndex = 0;
+            AlliesWonLastFight = true;
+        }
+        
         public bool IsDungeonCompleted()
         {
             return CurrentDungeonFightIndex == DungeonConfiguration.PreBossFightConfigurations.Length + 1;
@@ -16,13 +23,6 @@ namespace FrostfallSaga.Core.GameState.Dungeon
         public bool IsAtBossFight()
         {
             return CurrentDungeonFightIndex == DungeonConfiguration.PreBossFightConfigurations.Length;
-        }
-
-        public void Init(DungeonConfigurationSO dungeonConfiguration)
-        {
-            DungeonConfiguration = dungeonConfiguration;
-            CurrentDungeonFightIndex = 0;
-            AlliesWonLastFight = true;
         }
 
         public void SaveProgress(bool alliesWonLastFight)
