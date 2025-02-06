@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace FrostfallSaga.BehaviourTree
+namespace FrostfallSaga.Utils.Trees.BehaviourTree
 {
     /// <summary>
     /// Acts like a logical AND.

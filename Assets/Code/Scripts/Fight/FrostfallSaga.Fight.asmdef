@@ -6,7 +6,6 @@
         "FrostfallSaga.Core",
         "FrostfallSaga.Grid",
         "FrostfallSaga.EntitiesVisual",
-        "FrostfallSaga.BehaviourTree",
         "FrostfallSaga.GameObjectVisuals",
         "FrostfallSaga.InventorySystem",
         "FrostfallSaga.Utils"

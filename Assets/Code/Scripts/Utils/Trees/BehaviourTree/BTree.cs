@@ -1,4 +1,4 @@
-namespace FrostfallSaga.BehaviourTree
+namespace FrostfallSaga.Utils.Trees.BehaviourTree
 {
     /// <summary>
     /// Base class for any behaviour tree.
