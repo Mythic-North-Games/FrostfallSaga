@@ -2,11 +2,10 @@
     <ui:Template name="AnswerContainer" src="project://database/Assets/Level/UI/Dialogues/AnswerContainer.uxml?fileID=9197481963319205126&amp;guid=136f3bacc50dbe38fb8497220a77ffcf&amp;type=3#AnswerContainer" />
     <Style src="project://database/Assets/Level/UI/Dialogues/DialogueTemplate.uss?fileID=7433441132597879392&amp;guid=204244ffe0df8ded49f05a72b7c4f809&amp;type=3#DialogueTemplate" />
     <ui:VisualElement name="DialogueScreenRoot" class="dialogueScreenRootDefault" style="transition-duration: 1s; transition-timing-function: ease-in-out-cubic; justify-content: space-between;">
-        <ui:VisualElement name="AnswersContainer" class="answersContainerRight">
+        <ui:VisualElement name="AnswersContainer" class="answersContainerLeft">
             <ui:Instance template="AnswerContainer" name="AnswerContainer" class="answerContainerRootDefault">
                 <AttributeOverrides element-name="AnswerButton" text="Fine" />
             </ui:Instance>
-            <ui:Instance template="AnswerContainer" name="AnswerContainer" class="answerContainerRootDefault" />
             <ui:Instance template="AnswerContainer" name="AnswerContainer" class="answerContainerRootDefault" />
             <ui:Instance template="AnswerContainer" name="AnswerContainer" class="answerContainerRootDefault" />
         </ui:VisualElement>

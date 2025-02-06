@@ -128,30 +128,36 @@
     align-items: flex-end;
     width: 52.5%;
     margin-left: 0;
-    justify-content: space-around;
+    justify-content: flex-end;
     margin-top: 8%;
     align-self: flex-end;
     margin-right: 5%;
+    height: 38%;
 }
 
 .answersContainerRight {
     align-items: flex-start;
     width: 52.5%;
     margin-left: 5%;
-    justify-content: space-around;
+    justify-content: flex-end;
     margin-top: 8%;
+    align-self: flex-start;
+    height: 38%;
 }
 
 .answerContainerRootDefault {
-    margin-bottom: 2.5%;
     transition-duration: 0.35s;
     transition-timing-function: ease-in-out-cubic;
+    margin-top: 2%;
 }
 
 .answerContainerRootHidden {
-    margin-bottom: 2.5%;
+    margin-bottom: 0;
     translate: -300% 0;
     opacity: 0;
+    margin-top: 2%;
+    margin-right: 0;
+    margin-left: 0;
 }
 
 .answerContainerDefault {
