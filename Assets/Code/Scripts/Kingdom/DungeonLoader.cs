@@ -18,7 +18,7 @@ namespace FrostfallSaga.Kingdom
             _kingdomManager.SaveKingdomState();
 
             Debug.Log($"Saving dungeon load data for {dungeonBuildingConfiguration.Name}.");
-            GameStateManager.Instance.SaveDungeonLoadData(dungeonBuildingConfiguration.DungeonConfiguration);
+            GameStateManager.Instance.InitDungeonState(dungeonBuildingConfiguration.DungeonConfiguration);
 
             Debug.Log($"Launching dungeon scene...");
             SceneTransitioner.Instance.FadeInToScene(EScenesName.DUNGEON.ToSceneString());
