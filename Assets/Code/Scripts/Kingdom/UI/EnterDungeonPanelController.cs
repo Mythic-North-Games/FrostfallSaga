@@ -75,7 +75,7 @@ namespace FrostfallSaga.Kingdom.UI
             _dungeonGatePanel.Q<Label>(DESCRIPTION_LABEL_UI_NAME).text = dungeonBuildingConfiguration.Description;
         }
 
-        private void OnDisplayClicked()
+        private void OnEnterClicked()
         {
             StartCoroutine(HidePanel());
             onDungeonEnterClicked?.Invoke(_currentDungeon);
