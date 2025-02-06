@@ -2,15 +2,14 @@ using System;
 using UnityEngine;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.EntitiesVisual;
+using FrostfallSaga.Core.Fight;
 
 namespace FrostfallSaga.Kingdom.Entities
 {
-    [RequireComponent(typeof(Collider))]
     public class Entity : MonoBehaviour
     {
         [field: SerializeField] public EntityVisualAnimationController AnimationController { get; private set; }
         [field: SerializeField] public EntityVisualMovementController MovementController { get; private set; }
-        [field: SerializeField] public EntityMouseEventsController MouseEventsController { get; private set; }
         [field: SerializeField] public EntityConfigurationSO EntityConfiguration { get; private set; }
         [field: SerializeField] public bool IsDead { get; set; }
         [field: SerializeField] public string SessionId { get; private set; }
@@ -69,14 +68,12 @@ namespace FrostfallSaga.Kingdom.Entities
                 Debug.LogWarning("Entity " + name + " does not have a movement controller and a visual.");
             }
 
-            MouseEventsController = GetComponent<EntityMouseEventsController>();
-            if (MouseEventsController == null)
-            {
-                Debug.LogWarning("Entity " + name + " does not have a mouse events controller.");
-            }
-
             SessionId = Guid.NewGuid().ToString();
             name = $"{EntityConfiguration.Name}_{SessionId}";
+            if (EntityConfiguration.FighterConfiguration is PersistedFighterConfigurationSO persistedFighterConfiguration)
+            {
+                IsDead = persistedFighterConfiguration.Health == 0;
+            }
         }
 
         #endregion

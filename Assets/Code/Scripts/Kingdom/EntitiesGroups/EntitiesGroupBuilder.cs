@@ -15,11 +15,11 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
     public class EntitiesGroupBuilder : MonoBehaviourPersistingSingleton<EntitiesGroupBuilder>
     {
         private readonly EntityBuilder _entityBuilder = new();
-        private GameObject _blankEntitiesGroupPrefab;
+        public GameObject BlankEntitiesGroupPrefab { get; private set; }
 
         public EntitiesGroup BuildEntitiesGroup(EntitiesGroupData entitiesGroupData, HexGrid grid)
         {
-            GameObject entitiesGroupPrefab = WorldGameObjectInstantiator.Instance.Instantiate(_blankEntitiesGroupPrefab);
+            GameObject entitiesGroupPrefab = WorldGameObjectInstantiator.Instance.Instantiate(BlankEntitiesGroupPrefab);
             EntitiesGroup entitiesGroup = entitiesGroupPrefab.GetComponent<EntitiesGroup>();
             List<Entity> entities = new();
             entitiesGroupData.entitiesData.ToList().ForEach(entityData => entities.Add(_entityBuilder.BuildEntity(entityData)));
@@ -49,9 +49,14 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             return entitiesData.ToArray();
         }
 
-        private void Start()
+        protected override void Init()
         {
-            _blankEntitiesGroupPrefab = Resources.Load<GameObject>("Prefabs/EntitiesGroups/EmptyEntitiesGroup");
+            BlankEntitiesGroupPrefab = Resources.Load<GameObject>("Prefabs/EntitiesGroups/EmptyEntitiesGroup");
+        }
+
+        static EntitiesGroupBuilder()
+        {
+            PersistAcrossScenes = false;
         }
     }
 }

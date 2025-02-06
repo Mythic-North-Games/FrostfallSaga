@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.Kingdom.CityBuildings;
+using FrostfallSaga.Kingdom.InterestPoints;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils;
 
@@ -10,9 +10,9 @@ namespace FrostfallSaga.Kingdom
 {
     public class EntitiesGroupsMovementController
     {
-        public Action OnAllEntitiesMoved;
-        public Action<EntitiesGroup, bool> OnEnemiesGroupEncountered;
-        public Action<CityBuilding> OnCityEncountered;
+        public Action onAllEntitiesMoved;
+        public Action<EntitiesGroup, bool> onEnemiesGroupEncountered;
+        public Action<InterestPoint> onInterestPointEncountered;
 
         private HexGrid _kingdomGrid;
         private EntitiesGroup _heroGroup;
@@ -46,13 +46,13 @@ namespace FrostfallSaga.Kingdom
             {
                 if (cellToMoveTo.Occupier is EntitiesGroup collidingEnemiesGroup)
                 {
-                    OnEnemiesGroupEncountered?.Invoke(collidingEnemiesGroup, true);
-                    UnbindEntitiesGroupsMovementEvents();
+                    onEnemiesGroupEncountered?.Invoke(collidingEnemiesGroup, true);
                 }
-                else if (cellToMoveTo.Occupier is CityBuilding upcomingCity)
+                else if (cellToMoveTo.Occupier is InterestPoint upcomingInterestPoint)
                 {
-                    OnCityEncountered?.Invoke(upcomingCity);
+                    onInterestPointEncountered?.Invoke(upcomingInterestPoint);
                 }
+                UnbindEntitiesGroupsMovementEvents();
             }
             else
             {
@@ -107,7 +107,7 @@ namespace FrostfallSaga.Kingdom
             if (cellToMoveTo == _heroGroup.cell)
             {
                 UnbindEntitiesGroupsMovementEvents();
-                OnEnemiesGroupEncountered?.Invoke(EntitiesGroup, false);
+                onEnemiesGroupEncountered?.Invoke(EntitiesGroup, false);
             }
             else
             {
@@ -161,7 +161,7 @@ namespace FrostfallSaga.Kingdom
         {
             _currentPathPerEnemiesGroup.Clear();
             UnbindEntitiesGroupsMovementEvents();
-            OnAllEntitiesMoved?.Invoke();
+            onAllEntitiesMoved?.Invoke();
         }
 
         #region Entities movements event binding and unbinding
