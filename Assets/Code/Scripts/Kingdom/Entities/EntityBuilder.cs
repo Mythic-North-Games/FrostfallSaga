@@ -1,20 +1,19 @@
 using UnityEngine;
+using FrostfallSaga.Core.GameState.Kingdom;
+using FrostfallSaga.Utils.GameObjectVisuals;
 
 namespace FrostfallSaga.Kingdom.Entities
 {
     /// <summary>
     /// Helps saving and building entities at runtime for the kingdom scene.
     /// </summary>
-    public class EntityBuilder : MonoBehaviour
+    public class EntityBuilder
     {
-        [SerializeField] private string EntityConfigurationsBaseResourcePath;
-
         public Entity BuildEntity(EntityData entityData)
         {
-            EntityConfigurationSO entityConfiguration = Resources.Load<EntityConfigurationSO>(entityData.entityConfigurationResourcePath);
-            GameObject entityGO = Instantiate(entityConfiguration.EntityPrefab);
+            GameObject entityGO = WorldGameObjectInstantiator.Instance.Instantiate(entityData.entityConfiguration.KingdomEntityPrefab);
             Entity entity = entityGO.GetComponent<Entity>();
-            entity.Setup(entityConfiguration, entityData.sessionId, entityData.isDead);
+            entity.Setup(entityData.sessionId, entityData.isDead);
             return entity;
         }
 
@@ -22,9 +21,9 @@ namespace FrostfallSaga.Kingdom.Entities
         {
             return new()
             {
+                entityConfiguration = entity.EntityConfiguration,
                 sessionId = entity.SessionId,
                 isDead = entity.IsDead,
-                entityConfigurationResourcePath = $"{EntityConfigurationsBaseResourcePath}/{entity.EntityConfiguration.EntityID}"
             };
         }
     }

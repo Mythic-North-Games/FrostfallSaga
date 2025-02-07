@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using UnityEngine;
+using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Grid;
-using FrostfallSaga.Fight;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;

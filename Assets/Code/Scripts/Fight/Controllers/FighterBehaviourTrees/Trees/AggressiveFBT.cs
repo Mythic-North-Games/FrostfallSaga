@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using FrostfallSaga.BehaviourTree;
+using FrostfallSaga.Utils.Trees.BehaviourTree;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks;
 using FrostfallSaga.Fight.Fighters;

@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
 

@@ -2,24 +2,25 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using FrostfallSaga.Core;
+using FrostfallSaga.Core.Entities;
+using FrostfallSaga.Core.Fight;
+using FrostfallSaga.InventorySystem;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.EntitiesVisual;
+using FrostfallSaga.Fight.FightItems;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.FightCells.Impediments;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.Abilities;
-using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Statuses;
-using FrostfallSaga.Fight.GameItems;
 using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Fight.Fighters
 {
-    public class Fighter : MonoBehaviour
+    public class Fighter : AFighter
     {
         ////////////////////////////////////////.
         // Visuals and Game object controllers //
@@ -39,7 +40,8 @@ namespace FrostfallSaga.Fight.Fighters
         //////////////////////
         // Fight properties //
         //////////////////////
-        [field: SerializeField, Header("Fight properties")] public EEntityID EntityID { get; private set; }
+        [field: SerializeField, Header("Fight properties")] public FighterConfigurationSO FighterConfiguration { get; private set; }
+        [field: SerializeField] public EEntityRace Race { get; private set; }
         [SerializeField] private FighterStats _stats = new();
         [field: SerializeField] private FighterStats _initialStats = new();
         [SerializeField] private int _godFavorsPoints;
@@ -47,7 +49,6 @@ namespace FrostfallSaga.Fight.Fighters
         [field: SerializeField] public PersonalityTraitSO PersonalityTrait { get; private set; }
         [SerializeField] private Inventory _inventory;
         [field: SerializeField] public WeaponSO Weapon { get; private set; }
-        [field: SerializeField] public AAbilityAnimationSO DirectAttackAnimation { get; private set; }
         [field: SerializeField] public ActiveAbilitySO[] ActiveAbilities { get; private set; }
         [field: SerializeField] public PassiveAbilitySO[] PassiveAbilities { get; private set; }
         [field: SerializeField] public bool IsParalyzed { get; private set; }
@@ -72,11 +73,6 @@ namespace FrostfallSaga.Fight.Fighters
         [field: SerializeField, Header("For the UI")] public string FighterName { get; private set; }
         [field: SerializeField] public Sprite Icon { get; private set; }
         [field: SerializeField] public Sprite DiamondIcon { get; private set; }
-
-        /////////////////////////
-        // For world coherence //
-        /////////////////////////
-        [field: SerializeField, Header("World coherence")] public string EntitySessionId { get; private set; }
 
 
         ////////////
@@ -150,25 +146,32 @@ namespace FrostfallSaga.Fight.Fighters
         /// <summary>
         /// Meant to be called when generating the fighter before the fight begins.
         /// </summary>
-        public void Setup(FighterSetup fighterSetup)
+        public void Setup(
+            EntityConfigurationSO entityConfiguration,
+            FighterConfigurationSO fighterConfiguration,
+            ActiveAbilitySO[] equippedActiveAbilities,
+            PassiveAbilitySO[] equippedPassiveAbilities,
+            Inventory inventory,
+            string sessionId = null
+        )
         {
-            EntitySessionId = fighterSetup.sessionId;
-            EntityID = fighterSetup.entityID;
-            FighterName = fighterSetup.name;
-            Icon = fighterSetup.icon;
-            DiamondIcon = fighterSetup.diamondIcon;
-            _initialStats = fighterSetup.initialStats;
-            FighterClass = fighterSetup.fighterClass;
-            PersonalityTrait = fighterSetup.personalityTrait;
-            _inventory = fighterSetup.inventory;
-            Weapon = _inventory.GetWeapon();
-            DirectAttackAnimation = fighterSetup.directAttackAnimation;
-            ActiveAbilities = fighterSetup.activeAbilities;
-            PassiveAbilities = fighterSetup.passiveAbilities;
-            _receiveDamageAnimationName = fighterSetup.receiveDamageAnimationName;
-            _healSelfAnimationName = fighterSetup.healSelfAnimationName;
-            _reduceStatAnimationName = fighterSetup.reduceStatAnimationName;
-            _increaseStatAnimationName = fighterSetup.increaseStatAnimationName;
+            EntitySessionId = sessionId;
+            FighterConfiguration = fighterConfiguration;
+            Race = entityConfiguration.Race;
+            FighterName = entityConfiguration.Name;
+            Icon = entityConfiguration.Icon;
+            DiamondIcon = entityConfiguration.DiamondIcon;
+            _initialStats = fighterConfiguration.ExtractFighterStats();
+            FighterClass = fighterConfiguration.FighterClass;
+            PersonalityTrait = fighterConfiguration.PersonalityTrait as PersonalityTraitSO;
+            _inventory = inventory;
+            Weapon = _inventory.GetWeapon() as WeaponSO;
+            ActiveAbilities = equippedActiveAbilities;
+            PassiveAbilities = equippedPassiveAbilities;
+            _receiveDamageAnimationName = fighterConfiguration.ReceiveDamageAnimationName;
+            _healSelfAnimationName = fighterConfiguration.HealSelfAnimationName;
+            _reduceStatAnimationName = fighterConfiguration.ReduceStatAnimationName;
+            _increaseStatAnimationName = fighterConfiguration.IncreaseStatAnimationName;
             ResetStatsToDefaultConfiguration();
         }
 
@@ -499,7 +502,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         public int GetMaxActionPoints() => _stats.maxActionPoints;
 
-        public int GetHealth() => _stats.health;
+        public override int GetHealth() => _stats.health;
 
         public int GetMaxHealth() => _stats.maxHealth;
 
@@ -525,7 +528,9 @@ namespace FrostfallSaga.Fight.Fighters
 
         public void TryIncreaseGodFavorsPointsForAction(EGodFavorsAction action)
         {
-            Dictionary<EGodFavorsAction, int> amountPerAction = GodFavorsActionToInt.GetDictionaryFromArray(FighterClass.God.FavorGivingActions);
+            Dictionary<EGodFavorsAction, int> amountPerAction = SElementToValue<EGodFavorsAction, int>.GetDictionaryFromArray(
+                FighterClass.God.FavorGivingActions
+            );
             if (amountPerAction.Keys.Contains(action))
             {
                 _godFavorsPoints += amountPerAction[action];
@@ -748,6 +753,10 @@ namespace FrostfallSaga.Fight.Fighters
         private void DecreaseHealth(int amount)
         {
             _stats.health = Math.Clamp(_stats.health - amount, 0, _stats.maxHealth);
+            if (FighterConfiguration is PersistedFighterConfigurationSO persistedFighterConfiguration)
+            {
+                persistedFighterConfiguration.SetHealth(_stats.health);
+            }
             if (_stats.health == 0)
             {
                 onFighterDied?.Invoke(this);
@@ -757,6 +766,10 @@ namespace FrostfallSaga.Fight.Fighters
         private void IncreaseHealth(int amount)
         {
             _stats.health = Math.Clamp(_stats.health + amount, 0, _stats.maxHealth);
+            if (FighterConfiguration is PersistedFighterConfigurationSO persistedFighterConfiguration)
+            {
+                persistedFighterConfiguration.SetHealth(_stats.health);
+            }
             if (_stats.health == 0)
             {
                 onFighterDied?.Invoke(this);
@@ -778,7 +791,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         private int GetArmorPhysicalResistance()
         {
-            return _inventory.GetArmorPieces().Sum(armorPiece => armorPiece.PhysicalResistance);
+            return _inventory.GetArmorPieces().Sum(armorPiece => ((ArmorSO)armorPiece).PhysicalResistance);
         }
 
         private Dictionary<EMagicalElement, int> GetArmorMagicalResistances()

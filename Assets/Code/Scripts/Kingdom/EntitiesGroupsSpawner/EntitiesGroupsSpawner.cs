@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using FrostfallSaga.Grid;
-using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
@@ -15,13 +14,12 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
         public Action<EntitiesGroup> onEntitiesGroupSpawned;
 
         [field: SerializeField] public GameObject EntitiesGroupPrefab { get; private set; }
-        [field: SerializeField] public EntitiesListSO SpawnableEntities { get; private set; }
+        [field: SerializeField] public GameObject[] SpawnableEntities { get; private set; }
         [field: SerializeField, Range(0, 1)] public float SpawnChance { get; private set; }
         [field: SerializeField] public int MaxNoSpawnInARow { get; private set; }
         [field: SerializeField] public int MaxEntitiesGroupsOnMap { get; private set; }
         [field: SerializeField] public string BaseGroupName { get; private set; }
 
-        [SerializeField] private WorldGameObjectInstantiator _worldGameObjectInstantiator;
         [SerializeField] private HexGrid _grid;
         [SerializeField] private KingdomLoader _kingdomLoader;
         private int _noSpawnInARow;
@@ -42,7 +40,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
             }
         }
 
-        public void TrySpawnEntitiesGroup(Cell[] prohibitedCells)
+        public void TrySpawnEntitiesGroup()
         {
             if (_spawnedEntitiesGroups.Count == MaxEntitiesGroupsOnMap)
             {
@@ -51,7 +49,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
 
             if (_noSpawnInARow == MaxNoSpawnInARow)
             {
-                SpawnEntitiesGroup(prohibitedCells);
+                SpawnEntitiesGroup();
             }
             else
             {
@@ -64,28 +62,32 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
             _spawnedEntitiesGroups.Remove(destroyedEntitiesGroup);
         }
 
-        private void SpawnEntitiesGroup(Cell[] prohibitedCells)
+        private void SpawnEntitiesGroup()
         {
-            Cell[] availableCellsForSpawn = GetAvailableCellsForSpawn(prohibitedCells);
+            KingdomCell[] availableCellsForSpawn = GetAvailableCellsForSpawn();
             if (availableCellsForSpawn.Length == 0)
             {
                 throw new ImpossibleSpawnException("No available cells for spawn found.");
             }
 
-            Cell cellToSpawnTo = Randomizer.GetRandomElementFromArray(availableCellsForSpawn);
-            GameObject spawnedEntitiesGroupPrefab = _worldGameObjectInstantiator.Instantiate(EntitiesGroupPrefab);
+            KingdomCell cellToSpawnTo = Randomizer.GetRandomElementFromArray(availableCellsForSpawn);
+            GameObject spawnedEntitiesGroupPrefab = WorldGameObjectInstantiator.Instance.Instantiate(EntitiesGroupPrefab);
             spawnedEntitiesGroupPrefab.name = $"{BaseGroupName}{_spawnedEntitiesGroups.Count}";
             EntitiesGroup spawnedEtitiesGroup = spawnedEntitiesGroupPrefab.GetComponent<EntitiesGroup>();
-            spawnedEtitiesGroup.UpdateEntities(EntitiesGroup.GenerateRandomEntities(SpawnableEntities.AvailableEntities));
+            spawnedEtitiesGroup.UpdateEntities(EntitiesGroup.GenerateRandomEntities(SpawnableEntities));
             spawnedEtitiesGroup.TeleportToCell(cellToSpawnTo);
             _spawnedEntitiesGroups.Add(spawnedEtitiesGroup);
             _noSpawnInARow = 0;
             onEntitiesGroupSpawned?.Invoke(spawnedEtitiesGroup);
         }
 
-        private Cell[] GetAvailableCellsForSpawn(Cell[] prohibitedCells)
+        private KingdomCell[] GetAvailableCellsForSpawn()
         {
-            return _grid.GetCells().Where(cell => !prohibitedCells.Contains(cell) && cell.IsFree()).ToArray();
+            KingdomCell[] kingdomCells = Array.ConvertAll(
+                _grid.GetCells(),
+                cell => cell as KingdomCell
+            );
+            return kingdomCells.Where(cell => cell.IsFree()).ToArray();
         }
 
         #region Setup and tear down
@@ -114,16 +116,6 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
             if (_kingdomLoader == null)
             {
                 Debug.LogError("No kingdom loader found. Won't be able to correctly configure spawner after fight.");
-                return;
-            }
-
-            if (_worldGameObjectInstantiator == null)
-            {
-                _worldGameObjectInstantiator = FindObjectOfType<WorldGameObjectInstantiator>();
-            }
-            if (_worldGameObjectInstantiator == null)
-            {
-                Debug.LogError("No world game object instantiator found. Can't spawn objects.");
                 return;
             }
 

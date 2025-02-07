@@ -4,10 +4,10 @@
     "references": [
         "FrostfallSaga.Grid",
         "FrostfallSaga.Fight",
-        "FrostfallSaga.KingdomToFight",
         "FrostfallSaga.GameObjectVisuals",
         "FrostfallSaga.Procedural",
-        "FrostfallSaga.GameItems",
+        "FrostfallSaga.FightItems",
+        "FrostfallSaga.DialogueSystem",
         "FrostfallSaga.Utils"
     ],
     "includePlatforms": [
