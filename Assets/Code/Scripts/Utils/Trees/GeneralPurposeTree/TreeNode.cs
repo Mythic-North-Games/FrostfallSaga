@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace FrostfallSaga.Utils.Trees
 {
+    [Serializable]
     public class TreeNode<T>
     {
         private T _data;
@@ -65,6 +66,11 @@ namespace FrostfallSaga.Utils.Trees
         public void SetChildren(List<TreeNode<T>> children)
         {
             _children = children;
+        }
+
+        public bool HasChildren()
+        {
+            return _children.Count > 0;
         }
     }
 }
