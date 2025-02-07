@@ -196,7 +196,7 @@ namespace FrostfallSaga.Fight.Targeters
                 }
                 else
                 {
-                    Vector2Int nextCellCoordinates = targetedCells.First().Coordinates + CellsSequence[i];
+                    Vector2Int nextCellCoordinates = targetedCells.First().Data.Coordinates + CellsSequence[i];
                     if (
                         fightGrid.CellsByCoordinates.TryGetValue(nextCellCoordinates, out Cell nextCell) &&
                         !IsCellBlockedByAlterations((FightCell)nextCell, cellAlterations)
@@ -392,7 +392,7 @@ namespace FrostfallSaga.Fight.Targeters
             {
                 if (targetedCells.Any(cell =>
                 {
-                    int relativeHeight = (int)cell.Height - (int)initiatorCell.Height;
+                    int relativeHeight = (int)cell.Data.Height - (int)initiatorCell.Data.Height;
                     return relativeHeight == excludedHeight;
                 }))
                 {
@@ -436,8 +436,8 @@ namespace FrostfallSaga.Fight.Targeters
             FightCell currentCompareCell = originCell;
             for (int i = 0; i < targetedCells.Count; i++)
             {
-                if ((int)targetedCells[i].Height >= (int)currentCompareCell.Height &&
-                    (int)targetedCells[i].Height - (int)currentCompareCell.Height >= StopedAtXthHigherHeightDifference)
+                if ((int)targetedCells[i].Data.Height >= (int)currentCompareCell.Data.Height &&
+                    (int)targetedCells[i].Data.Height - (int)currentCompareCell.Data.Height >= StopedAtXthHigherHeightDifference)
                 {
                     targetedCells = targetedCells.Take(i).ToList();
                     break;
@@ -452,8 +452,8 @@ namespace FrostfallSaga.Fight.Targeters
             FightCell currentCompareCell = originCell;
             for (int i = 0; i < targetedCells.Count; i++)
             {
-                if ((int)targetedCells[i].Height <= (int)currentCompareCell.Height &&
-                    (int)currentCompareCell.Height - (int)targetedCells[i].Height >= StopedAtXthLowerHeightDifference)
+                if ((int)targetedCells[i].Data.Height <= (int)currentCompareCell.Data.Height &&
+                    (int)currentCompareCell.Data.Height - (int)targetedCells[i].Data.Height >= StopedAtXthLowerHeightDifference)
                 {
                     targetedCells = targetedCells.Take(i).ToList();
                     break;
@@ -470,7 +470,7 @@ namespace FrostfallSaga.Fight.Targeters
         )
         {
             // Convert origin and baseNextCell from offset (x,y) to axial (q, r)
-            Vector2Int axialOrigin = originCell.AxialCoordinates;
+            Vector2Int axialOrigin = originCell.Data.AxialCoordinates;
             Vector2Int axialBase = HexMetrics.OffsetToAxial(baseNextCellCoordinates);
 
             // Apply rotation to the axial base vector depending on the direction.
@@ -487,7 +487,7 @@ namespace FrostfallSaga.Fight.Targeters
         private bool IsCellBlockedByAlterations(FightCell cell, AFightCellAlteration[] cellAlterations)
         {
             return cellAlterations != null && (
-                    cellAlterations.Any(alteration => alteration is SetHeightAlteration && ((SetHeightAlteration)alteration).TargetHeight == cell.Height) ||
+                    cellAlterations.Any(alteration => alteration is SetHeightAlteration && ((SetHeightAlteration)alteration).TargetHeight == cell.Data.Height) ||
                     cell.GetAlterations().Any(
                         activeCellAlteration => cellAlterations.Any(
                             possibleCellAlteration =>

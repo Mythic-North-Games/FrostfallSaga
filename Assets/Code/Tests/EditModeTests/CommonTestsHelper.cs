@@ -33,8 +33,7 @@ namespace FrostfallSaga.EditModeTests
         public static Cell CreateCellForTest(
             Vector2Int coordinates,
             bool fightCell = false,
-            ECellHeight height = ECellHeight.LOW,
-            float hexGridSize = 2f
+            ECellHeight height = ECellHeight.LOW
         )
         {
             GameObject cellGameObject = new();
@@ -52,10 +51,9 @@ namespace FrostfallSaga.EditModeTests
             cellVisualGameObject.transform.SetParent(cellGameObject.transform);
             cellVisualGameObject.AddComponent<MeshCollider>();
             cellVisualGameObject.AddComponent<CellMouseEventsController>();
-            cellVisualGameObject.AddComponent<MaterialHighlightable>();
 
             Cell newCell = cellGameObject.GetComponent<Cell>();
-            newCell.Setup(coordinates, height, hexGridSize, AccessibleTerrain, DefaultBiome);
+            newCell.Setup(coordinates, height, AccessibleTerrain, DefaultBiome);
             return newCell;
         }
     }

@@ -14,7 +14,6 @@ namespace FrostfallSaga.Grid
         [field: SerializeField] public int Height { get; private set; }
         [field: SerializeField] public float HexSize { get; private set; }
         [field: SerializeField] public GameObject HexPrefab { get; private set; }
-        [field: SerializeField] public ECellOrientation HexOrientation { get; private set; }
         public Dictionary<Vector2Int, Cell> CellsByCoordinates { get; private set; } = new();
 
         /// <summary>
@@ -36,7 +35,7 @@ namespace FrostfallSaga.Grid
         public void FindAndSetCellsByCoordinates()
         {
             CellsByCoordinates.Clear();
-            GetCells().ToList().ForEach(cell => CellsByCoordinates.Add(cell.Coordinates, cell));
+            GetCells().ToList().ForEach(cell => CellsByCoordinates.Add(cell.Data.Coordinates, cell));
         }
 
         /// <summary>
@@ -82,13 +81,13 @@ namespace FrostfallSaga.Grid
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    Vector3 centerPosition = HexMetrics.Center(HexSize, x, z, HexOrientation) + transform.position;
+                    Vector3 centerPosition = HexMetrics.Center(HexSize, x, z) + transform.position;
 
-                    for (int s = 0; s < HexMetrics.Corners(HexSize, HexOrientation).Length; s++)
+                    for (int s = 0; s < HexMetrics.Corners(HexSize).Length; s++)
                     {
                         Gizmos.DrawLine(
-                            centerPosition + HexMetrics.Corners(HexSize, HexOrientation)[s % 6],
-                            centerPosition + HexMetrics.Corners(HexSize, HexOrientation)[(s + 1) % 6]
+                            centerPosition + HexMetrics.Corners(HexSize)[s % 6],
+                            centerPosition + HexMetrics.Corners(HexSize)[(s + 1) % 6]
                          );
                     }
                 }
@@ -101,7 +100,6 @@ namespace FrostfallSaga.Grid
                    $"- Width: {Width}\n" +
                    $"- Height: {Height}\n" +
                    $"- HexSize: {HexSize}\n" +
-                   $"- HexOrientation: {HexOrientation}\n" +
                    $"- HexPrefab: {(HexPrefab != null ? HexPrefab.name : "None")}\n" +
                    $"- Total Cells: {CellsByCoordinates.Count}\n" +
                    $"- Cells Info: \n" +

@@ -90,15 +90,9 @@ namespace FrostfallSaga.Fight.FightCells
             return Impediment != null && Impediment is TrapSO;
         }
 
-        public override bool IsTerrainAccessible()
-        {
-            return base.IsTerrainAccessible() && !HasObstacle();
-        }
+        public bool IsTerrainAccessible() => base.Data.IsTerrainAccessible() && !HasObstacle();
 
-        public override bool IsFree()
-        {
-            return IsTerrainAccessible() && !HasFighter();
-        }
+        public bool IsFree() => IsTerrainAccessible() && !HasFighter();
 
         public GameObject GetImpedimentGameObject()
         {

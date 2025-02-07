@@ -1,5 +1,6 @@
 using UnityEngine;
 using FrostfallSaga.Grid.Cells;
+using System;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -20,9 +21,6 @@ namespace FrostfallSaga.Kingdom
             return Occupier != null;
         }
 
-        public override bool IsFree()
-        {
-            return IsTerrainAccessible() && !HasOccupier();
-        }
+        public bool IsFree() => Data.IsTerrainAccessible() && !HasOccupier();
     }
 }

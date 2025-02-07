@@ -17,7 +17,7 @@ namespace FrostfallSaga.Fight.FightConditions
 
         public override bool CheckCondition(Fighter fighter, HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
         {
-            return fighter.cell != null && AvailableTerrains.Contains(fighter.cell.TerrainType);
+            return fighter.cell != null && AvailableTerrains.Contains(fighter.cell.Data.TerrainType);
         }
 
         public override string GetName()

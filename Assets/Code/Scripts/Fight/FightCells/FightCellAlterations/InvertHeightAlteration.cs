@@ -24,8 +24,8 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         public override void Apply(FightCell cell)
         {
-            _previousHeight = cell.Height;
-            cell.UpdateHeight(GetInvertedHeight(cell.Height),0);
+            _previousHeight = cell.Data.Height;
+            cell.UpdateHeight(GetInvertedHeight(cell.Data.Height),0);
             onAlterationApplied?.Invoke(cell, this);
         }
 

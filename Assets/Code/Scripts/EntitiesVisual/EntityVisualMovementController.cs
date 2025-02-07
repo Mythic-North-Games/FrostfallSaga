@@ -74,11 +74,11 @@ namespace FrostfallSaga.EntitiesVisual
 
             float heightDifference = CellsNeighbors.GetHeightDifference(currentCell, targetCell);
             float jumpHeight = Mathf.Max(heightDifference, 1f);
-            if (targetCell.Height > currentCell.Height)
+            if (targetCell.Data.Height > currentCell.Data.Height)
             {
                 jumpHeight += 1.5f;
             }
-            else if (targetCell.Height < currentCell.Height)
+            else if (targetCell.Data.Height < currentCell.Data.Height)
             {
                 jumpHeight += 1f;
             }

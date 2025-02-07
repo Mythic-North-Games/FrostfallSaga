@@ -89,7 +89,7 @@ namespace FrostfallSaga.Grid
 
         private static float Heuristic(Cell a, Cell b)
         {
-            return Vector2Int.Distance(a.Coordinates, b.Coordinates);
+            return Vector2Int.Distance(a.Data.Coordinates, b.Data.Coordinates);
         }
 
         private static Cell[] ReconstructPath(Dictionary<Cell, Cell> cameFrom, Cell start, Cell end)

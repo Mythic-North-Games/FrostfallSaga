@@ -25,10 +25,10 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         public override void Apply(FightCell cell)
         {
-            _previousHeight = cell.Height;
+            _previousHeight = cell.Data.Height;
             cell.UpdateHeight(
-                Randomizer.GetRandomElementFromEnum<ECellHeight>(toExclude: new[] { cell.Height })
-            ,0);
+                Randomizer.GetRandomElementFromEnum<ECellHeight>(toExclude: new[] { cell.Data.Height })
+            ,0f);
             onAlterationApplied?.Invoke(cell, this);
         }
 

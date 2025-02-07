@@ -285,10 +285,10 @@ namespace FrostfallSaga.Fight.Controllers
                 _fightManager.FighterTeams
             );
             cellsAvailableForTargeting.ToList().ForEach(
-                cell => cell.HighlightController.UpdateCurrentDefaultMaterial(_cellHighlightMaterial)
+                cell => cell.Visual.HighlightController.UpdateCurrentDefaultMaterial(_cellHighlightMaterial)
             );
             cellsAvailableForTargeting.ToList().ForEach(
-                cell => cell.HighlightController.Highlight(_cellHighlightMaterial)
+                cell => cell.Visual.HighlightController.Highlight(_cellHighlightMaterial)
             );
 
             _fighterIsTargetingForDirectAttack = true;
@@ -328,7 +328,7 @@ namespace FrostfallSaga.Fight.Controllers
                 _fightManager.FightGrid,
                 _possessedFighter.cell,
                 _fightManager.FighterTeams
-            ).ToList().ForEach(cell => cell.HighlightController.ResetToInitialMaterial());
+            ).ToList().ForEach(cell => cell.Visual.HighlightController.ResetToInitialMaterial());
         }
 
         #endregion
@@ -376,10 +376,10 @@ namespace FrostfallSaga.Fight.Controllers
                     _currentActiveAbility.CellAlterations
                 );
             cellsAvailableForTargeting.ToList().ForEach(
-                cell => cell.HighlightController.UpdateCurrentDefaultMaterial(_cellHighlightMaterial)
+                cell => cell.Visual.HighlightController.UpdateCurrentDefaultMaterial(_cellHighlightMaterial)
             );
             cellsAvailableForTargeting.ToList().ForEach(
-                cell => cell.HighlightController.Highlight(_cellHighlightMaterial)
+                cell => cell.Visual.HighlightController.Highlight(_cellHighlightMaterial)
             );
             _fighterIsTargetingForActiveAbility = true;
 
@@ -419,13 +419,13 @@ namespace FrostfallSaga.Fight.Controllers
         private void StopTargetingActiveActiveAbility()
         {
             _fighterIsTargetingForActiveAbility = false;
-            _possessedFighter.cell.HighlightController.ResetToInitialMaterial();
+            _possessedFighter.cell.Visual.HighlightController.ResetToInitialMaterial();
             _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
                 _fightManager.FightGrid,
                 _possessedFighter.cell,
                 _fightManager.FighterTeams,
                 _currentActiveAbility.CellAlterations
-            ).ToList().ForEach(cell => cell.HighlightController.ResetToInitialMaterial());
+            ).ToList().ForEach(cell => cell.Visual.HighlightController.ResetToInitialMaterial());
         }
 
         #endregion
@@ -491,11 +491,11 @@ namespace FrostfallSaga.Fight.Controllers
             {
                 if (i < _possessedFighter.GetMovePoints())
                 {
-                    cell.HighlightController.Highlight(_cellHighlightMaterial);
+                    cell.Visual.HighlightController.Highlight(_cellHighlightMaterial);
                 }
                 else
                 {
-                    cell.HighlightController.Highlight(_cellInaccessibleHighlightMaterial);
+                    cell.Visual.HighlightController.Highlight(_cellInaccessibleHighlightMaterial);
                 }
                 i++;
             }
@@ -505,7 +505,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             foreach (FightCell cell in _currentMovePath)
             {
-                cell.HighlightController.ResetToDefaultMaterial();
+                cell.Visual.HighlightController.ResetToDefaultMaterial();
             }
         }
 
@@ -519,7 +519,7 @@ namespace FrostfallSaga.Fight.Controllers
                     originCell,
                     _fightManager.FighterTeams
                 );
-                targetedCells.ToList().ForEach(cell => cell.HighlightController.Highlight(_cellActionableHighlightMaterial));
+                targetedCells.ToList().ForEach(cell => cell.Visual.HighlightController.Highlight(_cellActionableHighlightMaterial));
             }
             catch (TargeterUnresolvableException)
             {
@@ -529,7 +529,7 @@ namespace FrostfallSaga.Fight.Controllers
                     originCell
                 );
                 targetedCells.ToList().ForEach(
-                    cell => cell.HighlightController.Highlight(_cellInaccessibleHighlightMaterial)
+                    cell => cell.Visual.HighlightController.Highlight(_cellInaccessibleHighlightMaterial)
                 );
             }
         }
@@ -541,7 +541,7 @@ namespace FrostfallSaga.Fight.Controllers
                 _possessedFighter.cell,
                 originCell
             );
-            targetedCells.ToList().ForEach(cell => cell.HighlightController.ResetToDefaultMaterial());
+            targetedCells.ToList().ForEach(cell => cell.Visual.HighlightController.ResetToDefaultMaterial());
         }
 
         #endregion
@@ -600,9 +600,9 @@ namespace FrostfallSaga.Fight.Controllers
         {
             foreach (Cell cell in fightGrid.GetCells())
             {
-                cell.CellMouseEventsController.OnElementHover += OnCellHovered;
-                cell.CellMouseEventsController.OnElementUnhover += OnCellUnhovered;
-                cell.CellMouseEventsController.OnLeftMouseUp += OnCellClicked;
+                cell.Interaction.CellMouseEventsController.OnElementHover += OnCellHovered;
+                cell.Interaction.CellMouseEventsController.OnElementUnhover += OnCellUnhovered;
+                cell.Interaction.CellMouseEventsController.OnLeftMouseUp += OnCellClicked;
             }
         }
 
@@ -610,9 +610,9 @@ namespace FrostfallSaga.Fight.Controllers
         {
             foreach (Cell cell in fightGrid.GetCells())
             {
-                cell.CellMouseEventsController.OnElementHover -= OnCellHovered;
-                cell.CellMouseEventsController.OnElementUnhover -= OnCellUnhovered;
-                cell.CellMouseEventsController.OnLeftMouseUp -= OnCellClicked;
+                cell.Interaction.CellMouseEventsController.OnElementHover -= OnCellHovered;
+                cell.Interaction.CellMouseEventsController.OnElementUnhover -= OnCellUnhovered;
+                cell.Interaction.CellMouseEventsController.OnLeftMouseUp -= OnCellClicked;
             }
         }
 

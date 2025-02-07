@@ -64,16 +64,12 @@ namespace FrostfallSaga.Grid
             }
 
             Quaternion rotation = Quaternion.identity;
-            if (HexGrid.HexOrientation.Equals(ECellOrientation.FlatTop))
-            {
-                rotation = Quaternion.Euler(new Vector3(0f, -30f, 0f));
-            }
 
             for (int z = 0; z < HexGrid.Height; z++)
             {
                 for (int x = 0; x < HexGrid.Width; x++)
                 {
-                    Vector3 centerPosition = HexMetrics.Center(HexGrid.HexSize, x, z, HexGrid.HexOrientation);
+                    Vector3 centerPosition = HexMetrics.Center(HexGrid.HexSize, x, z);
                     GameObject newHex = Instantiate(HexGrid.HexPrefab, centerPosition, rotation, HexGrid.transform);
                     int biomeIndex = _voronoiBiomeManager.GetClosestBiomeIndex(x, z);
                     BiomeTypeSO selectedBiome = AvailableBiomes[biomeIndex];
@@ -112,7 +108,7 @@ namespace FrostfallSaga.Grid
             {
                 Cell cell = HexGrid.transform.GetChild(i).GetComponent<Cell>();
                 ECellHeight randomCellHeight;
-                if (cell.TerrainType.name.Contains("Water"))
+                if (cell.Data.TerrainType.name.Contains("Water"))
                 {
                     randomCellHeight = ECellHeight.LOW;
                 }
@@ -120,7 +116,7 @@ namespace FrostfallSaga.Grid
                 {
                     randomCellHeight = (ECellHeight)Randomizer.GetRandomIntBetween(-1, 2);
                 }
-                cell.UpdateHeight(randomCellHeight, 0);
+                cell.UpdateHeight(randomCellHeight, 0f);
             }
         }
 
@@ -130,10 +126,10 @@ namespace FrostfallSaga.Grid
             Cell newCell = cellPrefab.GetComponent<Cell>();
             float perlinValue = _perlinTerrainManager.GetNoiseValue(x, z);
             TerrainTypeSO terrainType = GetTerrainTypeFromPerlinValue(perlinValue, biome);
-            newCell.Setup(new Vector2Int(x, z), ECellHeight.LOW, HexGrid.HexSize, terrainType, biome);
-            newCell.HighlightController.SetupInitialMaterial(terrainType.CellMaterial);
-            newCell.HighlightController.UpdateCurrentDefaultMaterial(terrainType.CellMaterial);
-            newCell.HighlightController.ResetToInitialMaterial();
+            newCell.Setup(new Vector2Int(x, z), ECellHeight.LOW, terrainType, biome);
+            newCell.Visual.HighlightController.SetupInitialMaterial(terrainType.CellMaterial);
+            newCell.Visual.HighlightController.UpdateCurrentDefaultMaterial(terrainType.CellMaterial);
+            newCell.Visual.HighlightController.ResetToInitialMaterial();
         }
 
         private TerrainTypeSO GetTerrainTypeFromPerlinValue(float perlinValue, BiomeTypeSO biome)
@@ -156,7 +152,7 @@ namespace FrostfallSaga.Grid
                     return availableTerrains[i];
                 }
             }
-            return availableTerrains[terrainCount]; // -1
+            return availableTerrains[terrainCount];
         }
 
         public void ClearCells()

@@ -172,11 +172,11 @@ namespace FrostfallSaga.Kingdom
             {
                 if (i < HeroGroup.movePoints)
                 {
-                    cell.HighlightController.Highlight(CellHighlightMaterial);
+                    cell.Visual.HighlightController.Highlight(CellHighlightMaterial);
                 }
                 else
                 {
-                    cell.HighlightController.Highlight(CellInaccessibleHighlightMaterial);
+                    cell.Visual.HighlightController.Highlight(CellInaccessibleHighlightMaterial);
                 }
                 i++;
             }
@@ -186,7 +186,7 @@ namespace FrostfallSaga.Kingdom
         {
             foreach (Cell cell in _currentHeroGroupMovePath.path)
             {
-                cell.HighlightController.ResetToDefaultMaterial();
+                cell.Visual.HighlightController.ResetToDefaultMaterial();
             }
         }
         #endregion
@@ -255,9 +255,9 @@ namespace FrostfallSaga.Kingdom
         {
             foreach (Cell cell in KingdomGrid.GetCells())
             {
-                cell.CellMouseEventsController.OnElementHover += OnCellHovered;
-                cell.CellMouseEventsController.OnElementUnhover += OnCellUnhovered;
-                cell.CellMouseEventsController.OnLeftMouseUp += OnCellClicked;
+                cell.Interaction.CellMouseEventsController.OnElementHover += OnCellHovered;
+                cell.Interaction.CellMouseEventsController.OnElementUnhover += OnCellUnhovered;
+                cell.Interaction.CellMouseEventsController.OnLeftMouseUp += OnCellClicked;
             }
         }
 

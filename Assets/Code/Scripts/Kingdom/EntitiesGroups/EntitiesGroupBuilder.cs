@@ -35,8 +35,8 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             return new()
             {
                 movePoints = entitiesGroup.movePoints,
-                cellX = entitiesGroup.cell.Coordinates.x,
-                cellY = entitiesGroup.cell.Coordinates.y,
+                cellX = entitiesGroup.cell.Data.Coordinates.x,
+                cellY = entitiesGroup.cell.Data.Coordinates.y,
                 entitiesData = GetEntitiesData(entitiesGroup),
                 displayedEntitySessionId = entitiesGroup.GetDisplayedEntity().SessionId
             };

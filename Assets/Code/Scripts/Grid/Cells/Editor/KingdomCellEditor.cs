@@ -1,23 +1,24 @@
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Kingdom;
 using UnityEditor;
 using UnityEngine;
 
 namespace FrostfallSaga.FFSEditor.Grid
 {
-    [CustomEditor(typeof(Cell))]
+    [CustomEditor(typeof(KingdomCell))]
     [CanEditMultipleObjects]
-    public class CellEditor : Editor
+    public class KingdomCellEditor : Editor
     {
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
 
-            Cell cell = (Cell)target;
+            Cell cell = (KingdomCell)target;
 
             if (GUILayout.Button("Update High"))
             {
-                cell.UpdateHeight(cell.Height,0);
+                cell.UpdateHeight(cell.Data.Height, 0f);
             }
             else if (GUILayout.Button("Get Neighbors"))
             {

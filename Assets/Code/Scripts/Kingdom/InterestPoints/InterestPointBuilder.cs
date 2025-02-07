@@ -23,8 +23,8 @@ namespace FrostfallSaga.Kingdom.InterestPoints
         {
             return new(
                 interestPoint.InterestPointConfiguration,
-                interestPoint.cell.Coordinates.x,
-                interestPoint.cell.Coordinates.y
+                interestPoint.cell.Data.Coordinates.x,
+                interestPoint.cell.Data.Coordinates.y
             );
         }
 

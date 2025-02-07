@@ -24,13 +24,13 @@ namespace FrostfallSaga.Grid
 
         public void Analyze()
         {
-            CountTerrain(TargetCell.TerrainType);
-            CountBiome(TargetCell.BiomeType);
+            CountTerrain(TargetCell.Data.TerrainType);
+            CountBiome(TargetCell.Data.BiomeType);
 
             foreach (var neighbor in NeighborCells)
             {
-                CountTerrain(neighbor.TerrainType);
-                CountBiome(neighbor.BiomeType);
+                CountTerrain(neighbor.Data.TerrainType);
+                CountBiome(neighbor.Data.BiomeType);
             }
         }
 
@@ -70,7 +70,7 @@ namespace FrostfallSaga.Grid
 
         public void PrintAnalysis()
         {
-            Debug.Log($"Analysis for Cell at {TargetCell.Coordinates}:");
+            Debug.Log($"Analysis for Cell at {TargetCell.Data.Coordinates}:");
 
             Debug.Log("Terrains:");
             foreach (var terrain in TerrainCount)
@@ -83,7 +83,7 @@ namespace FrostfallSaga.Grid
 
         public void PrintAnalysisWithPercentages()
         {
-            Debug.Log($"Analysis for Cell at {TargetCell.Coordinates}:");
+            Debug.Log($"Analysis for Cell at {TargetCell.Data.Coordinates}:");
 
             Debug.Log("Terrain Percentages:");
             foreach (var terrain in GetTerrainPercentages())

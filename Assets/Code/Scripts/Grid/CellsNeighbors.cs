@@ -46,21 +46,21 @@ namespace FrostfallSaga.Grid
             mandatoryCells ??= new Cell[0];
 
             List<Cell> neighbors = new();
-            Vector2Int[] directionsToCheck = cellToGetTheNeighbors.Coordinates.y % 2 == 0 ?
+            Vector2Int[] directionsToCheck = cellToGetTheNeighbors.Data.Coordinates.y % 2 == 0 ?
                 directionsToCheckIfHeightEven :
                 directionsToCheckIfHeightOdd;
 
             foreach (Vector2Int direction in directionsToCheck)
             {
-                Vector2Int neighborCoord = cellToGetTheNeighbors.Coordinates + direction;
+                Vector2Int neighborCoord = cellToGetTheNeighbors.Data.Coordinates + direction;
                 Dictionary<Vector2Int, Cell> cellsByCoordinates = hexGrid.CellsByCoordinates;
                 if (cellsByCoordinates.ContainsKey(neighborCoord))
                 {
                     Cell currentNeighbor = cellsByCoordinates[neighborCoord];
                     if (
                         mandatoryCells.Contains(currentNeighbor) ||
-                        (includeOccupiedNeighbors || currentNeighbor.IsFree()) &&
-                        (includeInaccessibleNeighbors || currentNeighbor.IsTerrainAccessible()) &&
+                        (includeOccupiedNeighbors || currentNeighbor.Data.IsFree()) &&
+                        (includeInaccessibleNeighbors || currentNeighbor.Data.IsTerrainAccessible()) &&
                         (
                             includeHeightInaccessibleNeighbors ||
                             GetHeightDifference(cellToGetTheNeighbors, currentNeighbor) <= 1
@@ -83,7 +83,7 @@ namespace FrostfallSaga.Grid
         /// <returns>The absolute height difference between the given two cells.</returns>
         public static int GetHeightDifference(Cell cell1, Cell cell2)
         {
-            return Math.Abs((int)cell2.Height - (int)cell1.Height);
+            return Math.Abs((int)cell2.Data.Height - (int)cell1.Data.Height);
         }
     }
 }

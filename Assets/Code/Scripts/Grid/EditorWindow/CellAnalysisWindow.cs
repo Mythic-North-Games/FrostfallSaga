@@ -29,7 +29,8 @@ namespace FrostfallSaga.Grid
                 {
                     CellAnalysis analyzer = new CellAnalysis(TargetCell, Grid);
                     analyzer.Analyze();
-                    analyzer.PrintAnalysisWithPercentages();
+                    //analyzer.PrintAnalysisWithPercentages();
+                    analyzer.PrintAnalysis();
                 }
             }
         }

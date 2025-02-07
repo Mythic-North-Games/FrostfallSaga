@@ -25,14 +25,14 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         public override void Apply(FightCell cell)
         {
-            _previousTerrainType = cell.TerrainType;
-            cell.SetTerrain(TerrainType);
+            _previousTerrainType = cell.Data.TerrainType;
+            cell.Data.TerrainType = TerrainType;
             onAlterationApplied?.Invoke(cell, this);
         }
 
         public override void Remove(FightCell cell)
         {
-            cell.SetTerrain(_previousTerrainType);
+            cell.Data.TerrainType = _previousTerrainType;
             onAlterationRemoved?.Invoke(cell, this);
         }
     }

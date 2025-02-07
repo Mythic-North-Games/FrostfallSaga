@@ -16,7 +16,7 @@ namespace FrostfallSaga.FFSEditor.Fight
 
             if (GUILayout.Button("Update High"))
             {
-                fightCell.UpdateHeight(fightCell.Height,0);
+                fightCell.UpdateHeight(fightCell.Data.Height,0f);
             }
         }
     }
