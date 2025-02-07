@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FrostfallSaga.DialogueSystem
+namespace FrostfallSaga.Core.Dialogues
 {
     [CreateAssetMenu(fileName = "DialogueParticipant", menuName = "ScriptableObjects/Dialogues/DialogueParticipant", order = 0)]
     public class DialogueParticipantSO : ScriptableObject
