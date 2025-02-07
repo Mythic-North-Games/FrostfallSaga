@@ -5,11 +5,12 @@ using FrostfallSaga.Fight.FightCells;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
-    public abstract class AAbilityAnimationSO : ScriptableObject
+    public abstract class AAbilityAnimationSO 
     {
         public Action<Fighter> onFighterTouched;
         public Action<FightCell> onCellTouched;
         public Action<Fighter> onAnimationEnded;
+        
 
         /// <summary>
         /// Executes the ability animation as configured.

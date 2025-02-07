@@ -23,8 +23,7 @@ namespace FrostfallSaga.Grid.Cells
         [field: SerializeField] public float UpdateHeightDuration { get; private set; }
         [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")] public MaterialHighlightable HighlightController { get; private set; }
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
-        private HexGrid ParentGrid;
-
+        public HexGrid ParentGrid;
         private void Awake()
         {
             ParentGrid = GetComponentInParent<HexGrid>();

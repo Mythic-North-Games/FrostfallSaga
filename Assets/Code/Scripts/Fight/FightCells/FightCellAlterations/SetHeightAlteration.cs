@@ -30,7 +30,7 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
             string name,
             string description,
             Sprite icon
-        ) : base(isPermanent, duration,  true, true, name, description, icon)
+        ) : base(isPermanent, duration, true, true, name, description, icon)
         {
             CellAlterationDuration = cellAlterationDuration;
         }

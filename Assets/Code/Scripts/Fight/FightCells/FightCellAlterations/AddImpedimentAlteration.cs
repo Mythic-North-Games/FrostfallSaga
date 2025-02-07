@@ -58,7 +58,9 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
             Impediment.DestroyController.onDestroyEnded += OnImpedimentGameObjectDestroyed;
 
             _currentlyModifiedCell = fightCell;
-            Impediment.DestroyController.DestroyGameObject(fightCell.GetImpedimentGameObject());
+            if (fightCell.GetImpedimentGameObject() != null){
+                 Impediment.DestroyController.DestroyGameObject(fightCell.GetImpedimentGameObject());
+            }
         }
 
         private void OnImpedimentGameObjectDestroyed()

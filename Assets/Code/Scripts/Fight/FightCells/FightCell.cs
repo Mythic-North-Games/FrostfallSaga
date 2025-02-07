@@ -18,7 +18,7 @@ namespace FrostfallSaga.Fight.FightCells
 
         [field: SerializeField, Tooltip("The current obstacle or trap")] public AImpedimentSO Impediment { get; private set; }
         private GameObject _currentImpedimentGameObject;
-
+        
         public FightCellAlterationsManager AlterationsManager { get; private set; }
         public Action onTrapTriggered;
 
@@ -30,6 +30,10 @@ namespace FrostfallSaga.Fight.FightCells
         public void SetFighter(Fighter fighter)
         {
             Fighter = fighter;
+        }
+           public Fighter GetFighter()
+        {
+            return Fighter;
         }
 
         public void SetImpediment(AImpedimentSO impediment, GameObject impediementGameObject)

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightCells
 {
@@ -26,7 +28,7 @@ namespace FrostfallSaga.Fight.FightCells
             return _activePermanentAlterations.Concat(_activeTemporaryAlterations.Keys).ToArray();
         }
 
-        public void ApplyNewAlteration(AFightCellAlteration newAlteration)
+        public void AddNewAlteration(AFightCellAlteration newAlteration)
         {
             if (!newAlteration.CanApplyWithFighter && _fightCell.HasFighter())
             {

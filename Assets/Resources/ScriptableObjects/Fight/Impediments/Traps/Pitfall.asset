@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed7321d28e8e2df4cbb953100a3a8f86, type: 3}
+  m_Name: Pitfall
+  m_EditorClassIdentifier: 
+  <Prefab>k__BackingField: {fileID: 1762423841713276, guid: b8f929e2e3a24894db6cbd97a2a83429, type: 3}
+  <Destroyable>k__BackingField: 1
+  SpawnController:
+    rid: 4056982959766110270
+  DestroyController:
+    rid: 4056982959766110271
+  <Name>k__BackingField: 
+  <Description>k__BackingField: 
+  <Icon>k__BackingField: {fileID: 0}
+  <Targeter>k__BackingField:
+    <OriginCellRange>k__BackingField: 0
+    <CellsSequence>k__BackingField: []
+    <StartFromInitiator>k__BackingField: 0
+    <FighterMandatory>k__BackingField: 0
+    <TargetsToExclude>k__BackingField: 
+    <RelativeHeightsToExclude>k__BackingField: 
+    <StopedAtInacessibles>k__BackingField: 0
+    <StopedAtXthHigherHeightDifference>k__BackingField: 0
+    <StopedAtXthLowerHeightDifference>k__BackingField: 0
+    <StopedAtXthEncounteredFighters>k__BackingField: 0
+  <Animation>k__BackingField:
+    Executor:
+      rid: 7399184556376981549
+    <Prefab>k__BackingField: {fileID: 1879769179923522, guid: 0566032919eddd04c93941da33d3b0ce, type: 3}
+    <CellsSequence>k__BackingField: []
+  <TriggerTimes>k__BackingField: 00000000
+  OtherCellsEffects: []
+  OnCellEffects:
+  - rid: 7399184556376981554
+  CellAlterations:
+  - rid: 7399184556376981625
+  references:
+    version: 2
+    RefIds:
+    - rid: 4056982959766110270
+      type: {class: ImmediateGameObjectSpawn, ns: FrostfallSaga.Utils.GameObjectVisuals.GameObjectSpawnControllers, asm: FrostfallSaga.Utils}
+      data:
+        SpawnOffset: {x: 0, y: 0, z: 0}
+        SpawnRotation: {x: 0, y: 0, z: 0, w: 0}
+        RotationOffset: {x: 0, y: 0, z: 0, w: 0}
+    - rid: 4056982959766110271
+      type: {class: ImmediateGameObjectDestroy, ns: FrostfallSaga.Utils.GameObjectVisuals.GameObjectDestroyControllers, asm: FrostfallSaga.Utils}
+      data: 
+    - rid: 7399184556376981549
+      type: {class: StaticObjectsExecutor, ns: FrostfallSaga.Fight.Abilities.AbilityAnimation, asm: FrostfallSaga.Fight}
+      data:
+        adjustedOffset: 2
+    - rid: 7399184556376981554
+      type: {class: PhysicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
+      data:
+        PhysicalDamageAmount: 12
+    - rid: 7399184556376981625
+      type: {class: SetHeightAlteration, ns: FrostfallSaga.Fight.FightCells.FightCellAlterations, asm: FrostfallSaga.Fight}
+      data:
+        <IsPermanent>k__BackingField: 0
+        <Duration>k__BackingField: 5
+        <Name>k__BackingField: 
+        <Description>k__BackingField: 
+        <Icon>k__BackingField: {fileID: 0}
+        <TargetHeight>k__BackingField: -3
+        <CellAlterationDuration>k__BackingField: 0

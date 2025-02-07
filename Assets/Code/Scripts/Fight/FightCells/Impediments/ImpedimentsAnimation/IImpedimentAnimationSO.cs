@@ -11,21 +11,26 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
         menuName = "ScriptableObjects/Fight/Impediments/Animations/ImpedimentAnimation",
         order = 0
     )]
-    public  class IImpedimentAnimationSO : ScriptableObject
+
+    [Serializable]
+    public  class IImpedimentAnimationSO 
     {
     
         [SerializeReference] public StaticObjectsExecutor Executor;
         [field: SerializeField] public GameObject Prefab { get; private set; }
+        [field : SerializeField] public Vector2Int[] CellsSequence { get; private set; }
 
         /// <summary>
         /// Executes the animation as configured.
         /// </summary>
-        public void Execute(Fighter fighterThatWillExecute, FightCell TargetCell)
+        public void Execute(Fighter fighterThatWillExecute, FightCell[] targetCells)
         {
-            FightCell[] targetCells={TargetCell};
-            Executor.Execute(fighterThatWillExecute, targetCells, Prefab);
+        
+            Executor.Execute(
+                fighterThatWillExecute, 
+                targetCells, 
+                Prefab);
         }
 
-   
     }
 }

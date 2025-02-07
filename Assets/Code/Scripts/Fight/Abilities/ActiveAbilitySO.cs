@@ -121,7 +121,7 @@ namespace FrostfallSaga.Fight.Abilities
         {
             foreach (AFightCellAlteration alteration in CellAlterations)
             {
-                alteration.Apply(cell);
+                cell.AlterationsManager.AddNewAlteration(alteration);
             }
         }
     }
