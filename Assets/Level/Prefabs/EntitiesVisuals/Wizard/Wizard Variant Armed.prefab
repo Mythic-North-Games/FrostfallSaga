@@ -806,7 +806,7 @@ GameObject:
   - component: {fileID: 4841622593194046851}
   - component: {fileID: -4359804814130803909}
   m_Layer: 8
-  m_Name: Mage Variant Armed
+  m_Name: Wizard Variant Armed
   m_TagString: EntitiyVisual
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

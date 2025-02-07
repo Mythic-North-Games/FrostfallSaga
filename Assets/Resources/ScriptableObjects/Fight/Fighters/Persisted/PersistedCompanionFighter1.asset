@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf9b68cef373954fa0d8e82209c712d, type: 3}
   m_Name: PersistedCompanionFighter1
   m_EditorClassIdentifier: 
-  <FighterPrefab>k__BackingField: {fileID: 8598148338970843060, guid: fd5522a8203269643b32086c27ce8ffb, type: 3}
-  <FighterClass>k__BackingField: {fileID: 11400000, guid: 8d3cfbd8265f5e54cb7a7563a0ae8f1b, type: 2}
+  <FighterPrefab>k__BackingField: {fileID: 2231504700857037570, guid: 4d962c0e2d6ee4742b11924945174972, type: 3}
+  <FighterClass>k__BackingField: {fileID: 11400000, guid: b11a9cbf3a2c6bc4e8e2352059ffd572, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 0}
   <AvailableActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
@@ -21,7 +21,7 @@ MonoBehaviour:
   <AvailablePassiveAbilities>k__BackingField: []
   <PassiveAbilitiesCapacity>k__BackingField: 0
   <MaxHealth>k__BackingField: 60
-  <MaxActionPoints>k__BackingField: 3
+  <MaxActionPoints>k__BackingField: 1
   <MaxMovePoints>k__BackingField: 3
   <Strength>k__BackingField: 3
   <Dexterity>k__BackingField: 3
