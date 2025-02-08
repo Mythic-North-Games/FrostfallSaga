@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50862a0fc6cf7d64c9f705ea8e91f54b, type: 3}
   m_Name: SkeletonFighterConfiguration
   m_EditorClassIdentifier: 
-  <FighterPrefab>k__BackingField: {fileID: 6324029983913961529, guid: bc2d5945b1c5d0048a26641c833c7a34, type: 3}
+  <FighterPrefab>k__BackingField: {fileID: 2920049516156015753, guid: 5f48713191363598c8702ca1cfb325f1, type: 3}
   <FighterClass>k__BackingField: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 11400000, guid: 770ae372dc3abe843a19020cabaa49fb, type: 2}
   <AvailableActiveAbilities>k__BackingField:

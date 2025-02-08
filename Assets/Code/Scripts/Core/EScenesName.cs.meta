@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Code/Scripts/Core/EScenesName.cs.meta
 guid: f4a6c3be089cd44fb9b09697d4f7688a
-========
-guid: eb712e77719b2bec6b0d32ba5404b3a4
->>>>>>>> main:Assets/Code/Scripts/Core/Entities/EEntityRace.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

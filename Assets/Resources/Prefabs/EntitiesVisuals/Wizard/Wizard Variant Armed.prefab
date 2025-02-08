@@ -972,10 +972,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395e31fe06f423c429c6df683a903ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <EntityVisualAnimationController>k__BackingField: {fileID: 0}
-  <RunSpeed>k__BackingField: 1
-  <JumpSpeed>k__BackingField: 1.5
-  <RotationSpeed>k__BackingField: 6
+  <EntityVisualAnimationController>k__BackingField: {fileID: 4841622593194046851}
+  <RunSpeed>k__BackingField: 1.75
+  <JumpSpeed>k__BackingField: 1.25
+  <RotationSpeed>k__BackingField: 4
   _parentToMove: {fileID: 0}
 --- !u!1 &7229199734263674666
 GameObject:

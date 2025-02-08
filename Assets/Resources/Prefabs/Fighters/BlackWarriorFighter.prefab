@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 2920049516156015753}
     - target: {fileID: 7229199734263576984, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
       propertyPath: m_Name
-      value: WarriorFighter
+      value: BlackWarriorFighter
       objectReference: {fileID: 0}
     - target: {fileID: 7229199734263576984, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
       propertyPath: m_Layer
@@ -95,6 +95,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7229199734277193742, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf0b77aed9f7d034794c9332d224d1a4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -156,11 +160,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17581d7163014c47bedd331c3ac3861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <EntitySessionId>k__BackingField: 
   <AnimationController>k__BackingField: {fileID: 1145525449891322002}
   <MovementController>k__BackingField: {fileID: 1129141084745967146}
   <FighterMouseEventsController>k__BackingField: {fileID: 9121339937089846296}
   <CameraAnchor>k__BackingField: {fileID: 418671907733613392}
-  <EntityID>k__BackingField: 0
+  <FighterConfiguration>k__BackingField: {fileID: 11400000, guid: 25a85d710d7b0da4e9814f23b3973a2b, type: 2}
+  <Race>k__BackingField: 0
   _stats:
     health: 0
     maxHealth: 0
@@ -291,7 +297,6 @@ MonoBehaviour:
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
   <Weapon>k__BackingField: {fileID: 0}
-  <DirectAttackAnimation>k__BackingField: {fileID: 0}
   <ActiveAbilities>k__BackingField: []
   <PassiveAbilities>k__BackingField: []
   <IsParalyzed>k__BackingField: 0
@@ -303,7 +308,6 @@ MonoBehaviour:
   <FighterName>k__BackingField: 
   <Icon>k__BackingField: {fileID: 0}
   <DiamondIcon>k__BackingField: {fileID: 0}
-  <EntitySessionId>k__BackingField: 
 --- !u!114 &9121339937089846296
 MonoBehaviour:
   m_ObjectHideFlags: 0
