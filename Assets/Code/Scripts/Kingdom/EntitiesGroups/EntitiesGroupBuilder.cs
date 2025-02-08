@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Kingdom.Entities;
+using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
 
 namespace FrostfallSaga.Kingdom.EntitiesGroups
@@ -10,22 +12,21 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
     /// <summary>
     /// Helps saving and building entities at runtime for the kingdom scene.
     /// </summary>
-    public class EntitiesGroupBuilder : MonoBehaviour
+    public class EntitiesGroupBuilder : MonoBehaviourPersistingSingleton<EntitiesGroupBuilder>
     {
-        [SerializeField] private WorldGameObjectInstantiator _WGOInstantiator;
-        [SerializeField] private EntityBuilder _entityBuilder;
-        [SerializeField] private GameObject _blankEntitiesGroupPrefab;
+        private readonly EntityBuilder _entityBuilder = new();
+        public GameObject BlankEntitiesGroupPrefab { get; private set; }
 
         public EntitiesGroup BuildEntitiesGroup(EntitiesGroupData entitiesGroupData, HexGrid grid)
         {
-            GameObject entitiesGroupPrefab = _WGOInstantiator.Instantiate(_blankEntitiesGroupPrefab);
+            GameObject entitiesGroupPrefab = WorldGameObjectInstantiator.Instance.Instantiate(BlankEntitiesGroupPrefab);
             EntitiesGroup entitiesGroup = entitiesGroupPrefab.GetComponent<EntitiesGroup>();
             List<Entity> entities = new();
             entitiesGroupData.entitiesData.ToList().ForEach(entityData => entities.Add(_entityBuilder.BuildEntity(entityData)));
             entitiesGroup.UpdateEntities(entities.ToArray());
             entitiesGroup.UpdateDisplayedEntity(entities.Find(entity => entity.SessionId == entitiesGroupData.displayedEntitySessionId));
             entitiesGroup.movePoints = entitiesGroupData.movePoints;
-            entitiesGroup.TeleportToCell(grid.CellsByCoordinates[new(entitiesGroupData.cellX, entitiesGroupData.cellY)]);
+            entitiesGroup.TeleportToCell(grid.CellsByCoordinates[new(entitiesGroupData.cellX, entitiesGroupData.cellY)] as KingdomCell);
             return entitiesGroup;
         }
 
@@ -48,21 +49,14 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             return entitiesData.ToArray();
         }
 
-        #region Setup & tear down
-
-        private void Start()
+        protected override void Init()
         {
-            if (_entityBuilder == null)
-            {
-                _entityBuilder = FindObjectOfType<EntityBuilder>();
-            }
-
-            if (_entityBuilder == null)
-            {
-                Debug.LogError("EntityBuilder not found. Won't be able to build entities groups.");
-            }
+            BlankEntitiesGroupPrefab = Resources.Load<GameObject>("Prefabs/EntitiesGroups/EmptyEntitiesGroup");
         }
 
-        #endregion
+        static EntitiesGroupBuilder()
+        {
+            PersistAcrossScenes = false;
+        }
     }
 }

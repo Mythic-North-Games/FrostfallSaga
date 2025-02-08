@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.UI;

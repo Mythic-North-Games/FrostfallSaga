@@ -151,6 +151,11 @@ namespace FrostfallSaga.EntitiesVisual
         {
             _parentToMove = parentToMove;
         }
+
+        public void SetAnimationControllerForTests()
+        {
+            EntityVisualAnimationController = GetComponent<EntityVisualAnimationController>();
+        }
 #endif
     }
 }

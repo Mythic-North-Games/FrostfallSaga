@@ -11,16 +11,16 @@ namespace FrostfallSaga.Fight.Effects
     public abstract class AEffect
     {
         /// <summary>
-        /// Apply the effect to the target fighter using the initator stats for possible masterstroke and dodge chance.
+        /// Apply the effect to the target fighter using the initiator stats for possible masterstroke and dodge chance.
         /// </summary>
         /// <param name="receiver">The fighter that will receive the effect.</param>
-        /// <param name="initator">The fighter that initiates the effect if there is one.</param>
+        /// <param name="initiator">The fighter that initiates the effect if there is one.</param>
         /// <param name="isMasterstroke">True if the effect can be masterstroked, false otherwise.</param>
         /// <param name="adjustGodFavorsPoints">True if the god favors points should be adjusted for the initiator, false otherwise.</param>
         public abstract void ApplyEffect(
             Fighter receiver,
             bool isMasterstroke,
-            Fighter initator = null,
+            Fighter initiator = null,
             bool adjustGodFavorsPoints = true
         );
 

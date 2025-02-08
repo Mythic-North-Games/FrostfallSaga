@@ -1,6 +1,7 @@
 using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Kingdom;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Utils.GameObjectVisuals;
 
@@ -43,7 +44,7 @@ namespace FrostfallSaga.EditModeTests
             }
             else
             {
-                cellGameObject.AddComponent<Cell>();
+                cellGameObject.AddComponent<KingdomCell>();
             }
             cellGameObject.name = "Cell[" + coordinates.x + ";" + coordinates.y + "]";
 

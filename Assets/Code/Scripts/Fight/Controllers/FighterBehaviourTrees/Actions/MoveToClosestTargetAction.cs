@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using FrostfallSaga.Grid;
-using FrostfallSaga.BehaviourTree;
+using FrostfallSaga.Utils.Trees.BehaviourTree;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
 

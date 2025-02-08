@@ -1,17 +1,20 @@
-using System;
 using UnityEngine;
-using FrostfallSaga.Core;
+using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Grid;
-using FrostfallSaga.KingdomToFight;
+using FrostfallSaga.InventorySystem;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
-using FrostfallSaga.Fight.GameItems;
+using FrostfallSaga.Fight.FightItems;
+using FrostfallSaga.Fight.Abilities;
+using System;
 
 namespace FrostfallSaga.EditModeTests.FightTests
 {
     public static class FightTestsHelper
     {
+        private static readonly string TEST_ENTITY_CONF_RESOURCE_PATH = "EditModeTests/ScriptableObjects/TestEntityConfiguration";
+
         public static Fighter CreateFighter()
         {
             GameObject fighterGameObject = new();
@@ -19,7 +22,7 @@ namespace FrostfallSaga.EditModeTests.FightTests
             Fighter fighter = fighterGameObject.GetComponent<Fighter>();
             SetupFighterFromNonPersistingConfiguration(
                 fighter,
-                Resources.Load<FighterConfigurationSO>("EditModeTests/ScriptableObjects/TestFighter")
+                Resources.Load<EntityConfigurationSO>(TEST_ENTITY_CONF_RESOURCE_PATH)
             );
 
             GameObject fighterEntitiesVisualGameObject = new();
@@ -32,31 +35,27 @@ namespace FrostfallSaga.EditModeTests.FightTests
             return fighter;
         }
 
-        private static void SetupFighterFromNonPersistingConfiguration(Fighter fighter, FighterConfigurationSO fighterConfiguration)
+        private static void SetupFighterFromNonPersistingConfiguration(Fighter fighter, EntityConfigurationSO entityConfiguration)
         {
             Inventory testInventory = new();
-            testInventory.AddItem(Resources.Load<WeaponSO>("EditModeTests/ScriptableObjects/TestWeapon"));
+            testInventory.WeaponSlot.AddItem(Resources.Load<WeaponSO>("EditModeTests/ScriptableObjects/TestWeapon"));
+
+            ActiveAbilitySO[] activeAbilities = Array.ConvertAll(
+                entityConfiguration.FighterConfiguration.AvailableActiveAbilities,
+                activeAbility => activeAbility as ActiveAbilitySO
+            );
+            PassiveAbilitySO[] passiveAbilities = Array.ConvertAll(
+                entityConfiguration.FighterConfiguration.AvailablePassiveAbilities,
+                passiveAbility => passiveAbility as PassiveAbilitySO
+            );
 
             fighter.Setup(
-                new(
-                    null,
-                    fighterConfiguration.name,
-                    Guid.NewGuid().ToString(),
-                    EEntityID.HERO,
-                    null,
-                    null,
-                    fighterConfiguration.ExtractFighterStats(),
-                    fighterConfiguration.FighterClass,
-                    fighterConfiguration.PersonalityTrait,
-                    testInventory,
-                    fighterConfiguration.DirectAttackAnimation,
-                    fighterConfiguration.AvailableActiveAbilities,
-                    fighterConfiguration.AvailablePassiveAbilities,
-                    fighterConfiguration.ReceiveDamageAnimationName,
-                    fighterConfiguration.HealSelfAnimationName,
-                    fighterConfiguration.ReduceStatAnimationName,
-                    fighterConfiguration.IncreaseStatAnimationName
-                )
+                entityConfiguration,
+                entityConfiguration.FighterConfiguration,
+                equippedActiveAbilities: activeAbilities,
+                equippedPassiveAbilities: passiveAbilities,
+                inventory: testInventory,
+                sessionId: null
             );
         }
 

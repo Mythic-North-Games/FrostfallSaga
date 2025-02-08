@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Dialogues/DialogueTemplate.uss?fileID=7433441132597879392&amp;guid=204244ffe0df8ded49f05a72b7c4f809&amp;type=3#DialogueTemplate" />
+    <ui:Button text="What do you know about god favors?" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AnswerButton" class="answerContainerDefault" />
+</ui:UXML>

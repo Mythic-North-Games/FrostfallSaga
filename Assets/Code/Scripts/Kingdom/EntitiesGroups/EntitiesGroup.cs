@@ -13,15 +13,11 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
     /// Represents a group of entities inside the kingdom grid.
     /// It has one entity displayed that can be changed and it can move.
     /// </summary>
-    public class EntitiesGroup : MonoBehaviour
+    public class EntitiesGroup : KingdomCellOccupier
     {
         public int movePoints;
-        public Cell cell;
         [field: SerializeField] public Transform CameraAnchor { get; private set; }
-        public Action<EntitiesGroup> onEntityGroupHovered;
-        public Action<EntitiesGroup> onEntityGroupUnhovered;
-        public Action<EntitiesGroup> onEntityGroupClicked;
-        public Action<EntitiesGroup, Cell> onEntityGroupMoved;
+        public Action<EntitiesGroup, KingdomCell> onEntityGroupMoved;
         public Entity[] Entities { get; protected set; }
         private Entity _displayedEntity;
 
@@ -36,7 +32,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             {
                 try
                 {
-                    Cell _tryToGetStartCell = GameObject.Find("Cell[0;0]").GetComponent<Cell>();
+                    KingdomCell _tryToGetStartCell = GameObject.Find("Cell[0;0]").GetComponent<KingdomCell>();
                     if (_tryToGetStartCell.IsFree())
                     {
                         cell = _tryToGetStartCell;
@@ -57,21 +53,26 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             transform.position = cell.GetCenter();
         }
 
-        public void MoveToCell(Cell targetCell, bool isLastMove)
+        public void MoveToCell(KingdomCell targetCell, bool isLastMove)
         {
-            _displayedEntity.EntityVisualMovementController.Move(cell, targetCell, isLastMove);
+            _displayedEntity.MovementController.Move(cell, targetCell, isLastMove);
+            if (cell != null) cell.SetOccupier(null);
         }
 
-        public void TeleportToCell(Cell targetCell)
+        public void TeleportToCell(KingdomCell targetCell)
         {
-            _displayedEntity.EntityVisualMovementController.TeleportToCell(targetCell);
+            _displayedEntity.MovementController.TeleportToCell(targetCell);
+            if (cell != null) cell.SetOccupier(null);
             cell = targetCell;
+            cell.SetOccupier(this);
         }
 
         private void OnMoveEnded(Cell destinationCell)
         {
-            cell = destinationCell;
-            onEntityGroupMoved?.Invoke(this, destinationCell);
+            KingdomCell kingdomCell = destinationCell as KingdomCell;
+            cell = kingdomCell;
+            cell.SetOccupier(this);
+            onEntityGroupMoved?.Invoke(this, cell);
         }
 
         public Entity GetDisplayedEntity()
@@ -101,17 +102,12 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             Entities.ToList().ForEach(entity => entity.HideVisual());
             if (_displayedEntity != null)
             {
-                _displayedEntity.EntityMouseEventsController.OnElementHover -= OnDisplayedEntityHovered;
-                _displayedEntity.EntityMouseEventsController.OnElementUnhover -= OnDisplayedEntityUnhovered;
-                _displayedEntity.EntityVisualMovementController.onMoveEnded -= OnMoveEnded;
+                _displayedEntity.MovementController.onMoveEnded -= OnMoveEnded;
             }
 
             newDisplayedEntity.ShowVisual();
             newDisplayedEntity.GetComponentInChildren<EntityVisualMovementController>().UpdateParentToMove(gameObject);
-            newDisplayedEntity.EntityMouseEventsController.OnElementHover += OnDisplayedEntityHovered;
-            newDisplayedEntity.EntityMouseEventsController.OnElementUnhover += OnDisplayedEntityUnhovered;
-            newDisplayedEntity.EntityMouseEventsController.OnLeftMouseUp += OnDisplayedEntityClicked;
-            newDisplayedEntity.EntityVisualMovementController.onMoveEnded += OnMoveEnded;
+            newDisplayedEntity.MovementController.onMoveEnded += OnMoveEnded;
             _displayedEntity = newDisplayedEntity;
         }
 
@@ -120,33 +116,8 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             return Randomizer.GetRandomElementFromArray(Entities.Where(entity => !entity.IsDead).ToArray());
         }
 
-        private void OnDisplayedEntityHovered(Entity hoveredEntity)
-        {
-            onEntityGroupHovered?.Invoke(this);
-        }
-
-        private void OnDisplayedEntityUnhovered(Entity unhoveredEntity)
-        {
-            onEntityGroupUnhovered?.Invoke(this);
-        }
-
-        private void OnDisplayedEntityClicked(Entity clickedEntity)
-        {
-            onEntityGroupClicked?.Invoke(this);
-        }
-
-        private void OnDisable()
-        {
-            if (_displayedEntity)
-            {
-                _displayedEntity.EntityMouseEventsController.OnElementHover -= OnDisplayedEntityHovered;
-                _displayedEntity.EntityMouseEventsController.OnElementUnhover -= OnDisplayedEntityUnhovered;
-                _displayedEntity.EntityMouseEventsController.OnLeftMouseUp -= OnDisplayedEntityClicked;
-            }
-        }
-
         public static Entity[] GenerateRandomEntities(
-            EntityConfigurationSO[] availableEntitiesConfig,
+            GameObject[] availableEntityPrefabs,
             int minNumberOfEntities = 1,
             int maxNumberOfEntities = 3
         )
@@ -155,7 +126,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
 
             while (entities.Count < minNumberOfEntities)
             {
-                GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntitiesConfig).EntityPrefab);
+                GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntityPrefabs));
                 entities.Add(entityPrefab.GetComponent<Entity>());
             }
 
@@ -169,7 +140,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             {
                 if (Randomizer.GetBooleanOnChance(0.5f))
                 {
-                    GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntitiesConfig).EntityPrefab);
+                    GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntityPrefabs));
                     entities.Add(entityPrefab.GetComponent<Entity>());
                 }
             }

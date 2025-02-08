@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20137c71553cda3339c4852f83061cd3, type: 3}
+  m_Name: RatsewerDungeonConfiguration
+  m_EditorClassIdentifier: 
+  <BossFightConfiguration>k__BackingField:
+    <MandatoryEnemies>k__BackingField:
+    - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
+    <OptionalEnemies>k__BackingField:
+    - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
+    <MinOptionalEnemies>k__BackingField: 2
+    <MaxOptionalEnemies>k__BackingField: 2
+  <PreBossFightConfigurations>k__BackingField:
+  - <MandatoryEnemies>k__BackingField:
+    - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
+    <OptionalEnemies>k__BackingField:
+    - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
+    <MinOptionalEnemies>k__BackingField: 0
+    <MaxOptionalEnemies>k__BackingField: 1

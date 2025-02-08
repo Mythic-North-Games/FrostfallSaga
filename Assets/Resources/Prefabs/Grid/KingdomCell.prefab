@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3464028703652514940
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5231388834548727728, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231388834548727728, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231388834548727728, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231388834548727728, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231388834548727728, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231388834548727728, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231388834548727728, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231388834548727728, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231388834548727728, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231388834548727728, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338246483437390999, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+      propertyPath: m_Name
+      value: KingdomCell
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5788510601483087246, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6338246483437390999, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+      insertIndex: 5
+      addedObject: {fileID: 2533189294291919605}
+  m_SourcePrefab: {fileID: 100100000, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+--- !u!1 &7487034650914750699 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6338246483437390999, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+  m_PrefabInstance: {fileID: 3464028703652514940}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2533189294291919605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487034650914750699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce2d8001887b13e0b9894eff047757e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Coordinates>k__BackingField: {x: 0, y: 0}
+  <WorldHeightPerUnit>k__BackingField: 0.8
+  <TerrainType>k__BackingField: {fileID: 0}
+  <BiomeType>k__BackingField: {fileID: 0}
+  <Height>k__BackingField: -1
+  <UpdateHeightDuration>k__BackingField: 0
+  <HighlightController>k__BackingField: {fileID: 0}
+  <CellMouseEventsController>k__BackingField: {fileID: 0}
+  <Occupier>k__BackingField: {fileID: 0}
