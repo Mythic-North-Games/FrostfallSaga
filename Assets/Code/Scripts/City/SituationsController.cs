@@ -2,8 +2,9 @@ using System;
 using UnityEngine;
 using FrostfallSaga.Core.Dialogues;
 using FrostfallSaga.Core.Cities.CitySituations;
+using FrostfallSaga.City.UI;
 
-namespace FrostfallSaga.City.UI
+namespace FrostfallSaga.City
 {
     public class SituationsController : MonoBehaviour
     {
