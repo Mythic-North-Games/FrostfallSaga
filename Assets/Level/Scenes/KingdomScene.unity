@@ -2820,8 +2820,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1557595607}
-  - {fileID: 490961555}
   - {fileID: 572038298}
+  - {fileID: 490961555}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &60297633
@@ -16265,6 +16265,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SovengardCityBuilding
       objectReference: {fileID: 0}
+    - target: {fileID: 6646132619998617562, guid: 1bae81d9ee487648593aa1e4799a9785, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8464999841580522387, guid: 1bae81d9ee487648593aa1e4799a9785, type: 3}
       propertyPath: cell
       value: 
@@ -19367,6 +19371,10 @@ PrefabInstance:
     - target: {fileID: 1579975777369734056, guid: 93ef8c6f4f6efe146957172931db7402, type: 3}
       propertyPath: m_Name
       value: RatsewerDungeonBuilding
+      objectReference: {fileID: 0}
+    - target: {fileID: 1579975777369734056, guid: 93ef8c6f4f6efe146957172931db7402, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4372790175766052833, guid: 93ef8c6f4f6efe146957172931db7402, type: 3}
       propertyPath: cell
@@ -46044,7 +46052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e823463cf38a754a8520874f3d6c08d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _kingdomManager: {fileID: 899991118}
+  _kingdomManager: {fileID: 0}
   _sceneTransitioner: {fileID: 26075752}
   _readyToFightAnimationDuration: 2
   _delayBeforeLoadingSceneAfterReadyAnimation: 1
