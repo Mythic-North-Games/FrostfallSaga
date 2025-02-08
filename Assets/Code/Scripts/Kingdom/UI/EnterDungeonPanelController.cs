@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
+using FrostfallSaga.Core;
 using FrostfallSaga.Core.Dungeons;
 using FrostfallSaga.Utils.UI;
 
@@ -34,11 +35,16 @@ namespace FrostfallSaga.Kingdom.UI
                 Debug.LogError("KingdomManager is not set. Won't be able to display dungeon enter panel.");
                 return;
             }
-            _kingdomManager.onDungeonBuildingEncountered += OnDungeonBuildingEncountered;
+            _kingdomManager.onInterestPointEncountered += OnDungeonBuildingEncountered;
         }
 
-        private void OnDungeonBuildingEncountered(DungeonBuildingConfigurationSO dungeonBuildingConfiguration)
+        private void OnDungeonBuildingEncountered(AInterestPointConfigurationSO interestPointConfiguration)
         {
+            if (interestPointConfiguration is not DungeonBuildingConfigurationSO dungeonBuildingConfiguration)
+            {
+                return;
+            }
+
             _currentDungeon = dungeonBuildingConfiguration;
             _dungeonGatePanel = EnterDungeonPanelTemplate.Instantiate();
             _dungeonGatePanel.Q<Button>(ENTER_DUNGEON_BUTTON_UI_NAME).clicked += OnEnterClicked;
