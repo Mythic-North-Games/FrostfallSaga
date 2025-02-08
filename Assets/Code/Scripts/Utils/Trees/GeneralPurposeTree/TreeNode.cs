@@ -8,6 +8,7 @@ namespace FrostfallSaga.Utils.Trees
     {
         private T _data;
         private List<TreeNode<T>> _children;
+        private TreeNode<T> _parent;
 
         public TreeNode(T data)
         {
@@ -22,6 +23,7 @@ namespace FrostfallSaga.Utils.Trees
         public void AddChild(TreeNode<T> child)
         {
             _children.Add(child);
+            child._parent = this;
         }
 
         /// <summary>
@@ -33,6 +35,7 @@ namespace FrostfallSaga.Utils.Trees
         {
             if (_children.Contains(child))
             {
+                child._parent = null;
                 _children.Remove(child);
                 return true;
             }
@@ -71,6 +74,11 @@ namespace FrostfallSaga.Utils.Trees
         public bool HasChildren()
         {
             return _children.Count > 0;
+        }
+
+        public TreeNode<T> GetParent()
+        {
+            return _parent;
         }
     }
 }
