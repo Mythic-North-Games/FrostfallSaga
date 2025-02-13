@@ -2,6 +2,7 @@
 	"name": "FrostfallSaga.DialogueSystem",
 	"rootNamespace": "FrostfallSaga.DialogueSystem",
 	"references": [
+		"FrostfallSaga.Core",
 		"FrostfallSaga.Utils"
 	],
 	"includePlatforms": [],

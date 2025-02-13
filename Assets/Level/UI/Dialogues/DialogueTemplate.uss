@@ -1,7 +1,7 @@
 .dialogueScreenRootDefault {
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.39);
+    background-color: rgba(0, 0, 0, 0.78);
     justify-content: flex-start;
 }
 
@@ -11,6 +11,7 @@
     background-color: rgba(0, 0, 0, 0.39);
     opacity: 0;
     justify-content: flex-start;
+    display: none;
 }
 
 .dialogueLineContainerLeft {

@@ -1,6 +1,6 @@
 using UnityEditor;
 using UnityEngine;
-using FrostfallSaga.DialogueSystem;
+using FrostfallSaga.Core.Dialogues;
 using FrostfallSaga.Utils.Trees;
 using System.Collections.Generic;
 
@@ -11,7 +11,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
     {
         private DialogueSO _dialogueSO;
         private bool _showTree = true;
-        private Dictionary<TreeNode<DialogueLine>, bool> _nodeFoldouts = new();
+        private readonly Dictionary<TreeNode<DialogueLine>, bool> _nodeFoldouts = new();
 
         private void OnEnable()
         {
@@ -25,7 +25,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Dialogue Tree Editor", EditorStyles.boldLabel);
 
-            if (_dialogueSO.DialogueTreeRoot == null)
+            if (_dialogueSO.DialogueTreeRoot == null || _dialogueSO.DialogueTreeRoot.GetData() == null)
             {
                 if (GUILayout.Button("Create Root Node"))
                 {
