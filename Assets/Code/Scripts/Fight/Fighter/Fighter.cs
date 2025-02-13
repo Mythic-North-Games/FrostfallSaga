@@ -575,7 +575,7 @@ namespace FrostfallSaga.Fight.Fighters
         private void ResetStatsToDefaultConfiguration()
         {
             _stats.maxHealth = _initialStats.maxHealth + FighterClass.ClassMaxHealth;
-            _stats.health = _initialStats.maxHealth;
+            _stats.health = _initialStats.health;
             _stats.maxActionPoints = _initialStats.maxActionPoints + FighterClass.ClassMaxActionPoints;
             _stats.actionPoints = _initialStats.maxActionPoints;
             _stats.maxMovePoints = _initialStats.maxMovePoints + FighterClass.ClassMaxMovePoints;
