@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Code/Scripts/Core/Cities.meta
 guid: a060d581e24f3dd30b379111bbd0eeac
-========
-guid: 03821d46fc7c811f49e6271216cc0671
->>>>>>>> main:Assets/Code/Scripts/Core/Entities.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

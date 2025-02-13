@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 137409143641979883, guid: c0efe57f7e9561143b163beabd1831c3, type: 3}
       propertyPath: <EntityConfiguration>k__BackingField
       value: 
-      objectReference: {fileID: 11400000, guid: b7e92890f66efb24ca7baca0d5973873, type: 2}
+      objectReference: {fileID: 11400000, guid: 2feb0362d51c4ed4e9245678b6bef79f, type: 2}
     - target: {fileID: 137409143641979883, guid: c0efe57f7e9561143b163beabd1831c3, type: 3}
       propertyPath: <EntityAnimationController>k__BackingField
       value: 
