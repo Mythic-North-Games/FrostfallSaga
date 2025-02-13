@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using UnityEditor.Experimental.GraphView;
@@ -17,8 +18,11 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
         public TreeNode<DialogueLine> TreeNode { get; private set; }
         public DialogueLine Data => TreeNode.GetData();
+        public int Depth { get; private set; }
         public Port InputPort { get; private set; }
         public Port OutputPort { get; private set; }
+        public DialogueNode ParentNode { get; private set; }
+        public List<DialogueNode> ChildrenNodes { get; private set; } = new List<DialogueNode>();
 
         private Button _addAnswerButton;
         private Button _addContinuationButton;
@@ -28,9 +32,11 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         private ObjectField _speakerField;
         private Toggle _isRightToggle;
 
-        public DialogueNode(TreeNode<DialogueLine> treeNode)
+        public DialogueNode(TreeNode<DialogueLine> treeNode, int depth, DialogueNode parentNode)
         {
             TreeNode = treeNode;
+            Depth = depth;
+            ParentNode = parentNode;
 
             title = Data.Title;
             style.width = 250;
@@ -38,6 +44,16 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             SetupPorts();
             SetupUI();
             RefreshNode();
+        }
+
+        public void AddChild(DialogueNode childNode)
+        {
+            ChildrenNodes.Add(childNode);
+        }
+
+        public void RemoveChild(DialogueNode childNode)
+        {
+            ChildrenNodes.Remove(childNode);
         }
 
         private void SetupPorts()
@@ -121,9 +137,9 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
             if (Data.Answers != null)
             {
-                foreach (var answer in Data.Answers)
+                foreach (string answer in Data.Answers)
                 {
-                    var answerField = new TextField("Answer") { value = answer };
+                    TextField answerField = new("Answer") { value = answer };
                     answerField.RegisterValueChangedCallback(evt => UpdateAnswer(answer, evt.newValue));
                     _answersContainer.Add(answerField);
                 }
@@ -135,7 +151,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
         private void UpdateAnswer(string oldAnswer, string newAnswer)
         {
-            var answers = Data.Answers.ToList();
+            List<string> answers = Data.Answers.ToList();
             int index = answers.IndexOf(oldAnswer);
             if (index != -1)
             {

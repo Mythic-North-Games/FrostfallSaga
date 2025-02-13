@@ -43,47 +43,48 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
                 AutoSave();
             }
 
-            DialogueNode rootNode = CreateGraphNodeTree(dialogue.DialogueTreeRoot, null);
+            DialogueNode rootNode = CreateGraphNodeTree(dialogue.DialogueTreeRoot, 0, null);
             rootNode.SetPosition(new Rect(500, 100, NODE_WIDTH, NODE_HEIGHT));
         }
 
-        private DialogueNode CreateGraphNodeTree(TreeNode<DialogueLine> treeNode, DialogueNode parentNode, int depth = 0)
+        private DialogueNode CreateGraphNodeTree(TreeNode<DialogueLine> treeNode, int depth, DialogueNode parentNode)
         {
-            DialogueNode graphNode = CreateDialogueNode(treeNode);
-
-            if (parentNode != null)
-            {
-                ConnectNodes(parentNode, graphNode);
-                AutoPositionChildren(parentNode);
-            }
-
+            DialogueNode graphNode = CreateDialogueNode(treeNode, depth, parentNode);
             foreach (TreeNode<DialogueLine> child in treeNode.GetChildren())
             {
-                CreateGraphNodeTree(child, graphNode);
+                CreateGraphNodeTree(child, depth + 1, graphNode);
             }
 
             return graphNode;
         }
 
-        private DialogueNode CreateDialogueNode(TreeNode<DialogueLine> treeNode)
+        private DialogueNode CreateDialogueNode(TreeNode<DialogueLine> treeNode, int depth, DialogueNode parentNode)
         {
-            DialogueNode node = new(treeNode);
-            node.onAnswerAdded += HandleAnswerAdded;
-            node.OnAddLineContinuation += HandleContinuationAdded;
-            node.onNodeRemoved += HandleNodeRemoved;
-            node.onNodeModified += AutoSave;
-            AddElement(node);
-            return node;
+            DialogueNode newNode = new(treeNode, depth, parentNode);
+            newNode.onAnswerAdded += HandleAnswerAdded;
+            newNode.OnAddLineContinuation += HandleContinuationAdded;
+            newNode.onNodeRemoved += HandleNodeRemoved;
+            newNode.onNodeModified += AutoSave;
+            AddElement(newNode);
+
+            if (parentNode != null)
+            {
+                ConnectNodes(parentNode, newNode);
+                parentNode.AddChild(newNode);
+                AutoPositionChildren(parentNode);
+            }
+
+            return newNode;
         }
 
         private void AutoPositionChildren(DialogueNode parentNode)
         {
-            List<DialogueNode> children = parentNode.TreeNode.GetChildren().Select(child => GetGraphNode(child)).ToList();
+            List<DialogueNode> children = parentNode.ChildrenNodes;
             if (children.Count == 0) return;
 
             Rect parentRect = parentNode.GetPosition();
             float startX = parentRect.x - (children.Count - 1) * HORIZONTAL_SPACING / 2;
-            float newY = parentRect.y + VERTICAL_SPACING;
+            float newY = parentRect.y + (VERTICAL_SPACING * parentNode.Depth + 1);
 
             for (int i = 0; i < children.Count; i++)
             {
@@ -103,10 +104,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             );
             AutoSave();
 
-            DialogueNode newNode = CreateDialogueNode(newTreeNode);
-            ConnectNodes(parentNode, newNode);
-            AutoPositionChildren(parentNode);
-
+            CreateDialogueNode(newTreeNode, parentNode.Depth + 1, parentNode);
             parentNode.RefreshNode();
         }
 
@@ -117,15 +115,13 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             parentNode.TreeNode.AddChild(newTreeNode);
             AutoSave();
 
-            DialogueNode newNode = CreateDialogueNode(newTreeNode);
-            ConnectNodes(parentNode, newNode);
-            AutoPositionChildren(parentNode);
-
+            DialogueNode newNode = CreateDialogueNode(newTreeNode, parentNode.Depth + 1, parentNode);
             parentNode.RefreshNode();
         }
 
         private void HandleNodeRemoved(DialogueNode nodeToRemove)
         {
+            DialogueNode parentNode = nodeToRemove.ParentNode;
             TreeNode<DialogueLine> parentTreeNode = nodeToRemove.TreeNode.GetParent();
             if (parentTreeNode == null)
             {
@@ -145,7 +141,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             AutoSave();
 
             RemoveNodeAndChildrenInGraph(nodeToRemove);
-            AutoPositionChildren(GetGraphNode(parentTreeNode));
+            AutoPositionChildren(parentNode);
         }
 
         private void RemoveNodeAndChildrenInGraph(DialogueNode nodeToRemove)
@@ -194,11 +190,6 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         {
             if (_currentDialogue == null) return;
             EditorUtility.SetDirty(_currentDialogue);
-        }
-
-        private DialogueNode GetGraphNode(TreeNode<DialogueLine> treeNode)
-        {
-            return graphElements.OfType<DialogueNode>().FirstOrDefault(n => n.TreeNode == treeNode);
         }
     }
 }

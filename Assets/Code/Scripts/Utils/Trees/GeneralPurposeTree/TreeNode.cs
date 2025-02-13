@@ -8,7 +8,7 @@ namespace FrostfallSaga.Utils.Trees
     {
         private T _data;
         private List<TreeNode<T>> _children;
-        [NonSerialized] private TreeNode<T> _parent;
+        private TreeNode<T> _parent;
 
         public TreeNode(T data)
         {
@@ -78,16 +78,6 @@ namespace FrostfallSaga.Utils.Trees
         public TreeNode<T> GetParent()
         {
             return _parent;
-        }
-
-        public int GetDepth()
-        {
-            if (_parent == null)
-            {
-                return 0;
-            }
-
-            return 1 + _parent.GetDepth();
         }
     }
 }
