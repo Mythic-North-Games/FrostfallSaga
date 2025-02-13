@@ -28,6 +28,7 @@ namespace FrostfallSaga.PlayModeTests
             uIAudioClipsConfig.fightWonSound = AudioClip.Create("FightWon", 44100, 1, 44100, false);
             uIAudioClipsConfig.fightLostSound = AudioClip.Create("FightLost", 44100, 1, 44100, false);
             audioManager.GetType().GetField("uiAudioClipsConfig", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(audioManager, uIAudioClipsConfig);
+            audioManager.InitializeAudioClipSelectorFromTests(uIAudioClipsConfig);
         }
 
         [TearDown]

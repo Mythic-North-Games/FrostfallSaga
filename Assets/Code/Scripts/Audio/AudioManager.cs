@@ -52,5 +52,15 @@ namespace FrostfallSaga.Audio
                 Debug.LogError("Audio clip " + sound +" not found");
             }
         }
+
+        #if UNITY_EDITOR
+
+
+        public void InitializeAudioClipSelectorFromTests(UIAudioClipsConfig uIAudioClipsConfig) {
+            uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
+        }
+        
+        
+        #endif
     }
 }

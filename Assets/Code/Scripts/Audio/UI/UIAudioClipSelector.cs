@@ -4,27 +4,34 @@ using UnityEngine;
 
 namespace FrostfallSaga.Audio
 {
-    public class UIAudioClipSelector : MonoBehaviour
+    public class UIAudioClipSelector
     {
-        private UIAudioClipsConfig uIAudioClipsConfig;
+        private UIAudioClipsConfig _uIAudioClipsConfig ;
 
-        public UIAudioClipSelector(UIAudioClipsConfig config){
-            uIAudioClipsConfig = config;
+        public UIAudioClipSelector(UIAudioClipsConfig uIAudioClipsConfig) {
+            _uIAudioClipsConfig = uIAudioClipsConfig;
         }
 
         public AudioClip SelectAudioClip(UISounds soundName){
+
+            if (_uIAudioClipsConfig == null)
+            {
+                Debug.LogError("UIAudioClipsConfig n'est pas assigné dans UIAudioClipSelector !");
+                return null;
+            }
+
             switch (soundName)
             {
                 case UISounds.FightBegin:
-                    return uIAudioClipsConfig.fightBeginSound;
+                    return _uIAudioClipsConfig.fightBeginSound;
                 case UISounds.ButtonClick:
-                    return uIAudioClipsConfig.buttonClickSound;
+                    return _uIAudioClipsConfig.buttonClickSound;
                 case UISounds.ButtonHover:
-                    return uIAudioClipsConfig.buttonHoverSound;
+                    return _uIAudioClipsConfig.buttonHoverSound;
                 case UISounds.FightWon:
-                    return uIAudioClipsConfig.fightWonSound;
+                    return _uIAudioClipsConfig.fightWonSound;
                 case UISounds.FightLost:
-                    return uIAudioClipsConfig.fightLostSound;
+                    return _uIAudioClipsConfig.fightLostSound;
                 default:
                     return null;
             }
