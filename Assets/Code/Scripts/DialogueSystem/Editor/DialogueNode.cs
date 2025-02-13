@@ -1,111 +1,148 @@
 using System;
+using System.Linq;
 using UnityEngine.UIElements;
+using UnityEditor.UIElements;
 using UnityEditor.Experimental.GraphView;
 using FrostfallSaga.Core.Dialogues;
+using FrostfallSaga.Utils.Trees;
 
 namespace FrostfallSaga.FFSEditor.DialogueSystem
 {
     public class DialogueNode : Node
     {
-        public DialogueLine Data { get; private set; }
-        public Action<DialogueNode> OnNodeSelected;
+        public Action<DialogueNode> onAnswerAdded;
+        public Action<DialogueNode> OnAddLineContinuation;
+        public Action<DialogueNode> onNodeRemoved;
+        public Action onNodeModified;
 
-        private TextField _titleField;
-        private TextField _richTextField;
-        private VisualElement _answersContainer;
-
-        // ✅ Make input & output ports public
+        public TreeNode<DialogueLine> TreeNode { get; private set; }
+        public DialogueLine Data => TreeNode.GetData();
         public Port InputPort { get; private set; }
         public Port OutputPort { get; private set; }
 
-        public string GUID { get; private set; } // Unique identifier
+        private Button _addAnswerButton;
+        private Button _addContinuationButton;
+        private VisualElement _answersContainer;
+        private TextField _titleField;
+        private TextField _richTextField;
+        private ObjectField _speakerField;
+        private Toggle _isRightToggle;
 
-        public DialogueNode(DialogueLine data, Action<DialogueNode> onNodeSelected)
+        public DialogueNode(TreeNode<DialogueLine> treeNode)
         {
-            Data = data;
-            OnNodeSelected = onNodeSelected;
-            title = string.IsNullOrEmpty(data.Title) ? "Untitled" : data.Title;
-            GUID = Guid.NewGuid().ToString(); // ✅ Generate a unique ID
+            TreeNode = treeNode;
 
-            // Setup UI
+            title = Data.Title;
+            style.width = 250;
+
             SetupPorts();
-            SetupTitleField();
-            SetupRichTextField();
-            SetupAnswersContainer();
-            RefreshExpandedState();
+            SetupUI();
+            RefreshNode();
         }
 
         private void SetupPorts()
         {
-            // ✅ Use Port.Create<Edge> instead of InstantiatePort
-            InputPort = Port.Create<Edge>(Orientation.Vertical, Direction.Input, Port.Capacity.Single, typeof(bool));
+            InputPort = InstantiatePort(Orientation.Vertical, Direction.Input, Port.Capacity.Single, typeof(DialogueNode));
             InputPort.portName = "Input";
             inputContainer.Add(InputPort);
 
-            OutputPort = Port.Create<Edge>(Orientation.Vertical, Direction.Output, Port.Capacity.Multi, typeof(bool));
+            OutputPort = InstantiatePort(Orientation.Vertical, Direction.Output, Port.Capacity.Multi, typeof(DialogueNode));
             OutputPort.portName = "Output";
             outputContainer.Add(OutputPort);
         }
 
-        private void SetupTitleField()
+        private void SetupUI()
         {
+            var container = new VisualElement();
+            container.style.flexDirection = FlexDirection.Column;
+            container.style.paddingBottom = 5;
+
             _titleField = new TextField("Title") { value = Data.Title };
-            _titleField.RegisterValueChangedCallback(evt =>
-            {
-                Data.SetTitle(evt.newValue);
-                title = evt.newValue;
-            });
-            mainContainer.Add(_titleField);
-        }
+            _titleField.RegisterValueChangedCallback(evt => UpdateTitle(evt.newValue));
+            container.Add(_titleField);
 
-        private void SetupRichTextField()
-        {
-            _richTextField = new TextField("Rich Text") { value = Data.RichText, multiline = true };
-            _richTextField.RegisterValueChangedCallback(evt =>
-            {
-                Data.SetRichText(evt.newValue);
-            });
-            mainContainer.Add(_richTextField);
-        }
+            _richTextField = new TextField("Text") { value = Data.RichText, multiline = true };
+            _richTextField.RegisterValueChangedCallback(evt => UpdateRichText(evt.newValue));
+            container.Add(_richTextField);
 
-        private void SetupAnswersContainer()
-        {
+            _speakerField = new ObjectField("Speaker") { objectType = typeof(DialogueParticipantSO), value = Data.Speaker };
+            _speakerField.RegisterValueChangedCallback(evt => UpdateSpeaker(evt.newValue as DialogueParticipantSO));
+            container.Add(_speakerField);
+
+            _isRightToggle = new Toggle("Is Right") { value = Data.IsRight };
+            _isRightToggle.RegisterValueChangedCallback(evt => UpdateIsRight(evt.newValue));
+            container.Add(_isRightToggle);
+
             _answersContainer = new VisualElement();
-            mainContainer.Add(_answersContainer);
-            RefreshAnswers();
+            _answersContainer.style.marginTop = 5;
+            container.Add(_answersContainer);
+
+            _addAnswerButton = new Button(() => onAnswerAdded?.Invoke(this)) { text = "Add Answer" };
+            _addContinuationButton = new Button(() => OnAddLineContinuation?.Invoke(this)) { text = "Add Line Continuation" };
+
+            container.Add(_addAnswerButton);
+            container.Add(_addContinuationButton);
+
+            var removeButton = new Button(() => onNodeRemoved?.Invoke(this)) { text = "Remove Node" };
+            removeButton.style.marginTop = 5;
+            container.Add(removeButton);
+
+            mainContainer.Add(container);
         }
 
-        private void RefreshAnswers()
+        private void UpdateTitle(string newTitle)
+        {
+            Data.SetTitle(newTitle);
+            title = newTitle;
+            onNodeModified?.Invoke();
+        }
+
+        private void UpdateRichText(string newText)
+        {
+            Data.SetRichText(newText);
+            onNodeModified?.Invoke();
+        }
+
+        private void UpdateSpeaker(DialogueParticipantSO newSpeaker)
+        {
+            Data.SetSpeaker(newSpeaker);
+            onNodeModified?.Invoke();
+        }
+
+        private void UpdateIsRight(bool newIsRight)
+        {
+            Data.SetIsRight(newIsRight);
+            onNodeModified?.Invoke();
+        }
+
+        public void RefreshNode()
         {
             _answersContainer.Clear();
+
             if (Data.Answers != null)
             {
-                for (int i = 0; i < Data.Answers.Length; i++)
+                foreach (var answer in Data.Answers)
                 {
-                    int index = i;
-                    var answerField = new TextField($"Answer {index + 1}") { value = Data.Answers[index] };
-                    answerField.RegisterValueChangedCallback(evt =>
-                    {
-                        Data.Answers[index] = evt.newValue;
-                    });
+                    var answerField = new TextField("Answer") { value = answer };
+                    answerField.RegisterValueChangedCallback(evt => UpdateAnswer(answer, evt.newValue));
                     _answersContainer.Add(answerField);
                 }
             }
+
+            _addAnswerButton.SetEnabled(TreeNode.GetChildren().Count == 0 || (Data.Answers != null && Data.Answers.Length > 0));
+            _addContinuationButton.SetEnabled((Data.Answers == null || Data.Answers.Length == 0) && TreeNode.GetChildren().Count == 0);
         }
 
-        public void AddAnswer(string answerText)
+        private void UpdateAnswer(string oldAnswer, string newAnswer)
         {
-            var answersList = new System.Collections.Generic.List<string>(Data.Answers ?? new string[0])
+            var answers = Data.Answers.ToList();
+            int index = answers.IndexOf(oldAnswer);
+            if (index != -1)
             {
-                answerText
-            };
-            Data.SetAnswers(answersList.ToArray());
-            RefreshAnswers();
-        }
-
-        public void Select()
-        {
-            OnNodeSelected?.Invoke(this);
+                answers[index] = newAnswer;
+                Data.SetAnswers(answers.ToArray());
+                onNodeModified?.Invoke();
+            }
         }
     }
 }

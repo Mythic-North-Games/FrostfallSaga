@@ -1,7 +1,7 @@
-using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEditor;
+using UnityEditor.UIElements;
 using FrostfallSaga.Core.Dialogues;
 
 namespace FrostfallSaga.FFSEditor.DialogueSystem
@@ -10,59 +10,140 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
     {
         private DialogueGraphView _graphView;
         private DialogueSO _currentDialogue;
+        private ObjectField _dialogueField;
+        private Editor _inspectorPanel;
 
-        [MenuItem("Window/Dialogue Editor")]
+        [MenuItem("Window/CustomTools/Dialogue Editor")]
         public static void OpenWindow()
         {
             DialogueEditorWindow window = GetWindow<DialogueEditorWindow>();
             window.titleContent = new GUIContent("Dialogue Editor");
-            window.minSize = new Vector2(800, 600);
+            window.minSize = new Vector2(1000, 600);
             window.Show();
         }
 
         private void CreateGUI()
         {
-            // Load UXML Layout
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/DialogueEditor.uxml");
-            visualTree.CloneTree(rootVisualElement);
+            // Root Layout: Horizontal Split
+            var root = rootVisualElement;
+            root.style.flexDirection = FlexDirection.Row;
 
-            // Get UI Elements
-            var graphContainer = rootVisualElement.Q<VisualElement>("GraphContainer");
-            var objectField = rootVisualElement.Q<ObjectField>("DialogueObjectField");
-            var saveButton = rootVisualElement.Q<Button>("SaveButton");
-
-            // Initialize Graph View
-            _graphView = new DialogueGraphView();
-            _graphView.StretchToParentSize();
-            graphContainer.Add(_graphView);
-
-            // Setup Object Field
-            objectField.objectType = typeof(DialogueSO);
-            objectField.RegisterValueChangedCallback(evt =>
+            // Left Side: Graph View
+            _graphView = new DialogueGraphView
             {
+                style = { flexGrow = 1 } // Takes most space
+            };
+            root.Add(_graphView);
+
+            // Right Side: Vertical Controls & Inspector
+            var rightPanel = new VisualElement
+            {
+                style =
+                {
+                    width = 300,
+                    flexDirection = FlexDirection.Column,
+                    paddingLeft = 10,
+                    paddingRight = 10
+                }
+            };
+            root.Add(rightPanel);
+
+            // === TOP: Dialogue Controls ===
+            var controlPanel = new VisualElement
+            {
+                style =
+                {
+                    flexDirection = FlexDirection.Column,
+                    paddingBottom = 10
+                }
+            };
+            rightPanel.Add(controlPanel);
+
+            // Create New Dialogue Button
+            var newButton = new Button(CreateNewDialogue)
+            {
+                text = "Create New Dialogue"
+            };
+            controlPanel.Add(newButton);
+
+            // Load Dialogue Field
+            _dialogueField = new ObjectField("Load Dialogue")
+            {
+                objectType = typeof(DialogueSO)
+            };
+            _dialogueField.RegisterValueChangedCallback(evt =>
+            {
+                if (evt.newValue == null)
+                {
+                    _graphView.ClearGraph();
+
+                    return;
+                }
                 _currentDialogue = evt.newValue as DialogueSO;
                 LoadDialogue(_currentDialogue);
             });
+            controlPanel.Add(_dialogueField);
 
-            // Save Button
-            saveButton.clicked += SaveDialogue;
+            // === MIDDLE: Separator ===
+            var separator = new VisualElement
+            {
+                style =
+                {
+                    borderTopWidth = 5,
+                    borderTopColor = new Color(0.5f, 0.5f, 0.5f),
+                    marginTop = 10,
+                    marginBottom = 10
+                }
+            };
+            rightPanel.Add(separator);
+
+            // === BOTTOM: Inspector Panel ===
+            IMGUIContainer inspectorContainer = new(() =>
+            {
+                if (_inspectorPanel != null)
+                {
+                    _inspectorPanel.OnInspectorGUI();
+                }
+            });
+            rightPanel.Add(inspectorContainer);
+        }
+
+        private void CreateNewDialogue()
+        {
+            string path = EditorUtility.SaveFilePanelInProject(
+                "Save New Dialogue",
+                "NewDialogue",
+                "asset",
+                "Choose a location to save the new DialogueSO"
+            );
+
+            if (string.IsNullOrEmpty(path)) return;
+
+            DialogueSO newDialogue = ScriptableObject.CreateInstance<DialogueSO>();
+            AssetDatabase.CreateAsset(newDialogue, path);
+            AssetDatabase.SaveAssets();
+
+            _currentDialogue = newDialogue;
+            _dialogueField.value = newDialogue;
+            LoadDialogue(newDialogue);
         }
 
         private void LoadDialogue(DialogueSO dialogue)
         {
             if (dialogue == null) return;
-
             _graphView.PopulateFromDialogue(dialogue);
+            UpdateInspector(dialogue);
         }
 
-        private void SaveDialogue()
+        private void UpdateInspector(DialogueSO dialogue)
         {
-            if (_currentDialogue == null) return;
-
-            _graphView.ApplyToDialogue(_currentDialogue);
-            EditorUtility.SetDirty(_currentDialogue);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
+            if (dialogue == null) return;
+            _inspectorPanel = Editor.CreateEditor(dialogue);
+            if (_inspectorPanel is DialogueSOEditor dialogueInspector)
+            {
+                dialogueInspector.onDialogueChanged += () => _graphView.PopulateFromDialogue(dialogue);
+            }
+            rootVisualElement.MarkDirtyRepaint();
         }
     }
 }

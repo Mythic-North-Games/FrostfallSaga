@@ -8,12 +8,12 @@ namespace FrostfallSaga.Utils.Trees
     {
         private T _data;
         private List<TreeNode<T>> _children;
-        private TreeNode<T> _parent;
+        [NonSerialized] private TreeNode<T> _parent;
 
         public TreeNode(T data)
         {
             _data = data;
-            _children = new List<TreeNode<T>>();
+            _children = new List<TreeNode<T>>(); 
         }
 
         /// <summary>
@@ -35,12 +35,11 @@ namespace FrostfallSaga.Utils.Trees
         {
             if (_children.Contains(child))
             {
-                child._parent = null;
                 _children.Remove(child);
                 return true;
             }
 
-            foreach (var node in _children)
+            foreach (TreeNode<T> node in _children)
             {
                 if (node.RemoveChild(child))
                 {
@@ -79,6 +78,16 @@ namespace FrostfallSaga.Utils.Trees
         public TreeNode<T> GetParent()
         {
             return _parent;
+        }
+
+        public int GetDepth()
+        {
+            if (_parent == null)
+            {
+                return 0;
+            }
+
+            return 1 + _parent.GetDepth();
         }
     }
 }
