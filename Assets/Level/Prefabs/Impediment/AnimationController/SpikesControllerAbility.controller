@@ -20,7 +20,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c156177e7776ef7458b880d3611e5276, type: 2}
+  m_Motion: {fileID: 7400000, guid: c1f57fca41c089b49a19f54b5b33a26b, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -32,7 +32,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpikesController
+  m_Name: SpikesControllerAbility
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:

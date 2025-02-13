@@ -4,12 +4,8 @@ using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
-    [CreateAssetMenu(
-        fileName = "InternalAbilityAnimation",
-        menuName = "ScriptableObjects/Fight/Abilities/Animations/InternalAbilityAnimation",
-        order = 0
-    )]
-    public class InternalAbilityAnimationSO : AAbilityAnimationSO
+
+    public class InternalAbilityAnimationSO : AAbilityAnimation
     {
         [field: SerializeField] public string AnimationStateName { get; private set; }
         [field: SerializeField, Range(0f, 99f)] public float AnimationDuration { get; private set; }

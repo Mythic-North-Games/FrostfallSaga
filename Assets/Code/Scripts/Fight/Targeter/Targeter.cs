@@ -8,6 +8,7 @@ using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
 using FrostfallSaga.Utils;
+using FrostfallSaga.Fight.FightCells.Impediments;
 
 namespace FrostfallSaga.Fight.Targeters
 {
@@ -38,6 +39,9 @@ namespace FrostfallSaga.Fight.Targeters
 
         [field: SerializeField, Tooltip("Can target all fighter types by default. Add options to restrain who can be targeted.")]
         public ETarget[] TargetsToExclude { get; private set; }
+
+        [field: SerializeField, Tooltip("Can target all cells types by default. Add options to restrain which cell can be targeted.")]
+        public EImpediments[] CellsToExclude { get; private set; }
 
         [field: SerializeField, Tooltip("Can target all heights by default. Add options to restrain which heights can be targeted."), Range(-2, 2)]
         public int[] RelativeHeightsToExclude { get; private set; }
@@ -101,6 +105,7 @@ namespace FrostfallSaga.Fight.Targeters
             }
             CheckExcludedTargets(targetedCells, initiatorCell, fightersTeams);
             CheckExcludedRelativeHeights(targetedCells, initiatorCell, fightersTeams);
+            CheckExcludedCells(targetedCells);
             return targetedCells;
         }
 
@@ -401,6 +406,36 @@ namespace FrostfallSaga.Fight.Targeters
             }
             return true;
         }
+
+        
+     private bool CheckExcludedCells(FightCell[] targetedCells)
+{
+    foreach (EImpediments impediment in CellsToExclude)
+    {
+        switch (impediment)
+        {
+            case EImpediments.TRAP:
+                if (targetedCells.Any(cell => cell.HasTrap()))
+                {
+                    throw new TargeterUnresolvableException("Traps excluded from available targets.");
+                }
+                break;
+
+            case EImpediments.OBSTACLE:
+                if (targetedCells.Any(cell => cell.HasObstacle()))
+                {
+                    throw new TargeterUnresolvableException("Obstacles excluded from available targets.");
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+    return true;
+}
+
+
 
         private List<FightCell> GetCellsUntilStoppedByInaccessible(List<FightCell> targetedCells)
         {

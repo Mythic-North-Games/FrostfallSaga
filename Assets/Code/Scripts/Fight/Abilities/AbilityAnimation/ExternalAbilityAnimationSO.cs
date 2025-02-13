@@ -4,12 +4,8 @@ using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
-    [CreateAssetMenu(
-        fileName = "ExternalAbilityAnimation",
-        menuName = "ScriptableObjects/Fight/Abilities/Animations/ExternalAbilityAnimation",
-        order = 0
-    )]
-    public class ExternalAbilityAnimationSO : AAbilityAnimationSO
+  
+    public class ExternalAbilityAnimationSO : AAbilityAnimation
     {
         [field: SerializeField] public GameObject ProjectilePrefab { get; private set; }
         [SerializeReference] public AExternalAbilityAnimationExecutor Executor;

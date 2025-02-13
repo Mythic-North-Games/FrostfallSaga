@@ -47,7 +47,7 @@ namespace FrostfallSaga.Fight.Fighters
         [field: SerializeField] public PersonalityTraitSO PersonalityTrait { get; private set; }
         [SerializeField] private Inventory _inventory;
         [field: SerializeField] public WeaponSO Weapon { get; private set; }
-        [field: SerializeField] public AAbilityAnimationSO DirectAttackAnimation { get; private set; }
+        [field: SerializeField] public AAbilityAnimation DirectAttackAnimation { get; private set; }
         [field: SerializeField] public ActiveAbilitySO[] ActiveAbilities { get; private set; }
         [field: SerializeField] public PassiveAbilitySO[] PassiveAbilities { get; private set; }
         [field: SerializeField] public bool IsParalyzed { get; private set; }

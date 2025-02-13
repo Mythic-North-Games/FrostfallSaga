@@ -36,7 +36,7 @@ namespace FrostfallSaga.KingdomToFight
         #endregion
 
         #region Animations
-        [field: SerializeField] public AAbilityAnimationSO DirectAttackAnimation { get; private set; }
+        [field: SerializeField] public AAbilityAnimation DirectAttackAnimation { get; private set; }
         [field: SerializeField] public string HealSelfAnimationName { get; private set; }
         [field: SerializeField] public string ReceiveDamageAnimationName { get; private set; }
         [field: SerializeField] public string ReduceStatAnimationName { get; private set; }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8924000687458178706}
   - component: {fileID: 3852480219807051105}
   m_Layer: 0
-  m_Name: SM_Env_Trench_Spikes_01
+  m_Name: SpikesAnimationAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 142830}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -119,7 +119,7 @@ Animator:
   m_GameObject: {fileID: 142830}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 54fa602d5162da44097531e9855c5f93, type: 2}
+  m_Controller: {fileID: 9100000, guid: a10c3ed5d1a2ad44b96fae5c68880cb5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -139,7 +139,7 @@ Animation:
   m_GameObject: {fileID: 142830}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: c156177e7776ef7458b880d3611e5276, type: 2}
+  m_Animation: {fileID: 7400000, guid: c1f57fca41c089b49a19f54b5b33a26b, type: 2}
   m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 1

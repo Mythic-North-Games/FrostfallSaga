@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
-using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightCells
 {
@@ -62,7 +61,7 @@ namespace FrostfallSaga.Fight.FightCells
         {
             List<AFightCellAlteration> toRemove = new();
             foreach (AFightCellAlteration alteration in _activeTemporaryAlterations.Keys.ToList())
-            {
+            {         
                 _activeTemporaryAlterations[alteration]--;
                 if (_activeTemporaryAlterations[alteration] == 0)
                 {

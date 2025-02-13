@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a92309899b8b9f04ea20210cad65d66f, type: 3}
-  m_Name: ExampleTrapAdder
+  m_Name: SpikesTrapAdder
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Example trap adder
+  <Name>k__BackingField: 
   <Description>k__BackingField: 
-  <IconSprite>k__BackingField: {fileID: 21300000, guid: a14e6ee680df42f4c99bf69bc3d6b9ca, type: 3}
+  <IconSprite>k__BackingField: {fileID: 21300000, guid: 34974e1ee8b6a9b4d969ffebd6d984d2, type: 3}
   Effects: []
   <Targeter>k__BackingField:
     <OriginCellRange>k__BackingField: 5
-    <CellsSequence>k__BackingField:
-    - {x: 0, y: 0}
+    <CellsSequence>k__BackingField: []
     <StartFromInitiator>k__BackingField: 0
     <FighterMandatory>k__BackingField: 0
     <TargetsToExclude>k__BackingField: 
@@ -31,20 +30,20 @@ MonoBehaviour:
   <ActionPointsCost>k__BackingField: 0
   <GodFavorsPointsCost>k__BackingField: 0
   <Dodgable>k__BackingField: 0
-  Animation: {fileID: 11400000, guid: 22be110847679934abaaf1e248178acb, type: 2}
+  Animation: {fileID: 11400000, guid: 2a3db1e4523c62f4f8fafcf1cd0a0e5e, type: 2}
   <Masterstrokable>k__BackingField: 0
   MasterstrokeEffects: []
   CellAlterations:
-  - rid: 7399184562045845591
+  - rid: 7399184692357103630
   references:
     version: 2
     RefIds:
-    - rid: 7399184562045845591
+    - rid: 7399184692357103630
       type: {class: AddImpedimentAlteration, ns: FrostfallSaga.Fight.FightCells.FightCellAlterations, asm: FrostfallSaga.Fight}
       data:
-        <IsPermanent>k__BackingField: 1
+        <IsPermanent>k__BackingField: 0
         <Duration>k__BackingField: 0
         <Name>k__BackingField: 
         <Description>k__BackingField: 
-        <Icon>k__BackingField: {fileID: 0}
-        <Impediment>k__BackingField: {fileID: 11400000, guid: b20f47e994f2fd646a344bebaf3c11bc, type: 2}
+        <Icon>k__BackingField: {fileID: 21300000, guid: 34974e1ee8b6a9b4d969ffebd6d984d2, type: 3}
+        <Impediment>k__BackingField: {fileID: 11400000, guid: 28a39012139327f4baa536e50cfa4610, type: 2}

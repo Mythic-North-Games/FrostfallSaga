@@ -21,7 +21,7 @@ namespace FrostfallSaga.Fight
         public FighterClassSO fighterClass;
         public PersonalityTraitSO personalityTrait;
         public Inventory inventory;
-        public AAbilityAnimationSO directAttackAnimation;
+        public AAbilityAnimation directAttackAnimation;
         public ActiveAbilitySO[] activeAbilities;
         public PassiveAbilitySO[] passiveAbilities;
         public string receiveDamageAnimationName;
@@ -40,7 +40,7 @@ namespace FrostfallSaga.Fight
             FighterClassSO fighterClass,
             PersonalityTraitSO personalityTrait,
             Inventory inventory,
-            AAbilityAnimationSO directAttackAnimation,
+            AAbilityAnimation directAttackAnimation,
             ActiveAbilitySO[] activeAbilities,
             PassiveAbilitySO[] passiveAbilities,
             string receiveDamageAnimationName,

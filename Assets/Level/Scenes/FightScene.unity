@@ -2788,7 +2788,7 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 81344141}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Impediment>k__BackingField: {fileID: 11400000, guid: e27591e5c715d4241ba74f107f9fa666, type: 2}
 --- !u!114 &81344141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50348,7 +50348,7 @@ MonoBehaviour:
     name: Nicolaz
     sessionId: 
     entityID: 0
-    icon: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
+    icon: {fileID: 21300000, guid: 34974e1ee8b6a9b4d969ffebd6d984d2, type: 3}
     diamondIcon: {fileID: 21300000, guid: 54602b48bb6b71e4b967d9777b79ae1e, type: 3}
     initialStats:
       health: 100
@@ -50465,7 +50465,7 @@ MonoBehaviour:
         <ItemCount>k__BackingField: 0
         <MaxItemCount>k__BackingField: 99
     activeAbilities:
-    - {fileID: 11400000, guid: 5f043d044d913ad4682a195b63aa9106, type: 2}
+    - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
     - {fileID: 11400000, guid: b22ba3c2797bc25439231a90f23620ab, type: 2}
     - {fileID: 11400000, guid: 436fd3c6fdddb5b05a6357cf2d05e708, type: 2}
     passiveAbilities:
@@ -50595,7 +50595,7 @@ MonoBehaviour:
         <ItemCount>k__BackingField: 0
         <MaxItemCount>k__BackingField: 99
     activeAbilities:
-    - {fileID: 11400000, guid: 5f043d044d913ad4682a195b63aa9106, type: 2}
+    - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
     - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
     - {fileID: 11400000, guid: 3d87480334b9b4742a045fc9f48e94c5, type: 2}
     passiveAbilities:
@@ -50725,7 +50725,7 @@ MonoBehaviour:
         <ItemCount>k__BackingField: 0
         <MaxItemCount>k__BackingField: 99
     activeAbilities:
-    - {fileID: 11400000, guid: 5f043d044d913ad4682a195b63aa9106, type: 2}
+    - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
     - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
     - {fileID: 11400000, guid: 3d87480334b9b4742a045fc9f48e94c5, type: 2}
     passiveAbilities:
