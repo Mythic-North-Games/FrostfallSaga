@@ -115,7 +115,7 @@ namespace FrostfallSaga.Core.Dialogues
             SetupDialogueLine(_currentDialogueLine.GetData());
             DisplayDialogueLineContainer();
             yield return new WaitForSeconds(_timeBeforeAnswersDisplay);
-            if (_currentDialogueLine.GetData().Answers.Length > 0)
+            if (_currentDialogueLine.GetData().Answers != null && _currentDialogueLine.GetData().Answers.Length > 0)
             {
                 StartCoroutine(DisplayAnswers());
             }

@@ -27,6 +27,10 @@ namespace FrostfallSaga.Core.Dialogues
             Speaker = speaker;
             IsRight = isRight;
             Answers = answers;
+            if (answers == null)
+            {
+                Answers = Array.Empty<string>();
+            }
         }
 
         public void SetTitle(string newTitle)
