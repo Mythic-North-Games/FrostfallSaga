@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7321d28e8e2df4cbb953100a3a8f86, type: 3}
   m_Name: ExplosionTrap
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: 1879769179923522, guid: 533c737aeedeb284d948c35ffbba9fe9, type: 3}
+  <Prefab>k__BackingField: {fileID: 1714552243977966, guid: 16ea51caab512f94185d974a6b1c2adc, type: 3}
   <Destroyable>k__BackingField: 1
   SpawnController:
     rid: 4056982954477355016
@@ -50,6 +50,7 @@ MonoBehaviour:
   OnCellEffects:
   - rid: 7399184556376981664
   CellAlterations: []
+  TrapType: 3
   references:
     version: 2
     RefIds:

@@ -14,7 +14,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
     public class StaticObjectsExecutor : AExternalAbilityAnimationExecutor
     {
         [SerializeField] float adjustedOffset ;
-       
+
         public override void Execute(Fighter fighterThatExecutes, FightCell[] abilityCells, GameObject objectPrefab)
 
         {
@@ -22,9 +22,15 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
             foreach (FightCell targetCell in abilityCells)
             {
                 GameObject projectile = UnityEngine.Object.Instantiate(objectPrefab, targetCell.transform);
-                    Vector3 adjustedPosition = projectile.transform.position;
-                    adjustedPosition.y += adjustedOffset; 
-                    projectile.transform.position = adjustedPosition;
+                Vector3 adjustedPosition = projectile.transform.position;
+                adjustedPosition.y += adjustedOffset;
+                projectile.transform.position = adjustedPosition;
+
+                AnimationEventListener animationListener = projectile.GetComponent<AnimationEventListener>();
+                if (animationListener != null)
+                {
+                    animationListener.OnAnimationEnd += targetCell.HandleAnimationEnd;
+                }
             }
 
         }

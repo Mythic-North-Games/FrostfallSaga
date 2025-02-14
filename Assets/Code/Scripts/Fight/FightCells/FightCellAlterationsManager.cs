@@ -40,7 +40,7 @@ namespace FrostfallSaga.Fight.FightCells
             _nextAlterationToAdd.onAlterationApplied += OnNewAlterationApplied;
 
             AFightCellAlteration currentAlterationOfType = GetFightCellAlterationOfSameType(newAlteration);
-            if (currentAlterationOfType != null)
+            if (currentAlterationOfType != null && currentAlterationOfType is not AddImpedimentAlteration)
             {
                 if (!currentAlterationOfType.CanBeReplaced)
                 {
@@ -61,7 +61,7 @@ namespace FrostfallSaga.Fight.FightCells
         {
             List<AFightCellAlteration> toRemove = new();
             foreach (AFightCellAlteration alteration in _activeTemporaryAlterations.Keys.ToList())
-            {         
+            {
                 _activeTemporaryAlterations[alteration]--;
                 if (_activeTemporaryAlterations[alteration] == 0)
                 {
@@ -73,8 +73,11 @@ namespace FrostfallSaga.Fight.FightCells
             {
                 alterationToRemove.onAlterationRemoved += OnAlterationRemoved;
                 alterationToRemove.Remove(_fightCell);
+
+                _activeTemporaryAlterations.Remove(alterationToRemove);
             }
         }
+
 
         private void OnNewAlterationApplied(FightCell fightCell, AFightCellAlteration apppliedAlteration)
         {

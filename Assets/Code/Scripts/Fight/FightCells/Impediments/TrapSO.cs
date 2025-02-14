@@ -23,44 +23,48 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
         [SerializeReference] public AEffect[] OtherCellsEffects = { };
         [SerializeReference] public AEffect[] OnCellEffects = { };
         [SerializeReference] public AFightCellAlteration[] CellAlterations = { };
+        [SerializeField] public ETrapType TrapType;
 
         public Action onTrapTriggered;
 
         public void Trigger(Fighter receiver, FightCell targetedCell)
         {
-          Dictionary<Fighter, bool> potionRestoreAmounts = new Dictionary<Fighter, bool>
+            Dictionary<Fighter, bool> potionRestoreAmounts = new Dictionary<Fighter, bool>
           {
               { receiver, true }
           };
-          FightCell[] trapTargetCells = Targeter.GetCellsFromSequence(targetedCell.ParentGrid, targetedCell, targetedCell);
+            FightCell[] trapTargetCells = Targeter.GetCellsFromSequence(targetedCell.ParentGrid, targetedCell, targetedCell);
 
-          foreach (var effect in OnCellEffects)
+            foreach (var effect in OnCellEffects)
             {
-                                    effect.ApplyEffect(
-                                    targetedCell.GetFighter(),
-                                    isMasterstroke: false,
-                                    initator: null,
-                                    adjustGodFavorsPoints: true
-                        );
+                effect.ApplyEffect(
+                targetedCell.GetFighter(),
+                isMasterstroke: false,
+                initator: null,
+                adjustGodFavorsPoints: true
+    );
             }
             foreach (var effect in OtherCellsEffects)
             {
-                  trapTargetCells.ToList()
-                    .Where(cell => cell.HasFighter()).ToList()
-                    .ForEach(cell =>
-                        {
-                            if (cell.HasFighter()) {
-                                    effect.ApplyEffect(
-                                    cell.GetFighter(),
-                                    isMasterstroke: false,
-                                    initator: null,
-                                    adjustGodFavorsPoints: true
-                        );
-                            };
-                        }
+                trapTargetCells.ToList()
+                  .Where(cell => cell.HasFighter()).ToList()
+                  .ForEach(cell =>
+                      {
+                          if (cell.HasFighter())
+                          {
+                              effect.ApplyEffect(
+                                cell.GetFighter(),
+                                isMasterstroke: false,
+                                initator: null,
+                                adjustGodFavorsPoints: true
                     );
+                          }
+                          ;
+                      }
+                  );
             }
-            foreach (var cellAteration in CellAlterations){
+            foreach (var cellAteration in CellAlterations)
+            {
                 targetedCell.AlterationsManager.AddNewAlteration(cellAteration);
             }
             TriggerAnimation(targetedCell, receiver);
@@ -80,6 +84,6 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
                 Animation.Execute(fighter, AnimationTargetCells);
             }
         }
-       
+
     }
 }

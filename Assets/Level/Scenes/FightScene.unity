@@ -1785,7 +1785,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 35300296}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &35300296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2788,7 +2789,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 81344141}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 11400000, guid: e27591e5c715d4241ba74f107f9fa666, type: 2}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &81344141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3100,7 +3102,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 103156030}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &103156030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6277,7 +6280,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 219970992}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &219970992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7991,7 +7995,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 294168201}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &294168201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8602,7 +8607,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 326290378}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &326290378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9753,7 +9759,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 367552648}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &367552648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10870,7 +10877,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 391528097}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 11400000, guid: a45cc4e8680f89f46a4907f60f6855da, type: 2}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &391528097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12545,7 +12553,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 432952095}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &432952095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14456,7 +14465,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 486773857}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &486773857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15233,7 +15243,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 503754270}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &503754270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15543,7 +15554,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 511262368}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &511262368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18088,7 +18100,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 622437421}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &622437421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20858,7 +20871,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 713588082}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &713588082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21340,7 +21354,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 720199306}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &720199306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22887,7 +22902,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 786788630}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &786788630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24677,7 +24693,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 853313253}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &853313253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25626,7 +25643,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 880427031}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &880427031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26883,7 +26901,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 920941325}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &920941325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27070,7 +27089,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 923096042}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &923096042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27257,7 +27277,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 925415540}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &925415540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27739,7 +27760,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 933033290}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &933033290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28221,7 +28243,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 945467920}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &945467920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28892,7 +28915,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 972336911}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &972336911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29185,7 +29209,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 980338914}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &980338914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29455,7 +29480,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 985677280}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &985677280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32047,7 +32073,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1079899675}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1079899675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33451,7 +33478,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1121291077}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 11400000, guid: 28a39012139327f4baa536e50cfa4610, type: 2}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1121291077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34567,7 +34595,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1146737287}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1146737287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36887,7 +36916,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1211710729}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1211710729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39395,7 +39425,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1308833822}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 11400000, guid: a45cc4e8680f89f46a4907f60f6855da, type: 2}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1308833822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40750,7 +40781,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1357414043}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1357414043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40937,7 +40969,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1361273959}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1361273959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45344,7 +45377,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1488531094}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1488531094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46080,7 +46114,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1508155673}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1508155673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46373,7 +46408,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1510836673}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1510836673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49881,7 +49917,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1625380988}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1625380988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50464,8 +50501,9 @@ MonoBehaviour:
       - <Item>k__BackingField: {fileID: 0}
         <ItemCount>k__BackingField: 0
         <MaxItemCount>k__BackingField: 99
+    directAttackAnimation: {fileID: 0}
     activeAbilities:
-    - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
+    - {fileID: 11400000, guid: 43c8941c52854fe4888d91f496a90702, type: 2}
     - {fileID: 11400000, guid: b22ba3c2797bc25439231a90f23620ab, type: 2}
     - {fileID: 11400000, guid: 436fd3c6fdddb5b05a6357cf2d05e708, type: 2}
     passiveAbilities:
@@ -50594,9 +50632,10 @@ MonoBehaviour:
       - <Item>k__BackingField: {fileID: 0}
         <ItemCount>k__BackingField: 0
         <MaxItemCount>k__BackingField: 99
+    directAttackAnimation: {fileID: 0}
     activeAbilities:
-    - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
-    - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
+    - {fileID: 11400000, guid: 5bb77328c24225e4e8cd1e0dba0dcacb, type: 2}
+    - {fileID: 11400000, guid: 43c8941c52854fe4888d91f496a90702, type: 2}
     - {fileID: 11400000, guid: 3d87480334b9b4742a045fc9f48e94c5, type: 2}
     passiveAbilities:
     - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
@@ -50724,9 +50763,10 @@ MonoBehaviour:
       - <Item>k__BackingField: {fileID: 0}
         <ItemCount>k__BackingField: 0
         <MaxItemCount>k__BackingField: 99
+    directAttackAnimation: {fileID: 0}
     activeAbilities:
-    - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
-    - {fileID: 11400000, guid: ccc9d3936031f6a4cbb4a0158cfd7256, type: 2}
+    - {fileID: 11400000, guid: 3d87480334b9b4742a045fc9f48e94c5, type: 2}
+    - {fileID: 11400000, guid: 43c8941c52854fe4888d91f496a90702, type: 2}
     - {fileID: 11400000, guid: 3d87480334b9b4742a045fc9f48e94c5, type: 2}
     passiveAbilities:
     - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
@@ -50855,6 +50895,7 @@ MonoBehaviour:
       - <Item>k__BackingField: {fileID: 0}
         <ItemCount>k__BackingField: 0
         <MaxItemCount>k__BackingField: 99
+    directAttackAnimation: {fileID: 0}
     activeAbilities: []
     passiveAbilities: []
     receiveDamageAnimationName: Hurt
@@ -52138,7 +52179,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1671389433}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1671389433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52703,7 +52745,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1687308641}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1687308641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54765,7 +54808,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1762895428}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1762895428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55058,7 +55102,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1764653047}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1764653047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55835,7 +55880,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1779974501}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1779974501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57879,7 +57925,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1853048137}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1853048137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58972,7 +59019,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1872041928}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1872041928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59325,7 +59373,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1882097727}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1882097727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60314,7 +60363,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1918285334}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1918285334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61210,7 +61260,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1962090700}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1962090700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61824,7 +61875,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 1992412493}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 0}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &1992412493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63809,7 +63861,8 @@ MonoBehaviour:
   <CellMouseEventsController>k__BackingField: {fileID: 2051538149}
   ParentGrid: {fileID: 0}
   <Fighter>k__BackingField: {fileID: 0}
-  <Impediment>k__BackingField: {fileID: 11400000, guid: b20f47e994f2fd646a344bebaf3c11bc, type: 2}
+  <Obstacle>k__BackingField: {fileID: 0}
+  <TrapList>k__BackingField: []
 --- !u!114 &2051538149
 MonoBehaviour:
   m_ObjectHideFlags: 0

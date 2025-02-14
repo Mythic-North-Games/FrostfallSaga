@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a92309899b8b9f04ea20210cad65d66f, type: 3}
-  m_Name: SpikesTrapAdder
+  m_Name: FireTrapAdder
   m_EditorClassIdentifier: 
   <Name>k__BackingField: 
   <Description>k__BackingField: 
@@ -22,7 +22,6 @@ MonoBehaviour:
     <StartFromInitiator>k__BackingField: 0
     <FighterMandatory>k__BackingField: 0
     <TargetsToExclude>k__BackingField: 010000000000000002000000
-    <CellsToExclude>k__BackingField: 0000000001000000
     <RelativeHeightsToExclude>k__BackingField: 
     <StopedAtInacessibles>k__BackingField: 0
     <StopedAtXthHigherHeightDifference>k__BackingField: 0
@@ -31,7 +30,7 @@ MonoBehaviour:
   <ActionPointsCost>k__BackingField: 0
   <GodFavorsPointsCost>k__BackingField: 0
   <Dodgable>k__BackingField: 0
-  Animation: {fileID: 11400000, guid: 2a3db1e4523c62f4f8fafcf1cd0a0e5e, type: 2}
+  Animation: {fileID: 11400000, guid: 0ecedf2d43da07b4d8c1a761cf8b7801, type: 2}
   <Masterstrokable>k__BackingField: 0
   MasterstrokeEffects: []
   CellAlterations:
@@ -47,4 +46,4 @@ MonoBehaviour:
         <Name>k__BackingField: 
         <Description>k__BackingField: 
         <Icon>k__BackingField: {fileID: 21300000, guid: 34974e1ee8b6a9b4d969ffebd6d984d2, type: 3}
-        <Impediment>k__BackingField: {fileID: 11400000, guid: 28a39012139327f4baa536e50cfa4610, type: 2}
+        <Impediment>k__BackingField: {fileID: 11400000, guid: e27591e5c715d4241ba74f107f9fa666, type: 2}

@@ -56,7 +56,6 @@ namespace FrostfallSaga.Fight.Abilities
            .Where(cell => !cell.HasFighter()).ToList()
                     .ForEach(cell =>
                         {
-                            if (!cell.HasObstacle() && !cell.HasTrap() )
                             ApplyAlterationsToCell(cell);
                         }
                     );

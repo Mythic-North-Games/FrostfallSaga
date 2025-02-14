@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7321d28e8e2df4cbb953100a3a8f86, type: 3}
   m_Name: FireTrap
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: 1259762591101698, guid: 969a88d3cd120d242bd6a6af7f241015, type: 3}
+  <Prefab>k__BackingField: {fileID: 1392961458021664, guid: 918adfc9667d65c4492439a8042a5a64, type: 3}
   <Destroyable>k__BackingField: 1
   SpawnController:
     rid: 4056982954477355016
@@ -49,6 +49,7 @@ MonoBehaviour:
   OnCellEffects:
   - rid: 7399184556376981664
   CellAlterations: []
+  TrapType: 0
   references:
     version: 2
     RefIds:

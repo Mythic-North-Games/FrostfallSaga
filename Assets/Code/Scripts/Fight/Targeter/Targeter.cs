@@ -40,9 +40,6 @@ namespace FrostfallSaga.Fight.Targeters
         [field: SerializeField, Tooltip("Can target all fighter types by default. Add options to restrain who can be targeted.")]
         public ETarget[] TargetsToExclude { get; private set; }
 
-        [field: SerializeField, Tooltip("Can target all cells types by default. Add options to restrain which cell can be targeted.")]
-        public EImpediments[] CellsToExclude { get; private set; }
-
         [field: SerializeField, Tooltip("Can target all heights by default. Add options to restrain which heights can be targeted."), Range(-2, 2)]
         public int[] RelativeHeightsToExclude { get; private set; }
 
@@ -105,7 +102,7 @@ namespace FrostfallSaga.Fight.Targeters
             }
             CheckExcludedTargets(targetedCells, initiatorCell, fightersTeams);
             CheckExcludedRelativeHeights(targetedCells, initiatorCell, fightersTeams);
-            CheckExcludedCells(targetedCells);
+            ExcludedCellsWithObstacles(targetedCells);
             return targetedCells;
         }
 
@@ -408,32 +405,15 @@ namespace FrostfallSaga.Fight.Targeters
         }
 
         
-     private bool CheckExcludedCells(FightCell[] targetedCells)
-{
-    foreach (EImpediments impediment in CellsToExclude)
+     private bool ExcludedCellsWithObstacles(FightCell[] targetedCells)
     {
-        switch (impediment)
+        if (targetedCells.Any(cell => cell.HasObstacle()))
         {
-            case EImpediments.TRAP:
-                if (targetedCells.Any(cell => cell.HasTrap()))
-                {
-                    throw new TargeterUnresolvableException("Traps excluded from available targets.");
-                }
-                break;
-
-            case EImpediments.OBSTACLE:
-                if (targetedCells.Any(cell => cell.HasObstacle()))
-                {
-                    throw new TargeterUnresolvableException("Obstacles excluded from available targets.");
-                }
-                break;
-
-            default:
-                break;
+            throw new TargeterUnresolvableException("Obstacles excluded from available targets.");
         }
-    }
+    
     return true;
-}
+    }
 
 
 

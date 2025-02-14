@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7321d28e8e2df4cbb953100a3a8f86, type: 3}
   m_Name: Pitfall
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: 1762423841713276, guid: b8f929e2e3a24894db6cbd97a2a83429, type: 3}
+  <Prefab>k__BackingField: {fileID: 1869712184636158, guid: 21d3abd269643ab4aaae2c7fa504d77e, type: 3}
   <Destroyable>k__BackingField: 1
   SpawnController:
     rid: 4056982959766110270
@@ -43,6 +43,7 @@ MonoBehaviour:
   - rid: 7399184556376981554
   CellAlterations:
   - rid: 7399184556376981625
+  TrapType: 2
   references:
     version: 2
     RefIds:
