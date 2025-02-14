@@ -11,6 +11,7 @@ using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils.Scenes;
 using FrostfallSaga.Core.HeroTeam;
+using FrostfallSaga.Grid;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -29,7 +30,7 @@ namespace FrostfallSaga.Kingdom
         /// <param name="heroGroupInitiating">True if the hero group is initiating the fight, false otherwise.</param>
 		private void OnEnemiesGroupEncountered(EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
-            SavePreFightData(enemiesGroup);
+            PrepareAndSavePreFightData(enemiesGroup);
             StartCoroutine(StartEncounterAnimation(enemiesGroup, heroGroupInitiating));
         }
 
@@ -80,7 +81,7 @@ namespace FrostfallSaga.Kingdom
             _sceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
         }
 
-        private void SavePreFightData(EntitiesGroup enemiesGroup)
+        private void PrepareAndSavePreFightData(EntitiesGroup enemiesGroup)
         {
             KeyValuePair<string, EntityConfigurationSO>[] enemiesFighterConfigs = new KeyValuePair<string, EntityConfigurationSO>[enemiesGroup.Entities.Length];
             for (int i = 0; i < enemiesGroup.Entities.Length; i++)
@@ -88,7 +89,10 @@ namespace FrostfallSaga.Kingdom
                 Entity enemyGroupEntity = enemiesGroup.Entities[i];
                 enemiesFighterConfigs[i] = new(enemyGroupEntity.SessionId, enemyGroupEntity.EntityConfiguration);
             }
-
+            Debug.Log("CELL ANALYSIS...");
+            CellAnalysis.AnalyzeAtCell(enemiesGroup.cell, _kingdomManager.KingdomGrid);
+            CellAnalysis.PrintAnalysisWithPercentages();
+            Debug.Log("END CELL ANALYSIS...");
             GameStateManager.Instance.SavePreFightData(
                 HeroTeam.Instance.GetHeroesEntityConfig(),
                 enemiesFighterConfigs,
