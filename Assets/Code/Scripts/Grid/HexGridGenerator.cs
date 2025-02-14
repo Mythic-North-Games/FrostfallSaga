@@ -63,18 +63,12 @@ namespace FrostfallSaga.Grid
                 _lastSeed = Seed;
             }
 
-            Quaternion rotation = Quaternion.identity;
-            if (HexGrid.HexOrientation.Equals(ECellOrientation.FlatTop))
-            {
-                rotation = Quaternion.Euler(new Vector3(0f, -30f, 0f));
-            }
-
             for (int z = 0; z < HexGrid.Height; z++)
             {
                 for (int x = 0; x < HexGrid.Width; x++)
                 {
-                    Vector3 centerPosition = HexMetrics.Center(HexGrid.HexSize, x, z, HexGrid.HexOrientation);
-                    GameObject newHex = Instantiate(HexGrid.HexPrefab, centerPosition, rotation, HexGrid.transform);
+                    Vector3 centerPosition = HexMetrics.Center(HexGrid.HexSize, x, z);
+                    GameObject newHex = Instantiate(HexGrid.HexPrefab, centerPosition, Quaternion.identity, HexGrid.transform);
                     int biomeIndex = _voronoiBiomeManager.GetClosestBiomeIndex(x, z);
                     BiomeTypeSO selectedBiome = AvailableBiomes[biomeIndex];
                     SetupCellForInstanciatedCellPrefab(newHex, x, z, selectedBiome);

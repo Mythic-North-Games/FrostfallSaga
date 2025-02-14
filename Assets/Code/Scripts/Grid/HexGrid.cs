@@ -14,7 +14,6 @@ namespace FrostfallSaga.Grid
         [field: SerializeField] public int Height { get; private set; }
         [field: SerializeField] public float HexSize { get; private set; }
         [field: SerializeField] public GameObject HexPrefab { get; private set; }
-        [field: SerializeField] public ECellOrientation HexOrientation { get; private set; }
         public Dictionary<Vector2Int, Cell> CellsByCoordinates { get; private set; } = new();
 
         /// <summary>
@@ -68,40 +67,12 @@ namespace FrostfallSaga.Grid
             return true;
         }
 
-        /// <summary>
-        /// Draws the grid cells in the Unity Editor using Gizmos for visualization. 
-        /// For each cell in the grid, it calculates the center position and then draws lines 
-        /// to represent the hexagonal shape by connecting the corners. This is useful for debugging 
-        /// and visualizing the grid layout during development.
-        /// </summary>
-#pragma warning disable IDE0051 // Supprimer les membres privés non utilisés
-        private void DrawCellsGuizmos()
-#pragma warning restore IDE0051 // Supprimer les membres privés non utilisés
-        {
-            for (int z = 0; z < Height; z++)
-            {
-                for (int x = 0; x < Width; x++)
-                {
-                    Vector3 centerPosition = HexMetrics.Center(HexSize, x, z, HexOrientation) + transform.position;
-
-                    for (int s = 0; s < HexMetrics.Corners(HexSize, HexOrientation).Length; s++)
-                    {
-                        Gizmos.DrawLine(
-                            centerPosition + HexMetrics.Corners(HexSize, HexOrientation)[s % 6],
-                            centerPosition + HexMetrics.Corners(HexSize, HexOrientation)[(s + 1) % 6]
-                         );
-                    }
-                }
-            }
-        }
-
         public override string ToString()
         {
             return $"HexGrid: \n" +
                    $"- Width: {Width}\n" +
                    $"- Height: {Height}\n" +
                    $"- HexSize: {HexSize}\n" +
-                   $"- HexOrientation: {HexOrientation}\n" +
                    $"- HexPrefab: {(HexPrefab != null ? HexPrefab.name : "None")}\n" +
                    $"- Total Cells: {CellsByCoordinates.Count}\n" +
                    $"- Cells Info: \n" +
