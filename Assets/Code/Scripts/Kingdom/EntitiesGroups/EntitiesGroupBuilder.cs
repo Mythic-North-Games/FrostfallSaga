@@ -26,7 +26,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             entitiesGroup.UpdateEntities(entities.ToArray());
             entitiesGroup.UpdateDisplayedEntity(entities.Find(entity => entity.SessionId == entitiesGroupData.displayedEntitySessionId));
             entitiesGroup.movePoints = entitiesGroupData.movePoints;
-            entitiesGroup.TeleportToCell(grid.CellsByCoordinates[new(entitiesGroupData.cellX, entitiesGroupData.cellY)] as KingdomCell);
+            entitiesGroup.TeleportToCell(grid.Cells[new(entitiesGroupData.cellX, entitiesGroupData.cellY)] as KingdomCell);
             return entitiesGroup;
         }
 

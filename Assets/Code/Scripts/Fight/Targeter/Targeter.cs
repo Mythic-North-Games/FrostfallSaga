@@ -187,7 +187,7 @@ namespace FrostfallSaga.Fight.Targeters
                         direction
                     );
                     if (
-                        fightGrid.CellsByCoordinates.TryGetValue(nextCellCoordinates, out Cell nextCell) &&
+                        fightGrid.Cells.TryGetValue(nextCellCoordinates, out Cell nextCell) &&
                         !IsCellBlockedByAlterations((FightCell)nextCell, cellAlterations)
                     )
                     {
@@ -198,7 +198,7 @@ namespace FrostfallSaga.Fight.Targeters
                 {
                     Vector2Int nextCellCoordinates = targetedCells.First().Coordinates + CellsSequence[i];
                     if (
-                        fightGrid.CellsByCoordinates.TryGetValue(nextCellCoordinates, out Cell nextCell) &&
+                        fightGrid.Cells.TryGetValue(nextCellCoordinates, out Cell nextCell) &&
                         !IsCellBlockedByAlterations((FightCell)nextCell, cellAlterations)
                     )
                     {

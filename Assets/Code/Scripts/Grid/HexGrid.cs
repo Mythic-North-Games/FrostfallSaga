@@ -1,82 +1,115 @@
 using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Utils;
 using UnityEngine;
 
 namespace FrostfallSaga.Grid
 {
     /// <summary>
-    /// Represents a grid of hexagonal cells.
+    /// Represents a hexagonal grid in the game.
+    /// Handles the initialization, generation, and management of grid cells.
     /// </summary>
     public class HexGrid : MonoBehaviour
     {
-        [field: SerializeField] public int Width { get; private set; }
-        [field: SerializeField] public int Height { get; private set; }
-        [field: SerializeField] public float HexSize { get; private set; }
-        [field: SerializeField] public GameObject HexPrefab { get; private set; }
-        public Dictionary<Vector2Int, Cell> CellsByCoordinates { get; private set; } = new();
+        [field: SerializeField, Header("Grid settings"), Range(000_001, 999_999)] public int Width { get; set; }
+        [field: SerializeField, Range(000_001, 999_999)] public int Height { get; set; }
+        [field: SerializeField] public float HexSize { get; set; } = 2f;
+        [field: SerializeField] public GameObject HexPrefab { get; set; }
+        [field: SerializeField, Header("Biomes's list")] public BiomeTypeSO[] AvailableBiomes { get; set; }
+        [field: SerializeField, Header("Procedural generation settings"), Range(0.1f, 0.99f)] public float NoiseScale { get; set; } = 0.2f;
+        [field: SerializeField, Range(000_000_000, 999_999_999)] public int Seed { get; set; } = 000_000_000;
+        [field: SerializeField] public Dictionary<Vector2Int, Cell> Cells { get; set; } = new();
+        private IGridGenerator _gridGenerator;
 
         /// <summary>
-        /// Retrieves all the Cell components that are children of the current GameObject.
-        /// This method returns an array of Cell objects, allowing access to all cells 
-        /// in the grid structure for further processing or manipulation.
+        /// Called when the script is loaded. Initializes the grid by calling <see cref="Initialize"/>.
         /// </summary>
-        /// <returns>An array of Cell components found in the children of the current GameObject.</returns>
+        private void Awake()
+        {
+            Initialize();
+        }
+
+        /// <summary>
+        /// Initializes the grid by validating its dimensions and setting up the grid generator.
+        /// </summary>
+        /// <remarks>
+        /// If the grid dimensions are invalid, an error message is logged and the grid is not generated.
+        /// </remarks>
+        public void Initialize()
+        {
+            _gridGenerator = GridFactory.CreateGridGenerator(EGridType.KINGDOM, Width, Height, AvailableBiomes, this.transform, NoiseScale, Seed);
+            ProcessGeneration();
+        }
+
+        /// <summary>
+        /// Retrieves all the <see cref="Cell"/> components that are children of the current GameObject.
+        /// </summary>
+        /// <returns>An array of <see cref="Cell"/> components found in the children of the current GameObject.</returns>
         public Cell[] GetCells()
         {
             return GetComponentsInChildren<Cell>();
         }
 
         /// <summary>
-        /// Finds all the cells in the grid and stores them in a dictionary (`CellsByCoordinates`) 
-        /// with their coordinates as the key. It clears any existing entries and then iterates 
-        /// through the cells, adding each one to the dictionary for efficient lookup by coordinates.
+        /// Processes the generation of the grid by clearing any existing cells and generating new ones.
         /// </summary>
-        public void FindAndSetCellsByCoordinates()
+        private void ProcessGeneration()
         {
-            CellsByCoordinates.Clear();
-            GetCells().ToList().ForEach(cell => CellsByCoordinates.Add(cell.Coordinates, cell));
+            ClearCells();
+            Cells = _gridGenerator.GenerateGrid(HexPrefab.GetComponent<Cell>(), HexSize);
         }
 
         /// <summary>
-        /// Initializes the component by calling the method to find and set cells by their coordinates.
-        /// This ensures that the cells are properly organized and accessible as soon as the script is loaded.
+        /// Clears all the cells from the grid by destroying their corresponding game objects.
         /// </summary>
-        private void Awake()
+        public void ClearCells()
         {
-            if (!AreGridDimensionsValid())
+            foreach (Cell child in GetCells())
             {
-                Debug.LogError("HexGrid has invalid dimensions, grid initialization aborted.");
-                return;
+                DestroyImmediate(child.gameObject);
             }
-
-            FindAndSetCellsByCoordinates();
+            Cells?.Clear();
         }
 
         /// <summary>
-        /// Verifies that the grid dimensions (Width and Height) are valid.
+        /// Generates random terrain heights for each cell based on predefined rules.
+        /// Cells of water terrain will be given a low height, others will have a random height.
         /// </summary>
-        /// <returns>True if the dimensions are valid; otherwise, false.</returns>
-        private bool AreGridDimensionsValid()
+        public void GenerateRandomHeight()
         {
-            if (Width <= 0 || Height <= 0)
+            int childCount = transform.childCount;
+            for (int i = 0; i < childCount; i++)
             {
-                Debug.LogError($"Invalid grid dimensions: Width ({Width}) and Height ({Height}) must both be greater than zero.");
-                return false;
+                Cell cell = transform.GetChild(i).GetComponent<Cell>();
+                ECellHeight randomCellHeight;
+                if (cell.TerrainType.name.Contains("Water"))
+                {
+                    randomCellHeight = ECellHeight.LOW;
+                }
+                else
+                {
+                    randomCellHeight = (ECellHeight)Randomizer.GetRandomIntBetween(-1, 2);
+                }
+                cell.UpdateHeight(randomCellHeight, 0);
             }
-            return true;
         }
 
+        /// <summary>
+        /// Returns a string representation of the grid's current state, including its dimensions, hex size, and number of cells.
+        /// </summary>
+        /// <returns>A string describing the grid's properties and the total number of cells.</returns>
         public override string ToString()
         {
-            return $"HexGrid: \n" +
-                   $"- Width: {Width}\n" +
-                   $"- Height: {Height}\n" +
-                   $"- HexSize: {HexSize}\n" +
-                   $"- HexPrefab: {(HexPrefab != null ? HexPrefab.name : "None")}\n" +
-                   $"- Total Cells: {CellsByCoordinates.Count}\n" +
-                   $"- Cells Info: \n" +
-                   $"{string.Join("\n", CellsByCoordinates.Select(kvp => $"  * Coordinates: {kvp.Key}, Cell: {kvp.Value}"))}";
+            return $"HexGrid:\n" +
+                    $"- Width: {Width}\n" +
+                    $"- Height: {Height}\n" +
+                    $"- HexSize: {HexSize}\n" +
+                    $"- HexPrefab: {(HexPrefab != null ? HexPrefab.name : "None")}\n" +
+                    $"- Noise Scale: {NoiseScale}\n" +
+                    $"- Seed: {Seed}\n" +
+                    $"- Available Biomes: {(AvailableBiomes != null && AvailableBiomes.Length > 0 ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +
+                    $"- Total Cells: {Cells?.Count ?? 0}";
         }
     }
 }

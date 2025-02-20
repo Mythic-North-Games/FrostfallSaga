@@ -1,36 +1,25 @@
 using System;
+using UnityEngine;
 
 namespace FrostfallSaga.Grid
 {
     public static class GridFactory
     {
-        public static IGridGenerator CreateGridGenerator(EGridType gridType, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, float? noiseScale = null, int? seed = null)
+        public static IGridGenerator CreateGridGenerator(EGridType gridType, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid, float? noiseScale = null, int? seed = null)
         {
-            switch (gridType)
+            bool needsNoise = gridType == EGridType.KINGDOM || gridType == EGridType.FIGHT;
+            if (needsNoise && (!noiseScale.HasValue || !seed.HasValue))
             {
-                case EGridType.KINGDOM:
-                    if (noiseScale.HasValue && seed.HasValue)
-                    {
-                        return new KingdomGridGenerator(gridWidth, gridHeight, availableBiomes, noiseScale.Value, seed.Value);
-                    }
-                    else
-                    {
-                        throw new ArgumentException("KingdomGridGenerator requires noiseScale and seed.");
-                    }
-                case EGridType.FIGHT:
-                    if (noiseScale.HasValue && seed.HasValue)
-                    {
-                        return new FightGridGenerator(gridWidth, gridHeight, availableBiomes, noiseScale.Value, seed.Value);
-                    }
-                    else
-                    {
-                        throw new ArgumentException("FightGridGenerator requires noiseScale and seed.");
-                    }
-                case EGridType.DUNGEON:
-                    return new DungeonGridGenerator(gridWidth, gridHeight, availableBiomes);
-                default:
-                    throw new ArgumentException("Invalid grid type.");
+                throw new ArgumentException($"{gridType} requires noiseScale and seed.");
             }
+
+            return gridType switch
+            {
+                EGridType.KINGDOM => new KingdomGridGenerator(gridWidth, gridHeight, availableBiomes, parentGrid, noiseScale.Value, seed.Value),
+                EGridType.FIGHT => new FightGridGenerator(gridWidth, gridHeight, availableBiomes, parentGrid, noiseScale.Value, seed.Value),
+                EGridType.DUNGEON => new DungeonGridGenerator(gridWidth, gridHeight, availableBiomes, parentGrid),
+                _ => throw new ArgumentException($"{gridType} : Invalid grid type.")
+            };
         }
     }
 }

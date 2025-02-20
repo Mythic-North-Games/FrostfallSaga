@@ -7,19 +7,32 @@ namespace FrostfallSaga.FFSEditor.Grid
     [CustomEditor(typeof(HexGrid))]
     public class HexGridEditor : Editor
     {
-        private void DrawDebugCellNames()
+        public override void OnInspectorGUI()
         {
             HexGrid hexGrid = (HexGrid)target;
 
-            for (int z = 0; z < hexGrid.Height; z++)
+            DrawDefaultInspector();
+            
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Debug buttons", EditorStyles.boldLabel);
+
+            if (GUILayout.Button("Generate Hex Mesh"))
             {
-                for (int x = 0; x < hexGrid.Width; x++)
-                {
-                    Vector3 centerPosition = HexMetrics.Center(hexGrid.HexSize, x, z);
-                    int centerX = x;
-                    int centerZ = z;
-                    Handles.Label(centerPosition + Vector3.forward, $"Hex[X:{centerX}, Z:{centerZ}]");
-                }
+                hexGrid.Initialize();
+            }
+
+            else if (GUILayout.Button("Clear Hex Mesh"))
+            {
+                hexGrid.ClearCells();
+            }
+
+            else if (GUILayout.Button("Generate Random High"))
+            {
+                hexGrid.GenerateRandomHeight();
+            }
+            else if (GUILayout.Button("ToString"))
+            {
+                Debug.Log(hexGrid.ToString());
             }
         }
     }

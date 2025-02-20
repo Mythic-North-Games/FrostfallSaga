@@ -6,15 +6,8 @@ namespace FrostfallSaga.Grid
 {
     public class DungeonGridGenerator : BaseGridGenerator
     {
-        private int _gridWidth;
-        private int _gridHeight;
-        private BiomeTypeSO[] _availableBiomes;
-        public DungeonGridGenerator(int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes) : base(gridWidth, gridHeight)
-        {
-            _gridWidth = gridWidth;
-            _gridHeight = gridHeight;
-            _availableBiomes = availableBiomes;
-        }
+        public DungeonGridGenerator(int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid) 
+            : base(gridWidth, gridHeight, availableBiomes, parentGrid) {}
 
         public override Dictionary<Vector2Int, Cell> GenerateGrid(Cell hexPrefab, float hexSize = 2.0f)
         {
