@@ -79,5 +79,24 @@ namespace FrostfallSaga.Utils.Trees
         {
             return _parent;
         }
+
+        public static TreeNode<T> FindChild(TreeNode<T> root, T data)
+        {
+            if (root.GetData().Equals(data))
+            {
+                return root;
+            }
+
+            foreach (TreeNode<T> child in root.GetChildren())
+            {
+                TreeNode<T> found = FindChild(child, data);
+                if (found != null)
+                {
+                    return found;
+                }
+            }
+
+            return null;
+        }
     }
 }
