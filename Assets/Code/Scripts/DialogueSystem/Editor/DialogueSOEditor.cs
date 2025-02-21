@@ -1,20 +1,23 @@
+using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using FrostfallSaga.Core.Dialogues;
 using FrostfallSaga.Utils.Trees;
-using System.Collections.Generic;
 
 namespace FrostfallSaga.FFSEditor.DialogueSystem
 {
     [CustomEditor(typeof(DialogueSO))]
     public class DialogueSOEditor : Editor
     {
+        public Action onDialogueChanged;
         private DialogueSO _dialogueSO;
         private bool _showTree = true;
         private readonly Dictionary<TreeNode<DialogueLine>, bool> _nodeFoldouts = new();
 
         private void OnEnable()
         {
+            if (target == null) return;
             _dialogueSO = (DialogueSO)target;
         }
 
@@ -48,6 +51,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
             if (GUI.changed)
             {
+                onDialogueChanged?.Invoke();
                 EditorUtility.SetDirty(target);
             }
         }
