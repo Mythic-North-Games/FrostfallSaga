@@ -15,16 +15,7 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         private FightCell _currentlyModifiedCell;
 
-        public AddImpedimentAlteration(
-            string name,
-            string description,
-            Sprite icon,
-            bool isPermanent,
-            int duration
-        ) : base(name, description, icon, isPermanent, duration, false, false)
-        {
-        }
-
+  
         #region Application
 
         public override void Apply(FightCell fightCell)
@@ -52,7 +43,9 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
             Impediment.DestroyController.onDestroyEnded += OnImpedimentGameObjectDestroyed;
 
             _currentlyModifiedCell = fightCell;
-            Impediment.DestroyController.DestroyGameObject(fightCell.GetImpedimentGameObject());
+            if (fightCell.GetImpedimentGameObject() != null){
+                 Impediment.DestroyController.DestroyGameObject(fightCell.GetImpedimentGameObject());
+            }
         }
 
         private void OnImpedimentGameObjectDestroyed()

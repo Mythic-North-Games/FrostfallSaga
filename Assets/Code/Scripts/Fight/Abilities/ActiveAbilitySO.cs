@@ -22,11 +22,11 @@ namespace FrostfallSaga.Fight.Abilities
         [field: SerializeField, Range(0, 99)] public int ActionPointsCost { get; private set; }
         [field: SerializeField, Range(0, 99)] public int GodFavorsPointsCost { get; private set; }
         [field: SerializeField] public bool Dodgable { get; private set; }
+        [field: SerializeField] public AAbilityAnimationSO Animation ;
         [field: SerializeField] public bool Masterstrokable { get; private set; }
         [SerializeReference] public AEffect[] Effects;
         [SerializeReference] public AEffect[] MasterstrokeEffects = { };
         [SerializeReference] public AFightCellAlteration[] CellAlterations = { };
-        [field: SerializeField] public AAbilityAnimationSO Animation { get; private set; }
 
         public Action<ActiveAbilitySO> onActiveAbilityEnded;
 
@@ -42,7 +42,6 @@ namespace FrostfallSaga.Fight.Abilities
                     .ForEach(cell =>
                         {
                             if (cell.HasFighter()) ApplyAbilityToFighter(cell.Fighter, initiator);
-                            ApplyAlterationsToCell(cell);
                         }
                     );
                 onActiveAbilityEnded?.Invoke(this);
@@ -55,6 +54,15 @@ namespace FrostfallSaga.Fight.Abilities
                 Animation.onAnimationEnded += OnActiveAbilityAnimationEnded;
                 Animation.Execute(initiator, targetedCells);
             }
+            targetedCells.ToList()
+           .Where(cell => !cell.HasFighter()).ToList()
+                    .ForEach(cell =>
+                        {
+                            ApplyAlterationsToCell(cell);
+                        }
+                    );
+            onActiveAbilityEnded?.Invoke(this);
+
         }
 
         public int GetDamagesPotential(Fighter initiator, Fighter target)
@@ -121,9 +129,10 @@ namespace FrostfallSaga.Fight.Abilities
 
         private void ApplyAlterationsToCell(FightCell cell)
         {
+
             foreach (AFightCellAlteration alteration in CellAlterations)
             {
-                alteration.Apply(cell);
+                cell.AlterationsManager.AddNewAlteration(alteration);
             }
         }
     }

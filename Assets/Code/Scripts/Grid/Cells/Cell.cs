@@ -23,11 +23,11 @@ namespace FrostfallSaga.Grid.Cells
         [field: SerializeField] public float UpdateHeightDuration { get; private set; }
         [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")] public MaterialHighlightable HighlightController { get; private set; }
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
-        private HexGrid _parentGrid;
+        public HexGrid ParentGrid;
 
         private void Awake()
         {
-            _parentGrid = GetComponentInParent<HexGrid>();
+            ParentGrid = GetComponentInParent<HexGrid>();
             SetCellVisualFromGameObjectTree();
             SetCellMouseEventsControllerFromGameObjectTree();
         }
@@ -117,7 +117,7 @@ namespace FrostfallSaga.Grid.Cells
 
         public Vector3 GetCenter()
         {
-            Vector3 center = HexMetrics.Center(_parentGrid.HexSize, Coordinates.x, Coordinates.y, _parentGrid.HexOrientation);
+            Vector3 center = HexMetrics.Center(ParentGrid.HexSize, Coordinates.x, Coordinates.y, ParentGrid.HexOrientation);
             center.y = GetYPosition();
             return center;
         }
@@ -183,7 +183,7 @@ namespace FrostfallSaga.Grid.Cells
         
         public void SetParentGridForTests(HexGrid grid)
         {
-            _parentGrid = grid ;
+            ParentGrid = grid ;
         }
         
         public override string ToString()
