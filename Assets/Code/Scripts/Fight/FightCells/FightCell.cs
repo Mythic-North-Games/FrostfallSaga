@@ -15,7 +15,7 @@ namespace FrostfallSaga.Fight.FightCells
     /// </summary>
     public class FightCell : Cell
     {
-        [field: SerializeField, Header("Fight related"), Tooltip("The fighter occupying the ")]
+        [field: SerializeField, Header("Fight related"), Tooltip("The optional fighter occupying the cell.")]
         public Fighter Fighter { get; private set; }
 
         [field: SerializeField, Tooltip("The current obstacle")] public AImpedimentSO Obstacle { get; private set; }

@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Level/Scenes/DevHub.unity
+    path: Assets/Level/Scenes/DevScenes/DevHub.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Level/Scenes/FightScene.unity
@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Level/Scenes/KingdomScene.unity
     guid: e1eb173a4849dfa49bf3153c458c1023
+  - enabled: 1
+    path: Assets/Level/Scenes/CityScene.unity
+    guid: 929c97d6540905bf498c56c125b0ca43
+  - enabled: 1
+    path: Assets/Level/Scenes/DungeonScene.unity
+    guid: 442dbf652b823b3e384017a918a348c1
   m_configObjects: {}

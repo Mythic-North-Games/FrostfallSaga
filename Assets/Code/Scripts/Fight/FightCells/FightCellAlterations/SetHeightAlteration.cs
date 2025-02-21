@@ -17,22 +17,15 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         [field: SerializeField] public float CellAlterationDuration { get; protected set; }
 
-        public SetHeightAlteration()
-        {
-            CanBeReplaced = true;
-            CanApplyWithFighter = true;
-        }
-
         public SetHeightAlteration(
-            bool isPermanent,
-            int duration,
-            float cellAlterationDuration,
             string name,
             string description,
-            Sprite icon
-        ) : base(isPermanent, duration, true, true, name, description, icon)
+            Sprite icon,
+            bool isPermanent,
+            int duration
+        ) : base(name, description, icon, isPermanent, duration, true, true)
         {
-            CellAlterationDuration = cellAlterationDuration;
+            CellAlterationDuration = duration;
         }
 
         public override void Apply(FightCell cell)

@@ -1,88 +1,79 @@
 using System;
-using FrostfallSaga.EntitiesVisual;
 using UnityEngine;
+using FrostfallSaga.Core.Entities;
+using FrostfallSaga.EntitiesVisual;
+using FrostfallSaga.Core.Fight;
 
 namespace FrostfallSaga.Kingdom.Entities
 {
-    [RequireComponent(typeof(Collider))]
     public class Entity : MonoBehaviour
     {
+        [field: SerializeField] public EntityVisualAnimationController AnimationController { get; private set; }
+        [field: SerializeField] public EntityVisualMovementController MovementController { get; private set; }
         [field: SerializeField] public EntityConfigurationSO EntityConfiguration { get; private set; }
-        [field: SerializeField] public EntityVisualAnimationController EntityAnimationController { get; private set; }
-        [field: SerializeField] public EntityVisualMovementController EntityVisualMovementController { get; private set; }
-        [field: SerializeField] public EntityMouseEventsController EntityMouseEventsController { get; private set; }
         [field: SerializeField] public bool IsDead { get; set; }
         [field: SerializeField] public string SessionId { get; private set; }
 
         public void ShowVisual()
         {
-            if (EntityAnimationController == null)
+            if (AnimationController == null)
             {
                 Debug.LogError("Entity " + name + " does not have an entity visual.");
                 return;
             }
 
-            EntityAnimationController.gameObject.SetActive(true);
+            AnimationController.gameObject.SetActive(true);
         }
 
         public void HideVisual()
         {
-            if (EntityAnimationController == null)
+            if (AnimationController == null)
             {
                 Debug.LogError("Entity " + name + " does not have an entity visual.");
                 return;
             }
 
-            EntityAnimationController.gameObject.SetActive(false);
+            AnimationController.gameObject.SetActive(false);
         }
 
         public bool IsVisualShown()
         {
-            if (EntityAnimationController == null)
+            if (AnimationController == null)
             {
                 Debug.LogError("Entity " + name + " does not have an entity visual.");
                 return false;
             }
 
-            return EntityAnimationController.gameObject.activeSelf;
+            return AnimationController.gameObject.activeSelf;
         }
 
-        public void Setup(EntityConfigurationSO configuration, string sessionId, bool isDead)
+        public void Setup(string sessionId, bool isDead)
         {
-            EntityConfiguration = configuration;
             SessionId = sessionId;
             IsDead = isDead;
-            name = $"{EntityConfiguration.EntityID}_{SessionId}";
         }
 
         #region Components setup
 
         private void Awake()
         {
-            EntityAnimationController = GetComponentInChildren<EntityVisualAnimationController>();
-            if (EntityAnimationController == null)
+            AnimationController = GetComponentInChildren<EntityVisualAnimationController>();
+            if (AnimationController == null)
             {
                 Debug.LogWarning("Entity " + name + " does not have an animation controller and a visual.");
             }
-            EntityVisualMovementController = GetComponentInChildren<EntityVisualMovementController>();
-            if (EntityVisualMovementController == null)
+            MovementController = GetComponentInChildren<EntityVisualMovementController>();
+            if (MovementController == null)
             {
                 Debug.LogWarning("Entity " + name + " does not have a movement controller and a visual.");
             }
 
-            EntityMouseEventsController = GetComponent<EntityMouseEventsController>();
-            if (EntityMouseEventsController == null)
-            {
-                Debug.LogWarning("Entity " + name + " does not have a mouse events controller.");
-            }
-
-            if (EntityConfiguration == null)
-            {
-                Debug.LogWarning("Entity " + name + " does not have an entity configuration.");
-            }
-
             SessionId = Guid.NewGuid().ToString();
-            name = $"{EntityConfiguration.EntityID}_{SessionId}";
+            name = $"{EntityConfiguration.Name}_{SessionId}";
+            if (EntityConfiguration.FighterConfiguration is PersistedFighterConfigurationSO persistedFighterConfiguration)
+            {
+                IsDead = persistedFighterConfiguration.Health == 0;
+            }
         }
 
         #endregion

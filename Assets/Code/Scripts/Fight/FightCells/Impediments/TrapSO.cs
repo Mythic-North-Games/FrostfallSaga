@@ -40,7 +40,7 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
                 effect.ApplyEffect(
                 targetedCell.GetFighter(),
                 isMasterstroke: false,
-                initator: null,
+                initiator: null,
                 adjustGodFavorsPoints: true
     );
             }

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
