@@ -81,7 +81,7 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
             }
             else
             {
-                fighter.AnimationController.RestoreDefaultAnimation();
+                //fighter.AnimationController.RestoreDefaultAnimation();
                 Animation.Execute(fighter, AnimationTargetCells);
             }
         }
