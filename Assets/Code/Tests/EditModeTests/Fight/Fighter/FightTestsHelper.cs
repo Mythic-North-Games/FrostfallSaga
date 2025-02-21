@@ -61,8 +61,8 @@ namespace FrostfallSaga.EditModeTests.FightTests
 
         public static void SetupFighterPositionOnGrid(HexGrid grid, Fighter fighter, Vector2Int cellCoordinates)
         {
-            ((FightCell)grid.CellsByCoordinates[cellCoordinates]).SetFighter(fighter);
-            fighter.cell = (FightCell)grid.CellsByCoordinates[cellCoordinates];
+            ((FightCell)grid.Cells[cellCoordinates]).SetFighter(fighter);
+            fighter.cell = (FightCell)grid.Cells[cellCoordinates];
         }
     }
 }

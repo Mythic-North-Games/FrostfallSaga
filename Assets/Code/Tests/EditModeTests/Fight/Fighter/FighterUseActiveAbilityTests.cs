@@ -21,11 +21,13 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void Setup()
         {
             // Set up grid
-            grid = CommonTestsHelper.CreatePlainGridForTest(fightCell: true);
+            grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.FIGHT);
 
             // Set up attacker
             attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
+            Debug.Log(grid.ToString());
+            Debug.Log(attacker.ToString());
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
 
             fireDamages = ((MagicalDamageEffect)attacker.ActiveAbilities[0].Effects[0]).MagicalDamageAmount;
@@ -80,7 +82,8 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void UseActiveAbility_MultipleReceivers_Test()
         {
             // Arrange
-            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(fightCell: true);
+            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.FIGHT);
+            Debug.Log("TEST");
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
@@ -113,7 +116,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             FightCell[] targetedCells = {
                 receiver.cell,
                 receiver2.cell,
-                (FightCell)grid.CellsByCoordinates[new(1, 1)],
+                (FightCell)grid.Cells[new(1, 1)],
             };
 
             // Act
@@ -134,7 +137,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void UseActiveAbility_NoFighterOnCells_Test()
         {
             // Arrange
-            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(fightCell: true);
+            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.FIGHT);
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
@@ -147,7 +150,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
             int expectedNotTargetedFighterHealth = notTargetedFighter.GetStatsForTests().health;
 
-            FightCell[] targetedCells = { (FightCell)grid.CellsByCoordinates[new(1, 1)] };
+            FightCell[] targetedCells = { (FightCell)grid.Cells[new(1, 1)] };
 
             // Act
             attacker.onActiveAbilityEnded += (Fighter attacker, ActiveAbilitySO usedAbility) =>
@@ -166,7 +169,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void UseDirectAttack_NoTargetCells_Test()
         {
             // Arrange
-            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(fightCell: true);
+            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.FIGHT);
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
@@ -181,13 +184,13 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void UseDirectAttack_NotEnoughActionPoints_Test()
         {
             // Arrange
-            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(fightCell: true);
+            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.FIGHT);
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
             attacker.GetStatsForTests().actionPoints = 1;
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
             ActiveAbilitySO activeAbilityToUse = attacker.ActiveAbilities[0];
-            FightCell[] targetedCells = { (FightCell)grid.CellsByCoordinates[new(0, 1)] };
+            FightCell[] targetedCells = { (FightCell)grid.Cells[new(0, 1)] };
 
             // Act
             Assert.Throws<InvalidOperationException>(() => attacker.UseActiveAbility(activeAbilityToUse, targetedCells));

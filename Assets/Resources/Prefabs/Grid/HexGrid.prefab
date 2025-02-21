@@ -9,11 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3739711715467810484}
-  - component: {fileID: 7936790293927368877}
   - component: {fileID: 3266767170564220550}
   - component: {fileID: 4225675484487770367}
   - component: {fileID: 7977177436284894363}
-  - component: {fileID: 1609156983569824365}
+  - component: {fileID: 7936790293927368877}
   m_Layer: 0
   m_Name: HexGrid
   m_TagString: Untagged
@@ -36,23 +35,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7936790293927368877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5394681164775873498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cafaa730dcc48c4992fb7b350869c81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Width>k__BackingField: 5
-  <Height>k__BackingField: 5
-  <HexSize>k__BackingField: 2
-  <HexPrefab>k__BackingField: {fileID: 6338246483437390999, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
-  <HexOrientation>k__BackingField: 1
 --- !u!33 &3266767170564220550
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -125,7 +107,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &1609156983569824365
+--- !u!114 &7936790293927368877
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,8 +116,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5394681164775873498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c16e8489c5da7ed4b9ecbeeba449ff0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cafaa730dcc48c4992fb7b350869c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <HexGrid>k__BackingField: {fileID: 7936790293927368877}
-  AlternativeMaterial: {fileID: 2100000, guid: 6debbf3b5ecccd944baf00fee413bb4a, type: 2}
+  <Width>k__BackingField: 5
+  <Height>k__BackingField: 5
+  <HexSize>k__BackingField: 2
+  <HexPrefab>k__BackingField: {fileID: 7487034650914750699, guid: 1ff48368775e3d2b3bcae440b88e5d95, type: 3}
+  <AvailableBiomes>k__BackingField:
+  - {fileID: 11400000, guid: 62807aa1d0cd21844b1e3eef85934555, type: 2}
+  - {fileID: 11400000, guid: 9083c3a2086937d4db46edaace4ef140, type: 2}
+  <NoiseScale>k__BackingField: 0.2
+  <Seed>k__BackingField: 91047024

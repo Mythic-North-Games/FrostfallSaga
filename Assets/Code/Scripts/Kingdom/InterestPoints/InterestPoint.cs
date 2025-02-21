@@ -1,5 +1,5 @@
-using UnityEngine;
 using FrostfallSaga.Core;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom.InterestPoints
 {

@@ -238,10 +238,10 @@ namespace FrostfallSaga.Fight
             int xCellIndex = 0;
             foreach (Fighter ally in allies)
             {
-                FightCell cellForAlly = (FightCell)fightGrid.CellsByCoordinates[new(xCellIndex, 0)];
+                FightCell cellForAlly = (FightCell)fightGrid.Cells[new(xCellIndex, 0)];
                 cellForAlly.SetFighter(ally);
                 ally.cell = cellForAlly;
-                ally.MovementController.RotateTowardsCell(fightGrid.CellsByCoordinates[new(xCellIndex, 1)]);
+                ally.MovementController.RotateTowardsCell(fightGrid.Cells[new(xCellIndex, 1)]);
                 ally.MovementController.TeleportToCell(cellForAlly);
                 xCellIndex++;
             }
@@ -249,10 +249,10 @@ namespace FrostfallSaga.Fight
             xCellIndex = 0;
             foreach (Fighter enemy in enemies)
             {
-                FightCell cellForEnemy = (FightCell)fightGrid.CellsByCoordinates[new(xCellIndex, fightGrid.Height - 1)];
+                FightCell cellForEnemy = (FightCell)fightGrid.Cells[new(xCellIndex, fightGrid.Height - 1)];
                 cellForEnemy.SetFighter(enemy);
                 enemy.cell = cellForEnemy;
-                enemy.MovementController.RotateTowardsCell(fightGrid.CellsByCoordinates[new(xCellIndex, fightGrid.Height - 2)]);
+                enemy.MovementController.RotateTowardsCell(fightGrid.Cells[new(xCellIndex, fightGrid.Height - 2)]);
                 enemy.MovementController.TeleportToCell(cellForEnemy);
                 xCellIndex++;
             }

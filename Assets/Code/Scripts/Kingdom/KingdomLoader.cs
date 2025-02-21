@@ -114,7 +114,7 @@ namespace FrostfallSaga.Kingdom
             // Configure the hero group with the hero entities
             _respawnedHeroGroup.UpdateEntities(heroGroupEntities.ToArray());
             _respawnedHeroGroup.movePoints = 10;    // * For now, we give the hero group 10 move points.
-            _respawnedHeroGroup.cell = _grid.CellsByCoordinates[new(0, 0)] as KingdomCell;
+            _respawnedHeroGroup.cell = _grid.Cells[new(0, 0)] as KingdomCell;
 
             AttachCameraToHeroGroup();
         }
@@ -151,7 +151,7 @@ namespace FrostfallSaga.Kingdom
 
         private void RespawnHeroGroup()
         {
-            _respawnedHeroGroup.cell = _grid.CellsByCoordinates[new(0, 0)] as KingdomCell;
+            _respawnedHeroGroup.cell = _grid.Cells[new(0, 0)] as KingdomCell;
             _respawnedHeroGroup.Entities.ToList().ForEach(entity => entity.IsDead = false);
             _heroTeam.FullHealTeam();
         }

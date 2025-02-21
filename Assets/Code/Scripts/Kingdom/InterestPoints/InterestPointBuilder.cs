@@ -1,8 +1,8 @@
-using UnityEngine;
+using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
-using FrostfallSaga.Core.GameState.Kingdom;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom.InterestPoints
 {
@@ -14,7 +14,7 @@ namespace FrostfallSaga.Kingdom.InterestPoints
                 interestPointData.interestPointConfiguration.InterestPointPrefab
             );
             InterestPoint interestPoint = interestPointPrefab.GetComponent<InterestPoint>();
-            interestPoint.cell = grid.CellsByCoordinates[new(interestPointData.cellX, interestPointData.cellY)] as KingdomCell;
+            interestPoint.cell = grid.Cells[new(interestPointData.cellX, interestPointData.cellY)] as KingdomCell;
             interestPoint.transform.position = interestPoint.cell.GetCenter();
             return interestPoint;
         }

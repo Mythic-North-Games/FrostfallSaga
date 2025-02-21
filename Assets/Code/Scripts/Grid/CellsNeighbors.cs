@@ -53,7 +53,7 @@ namespace FrostfallSaga.Grid
             foreach (Vector2Int direction in directionsToCheck)
             {
                 Vector2Int neighborCoord = cellToGetTheNeighbors.Coordinates + direction;
-                Dictionary<Vector2Int, Cell> cellsByCoordinates = hexGrid.CellsByCoordinates;
+                Dictionary<Vector2Int, Cell> cellsByCoordinates = hexGrid.Cells;
                 if (cellsByCoordinates.ContainsKey(neighborCoord))
                 {
                     Cell currentNeighbor = cellsByCoordinates[neighborCoord];

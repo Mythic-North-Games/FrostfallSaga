@@ -27,9 +27,8 @@ namespace FrostfallSaga.Grid
             {
                 if (GUILayout.Button("Analyze Neighbors"))
                 {
-                    CellAnalysis analyzer = new CellAnalysis(TargetCell, Grid);
-                    analyzer.Analyze();
-                    analyzer.PrintAnalysisWithPercentages();
+                    CellAnalysis.AnalyzeAtCell(TargetCell, Grid);
+                    CellAnalysis.PrintAnalysisWithPercentages();
                 }
             }
         }
