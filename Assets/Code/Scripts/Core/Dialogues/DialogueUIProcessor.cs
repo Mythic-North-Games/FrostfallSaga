@@ -3,8 +3,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using FrostfallSaga.Utils.UI;
 using FrostfallSaga.Utils.Trees;
+using System;
 
-namespace FrostfallSaga.DialogueSystem
+namespace FrostfallSaga.Core.Dialogues
 {
     public class DialogueUIProcessor : BaseUIController
     {
@@ -30,6 +31,8 @@ namespace FrostfallSaga.DialogueSystem
         private static readonly string ANSWER_CONTAINER_ROOT_HIDDEN_CLASSNAME = "answerContainerRootHidden";
         #endregion
 
+        public Action<DialogueSO> onDialogueEnded;
+
         [SerializeField] private VisualTreeAsset _answerContainerTemplate;
         [SerializeField] private float _timeBeforeFirstLineDisplay = 1f;
         [SerializeField] private float _timeBetweenDialogueLines = 0.5f;
@@ -45,12 +48,14 @@ namespace FrostfallSaga.DialogueSystem
         private Label _richTextLabel;
         private VisualElement _answersContainer;
 
+        private DialogueSO _currentDialogue;
         private TreeNode<DialogueLine> _currentDialogueLine;
         private TreeNode<DialogueLine> _previousDialogueLine;
 
         public void ProcessDialogue(DialogueSO dialogue)
         {
-            _rootContainer.RegisterCallback<ClickEvent>(OnDialogueLineClicked);
+            _currentDialogue = dialogue;
+            SetupRootContainer(dialogue);
             StartCoroutine(DisplayRootContainer());
             StartCoroutine(LoadNextDialogueLine(dialogue.DialogueTreeRoot));
         }
@@ -60,7 +65,7 @@ namespace FrostfallSaga.DialogueSystem
             // If no children, end of the dialogue
             if (!_currentDialogueLine.HasChildren())
             {
-                HideRootContainer();
+                StartCoroutine(HideRootContainerAndEndDialogue());
                 return;
             }
 
@@ -87,6 +92,15 @@ namespace FrostfallSaga.DialogueSystem
         }
 
         #region Dialogue UI setup
+
+        private void SetupRootContainer(DialogueSO dialogue)
+        {
+            _rootContainer.RegisterCallback<ClickEvent>(OnDialogueLineClicked);
+            if (dialogue.DialogueBackground != null)
+            {
+                _rootContainer.style.backgroundImage = new(dialogue.DialogueBackground);
+            }
+        }
 
         private IEnumerator LoadNextDialogueLine(TreeNode<DialogueLine> nextDialogueLine)
         {
@@ -116,7 +130,7 @@ namespace FrostfallSaga.DialogueSystem
             _characterNameLabel.text = dialogueLine.Speaker.Name;
             _richTextLabel.text = dialogueLine.RichText;
 
-            if (dialogueLine.Answers.Length > 0)
+            if (dialogueLine.Answers != null && dialogueLine.Answers.Length > 0)
             {
                 foreach (string answer in dialogueLine.Answers)
                 {
@@ -163,9 +177,18 @@ namespace FrostfallSaga.DialogueSystem
             yield return new WaitForSeconds(_timeBeforeFirstLineDisplay);
         }
 
-        private void HideRootContainer()
+        private IEnumerator HideRootContainer()
         {
+            HideDialogueLineContainer();
+            yield return new WaitForSeconds(_timeBetweenDialogueLines);
             _rootContainer.AddToClassList(ROOT_CONTAINER_HIDDEN_CLASSNAME);
+        }
+
+        private IEnumerator HideRootContainerAndEndDialogue()
+        {
+            StartCoroutine(HideRootContainer());
+            yield return new WaitForSeconds(_timeBetweenDialogueLines);
+            onDialogueEnded?.Invoke(_currentDialogue);
         }
 
         private void DisplayDialogueLineContainer()
@@ -215,7 +238,7 @@ namespace FrostfallSaga.DialogueSystem
             _richTextLabel = _rootContainer.Q<Label>(RICH_TEXT_LABEL_UI_NAME);
             _answersContainer = _rootContainer.Q<VisualElement>(ANSWERS_CONTAINER_UI_NAME);
 
-            HideRootContainer();
+            _rootContainer.AddToClassList(ROOT_CONTAINER_HIDDEN_CLASSNAME);
             HideDialogueLineContainer();
         }
 
