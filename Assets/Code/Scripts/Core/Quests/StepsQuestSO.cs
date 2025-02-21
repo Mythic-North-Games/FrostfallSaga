@@ -8,12 +8,12 @@ namespace FrostfallSaga.Core.Quests
     [CreateAssetMenu(fileName = "StepsQuest", menuName = "ScriptableObjects/Quests/StepsQuest", order = 0)]
     public class StepsQuestSO: AQuestSO
     {
-        [field: SerializeField] public TreeNode<QuestStep> Steps { get; private set; }
 
         [field: SerializeField, Tooltip("Possible endings depending on last quest step decisive action.")]
         public SElementToValue<int[], QuestEnding>[] PossibleQuestEndings { get; private set; }
 
-        [field: SerializeField, Tooltip("The quest ending to show depending on the player decisive actions.")] 
+        [field: SerializeField] public TreeNode<QuestStep> Steps { get; private set; }
+
         public QuestEnding ChosenQuestEnding { get; private set; } = null;
 
 
@@ -93,5 +93,19 @@ namespace FrostfallSaga.Core.Quests
 
             return GetLastCompletedStepPath(nextCompletedStep, questStep, lastCompletedStepPath);
         }
+
+        #if UNITY_EDITOR
+
+        public void SetSteps(TreeNode<QuestStep> newSteps)
+        {
+            Steps = newSteps;
+        }
+
+        public void SetPossibleQuestEndings(SElementToValue<int[], QuestEnding>[] newPossibleQuestEndings)
+        {
+            PossibleQuestEndings = newPossibleQuestEndings;
+        }
+
+        #endif
     }
 }

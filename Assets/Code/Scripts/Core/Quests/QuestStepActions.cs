@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -9,25 +10,23 @@ namespace FrostfallSaga.Core.Quests
     /// First, the player must complete all the NonDecisiveActions, 
     /// then he can do one of the DecisiveActions that lead to a different end.
     /// </summary>
-    [Serializable]
-    public class QuestStepActions
+    [CreateAssetMenu(fileName = "QuestStepActions", menuName = "ScriptableObjects/Quests/QuestStepActions", order = 0)]
+    public class QuestStepActionsSO : ScriptableObject
     {
-        [field: SerializeReference] public AQuestAction[] NonDecisiveActions { get; private set; }
+        [SerializeReference] public List<AQuestAction> NonDecisiveActions = new();
 
         [field: SerializeField, Tooltip("If the non decisive actions should be done in order or not.")]
         public bool OrderedNonDecisiveActions { get; private set; }
 
-        [field: SerializeReference, Tooltip("Each action defined here leads to a different quest step.")]
-        public AQuestAction[] DecisiveActions { get; private set; }
-
-        [field: SerializeField, Tooltip("The index of the decisive action made by the player")]
-        public int ChosenDecisiveActionIndex { get; private set; } = -1;
-
+        [SerializeReference, Tooltip("Each action defined here leads to a different quest step.")]
+        public List<AQuestAction> DecisiveActions = new();
+        
         public Action onStepActionsCompleted;
+        public int ChosenDecisiveActionIndex { get; private set; } = -1;
 
         private void Start()
         {
-            if (DecisiveActions == null || DecisiveActions.Length == 0)
+            if (DecisiveActions == null || DecisiveActions.Count == 0)
             {
                 Debug.LogError("DecisiveActions is empty. Please add at least one decisive action.");
             }
@@ -101,8 +100,8 @@ namespace FrostfallSaga.Core.Quests
             // Initialize the next non decisive action if they are ordered. Otherwise, they already are initialized.
             if (OrderedNonDecisiveActions)
             {
-                int nextActionIndex = Array.IndexOf(NonDecisiveActions, completedAction) + 1;
-                if (nextActionIndex < NonDecisiveActions.Length)
+                int nextActionIndex = NonDecisiveActions.IndexOf(completedAction) + 1;
+                if (nextActionIndex < NonDecisiveActions.Count)
                 {
                     NonDecisiveActions[nextActionIndex].Initialize(completedAction.SceneManager);
                 }
@@ -115,7 +114,7 @@ namespace FrostfallSaga.Core.Quests
         /// <param name="completedAction">The just completed action.</param>
         private void OnDecisiveActionCompleted(AQuestAction completedAction)
         {
-            ChosenDecisiveActionIndex = Array.IndexOf(DecisiveActions, completedAction);
+            ChosenDecisiveActionIndex = DecisiveActions.IndexOf(completedAction);
             onStepActionsCompleted?.Invoke();
         }
     }

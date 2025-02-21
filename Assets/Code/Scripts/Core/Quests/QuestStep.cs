@@ -8,7 +8,7 @@ namespace FrostfallSaga.Core.Quests
     {
         [field: SerializeField] public string Title { get; private set; }
         [field: SerializeField] public string Description { get; private set; }
-        [field: SerializeField] public QuestStepActions Actions { get; private set; }
+        [field: SerializeField] public QuestStepActionsSO Actions { get; private set; }
 
         public Action<QuestStep> onQuestStepCompleted;
 
@@ -25,5 +25,31 @@ namespace FrostfallSaga.Core.Quests
         {
             return Actions.ChosenDecisiveActionIndex > -1;
         }
+
+        #if UNITY_EDITOR
+
+        public QuestStep(string title, string description, QuestStepActionsSO actions)
+        {
+            Title = title;
+            Description = description;
+            Actions = actions;
+        }
+
+        public void SetTitle(string newTitle)
+        {
+            Title = newTitle;
+        }
+
+        public void SetDescription(string newDescription)
+        {
+            Description = newDescription;
+        }
+
+        public void SetActions(QuestStepActionsSO newActions)
+        {
+            Actions = newActions;
+        }
+
+        #endif
     }
 }
