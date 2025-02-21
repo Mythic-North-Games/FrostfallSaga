@@ -7,6 +7,7 @@ namespace FrostfallSaga.Core.Quests
     {
         [field: SerializeField] public string Name { get; protected set; }
         [field: SerializeField] public string Description { get; protected set; }
+        [field: SerializeField] public string OriginLocation { get; protected set; }
         [field: SerializeField] public EQuestType Type { get; protected set; }
         [field: SerializeField] public bool IsCompleted { get; protected set; }
 

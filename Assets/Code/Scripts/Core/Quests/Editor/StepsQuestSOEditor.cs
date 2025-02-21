@@ -110,6 +110,12 @@ namespace FrostfallSaga.FFSEditor.Core.Quests
 
         private void GeneratePossibleEndings(TreeNode<QuestStep> node, List<int> currentPath, List<SElementToValue<int[], QuestEnding>> endingsList)
         {
+            if (node.GetChildren() == null)
+            {
+                endingsList.Add(new SElementToValue<int[], QuestEnding>(currentPath.ToArray(), null));
+                return;
+            }
+
             // If it's a leaf node, add the current path to the list
             if (node.GetChildren().Count == 0)
             {
