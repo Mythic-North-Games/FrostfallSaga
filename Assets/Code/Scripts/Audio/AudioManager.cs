@@ -10,8 +10,9 @@ namespace FrostfallSaga.Audio
         /// Instance a singleton of the AudioManager in the scene
         /// </summary>
         public static AudioManager instance;
-
+        [SerializeField] private UIAudioClipsConfig uiAudioClipsConfig;
         [SerializeField] private AudioSource audioSourceObject;
+        private UIAudioClipSelector uIAudioClipSelector;
 
         private void Awake()
         {
@@ -19,6 +20,7 @@ namespace FrostfallSaga.Audio
             {
                 instance = this;
             }
+            uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
         }
 
         /// <summary>
@@ -36,5 +38,29 @@ namespace FrostfallSaga.Audio
             audioSource.Play();
             Destroy(audioSource.gameObject, clipLength);
         }
+
+        /// <summary>
+        /// Play a UI sound effect by using the UISounds enum
+        /// <paramref name="sound"/> The sound to play
+        /// </summary>
+        public void PlayUISound(UISounds sound)
+        {
+            AudioClip audioClip = uIAudioClipSelector.SelectAudioClip(sound);
+            if(audioClip != null){
+                PlaySoundEffectClip(audioClip, transform, 1f);
+            } else {
+                Debug.LogError("Audio clip " + sound +" not found");
+            }
+        }
+
+        #if UNITY_EDITOR
+
+
+        public void InitializeAudioClipSelectorFromTests(UIAudioClipsConfig uIAudioClipsConfig) {
+            uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
+        }
+        
+        
+        #endif
     }
 }
