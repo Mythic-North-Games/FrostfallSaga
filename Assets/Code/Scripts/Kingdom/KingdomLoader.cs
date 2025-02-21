@@ -74,13 +74,13 @@ namespace FrostfallSaga.Kingdom
         {
             EntitiesGroupBuilder entitiesGroupBuilder = EntitiesGroupBuilder.Instance;
             KingdomState kingdomState = _gameStateManager.GetKingdomState();
-   
+
             foreach (EntitiesGroupData enemiesGroupData in kingdomState.enemiesGroupsData)
             {
                 _respawnedEnemiesGroups.Add(entitiesGroupBuilder.BuildEntitiesGroup(enemiesGroupData, _grid));
             }
 
-            foreach(InterestPointData interestPointData in kingdomState.interestPointsData)
+            foreach (InterestPointData interestPointData in kingdomState.interestPointsData)
             {
                 _interestPoints.Add(InterestPointBuilder.Instance.BuildInterestPoint(interestPointData, _grid));
             }
@@ -139,7 +139,7 @@ namespace FrostfallSaga.Kingdom
                 AttachCameraToHeroGroup();
                 return;
             }
-            
+
             // Otherwise, update the displayed entity if it's dead
             if (_respawnedHeroGroup.GetDisplayedEntity().IsDead)
             {
@@ -172,18 +172,21 @@ namespace FrostfallSaga.Kingdom
         private void AdjustKingdomAfterFight()
         {
             PostFightData postFightData = _gameStateManager.GetPostFightData();
+            Dictionary<string, PostFightFighterState> enemiesPostFightState = SElementToValue<string, PostFightFighterState>.GetDictionaryFromArray(
+                    postFightData.enemiesState.ToArray()
+            );
+            EntitiesGroup foughtEnemiesGroup = GetFoughtEnemiesGroup(enemiesPostFightState);
+
 
             // If allies have lost, adjust enemies groups that won
             if (!postFightData.AlliesHaveWon())
             {
-                Dictionary<string, PostFightFighterState> enemiesPostFightState = SElementToValue<string, PostFightFighterState>.GetDictionaryFromArray(
-                    postFightData.enemiesState.ToArray()
-                );
-                UpdateEntitiesGroupAfterFight(GetFoughtEnemiesGroup(), enemiesPostFightState);
+
+                UpdateEntitiesGroupAfterFight(foughtEnemiesGroup, enemiesPostFightState);
             }
             else    // Otherwise, destroy enemies group that lost
             {
-                DestroyImmediate(GetFoughtEnemiesGroup().gameObject);
+                DestroyImmediate(foughtEnemiesGroup.gameObject);
             }
         }
 
@@ -207,9 +210,10 @@ namespace FrostfallSaga.Kingdom
             }
         }
 
-        private EntitiesGroup GetFoughtEnemiesGroup()
+        private EntitiesGroup GetFoughtEnemiesGroup(Dictionary<string, PostFightFighterState> enemiesPostFightState)
         {
-            return _respawnedEnemiesGroups.Find(enemiesGroup => enemiesGroup.cell == _respawnedHeroGroup.cell);
+            string enemySessionId = enemiesPostFightState.Keys.First();
+            return _respawnedEnemiesGroups.Find(enemiesGroup => enemiesGroup.Entities.Any(entity => entity.SessionId == enemySessionId));
         }
 
         #endregion
