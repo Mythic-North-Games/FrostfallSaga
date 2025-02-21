@@ -3,7 +3,7 @@ using UnityEditorInternal;
 using FrostfallSaga.Utils.Editor;
 using FrostfallSaga.Core.Quests;
 
-namespace FrostfallSaga.FFSEditor.Core.Quests
+namespace FrostfallSaga.FFSEditor.Quests
 {
     [CustomEditor(typeof(ActionsQuestSO))]
     public class ActionsQuestSOEditor : Editor

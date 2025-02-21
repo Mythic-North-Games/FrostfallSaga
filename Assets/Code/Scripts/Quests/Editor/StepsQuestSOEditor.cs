@@ -6,7 +6,7 @@ using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Trees;
 
-namespace FrostfallSaga.FFSEditor.Core.Quests
+namespace FrostfallSaga.FFSEditor.Quests
 {
     [CustomEditor(typeof(StepsQuestSO))]
     public class StepsQuestSOEditor : Editor
