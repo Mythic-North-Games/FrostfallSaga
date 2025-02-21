@@ -50504,7 +50504,7 @@ MonoBehaviour:
     directAttackAnimation: {fileID: 0}
     activeAbilities:
     - {fileID: 11400000, guid: 43c8941c52854fe4888d91f496a90702, type: 2}
-    - {fileID: 11400000, guid: b22ba3c2797bc25439231a90f23620ab, type: 2}
+    - {fileID: 11400000, guid: 5bb77328c24225e4e8cd1e0dba0dcacb, type: 2}
     - {fileID: 11400000, guid: 436fd3c6fdddb5b05a6357cf2d05e708, type: 2}
     passiveAbilities:
     - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
@@ -50634,8 +50634,8 @@ MonoBehaviour:
         <MaxItemCount>k__BackingField: 99
     directAttackAnimation: {fileID: 0}
     activeAbilities:
-    - {fileID: 11400000, guid: 5bb77328c24225e4e8cd1e0dba0dcacb, type: 2}
-    - {fileID: 11400000, guid: 43c8941c52854fe4888d91f496a90702, type: 2}
+    - {fileID: 11400000, guid: 8aaa384903d024e4db7c6047799e8f6a, type: 2}
+    - {fileID: 11400000, guid: 9f5cc9b8b6b8ee642b15d9ccaaee38eb, type: 2}
     - {fileID: 11400000, guid: 3d87480334b9b4742a045fc9f48e94c5, type: 2}
     passiveAbilities:
     - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
