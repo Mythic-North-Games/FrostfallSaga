@@ -55,7 +55,7 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
                               effect.ApplyEffect(
                                 cell.GetFighter(),
                                 isMasterstroke: false,
-                                initator: null,
+                                initiator: null,
                                 adjustGodFavorsPoints: true
                     );
                           }
@@ -81,6 +81,7 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
             }
             else
             {
+                fighter.AnimationController.RestoreDefaultAnimation();
                 Animation.Execute(fighter, AnimationTargetCells);
             }
         }

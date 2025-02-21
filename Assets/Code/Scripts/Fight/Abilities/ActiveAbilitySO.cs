@@ -22,7 +22,7 @@ namespace FrostfallSaga.Fight.Abilities
         [field: SerializeField, Range(0, 99)] public int ActionPointsCost { get; private set; }
         [field: SerializeField, Range(0, 99)] public int GodFavorsPointsCost { get; private set; }
         [field: SerializeField] public bool Dodgable { get; private set; }
-        [field: SerializeField] public AAbilityAnimation Animation ;
+        [field: SerializeField] public AAbilityAnimationSO Animation ;
         [field: SerializeField] public bool Masterstrokable { get; private set; }
         [SerializeReference] public AEffect[] Effects;
         [SerializeReference] public AEffect[] MasterstrokeEffects = { };

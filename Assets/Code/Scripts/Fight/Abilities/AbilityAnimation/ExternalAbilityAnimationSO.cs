@@ -5,7 +5,7 @@ using UnityEngine;
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
   
-    public class ExternalAbilityAnimationSO : AAbilityAnimation
+    public class ExternalAbilityAnimationSO : AAbilityAnimationSO
     {
         [field: SerializeField] public GameObject ProjectilePrefab { get; private set; }
         [SerializeReference] public AExternalAbilityAnimationExecutor Executor;

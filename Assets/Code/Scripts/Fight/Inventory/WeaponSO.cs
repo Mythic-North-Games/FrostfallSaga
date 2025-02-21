@@ -24,7 +24,6 @@ namespace FrostfallSaga.Fight.FightItems
         [field: SerializeField] public SElementToValue<EEntityRace, float>[] FightersStrengths { get; private set; } = {};
         [SerializeReference] public List<AEffect> SpecialEffects;
         [field: SerializeField] public AAbilityAnimationSO AttackAnimation { get; private set; }
-
         public AEffect[] GetWeaponEffects(EEntityRace targetEntityID, bool atMax = false)
         {
             List<AEffect> effects = new()

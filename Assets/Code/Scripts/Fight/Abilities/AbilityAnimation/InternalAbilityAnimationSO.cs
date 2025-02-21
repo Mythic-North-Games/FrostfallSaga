@@ -5,7 +5,7 @@ using UnityEngine;
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
 
-    public class InternalAbilityAnimationSO : AAbilityAnimation
+    public class InternalAbilityAnimationSO : AAbilityAnimationSO
     {
         [field: SerializeField] public string AnimationStateName { get; private set; }
         [field: SerializeField, Range(0f, 99f)] public float AnimationDuration { get; private set; }

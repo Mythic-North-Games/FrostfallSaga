@@ -34,6 +34,7 @@ namespace FrostfallSaga.EntitiesVisual
         {
             try
             {
+                Debug.Log(newState);
                 _animator.Play(newState);
                 CurrentStateName = newState;
             }

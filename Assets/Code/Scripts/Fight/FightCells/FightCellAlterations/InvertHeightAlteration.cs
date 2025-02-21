@@ -12,15 +12,7 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
     {
         private ECellHeight _previousHeight;
 
-        public InvertHeightAlteration(
-            string name,
-            string description,
-            Sprite icon,
-            bool isPermanent,
-            int duration
-        ) : base(name, description, icon, isPermanent, duration, true, true)
-        {
-        }
+  
 
         public override void Apply(FightCell cell)
         {

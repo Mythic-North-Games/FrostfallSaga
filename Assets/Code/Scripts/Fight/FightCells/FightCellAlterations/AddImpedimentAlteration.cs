@@ -15,16 +15,7 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         private FightCell _currentlyModifiedCell;
 
-        public AddImpedimentAlteration(
-            string name,
-            string description,
-            Sprite icon,
-            bool isPermanent,
-            int duration
-        ) : base(name, description, icon, isPermanent, duration, false, false)
-        {
-        }
-
+  
         #region Application
 
         public override void Apply(FightCell fightCell)

@@ -6,7 +6,7 @@ using FrostfallSaga.Fight.FightCells;
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
     [Serializable] 
-    public abstract class AAbilityAnimation  : ScriptableObject    {
+    public abstract class AAbilityAnimationSO  : ScriptableObject    {
         public Action<Fighter> onFighterTouched;
         public Action<FightCell> onCellTouched;
         public Action<Fighter> onAnimationEnded;
