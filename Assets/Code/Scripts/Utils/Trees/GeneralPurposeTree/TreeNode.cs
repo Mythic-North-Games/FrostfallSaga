@@ -7,7 +7,7 @@ namespace FrostfallSaga.Utils.Trees
     public class TreeNode<T>
     {
         private T _data;
-        private List<TreeNode<T>> _children;
+        private List<TreeNode<T>> _children = new();
         private TreeNode<T> _parent;
 
         public TreeNode(T data)

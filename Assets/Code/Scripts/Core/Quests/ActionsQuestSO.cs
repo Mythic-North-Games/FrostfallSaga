@@ -6,7 +6,7 @@ namespace FrostfallSaga.Core.Quests
     [CreateAssetMenu(fileName = "ActionsQuest", menuName = "ScriptableObjects/Quests/ActionsQuest", order = 0)]
     public class ActionsQuestSO: AQuestSO
     {
-        [field: SerializeReference] public AQuestAction[] Actions { get; private set; }
+        [SerializeReference] public AQuestAction[] Actions;
         [field: SerializeField, Tooltip("If the actions should be done in order or not.")] public bool OrderedActions { get; private set; }
 
         /// <summary>
