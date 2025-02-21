@@ -1,0 +1,17 @@
+{
+    "name": "FrostfallSaga.Quests",
+    "rootNamespace": "FrostfallSaga.Quests",
+    "references": [
+        "FrostfallSaga.Core",
+        "FrostfallSaga.Utils"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
