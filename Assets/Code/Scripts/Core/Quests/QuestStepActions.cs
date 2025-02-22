@@ -55,6 +55,17 @@ namespace FrostfallSaga.Core.Quests
             }
         }
 
+        /// <summary>
+        /// Define the chosen decisive action index if the quest step is already completed.
+        /// </summary>
+        public void CheckIsCompleted()
+        {
+            if (NonDecisiveActions.All(action => action.IsCompleted) && DecisiveActions.Any(action => action.IsCompleted))
+            {
+                ChosenDecisiveActionIndex = DecisiveActions.FindIndex(action => action.IsCompleted);
+            }
+        }
+
         private void InitializeNonDecisiveActions(MonoBehaviour currentSceneManager)
         {
             foreach (AQuestAction action in NonDecisiveActions)
