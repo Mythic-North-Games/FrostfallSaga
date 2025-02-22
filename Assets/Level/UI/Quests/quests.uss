@@ -1,0 +1,258 @@
+.questsFilterButton {
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    -unity-font-style: bold;
+    margin-top: 2%;
+    margin-right: 0;
+    margin-bottom: 2%;
+    margin-left: 0;
+    padding-top: 1.5%;
+    padding-right: 5%;
+    padding-bottom: 1%;
+    padding-left: 5%;
+    background-color: rgba(25, 25, 25, 0.78);
+    font-size: 30px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    color: rgb(225, 225, 225);
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.questsFilterButton:hover {
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    -unity-font-style: bold;
+    margin-top: 2%;
+    margin-right: 0;
+    margin-bottom: 2%;
+    margin-left: 0;
+    padding-top: 1.5%;
+    padding-right: 5%;
+    padding-bottom: 1%;
+    padding-left: 5%;
+    background-color: rgba(25, 25, 25, 0.78);
+    font-size: 30px;
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    color: rgb(225, 225, 225);
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out-cubic;
+    border-left-color: rgb(255, 202, 78);
+    border-right-color: rgb(255, 202, 78);
+    border-top-color: rgb(255, 202, 78);
+    border-bottom-color: rgb(255, 202, 78);
+}
+
+.questsFilterButtonActive {
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    -unity-font-style: bold;
+    margin-top: 2%;
+    margin-right: 0;
+    margin-bottom: 2%;
+    margin-left: 0;
+    padding-top: 1.5%;
+    padding-right: 5%;
+    padding-bottom: 1%;
+    padding-left: 5%;
+    background-color: rgba(25, 25, 25, 0.78);
+    font-size: 30px;
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    color: rgb(225, 225, 225);
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out-cubic;
+    border-left-color: rgb(255, 202, 78);
+    border-right-color: rgb(255, 202, 78);
+    border-top-color: rgb(255, 202, 78);
+    border-bottom-color: rgb(255, 202, 78);
+}
+
+.listQuestItemDefault {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 4%;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out-cubic;
+    min-height: 8%;
+}
+
+.listQuestItemDefault:hover {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 4%;
+    min-height: 8%;
+    border-left-color: rgb(255, 202, 79);
+    border-right-color: rgb(255, 202, 79);
+    border-top-color: rgb(255, 202, 79);
+    border-bottom-color: rgb(255, 202, 79);
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.listQuestItemActive {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 4%;
+    min-height: 8%;
+    border-left-color: rgb(255, 202, 79);
+    border-right-color: rgb(255, 202, 79);
+    border-top-color: rgb(255, 202, 79);
+    border-bottom-color: rgb(255, 202, 79);
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.actionInstructionContainer {
+    width: 100%;
+    margin-bottom: 2.5%;
+}
+
+.questStepContainer {
+    margin-bottom: 2%;
+    border-bottom-width: 2px;
+    border-left-color: rgb(25, 25, 25);
+    border-right-color: rgb(25, 25, 25);
+    border-top-color: rgb(25, 25, 25);
+    border-bottom-color: rgb(25, 25, 25);
+    padding-bottom: 1%;
+}
+
+.questStepContainerLast {
+    margin-bottom: 2%;
+    border-bottom-width: 0;
+    border-left-color: rgb(25, 25, 25);
+    border-right-color: rgb(25, 25, 25);
+    border-top-color: rgb(25, 25, 25);
+    border-bottom-color: rgb(25, 25, 25);
+    padding-bottom: 1%;
+}
+
+.questStepsContainerDefault {
+    max-height: 75%;
+    padding-top: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.questStepsContainerHidden {
+    max-height: 75%;
+    padding-top: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    display: none;
+}
+
+.instructionCompletionIconCompleted {
+    height: 110%;
+    background-image: url("project://database/Assets/Art/UI/UIKit/Icons/diamond-filled.png?fileID=2800000&guid=bc55247ed0b09700d852c754633a35d4&type=3#diamond-filled");
+    width: 10%;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.instructionCompletionIconUnfinished {
+    height: 110%;
+    background-image: url("project://database/Assets/Art/UI/UIKit/Icons/diamond-outline.png?fileID=2800000&guid=a5b4a48bd3e13a079ad0754d64e4dc40&type=3#diamond-outline");
+    width: 10%;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.questTypeIconDefault {
+    background-image: url("project://database/Assets/Art/UI/UIKit/Backgrounds/fadedWhiteCircleBackground.png?fileID=2800000&guid=e317b3f3bbbe0444fb034ff574616f3f&type=3#fadedWhiteCircleBackground");
+    width: 10%;
+    height: 85%;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.questTypeIconMission {
+    background-image: url("project://database/Assets/Art/UI/UIKit/Icons/mission-icon.png?fileID=2800000&guid=853bf8772aedec1cc9dc366695287d66&type=3#mission-icon");
+    width: 10%;
+    height: 85%;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.questTypeIconSecondary {
+    background-image: url("project://database/Assets/Art/UI/UIKit/Icons/quest-icon.png?fileID=2800000&guid=8a8e8cc6d50144bd48b2133a1b0be297&type=3#quest-icon");
+    width: 10%;
+    height: 85%;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.questDetailsPanelContainerDefault {
+    width: 100%;
+    height: 100%;
+    padding-top: 4%;
+    padding-right: 4%;
+    padding-bottom: 4%;
+    padding-left: 4%;
+}
+
+.questDetailsPanelContainerHidden {
+    width: 100%;
+    height: 100%;
+    padding-top: 4%;
+    padding-right: 4%;
+    padding-bottom: 4%;
+    padding-left: 4%;
+    display: none;
+}
+
+.decisiveActionSeparator {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 2%;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 30px;
+    -unity-font-style: normal;
+    -unity-text-align: upper-left;
+    white-space: normal;
+    color: rgb(25, 25, 25);
+    width: 95%;
+}
