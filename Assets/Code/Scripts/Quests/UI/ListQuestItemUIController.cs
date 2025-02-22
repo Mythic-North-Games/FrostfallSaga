@@ -7,10 +7,13 @@ namespace FrostfallSaga.Quests.UI
     public class ListQuestItemUIController
     {
         #region UI Elements Names & Classes
+        private static readonly string QUEST_ITEM_CONTAINER_ROOT_UI_NAME = "ListQuestItemContainer";
         private static readonly string QUEST_TYPE_ICON_UI_NAME = "QuestTypeIcon";
         private static readonly string QUEST_TITLE_UI_NAME = "Title";
         private static readonly string QUEST_ORIGIN_LOCATION_UI_NAME = "OriginLocation";
+        private static readonly string QUEST_COMPLETED_ICON_UI_NAME = "QuestCompletedIcon";
 
+        private static readonly string QUEST_ITEM_CONTAINER_COMPLETED_CLASSNAME = "listQuestItemContainerCompleted";
         private static readonly string LIST_QUEST_ITEM_DEFAULT_CLASSNAME = "listQuestItemDefault";
         private static readonly string LIST_QUEST_ITEM_ACTIVE_CLASSNAME = "listQuestItemActive";
         private static readonly string QUEST_TYPE_ICON_MISSION_CLASSNAME = "questTypeIconMission";
@@ -66,6 +69,10 @@ namespace FrostfallSaga.Quests.UI
         {
             VisualElement listQuestItemRoot = listQuestItemTemplate.Instantiate();
 
+            listQuestItemRoot.Q<VisualElement>(QUEST_ITEM_CONTAINER_ROOT_UI_NAME).AddToClassList(
+                quest.IsCompleted ? QUEST_ITEM_CONTAINER_COMPLETED_CLASSNAME : string.Empty
+            );
+            listQuestItemRoot.Q<VisualElement>(QUEST_TYPE_ICON_UI_NAME).ClearClassList();
             listQuestItemRoot.Q<VisualElement>(QUEST_TYPE_ICON_UI_NAME).AddToClassList(
                 quest.Type switch
                 {
@@ -77,6 +84,7 @@ namespace FrostfallSaga.Quests.UI
             );
             listQuestItemRoot.Q<Label>(QUEST_TITLE_UI_NAME).text = quest.Name;
             listQuestItemRoot.Q<Label>(QUEST_ORIGIN_LOCATION_UI_NAME).text = quest.OriginLocation;
+            listQuestItemRoot.Q<VisualElement>(QUEST_COMPLETED_ICON_UI_NAME).visible = quest.IsCompleted;
 
             return listQuestItemRoot;
         }

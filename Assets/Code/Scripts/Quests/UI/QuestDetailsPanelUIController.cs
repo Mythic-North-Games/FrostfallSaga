@@ -11,6 +11,7 @@ namespace FrostfallSaga.Quests.UI
         private static readonly string QUEST_TITLE_UI_NAME = "Title";
         private static readonly string QUEST_ORIGIN_LOCATION_UI_NAME = "OriginLocation";
         private static readonly string QUEST_DESCRIPTION_UI_NAME = "Description";
+        private static readonly string QUEST_COMPLETED_ICON_UI_NAME = "QuestCompletedIcon";
         private static readonly string QUEST_ACTIONS_CONTAINER_UI_NAME = "QuestActionsContainer";
         private static readonly string QUEST_STEPS_CONTAINER_UI_NAME = "QuestStepsContainer";
 
@@ -72,6 +73,7 @@ namespace FrostfallSaga.Quests.UI
             questDetailsPanelRoot.Q<Label>(QUEST_TITLE_UI_NAME).text = quest.Name;
             questDetailsPanelRoot.Q<Label>(QUEST_ORIGIN_LOCATION_UI_NAME).text = quest.OriginLocation;
             questDetailsPanelRoot.Q<Label>(QUEST_DESCRIPTION_UI_NAME).text = quest.Description;
+            questDetailsPanelRoot.Q<VisualElement>(QUEST_COMPLETED_ICON_UI_NAME).visible = quest.IsCompleted;
         }
 
         private static void SetupActionsQuest(

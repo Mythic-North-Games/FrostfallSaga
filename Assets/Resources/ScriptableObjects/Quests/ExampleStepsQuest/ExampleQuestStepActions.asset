@@ -28,7 +28,7 @@ MonoBehaviour:
     - rid: 2054917376379453440
       type: {class: WinFightQuestAction, ns: FrostfallSaga.Fight.QuestActions, asm: FrostfallSaga.Fight}
       data:
-        <IsCompleted>k__BackingField: 0
+        <IsCompleted>k__BackingField: 1
     - rid: 2054917376379453441
       type: {class: EncounterEnemiesGroupQuestAction, ns: FrostfallSaga.Kingdom.QuestActions, asm: FrostfallSaga.Kingdom}
       data:
