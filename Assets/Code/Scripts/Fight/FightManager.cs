@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Core.Fight;
+using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
@@ -46,6 +47,11 @@ namespace FrostfallSaga.Fight
         private List<Fighter> _enemies;
         private List<Fighter> _fightersTurnOrder;
         private Fighter _playingFighter;
+
+        private void Awake()
+        {
+            HeroTeamQuests.Instance.InitializeQuests(this);
+        }
 
         private void OnFightersGenerated(Fighter[] allies, Fighter[] enemies)
         {
