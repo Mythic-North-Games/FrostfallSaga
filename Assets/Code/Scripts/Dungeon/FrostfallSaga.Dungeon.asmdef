@@ -3,6 +3,7 @@
     "rootNamespace": "FrostfallSaga.Dungeon",
     "references": [
         "FrostfallSaga.Core",
+        "FrostfallSaga.Quests",
         "FrostfallSaga.Utils"
     ],
     "includePlatforms": [],

@@ -19,7 +19,6 @@ namespace FrostfallSaga.Fight
     {
         public Action<Fighter[], Fighter[]> onFightersGenerated;
 
-        [SerializeField] private WorldGameObjectInstantiator _worldGameObjectInstantiator;
         [SerializeField] private EntityConfigurationSO[] _devAlliesConfs;
         [SerializeField] private EntityConfigurationSO[] _devEnemiesConfs;
 
