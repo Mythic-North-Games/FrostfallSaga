@@ -3,6 +3,7 @@ using UnityEngine;
 using FrostfallSaga.Core.Dialogues;
 using FrostfallSaga.Core.Cities.CitySituations;
 using FrostfallSaga.City.UI;
+using FrostfallSaga.Core.Quests;
 
 namespace FrostfallSaga.City
 {
@@ -29,6 +30,12 @@ namespace FrostfallSaga.City
         private void OnCitySituationClicked(ACitySituationSO citySituation)
         {
             _currentCitySituation = citySituation;
+            if (citySituation.OnStartQuest != null)
+            {
+                // Add quest to hero team's quest list
+                HeroTeamQuests.Instance.AddQuest(citySituation.OnStartQuest);
+            }
+
             if (citySituation is CityDialogueSituation cityDialogueSituation)
             {
                 _dialogueUIProcessor.onDialogueEnded += OnDialogueEnded;
@@ -36,10 +43,20 @@ namespace FrostfallSaga.City
             }
         }
 
+        private void EndCitySituation()
+        {
+            if (_currentCitySituation.OnEndQuest != null)
+            {
+                // Add quest to hero team's quest list
+                HeroTeamQuests.Instance.AddQuest(_currentCitySituation.OnEndQuest);
+            }
+            onSituationResolved?.Invoke(_currentCitySituation);
+        }
+
         private void OnDialogueEnded(DialogueSO _endedDialogue)
         {
             _dialogueUIProcessor.onDialogueEnded -= OnDialogueEnded;
-            onSituationResolved?.Invoke(_currentCitySituation);
+            EndCitySituation();
         }
     }
 }
