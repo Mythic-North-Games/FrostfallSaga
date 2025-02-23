@@ -819,6 +819,7 @@ namespace FrostfallSaga.Fight.Fighters
         #region Movement handling
         private void MakeNextMove()
         {
+
             // Trigger exit trap of current cell before moving (if any)
             cell.onTrapTriggered += OnExitCellTrapTriggered;
             cell.TriggerTrapIfAny(ETrapTriggerTime.OnExit);
@@ -835,6 +836,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         private void OnFighterArrivedAtCell(Cell destinationCell)
         {
+
             MovementController.onMoveEnded -= OnFighterArrivedAtCell;
 
             // Update the leaved cell
@@ -850,13 +852,18 @@ namespace FrostfallSaga.Fight.Fighters
 
             // Trigger trap of new entered cell if any
             cell.onTrapTriggered += OnEnteredCellTrapTriggered;
+
             cell.TriggerTrapIfAny(ETrapTriggerTime.OnEnter);
+
         }
 
         private void OnEnteredCellTrapTriggered()
         {
+
             // Unsubscribe to the trap event
             cell.onTrapTriggered -= OnEnteredCellTrapTriggered;
+
+
 
             // If there are still moves to make, make the next one
             if (!_currentMovePath.IsLastMove)

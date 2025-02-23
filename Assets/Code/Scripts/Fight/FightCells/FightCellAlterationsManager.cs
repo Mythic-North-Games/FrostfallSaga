@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
 
@@ -26,7 +27,7 @@ namespace FrostfallSaga.Fight.FightCells
             return _activePermanentAlterations.Concat(_activeTemporaryAlterations.Keys).ToArray();
         }
 
-        public void ApplyNewAlteration(AFightCellAlteration newAlteration)
+        public void AddNewAlteration(AFightCellAlteration newAlteration)
         {
             if (!newAlteration.CanApplyWithFighter && _fightCell.HasFighter())
             {
@@ -39,7 +40,7 @@ namespace FrostfallSaga.Fight.FightCells
             _nextAlterationToAdd.onAlterationApplied += OnNewAlterationApplied;
 
             AFightCellAlteration currentAlterationOfType = GetFightCellAlterationOfSameType(newAlteration);
-            if (currentAlterationOfType != null)
+            if (currentAlterationOfType != null && currentAlterationOfType is not AddImpedimentAlteration)
             {
                 if (!currentAlterationOfType.CanBeReplaced)
                 {
@@ -72,8 +73,11 @@ namespace FrostfallSaga.Fight.FightCells
             {
                 alterationToRemove.onAlterationRemoved += OnAlterationRemoved;
                 alterationToRemove.Remove(_fightCell);
+
+                _activeTemporaryAlterations.Remove(alterationToRemove);
             }
         }
+
 
         private void OnNewAlterationApplied(FightCell fightCell, AFightCellAlteration apppliedAlteration)
         {
