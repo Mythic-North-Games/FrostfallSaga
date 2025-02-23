@@ -5,9 +5,11 @@
         "Cinemachine",
         "FrostfallSaga.Core",
         "FrostfallSaga.EntitiesVisual",
-        "FrostfallSaga.Utils",
         "FrostfallSaga.Grid",
-        "FrostfallSaga.Procedural"
+        "FrostfallSaga.Procedural",
+        "FrostfallSaga.GameObjectVisuals",
+        "FrostfallSaga.Quests",
+        "FrostfallSaga.Utils"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

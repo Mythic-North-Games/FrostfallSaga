@@ -16,6 +16,7 @@ namespace FrostfallSaga.Quests.UI
 
         private QuestsListMenuUIController _questsListMenuUIController;
         private VisualElement _questDetailsPanelRoot;
+        private AQuestSO[] _questsToShow;
 
         public override void SetupMenu()
         {
@@ -24,7 +25,7 @@ namespace FrostfallSaga.Quests.UI
             _questsListMenuUIController = new QuestsListMenuUIController(
                 questsListMenuRoot,
                 _listQuestItemTemplate,
-                _devQuests
+                _questsToShow
             );
             _questsListMenuUIController.onQuestSelected += OnQuestSelected;
             _questsListMenuUIController.onQuestsFilterChanged += OnQuestsFilterChanged;
@@ -93,6 +94,20 @@ namespace FrostfallSaga.Quests.UI
                 Debug.LogError("ActionInstructionTemplate is not set in the inspector.");
                 return;
             }
+
+            // Add dev quests to the hero team quests singleton if defined
+            if (_devQuests != null && _devQuests.Length > 0)
+            {
+                foreach (AQuestSO devQuest in _devQuests)
+                {
+                    if (!HeroTeamQuests.Instance.Quests.Contains(devQuest))
+                    {
+                        HeroTeamQuests.Instance.AddQuest(devQuest);
+                    }
+                }
+                _questsToShow = HeroTeamQuests.Instance.Quests.ToArray();
+            }
+            _questsToShow = HeroTeamQuests.Instance.Quests.ToArray();
         }
         #endregion
     }
