@@ -5,7 +5,7 @@ namespace FrostfallSaga.Grid.Cells
     /// </summary>
     public enum ECellHeight
     {
-        Deep = -3,
+        DEEP = -3,
         LOW = -1,
         MEDIUM = 0,
         HIGH = 1,

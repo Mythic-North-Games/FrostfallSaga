@@ -180,12 +180,12 @@ namespace FrostfallSaga.Grid.Cells
             Vector2Int targetAxial = targetCell.AxialCoordinates;
             return targetAxial - initiatorAxial;
         }
-        
+
         public void SetParentGridForTests(HexGrid grid)
         {
-            ParentGrid = grid ;
+            ParentGrid = grid;
         }
-        
+
         public override string ToString()
         {
             return $"Cell: \n" +

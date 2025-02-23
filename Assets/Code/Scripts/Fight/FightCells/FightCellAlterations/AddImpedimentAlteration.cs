@@ -15,7 +15,7 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         private FightCell _currentlyModifiedCell;
 
-  
+
         #region Application
 
         public override void Apply(FightCell fightCell)
@@ -43,8 +43,9 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
             Impediment.DestroyController.onDestroyEnded += OnImpedimentGameObjectDestroyed;
 
             _currentlyModifiedCell = fightCell;
-            if (fightCell.GetImpedimentGameObject() != null){
-                 Impediment.DestroyController.DestroyGameObject(fightCell.GetImpedimentGameObject());
+            if (fightCell.GetImpedimentGameObject() != null)
+            {
+                Impediment.DestroyController.DestroyGameObject(fightCell.GetImpedimentGameObject());
             }
         }
 

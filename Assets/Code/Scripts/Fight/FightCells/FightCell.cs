@@ -25,7 +25,7 @@ namespace FrostfallSaga.Fight.FightCells
         public FightCellAlterationsManager AlterationsManager { get; private set; }
         public Action onTrapTriggered;
 
-    
+
         public FightCell()
         {
             AlterationsManager = new(this);

@@ -274,7 +274,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="physicalDamageAmount">The damage taken before withstanding.</param>
         /// <param name="isMasterstroke">True if the attack is a masterstroke.</param>
         public void PhysicalWithstand(int physicalDamageAmount, bool isMasterstroke)
-        {   
+        {
             // Play the receive damage animation
             PlayAnimationIfAny(_receiveDamageAnimationName);
 

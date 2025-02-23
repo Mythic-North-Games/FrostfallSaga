@@ -13,7 +13,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
     [Serializable]
     public class StaticObjectsExecutor : AExternalAbilityAnimationExecutor
     {
-        [SerializeField] float adjustedOffset ;
+        [SerializeField] private float adjustedOffset;
 
         public override void Execute(Fighter fighterThatExecutes, FightCell[] abilityCells, GameObject objectPrefab)
 

@@ -404,16 +404,16 @@ namespace FrostfallSaga.Fight.Targeters
             return true;
         }
 
-        
-     private bool ExcludedCellsWithObstacles(FightCell[] targetedCells)
-    {
-        if (targetedCells.Any(cell => cell.HasObstacle()))
+
+        private bool ExcludedCellsWithObstacles(FightCell[] targetedCells)
         {
-            throw new TargeterUnresolvableException("Obstacles excluded from available targets.");
+            if (targetedCells.Any(cell => cell.HasObstacle()))
+            {
+                throw new TargeterUnresolvableException("Obstacles excluded from available targets.");
+            }
+
+            return true;
         }
-    
-    return true;
-    }
 
 
 

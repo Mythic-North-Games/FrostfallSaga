@@ -42,8 +42,9 @@ MonoBehaviour:
   OnCellEffects:
   - rid: 7399184556376981554
   CellAlterations:
-  - rid: 7399184556376981625
+  - rid: 7399184873545269297
   TrapType: 2
+  IsTrapVisible: 0
   references:
     version: 2
     RefIds:
@@ -63,14 +64,15 @@ MonoBehaviour:
     - rid: 7399184556376981554
       type: {class: PhysicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
-        PhysicalDamageAmount: 12
-    - rid: 7399184556376981625
+        PhysicalDamageAmount: 20
+    - rid: 7399184873545269297
       type: {class: SetHeightAlteration, ns: FrostfallSaga.Fight.FightCells.FightCellAlterations, asm: FrostfallSaga.Fight}
       data:
-        <IsPermanent>k__BackingField: 0
-        <Duration>k__BackingField: 5
         <Name>k__BackingField: 
         <Description>k__BackingField: 
         <Icon>k__BackingField: {fileID: 0}
+        <IsPermanent>k__BackingField: 0
+        <Duration>k__BackingField: 12
+        <CanApplyWithFighter>k__BackingField: 1
         <TargetHeight>k__BackingField: -3
         <CellAlterationDuration>k__BackingField: 0

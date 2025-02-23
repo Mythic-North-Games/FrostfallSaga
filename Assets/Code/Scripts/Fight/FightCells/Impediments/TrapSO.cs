@@ -18,7 +18,7 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
     public class TrapSO : AImpedimentSO
     {
         [field: SerializeField] public Targeter Targeter { get; private set; }
-        [field: SerializeField] public IImpedimentAnimationSO Animation { get; private set; }
+        [field: SerializeField] public ImpedimentAnimationSO Animation { get; private set; }
         [field: SerializeField, Header("Trap definition")] public ETrapTriggerTime[] TriggerTimes { get; private set; }
         [SerializeReference] public AEffect[] OtherCellsEffects = { };
         [SerializeReference] public AEffect[] OnCellEffects = { };
@@ -29,10 +29,7 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
 
         public void Trigger(Fighter receiver, FightCell targetedCell)
         {
-            Dictionary<Fighter, bool> potionRestoreAmounts = new Dictionary<Fighter, bool>
-          {
-              { receiver, true }
-          };
+
             FightCell[] trapTargetCells = Targeter.GetCellsFromSequence(targetedCell.ParentGrid, targetedCell, targetedCell);
 
             foreach (var effect in OnCellEffects)
@@ -63,7 +60,7 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
                       }
                   );
             }
-            foreach (var cellAteration in CellAlterations)
+            foreach (AFightCellAlteration cellAteration in CellAlterations)
             {
                 targetedCell.AlterationsManager.AddNewAlteration(cellAteration);
             }
@@ -81,7 +78,6 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
             }
             else
             {
-                //fighter.AnimationController.RestoreDefaultAnimation();
                 Animation.Execute(fighter, AnimationTargetCells);
             }
         }

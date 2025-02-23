@@ -13,7 +13,7 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
         [field: SerializeField, Header("Global alteration definiton")] public bool IsPermanent { get; protected set; }
         [field: SerializeField] public int Duration { get; protected set; }
         public bool CanBeReplaced { get; protected set; }
-        [field: SerializeField] public  bool CanApplyWithFighter  { get; protected set; }
+        [field: SerializeField] public bool CanApplyWithFighter { get; protected set; }
 
         public Action<FightCell, AFightCellAlteration> onAlterationApplied;
         public Action<FightCell, AFightCellAlteration> onAlterationRemoved;

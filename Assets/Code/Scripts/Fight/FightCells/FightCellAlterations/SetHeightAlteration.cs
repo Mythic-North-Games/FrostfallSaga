@@ -17,7 +17,7 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         [field: SerializeField] public float CellAlterationDuration { get; protected set; }
 
-  
+
 
         public override void Apply(FightCell cell)
         {

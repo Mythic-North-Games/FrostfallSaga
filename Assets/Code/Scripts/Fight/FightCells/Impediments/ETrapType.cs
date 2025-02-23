@@ -2,7 +2,7 @@
 
 namespace FrostfallSaga.Fight.FightCells.Impediments
 {
-       public enum ETrapType
+    public enum ETrapType
     {
         FIRE,
         SPIKES,
