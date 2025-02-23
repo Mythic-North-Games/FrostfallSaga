@@ -7,7 +7,7 @@ using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Dungeon;
 using FrostfallSaga.Core.GameState.Fight;
-using FrostfallSaga.Quests;
+using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Scenes;
 

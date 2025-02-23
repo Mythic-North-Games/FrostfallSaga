@@ -5,12 +5,12 @@ using UnityEngine;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Kingdom;
+using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.EntitiesGroupsSpawner;
 using FrostfallSaga.Kingdom.InterestPoints;
-using FrostfallSaga.Quests;
 
 namespace FrostfallSaga.Kingdom
 {

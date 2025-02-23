@@ -5,7 +5,7 @@ using FrostfallSaga.Core;
 using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.Cities.CitySituations;
-using FrostfallSaga.Quests;
+using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Utils.UI;
 using FrostfallSaga.Utils.Scenes;
 
