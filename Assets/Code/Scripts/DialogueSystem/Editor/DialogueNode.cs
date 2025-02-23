@@ -6,6 +6,7 @@ using UnityEditor.UIElements;
 using UnityEditor.Experimental.GraphView;
 using FrostfallSaga.Core.Dialogues;
 using FrostfallSaga.Utils.Trees;
+using FrostfallSaga.Core.Quests;
 
 namespace FrostfallSaga.FFSEditor.DialogueSystem
 {
@@ -31,6 +32,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         private TextField _richTextField;
         private ObjectField _speakerField;
         private Toggle _isRightToggle;
+        private ObjectField _questField;
 
         public DialogueNode(TreeNode<DialogueLine> treeNode, int depth, DialogueNode parentNode)
         {
@@ -89,6 +91,10 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             _isRightToggle.RegisterValueChangedCallback(evt => UpdateIsRight(evt.newValue));
             container.Add(_isRightToggle);
 
+            _questField = new ObjectField("Quest") { objectType = typeof(AQuestSO), value = Data.Quest };
+            _questField.RegisterValueChangedCallback(evt => UpdateQuest(evt.newValue as AQuestSO));
+            container.Add(_questField);
+
             _answersContainer = new VisualElement();
             _answersContainer.style.marginTop = 5;
             container.Add(_answersContainer);
@@ -128,6 +134,12 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         private void UpdateIsRight(bool newIsRight)
         {
             Data.SetIsRight(newIsRight);
+            onNodeModified?.Invoke();
+        }
+
+        private void UpdateQuest(AQuestSO newQuest)
+        {
+            Data.SetQuest(newQuest);
             onNodeModified?.Invoke();
         }
 

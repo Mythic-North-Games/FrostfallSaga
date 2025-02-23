@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using FrostfallSaga.Core.Dialogues;
 using FrostfallSaga.Utils.Trees;
+using FrostfallSaga.Core.Quests;
 
 namespace FrostfallSaga.FFSEditor.DialogueSystem
 {
@@ -105,7 +106,9 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
                     data.SetRichText(newRichText);
                 }
 
-                var newSpeaker = (DialogueParticipantSO)EditorGUILayout.ObjectField("Speaker", data.Speaker, typeof(DialogueParticipantSO), false);
+                DialogueParticipantSO newSpeaker = (DialogueParticipantSO)EditorGUILayout.ObjectField(
+                    "Speaker", data.Speaker, typeof(DialogueParticipantSO), false
+                );
                 if (newSpeaker != data.Speaker)
                 {
                     data.SetSpeaker(newSpeaker);
@@ -115,6 +118,14 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
                 if (newIsRight != data.IsRight)
                 {
                     data.SetIsRight(newIsRight);
+                }
+
+                AQuestSO newQuest = (AQuestSO)EditorGUILayout.ObjectField(
+                    "Quest", data.Quest, typeof(AQuestSO), false
+                );
+                if (newQuest != data.Quest)
+                {
+                    data.SetQuest(newQuest);
                 }
 
                 EditorGUILayout.Space();
