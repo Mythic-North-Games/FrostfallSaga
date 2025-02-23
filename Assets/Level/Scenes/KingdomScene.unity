@@ -59365,10 +59365,7 @@ MonoBehaviour:
   _questDetailsTemplate: {fileID: 9197481963319205126, guid: b123ec5ba851f1362b9e5b0a92e90d7e, type: 3}
   _questStepTemplate: {fileID: 9197481963319205126, guid: 74be39bbe00f23ca480296fb4699af3f, type: 3}
   _actionInstructionTemplate: {fileID: 9197481963319205126, guid: 8c05b7c3f827d9ac18bfa213c03059dd, type: 3}
-  _devQuests:
-  - {fileID: 11400000, guid: 3a253f80c6e9bcf7ebccfc658f089b55, type: 2}
-  - {fileID: 11400000, guid: 38bf9a4a88efbe424b184c4c917c1320, type: 2}
-  - {fileID: 11400000, guid: f572c0de53101d97ebadf6b1b9e6e337, type: 2}
+  _devQuests: []
 --- !u!114 &1836292163
 MonoBehaviour:
   m_ObjectHideFlags: 0
