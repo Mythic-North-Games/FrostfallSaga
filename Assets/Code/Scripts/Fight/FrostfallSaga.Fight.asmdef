@@ -9,7 +9,6 @@
         "FrostfallSaga.GameObjectVisuals",
         "FrostfallSaga.InventorySystem",
         "FrostfallSaga.Procedural",
-        "FrostfallSaga.Quests",
         "FrostfallSaga.Utils"
     ],
     "includePlatforms": [],

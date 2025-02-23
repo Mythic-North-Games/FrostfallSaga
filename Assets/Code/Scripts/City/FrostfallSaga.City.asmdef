@@ -3,7 +3,6 @@
     "rootNamespace": "FrostfallSaga.City",
     "references": [
         "FrostfallSaga.Core",
-        "FrostfallSaga.Quests",
         "FrostfallSaga.Utils"
     ],
     "includePlatforms": [],
