@@ -17,14 +17,14 @@ MonoBehaviour:
     mad you know.
   <OriginLocation>k__BackingField: Sovengard
   <Type>k__BackingField: 2
-  <IsCompleted>k__BackingField: 1
+  <IsCompleted>k__BackingField: 0
   Actions:
-  - rid: 2054917332478984194
-  <OrderedActions>k__BackingField: 1
+  - rid: 2054917404888137728
+  <OrderedActions>k__BackingField: 0
   references:
     version: 2
     RefIds:
-    - rid: 2054917332478984194
-      type: {class: EncounterEnemiesGroupQuestAction, ns: FrostfallSaga.Kingdom.QuestActions, asm: FrostfallSaga.Kingdom}
+    - rid: 2054917404888137728
+      type: {class: WinFightQuestAction, ns: FrostfallSaga.Fight.QuestActions, asm: FrostfallSaga.Fight}
       data:
-        <IsCompleted>k__BackingField: 1
+        <IsCompleted>k__BackingField: 0
