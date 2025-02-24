@@ -57,7 +57,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
                         _possessedFighter,
                         _fightGrid,
                         _fighterTeams,
-                        EDamagePreference.MAXIMIZE_DAMAGE
+                        EAbilityUsagePreference.MAXIMIZE_EFFECT
                     )
                 }
             );

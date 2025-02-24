@@ -61,9 +61,26 @@ namespace FrostfallSaga.Fight.Effects
             }
         }
 
-        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke)
+        public override int GetPotentialEffectDamages(Fighter _initiator, Fighter _receiver, bool _canMasterstroke)
         {
-            return 0;
+            int totalPotentialDamage = 0;
+            foreach (AStatus status in StatusesToApply)
+            {
+                if (status.StatusType.IsBuff()) continue;
+                totalPotentialDamage += status.GetPotentialDamages();
+            }
+            return totalPotentialDamage;
+        }
+
+        public override int GetPotentialEffectHeal(Fighter _initiator, Fighter _receiver, bool _canMasterstroke)
+        {
+            int totalPotentialHeal = 0;
+            foreach (AStatus status in StatusesToApply)
+            {
+                if (!status.StatusType.IsBuff()) continue;
+                totalPotentialHeal += status.GetPotentialHeal();
+            }
+            return totalPotentialHeal;
         }
     }
 }
