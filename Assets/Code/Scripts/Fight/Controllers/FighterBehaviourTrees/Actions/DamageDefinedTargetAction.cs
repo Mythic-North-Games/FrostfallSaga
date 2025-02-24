@@ -13,16 +13,16 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 {
     public class DamageDefinedTargetAction : FBTNode
     {
-        private readonly EDamagePreference damagePreference;
+        private readonly EAbilityUsagePreference abilityUsagePreference;
 
         public DamageDefinedTargetAction(
             Fighter possessedFighter,
             HexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,
-            EDamagePreference damagePreference
+            EAbilityUsagePreference abilityUsagePreference
         ) : base(possessedFighter, fightGrid, fighterTeams)
         {
-            this.damagePreference = damagePreference;
+            this.abilityUsagePreference = abilityUsagePreference;
         }
 
         public override NodeState Evaluate()
@@ -45,15 +45,15 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             bool canUseDirectAttack = _possessedFighter.CanDirectAttack(_fightGrid, _fighterTeams, target);
 
             // Choose the ability to use based on the damage preference and decide if it's better to use the prefered ability or the direct attack
-            switch (damagePreference)
+            switch (abilityUsagePreference)
             {
-                case EDamagePreference.RANDOM:
+                case EAbilityUsagePreference.RANDOM:
                     preferedAbility = Randomizer.GetRandomElementFromArray(useableAbilities.ToArray());
                     float directAttackChance = 1f / (useableAbilities.Count + 1);
                     useActiveAbility = !Randomizer.GetBooleanOnChance(directAttackChance) || !canUseDirectAttack;
                     break;
 
-                case EDamagePreference.MAXIMIZE_DAMAGE:
+                case EAbilityUsagePreference.MAXIMIZE_EFFECT:
                     preferedAbility = useableAbilities.OrderByDescending(
                         ability => ability.GetDamagesPotential(_possessedFighter, target)
                     ).FirstOrDefault();
@@ -64,7 +64,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
                     ) || !canUseDirectAttack;
                     break;
 
-                case EDamagePreference.MINIMIZE_COST:
+                case EAbilityUsagePreference.MINIMIZE_COST:
                     preferedAbility = useableAbilities.OrderBy(ability => ability.ActionPointsCost).First();
                     useActiveAbility = preferedAbility.ActionPointsCost < _possessedFighter.Weapon.UseActionPointsCost || !canUseDirectAttack;
                     break;

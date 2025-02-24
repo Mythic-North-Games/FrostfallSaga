@@ -91,6 +91,18 @@ namespace FrostfallSaga.Fight.Statuses
         /// <param name="fighter">The fighter that will have the status removed.</param>
         protected abstract void DoRemoveStatus(Fighter fighter);
 
+        /// <summary>
+        /// Get the potential damages that the status can do to a fighter.
+        /// </summary>
+        /// <returns>Returns the potential damages that the status can do to a fighter.</returns>
+        public abstract int GetPotentialDamages();
+
+        /// <summary>
+        /// Get the potential heal that the status can do to a fighter.
+        /// </summary>
+        /// <returns>Returns the potential heal that the status can do to a fighter.</returns>
+        public abstract int GetPotentialHeal();
+
 #if UNITY_EDITOR
         public void SetDuration(int duration) => Duration = duration;
         public void SetIsRecurring(bool isRecurring) => IsRecurring = isRecurring;

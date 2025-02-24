@@ -64,6 +64,13 @@ namespace FrostfallSaga.Fight.Abilities
             );
         }
 
+        public int GetHealPotential(Fighter initiator, Fighter target)
+        {
+            return Effects.Sum(
+                effect => effect.GetPotentialEffectHeal(initiator, target, Masterstrokable)
+            );
+        }
+
         #region Ability application management
 
         private void OnActiveAbilityTouchedFighter(Fighter fighter)
