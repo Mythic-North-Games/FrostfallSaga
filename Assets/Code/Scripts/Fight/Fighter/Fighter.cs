@@ -649,7 +649,7 @@ namespace FrostfallSaga.Fight.Fighters
                     activeAbility =>
                     {
                         if (!CanUseActiveAbility(fightGrid, activeAbility, fightersTeams, target)) return false;
-                        if (mandatoryEffectTypes != null && mandatoryEffectTypes.Any())
+                        if (mandatoryEffectTypes != null && mandatoryEffectTypes.Count > 0)
                         {
 
                             AEffect[] abilityEffects = activeAbility.Effects;
