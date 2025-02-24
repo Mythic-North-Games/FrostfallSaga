@@ -63,7 +63,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
                     continue;
                 }
 
-                if (!fighterIsAlly && _possibleTargets.Contains(ETarget.OPONENTS))
+                if (!fighterIsAlly && _possibleTargets.Contains(ETarget.OPONNENTS))
                 {
                     targetsToMoveTo.Add(fighter);
                 }

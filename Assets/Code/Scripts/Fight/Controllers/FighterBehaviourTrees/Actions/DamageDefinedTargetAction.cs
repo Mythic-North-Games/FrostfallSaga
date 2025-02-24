@@ -11,11 +11,11 @@ using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 {
-    public class DamageTargetAction : FBTNode
+    public class DamageDefinedTargetAction : FBTNode
     {
         private readonly EDamagePreference damagePreference;
 
-        public DamageTargetAction(
+        public DamageDefinedTargetAction(
             Fighter possessedFighter,
             HexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,

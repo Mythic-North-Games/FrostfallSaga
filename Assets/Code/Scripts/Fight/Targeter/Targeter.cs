@@ -370,7 +370,7 @@ namespace FrostfallSaga.Fight.Targeters
                             throw new TargeterUnresolvableException("Allies exluded from available targets.");
                         }
                         break;
-                    case ETarget.OPONENTS:
+                    case ETarget.OPONNENTS:
                         List<FightCell> oponentsCells = fightersTeams.Where(fighterTeam =>
                             fighterTeam.Value != initiatorIsAlly
                         ).Select(fighterTeam => fighterTeam.Key.cell).ToList();
