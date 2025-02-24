@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees;
 using FrostfallSaga.Utils.Trees.BehaviourTree;
 
-namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.FighterBehaviourTrees.Checks
+namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 {
     public class GetHealableTargetCheck : FBTNode
     {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using FrostfallSaga.Utils.Trees.BehaviourTree;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
-using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 {

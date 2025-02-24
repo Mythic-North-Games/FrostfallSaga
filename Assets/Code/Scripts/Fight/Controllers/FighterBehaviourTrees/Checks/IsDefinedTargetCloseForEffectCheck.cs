@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using FrostfallSaga.Utils.Trees.BehaviourTree;
-using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
 using System.Collections.Generic;
 
-namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.FighterBehaviourTrees.Checks
+namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 {
     /// <summary>
     /// Check if the possessed fighter can use an ability with the given effect.
