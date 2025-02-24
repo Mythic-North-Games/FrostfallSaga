@@ -131,7 +131,7 @@ namespace FrostfallSaga.Fight.Abilities
                             .Select(pair => pair.Key)
                         );
                         break;
-                    case ETarget.OPONENTS:
+                    case ETarget.OPONNENTS:
                         targets.AddRange(
                             fighterTeams
                                 .Where(fighterTeam => fighterTeam.Value != fighterTeams[initiator])

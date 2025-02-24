@@ -506,6 +506,10 @@ namespace FrostfallSaga.Fight.Fighters
 
         public int GetMaxHealth() => _stats.maxHealth;
 
+        public bool IsDead() => _stats.health <= 0;
+
+        public bool IsDamaged() => _stats.health < _stats.maxHealth;
+
         public int GetStrength() => _stats.strength;
 
         public int GetDexterity() => _stats.dexterity;

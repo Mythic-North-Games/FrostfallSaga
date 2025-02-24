@@ -4,6 +4,6 @@ namespace FrostfallSaga.Fight
     {
         SELF,
         ALLIES,
-        OPONENTS
+        OPONNENTS
     }
 }
