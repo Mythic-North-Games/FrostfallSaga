@@ -57,7 +57,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
                         new() { ETarget.ALLIES },
                         ETargetType.WEAKEST
                     ),
-                    new Selector(
+                    new Sequence(
                         new List<Node>
                         {
                             new IsDefinedTargetCloseForEffectCheck<HealEffect>(
@@ -124,7 +124,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
                         _possessedFighter,
                         _fightGrid,
                         _fighterTeams,
-                        EAbilityUsagePreference.MINIMIZE_COST
+                        EAbilityUsagePreference.MAXIMIZE_EFFECT
                     )
                 }
             );

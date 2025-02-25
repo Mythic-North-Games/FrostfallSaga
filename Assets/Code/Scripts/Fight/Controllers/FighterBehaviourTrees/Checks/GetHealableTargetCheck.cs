@@ -41,30 +41,33 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
             List<Fighter> healableTargets = new();
             bool _posssessedFighterTeam = _fighterTeams[_possessedFighter];
 
-            Fighter[] damagedFighters = _fighterTeams.Keys.Where(fighter => fighter.IsDamaged()).ToArray();
-            foreach (Fighter fighter in damagedFighters)
+            // Check if the fighter can heal himself
+            if (_possibleTargets.Contains(ETarget.SELF) && _possessedFighter.IsDamaged())
             {
-                // Check if self included in possible targets
-                if (!_possibleTargets.Contains(ETarget.SELF) && fighter == _possessedFighter)
-                {
-                    continue;
-                }
+                healableTargets.Add(_possessedFighter);
+            }
 
+            // Check if the fighter can heal other damaged fighters
+            Fighter[] otherDamagedFighters = _fighterTeams.Keys.Where(
+                fighter => fighter != _possessedFighter && fighter.IsDamaged()
+            ).ToArray();
+            foreach (Fighter fighter in otherDamagedFighters)
+            {
                 bool fighterIsAlly = _fighterTeams[fighter] == _posssessedFighterTeam;
 
                 // Check if allies included in possible targets
-                if (!_possibleTargets.Contains(ETarget.ALLIES) && fighterIsAlly)
+                if (_possibleTargets.Contains(ETarget.ALLIES) && fighterIsAlly)
                 {
+                    healableTargets.Add(fighter);
                     continue;
                 }
 
                 // Check if enemies included in possible targets
-                if (!_possibleTargets.Contains(ETarget.OPONNENTS) && !fighterIsAlly)
+                if (_possibleTargets.Contains(ETarget.OPONNENTS) && !fighterIsAlly)
                 {
+                    healableTargets.Add(fighter);
                     continue;
                 }
-
-                healableTargets.Add(fighter);
             }
 
             return healableTargets;

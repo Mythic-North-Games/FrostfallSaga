@@ -44,30 +44,39 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             bool useActiveAbility = false;
             bool canUseDirectAttack = _possessedFighter.CanDirectAttack(_fightGrid, _fighterTeams, target);
 
-            // Choose the ability to use based on the damage preference and decide if it's better to use the prefered ability or the direct attack
-            switch (abilityUsagePreference)
+            // Check if the fighter can do anything
+            if (useableAbilities.Count == 0 && !canUseDirectAttack)
             {
-                case EAbilityUsagePreference.RANDOM:
-                    preferedAbility = Randomizer.GetRandomElementFromArray(useableAbilities.ToArray());
-                    float directAttackChance = 1f / (useableAbilities.Count + 1);
-                    useActiveAbility = !Randomizer.GetBooleanOnChance(directAttackChance) || !canUseDirectAttack;
-                    break;
+                return NodeState.FAILURE;
+            }
 
-                case EAbilityUsagePreference.MAXIMIZE_EFFECT:
-                    preferedAbility = useableAbilities.OrderByDescending(
-                        ability => ability.GetDamagesPotential(_possessedFighter, target)
-                    ).FirstOrDefault();
-                    useActiveAbility = (
-                        preferedAbility != null && 
-                        preferedAbility.GetDamagesPotential(_possessedFighter, target) >
-                        _possessedFighter.Weapon.GetPotentialsDamagesOnTarget(_possessedFighter, target)
-                    ) || !canUseDirectAttack;
-                    break;
+            if (useableAbilities.Count > 0)
+            {
+                // Choose the ability to use based on the damage preference and decide if it's better to use the prefered ability or the direct attack
+                switch (abilityUsagePreference)
+                {
+                    case EAbilityUsagePreference.RANDOM:
+                        preferedAbility = Randomizer.GetRandomElementFromArray(useableAbilities.ToArray());
+                        float directAttackChance = 1f / (useableAbilities.Count + 1);
+                        useActiveAbility = !Randomizer.GetBooleanOnChance(directAttackChance) || !canUseDirectAttack;
+                        break;
 
-                case EAbilityUsagePreference.MINIMIZE_COST:
-                    preferedAbility = useableAbilities.OrderBy(ability => ability.ActionPointsCost).First();
-                    useActiveAbility = preferedAbility.ActionPointsCost < _possessedFighter.Weapon.UseActionPointsCost || !canUseDirectAttack;
-                    break;
+                    case EAbilityUsagePreference.MAXIMIZE_EFFECT:
+                        preferedAbility = useableAbilities.OrderByDescending(
+                            ability => ability.GetDamagesPotential(_possessedFighter, target)
+                        ).FirstOrDefault();
+                        useActiveAbility = (
+                            preferedAbility != null && 
+                            preferedAbility.GetDamagesPotential(_possessedFighter, target) >
+                            _possessedFighter.Weapon.GetPotentialsDamagesOnTarget(_possessedFighter, target)
+                        ) || !canUseDirectAttack;
+                        break;
+
+                    case EAbilityUsagePreference.MINIMIZE_COST:
+                        preferedAbility = useableAbilities.OrderBy(ability => ability.ActionPointsCost).First();
+                        useActiveAbility = preferedAbility.ActionPointsCost < _possessedFighter.Weapon.UseActionPointsCost || !canUseDirectAttack;
+                        break;
+                }
             }
 
             // Get damage action target cells
