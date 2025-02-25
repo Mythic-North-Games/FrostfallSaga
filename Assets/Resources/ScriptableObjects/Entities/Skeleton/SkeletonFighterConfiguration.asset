@@ -17,7 +17,8 @@ MonoBehaviour:
   <PersonalityTrait>k__BackingField: {fileID: 11400000, guid: fb35749618274e019a3ffb157934cc4f, type: 2}
   <AvailableActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-  <ActiveAbilitiesCapacity>k__BackingField: 1
+  - {fileID: 11400000, guid: 436fd3c6fdddb5b05a6357cf2d05e708, type: 2}
+  <ActiveAbilitiesCapacity>k__BackingField: 2
   <AvailablePassiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
   <PassiveAbilitiesCapacity>k__BackingField: 1

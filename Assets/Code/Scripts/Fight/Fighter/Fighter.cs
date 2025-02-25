@@ -655,9 +655,7 @@ namespace FrostfallSaga.Fight.Fighters
                         if (!CanUseActiveAbility(fightGrid, activeAbility, fightersTeams, target)) return false;
                         if (mandatoryEffectTypes != null && mandatoryEffectTypes.Count > 0)
                         {
-
-                            AEffect[] abilityEffects = activeAbility.Effects;
-                            return mandatoryEffectTypes.Any(effect => abilityEffects.Any(e => e.GetType() == effect.GetType()));
+                            return mandatoryEffectTypes.Any(effectType => AbilityHasEffect(activeAbility, effectType));
                         }
                         return true;
                     }
@@ -791,6 +789,11 @@ namespace FrostfallSaga.Fight.Fighters
             return targeter.GetAllResolvedCellsSequences(fightGrid, cell, fightersTeams, cellAlterations).Any(
                 cellsSequence => cellsSequence.Contains(target.cell)
             );
+        }
+
+        private bool AbilityHasEffect(ActiveAbilitySO activeAbility, Type effectType)
+        {
+            return activeAbility.Effects.Any(abilityEffect => abilityEffect.GetType() == effectType);
         }
 
         private int GetArmorPhysicalResistance()

@@ -28,15 +28,13 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
         /// </summary>
         protected override Node SetupTree()
         {
-            List<ETarget> targets = new() { ETarget.OPONNENTS };
-
             return new Selector(
                 new List<Node>
                 {
                     BuildHealWeakestAllySequence(),
                     BuildHealSelfAllySequence(),
-                    BuildDamageSequence(targets),
-                    BuildMoveSequence(targets),
+                    BuildDamageSequence(),
+                    BuildMoveSequence(),
                     new EndTurnAction(_possessedFighter, _fightGrid, _fighterTeams)
                 }
             );
@@ -110,8 +108,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
         /// First, check if one of the given targets can be damaged.
         /// If there is one, damage it.
         /// </summary>
-        /// <param name="targets">The possible targets to try to damage</param>
-        private Sequence BuildDamageSequence(List<ETarget> targets)
+        private Sequence BuildDamageSequence()
         {
             return new Sequence(
                 new List<Node>
@@ -120,7 +117,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
                         _possessedFighter,
                         _fightGrid,
                         _fighterTeams,
-                        targets,
+                        new() { ETarget.OPONNENTS },
                         ETargetType.WEAKEST
                     ),
                     new DamageDefinedTargetAction(
@@ -137,8 +134,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
         /// First, check if fighter can move.
         /// If he can, move towards the closest target.
         /// </summary>
-        /// <param name="targets">The possible targets to try to move to.</param>
-        private Sequence BuildMoveSequence(List<ETarget> targets)
+        private Sequence BuildMoveSequence()
         {
             return new Sequence(
                 new List<Node>
@@ -148,7 +144,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
                         _possessedFighter,
                         _fightGrid,
                         _fighterTeams,
-                        targets
+                        new() { ETarget.OPONNENTS }
                     )
                 }
             );
