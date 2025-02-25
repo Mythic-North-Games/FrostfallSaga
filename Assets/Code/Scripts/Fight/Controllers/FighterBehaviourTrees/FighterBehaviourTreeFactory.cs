@@ -20,6 +20,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
             return id switch
             {
                 EFighterBehaviourTreeID.Aggressive => new AggressiveFBT(fighter, fightGrid, fighterTeams),
+                EFighterBehaviourTreeID.Supportive => new SupportiveFBT(fighter, fightGrid, fighterTeams),
                 _ => throw new System.NotImplementedException(),
             };
         }

@@ -17,7 +17,7 @@ namespace FrostfallSaga.Fight.Abilities
     [CreateAssetMenu(fileName = "PassiveAbility", menuName = "ScriptableObjects/Fight/Abilities/PassiveAbility", order = 0)]
     public class PassiveAbilitySO : ABaseAbility
     {
-        [field: SerializeField] public AEffect[] Effects { get; private set; }
+        [SerializeReference] public AEffect[] Effects;
 
         [
             SerializeReference,
@@ -131,7 +131,7 @@ namespace FrostfallSaga.Fight.Abilities
                             .Select(pair => pair.Key)
                         );
                         break;
-                    case ETarget.OPONENTS:
+                    case ETarget.OPONNENTS:
                         targets.AddRange(
                             fighterTeams
                                 .Where(fighterTeam => fighterTeam.Value != fighterTeams[initiator])

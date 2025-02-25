@@ -506,6 +506,10 @@ namespace FrostfallSaga.Fight.Fighters
 
         public int GetMaxHealth() => _stats.maxHealth;
 
+        public bool IsDead() => _stats.health <= 0;
+
+        public bool IsDamaged() => _stats.health < _stats.maxHealth;
+
         public int GetStrength() => _stats.strength;
 
         public int GetDexterity() => _stats.dexterity;
@@ -649,11 +653,9 @@ namespace FrostfallSaga.Fight.Fighters
                     activeAbility =>
                     {
                         if (!CanUseActiveAbility(fightGrid, activeAbility, fightersTeams, target)) return false;
-                        if (mandatoryEffectTypes != null && mandatoryEffectTypes.Any())
+                        if (mandatoryEffectTypes != null && mandatoryEffectTypes.Count > 0)
                         {
-
-                            AEffect[] abilityEffects = activeAbility.Effects;
-                            return mandatoryEffectTypes.Any(effect => abilityEffects.Any(e => e.GetType() == effect.GetType()));
+                            return mandatoryEffectTypes.Any(effectType => AbilityHasEffect(activeAbility, effectType));
                         }
                         return true;
                     }
@@ -787,6 +789,11 @@ namespace FrostfallSaga.Fight.Fighters
             return targeter.GetAllResolvedCellsSequences(fightGrid, cell, fightersTeams, cellAlterations).Any(
                 cellsSequence => cellsSequence.Contains(target.cell)
             );
+        }
+
+        private bool AbilityHasEffect(ActiveAbilitySO activeAbility, Type effectType)
+        {
+            return activeAbility.Effects.Any(abilityEffect => abilityEffect.GetType() == effectType);
         }
 
         private int GetArmorPhysicalResistance()

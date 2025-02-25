@@ -49,5 +49,15 @@ namespace FrostfallSaga.Fight.Statuses
             );
             Debug.Log($"{fighter.name}'s strength is back to normal !");
         }
+
+        public override int GetPotentialDamages()
+        {
+            return 0;
+        }
+
+        public override int GetPotentialHeal()
+        {
+            return 0;
+        }
     }
 }

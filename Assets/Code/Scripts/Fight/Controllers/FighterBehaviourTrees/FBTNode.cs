@@ -12,6 +12,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
     public abstract class FBTNode : Node
     {
         public static readonly string ACTION_RUNNING_SHARED_DATA_KEY = "ActionRunning";
+        public static readonly string TARGET_SHARED_DATA_KEY = "Target";
 
         protected Fighter _possessedFighter;
         protected HexGrid _fightGrid;
