@@ -23,16 +23,16 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
         [SerializeReference] public AEffect[] OtherCellsEffects = { };
         [SerializeReference] public AEffect[] OnCellEffects = { };
         [SerializeReference] public AFightCellAlteration[] CellAlterations = { };
-        [SerializeField] public ETrapType TrapType;
+        [SerializeField] public ETrapType TrapType  { get; private set; }
 
         public Action onTrapTriggered;
 
-        public void Trigger(Fighter receiver, FightCell targetedCell)
+        public void
+         Trigger(Fighter receiver, FightCell targetedCell)
         {
-
             FightCell[] trapTargetCells = Targeter.GetCellsFromSequence(targetedCell.ParentGrid, targetedCell, targetedCell);
 
-            foreach (var effect in OnCellEffects)
+            foreach (AEffect effect in OnCellEffects)
             {
                 effect.ApplyEffect(
                 targetedCell.GetFighter(),
@@ -41,7 +41,7 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
                 adjustGodFavorsPoints: true
     );
             }
-            foreach (var effect in OtherCellsEffects)
+            foreach (AEffect effect in OtherCellsEffects)
             {
                 trapTargetCells.ToList()
                   .Where(cell => cell.HasFighter()).ToList()
