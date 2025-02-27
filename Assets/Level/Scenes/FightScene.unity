@@ -1787,6 +1787,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &35300296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2791,6 +2792,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &81344141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3104,6 +3106,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &103156030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6237,6 +6240,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &219970992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7952,6 +7956,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &294168201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8564,6 +8569,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &326290378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9716,6 +9722,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &367552648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10834,6 +10841,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &391528097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12510,6 +12518,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &432952095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14422,6 +14431,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &486773857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15200,6 +15210,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &503754270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15511,6 +15522,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &511262368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18056,6 +18068,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &622437421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20827,6 +20840,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &713588082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21310,6 +21324,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &720199306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22858,6 +22873,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &786788630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24649,6 +24665,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &853313253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25599,6 +25616,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &880427031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26857,6 +26875,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &920941325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27045,6 +27064,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &923096042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27233,6 +27253,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &925415540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27716,6 +27737,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &933033290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28199,6 +28221,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &945467920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28871,6 +28894,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &972336911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29165,6 +29189,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &980338914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29436,6 +29461,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &985677280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32029,6 +32055,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1079899675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33434,6 +33461,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1121291077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34551,6 +34579,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1146737287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36872,6 +36901,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1211710729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39381,6 +39411,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1308833822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40737,6 +40768,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1357414043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40925,6 +40957,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1361273959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45333,6 +45366,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1488531094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46070,6 +46104,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1508155673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46364,6 +46399,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1510836673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49872,6 +49908,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1625380988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51616,6 +51653,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1671389433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52182,6 +52220,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1687308641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54246,6 +54285,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1762895428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54540,6 +54580,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1764653047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55318,6 +55359,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1779974501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57363,6 +57405,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1853048137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58457,6 +58500,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1872041928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58811,6 +58855,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1882097727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59801,6 +59846,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1918285334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60698,6 +60744,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1962090700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61313,6 +61360,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &1992412493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63299,6 +63347,7 @@ MonoBehaviour:
   <Fighter>k__BackingField: {fileID: 0}
   <Obstacle>k__BackingField: {fileID: 0}
   <TrapList>k__BackingField: []
+  TrapVisibleInstance: {fileID: 0}
 --- !u!114 &2051538149
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,7 +24,8 @@ namespace FrostfallSaga.Fight.FightCells
         private GameObject _currentImpedimentGameObject;
         public FightCellAlterationsManager AlterationsManager { get; private set; }
         public Action onTrapTriggered;
-
+        public bool IsTrapVisible { get; private set; } = false;
+        public GameObject TrapVisibleInstance;
 
         public FightCell()
         {
@@ -119,6 +120,29 @@ namespace FrostfallSaga.Fight.FightCells
             }
 
         }
+
+        public void RevealTrap()
+        {
+            if (!IsTrapVisible)
+            {
+                IsTrapVisible = true;
+                Debug.Log("Le piège est maintenant visible !");
+            }
+        }
+
+
+        public void HideTrap()
+        {
+            if (IsTrapVisible)
+            {
+                IsTrapVisible = false;
+                Debug.Log("Le piège est maintenant invisible !");
+
+            }
+
+        }
+
+
 
         public AFightCellAlteration[] GetAlterations()
         {

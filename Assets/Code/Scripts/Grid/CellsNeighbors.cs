@@ -75,6 +75,35 @@ namespace FrostfallSaga.Grid
             return neighbors.ToArray();
         }
 
+        public static List<Cell> GetCellsInRange(int range, Cell cell)
+        {
+            HashSet<Cell> visitedCells = new HashSet<Cell>();
+            Queue<Cell> queue = new Queue<Cell>();
+
+            queue.Enqueue(cell);
+            visitedCells.Add(cell);
+            for (int i = 0; i < range; i++)
+            {
+                int levelSize = queue.Count;
+                for (int j = 0; j < levelSize; j++)
+                {
+                    Cell currentCell = queue.Dequeue();
+                    Cell[] neighbors = GetNeighbors(currentCell.ParentGrid, currentCell);
+
+                    foreach (Cell neighbor in neighbors)
+                    {
+                        if (!visitedCells.Contains(neighbor))
+                        {
+                            visitedCells.Add(neighbor);
+                            queue.Enqueue(neighbor);
+                        }
+                    }
+                }
+            }
+            visitedCells.Remove(cell);
+            return visitedCells.ToList();
+        }
+
         /// <summary>
         /// Compute and returns the absolute height difference between two cells.
         /// </summary>

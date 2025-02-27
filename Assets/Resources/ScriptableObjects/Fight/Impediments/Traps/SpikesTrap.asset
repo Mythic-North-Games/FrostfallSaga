@@ -43,7 +43,7 @@ MonoBehaviour:
   OnCellEffects:
   - rid: 7399184556376981645
   CellAlterations: []
-  TrapType: 1
+  <TrapIsVisiblePrefab>k__BackingField: {fileID: 3815202218529820068, guid: 737475ff3fb6e834dbc0bcd72ac41cd1, type: 3}
   references:
     version: 2
     RefIds:

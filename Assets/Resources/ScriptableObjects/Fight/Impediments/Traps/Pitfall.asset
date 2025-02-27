@@ -43,8 +43,7 @@ MonoBehaviour:
   - rid: 7399184556376981554
   CellAlterations:
   - rid: 7399184873545269297
-  TrapType: 2
-  IsTrapVisible: 0
+  <TrapIsVisiblePrefab>k__BackingField: {fileID: 3815202218529820068, guid: 737475ff3fb6e834dbc0bcd72ac41cd1, type: 3}
   references:
     version: 2
     RefIds:

@@ -36,6 +36,7 @@ namespace FrostfallSaga.Fight.Fighters
         [field: SerializeField, Header("Mechanics managers")] public StatusesManager StatusesManager { get; private set; }
         [field: SerializeField] public PassiveAbilitiesManager PassiveAbilitiesManager { get; private set; }
         [field: SerializeField] public DirectAttackManager DirectAttackManager { get; private set; }
+        [field: SerializeField] public TrapManager TrapManager { get; private set; }
 
         //////////////////////
         // Fight properties //
@@ -129,6 +130,7 @@ namespace FrostfallSaga.Fight.Fighters
             StatusesManager = new StatusesManager(this);
             PassiveAbilitiesManager = new PassiveAbilitiesManager(this);
             DirectAttackManager = new DirectAttackManager(this);
+            TrapManager = new TrapManager();
         }
 
         private void Awake()
@@ -428,6 +430,8 @@ namespace FrostfallSaga.Fight.Fighters
                 Debug.LogError($"Magical element {magicalElement} is not set for fighter {name}");
             }
         }
+
+
 
         /// <summary>
         /// Set the fighter as paralyzed or not.
@@ -837,6 +841,7 @@ namespace FrostfallSaga.Fight.Fighters
         private void OnFighterArrivedAtCell(Cell destinationCell)
         {
 
+
             MovementController.onMoveEnded -= OnFighterArrivedAtCell;
 
             // Update the leaved cell
@@ -854,6 +859,9 @@ namespace FrostfallSaga.Fight.Fighters
             cell.onTrapTriggered += OnEnteredCellTrapTriggered;
 
             cell.TriggerTrapIfAny(ETrapTriggerTime.OnEnter);
+
+            TrapManager.UpdateTrapDetection(1, this);
+
 
         }
 
