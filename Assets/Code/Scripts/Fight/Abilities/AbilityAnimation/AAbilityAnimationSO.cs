@@ -11,6 +11,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
         public Action<FightCell> onCellTouched;
         public Action<Fighter> onAnimationEnded;
 
+
         /// <summary>
         /// Executes the ability animation as configured.
         /// </summary>

@@ -8,6 +8,7 @@ using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
 using FrostfallSaga.Utils;
+using FrostfallSaga.Fight.FightCells.Impediments;
 
 namespace FrostfallSaga.Fight.Targeters
 {
@@ -101,6 +102,7 @@ namespace FrostfallSaga.Fight.Targeters
             }
             CheckExcludedTargets(targetedCells, initiatorCell, fightersTeams);
             CheckExcludedRelativeHeights(targetedCells, initiatorCell, fightersTeams);
+            ExcludedCellsWithObstacles(targetedCells);
             return targetedCells;
         }
 
@@ -401,6 +403,19 @@ namespace FrostfallSaga.Fight.Targeters
             }
             return true;
         }
+
+
+        private bool ExcludedCellsWithObstacles(FightCell[] targetedCells)
+        {
+            if (targetedCells.Any(cell => cell.HasObstacle()))
+            {
+                throw new TargeterUnresolvableException("Obstacles excluded from available targets.");
+            }
+
+            return true;
+        }
+
+
 
         private List<FightCell> GetCellsUntilStoppedByInaccessible(List<FightCell> targetedCells)
         {
