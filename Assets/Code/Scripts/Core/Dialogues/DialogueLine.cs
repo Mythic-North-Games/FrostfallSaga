@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace FrostfallSaga.DialogueSystem
+namespace FrostfallSaga.Core.Dialogues
 {
     [Serializable]
     public class DialogueLine
@@ -11,15 +11,6 @@ namespace FrostfallSaga.DialogueSystem
         [field: SerializeField] public DialogueParticipantSO Speaker { get; private set; }
         [field: SerializeField] public bool IsRight { get; private set; }
         [field: SerializeField] public string[] Answers { get; private set; }
-
-        public DialogueLine()
-        {
-            Title = "Title of the dialog line";
-            RichText = "Dialogue line content";
-            Speaker = null;
-            IsRight = false;
-            Answers = new string[0];
-        }
 
         /// <summary>
         /// Constructor for DialogueLine.
@@ -36,6 +27,10 @@ namespace FrostfallSaga.DialogueSystem
             Speaker = speaker;
             IsRight = isRight;
             Answers = answers;
+            if (answers == null)
+            {
+                Answers = Array.Empty<string>();
+            }
         }
 
         public void SetTitle(string newTitle)
