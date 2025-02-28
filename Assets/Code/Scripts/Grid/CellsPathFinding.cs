@@ -22,7 +22,7 @@ namespace FrostfallSaga.Grid
         /// <param name="checkLastCell">If the endCell should be included even if not free.</param>
         /// <returns>An ordered array of Cell representing the shorter path from the startCell to the endCell.</returns>
         public static Cell[] GetShorterPath(
-            HexGrid hexGrid,
+            AHexGrid hexGrid,
             Cell startCell,
             Cell endCell,
             bool includeInaccessibleNeighbors = false,

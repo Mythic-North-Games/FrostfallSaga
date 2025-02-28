@@ -596,7 +596,7 @@ namespace FrostfallSaga.Fight.Controllers
 
         #region Cells mouse events binding
 
-        private void BindCellMouseEventsForTurn(HexGrid fightGrid)
+        private void BindCellMouseEventsForTurn(AHexGrid fightGrid)
         {
             foreach (Cell cell in fightGrid.GetCells())
             {
@@ -606,7 +606,7 @@ namespace FrostfallSaga.Fight.Controllers
             }
         }
 
-        private void UnbindCellMouseEvents(HexGrid fightGrid)
+        private void UnbindCellMouseEvents(AHexGrid fightGrid)
         {
             foreach (Cell cell in fightGrid.GetCells())
             {

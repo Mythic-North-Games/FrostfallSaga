@@ -26,7 +26,7 @@ namespace FrostfallSaga.Fight.Abilities
         /// </summary>
         /// <param name="fightGrid">The grid where the fight is happening.</param>
         /// <param name="fighterTeams">The fighters and their team.</param>
-        public void UpdatePassiveAbilities(HexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
+        public void UpdatePassiveAbilities(AHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
         {
             foreach (PassiveAbilitySO passiveAbility in _fighter.PassiveAbilities)
             {
