@@ -35,6 +35,7 @@ namespace FrostfallSaga.Kingdom
             {
                 Debug.Log("First scene launch. No kingdom to load.");
                 FirstSpawnHeroGroup();
+                _kingdomHexGrid.GenerateInterestPoints();
                 onKingdomLoaded?.Invoke();
                 return;
             }
@@ -114,8 +115,8 @@ namespace FrostfallSaga.Kingdom
             // Configure the hero group with the hero entities
             _respawnedHeroGroup.UpdateEntities(heroGroupEntities.ToArray());
             _respawnedHeroGroup.movePoints = 10;    // * For now, we give the hero group 10 move points.
-            _respawnedHeroGroup.cell = _kingdomHexGrid.Cells[new(0, 0)] as KingdomCell;
-
+            KingdomCell kingdomCell = _kingdomHexGrid.Cells[new(0, 0)] as KingdomCell;
+            kingdomCell.SetOccupier(_respawnedHeroGroup);
             AttachCameraToHeroGroup();
         }
 

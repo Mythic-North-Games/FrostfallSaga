@@ -38,7 +38,6 @@ namespace FrostfallSaga.Grid
                     gridCells[new Vector2Int(x, y)] = cell;
                 }
             }
-            SetupInterestPoints(gridCells);
             return gridCells;
         }
 
@@ -75,7 +74,7 @@ namespace FrostfallSaga.Grid
             return availableTerrains[terrainCount - 1];
         }
 
-        private void SetupInterestPoints(Dictionary<Vector2Int, Cell> cells)
+        public void SetupInterestPoints(Dictionary<Vector2Int, Cell> cells)
         {
             Debug.Log("Setup Interest Points...");
             List<KingdomCell> kingdomCells = new List<KingdomCell>();
@@ -87,10 +86,18 @@ namespace FrostfallSaga.Grid
                 }
             }
 
-            foreach (var point in InterestPoints)
+            if (kingdomCells.Count < InterestPoints.Length)
+            {
+                Debug.LogWarning(string.Format("Not enough Free cells for InterestPoints number :\n[KingdomCells = {0}]\n[InterestPoints = {1}]", kingdomCells.Count, InterestPoints.Length));
+                return;
+            }
+
+            foreach (GameObject point in InterestPoints)
             {
                 KingdomCell cell = Randomizer.GetRandomElementFromArray(kingdomCells.ToArray());
-                point.GetComponent<InterestPoint>().cell = cell;
+                InterestPoint interestPoint = point.GetComponent<InterestPoint>();
+                cell.SetOccupier(interestPoint);
+                Object.Instantiate(interestPoint.InterestPointConfiguration.InterestPointPrefab, new Vector3(cell.Coordinates.x, cell.Coordinates.y), Quaternion.identity, cell.transform);
                 kingdomCells.Remove(cell);
             }
 
