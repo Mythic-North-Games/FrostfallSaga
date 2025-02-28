@@ -218,10 +218,7 @@ namespace FrostfallSaga.Kingdom
 
         private void Awake()
         {
-            if (_kingdomHexGrid == null)
-            {
-                _kingdomHexGrid = FindObjectOfType<KingdomHexGrid>();
-            }
+            _kingdomHexGrid ??= FindObjectOfType<KingdomHexGrid>();
             if (_kingdomHexGrid == null)
             {
                 Debug.LogError("No grid found. Can't know where to spawn the entities groups.");
