@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FrostfallSaga.Core.Cities;
-using FrostfallSaga.Core.Dungeons;
+using FrostfallSaga.Core;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Grid;
@@ -21,8 +20,7 @@ namespace FrostfallSaga.Kingdom
     {
         // Parameters are: Encountered enemies group, hero group initiating ?
         public Action<EntitiesGroup, bool> onEnemiesGroupEncountered;
-        public Action<CityBuildingConfigurationSO> onCityBuildingEncountered;
-        public Action<DungeonBuildingConfigurationSO> onDungeonBuildingEncountered;
+        public Action<AInterestPointConfigurationSO> onInterestPointEncountered;
 
         [field: SerializeField] public Material CellHighlightMaterial { get; private set; }
         [field: SerializeField] public Material CellInaccessibleHighlightMaterial { get; private set; }
@@ -95,19 +93,7 @@ namespace FrostfallSaga.Kingdom
             _entitiesAreMoving = false;
             HeroGroup.GetDisplayedEntity().AnimationController.RestoreDefaultAnimation();
             HeroGroup.GetDisplayedEntity().MovementController.RotateTowardsCell(encounteredInterestPoint.cell);
-            TriggerInterestPointEncounter(encounteredInterestPoint);
-        }
-
-        private void TriggerInterestPointEncounter(InterestPoint interestPoint)
-        {
-            if (interestPoint.InterestPointConfiguration is CityBuildingConfigurationSO cityBuildingConfiguration)
-            {
-                onCityBuildingEncountered?.Invoke(cityBuildingConfiguration);
-            }
-            else if (interestPoint.InterestPointConfiguration is DungeonBuildingConfigurationSO dungeonBuildingConfiguration)
-            {
-                onDungeonBuildingEncountered?.Invoke(dungeonBuildingConfiguration);
-            }
+            onInterestPointEncountered?.Invoke(encounteredInterestPoint.InterestPointConfiguration);
         }
 
         private void OnAllEntitiesMoved()

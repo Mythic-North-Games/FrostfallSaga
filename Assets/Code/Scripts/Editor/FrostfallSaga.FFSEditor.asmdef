@@ -2,6 +2,7 @@
     "name": "FrostfallSaga.FFSEditor",
     "rootNamespace": "FrostfallSaga.FFSEditor",
     "references": [
+        "FrostfallSaga.Core",
         "FrostfallSaga.Grid",
         "FrostfallSaga.Fight",
         "FrostfallSaga.Procedural",

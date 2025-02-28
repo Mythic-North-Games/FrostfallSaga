@@ -1,14 +1,17 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="TavernDialog" src="project://database/Assets/Level/UI/City/TavernDialog.uxml?fileID=9197481963319205126&amp;guid=5dbdbc757a3cecdbc86ff58f8fff8d88&amp;type=3#TavernDialog" />
-    <Style src="project://database/Assets/Level/UI/City/CityMainMenu.uss?fileID=7433441132597879392&amp;guid=41b3143ea7e0b52078409fcf6bbfda5c&amp;type=3#CityMainMenu" />
+    <ui:Template name="CitySituationsMenu" src="project://database/Assets/Level/UI/City/CitySituationsMenu.uxml?fileID=9197481963319205126&amp;guid=eaac56a26c5c3def1aecc6b3c101da15&amp;type=3#CitySituationsMenu" />
+    <Style src="project://database/Assets/Level/UI/City/CityStyles.uss?fileID=7433441132597879392&amp;guid=41b3143ea7e0b52078409fcf6bbfda5c&amp;type=3#CityStyles" />
     <ui:VisualElement name="MainMenuContainer" style="width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Art/UI/Illustrations/exampleCityBg.jpg?fileID=2800000&amp;guid=557d318ab7e708a0188c01e3610b33d6&amp;type=3#exampleCityBg&quot;);">
         <ui:VisualElement name="LeftContainer" class="leftContainerDefault" style="transition-duration: 0.25s; transition-timing-function: ease-in-out-cubic;">
             <ui:Label tabindex="-1" text="Sovengard" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CityNameLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 10%; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); -unity-font-style: bold; font-size: 72px; color: rgb(236, 236, 236); width: 100%; -unity-text-align: upper-center;" />
             <ui:VisualElement name="ButtonsContainer" style="flex-grow: 1; justify-content: flex-start;">
                 <ui:Button text="Enter tavern" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TavernButton" class="mainMenuButtonDefault" />
+                <ui:Button text="Explore" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExploreButton" class="mainMenuButtonDefault" />
                 <ui:Button text="Exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExitButton" class="mainMenuButtonDefault" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:Instance template="TavernDialog" name="TavernDialog" class="tavernDialogDefault tavernDialogHidden" style="transition-duration: 0.25s; transition-timing-function: ease-in-out-cubic;" />
+        <ui:Instance template="CitySituationsMenu" name="CitySituationsMenu" class="situationMenuDefault situationMenuHidden" />
     </ui:VisualElement>
 </ui:UXML>
