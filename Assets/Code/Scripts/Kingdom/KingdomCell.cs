@@ -12,6 +12,10 @@ namespace FrostfallSaga.Kingdom
 
         public void SetOccupier(KingdomCellOccupier newOccupier)
         {
+            if (newOccupier != null)
+            {
+                newOccupier.cell = this;
+            }
             Occupier = newOccupier;
         }
 
