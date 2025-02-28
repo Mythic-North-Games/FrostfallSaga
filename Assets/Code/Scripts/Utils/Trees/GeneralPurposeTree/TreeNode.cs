@@ -7,7 +7,7 @@ namespace FrostfallSaga.Utils.Trees
     public class TreeNode<T>
     {
         private T _data;
-        private List<TreeNode<T>> _children;
+        private List<TreeNode<T>> _children = new();
         private TreeNode<T> _parent;
 
         public TreeNode(T data)
@@ -78,6 +78,25 @@ namespace FrostfallSaga.Utils.Trees
         public TreeNode<T> GetParent()
         {
             return _parent;
+        }
+
+        public static TreeNode<T> FindChild(TreeNode<T> root, T data)
+        {
+            if (root.GetData().Equals(data))
+            {
+                return root;
+            }
+
+            foreach (TreeNode<T> child in root.GetChildren())
+            {
+                TreeNode<T> found = FindChild(child, data);
+                if (found != null)
+                {
+                    return found;
+                }
+            }
+
+            return null;
         }
     }
 }
