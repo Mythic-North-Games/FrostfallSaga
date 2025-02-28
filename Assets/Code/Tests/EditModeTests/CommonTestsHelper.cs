@@ -10,9 +10,9 @@ namespace FrostfallSaga.EditModeTests
 {
     public static class CommonTestsHelper
     {
-        private static readonly GameObject HexGridKingdomPrefab = Resources.Load<GameObject>("EditModeTests/PrefabsTests/HexGridKingdomTest");
-        private static readonly GameObject HexGridFightPrefab = Resources.Load<GameObject>("EditModeTests/PrefabsTests/HexGridFightTest");
-        public static readonly BiomeTypeSO DefaultBiome = Resources.Load<BiomeTypeSO>("EditModeTests/ScriptableObjects/TestBiome");
+        private static readonly GameObject HexGridKingdomPrefabTest = Resources.Load<GameObject>("EditModeTests/PrefabsTests/HexGridKingdomTest");
+        private static readonly GameObject HexGridFightPrefabTest = Resources.Load<GameObject>("EditModeTests/PrefabsTests/HexGridFightTest");
+        public static readonly BiomeTypeSO DefaultBiomeTest = Resources.Load<BiomeTypeSO>("EditModeTests/ScriptableObjects/TestBiome");
         public static readonly TerrainTypeSO AccessibleTerrain = Resources.Load<TerrainTypeSO>("EditModeTests/ScriptableObjects/TestTerrainTypeAccessible");
         public static readonly TerrainTypeSO InaccessibleTerrain = Resources.Load<TerrainTypeSO>("EditModeTests/ScriptableObjects/TestTerrainTypeInaccessible");
 
@@ -21,11 +21,12 @@ namespace FrostfallSaga.EditModeTests
         /// </summary>
         public static KingdomHexGrid CreatePlainGridForTest(int gridWidth = 5, int gridHeight = 5)
         {
-            GameObject gameObject = Object.Instantiate(HexGridKingdomPrefab);
+            GameObject gameObject = Object.Instantiate(HexGridKingdomPrefabTest);
             KingdomHexGrid grid = gameObject.GetComponent<KingdomHexGrid>();
             grid.Width = gridWidth != 5 ? gridWidth : grid.Width;
             grid.Height = gridHeight != 5 ? gridHeight : grid.Height;
-            grid.AvailableBiomes = new[] { DefaultBiome };
+            grid.AvailableBiomes = new[] { DefaultBiomeTest };
+            grid.Initialize();
             grid.GenerateGrid();
             foreach (Cell cell in grid.Cells.Values)
             {
@@ -39,11 +40,12 @@ namespace FrostfallSaga.EditModeTests
         /// </summary>
         public static FightHexGrid CreatePlainGridFightForTest(int gridWidth = 5, int gridHeight = 5)
         {
-            GameObject gameObject = Object.Instantiate(HexGridKingdomPrefab);
+            GameObject gameObject = Object.Instantiate(HexGridFightPrefabTest);
             FightHexGrid grid = gameObject.GetComponent<FightHexGrid>();
             grid.Width = gridWidth != 5 ? gridWidth : grid.Width;
             grid.Height = gridHeight != 5 ? gridHeight : grid.Height;
-            grid.AvailableBiomes = new[] { DefaultBiome };
+            grid.AvailableBiomes = new[] { DefaultBiomeTest };
+            grid.Initialize();
             grid.GenerateGrid();
             foreach (Cell cell in grid.Cells.Values)
             {
@@ -79,7 +81,7 @@ namespace FrostfallSaga.EditModeTests
             cellVisualGameObject.AddComponent<MaterialHighlightable>();
 
             Cell newCell = cellGameObject.GetComponent<Cell>();
-            newCell.Setup(coordinates, height, hexGridSize, AccessibleTerrain, DefaultBiome);
+            newCell.Setup(coordinates, height, hexGridSize, AccessibleTerrain, DefaultBiomeTest);
 
             return newCell;
         }

@@ -30409,7 +30409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5394681164775873498, guid: 3be7973bb46ad214d995adfc136b8c4c, type: 3}
       propertyPath: m_Name
-      value: HexGridKingdomTest 1
+      value: HexGridKingdomTest
       objectReference: {fileID: 0}
     - target: {fileID: 7936790293927368877, guid: 3be7973bb46ad214d995adfc136b8c4c, type: 3}
       propertyPath: <Seed>k__BackingField
@@ -30521,10 +30521,40 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3739711715467810484, guid: 3be7973bb46ad214d995adfc136b8c4c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5908718505195827009}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5394681164775873498, guid: 3be7973bb46ad214d995adfc136b8c4c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6830709060978559491}
   m_SourcePrefab: {fileID: 100100000, guid: 3be7973bb46ad214d995adfc136b8c4c, type: 3}
 --- !u!4 &2601903718174380512 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3739711715467810484, guid: 3be7973bb46ad214d995adfc136b8c4c, type: 3}
   m_PrefabInstance: {fileID: 1728764712140539732}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6710380724537187470 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5394681164775873498, guid: 3be7973bb46ad214d995adfc136b8c4c, type: 3}
+  m_PrefabInstance: {fileID: 1728764712140539732}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-6830709060978559491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6710380724537187470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8780bff862120f54c9bad31f47deb4de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Width>k__BackingField: 5
+  <Height>k__BackingField: 5
+  <HexSize>k__BackingField: 2
+  <AvailableBiomes>k__BackingField:
+  - {fileID: 11400000, guid: eadf61b1e2650d44fbc825391a328063, type: 2}
+  <NoiseScale>k__BackingField: 0.2
+  <Seed>k__BackingField: 0
+  <InterestPoints>k__BackingField:
+  - {fileID: 6646132619998617562, guid: 1bae81d9ee487648593aa1e4799a9785, type: 3}
+  - {fileID: 1579975777369734056, guid: 93ef8c6f4f6efe146957172931db7402, type: 3}

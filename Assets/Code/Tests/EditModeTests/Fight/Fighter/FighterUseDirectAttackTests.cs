@@ -4,12 +4,13 @@ using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
     public class FighterUseDirectAttackTests
     {
-        AHexGrid grid;
+        FightHexGrid grid;
         Fighter attacker;
         int minAttackerDamages;
         int maxAttackerDamages;
@@ -19,7 +20,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void Setup()
         {
             // Set up grid
-            grid = CommonTestsHelper.CreatePlainGridForTest();
+            grid = CommonTestsHelper.CreatePlainGridFightForTest();
 
             // Set up attacker
             attacker = FightTestsHelper.CreateFighter();
