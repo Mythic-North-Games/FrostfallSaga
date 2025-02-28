@@ -281,7 +281,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiAudioClipsConfig: {fileID: 0}
-  uiAudioClipsConfig: {fileID: 11400000, guid: aef339ccaf3b4d5418f6a13c4eb33e47, type: 2}
   audioSourceObject: {fileID: 4094540750882597515, guid: b034ff1c05b1ef24fb9925f182960e04, type: 3}
 --- !u!4 &125306507
 Transform:
@@ -438,7 +437,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 110
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -792,6 +791,14 @@ PrefabInstance:
     - target: {fileID: 2044852375259234028, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
+      propertyPath: <Width>k__BackingField
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
+      propertyPath: <Height>k__BackingField
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <InterestPoints>k__BackingField.Array.size
@@ -1550,7 +1557,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 110
+    FieldOfView: 75
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
