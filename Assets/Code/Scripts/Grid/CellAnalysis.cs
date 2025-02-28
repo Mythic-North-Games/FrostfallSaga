@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Grid.Cells;
@@ -12,25 +13,30 @@ namespace FrostfallSaga.Grid
         public static Dictionary<TerrainTypeSO, int> TerrainCount { get; private set; }
         public static Dictionary<TerrainTypeSO, float> TerrainComposition { get; private set; }
         public static Dictionary<BiomeTypeSO, int> BiomeCount { get; private set; }
+        public static Dictionary<int, TerrainTypeSO> TerrainAxial { get; private set; }
         private static float _totalCells = 0;
 
 
         public static void AnalyzeAtCell(Cell targetCell, AHexGrid grid)
         {
+            Debug.Log(grid.ToString());
             TargetCell = targetCell;
             NeighborCells = CellsNeighbors.GetNeighbors(grid, targetCell);
             TerrainCount = new Dictionary<TerrainTypeSO, int>();
             TerrainComposition = new Dictionary<TerrainTypeSO, float>();
             BiomeCount = new Dictionary<BiomeTypeSO, int>();
             _totalCells = NeighborCells.Count() + 1;
+            Debug.Log(string.Format("TOTAL CELLS : {0}", _totalCells));
 
             CountTerrain(TargetCell.TerrainType);
             CountBiome(TargetCell.BiomeType);
 
-            foreach (Cell neighbor in NeighborCells)
+            for (int i = 0; i < NeighborCells.Length; i++)
             {
+                Cell neighbor = NeighborCells[i];
                 CountTerrain(neighbor.TerrainType);
                 CountBiome(neighbor.BiomeType);
+                TerrainAxial.Add(i, neighbor.TerrainType); // FIXME
             }
         }
 
@@ -92,6 +98,14 @@ namespace FrostfallSaga.Grid
             Debug.Log("Biome Percentages:");
             foreach (var biome in GetBiomePercentages())
                 Debug.Log($"{biome.Key}: {biome.Value:F2}%");
+        }
+
+        public static void PrintAnalysisDict()
+        {
+            foreach (KeyValuePair<int, TerrainTypeSO> item in TerrainAxial)
+            {
+                Debug.Log(String.Format("Cell int : {0} || Cell terrain : {1}", item.Key, item.Value));
+            }
         }
     }
 

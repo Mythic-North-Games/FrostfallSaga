@@ -101,20 +101,19 @@ namespace FrostfallSaga.Kingdom
         private void GenerateFightMap(KingdomCell targetCell)
         {
             CellAnalysis.AnalyzeAtCell(targetCell, _kingdomManager.KingdomGrid);
-            CellAnalysis.PrintAnalysisWithPercentages();
+            //CellAnalysis.PrintAnalysisWithPercentages();
             //TODO
+
         }
 
         #region Setup and tear down
         private void Awake()
         {
+            _kingdomManager ??= FindObjectOfType<KingdomManager>();
+      
             if (_kingdomManager == null)
             {
-                _kingdomManager = FindObjectOfType<KingdomManager>();
-            }
-            if (_kingdomManager == null)
-            {
-                Debug.LogError("No entities groups manager found. Can't transition to fight scene.");
+                Debug.LogError("No KingdomManager found. Can't transition to fight scene.");
                 return;
             }
             _kingdomManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
