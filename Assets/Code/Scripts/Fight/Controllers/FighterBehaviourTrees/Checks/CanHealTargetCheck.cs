@@ -17,7 +17,7 @@ namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.FighterBehav
 
         public CanHealTargetCheck(
             Fighter possessedFighter,
-            HexGrid fightGrid,
+            AHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,
             List<ETarget> possibleTargets,
             ETargetType targetType

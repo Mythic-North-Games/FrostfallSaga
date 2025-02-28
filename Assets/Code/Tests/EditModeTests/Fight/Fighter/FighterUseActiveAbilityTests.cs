@@ -12,7 +12,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
     public class FighterUseActiveAbilityTests
     {
-        HexGrid grid;
+        AHexGrid grid;
         Fighter attacker;
         int fireDamages;
 
@@ -21,7 +21,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void Setup()
         {
             // Set up grid
-            grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.FIGHT);
+            grid = CommonTestsHelper.CreatePlainGridForTest();
 
             // Set up attacker
             attacker = FightTestsHelper.CreateFighter();
@@ -82,7 +82,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void UseActiveAbility_MultipleReceivers_Test()
         {
             // Arrange
-            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.FIGHT);
+            AHexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
             Debug.Log("TEST");
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
@@ -137,7 +137,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void UseActiveAbility_NoFighterOnCells_Test()
         {
             // Arrange
-            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.FIGHT);
+            AHexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
@@ -169,7 +169,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void UseDirectAttack_NoTargetCells_Test()
         {
             // Arrange
-            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.FIGHT);
+            AHexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
@@ -184,7 +184,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void UseDirectAttack_NotEnoughActionPoints_Test()
         {
             // Arrange
-            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.FIGHT);
+            AHexGrid grid = CommonTestsHelper.CreatePlainGridForTest();
             Fighter attacker = FightTestsHelper.CreateFighter();
             attacker.SetStatsForTests();
             attacker.GetStatsForTests().actionPoints = 1;

@@ -7,12 +7,12 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 {
     public class GetNeighborsTests
     {
-        private HexGrid grid;
+        private AHexGrid grid;
 
         [SetUp]
         public void Setup()
         {
-            grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.KINGDOM);
+            grid = CommonTestsHelper.CreatePlainGridForTest();
         }
 
         [TearDown]
@@ -263,7 +263,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_AllAccessible_CornerTopLeft_Odd_Test()
         {
             // Arrange
-            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.KINGDOM, 6, 6);
+            AHexGrid grid = CommonTestsHelper.CreatePlainGridForTest(6, 6);
             Cell cellToGetTheNeighborsFrom = grid.Cells[new(0, 5)];
             Cell[] expectedNeighbors = {
                 grid.Cells[new(0, 4)],
@@ -286,7 +286,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_AllAccessible_CornerTopRight_Odd_Test()
         {
             // Arrange
-            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.KINGDOM, 5, 4);
+            AHexGrid grid = CommonTestsHelper.CreatePlainGridForTest(5, 4);
             Cell cellToGetTheNeighborsFrom = grid.Cells[new(4, 3)];
             Cell[] expectedNeighbors = {
                 grid.Cells[new(4, 2)],

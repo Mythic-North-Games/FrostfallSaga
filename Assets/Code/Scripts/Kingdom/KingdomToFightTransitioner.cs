@@ -1,17 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Fight;
+using FrostfallSaga.Core.HeroTeam;
+using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils.Scenes;
-using FrostfallSaga.Core.HeroTeam;
-using FrostfallSaga.Grid;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -89,15 +90,19 @@ namespace FrostfallSaga.Kingdom
                 Entity enemyGroupEntity = enemiesGroup.Entities[i];
                 enemiesFighterConfigs[i] = new(enemyGroupEntity.SessionId, enemyGroupEntity.EntityConfiguration);
             }
-            Debug.Log("CELL ANALYSIS...");
-            CellAnalysis.AnalyzeAtCell(enemiesGroup.cell, _kingdomManager.KingdomGrid);
-            CellAnalysis.PrintAnalysisWithPercentages();
-            Debug.Log("END CELL ANALYSIS...");
             GameStateManager.Instance.SavePreFightData(
                 HeroTeam.Instance.GetHeroesEntityConfig(),
                 enemiesFighterConfigs,
                 EFightOrigin.KINGDOM
             );
+            GenerateFightMap(enemiesGroup.cell);
+        }
+
+        private void GenerateFightMap(KingdomCell targetCell)
+        {
+            CellAnalysis.AnalyzeAtCell(targetCell, _kingdomManager.KingdomGrid);
+            CellAnalysis.PrintAnalysisWithPercentages();
+            //TODO
         }
 
         #region Setup and tear down

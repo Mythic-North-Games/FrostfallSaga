@@ -1,14 +1,14 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 using FrostfallSaga.Core.Fight;
-using FrostfallSaga.Grid;
+using FrostfallSaga.Fight.Controllers;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.Controllers;
 using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Fight.UI;
+using FrostfallSaga.Grid;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight
 {
@@ -29,8 +29,9 @@ namespace FrostfallSaga.Fight
         public Action<Fighter[], Fighter[]> onFightEnded;   // <allies, enemies>
 
         // Needed external components
-        [SerializeField] private FightersGenerator _fightersGenerator;
-        [field: SerializeField] public HexGrid FightGrid { get; private set; }
+        [SerializeField] private FightLoader _fightLoader;
+
+        [field: SerializeField] public AHexGrid FightGrid { get; private set; }
         [SerializeField] private FighterActionPanelController _actionPanel;
         [SerializeField] private Material _cellHighlightMaterial;
         [SerializeField] private Material _cellActionableHighlightMaterial;
@@ -47,7 +48,7 @@ namespace FrostfallSaga.Fight
         private List<Fighter> _fightersTurnOrder;
         private Fighter _playingFighter;
 
-        private void OnFightersGenerated(Fighter[] allies, Fighter[] enemies)
+        private void OnFightLoaded(Fighter[] allies, Fighter[] enemies)
         {
             // Init
             _playingFighter = null;
@@ -154,7 +155,7 @@ namespace FrostfallSaga.Fight
                     onFightEnded?.Invoke(_allies.ToArray(), _enemies.ToArray());
                     return;
                 }
-                
+
                 UpdateFightGridCellsAlterations();
                 PlayNextFighterTurn();
                 return;
@@ -180,19 +181,18 @@ namespace FrostfallSaga.Fight
         {
             if (FightGrid == null)
             {
-                FightGrid = FindObjectOfType<HexGrid>();
+                FightGrid = FindObjectOfType<AHexGrid>();
             }
             if (FightGrid == null)
             {
                 Debug.LogError("No fight grid found.");
                 return;
             }
-
-            if (_fightersGenerator == null)
+            if (_fightLoader == null)
             {
-                _fightersGenerator = FindObjectOfType<FightersGenerator>();
+                _fightLoader = FindObjectOfType<FightLoader>();
             }
-            if (_fightersGenerator == null)
+            if (_fightLoader == null)
             {
                 Debug.LogError("No fighters generator found. Can't start fight.");
             }
@@ -219,8 +219,7 @@ namespace FrostfallSaga.Fight
             _randomController.Setup(this);
             _randomController.onFighterTurnEnded += OnFighterTurnEnded;
             _randomController.onFighterActionEnded += OnFighterActionEnded;
-
-            _fightersGenerator.onFightersGenerated += OnFightersGenerated;
+            _fightLoader.onFightLoaded += OnFightLoaded;
         }
         #endregion
 
@@ -233,7 +232,7 @@ namespace FrostfallSaga.Fight
             return teams;
         }
 
-        private void PositionFightersOnGrid(HexGrid fightGrid, Fighter[] allies, Fighter[] enemies)
+        private void PositionFightersOnGrid(AHexGrid fightGrid, Fighter[] allies, Fighter[] enemies)
         {
             int xCellIndex = 0;
             foreach (Fighter ally in allies)

@@ -1,24 +1,27 @@
+using FrostfallSaga.Fight;
 using FrostfallSaga.Grid;
+using FrostfallSaga.Kingdom;
 using UnityEditor;
 using UnityEngine;
 
 namespace FrostfallSaga.FFSEditor.Grid
 {
-    [CustomEditor(typeof(HexGrid))]
-    public class HexGridEditor : Editor
+    [CustomEditor(typeof(FightHexGrid))]
+    public class FightHexGridEditor : Editor
     {
         public override void OnInspectorGUI()
         {
-            HexGrid hexGrid = (HexGrid)target;
+            FightHexGrid hexGrid = (FightHexGrid)target;
 
             DrawDefaultInspector();
             
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Debug buttons", EditorStyles.boldLabel);
+            hexGrid.Initialize();
 
             if (GUILayout.Button("Generate Hex Mesh"))
             {
-                hexGrid.Initialize();
+                hexGrid.GenerateGrid();
             }
 
             else if (GUILayout.Button("Clear Hex Mesh"))

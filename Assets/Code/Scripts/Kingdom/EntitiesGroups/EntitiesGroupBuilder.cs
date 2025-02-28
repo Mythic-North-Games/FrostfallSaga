@@ -17,7 +17,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         private readonly EntityBuilder _entityBuilder = new();
         public GameObject BlankEntitiesGroupPrefab { get; private set; }
 
-        public EntitiesGroup BuildEntitiesGroup(EntitiesGroupData entitiesGroupData, HexGrid grid)
+        public EntitiesGroup BuildEntitiesGroup(EntitiesGroupData entitiesGroupData, AHexGrid grid)
         {
             GameObject entitiesGroupPrefab = WorldGameObjectInstantiator.Instance.Instantiate(BlankEntitiesGroupPrefab);
             EntitiesGroup entitiesGroup = entitiesGroupPrefab.GetComponent<EntitiesGroup>();

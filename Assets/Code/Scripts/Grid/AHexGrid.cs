@@ -10,37 +10,18 @@ namespace FrostfallSaga.Grid
     /// Represents a hexagonal grid in the game.
     /// Handles the initialization, generation, and management of grid cells.
     /// </summary>
-    public class HexGrid : MonoBehaviour
+    public abstract class AHexGrid : MonoBehaviour
     {
         [field: SerializeField, Header("Grid settings"), Range(000_001, 999_999)] public int Width { get; set; }
         [field: SerializeField, Range(000_001, 999_999)] public int Height { get; set; }
         [field: SerializeField] public float HexSize { get; set; } = 2f;
-        [field: SerializeField] public GameObject HexPrefab { get; set; }
         [field: SerializeField, Header("Biomes's list")] public BiomeTypeSO[] AvailableBiomes { get; set; }
         [field: SerializeField, Header("Procedural generation settings"), Range(0.1f, 0.99f)] public float NoiseScale { get; set; } = 0.2f;
         [field: SerializeField, Range(000_000_000, 999_999_999)] public int Seed { get; set; } = 000_000_000;
         [field: SerializeField] public Dictionary<Vector2Int, Cell> Cells { get; set; } = new();
-        private IGridGenerator _gridGenerator;
 
-        /// <summary>
-        /// Called when the script is loaded. Initializes the grid by calling <see cref="Initialize"/>.
-        /// </summary>
-        private void Awake()
-        {
-            Initialize();
-        }
 
-        /// <summary>
-        /// Initializes the grid by validating its dimensions and setting up the grid generator.
-        /// </summary>
-        /// <remarks>
-        /// If the grid dimensions are invalid, an error message is logged and the grid is not generated.
-        /// </remarks>
-        public void Initialize()
-        {
-            _gridGenerator = GridFactory.CreateGridGenerator(EGridType.KINGDOM, Width, Height, AvailableBiomes, this.transform, NoiseScale, Seed);
-            ProcessGeneration();
-        }
+        public abstract void GenerateGrid();
 
         /// <summary>
         /// Retrieves all the <see cref="Cell"/> components that are children of the current GameObject.
@@ -49,15 +30,6 @@ namespace FrostfallSaga.Grid
         public Cell[] GetCells()
         {
             return GetComponentsInChildren<Cell>();
-        }
-
-        /// <summary>
-        /// Processes the generation of the grid by clearing any existing cells and generating new ones.
-        /// </summary>
-        private void ProcessGeneration()
-        {
-            ClearCells();
-            Cells = _gridGenerator.GenerateGrid(HexPrefab.GetComponent<Cell>(), HexSize);
         }
 
         /// <summary>
@@ -95,6 +67,24 @@ namespace FrostfallSaga.Grid
             }
         }
 
+        #region Setup & tear down
+        /// <summary>
+        /// Called when the script is loaded. Initializes the grid by calling <see cref="Initialize"/>.
+        /// </summary>
+        private void Awake()
+        {
+            if (Width <= 0 || Height <= 0)
+            {
+                Debug.LogError("Grid Width or Height cannot be less to 1");
+                return;
+            }
+            if (AvailableBiomes.Length == 0)
+            {
+                Debug.Log("Grid must have at least 1 Biome");
+                return;
+            }
+        }
+
         /// <summary>
         /// Returns a string representation of the grid's current state, including its dimensions, hex size, and number of cells.
         /// </summary>
@@ -105,11 +95,11 @@ namespace FrostfallSaga.Grid
                     $"- Width: {Width}\n" +
                     $"- Height: {Height}\n" +
                     $"- HexSize: {HexSize}\n" +
-                    $"- HexPrefab: {(HexPrefab != null ? HexPrefab.name : "None")}\n" +
                     $"- Noise Scale: {NoiseScale}\n" +
                     $"- Seed: {Seed}\n" +
                     $"- Available Biomes: {(AvailableBiomes != null && AvailableBiomes.Length > 0 ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +
                     $"- Total Cells: {Cells?.Count ?? 0}";
         }
+        #endregion
     }
 }

@@ -1,24 +1,24 @@
 using System.Collections.Generic;
 using System.Linq;
+using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Procedural;
 using UnityEngine;
 
 namespace FrostfallSaga.Grid
 {
-    public class KingdomGridGenerator : BaseGridGenerator
+    public class FightGridGenerator : ABaseGridGenerator
     {
-        private VoronoiBiomeManager _voronoiBiomeManager;
+        public static BiomeTypeSO DefaultBiome = Resources.Load<BiomeTypeSO>("EditModeTests/ScriptableObjects/TestBiome");
         private PerlinTerrainManager _perlinTerrainManager;
 
-        public KingdomGridGenerator(int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid, float noiseScale, int seed)
-            : base (gridWidth, gridHeight, availableBiomes, parentGrid, noiseScale, seed)
+        public FightGridGenerator(FightCell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid, float noiseScale, int seed)
+            : base(hexPrefab, gridWidth, gridHeight, availableBiomes, parentGrid, noiseScale, seed)
         {
             _perlinTerrainManager = new PerlinTerrainManager(noiseScale, seed);
-            _voronoiBiomeManager = new VoronoiBiomeManager(gridWidth, gridHeight, availableBiomes.Length, seed);
         }
 
-        public override Dictionary<Vector2Int, Cell> GenerateGrid(Cell hexPrefab, float hexSize = 2.0f)
+        public override Dictionary<Vector2Int, Cell> GenerateGrid()
         {
             Dictionary<Vector2Int, Cell> gridCells = new();
 
@@ -26,12 +26,10 @@ namespace FrostfallSaga.Grid
             {
                 for (int x = 0; x < GridWidth; x++)
                 {
-                    Vector3 centerPosition = HexMetrics.Center(hexSize, x, y);
-                    Cell cell = Object.Instantiate(hexPrefab, centerPosition, Quaternion.identity, ParentGrid);
+                    Vector3 centerPosition = HexMetrics.Center(HexSize, x, y);
+                    Cell cell = Object.Instantiate(HexPrefab, centerPosition, Quaternion.identity, ParentGrid);
                     cell.name = $"Cell[{x};{y}]";
-                    int biomeIndex = _voronoiBiomeManager.GetClosestBiomeIndex(x, y);
-                    BiomeTypeSO selectedBiome = AvailableBiomes[biomeIndex];
-                    SetupCell(cell, x, y, selectedBiome, hexSize);
+                    SetupCell(cell, x, y, DefaultBiome, HexSize);
                     gridCells[new Vector2Int(x, y)] = cell;
                 }
             }
@@ -70,16 +68,17 @@ namespace FrostfallSaga.Grid
             }
             return availableTerrains[terrainCount - 1];
         }
+
         public override string ToString()
         {
             return $"BaseGridGenerator:\n" +
                     $"- GridWidth: {GridWidth}\n" +
                     $"- GridHeight: {GridHeight}\n" +
+                    $"- DefaultBiome: {DefaultBiome}\n" +
                     $"- Available Biomes: {(AvailableBiomes != null && AvailableBiomes.Length > 0 ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +
                     $"- ParentGrid: {ParentGrid?.name ?? "None"}\n" +
                     $"- NoiseScale: {(NoiseScale.HasValue ? NoiseScale.Value.ToString() : "None")}\n" +
                     $"- Seed: {Seed?.ToString() ?? "None"}";
         }
-
     }
 }

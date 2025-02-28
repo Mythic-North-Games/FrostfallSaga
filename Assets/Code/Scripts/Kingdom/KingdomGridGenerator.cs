@@ -1,23 +1,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Kingdom;
+using FrostfallSaga.Kingdom.InterestPoints;
 using FrostfallSaga.Procedural;
+using FrostfallSaga.Utils;
 using UnityEngine;
 
 namespace FrostfallSaga.Grid
 {
-    public class FightGridGenerator : BaseGridGenerator
+    public class KingdomGridGenerator : ABaseGridGenerator
     {
-        public static BiomeTypeSO DefaultBiome = Resources.Load<BiomeTypeSO>("EditModeTests/ScriptableObjects/TestBiome");
+        private VoronoiBiomeManager _voronoiBiomeManager;
         private PerlinTerrainManager _perlinTerrainManager;
 
-        public FightGridGenerator(int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid, float noiseScale, int seed)
-            : base(gridWidth, gridHeight, availableBiomes, parentGrid, noiseScale, seed)
+        public KingdomGridGenerator(KingdomCell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid, float noiseScale, int seed, GameObject[] interestPoints)
+            : base(hexPrefab, gridWidth, gridHeight, availableBiomes, parentGrid, noiseScale, seed, interestPoints)
         {
             _perlinTerrainManager = new PerlinTerrainManager(noiseScale, seed);
+            _voronoiBiomeManager = new VoronoiBiomeManager(gridWidth, gridHeight, availableBiomes.Length, seed);
         }
 
-        public override Dictionary<Vector2Int, Cell> GenerateGrid(Cell hexPrefab, float hexSize = 2)
+        public override Dictionary<Vector2Int, Cell> GenerateGrid()
         {
             Dictionary<Vector2Int, Cell> gridCells = new();
 
@@ -25,13 +29,16 @@ namespace FrostfallSaga.Grid
             {
                 for (int x = 0; x < GridWidth; x++)
                 {
-                    Vector3 centerPosition = HexMetrics.Center(hexSize, x, y);
-                    Cell cell = Object.Instantiate(hexPrefab, centerPosition, Quaternion.identity, ParentGrid);
+                    Vector3 centerPosition = HexMetrics.Center(HexSize, x, y);
+                    Cell cell = Object.Instantiate(HexPrefab, centerPosition, Quaternion.identity, ParentGrid);
                     cell.name = $"Cell[{x};{y}]";
-                    SetupCell(cell, x, y, DefaultBiome, hexSize);
+                    int biomeIndex = _voronoiBiomeManager.GetClosestBiomeIndex(x, y);
+                    BiomeTypeSO selectedBiome = AvailableBiomes[biomeIndex];
+                    SetupCell(cell, x, y, selectedBiome, HexSize);
                     gridCells[new Vector2Int(x, y)] = cell;
                 }
             }
+            SetupInterestPoints(gridCells);
             return gridCells;
         }
 
@@ -68,16 +75,37 @@ namespace FrostfallSaga.Grid
             return availableTerrains[terrainCount - 1];
         }
 
+        private void SetupInterestPoints(Dictionary<Vector2Int, Cell> cells)
+        {
+            Debug.Log("Setup Interest Points...");
+            List<KingdomCell> kingdomCells = new List<KingdomCell>();
+            foreach (KingdomCell item in cells.Values)
+            {
+                if (item.IsFree())
+                {
+                    kingdomCells.Add(item);
+                }
+            }
+
+            foreach (var point in InterestPoints)
+            {
+                KingdomCell cell = Randomizer.GetRandomElementFromArray(kingdomCells.ToArray());
+                point.GetComponent<InterestPoint>().cell = cell;
+                kingdomCells.Remove(cell);
+            }
+
+        }
         public override string ToString()
         {
             return $"BaseGridGenerator:\n" +
+                    $"- HexPrefab: {HexPrefab.name}\n" +
                     $"- GridWidth: {GridWidth}\n" +
                     $"- GridHeight: {GridHeight}\n" +
-                    $"- DefaultBiome: {DefaultBiome}\n" +
                     $"- Available Biomes: {(AvailableBiomes != null && AvailableBiomes.Length > 0 ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +
                     $"- ParentGrid: {ParentGrid?.name ?? "None"}\n" +
                     $"- NoiseScale: {(NoiseScale.HasValue ? NoiseScale.Value.ToString() : "None")}\n" +
                     $"- Seed: {Seed?.ToString() ?? "None"}";
         }
+
     }
 }

@@ -8,12 +8,12 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
     public class GetShorterPathTests
     {
-        private HexGrid grid;
+        private AHexGrid grid;
 
         [SetUp]
         public void Setup()
         {
-            grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.KINGDOM);
+            grid = CommonTestsHelper.CreatePlainGridForTest();
         }
 
         [TearDown]

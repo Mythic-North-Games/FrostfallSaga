@@ -15,7 +15,7 @@ namespace FrostfallSaga.Grid
         private static float _totalCells = 0;
 
 
-        public static void AnalyzeAtCell(Cell targetCell, HexGrid grid)
+        public static void AnalyzeAtCell(Cell targetCell, AHexGrid grid)
         {
             TargetCell = targetCell;
             NeighborCells = CellsNeighbors.GetNeighbors(grid, targetCell);

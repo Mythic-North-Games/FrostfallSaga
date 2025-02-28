@@ -9,7 +9,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
     public class FighterUseDirectAttackTests
     {
-        HexGrid grid;
+        AHexGrid grid;
         Fighter attacker;
         int minAttackerDamages;
         int maxAttackerDamages;
@@ -19,7 +19,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void Setup()
         {
             // Set up grid
-            grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.FIGHT);
+            grid = CommonTestsHelper.CreatePlainGridForTest();
 
             // Set up attacker
             attacker = FightTestsHelper.CreateFighter();

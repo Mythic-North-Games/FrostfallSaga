@@ -11,12 +11,12 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 {
 	public class EntitiesGroupsMovementControllerTests
 	{
-		private HexGrid grid;
+		private AHexGrid grid;
 
 		[SetUp]
 		public void Setup()
 		{
-			grid = CommonTestsHelper.CreatePlainGridForTest(EGridType.KINGDOM, 10, 10);
+			grid = CommonTestsHelper.CreatePlainGridForTest(10, 10);
 		}
 
 		[TearDown]
@@ -146,7 +146,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 
 		}
 
-		private void AssertPathForMultipleEntitiesGroup(HexGrid grid, Dictionary<EntitiesGroup, KingdomCell[]> pathPerEntitiesGroup)
+		private void AssertPathForMultipleEntitiesGroup(AHexGrid grid, Dictionary<EntitiesGroup, KingdomCell[]> pathPerEntitiesGroup)
 		{
 			foreach (KeyValuePair<EntitiesGroup, KingdomCell[]> item in pathPerEntitiesGroup)
 			{

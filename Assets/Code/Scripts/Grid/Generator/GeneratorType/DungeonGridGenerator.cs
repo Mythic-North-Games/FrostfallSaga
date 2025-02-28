@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace FrostfallSaga.Grid
 {
-    public class DungeonGridGenerator : BaseGridGenerator
+    public class DungeonGridGenerator : ABaseGridGenerator
     {
-        public DungeonGridGenerator(int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid) 
-            : base(gridWidth, gridHeight, availableBiomes, parentGrid) {}
+        public DungeonGridGenerator(Cell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid) 
+            : base(hexPrefab, gridWidth, gridHeight, availableBiomes, parentGrid) {}
 
-        public override Dictionary<Vector2Int, Cell> GenerateGrid(Cell hexPrefab, float hexSize = 2.0f)
+        public override Dictionary<Vector2Int, Cell> GenerateGrid()
         {
             // LOGIQUE DE CREATION DE GRILLE //
             throw new System.NotImplementedException();

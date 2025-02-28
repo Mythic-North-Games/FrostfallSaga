@@ -35,7 +35,7 @@ namespace FrostfallSaga.Grid
         /// <param name="includeOccupiedNeighbors">If the occupied cells should be included.</param>
         /// <returns>The current cell neighbors in the given grid.</returns>
         public static Cell[] GetNeighbors(
-            HexGrid hexGrid,
+            AHexGrid hexGrid,
             Cell cellToGetTheNeighbors,
             bool includeInaccessibleNeighbors = false,
             bool includeHeightInaccessibleNeighbors = false,

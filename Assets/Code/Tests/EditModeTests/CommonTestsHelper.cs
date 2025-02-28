@@ -1,3 +1,4 @@
+using FrostfallSaga.Fight;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
@@ -18,42 +19,38 @@ namespace FrostfallSaga.EditModeTests
         /// <summary>
         /// Create a grid using the GridFactory for testing purposes.
         /// </summary>
-        public static HexGrid CreatePlainGridForTest(EGridType eGridType, int gridWidth = 5, int gridHeight = 5)
+        public static KingdomHexGrid CreatePlainGridForTest(int gridWidth = 5, int gridHeight = 5)
         {
-            GameObject gameObject = new();
-            if (eGridType == EGridType.KINGDOM)
-            {
-                gameObject = Object.Instantiate(HexGridKingdomPrefab);
-            }
-            else if (eGridType == EGridType.FIGHT)
-            {
-                gameObject = Object.Instantiate(HexGridFightPrefab);
-            }
-            else
-            {
-                Debug.LogError($"ERROR : {eGridType} is invalid");
-            }
-
-            HexGrid grid = gameObject.GetComponent<HexGrid>();
+            GameObject gameObject = Object.Instantiate(HexGridKingdomPrefab);
+            KingdomHexGrid grid = gameObject.GetComponent<KingdomHexGrid>();
             grid.Width = gridWidth != 5 ? gridWidth : grid.Width;
             grid.Height = gridHeight != 5 ? gridHeight : grid.Height;
-            IGridGenerator gridGenerator = GridFactory.CreateGridGenerator(
-                eGridType,
-                grid.Width,
-                grid.Height,
-                new[] { DefaultBiome },
-                grid.transform,
-                0.2f,
-                000_000_000
-            );
-            grid.Cells = gridGenerator.GenerateGrid(grid.HexPrefab.GetComponent<Cell>(), grid.HexSize);
+            grid.AvailableBiomes = new[] { DefaultBiome };
+            grid.GenerateGrid();
             foreach (Cell cell in grid.Cells.Values)
             {
                 cell.SetTerrain(AccessibleTerrain);
             }
             return grid;
         }
-
+        
+        /// <summary>
+        /// Create a grid using the GridFactory for testing purposes.
+        /// </summary>
+        public static FightHexGrid CreatePlainGridFightForTest(int gridWidth = 5, int gridHeight = 5)
+        {
+            GameObject gameObject = Object.Instantiate(HexGridKingdomPrefab);
+            FightHexGrid grid = gameObject.GetComponent<FightHexGrid>();
+            grid.Width = gridWidth != 5 ? gridWidth : grid.Width;
+            grid.Height = gridHeight != 5 ? gridHeight : grid.Height;
+            grid.AvailableBiomes = new[] { DefaultBiome };
+            grid.GenerateGrid();
+            foreach (Cell cell in grid.Cells.Values)
+            {
+                cell.SetTerrain(AccessibleTerrain);
+            }
+            return grid;
+        }
         /// <summary>
         /// Creates a single test cell (KingdomCell or FightCell) for testing purposes.
         /// </summary>

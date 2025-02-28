@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3266767170564220550}
   - component: {fileID: 4225675484487770367}
   - component: {fileID: 7977177436284894363}
-  - component: {fileID: 7936790293927368877}
   m_Layer: 0
   m_Name: HexGrid
   m_TagString: Untagged
@@ -107,24 +106,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &7936790293927368877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5394681164775873498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cafaa730dcc48c4992fb7b350869c81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Width>k__BackingField: 5
-  <Height>k__BackingField: 5
-  <HexSize>k__BackingField: 2
-  <HexPrefab>k__BackingField: {fileID: 7487034650914750699, guid: 1ff48368775e3d2b3bcae440b88e5d95, type: 3}
-  <AvailableBiomes>k__BackingField:
-  - {fileID: 11400000, guid: 62807aa1d0cd21844b1e3eef85934555, type: 2}
-  - {fileID: 11400000, guid: 9083c3a2086937d4db46edaace4ef140, type: 2}
-  <NoiseScale>k__BackingField: 0.2
-  <Seed>k__BackingField: 91047024

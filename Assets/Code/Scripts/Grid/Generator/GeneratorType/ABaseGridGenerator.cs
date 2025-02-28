@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FrostfallSaga.Grid
 {
-    public abstract class BaseGridGenerator : IGridGenerator
+    public abstract class ABaseGridGenerator
     {
         protected int GridWidth { get; }
         protected int GridHeight { get; }
@@ -13,18 +13,23 @@ namespace FrostfallSaga.Grid
         protected Transform ParentGrid {  get; }
         protected float? NoiseScale { get; set; }
         protected int? Seed { get; set; }
+        protected Cell HexPrefab { get; set; }
+        protected float HexSize = 2.0f;
+        protected GameObject[] InterestPoints {  get; set; }
 
-        protected BaseGridGenerator() { }
+        protected ABaseGridGenerator() { }
 
-        protected BaseGridGenerator(int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid) 
+        protected ABaseGridGenerator(Cell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid) 
         { 
+            HexPrefab = hexPrefab;
             GridWidth = gridWidth;
             GridHeight = gridHeight;
             AvailableBiomes = availableBiomes;
             ParentGrid = parentGrid;
         }
-        protected BaseGridGenerator(int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid, float noiseScale, int seed)
+        protected ABaseGridGenerator(Cell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid, float noiseScale, int seed)
         {
+            HexPrefab = hexPrefab;
             GridWidth = gridWidth;
             GridHeight = gridHeight;
             AvailableBiomes = availableBiomes;
@@ -32,7 +37,18 @@ namespace FrostfallSaga.Grid
             NoiseScale = noiseScale;
             Seed = seed;
         }
-        public abstract Dictionary<Vector2Int, Cell> GenerateGrid(Cell hexPrefab, float hexSize = 2.0f);
+        protected ABaseGridGenerator(Cell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid, float noiseScale, int seed, GameObject[] interestPoints)
+        {
+            HexPrefab = hexPrefab;
+            GridWidth = gridWidth;
+            GridHeight = gridHeight;
+            AvailableBiomes = availableBiomes;
+            ParentGrid = parentGrid;
+            NoiseScale = noiseScale;
+            Seed = seed;
+            InterestPoints = interestPoints;
+        }
+        public abstract Dictionary<Vector2Int, Cell> GenerateGrid();
 
         public override string ToString()
         {

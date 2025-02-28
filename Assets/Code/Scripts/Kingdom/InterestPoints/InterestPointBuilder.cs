@@ -8,7 +8,7 @@ namespace FrostfallSaga.Kingdom.InterestPoints
 {
     public class InterestPointBuilder : MonoBehaviourPersistingSingleton<InterestPointBuilder>
     {
-        public InterestPoint BuildInterestPoint(InterestPointData interestPointData, HexGrid grid)
+        public InterestPoint BuildInterestPoint(InterestPointData interestPointData, AHexGrid grid)
         {
             GameObject interestPointPrefab = WorldGameObjectInstantiator.Instance.Instantiate(
                 interestPointData.interestPointConfiguration.InterestPointPrefab

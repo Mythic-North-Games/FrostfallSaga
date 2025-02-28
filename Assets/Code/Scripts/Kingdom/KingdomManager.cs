@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Core.Dungeons;
 using FrostfallSaga.Core.GameState;
@@ -11,6 +10,7 @@ using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.EntitiesGroupsSpawner;
 using FrostfallSaga.Kingdom.InterestPoints;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -26,7 +26,7 @@ namespace FrostfallSaga.Kingdom
 
         [field: SerializeField] public Material CellHighlightMaterial { get; private set; }
         [field: SerializeField] public Material CellInaccessibleHighlightMaterial { get; private set; }
-        [field: SerializeField] public HexGrid KingdomGrid { get; private set; }
+        [field: SerializeField] public AHexGrid KingdomGrid { get; private set; }
         [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
         [field: SerializeField] public List<EntitiesGroup> EnemiesGroups { get; private set; } = new();
         [field: SerializeField] public InterestPoint[] InterestPoints { get; private set; }
@@ -58,7 +58,6 @@ namespace FrostfallSaga.Kingdom
             {
                 interestPointsData.Add(InterestPointBuilder.Instance.ExtractInterestPointDataFromInterestPoint(interestPoint));
             }
-
             GameStateManager.Instance.SaveKingdomState(heroGroupData, enemiesGroupsData.ToArray(), interestPointsData.ToArray());
             Debug.Log("KingdomConfiguration Saved !");
         }
@@ -228,7 +227,7 @@ namespace FrostfallSaga.Kingdom
         {
             if (KingdomGrid == null)
             {
-                KingdomGrid = FindObjectOfType<HexGrid>();
+                KingdomGrid = FindObjectOfType<AHexGrid>();
             }
             if (KingdomGrid == null)
             {
