@@ -10,14 +10,5 @@ namespace FrostfallSaga.Kingdom.InterestPoints
     {
         [field: SerializeField] public GameObject NamePanelAnchor { get; private set; }
         [field: SerializeField] public AInterestPointConfigurationSO InterestPointConfiguration { get; private set; }
-
-        private void Start()
-        {
-            if (cell != null)
-            {
-                transform.position = cell.GetCenter();
-                if (!cell.HasOccupier()) cell.SetOccupier(this);
-            }
-        }
     }
 }

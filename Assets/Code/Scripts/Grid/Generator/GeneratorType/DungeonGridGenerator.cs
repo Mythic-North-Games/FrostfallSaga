@@ -9,7 +9,7 @@ namespace FrostfallSaga.Grid
         public DungeonGridGenerator(Cell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid) 
             : base(hexPrefab, gridWidth, gridHeight, availableBiomes, parentGrid) {}
 
-        public override Dictionary<Vector2Int, Cell> GenerateGrid()
+        public override Dictionary<Vector2Int, Cell> GeneratorGenerateGrid()
         {
             // LOGIQUE DE CREATION DE GRILLE //
             throw new System.NotImplementedException();

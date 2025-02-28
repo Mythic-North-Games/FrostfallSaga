@@ -21,8 +21,9 @@ namespace FrostfallSaga.Grid
             _voronoiBiomeManager = new VoronoiBiomeManager(gridWidth, gridHeight, availableBiomes.Length, seed);
         }
 
-        public override Dictionary<Vector2Int, Cell> GenerateGrid()
+        public override Dictionary<Vector2Int, Cell> GeneratorGenerateGrid()
         {
+            Debug.Log("Generating Kingdom Grid...");
             Dictionary<Vector2Int, Cell> gridCells = new();
 
             for (int y = 0; y < GridHeight; y++)
@@ -74,9 +75,35 @@ namespace FrostfallSaga.Grid
             return availableTerrains[terrainCount - 1];
         }
 
-        public void SetupInterestPoints(Dictionary<Vector2Int, Cell> cells)
+        public void GeneratorGenerateInterestPoints(Dictionary<Vector2Int, Cell> cells)
         {
-            Debug.Log("Setup Interest Points...");
+            Debug.Log("Generating Interest Points...");
+            List<KingdomCell> kingdomCells = RetrieveFreeCells(cells);
+            if (kingdomCells.Count < InterestPoints.Length)
+            {
+                Debug.LogWarning(string.Format("Not enough Free cells for InterestPoints number :\n[KingdomCells = {0}]\n[InterestPoints = {1}]", kingdomCells.Count, InterestPoints.Length));
+                return;
+            }
+            SetupInterestPoint(kingdomCells);
+        }
+
+        private void SetupInterestPoint(List<KingdomCell> kingdomCells)
+        {
+            foreach (GameObject point in InterestPoints)
+            {
+                KingdomCell cell = Randomizer.GetRandomElementFromArray(kingdomCells.ToArray());
+                cell.Initialize();
+                InterestPoint interestPoint = point.GetComponent<InterestPoint>();
+                cell.SetOccupier(interestPoint);
+                Vector3 position = cell.GetCenter();
+                position.y += 0.5f;
+                Object.Instantiate(interestPoint, position, Quaternion.identity, cell.transform);
+                kingdomCells.Remove(cell);
+            }
+        }
+
+        private static List<KingdomCell> RetrieveFreeCells(Dictionary<Vector2Int, Cell> cells)
+        {
             List<KingdomCell> kingdomCells = new List<KingdomCell>();
             foreach (KingdomCell item in cells.Values)
             {
@@ -85,23 +112,9 @@ namespace FrostfallSaga.Grid
                     kingdomCells.Add(item);
                 }
             }
-
-            if (kingdomCells.Count < InterestPoints.Length)
-            {
-                Debug.LogWarning(string.Format("Not enough Free cells for InterestPoints number :\n[KingdomCells = {0}]\n[InterestPoints = {1}]", kingdomCells.Count, InterestPoints.Length));
-                return;
-            }
-
-            foreach (GameObject point in InterestPoints)
-            {
-                KingdomCell cell = Randomizer.GetRandomElementFromArray(kingdomCells.ToArray());
-                InterestPoint interestPoint = point.GetComponent<InterestPoint>();
-                cell.SetOccupier(interestPoint);
-                Object.Instantiate(interestPoint.InterestPointConfiguration.InterestPointPrefab, new Vector3(cell.Coordinates.x, cell.Coordinates.y), Quaternion.identity, cell.transform);
-                kingdomCells.Remove(cell);
-            }
-
+            return kingdomCells;
         }
+
         public override string ToString()
         {
             return $"BaseGridGenerator:\n" +

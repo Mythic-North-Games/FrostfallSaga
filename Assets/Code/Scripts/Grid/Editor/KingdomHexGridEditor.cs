@@ -16,11 +16,13 @@ namespace FrostfallSaga.FFSEditor.Grid
             
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Debug buttons", EditorStyles.boldLabel);
-            hexGrid.Initialize();
 
             if (GUILayout.Button("Generate Hex Mesh"))
             {
+                hexGrid.ClearCells();
+                hexGrid.Initialize();
                 hexGrid.GenerateGrid();
+                hexGrid.GenerateInterestPoints();
             }
 
             else if (GUILayout.Button("Clear Hex Mesh"))

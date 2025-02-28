@@ -11,19 +11,23 @@ namespace FrostfallSaga.Kingdom
 
         public override void GenerateGrid()
         {
-            Debug.Log("Generate Kingdom Grid...");
             kingdomGridGenerator = new(_hexKingdomPrefab, Width, Height, AvailableBiomes, this.transform, NoiseScale, Seed, InterestPoints);
-            Cells = kingdomGridGenerator.GenerateGrid();
+            Cells = kingdomGridGenerator.GeneratorGenerateGrid();
         }
 
         public void GenerateInterestPoints()
         {
             if (kingdomGridGenerator == null)
             {
-                Debug.LogError("KingdomGrdiGenerator is null. Make sure to use GenerateGrid() before to use this method");
+                Debug.LogError("KingdomGrdiGenerator is null. Make sure to use GenerateGrid() before to use this method.");
                 return;
             }
-            kingdomGridGenerator.SetupInterestPoints(Cells);
+            if (InterestPoints.Length == 0 || InterestPoints == null) 
+            {
+                Debug.LogWarning("Cannot generate Interest Points, cause Interest Points are empty or null.");
+                return;
+            }
+            kingdomGridGenerator.GeneratorGenerateInterestPoints(Cells);
         }
 
         #region Setup & tear down
@@ -35,9 +39,13 @@ namespace FrostfallSaga.Kingdom
         {
             if (InterestPoints == null || InterestPoints.Length == 0)
             {
-                Debug.LogWarning("No Interest Points setup");
+                Debug.LogWarning("No Interest Points setup.");
             }
-            _hexKingdomPrefab = Resources.Load<KingdomCell>("Prefabs/Grid/KingdomCell");
+            _hexKingdomPrefab ??= Resources.Load<KingdomCell>("Prefabs/Grid/KingdomCell");
+            if (_hexKingdomPrefab == null)
+            {
+                Debug.LogError("KingdomCellPrefab is null.");
+            }
         }
         #endregion
     }

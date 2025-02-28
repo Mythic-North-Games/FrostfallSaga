@@ -48,7 +48,7 @@ namespace FrostfallSaga.Grid
             Seed = seed;
             InterestPoints = interestPoints;
         }
-        public abstract Dictionary<Vector2Int, Cell> GenerateGrid();
+        public abstract Dictionary<Vector2Int, Cell> GeneratorGenerateGrid();
 
         public override string ToString()
         {

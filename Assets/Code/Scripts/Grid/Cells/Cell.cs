@@ -1,7 +1,7 @@
 using System.Collections;
-using UnityEngine;
-using FrostfallSaga.Utils.GameObjectVisuals;
 using FrostfallSaga.Utils;
+using FrostfallSaga.Utils.GameObjectVisuals;
+using UnityEngine;
 
 namespace FrostfallSaga.Grid.Cells
 {
@@ -27,7 +27,12 @@ namespace FrostfallSaga.Grid.Cells
 
         private void Awake()
         {
-            _parentGrid = GetComponentInParent<AHexGrid>();
+            Initialize();
+        }
+
+        public void Initialize()
+        {
+            SetParentGridFromGameObjectTree();
             SetCellVisualFromGameObjectTree();
             SetCellMouseEventsControllerFromGameObjectTree();
         }
@@ -155,10 +160,18 @@ namespace FrostfallSaga.Grid.Cells
 
             transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
         }
+        private void SetParentGridFromGameObjectTree()
+        {
+            _parentGrid ??= GetComponentInParent<AHexGrid>();
+            if (_parentGrid == null)
+            {
+                Debug.LogError("Cell " + name + " doesn't have parent Grid.");
+            }
+        }
 
         private void SetCellVisualFromGameObjectTree()
         {
-            HighlightController = GetComponentInChildren<MaterialHighlightable>();
+            HighlightController ??= GetComponentInChildren<MaterialHighlightable>();
             if (HighlightController == null)
             {
                 Debug.LogError("Cell " + name + " doesn't have a cell visual as child.");
@@ -167,7 +180,7 @@ namespace FrostfallSaga.Grid.Cells
 
         private void SetCellMouseEventsControllerFromGameObjectTree()
         {
-            CellMouseEventsController = GetComponentInChildren<CellMouseEventsController>();
+            CellMouseEventsController ??= GetComponentInChildren<CellMouseEventsController>();
             if (CellMouseEventsController == null)
             {
                 Debug.LogError("Cell " + name + " doesn't have a cell mouse controller as child.");
@@ -180,12 +193,12 @@ namespace FrostfallSaga.Grid.Cells
             Vector2Int targetAxial = targetCell.AxialCoordinates;
             return targetAxial - initiatorAxial;
         }
-        
+
         public void SetParentGridForTests(AHexGrid grid)
         {
-            _parentGrid = grid ;
+            _parentGrid = grid;
         }
-        
+
         public override string ToString()
         {
             return $"Cell: \n" +
