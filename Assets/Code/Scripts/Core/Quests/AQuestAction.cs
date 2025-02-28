@@ -6,11 +6,15 @@ namespace FrostfallSaga.Core.Quests
     [Serializable]
     public abstract class AQuestAction
     {
-        [field: SerializeField] public string Instruction { get; protected set; }
         [field: SerializeField] public bool IsCompleted { get; protected set; }
         
         public Action<AQuestAction> onActionCompleted;
         public MonoBehaviour SceneManager { get; protected set; }
+
+        /// <summary>
+        /// Get the instruction of the action.
+        /// </summary>
+        public abstract string GetInstruction();
 
         /// <summary>
         /// Start listening to the events that will update the action completion.

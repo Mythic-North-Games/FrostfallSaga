@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="ActionInstructionContainer" src="project://database/Assets/Level/UI/Quests/ActionInstructionContainer.uxml?fileID=9197481963319205126&amp;guid=8c05b7c3f827d9ac18bfa213c03059dd&amp;type=3#ActionInstructionContainer" />
+    <Style src="project://database/Assets/Level/UI/Quests/quests.uss?fileID=7433441132597879392&amp;guid=b826a21f7b38516eb91dbfd688398aff&amp;type=3#quests" />
+    <ui:VisualElement name="QuestStepContainer" class="questStepContainerRoot">
+        <ui:Label tabindex="-1" text="Gather the ingredients" parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuestStepTitle" style="margin-top: 0; margin-right: 0; margin-bottom: 1%; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 30px; -unity-font-style: bold; -unity-text-align: upper-left; white-space: normal; color: rgb(25, 25, 25); width: 95%;" />
+        <ui:Label tabindex="-1" text="Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet " parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuestStepDescription" class="decisiveActionSeparator" />
+        <ui:VisualElement name="QuestStepCompletedIcon" style="position: absolute; top: 0; right: 0; width: 5%; height: 20%; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Icons/completed.png?fileID=2800000&amp;guid=f79359a66d0daaba68d2940991fe2c8c&amp;type=3#completed&quot;); -unity-background-image-tint-color: rgb(0, 0, 0);" />
+        <ui:VisualElement name="ActionsList" style="width: 100%; align-items: flex-start; display: flex;">
+            <ui:Instance template="ActionInstructionContainer" name="ActionInstructionContainer" class="actionInstructionContainer" />
+            <ui:Instance template="ActionInstructionContainer" name="ActionInstructionContainer" class="actionInstructionContainer" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

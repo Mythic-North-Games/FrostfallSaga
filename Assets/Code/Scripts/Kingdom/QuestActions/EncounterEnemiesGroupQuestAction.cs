@@ -11,6 +11,8 @@ namespace FrostfallSaga.Kingdom.QuestActions
     [Serializable]
     public class EncounterEnemiesGroupQuestAction : AQuestAction
     {
+        public override string GetInstruction() => "Encounter an enemies group";
+
         public override void Initialize(MonoBehaviour sceneManager)
         {
             base.Initialize(sceneManager);
