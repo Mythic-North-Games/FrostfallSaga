@@ -17,7 +17,7 @@ namespace FrostfallSaga.Fight.FightConditions
         {
         }
 
-        public abstract bool CheckCondition(Fighter fighter, HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams);
+        public abstract bool CheckCondition(Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams);
         public abstract string GetName();
         public abstract string GetDescription();
     }

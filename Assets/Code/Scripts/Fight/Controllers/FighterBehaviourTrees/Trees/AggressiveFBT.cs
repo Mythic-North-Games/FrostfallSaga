@@ -11,7 +11,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
     {
         public AggressiveFBT(
             Fighter possessedFighter,
-            HexGrid fightGrid,
+            AHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams
         ) : base(possessedFighter, fightGrid, fighterTeams)
         {

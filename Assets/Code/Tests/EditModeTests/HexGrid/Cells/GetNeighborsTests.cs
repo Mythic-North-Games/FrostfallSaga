@@ -7,7 +7,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 {
     public class GetNeighborsTests
     {
-        private HexGrid grid;
+        private AHexGrid grid;
 
         [SetUp]
         public void Setup()
@@ -26,16 +26,16 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_AllAccessible_InMiddle_Even_Test()
         {
             // Arrange
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(3, 2)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 2)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(2, 2)],
-                grid.CellsByCoordinates[new(2, 3)],
-                grid.CellsByCoordinates[new(3, 3)],
-                grid.CellsByCoordinates[new(4, 2)],
-                grid.CellsByCoordinates[new(3, 1)],
-                grid.CellsByCoordinates[new(2, 1)]
+                grid.Cells[new(2, 2)],
+                grid.Cells[new(2, 3)],
+                grid.Cells[new(3, 3)],
+                grid.Cells[new(4, 2)],
+                grid.Cells[new(3, 1)],
+                grid.Cells[new(2, 1)]
             };
-
+            Debug.Log("Debug From Test : " + grid.ToString());
             // Act
             Cell[] actualNeighbors = CellsNeighbors.GetNeighbors(grid, cellToGetTheNeighborsFrom);
 
@@ -51,10 +51,10 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_AllAccessible_CornerBottomLeft_Even_Test()
         {
             
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(0, 0)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(0, 0)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(1, 0)],
-                grid.CellsByCoordinates[new(0, 1)]
+                grid.Cells[new(1, 0)],
+                grid.Cells[new(0, 1)]
             };
 
             // Act
@@ -72,11 +72,11 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_AllAccessible_CornerBottomRight_Even_Test()
         {
             
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(4, 0)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(4, 0)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(4, 1)],
-                grid.CellsByCoordinates[new(3, 1)],
-                grid.CellsByCoordinates[new(3, 0)]
+                grid.Cells[new(4, 1)],
+                grid.Cells[new(3, 1)],
+                grid.Cells[new(3, 0)]
             };
 
             // Act
@@ -94,10 +94,10 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_AllAccessible_CornerTopLeft_Even_Test()
         {
             
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(0, 4)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(0, 4)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(1, 4)],
-                grid.CellsByCoordinates[new(0, 3)]
+                grid.Cells[new(1, 4)],
+                grid.Cells[new(0, 3)]
             };
 
             // Act
@@ -115,11 +115,11 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_AllAccessible_CornerTopRight_Even_Test()
         {
             
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(4, 4)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(4, 4)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(4, 3)],
-                grid.CellsByCoordinates[new(3, 3)],
-                grid.CellsByCoordinates[new(3, 4)],
+                grid.Cells[new(4, 3)],
+                grid.Cells[new(3, 3)],
+                grid.Cells[new(3, 4)],
             };
 
             // Act
@@ -137,15 +137,15 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_SomeInaccessible_Even_Test()
         {
             
-            grid.CellsByCoordinates[new(2, 2)].Setup(new(2, 2), ECellHeight.LOW, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(3, 1)].Setup(new(3, 1), ECellHeight.LOW, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiome);
+            grid.Cells[new(2, 2)].Setup(new(2, 2), ECellHeight.LOW, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(3, 1)].Setup(new(3, 1), ECellHeight.LOW, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(3, 2)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 2)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(2, 3)],
-                grid.CellsByCoordinates[new(3, 3)],
-                grid.CellsByCoordinates[new(4, 2)],
-                grid.CellsByCoordinates[new(2, 1)]
+                grid.Cells[new(2, 3)],
+                grid.Cells[new(3, 3)],
+                grid.Cells[new(4, 2)],
+                grid.Cells[new(2, 1)]
             };
 
             // Act
@@ -163,15 +163,15 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_SomeHeightInaccessible_Even_Test()
         {
             
-            grid.CellsByCoordinates[new(2, 2)].Setup(new(2, 2), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(3, 1)].Setup(new(3, 1), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
+            grid.Cells[new(2, 2)].Setup(new(2, 2), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(3, 1)].Setup(new(3, 1), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(3, 2)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 2)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(2, 3)],
-                grid.CellsByCoordinates[new(3, 3)],
-                grid.CellsByCoordinates[new(4, 2)],
-                grid.CellsByCoordinates[new(2, 1)]
+                grid.Cells[new(2, 3)],
+                grid.Cells[new(3, 3)],
+                grid.Cells[new(4, 2)],
+                grid.Cells[new(2, 1)]
             };
 
             // Act
@@ -189,17 +189,17 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_LowHeightDifference_Even_Test()
         {
             
-            grid.CellsByCoordinates[new(2, 2)].Setup(new(2, 2), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(3, 1)].Setup(new(3, 1), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
+            grid.Cells[new(2, 2)].Setup(new(2, 2), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(3, 1)].Setup(new(3, 1), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(3, 2)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 2)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(2, 2)],
-                grid.CellsByCoordinates[new(3, 1)],
-                grid.CellsByCoordinates[new(2, 3)],
-                grid.CellsByCoordinates[new(3, 3)],
-                grid.CellsByCoordinates[new(4, 2)],
-                grid.CellsByCoordinates[new(2, 1)]
+                grid.Cells[new(2, 2)],
+                grid.Cells[new(3, 1)],
+                grid.Cells[new(2, 3)],
+                grid.Cells[new(3, 3)],
+                grid.Cells[new(4, 2)],
+                grid.Cells[new(2, 1)]
             };
 
             // Act
@@ -217,14 +217,14 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_Isolated_Even_Test()
         {
             
-            grid.CellsByCoordinates[new(2, 2)].Setup(new(2, 2), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(3, 1)].Setup(new(3, 1), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(3, 3)].Setup(new(3, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(4, 2)].Setup(new(4, 2), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(2, 1)].Setup(new(2, 1), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiome);
+            grid.Cells[new(2, 2)].Setup(new(2, 2), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(3, 1)].Setup(new(3, 1), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(3, 3)].Setup(new(3, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(4, 2)].Setup(new(4, 2), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(2, 1)].Setup(new(2, 1), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(3, 2)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 2)];
             Cell[] expectedNeighbors = { };
 
             // Act
@@ -238,14 +238,14 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_AllAccessible_InMiddle_Odd_Test()
         {
             
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(3, 3)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(4, 3)],
-                grid.CellsByCoordinates[new(2, 3)],
-                grid.CellsByCoordinates[new(4, 4)],
-                grid.CellsByCoordinates[new(3, 2)],
-                grid.CellsByCoordinates[new(4, 2)],
-                grid.CellsByCoordinates[new(3, 4)]
+                grid.Cells[new(4, 3)],
+                grid.Cells[new(2, 3)],
+                grid.Cells[new(4, 4)],
+                grid.Cells[new(3, 2)],
+                grid.Cells[new(4, 2)],
+                grid.Cells[new(3, 4)]
             };
 
             // Act
@@ -263,12 +263,12 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_AllAccessible_CornerTopLeft_Odd_Test()
         {
             // Arrange
-            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(false, 6, 6);
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(0, 5)];
+            AHexGrid grid = CommonTestsHelper.CreatePlainGridForTest(6, 6);
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(0, 5)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(0, 4)],
-                grid.CellsByCoordinates[new(1, 4)],
-                grid.CellsByCoordinates[new(1, 5)]
+                grid.Cells[new(0, 4)],
+                grid.Cells[new(1, 4)],
+                grid.Cells[new(1, 5)]
             };
 
             // Act
@@ -286,11 +286,11 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_AllAccessible_CornerTopRight_Odd_Test()
         {
             // Arrange
-            HexGrid grid = CommonTestsHelper.CreatePlainGridForTest(false, 5, 4);
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(4, 3)];
+            AHexGrid grid = CommonTestsHelper.CreatePlainGridForTest(5, 4);
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(4, 3)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(4, 2)],
-                grid.CellsByCoordinates[new(3, 3)]
+                grid.Cells[new(4, 2)],
+                grid.Cells[new(3, 3)]
             };
 
             // Act
@@ -308,15 +308,15 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_SomeInaccessible_Odd_Test()
         {
             
-            grid.CellsByCoordinates[new(4, 3)].Setup(new(4, 3), ECellHeight.LOW, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.LOW, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiome);
+            grid.Cells[new(4, 3)].Setup(new(4, 3), ECellHeight.LOW, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.LOW, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(3, 3)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(4, 4)],
-                grid.CellsByCoordinates[new(3, 2)],
-                grid.CellsByCoordinates[new(4, 2)],
-                grid.CellsByCoordinates[new(3, 4)]
+                grid.Cells[new(4, 4)],
+                grid.Cells[new(3, 2)],
+                grid.Cells[new(4, 2)],
+                grid.Cells[new(3, 4)]
             };
 
             // Act
@@ -334,15 +334,15 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_SomeHeightInaccessible_Odd_Test()
         {
             
-            grid.CellsByCoordinates[new(4, 3)].Setup(new(4, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
+            grid.Cells[new(4, 3)].Setup(new(4, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(3, 3)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(4, 4)],
-                grid.CellsByCoordinates[new(3, 2)],
-                grid.CellsByCoordinates[new(4, 2)],
-                grid.CellsByCoordinates[new(3, 4)]
+                grid.Cells[new(4, 4)],
+                grid.Cells[new(3, 2)],
+                grid.Cells[new(4, 2)],
+                grid.Cells[new(3, 4)]
             };
 
             // Act
@@ -360,17 +360,17 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_LowHeightDifference_Odd_Test()
         {
             
-            grid.CellsByCoordinates[new(4, 3)].Setup(new(4, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
+            grid.Cells[new(4, 3)].Setup(new(4, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(3, 3)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(4, 3)],
-                grid.CellsByCoordinates[new(2, 3)],
-                grid.CellsByCoordinates[new(4, 4)],
-                grid.CellsByCoordinates[new(3, 2)],
-                grid.CellsByCoordinates[new(4, 2)],
-                grid.CellsByCoordinates[new(3, 4)]
+                grid.Cells[new(4, 3)],
+                grid.Cells[new(2, 3)],
+                grid.Cells[new(4, 4)],
+                grid.Cells[new(3, 2)],
+                grid.Cells[new(4, 2)],
+                grid.Cells[new(3, 4)]
             };
 
             // Act
@@ -388,15 +388,15 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_Isolated_Odd_Test()
         {
             
-            grid.CellsByCoordinates[new(4, 3)].Setup(new(4, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(4, 4)].Setup(new(4, 4), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(3, 2)].Setup(new(3, 2), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(4, 2)].Setup(new(4, 2), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(3, 4)].Setup(new(3, 4), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiome);
+            grid.Cells[new(4, 3)].Setup(new(4, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(4, 4)].Setup(new(4, 4), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(3, 2)].Setup(new(3, 2), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(4, 2)].Setup(new(4, 2), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(3, 4)].Setup(new(3, 4), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
 
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(3, 3)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
             Cell[] expectedNeighbors = { };
 
             // Act
@@ -410,17 +410,17 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_IncludeInaccessible_Test()
         {
             
-            grid.CellsByCoordinates[new(4, 3)].Setup(new(4, 3), ECellHeight.LOW, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.LOW, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
+            grid.Cells[new(4, 3)].Setup(new(4, 3), ECellHeight.LOW, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.LOW, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(3, 3)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(4, 3)],
-                grid.CellsByCoordinates[new(2, 3)],
-                grid.CellsByCoordinates[new(4, 4)],
-                grid.CellsByCoordinates[new(3, 2)],
-                grid.CellsByCoordinates[new(4, 2)],
-                grid.CellsByCoordinates[new(3, 4)]
+                grid.Cells[new(4, 3)],
+                grid.Cells[new(2, 3)],
+                grid.Cells[new(4, 4)],
+                grid.Cells[new(3, 2)],
+                grid.Cells[new(4, 2)],
+                grid.Cells[new(3, 4)]
             };
 
             // Act
@@ -438,17 +438,17 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_IncludeHeightInaccessible_Test()
         {
             
-            grid.CellsByCoordinates[new(4, 3)].Setup(new(4, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
+            grid.Cells[new(4, 3)].Setup(new(4, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(3, 3)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(4, 3)],
-                grid.CellsByCoordinates[new(2, 3)],
-                grid.CellsByCoordinates[new(4, 4)],
-                grid.CellsByCoordinates[new(3, 2)],
-                grid.CellsByCoordinates[new(4, 2)],
-                grid.CellsByCoordinates[new(3, 4)]
+                grid.Cells[new(4, 3)],
+                grid.Cells[new(2, 3)],
+                grid.Cells[new(4, 4)],
+                grid.Cells[new(3, 2)],
+                grid.Cells[new(4, 2)],
+                grid.Cells[new(3, 4)]
             };
 
             // Act
@@ -466,17 +466,17 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_IncludeHeightInaccessibleAndInaccessible_Test()
         {
             
-            grid.CellsByCoordinates[new(4, 3)].Setup(new(4, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
-            grid.CellsByCoordinates[new(2, 3)].Setup(new(2, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiome);
+            grid.Cells[new(4, 3)].Setup(new(4, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.CellsByCoordinates[new(3, 3)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
             Cell[] expectedNeighbors = {
-                grid.CellsByCoordinates[new(4, 3)],
-                grid.CellsByCoordinates[new(2, 3)],
-                grid.CellsByCoordinates[new(4, 4)],
-                grid.CellsByCoordinates[new(3, 2)],
-                grid.CellsByCoordinates[new(4, 2)],
-                grid.CellsByCoordinates[new(3, 4)]
+                grid.Cells[new(4, 3)],
+                grid.Cells[new(2, 3)],
+                grid.Cells[new(4, 4)],
+                grid.Cells[new(3, 2)],
+                grid.Cells[new(4, 2)],
+                grid.Cells[new(3, 4)]
             };
 
             // Act

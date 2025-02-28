@@ -15,7 +15,7 @@ namespace FrostfallSaga.Fight.FightConditions
     {
         [SerializeField] public TerrainTypeSO[] AvailableTerrains;
 
-        public override bool CheckCondition(Fighter fighter, HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        public override bool CheckCondition(Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
         {
             return fighter.cell != null && AvailableTerrains.Contains(fighter.cell.TerrainType);
         }

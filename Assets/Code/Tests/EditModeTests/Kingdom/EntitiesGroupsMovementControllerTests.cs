@@ -11,12 +11,12 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 {
 	public class EntitiesGroupsMovementControllerTests
 	{
-		private HexGrid grid;
+		private AHexGrid grid;
 
 		[SetUp]
 		public void Setup()
 		{
-			grid = CommonTestsHelper.CreatePlainGridForTest(false, 10, 10);
+			grid = CommonTestsHelper.CreatePlainGridForTest(10, 10);
 		}
 
 		[TearDown]
@@ -32,7 +32,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 			// Arrange
 			int pathLength = 3;
 			HashSet<KingdomCell> prohibitedCells = new();
-			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)] as KingdomCell, pathLength);
+			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.Cells[new(0, 0)] as KingdomCell, pathLength);
 
 			// Act
 			KingdomCell[] path = EntitiesGroupsMovementController.GenerateRandomMovePathForEntitiesGroup(
@@ -68,10 +68,10 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 		{
 			// Arrange
 			int pathLength = 3;
-			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)] as KingdomCell, pathLength);
+			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.Cells[new(0, 0)] as KingdomCell, pathLength);
 			HashSet<KingdomCell> prohibitedCells = new()
 			{
-				grid.CellsByCoordinates[new(0, 1)] as KingdomCell
+				grid.Cells[new(0, 1)] as KingdomCell
 			};
 
 			int repeatExperienceCount = 50;
@@ -113,7 +113,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 			// Arrange
 			int minPathLength = -3;
 			HashSet<KingdomCell> prohibitedCells = new();
-			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)] as KingdomCell, minPathLength);
+			EntitiesGroup entitiesGroup = KingdomTestsHelper.CreateEntitiesGroup(grid.Cells[new(0, 0)] as KingdomCell, minPathLength);
 
 			// Act
 			Assert.Throws<ArgumentException>(() => EntitiesGroupsMovementController.GenerateRandomMovePathForEntitiesGroup(
@@ -129,9 +129,9 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 			// Arrange
 			int minPathLength = 2;
 			EntitiesGroup[] entitiesGroups = {
-				KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(0, 0)] as KingdomCell, minPathLength),
-				KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(2, 2)] as KingdomCell, minPathLength),
-				KingdomTestsHelper.CreateEntitiesGroup(grid.CellsByCoordinates[new(2, 0)] as KingdomCell, minPathLength),
+				KingdomTestsHelper.CreateEntitiesGroup(grid.Cells[new(0, 0)] as KingdomCell, minPathLength),
+				KingdomTestsHelper.CreateEntitiesGroup(grid.Cells[new(2, 2)] as KingdomCell, minPathLength),
+				KingdomTestsHelper.CreateEntitiesGroup(grid.Cells[new(2, 0)] as KingdomCell, minPathLength),
 			};
 
 			// Act
@@ -146,7 +146,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 
 		}
 
-		private void AssertPathForMultipleEntitiesGroup(HexGrid grid, Dictionary<EntitiesGroup, KingdomCell[]> pathPerEntitiesGroup)
+		private void AssertPathForMultipleEntitiesGroup(AHexGrid grid, Dictionary<EntitiesGroup, KingdomCell[]> pathPerEntitiesGroup)
 		{
 			foreach (KeyValuePair<EntitiesGroup, KingdomCell[]> item in pathPerEntitiesGroup)
 			{

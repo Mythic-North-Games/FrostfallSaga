@@ -12,7 +12,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
     public abstract class FighterBehaviourTree : BTree
     {
         protected readonly Fighter _possessedFighter;
-        protected readonly HexGrid _fightGrid;
+        protected readonly AHexGrid _fightGrid;
         protected readonly Dictionary<Fighter, bool> _fighterTeams;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
         /// <param name="fightGrid">The fight grid.</param>
         /// <param name="fighterTeams">All the fighter and their corresponding teams.</param>
         /// <exception cref="MalformedFBTException">Thrown if tree not set up correctly.</exception>
-        public FighterBehaviourTree(Fighter possessedFighter, HexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
+        public FighterBehaviourTree(Fighter possessedFighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
         {
             _possessedFighter = possessedFighter;
             _fightGrid = fightGrid;

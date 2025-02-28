@@ -35,7 +35,7 @@ namespace FrostfallSaga.Grid
         /// <param name="includeOccupiedNeighbors">If the occupied cells should be included.</param>
         /// <returns>The current cell neighbors in the given grid.</returns>
         public static Cell[] GetNeighbors(
-            HexGrid hexGrid,
+            AHexGrid hexGrid,
             Cell cellToGetTheNeighbors,
             bool includeInaccessibleNeighbors = false,
             bool includeHeightInaccessibleNeighbors = false,
@@ -53,7 +53,7 @@ namespace FrostfallSaga.Grid
             foreach (Vector2Int direction in directionsToCheck)
             {
                 Vector2Int neighborCoord = cellToGetTheNeighbors.Coordinates + direction;
-                Dictionary<Vector2Int, Cell> cellsByCoordinates = hexGrid.CellsByCoordinates;
+                Dictionary<Vector2Int, Cell> cellsByCoordinates = hexGrid.Cells;
                 if (cellsByCoordinates.ContainsKey(neighborCoord))
                 {
                     Cell currentNeighbor = cellsByCoordinates[neighborCoord];
