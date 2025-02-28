@@ -30,6 +30,16 @@ namespace FrostfallSaga.Kingdom
             kingdomGridGenerator.GeneratorGenerateInterestPoints(Cells);
         }
 
+        public void GenerateInterestPoints()
+        {
+            if (kingdomGridGenerator == null)
+            {
+                Debug.LogError("KingdomGrdiGenerator is null. Make sure to use GenerateGrid() before to use this method");
+                return;
+            }
+            kingdomGridGenerator.SetupInterestPoints(Cells);
+        }
+
         #region Setup & tear down
         private void Awake()
         {

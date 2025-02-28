@@ -87,6 +87,7 @@ namespace FrostfallSaga.Grid
             SetupInterestPoint(kingdomCells);
         }
 
+
         private void SetupInterestPoint(List<KingdomCell> kingdomCells)
         {
             foreach (GameObject point in InterestPoints)
