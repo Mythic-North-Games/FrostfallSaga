@@ -268,6 +268,7 @@ namespace FrostfallSaga.Fight.Fighters
             onActiveAbilityStarted?.Invoke(this, activeAbility);
             activeAbility.onActiveAbilityEnded += OnActiveAbilityEnded;
             activeAbility.Trigger(targetedCells, this);
+            TrapManager.UpdateTrapDetection(1, this);
         }
 
         /// <summary>
