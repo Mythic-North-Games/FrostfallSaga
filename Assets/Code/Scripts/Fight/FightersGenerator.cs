@@ -1,30 +1,35 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Fight;
 using FrostfallSaga.Core.InventorySystem;
+using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightItems;
-using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
 
 namespace FrostfallSaga.Fight
 {
-    public class FightersGenerator : MonoBehaviour
+    public class FightersGenerator
     {
-        public Action<Fighter[], Fighter[]> onFightersGenerated;
 
-        [SerializeField] private WorldGameObjectInstantiator _worldGameObjectInstantiator;
         [SerializeField] private EntityConfigurationSO[] _devAlliesConfs;
         [SerializeField] private EntityConfigurationSO[] _devEnemiesConfs;
 
-        private void Start()
+        public FightersGenerator(EntityConfigurationSO[] devAlliesConfs, EntityConfigurationSO[] devEnemiesConfs)
         {
+            _devAlliesConfs = devAlliesConfs;
+            _devEnemiesConfs = devEnemiesConfs;
+        }
+
+        public KeyValuePair<Fighter[], Fighter[]> GenerateFighters()
+        {
+
             PreFightData preFightData = GameStateManager.Instance.GetPreFightData();
 
             // Adjust fighter to build based on pre fight data or dev configuration
@@ -39,25 +44,22 @@ namespace FrostfallSaga.Fight
                 BuildDevFighterConfMapping(_devEnemiesConfs)
             );
 
-            Debug.Log("Start generating fighters...");
-            List<Fighter> allies = new();
-            alliesFighterConf.ToList().ForEach(allyFighterConf =>
-                allies.Add(SpawnAndSetupFighter(allyFighterConf))
-            );
+                List<Fighter> allies = new();
+                alliesFighterConf.ToList().ForEach(allyFighterConf =>
+                    allies.Add(SpawnAndSetupFighter(allyFighterConf))
+                );
 
-            List<Fighter> enemies = new();
-            enemiesFighterConf.ToList().ForEach(enemyFighterConf =>
-                enemies.Add(
-                    SpawnAndSetupFighter(
-                        enemyFighterConf.Value,
-                        enemyFighterConf.Key,
-                        $"{enemies.Count}"
+                List<Fighter> enemies = new();
+                enemiesFighterConf.ToList().ForEach(enemyFighterConf =>
+                    enemies.Add(
+                        SpawnAndSetupFighter(
+                            enemyFighterConf.Value,
+                            enemyFighterConf.Key,
+                            $"{enemies.Count}"
+                        )
                     )
-                )
-            );
-
-            onFightersGenerated?.Invoke(allies.ToArray(), enemies.ToArray());
-            Debug.Log("Fighters generated.");
+                );
+                return new KeyValuePair<Fighter[], Fighter[]>(allies.ToArray(), enemies.ToArray());
         }
 
         private Fighter SpawnAndSetupFighter(

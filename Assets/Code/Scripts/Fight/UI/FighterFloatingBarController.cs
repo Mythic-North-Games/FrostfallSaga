@@ -16,13 +16,13 @@ namespace FrostfallSaga.Fight.UI
 
         [SerializeField, Header("UI options")] private VisualTreeAsset _floatingBarUIPanel;
 
-        [SerializeField] private FightersGenerator _fightersGenerator;
+        [SerializeField] private FightLoader _fightLoader;
         [SerializeField] private FightManager _fightManager;
         private FighterStatusesBarController _fighterStatusesBarController;
         private readonly Dictionary<Fighter, TemplateContainer> _fighterFloatingBars = new();
         private readonly Dictionary<Fighter, WorldUIPositioner> _fighterFloatingBarsPositioner = new();
 
-        private void OnFightersGenerated(Fighter[] allies, Fighter[] enemies)
+        private void OnFightLoaded(Fighter[] allies, Fighter[] enemies)
         {
             foreach (Fighter fighter in allies.Concat(enemies))
             {
@@ -116,7 +116,7 @@ namespace FrostfallSaga.Fight.UI
 
         private void Awake()
         {
-            _fightersGenerator.onFightersGenerated += OnFightersGenerated;
+            _fightLoader.onFightLoaded += OnFightLoaded;
             _fightManager.onFightEnded += OnFightEnded;
         }
 

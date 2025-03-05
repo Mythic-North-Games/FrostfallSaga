@@ -1,6 +1,7 @@
 using UnityEngine;
 using FrostfallSaga.Grid;
 
+
 namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 {
     /// <summary>
