@@ -17,7 +17,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 
         public DamageTargetAction(
             Fighter possessedFighter,
-            HexGrid fightGrid,
+            AHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,
             EDamagePreference damagePreference
         ) : base(possessedFighter, fightGrid, fighterTeams)

@@ -18,7 +18,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 
         public CanDamageTargetCheck(
             Fighter possessedFighter,
-            HexGrid fightGrid,
+            AHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,
             List<ETarget> possibleTargets,
             ETargetType targetType

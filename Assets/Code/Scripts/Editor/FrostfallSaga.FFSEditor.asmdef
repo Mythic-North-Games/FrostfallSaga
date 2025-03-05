@@ -5,11 +5,10 @@
         "FrostfallSaga.Core",
         "FrostfallSaga.Grid",
         "FrostfallSaga.Fight",
-        "FrostfallSaga.GameObjectVisuals",
         "FrostfallSaga.Procedural",
-        "FrostfallSaga.FightItems",
         "FrostfallSaga.DialogueSystem",
-        "FrostfallSaga.Utils"
+        "FrostfallSaga.Utils",
+        "FrostfallSaga.Kingdom"
     ],
     "includePlatforms": [
         "Editor"

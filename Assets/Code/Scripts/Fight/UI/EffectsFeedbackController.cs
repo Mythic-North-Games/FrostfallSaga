@@ -23,14 +23,14 @@ namespace FrostfallSaga.Fight.UI
         [SerializeField] private string _dodgeStyleClass;
         [SerializeField] private string _masterstrokeStyleClass;
         [SerializeField] private SElementToValue<EFighterMutableStat, Texture2D>[] _statIcons;
-        [SerializeField, Header("Needed components")] private FightersGenerator _fightersGenerator;
+        [SerializeField, Header("Needed components")] private FightLoader _fightLoader;
         [SerializeField] private CameraController _fightCameraController;
 
         private Dictionary<Fighter, List<TemplateContainer>> _fighterEffectsPanel = new();
         private Dictionary<TemplateContainer, WorldUIPositioner> _positioners = new();
         private Dictionary<TemplateContainer, GameObject> _panelsAnchors = new();
 
-        private void OnFightersGenerated(Fighter[] allies, Fighter[] enemies)
+        private void OnFightLoaded(Fighter[] allies, Fighter[] enemies)
         {
             foreach (Fighter fighter in allies.Concat(enemies))
             {
@@ -168,7 +168,7 @@ namespace FrostfallSaga.Fight.UI
 
         private void Awake()
         {
-            _fightersGenerator.onFightersGenerated += OnFightersGenerated;
+            _fightLoader.onFightLoaded += OnFightLoaded;
         }
 
         #endregion

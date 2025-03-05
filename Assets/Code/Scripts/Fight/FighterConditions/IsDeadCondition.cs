@@ -11,7 +11,7 @@ namespace FrostfallSaga.Fight.FightConditions
     [Serializable]
     public class IsDeadCondition : AFighterCondition
     {
-        public override bool CheckCondition(Fighter fighter, HexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        public override bool CheckCondition(Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
         {
             return fighter.GetHealth() <= 0;
         }
