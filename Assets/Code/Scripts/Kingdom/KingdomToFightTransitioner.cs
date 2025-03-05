@@ -1,16 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Fight;
+using FrostfallSaga.Core.HeroTeam;
+using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils.Scenes;
-using FrostfallSaga.Core.HeroTeam;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -29,7 +31,7 @@ namespace FrostfallSaga.Kingdom
         /// <param name="heroGroupInitiating">True if the hero group is initiating the fight, false otherwise.</param>
 		private void OnEnemiesGroupEncountered(EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
-            SavePreFightData(enemiesGroup);
+            PrepareAndSavePreFightData(enemiesGroup);
             StartCoroutine(StartEncounterAnimation(enemiesGroup, heroGroupInitiating));
         }
 
@@ -80,7 +82,7 @@ namespace FrostfallSaga.Kingdom
             _sceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
         }
 
-        private void SavePreFightData(EntitiesGroup enemiesGroup)
+        private void PrepareAndSavePreFightData(EntitiesGroup enemiesGroup)
         {
             KeyValuePair<string, EntityConfigurationSO>[] enemiesFighterConfigs = new KeyValuePair<string, EntityConfigurationSO>[enemiesGroup.Entities.Length];
             for (int i = 0; i < enemiesGroup.Entities.Length; i++)
@@ -88,12 +90,19 @@ namespace FrostfallSaga.Kingdom
                 Entity enemyGroupEntity = enemiesGroup.Entities[i];
                 enemiesFighterConfigs[i] = new(enemyGroupEntity.SessionId, enemyGroupEntity.EntityConfiguration);
             }
-
             GameStateManager.Instance.SavePreFightData(
-                HeroTeam.Instance.GetHeroesEntityConfig(),
+                HeroTeam.Instance.GetAliveHeroesEntityConfig(),
                 enemiesFighterConfigs,
                 EFightOrigin.KINGDOM
             );
+            GenerateFightMap(enemiesGroup.cell);
+        }
+
+        private void GenerateFightMap(KingdomCell targetCell)
+        {
+            CellAnalysis.AnalyzeAtCell(targetCell, _kingdomManager.KingdomGrid);
+            CellAnalysis.PrintAnalysisWithPercentages();
+            //TODO
         }
 
         #region Setup and tear down
