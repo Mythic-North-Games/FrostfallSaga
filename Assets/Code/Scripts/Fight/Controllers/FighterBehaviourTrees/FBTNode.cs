@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using FrostfallSaga.Utils.Trees.BehaviourTree;  
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
 {
@@ -15,10 +14,10 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
         public static readonly string TARGET_SHARED_DATA_KEY = "Target";
 
         protected Fighter _possessedFighter;
-        protected AHexGrid _fightGrid;
+        protected FightHexGrid _fightGrid;
         protected Dictionary<Fighter, bool> _fighterTeams;
 
-        public FBTNode(Fighter possessedFighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
+        public FBTNode(Fighter possessedFighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
         {
             _possessedFighter = possessedFighter;
             _fightGrid = fightGrid;

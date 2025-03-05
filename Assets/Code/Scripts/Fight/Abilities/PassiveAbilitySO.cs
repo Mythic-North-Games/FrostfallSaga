@@ -2,7 +2,6 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Core.Fight;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightConditions;
@@ -105,7 +104,7 @@ namespace FrostfallSaga.Fight.Abilities
             initiator.onPassiveAbilityRemoved?.Invoke(initiator, this);
         }
 
-        public bool CheckConditions(Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
+        public bool CheckConditions(Fighter fighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
         {
             return (
                 ActivationConditions.Length == 0 ||

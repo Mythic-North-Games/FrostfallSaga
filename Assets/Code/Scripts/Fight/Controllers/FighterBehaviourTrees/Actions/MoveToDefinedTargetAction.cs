@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Utils.Trees.BehaviourTree;
+using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
 
@@ -15,7 +15,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
     {
         public MoveToDefinedTargetAction(
             Fighter possessedFighter,
-            HexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams
         ) : base(possessedFighter, fightGrid, fighterTeams)
         {

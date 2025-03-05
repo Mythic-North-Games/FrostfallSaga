@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
+using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
@@ -30,7 +30,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
         public static Fighter GetPreferedTargetInList(
             this ETargetType targetType, 
             Fighter possessedFighter,
-            HexGrid fightGrid,
+            FightHexGrid fightGrid,
             List<Fighter> possibleTargets
 
         ) {

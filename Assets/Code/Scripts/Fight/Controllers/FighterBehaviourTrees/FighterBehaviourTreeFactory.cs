@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees;
 
@@ -15,7 +14,12 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
         /// <param name="fightGrid">The fight grid.</param>
         /// <param name="fighterTeams">All the fighters of the fight and their corresponding team.</param>
         /// <returns>The created behaviour tree.</returns>
-        public static FighterBehaviourTree CreateBehaviourTree(EFighterBehaviourTreeID id, Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
+        public static FighterBehaviourTree CreateBehaviourTree(
+            EFighterBehaviourTreeID id,
+            Fighter fighter,
+            FightHexGrid fightGrid,
+            Dictionary<Fighter, bool> fighterTeams
+        )
         {
             return id switch
             {

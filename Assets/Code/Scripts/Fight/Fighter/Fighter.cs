@@ -610,7 +610,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
         /// <returns>True if he has enough move points and if there is at least on cell free around him.</returns>
-        public bool CanMove(AHexGrid fightGrid)
+        public bool CanMove(FightHexGrid fightGrid)
         {
             return _stats.movePoints > 0 && CellsNeighbors.GetNeighbors(fightGrid, cell).Length > 0;
         }
@@ -622,7 +622,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="fightersTeams">The teams of the fighters in the fight.</param>
         /// <param name="target">The optional target to check if the direct attack can be used on.</param>
         /// <returns>True if he has enough actions points and if the direct attack targeter can be resolved around him.</returns>
-        public bool CanDirectAttack(AHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams, Fighter target = null)
+        public bool CanDirectAttack(FightHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams, Fighter target = null)
         {
             return Weapon.UseActionPointsCost <= _stats.actionPoints && (
                 (
@@ -642,7 +642,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="mandatoryEffectTypes">The optionnal effect to apply.</param>
         /// <returns>True if he has enough actions points and if an active ability targeter can be resolved around him.</returns>
         public bool CanUseAtLeastOneActiveAbility(
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fightersTeams,
             Fighter target = null,
             ListOfTypes<AEffect> mandatoryEffectTypes = null
@@ -674,7 +674,7 @@ namespace FrostfallSaga.Fight.Fighters
         public FightCell[] GetFirstTouchingCellSequence(
             Targeter targeter,
             Fighter target,
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fightersTeams
         )
         {
@@ -692,7 +692,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="target">The optional target to check if the active ability can be used on.</param>
         /// <returns>True if he has enough actions points and if the active ability targeter can be resolved around him.</returns>
         public bool CanUseActiveAbility(
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             ActiveAbilitySO activeAbility,
             Dictionary<Fighter, bool> fightersTeams,
             Fighter target = null
@@ -721,7 +721,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
         /// <returns>True if he can move, direct attack or use one of its active ability.</returns>
-        public bool CanAct(AHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        public bool CanAct(FightHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
         {
             return (
                 CanMove(fightGrid) ||
@@ -781,7 +781,7 @@ namespace FrostfallSaga.Fight.Fighters
         private bool CanUseTargeterOnFighter(
             Targeter targeter,
             Fighter target,
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fightersTeams,
             AFightCellAlteration[] cellAlterations = null
         )

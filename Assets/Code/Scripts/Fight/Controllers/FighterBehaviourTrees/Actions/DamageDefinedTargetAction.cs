@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Utils.Trees.BehaviourTree;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
@@ -17,7 +16,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 
         public DamageDefinedTargetAction(
             Fighter possessedFighter,
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,
             EAbilityUsagePreference abilityUsagePreference
         ) : base(possessedFighter, fightGrid, fighterTeams)

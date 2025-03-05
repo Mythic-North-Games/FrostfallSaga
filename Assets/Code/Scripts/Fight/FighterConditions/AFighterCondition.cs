@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.FightConditions
@@ -17,7 +16,7 @@ namespace FrostfallSaga.Fight.FightConditions
         {
         }
 
-        public abstract bool CheckCondition(Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams);
+        public abstract bool CheckCondition(Fighter fighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams);
         public abstract string GetName();
         public abstract string GetDescription();
     }

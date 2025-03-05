@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Utils.Trees.BehaviourTree;
+using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
 
@@ -17,7 +17,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 
         public MoveToClosestTargetAction(
             Fighter possessedFighter,
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,
             List<ETarget> possibleTargets
         ) : base(possessedFighter, fightGrid, fighterTeams)

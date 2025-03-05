@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Utils;
@@ -15,7 +14,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
     {
         public CanUseAbilityWithEffectCheck(
             Fighter possessedFighter,
-            HexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams
         ) : base(possessedFighter, fightGrid, fighterTeams)
         {

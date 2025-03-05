@@ -2,7 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using FrostfallSaga.Utils.Trees.BehaviourTree;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
+
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 {
@@ -16,7 +16,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 
         public CanDamageTargetCheck(
             Fighter possessedFighter,
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,
             List<ETarget> possibleTargets,
             ETargetType targetType

@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Utils.Trees.BehaviourTree;
 
@@ -13,7 +12,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 
         public GetHealableTargetCheck(
             Fighter possessedFighter,
-            HexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,
             List<ETarget> possibleTargets,
             ETargetType targetType

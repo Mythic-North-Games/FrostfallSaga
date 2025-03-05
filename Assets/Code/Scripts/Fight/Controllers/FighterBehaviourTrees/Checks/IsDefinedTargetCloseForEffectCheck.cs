@@ -3,7 +3,6 @@ using FrostfallSaga.Utils.Trees.BehaviourTree;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
 using System.Collections.Generic;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
@@ -16,7 +15,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
     {
         public IsDefinedTargetCloseForEffectCheck(
             Fighter possessedFighter,
-            HexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams
         ) : base(possessedFighter, fightGrid, fighterTeams)
         {

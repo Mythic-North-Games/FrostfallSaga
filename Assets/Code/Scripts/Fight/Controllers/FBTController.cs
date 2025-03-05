@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees;
 

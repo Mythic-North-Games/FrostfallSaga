@@ -3,7 +3,6 @@ using FrostfallSaga.Utils.Trees.BehaviourTree;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
 {
@@ -11,7 +10,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
     {
         public AggressiveFBT(
             Fighter possessedFighter,
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams
         ) : base(possessedFighter, fightGrid, fighterTeams)
         {
