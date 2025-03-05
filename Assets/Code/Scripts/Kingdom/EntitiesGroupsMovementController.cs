@@ -14,13 +14,13 @@ namespace FrostfallSaga.Kingdom
         public Action<EntitiesGroup, bool> onEnemiesGroupEncountered;
         public Action<InterestPoint> onInterestPointEncountered;
 
-        private AHexGrid _kingdomGrid;
+        private KingdomHexGrid _kingdomGrid;
         private EntitiesGroup _heroGroup;
         private MovePath _currentHeroGroupMovePath;
         private EntitiesGroup[] _enemiesGroupsToMove;
         private readonly Dictionary<EntitiesGroup, MovePath> _currentPathPerEnemiesGroup = new();
 
-        public EntitiesGroupsMovementController(AHexGrid kingdomGrid, EntitiesGroup heroGroup)
+        public EntitiesGroupsMovementController(KingdomHexGrid kingdomGrid, EntitiesGroup heroGroup)
         {
             _kingdomGrid = kingdomGrid;
             _heroGroup = heroGroup;
@@ -193,7 +193,7 @@ namespace FrostfallSaga.Kingdom
         /// <param name="minPathLength">The minimum path's length for all the entities groups.</param>
         /// <returns>A move path per entities group.</returns>
         public static Dictionary<EntitiesGroup, KingdomCell[]> GenerateRandomMovePathPerEntitiesGroup(
-            AHexGrid grid,
+            KingdomHexGrid grid,
             EntitiesGroup[] entitiesGroups,
             int minPathLength = 0
         )
@@ -222,7 +222,7 @@ namespace FrostfallSaga.Kingdom
         /// <param name="minPathLength">The minimum path length. Zero by default. If greater than entities groups move points</param>
         /// <returns>A table of Cell that represents the path.</returns>
         public static KingdomCell[] GenerateRandomMovePathForEntitiesGroup(
-            AHexGrid kingdomGrid,
+            KingdomHexGrid kingdomGrid,
             EntitiesGroup entitiesGroup,
             HashSet<KingdomCell> prohibitedCells,
             int minPathLength = 0
