@@ -53,5 +53,11 @@ namespace FrostfallSaga.Fight.Effects
         /// <param name="canMasterstroke">True if the effect can be masterstroked, false otherwise.</param>
         /// <returns>Returns the maximum potential damage that the effect can do.</returns>
         public abstract int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke);
+
+        /// <summary>
+        /// Get the description of the effect for the UI.
+        /// </summary>
+        /// <returns>Returns the description of the effect for the UI.</returns>
+        public abstract string GetUIEffectDescription();
     }
 }

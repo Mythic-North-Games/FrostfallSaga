@@ -58,5 +58,10 @@ namespace FrostfallSaga.Fight.Effects
         {
             return MagicalDamageAmount * (canMasterstroke ? 2 : 1);
         }
+
+        public override string GetUIEffectDescription()
+        {
+            return $"Deals <b>{MagicalDamageAmount}</b> magical damages of {MagicalElement.ToUIString()} to target.";
+        }
     }
 }

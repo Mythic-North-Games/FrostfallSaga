@@ -6,7 +6,7 @@ using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Fight;
-using FrostfallSaga.InventorySystem;
+using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightItems;
 using FrostfallSaga.Fight.Abilities;
@@ -133,7 +133,7 @@ namespace FrostfallSaga.Fight
         private Inventory GenerateEnemyFightInventory()
         {
             Inventory inventory = new();
-            inventory.AddItem(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath));
+            inventory.EquipItem(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath));
             return inventory;
         }
 

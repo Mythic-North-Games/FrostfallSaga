@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4286825fcdd3ad64d81ab979b1e3b83e, type: 3}
   m_Name: ExampleWeapon
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Example sword
-  <Description>k__BackingField: 
-  <IconSprite>k__BackingField: {fileID: 0}
-  <SlotTag>k__BackingField: 5
+  <Name>k__BackingField: Wooden sword
+  <Description>k__BackingField: Basic wooden sword for any beginner adventurer
+  <IconSprite>k__BackingField: {fileID: 21300000, guid: c76bf23a91b91f547963ba85711ce108, type: 3}
+  <SlotTag>k__BackingField: 4
   <AttackTargeter>k__BackingField:
     <OriginCellRange>k__BackingField: 1
     <CellsSequence>k__BackingField:
@@ -35,6 +35,7 @@ MonoBehaviour:
   <MaxMagicalDamages>k__BackingField: []
   <FightersStrengths>k__BackingField: []
   SpecialEffects: []
+  <AttackAnimation>k__BackingField: {fileID: 0}
   references:
     version: 2
     RefIds: []

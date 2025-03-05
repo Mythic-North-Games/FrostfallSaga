@@ -30,7 +30,7 @@ namespace FrostfallSaga.Fight.Effects
                 if (RemovableStatusTypes.Contains(status.StatusType))
                 {
                     receiver.RemoveStatus(status);
-                    Debug.Log($"Status {status.Name} removed from {receiver.name}.");
+                    Debug.Log($"Status {status.StatusType} removed from {receiver.name}.");
                 }
             }
 
@@ -49,6 +49,12 @@ namespace FrostfallSaga.Fight.Effects
         public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke)
         {
             return 0;
+        }
+
+        public override string GetUIEffectDescription()
+        {
+            string statusTypes = string.Join(", ", RemovableStatusTypes.Select(statusType => statusType.ToUIString()));
+            return $"Removes {statusTypes} status from target.";
         }
     }
 }

@@ -1,0 +1,65 @@
+.itemSlotContainerRootDefault {
+    width: 10%;
+    height: 13.5%;
+    margin-bottom: 2%;
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+.equippedItemSlotContainerRootDefault {
+    width: 100%;
+    height: 13%;
+}
+
+.itemSlotContainer {
+    width: 100%;
+    height: 100%;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: rgb(25, 25, 25);
+    border-right-color: rgb(25, 25, 25);
+    border-top-color: rgb(25, 25, 25);
+    border-bottom-color: rgb(25, 25, 25);
+}
+
+.itemSlotContainer:hover {
+    width: 100%;
+    height: 100%;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-left-color: rgb(255, 175, 0);
+    border-right-color: rgb(255, 175, 0);
+    border-top-color: rgb(255, 175, 0);
+    border-bottom-color: rgb(255, 175, 0);
+}
+
+.itemDetailsContainerRootDefault {
+    width: 100%;
+    height: 30%;
+}
+
+.statContainerRootDefault {
+    height: 25%;
+    flex-direction: row;
+    align-items: center;
+}
+
+.specialEffectLabelDefault {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 22px;
+    -unity-text-align: middle-left;
+    white-space: normal;
+}
