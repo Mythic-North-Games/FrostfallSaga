@@ -8,8 +8,8 @@
         "FrostfallSaga.EntitiesVisual",
         "FrostfallSaga.GameObjectVisuals",
         "FrostfallSaga.InventorySystem",
-        "FrostfallSaga.Utils",
-        "FrostfallSaga.Procedural"
+        "FrostfallSaga.Procedural",
+        "FrostfallSaga.Utils"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

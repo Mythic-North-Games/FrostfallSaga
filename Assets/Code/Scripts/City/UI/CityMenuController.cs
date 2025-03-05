@@ -5,6 +5,7 @@ using FrostfallSaga.Core;
 using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.Cities.CitySituations;
+using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Utils.UI;
 using FrostfallSaga.Utils.Scenes;
 
@@ -34,6 +35,7 @@ namespace FrostfallSaga.City.UI
         #region Main menu setup
         private void Start()
         {
+            HeroTeamQuests.Instance.InitializeQuests(this);
             SetupMainMenu();
         }
 

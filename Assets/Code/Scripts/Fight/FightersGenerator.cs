@@ -18,8 +18,8 @@ namespace FrostfallSaga.Fight
     public class FightersGenerator
     {
 
-        private EntityConfigurationSO[] _devAlliesConfs;
-        private EntityConfigurationSO[] _devEnemiesConfs;
+        [SerializeField] private EntityConfigurationSO[] _devAlliesConfs;
+        [SerializeField] private EntityConfigurationSO[] _devEnemiesConfs;
 
         public FightersGenerator(EntityConfigurationSO[] devAlliesConfs, EntityConfigurationSO[] devEnemiesConfs)
         {
