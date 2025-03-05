@@ -2,7 +2,6 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Core.Fight;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightConditions;
@@ -17,7 +16,7 @@ namespace FrostfallSaga.Fight.Abilities
     [CreateAssetMenu(fileName = "PassiveAbility", menuName = "ScriptableObjects/Fight/Abilities/PassiveAbility", order = 0)]
     public class PassiveAbilitySO : ABaseAbility
     {
-        [field: SerializeField] public AEffect[] Effects { get; private set; }
+        [SerializeReference] public AEffect[] Effects;
 
         [
             SerializeReference,
@@ -105,7 +104,7 @@ namespace FrostfallSaga.Fight.Abilities
             initiator.onPassiveAbilityRemoved?.Invoke(initiator, this);
         }
 
-        public bool CheckConditions(Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
+        public bool CheckConditions(Fighter fighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
         {
             return (
                 ActivationConditions.Length == 0 ||
@@ -131,7 +130,7 @@ namespace FrostfallSaga.Fight.Abilities
                             .Select(pair => pair.Key)
                         );
                         break;
-                    case ETarget.OPONENTS:
+                    case ETarget.OPONNENTS:
                         targets.AddRange(
                             fighterTeams
                                 .Where(fighterTeam => fighterTeam.Value != fighterTeams[initiator])

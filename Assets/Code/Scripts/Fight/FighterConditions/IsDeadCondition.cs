@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.FightConditions
@@ -11,7 +10,7 @@ namespace FrostfallSaga.Fight.FightConditions
     [Serializable]
     public class IsDeadCondition : AFighterCondition
     {
-        public override bool CheckCondition(Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        public override bool CheckCondition(Fighter fighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
         {
             return fighter.GetHealth() <= 0;
         }

@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.Quests;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Controllers;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
@@ -32,7 +31,7 @@ namespace FrostfallSaga.Fight
         // Needed external components
         [SerializeField] private FightLoader _fightLoader;
 
-        [field: SerializeField] public AHexGrid FightGrid { get; private set; }
+        [field: SerializeField] public FightHexGrid FightGrid { get; private set; }
         [SerializeField] private FighterActionPanelController _actionPanel;
         [SerializeField] private Material _cellHighlightMaterial;
         [SerializeField] private Material _cellActionableHighlightMaterial;
@@ -187,7 +186,7 @@ namespace FrostfallSaga.Fight
         {
             if (FightGrid == null)
             {
-                FightGrid = FindObjectOfType<AHexGrid>();
+                FightGrid = FindObjectOfType<FightHexGrid>();
             }
             if (FightGrid == null)
             {
@@ -238,7 +237,7 @@ namespace FrostfallSaga.Fight
             return teams;
         }
 
-        private void PositionFightersOnGrid(AHexGrid fightGrid, Fighter[] allies, Fighter[] enemies)
+        private void PositionFightersOnGrid(FightHexGrid fightGrid, Fighter[] allies, Fighter[] enemies)
         {
             int xCellIndex = 0;
             foreach (Fighter ally in allies)
