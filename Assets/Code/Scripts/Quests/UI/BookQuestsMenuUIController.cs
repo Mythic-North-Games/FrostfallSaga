@@ -20,6 +20,8 @@ namespace FrostfallSaga.Quests.UI
 
         public override void SetupMenu()
         {
+            SetQuestsToShow();
+
             VisualElement questsListMenuRoot = _questsListTemplate.Instantiate();
             questsListMenuRoot.StretchToParentSize();
             _questsListMenuUIController = new QuestsListMenuUIController(
@@ -60,6 +62,23 @@ namespace FrostfallSaga.Quests.UI
             QuestDetailsPanelUIController.ResetQuestDetailsPanel(_questDetailsPanelRoot);
         }
 
+        private void SetQuestsToShow()
+        {
+            // Add dev quests to the hero team quests singleton if defined
+            if (_devQuests != null && _devQuests.Length > 0)
+            {
+                foreach (AQuestSO devQuest in _devQuests)
+                {
+                    if (!HeroTeamQuests.Instance.Quests.Contains(devQuest))
+                    {
+                        HeroTeamQuests.Instance.AddQuest(devQuest);
+                    }
+                }
+                _questsToShow = HeroTeamQuests.Instance.Quests.ToArray();
+            }
+            _questsToShow = HeroTeamQuests.Instance.Quests.ToArray();
+        }
+
         #region Setup
         protected override void Awake()
         {
@@ -94,20 +113,6 @@ namespace FrostfallSaga.Quests.UI
                 Debug.LogError("ActionInstructionTemplate is not set in the inspector.");
                 return;
             }
-
-            // Add dev quests to the hero team quests singleton if defined
-            if (_devQuests != null && _devQuests.Length > 0)
-            {
-                foreach (AQuestSO devQuest in _devQuests)
-                {
-                    if (!HeroTeamQuests.Instance.Quests.Contains(devQuest))
-                    {
-                        HeroTeamQuests.Instance.AddQuest(devQuest);
-                    }
-                }
-                _questsToShow = HeroTeamQuests.Instance.Quests.ToArray();
-            }
-            _questsToShow = HeroTeamQuests.Instance.Quests.ToArray();
         }
         #endregion
     }

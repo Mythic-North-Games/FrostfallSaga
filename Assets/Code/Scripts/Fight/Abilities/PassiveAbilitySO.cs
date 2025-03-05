@@ -105,7 +105,7 @@ namespace FrostfallSaga.Fight.Abilities
             initiator.onPassiveAbilityRemoved?.Invoke(initiator, this);
         }
 
-        public bool CheckConditions(Fighter fighter, HexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
+        public bool CheckConditions(Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
         {
             return (
                 ActivationConditions.Length == 0 ||

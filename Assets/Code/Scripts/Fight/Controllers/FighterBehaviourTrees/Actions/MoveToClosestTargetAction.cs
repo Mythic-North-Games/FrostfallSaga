@@ -17,7 +17,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 
         public MoveToClosestTargetAction(
             Fighter possessedFighter,
-            HexGrid fightGrid,
+            AHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,
             List<ETarget> possibleTargets
         ) : base(possessedFighter, fightGrid, fighterTeams)
