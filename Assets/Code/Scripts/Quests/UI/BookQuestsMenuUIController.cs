@@ -16,15 +16,18 @@ namespace FrostfallSaga.Quests.UI
 
         private QuestsListMenuUIController _questsListMenuUIController;
         private VisualElement _questDetailsPanelRoot;
+        private AQuestSO[] _questsToShow;
 
         public override void SetupMenu()
         {
+            SetQuestsToShow();
+
             VisualElement questsListMenuRoot = _questsListTemplate.Instantiate();
             questsListMenuRoot.StretchToParentSize();
             _questsListMenuUIController = new QuestsListMenuUIController(
                 questsListMenuRoot,
                 _listQuestItemTemplate,
-                _devQuests
+                _questsToShow
             );
             _questsListMenuUIController.onQuestSelected += OnQuestSelected;
             _questsListMenuUIController.onQuestsFilterChanged += OnQuestsFilterChanged;
@@ -57,6 +60,23 @@ namespace FrostfallSaga.Quests.UI
         private void OnQuestsFilterChanged()
         {
             QuestDetailsPanelUIController.ResetQuestDetailsPanel(_questDetailsPanelRoot);
+        }
+
+        private void SetQuestsToShow()
+        {
+            // Add dev quests to the hero team quests singleton if defined
+            if (_devQuests != null && _devQuests.Length > 0)
+            {
+                foreach (AQuestSO devQuest in _devQuests)
+                {
+                    if (!HeroTeamQuests.Instance.Quests.Contains(devQuest))
+                    {
+                        HeroTeamQuests.Instance.AddQuest(devQuest);
+                    }
+                }
+                _questsToShow = HeroTeamQuests.Instance.Quests.ToArray();
+            }
+            _questsToShow = HeroTeamQuests.Instance.Quests.ToArray();
         }
 
         #region Setup
