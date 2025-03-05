@@ -54,5 +54,10 @@ namespace FrostfallSaga.Fight.Effects
         {
             return HealAmount * (canMasterstroke ? 2 : 1);
         }
+
+        public override string GetUIEffectDescription()
+        {
+            return $"Heals <color=green><b>{HealAmount}</b></color> health to target.";
+        }
     }
 }

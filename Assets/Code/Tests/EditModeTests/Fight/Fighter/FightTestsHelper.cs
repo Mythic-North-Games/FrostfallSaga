@@ -1,7 +1,7 @@
 using UnityEngine;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Grid;
-using FrostfallSaga.InventorySystem;
+using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;

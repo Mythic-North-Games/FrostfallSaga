@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
-using FrostfallSaga.InventorySystem;
+using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.EntitiesVisual;

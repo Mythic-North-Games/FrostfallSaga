@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using FrostfallSaga.InventorySystem;
+using FrostfallSaga.Core.InventorySystem;
 
 namespace FrostfallSaga.Core.Fight
 {

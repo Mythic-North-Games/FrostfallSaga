@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections.Generic;
 using NUnit.Framework;
 using FrostfallSaga.Grid;
-using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 
@@ -11,7 +10,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
 {
 	public class EntitiesGroupsMovementControllerTests
 	{
-		private AHexGrid grid;
+		private KingdomHexGrid grid;
 
 		[SetUp]
 		public void Setup()

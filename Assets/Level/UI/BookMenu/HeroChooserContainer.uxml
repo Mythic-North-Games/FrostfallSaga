@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="HeroChoiceContainer" src="project://database/Assets/Level/UI/BookMenu/HeroChoiceContainer.uxml?fileID=9197481963319205126&amp;guid=70e7cf45ecfbdb6a48510dc59fac21b0&amp;type=3#HeroChoiceContainer" />
+    <ui:VisualElement name="HeroChooserContainer" style="height: 100%; flex-direction: row; align-items: center; justify-content: space-between; width: 100%;">
+        <ui:Instance template="HeroChoiceContainer" name="HeroChoiceContainerRoot" class="heroChoiceContainerRootLeft" />
+        <ui:Instance template="HeroChoiceContainer" name="HeroChoiceContainerRoot" class="heroChoiceContainerRootMiddle" />
+        <ui:Instance template="HeroChoiceContainer" name="HeroChoiceContainerRoot" class="heroChoiceContainerRootRight" />
+    </ui:VisualElement>
+</ui:UXML>

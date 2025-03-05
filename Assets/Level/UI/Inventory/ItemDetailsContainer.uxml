@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="ItemDetailsContent" src="project://database/Assets/Level/UI/Inventory/ItemDetailsContent.uxml?fileID=9197481963319205126&amp;guid=6b297ba2da5368ca3802090cd87235f2&amp;type=3#ItemDetailsContent" />
+    <Style src="project://database/Assets/Level/UI/Inventory/inventory.uss?fileID=7433441132597879392&amp;guid=d49bf6daebebedc64ac592304a2a63e5&amp;type=3#inventory" />
+    <ui:VisualElement name="ItemDetailsContainer" style="flex-direction: row; align-items: flex-start; padding-top: 2.5%; padding-bottom: 2.5%; padding-right: 2.5%; padding-left: 2.5%; width: 100%; height: 100%;">
+        <ui:VisualElement name="ItemDetailsLeftContainer" style="width: 25%; height: 100%; justify-content: center; align-items: center;">
+            <ui:VisualElement name="ItemIconContainer" style="flex-grow: 1; width: 75%; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Backgrounds/fadedCircleBackground.png?fileID=2800000&amp;guid=bdd35670b3e5cc541a7d4be14cc1e577&amp;type=3#fadedCircleBackground&quot;); max-height: 55%;">
+                <ui:VisualElement name="ItemIcon" style="background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Icons/magicIcon.png?fileID=2800000&amp;guid=2e2e6eb292043da4a9f88ff5ab9a66cc&amp;type=3#magicIcon&quot;); -unity-background-scale-mode: scale-to-fit; width: 100%; height: 100%;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="ItemDetailsRightContainer" style="width: 100%; height: 100%;">
+            <ui:VisualElement name="ItemDetailsHeader" style="width: 100%; height: 35%; justify-content: space-around; padding-bottom: 1%; border-bottom-width: 3px; border-left-color: rgb(25, 25, 25); border-right-color: rgb(25, 25, 25); border-top-color: rgb(25, 25, 25); border-bottom-color: rgb(25, 25, 25);">
+                <ui:Label tabindex="-1" text="Common sword" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemName" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 42px; -unity-font-style: normal;" />
+                <ui:Label tabindex="-1" text="A good sword for any beginner adventurer!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemDescription" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 30px; -unity-font-style: normal;" />
+            </ui:VisualElement>
+            <ui:Instance template="ItemDetailsContent" name="ItemDetailsContent" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

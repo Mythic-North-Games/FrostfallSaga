@@ -25,7 +25,7 @@ namespace FrostfallSaga.Kingdom
 
         [field: SerializeField] public Material CellHighlightMaterial { get; private set; }
         [field: SerializeField] public Material CellInaccessibleHighlightMaterial { get; private set; }
-        [field: SerializeField] public AHexGrid KingdomGrid { get; private set; }
+        [field: SerializeField] public KingdomHexGrid KingdomGrid { get; private set; }
         [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
         [field: SerializeField] public List<EntitiesGroup> EnemiesGroups { get; private set; } = new();
         [field: SerializeField] public InterestPoint[] InterestPoints { get; private set; }
@@ -216,7 +216,7 @@ namespace FrostfallSaga.Kingdom
         {
             if (KingdomGrid == null)
             {
-                KingdomGrid = FindObjectOfType<AHexGrid>();
+                KingdomGrid = FindObjectOfType<KingdomHexGrid>();
             }
             if (KingdomGrid == null)
             {

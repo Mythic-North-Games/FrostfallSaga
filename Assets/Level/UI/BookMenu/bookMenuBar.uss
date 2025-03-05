@@ -15,4 +15,5 @@
     border-left-width: 0;
     height: 100%;
     -unity-background-scale-mode: scale-to-fit;
+    width: 40%;
 }

@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Fight;
+using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightItems;
-using FrostfallSaga.InventorySystem;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
-using UnityEngine;
 
 namespace FrostfallSaga.Fight
 {
@@ -135,7 +135,7 @@ namespace FrostfallSaga.Fight
         private Inventory GenerateEnemyFightInventory()
         {
             Inventory inventory = new();
-            inventory.AddItem(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath));
+            inventory.EquipItem(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath));
             return inventory;
         }
 

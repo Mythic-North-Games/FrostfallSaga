@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 using FrostfallSaga.Core.BookMenu;
 using FrostfallSaga.Utils.UI;
 using FrostfallSaga.Quests.UI;
+using FrostfallSaga.InventorySystem.UI;
 
 namespace FrostfallSaga.BookMenu.UI
 {
@@ -19,6 +20,7 @@ namespace FrostfallSaga.BookMenu.UI
 
         [SerializeField] private BookMenuBarUIController _bookMenuBarController;
         [SerializeField] private BookQuestsMenuUIController _questsMenuController;
+        [SerializeField] private BookInventoryMenuUIController _inventoryMenuController;
 
         private VisualElement _bookMenuContainer;
         private VisualElement _bookMenuRoot;
@@ -28,6 +30,13 @@ namespace FrostfallSaga.BookMenu.UI
         {
             _currentMenuController = _questsMenuController;
             _questsMenuController.SetupMenu();
+            StartCoroutine(ShowBookMenu());
+        }
+
+        private void OnInventoryMenuClicked()
+        {
+            _currentMenuController = _inventoryMenuController;
+            _inventoryMenuController.SetupMenu();
             StartCoroutine(ShowBookMenu());
         }
 
@@ -61,6 +70,12 @@ namespace FrostfallSaga.BookMenu.UI
                 return;
             }
 
+            if (_inventoryMenuController == null)
+            {
+                Debug.LogError("InventoryMenuController is not set in the inspector.");
+                return;
+            }
+
             _bookMenuContainer = _uiDoc.rootVisualElement.Q<VisualElement>(BOOK_MENU_CONTAINER_UI_NAME);
             _bookMenuContainer.AddToClassList(BOOK_MENU_CONTAINER_HIDDEN_CLASSNAME);
             _bookMenuRoot = _uiDoc.rootVisualElement.Q<VisualElement>(BOOK_MENU_ROOT_UI_NAME);
@@ -82,6 +97,7 @@ namespace FrostfallSaga.BookMenu.UI
         private void SetupBookMenuBarEvents()
         {
             _bookMenuBarController.onQuestsMenuClicked += OnQuestsMenuClicked;
+            _bookMenuBarController.onInventoryMenuClicked += OnInventoryMenuClicked;
         }
         #endregion
     }
