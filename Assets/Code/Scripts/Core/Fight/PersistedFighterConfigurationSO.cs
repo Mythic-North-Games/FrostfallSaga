@@ -13,7 +13,7 @@ namespace FrostfallSaga.Core.Fight
         [field: SerializeField] public ABaseAbility[] EquipedPassiveAbilities { get; private set; }
         [field: SerializeField] public Inventory Inventory { get; private set; }
         [field: SerializeField] public int Health { get; private set; }
-        [field: SerializeField] public List<ABaseAbility> unlockedAbilities { get; private set; }   
+        [field: SerializeField] public List<ABaseAbility> UnlockedAbilities { get; private set; }
 
         public PersistedFighterConfigurationSO() : base()
         {
