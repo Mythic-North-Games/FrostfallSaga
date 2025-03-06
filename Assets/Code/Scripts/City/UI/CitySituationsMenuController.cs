@@ -8,6 +8,7 @@ namespace FrostfallSaga.City.UI
 {
     public class CitySituationsMenuController : MonoBehaviour
     {
+        #region UXML Names and classes
         private readonly static string SITUATIONS_CONTAINER_UI_NAME = "SituationsContainer";
         private readonly static string SITUATION_ILLUSTRATION_UI_NAME = "SituationIllustration";
         private readonly static string SITUATION_BUTTON_UI_NAME = "SituationButton";
@@ -15,8 +16,9 @@ namespace FrostfallSaga.City.UI
 
         private readonly static string SITUATIONS_MENU_HIDDEN_CLASSNAME = "situationMenuHidden";
         private readonly static string SITUATION_ILLUSTRATION_HIDDEN_CLASSNAME = "situationIllustrationHidden";
-        private readonly static string SITUATION_BUTTON_CONTAINER_DEFAULT_CLASSNAME = "situationButtonContainer";
-        private readonly static string SITUATION_BUTTON_CONTAINER_HIDDEN_CLASSNAME = "situationButtonContainerHidden";
+        private readonly static string SITUATION_BUTTON_CONTAINER_DEFAULT_CLASSNAME = "situationButtonContainerRoot";
+        private readonly static string SITUATION_BUTTON_CONTAINER_HIDDEN_CLASSNAME = "situationButtonContainerRootHidden";
+        #endregion
 
         public Action<ACitySituationSO> onCitySituationClicked;
         public Action onReturnClicked;
@@ -65,10 +67,17 @@ namespace FrostfallSaga.City.UI
                 situationButtonContainer.Q<Button>(SITUATION_BUTTON_UI_NAME).text = citySituation.Name;
                 situationButtonContainer.AddToClassList(SITUATION_BUTTON_CONTAINER_DEFAULT_CLASSNAME);
                 situationButtonContainer.AddToClassList(SITUATION_BUTTON_CONTAINER_HIDDEN_CLASSNAME);
+                _situationsContainer.Add(situationButtonContainer);
+
+                if (!citySituation.IsReplayable && citySituation.IsDone)
+                {
+                    situationButtonContainer.SetEnabled(false);
+                    return;
+                }
+
                 situationButtonContainer.RegisterCallback<MouseEnterEvent>(OnSituationButtonHovered);
                 situationButtonContainer.RegisterCallback<MouseLeaveEvent>(OnSituationButtonUnhovered);
                 situationButtonContainer.RegisterCallback<ClickEvent>(OnSituationButtonClicked);
-                _situationsContainer.Add(situationButtonContainer);
             }
         }
 
