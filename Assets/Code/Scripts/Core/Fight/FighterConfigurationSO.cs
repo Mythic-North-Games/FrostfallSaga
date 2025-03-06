@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Utils;
+using FrostfallSaga.Core.InventorySystem;
 
 
 namespace FrostfallSaga.Core.Fight
@@ -15,6 +17,12 @@ namespace FrostfallSaga.Core.Fight
         [field: SerializeField] public int ActiveAbilitiesCapacity { get; private set; }
         [field: SerializeField] public ABaseAbility[] AvailablePassiveAbilities { get; private set; }
         [field: SerializeField] public int PassiveAbilitiesCapacity { get; private set; }
+
+        [field: SerializeField, Tooltip("Item -> (Apparition chance at fight start, Max apparition count)")] 
+        public SElementToValue<ItemSO, SElementToValue<float, int>>[] AvailableItems { get; private set; }
+
+        [field: SerializeField] public int MinStycasLoot { get; private set; }
+        [field: SerializeField] public int MaxStycasLoot { get; private set; }
 
         #region Base stats
         [field: SerializeField, Range(0, 9999)] public int MaxHealth { get; private set; }

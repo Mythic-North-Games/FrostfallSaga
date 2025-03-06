@@ -101,15 +101,30 @@ namespace FrostfallSaga.Core.InventorySystem
                 .ToArray();
         }
 
+        public ItemSO[] GetAllItems()
+        {
+            List<ItemSO> allItems = new();
+            allItems.AddRange(BagSlots.Where(slot => !slot.IsEmpty()).Select(slot => slot.Item));
+            allItems.AddRange(GetArmorPieces());
+            if (!WeaponSlot.IsEmpty())
+            {
+                allItems.Add(WeaponSlot.Item);
+            }
+            return allItems.ToArray();
+        }
+
         #endregion
 
         #region Inventory management
 
-        public void EquipItem(ItemSO item)
+        public void EquipItem(ItemSO item, bool fromBag = true)
         {
-            // If item already in the bag, remove it
-            InventorySlot bagSlotWithItem = GetBagSlotWithItem(item);
-            bagSlotWithItem?.RemoveItem();
+            // If item comes from the bag, remove it
+            if (fromBag)
+            {
+                InventorySlot bagSlotWithItem = GetBagSlotWithItem(item);
+                bagSlotWithItem?.RemoveItem();
+            }
 
             Tuple<ItemSO, int> replacedItem = null;
             switch (item.SlotTag)
@@ -133,6 +148,7 @@ namespace FrostfallSaga.Core.InventorySystem
                     throw new InventoryException("Cannot equip bag items");
             }
 
+            // Then add the replaced item that was equipped in the bag if there is one
             if (replacedItem != null)
             {
                 for (int i = 0; i < replacedItem.Item2; i++)
@@ -141,6 +157,26 @@ namespace FrostfallSaga.Core.InventorySystem
                 }
             }
             OnInventoryUpdated?.Invoke(this);
+        }
+
+        /// <summary>
+        /// Add an item to the inventory and equip it if possible.
+        /// If the item is not equippable, it will be added to the bag.
+        /// </summary>
+        /// <param name="item">The item to add and try to equip</param>
+        /// <returns>True if the item was equipped, false if it was added to the bag</returns>
+        public bool AddItemAndEquipIfPossible(ItemSO item)
+        {
+            try
+            {
+                EquipItem(item, fromBag: false);
+                return true;
+            }
+            catch (InventoryException)
+            {
+                AddItemToBag(item);
+                return false;
+            }
         }
 
         public void UnequipItem(ItemSO item)
@@ -171,6 +207,17 @@ namespace FrostfallSaga.Core.InventorySystem
                 return;
             }
             throw new InventoryException("No more space in the bag");
+        }
+
+        public bool CanAddItemToBag(ItemSO item)
+        {
+            InventorySlot existingSlotForItem = GetBagSlotWithItem(item);
+            if (existingSlotForItem != null && !existingSlotForItem.IsFull())
+            {
+                return true;
+            }
+            InventorySlot emptySlot = GetFirstEmptyBagSlot();
+            return emptySlot != null;
         }
 
         private InventorySlot GetEquipmentSlotWithItem(ItemSO item)
@@ -213,6 +260,11 @@ namespace FrostfallSaga.Core.InventorySystem
         private InventorySlot GetFirstEmptyBagSlot()
         {
             return BagSlots.FirstOrDefault(slot => slot.IsEmpty());
+        }
+
+        private bool ItemIsEquipment(ItemSO item)
+        {
+            return item.SlotTag != EItemSlotTag.BAG;
         }
 
         #endregion

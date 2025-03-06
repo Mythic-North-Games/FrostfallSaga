@@ -9,5 +9,6 @@ namespace FrostfallSaga.Core.InventorySystem
         [field: SerializeField] public string Description { get; protected set; }
         [field: SerializeField] public Sprite IconSprite { get; protected set; }
         [field: SerializeField] public EItemSlotTag SlotTag { get; protected set; }
+        [field: SerializeField] public float LootChance { get; protected set; }
     }
 }
