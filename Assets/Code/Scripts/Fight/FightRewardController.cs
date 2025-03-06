@@ -27,25 +27,16 @@ namespace FrostfallSaga.Fight
             List<ItemSO> allInventoriesLoot = new();
             enemies.ToList().ForEach(enemy => allInventoriesLoot.AddRange(LootInventory(enemy.Inventory)));
 
-            // Generate gold loot
-            int goldLoot = 0;
-            enemies.ToList().ForEach(enemy => goldLoot += Randomizer.GetRandomIntBetween(
+            // Generate stycas loot
+            int stycasLoot = 0;
+            enemies.ToList().ForEach(enemy => stycasLoot += Randomizer.GetRandomIntBetween(
                 enemy.MinStycasLoot, enemy.MaxStycasLoot
             ));
 
             // Add loot to hero team inventory
-            HeroTeam heroTeam = HeroTeam.Instance;
-            foreach (ItemSO lootedItem in allInventoriesLoot)
-            {
-                Inventory freeInventory = GetFirstFreeInventoryForItem(heroTeam.Heroes, lootedItem);
-                if (freeInventory == null)
-                {
-                    Debug.Log("No free inventory slot found for looted item");
-                    break;
-                }
-                freeInventory.AddItemToBag(lootedItem);
-            }
-            heroTeam.AddStycas(goldLoot);
+            HeroTeam heroTeam = HeroTeam.Instance;            
+            heroTeam.AddStycas(stycasLoot);
+            heroTeam.DistributeItems(allInventoriesLoot.ToArray());
 
             onTeamRewarded?.Invoke();
         }
@@ -63,13 +54,6 @@ namespace FrostfallSaga.Fight
             }
 
             return loot.ToArray();
-        }
-
-        private Inventory GetFirstFreeInventoryForItem(List<Hero> heroes, ItemSO item)
-        {
-            return heroes
-                .Select(hero => hero.PersistedFighterConfiguration.Inventory)
-                .FirstOrDefault(inventory => inventory.CanAddItemToBag(item));
         }
 
         #region Setup
