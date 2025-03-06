@@ -4,12 +4,13 @@ using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
     public class FighterUseDirectAttackTests
     {
-        HexGrid grid;
+        FightHexGrid grid;
         Fighter attacker;
         int minAttackerDamages;
         int maxAttackerDamages;
@@ -19,7 +20,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void Setup()
         {
             // Set up grid
-            grid = CommonTestsHelper.CreatePlainGridForTest(fightCell: true);
+            grid = CommonTestsHelper.CreatePlainGridFightForTest();
 
             // Set up attacker
             attacker = FightTestsHelper.CreateFighter();
@@ -96,7 +97,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             FightCell[] targetedCells = {
                 receiver.cell,
                 receiver2.cell,
-                (FightCell)grid.CellsByCoordinates[new(1, 1)],
+                (FightCell)grid.Cells[new(1, 1)],
             };
 
             // Act
@@ -125,7 +126,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.Weapon.UseActionPointsCost;
             int expectedNotTargetedFighterHealth = notTargetedFighter.GetStatsForTests().health;
 
-            FightCell[] targetedCells = { (FightCell)grid.CellsByCoordinates[new(1, 1)] };
+            FightCell[] targetedCells = { (FightCell)grid.Cells[new(1, 1)] };
 
             // Act
             attacker.onDirectAttackEnded += (Fighter attacker) =>
@@ -155,7 +156,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         {
             // Arrange
             attacker.GetStatsForTests().actionPoints = 1;
-            FightCell[] targetedCells = { (FightCell)grid.CellsByCoordinates[new(0, 1)] };
+            FightCell[] targetedCells = { (FightCell)grid.Cells[new(0, 1)] };
 
             // Act
             Assert.Throws<InvalidOperationException>(() => attacker.UseDirectAttack(targetedCells));

@@ -7,6 +7,7 @@ using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Dungeon;
 using FrostfallSaga.Core.GameState.Fight;
+using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Scenes;
 
@@ -18,6 +19,8 @@ namespace FrostfallSaga.Dungeon
 
         private void Awake()
         {
+            HeroTeamQuests.Instance.InitializeQuests(this);
+
             _gameStateManager = GameStateManager.Instance;
             DungeonState dungeonState = _gameStateManager.GetDungeonState();
 
@@ -54,7 +57,7 @@ namespace FrostfallSaga.Dungeon
         private void PrepareDungeonFight(DungeonFightConfiguration dungeonFightConfiguration)
         {
             _gameStateManager.SavePreFightData(
-                HeroTeam.Instance.GetHeroesEntityConfig(),
+                HeroTeam.Instance.GetAliveHeroesEntityConfig(),
                 GetDungeonFightEnemies(dungeonFightConfiguration),
                 EFightOrigin.DUNGEON
             );

@@ -58,5 +58,10 @@ namespace FrostfallSaga.Fight.Effects
         {
             return MagicalDamageAmount * (canMasterstroke ? 2 : 1);
         }
+
+        public override int GetPotentialEffectHeal(Fighter initiator, Fighter receiver, bool canMasterstroke)
+        {
+            return 0;
+        }
     }
 }

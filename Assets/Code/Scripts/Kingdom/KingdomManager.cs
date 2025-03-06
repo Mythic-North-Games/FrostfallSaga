@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using FrostfallSaga.Core;
-using FrostfallSaga.Core.Cities;
-using FrostfallSaga.Core.Dungeons;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Kingdom;
+using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
@@ -26,7 +25,7 @@ namespace FrostfallSaga.Kingdom
 
         [field: SerializeField] public Material CellHighlightMaterial { get; private set; }
         [field: SerializeField] public Material CellInaccessibleHighlightMaterial { get; private set; }
-        [field: SerializeField] public HexGrid KingdomGrid { get; private set; }
+        [field: SerializeField] public AHexGrid KingdomGrid { get; private set; }
         [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
         [field: SerializeField] public List<EntitiesGroup> EnemiesGroups { get; private set; } = new();
         [field: SerializeField] public InterestPoint[] InterestPoints { get; private set; }
@@ -58,7 +57,6 @@ namespace FrostfallSaga.Kingdom
             {
                 interestPointsData.Add(InterestPointBuilder.Instance.ExtractInterestPointDataFromInterestPoint(interestPoint));
             }
-
             GameStateManager.Instance.SaveKingdomState(heroGroupData, enemiesGroupsData.ToArray(), interestPointsData.ToArray());
             Debug.Log("KingdomConfiguration Saved !");
         }
@@ -210,13 +208,15 @@ namespace FrostfallSaga.Kingdom
 
             _enemiesGroupSpawner.onEntitiesGroupSpawned += OnEnemiesGroupSpawned;
             _kingdomLoader.onKingdomLoaded += OnKingdomLoaded;
+
+            HeroTeamQuests.Instance.InitializeQuests(this);
         }
 
         private void Setup()
         {
             if (KingdomGrid == null)
             {
-                KingdomGrid = FindObjectOfType<HexGrid>();
+                KingdomGrid = FindObjectOfType<AHexGrid>();
             }
             if (KingdomGrid == null)
             {

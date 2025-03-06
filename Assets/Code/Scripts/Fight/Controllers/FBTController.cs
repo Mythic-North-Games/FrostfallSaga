@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees;
 
@@ -26,7 +24,7 @@ namespace FrostfallSaga.Fight.Controllers
             enabled = false;    // Only run when playing a turn.
         }
 
-        public void Setup(FightManager fightManager, int timeBetweenActionsInSec = 2)
+        public void Setup(FightManager fightManager, int timeBetweenActionsInSec = 1)
         {
             _fightManager = fightManager;
             _timeBetweenActionsInSec = timeBetweenActionsInSec;

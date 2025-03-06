@@ -39,5 +39,15 @@ namespace FrostfallSaga.Fight.Statuses
             fighter.SetIsParalyzed(false);
             Debug.Log($"{fighter.name} is no longer paralyzed!");
         }
+
+        public override int GetPotentialDamages()
+        {
+            return 0;
+        }
+
+        public override int GetPotentialHeal()
+        {
+            return 0;
+        }
     }
 }

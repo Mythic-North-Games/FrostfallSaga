@@ -21,7 +21,7 @@ namespace FrostfallSaga.FFSEditor.Grid
             }
             else if (GUILayout.Button("Get Neighbors"))
             {
-                Cell[] cellList = CellsNeighbors.GetNeighbors(cell.GetComponentInParent<HexGrid>(), cell);
+                Cell[] cellList = CellsNeighbors.GetNeighbors(cell.GetComponentInParent<AHexGrid>(), cell);
                 foreach (var item in cellList)
                 {
                     Debug.Log(item.transform.name);

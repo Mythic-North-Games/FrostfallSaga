@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
-using UnityEngine;
-using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.FightCells.Impediments;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
+using FrostfallSaga.Fight.FightCells.Impediments;
+using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Grid.Cells;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -177,6 +177,17 @@ namespace FrostfallSaga.Fight.FightCells
         public GameObject GetImpedimentGameObject()
         {
             return _currentImpedimentGameObject;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + "\n" +
+                   $"FightCell:\n" +
+                   $"- Fighter: {(Fighter != null ? Fighter.name : "None")}\n" +
+                   $"- Impediment: {(Impediment != null ? Impediment.name : "None")}\n" +
+                   $"- HasObstacle: {HasObstacle()}\n" +
+                   $"- HasTrap: {HasTrap()}\n" +
+                   $"- Alterations: {(GetAlterations().Length > 0 ? string.Join(", ", GetAlterations().Select(a => a.Name)) : "None")}";
         }
     }
 }
