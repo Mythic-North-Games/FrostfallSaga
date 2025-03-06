@@ -34,6 +34,7 @@ namespace FrostfallSaga.Dungeon
             if (!dungeonState.AlliesWonLastFight || dungeonState.IsDungeonCompleted())
             {
                 Debug.Log("Dungeon completed or allies lost last fight. Cleaning dungeon state and transitioning to kingdom...");
+                dungeonState.DungeonConfiguration.CompleteDungeon();
                 _gameStateManager.CleanDungeonState();
                 SceneTransitioner.Instance.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
                 return;
