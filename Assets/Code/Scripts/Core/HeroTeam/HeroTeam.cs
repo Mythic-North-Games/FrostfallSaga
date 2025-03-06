@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Core.Entities;
@@ -13,6 +14,7 @@ namespace FrostfallSaga.Core.HeroTeam
         private const string COMPANION2_CONFIG_NAME = "Companion2";
 
         public List<Hero> Heroes { get; private set; }
+        public int Stycas { get; private set; }
 
         protected override void Init()
         {
@@ -35,6 +37,9 @@ namespace FrostfallSaga.Core.HeroTeam
         }
 
         public void FullHealTeam() => Heroes.ForEach(hero => hero.FullHeal());
+
+        public void AddStycas(int amount) => Stycas += amount;
+        public void WithdrawStycas(int amount) => Stycas = Math.Clamp(Stycas - amount, 0, int.MaxValue);
 
         /// <summary>
         /// Automatically initialize the singleton on scene load.
