@@ -23,9 +23,9 @@ namespace FrostfallSaga.Fight.UI
 
         public void UpdateStatuses(Fighter fighter)
         {
-            var maxStatusesContainers = _root.Q<VisualElement>(STATUSES_CONTAINER_UI_NAME).childCount;
+            int maxStatusesContainers = _root.Q<VisualElement>(STATUSES_CONTAINER_UI_NAME).childCount;
             Dictionary<AStatus, (bool isActive, int duration)> currentFighterStatuses = fighter.GetStatuses();
-            for (var i = 0; i < currentFighterStatuses.Count; i++)
+            for (int i = 0; i < currentFighterStatuses.Count; i++)
             {
                 if (i > maxStatusesContainers) break;
                 VisualElement statusContainer = _root.Q<VisualElement>($"{STATUS_CONTAINER_UI_NAME}{i}");
@@ -33,7 +33,7 @@ namespace FrostfallSaga.Fight.UI
                     new StyleBackground(currentFighterStatuses.ElementAt(i).Key.Icon);
             }
 
-            for (var i = currentFighterStatuses.Count; i < maxStatusesContainers; i++)
+            for (int i = currentFighterStatuses.Count; i < maxStatusesContainers; i++)
             {
                 VisualElement statusContainer = _root.Q<VisualElement>($"{STATUS_CONTAINER_UI_NAME}{i}");
                 statusContainer.style.backgroundImage = null;

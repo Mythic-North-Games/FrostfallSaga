@@ -31,7 +31,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
         public void GenerateRandomMovePathForEntitiesGroup_NoProhibitedCells_LengthMax_Test()
         {
             // Arrange
-            var pathLength = 3;
+            int pathLength = 3;
             HashSet<KingdomCell> prohibitedCells = new();
             EntitiesGroup entitiesGroup =
                 KingdomTestsHelper.CreateEntitiesGroup(grid.Cells[new Vector2Int(0, 0)] as KingdomCell, pathLength);
@@ -56,7 +56,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
             Assert.False(path.All(cellOfPath => prohibitedCells.Contains(cellOfPath)));
 
             // Assert all cells form a path (neighbors)
-            for (var i = 0; i < pathLength - 1; i++)
+            for (int i = 0; i < pathLength - 1; i++)
                 Assert.True(CellsNeighbors.GetNeighbors(grid, path[i]).Contains(path[i + 1]));
 
             // Assert all cells are accessibles
@@ -67,7 +67,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
         public void GenerateRandomMovePathForEntitiesGroup_ProhibitedCells_LengthMax_Test()
         {
             // Arrange
-            var pathLength = 3;
+            int pathLength = 3;
             EntitiesGroup entitiesGroup =
                 KingdomTestsHelper.CreateEntitiesGroup(grid.Cells[new Vector2Int(0, 0)] as KingdomCell, pathLength);
             HashSet<KingdomCell> prohibitedCells = new()
@@ -75,8 +75,8 @@ namespace FrostfallSaga.EditModeTests.Kingdom
                 grid.Cells[new Vector2Int(0, 1)] as KingdomCell
             };
 
-            var repeatExperienceCount = 50;
-            for (var currentExperienceIndex = 0;
+            int repeatExperienceCount = 50;
+            for (int currentExperienceIndex = 0;
                  currentExperienceIndex < repeatExperienceCount;
                  currentExperienceIndex++)
             {
@@ -100,7 +100,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
                 Assert.False(path.All(cellOfPath => prohibitedCells.Contains(cellOfPath)));
 
                 // Assert all cells form a path (neighbors)
-                for (var i = 0; i < pathLength - 1; i++)
+                for (int i = 0; i < pathLength - 1; i++)
                     Assert.True(CellsNeighbors.GetNeighbors(grid, path[i]).Contains(path[i + 1]));
 
                 // Assert all cells are accessibles
@@ -112,7 +112,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
         public void GenerateRandomMovePathForEntitiesGroup_MinPathLengthLessThanZero_Test()
         {
             // Arrange
-            var minPathLength = -3;
+            int minPathLength = -3;
             HashSet<KingdomCell> prohibitedCells = new();
             EntitiesGroup entitiesGroup =
                 KingdomTestsHelper.CreateEntitiesGroup(grid.Cells[new Vector2Int(0, 0)] as KingdomCell, minPathLength);
@@ -130,7 +130,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
         public void GenerateRandomMovePathPerEntitiesGroup_Test()
         {
             // Arrange
-            var minPathLength = 2;
+            int minPathLength = 2;
             EntitiesGroup[] entitiesGroups =
             {
                 KingdomTestsHelper.CreateEntitiesGroup(grid.Cells[new Vector2Int(0, 0)] as KingdomCell, minPathLength),
@@ -144,7 +144,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
                     minPathLength);
 
             /// ASSERTS ///
-            for (var testCount = 0; testCount < 20; testCount++)
+            for (int testCount = 0; testCount < 20; testCount++)
                 AssertPathForMultipleEntitiesGroup(grid, pathPerEntitiesGroup);
         }
 
@@ -170,7 +170,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
                     Assert.False(path.All(cellOfPath => otherPathPerEntitiesGroup.Value.Contains(cellOfPath)));
 
                 // Assert all cells form a path (neighbors)
-                for (var i = 0; i < path.Length - 1; i++)
+                for (int i = 0; i < path.Length - 1; i++)
                     Assert.True(CellsNeighbors.GetNeighbors(grid, path[i]).Contains(path[i + 1]));
 
                 // Assert all cells are accessibles

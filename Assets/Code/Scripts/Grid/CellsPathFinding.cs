@@ -59,11 +59,11 @@ namespace FrostfallSaga.Grid
                          )
                         )
                 {
-                    var newCost = costSoFar[currentCell] + GetCost(currentCell, neighbor);
+                    float newCost = costSoFar[currentCell] + GetCost(currentCell, neighbor);
                     if (!costSoFar.ContainsKey(neighbor) || newCost < costSoFar[neighbor])
                     {
                         costSoFar[neighbor] = newCost;
-                        var priority = newCost + Heuristic(endCell, neighbor);
+                        float priority = newCost + Heuristic(endCell, neighbor);
                         frontier.Enqueue(neighbor, priority);
                         cameFrom[neighbor] = currentCell;
                     }

@@ -29,7 +29,7 @@ namespace FrostfallSaga.Fight.Effects
             bool adjustGodFavorsPoints = true
         )
         {
-            var finalDamageAmount = PhysicalDamageAmount;
+            int finalDamageAmount = PhysicalDamageAmount;
 
             // Increase damage amount if masterstroke
             if (isMasterstroke && initiator != null)

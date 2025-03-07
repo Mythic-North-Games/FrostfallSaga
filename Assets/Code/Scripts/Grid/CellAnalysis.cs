@@ -38,7 +38,7 @@ namespace FrostfallSaga.Grid
                 HexDirection.SOUTHWEST, HexDirection.EAST
             };
 
-            for (var i = 0; i < NeighborCells.Length; i++)
+            for (int i = 0; i < NeighborCells.Length; i++)
             {
                 Cell neighbor = NeighborCells[i];
                 CountTerrain(neighbor.TerrainType);

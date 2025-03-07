@@ -69,7 +69,7 @@ namespace FrostfallSaga.FFSEditor.Quests
 
             if (node.GetChildren() == null) return;
 
-            for (var i = 0; i < node.GetChildren().Count; i++)
+            for (int i = 0; i < node.GetChildren().Count; i++)
             {
                 List<int> childPath = new(currentPath) { i };
                 DrawQuestStepTree(node.GetChildren()[i], indentLevel + 1, childPath);
@@ -120,7 +120,7 @@ namespace FrostfallSaga.FFSEditor.Quests
             }
 
             // Otherwise, recursively process children
-            for (var i = 0; i < node.GetChildren().Count; i++)
+            for (int i = 0; i < node.GetChildren().Count; i++)
             {
                 List<int> childPath = new(currentPath) { i };
                 GeneratePossibleEndings(node.GetChildren()[i], childPath, endingsList);

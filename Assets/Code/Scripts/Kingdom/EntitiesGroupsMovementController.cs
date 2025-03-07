@@ -73,7 +73,7 @@ namespace FrostfallSaga.Kingdom
             foreach (KeyValuePair<EntitiesGroup, KingdomCell[]> item in movePathPerEnemiesGroup)
                 _currentPathPerEnemiesGroup.Add(item.Key, new MovePath(item.Value));
 
-            var atLeastOneEnemiesGroupMoved = false;
+            bool atLeastOneEnemiesGroupMoved = false;
             foreach (KeyValuePair<EntitiesGroup, MovePath> item in _currentPathPerEnemiesGroup)
                 if (item.Value.PathLength > 0) // Sometimes enemies groups don't move :)
                 {
@@ -185,10 +185,10 @@ namespace FrostfallSaga.Kingdom
             else if (minPathLength < 0) throw new ArgumentException("minPathLength can't be less than zero.");
 
             List<KingdomCell> randomMovePath = new();
-            var numberOfCellsInPath = Randomizer.GetRandomIntBetween(minPathLength, entitiesGroup.movePoints);
+            int numberOfCellsInPath = Randomizer.GetRandomIntBetween(minPathLength, entitiesGroup.movePoints);
 
             Cell currentCellOfPath = entitiesGroup.cell;
-            for (var i = 0; i < numberOfCellsInPath; i++)
+            for (int i = 0; i < numberOfCellsInPath; i++)
             {
                 Cell[] neighbors = CellsNeighbors.GetNeighbors(kingdomGrid, currentCellOfPath);
                 List<KingdomCell> currentCellOfPathNeighbors =

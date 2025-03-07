@@ -38,13 +38,13 @@ namespace FrostfallSaga.Fight.Assets.Code.Scripts.Fight.Controllers.FighterBehav
         private List<Fighter> GetHealableTargets()
         {
             List<Fighter> healableTargets = new();
-            var _posssessedFighterTeam = _fighterTeams[_possessedFighter];
+            bool _posssessedFighterTeam = _fighterTeams[_possessedFighter];
 
             foreach (Fighter fighter in _fighterTeams.Keys.Where(fighter => fighter.GetHealth() > 0))
             {
                 if (fighter == _possessedFighter && !_possibleTargets.Contains(ETarget.SELF)) continue;
 
-                var fighterIsAlly = _fighterTeams[fighter] == _posssessedFighterTeam;
+                bool fighterIsAlly = _fighterTeams[fighter] == _posssessedFighterTeam;
 
                 if (fighterIsAlly && _possibleTargets.Contains(ETarget.ALLIES))
                     if (fighter.GetHealth() < fighter.GetMaxHealth())

@@ -22,13 +22,13 @@ namespace FrostfallSaga.Grid
         public static Vector3[] Corners(float hexSize)
         {
             Vector3[] corners = new Vector3[6];
-            for (var i = 0; i < 6; i++) corners[i] = Corner(hexSize, i);
+            for (int i = 0; i < 6; i++) corners[i] = Corner(hexSize, i);
             return corners;
         }
 
         private static Vector3 Corner(float hexSize, int index)
         {
-            var angle = 60f * index + 30f;
+            float angle = 60f * index + 30f;
             Vector3 corner = new(hexSize * Mathf.Cos(angle * Mathf.Deg2Rad), 0f,
                 hexSize * Mathf.Sin(angle * Mathf.Deg2Rad));
             return corner;
@@ -46,15 +46,15 @@ namespace FrostfallSaga.Grid
 
         public static Vector2Int OffsetToAxial(Vector2Int offsetCoords)
         {
-            var q = offsetCoords.x - (offsetCoords.y - (offsetCoords.y & 1)) / 2;
-            var r = offsetCoords.y;
+            int q = offsetCoords.x - (offsetCoords.y - (offsetCoords.y & 1)) / 2;
+            int r = offsetCoords.y;
             return new Vector2Int(q, r);
         }
 
         public static Vector2Int AxialToOffset(Vector2Int axialCoords)
         {
-            var x = axialCoords.x + (axialCoords.y - (axialCoords.y & 1)) / 2;
-            var y = axialCoords.y;
+            int x = axialCoords.x + (axialCoords.y - (axialCoords.y & 1)) / 2;
+            int y = axialCoords.y;
             return new Vector2Int(x, y);
         }
 

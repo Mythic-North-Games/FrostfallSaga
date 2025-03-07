@@ -108,7 +108,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
         private void CreateNewDialogue()
         {
-            var path = EditorUtility.SaveFilePanelInProject(
+            string path = EditorUtility.SaveFilePanelInProject(
                 "Save New Dialogue",
                 "NewDialogue",
                 "asset",

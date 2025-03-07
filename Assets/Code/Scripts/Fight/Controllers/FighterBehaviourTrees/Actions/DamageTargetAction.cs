@@ -38,15 +38,15 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             ).ToList();
 
             ActiveAbilitySO preferedAbility = null;
-            var useActiveAbility = false;
-            var canUseDirectAttack = _possessedFighter.CanDirectAttack(_fightGrid, _fighterTeams, target);
+            bool useActiveAbility = false;
+            bool canUseDirectAttack = _possessedFighter.CanDirectAttack(_fightGrid, _fighterTeams, target);
 
             // Choose the ability to use based on the damage preference and decide if it's better to use the prefered ability or the direct attack
             switch (damagePreference)
             {
                 case EDamagePreference.RANDOM:
                     preferedAbility = Randomizer.GetRandomElementFromArray(useableAbilities.ToArray());
-                    var directAttackChance = 1f / (useableAbilities.Count + 1);
+                    float directAttackChance = 1f / (useableAbilities.Count + 1);
                     useActiveAbility = !Randomizer.GetBooleanOnChance(directAttackChance) || !canUseDirectAttack;
                     break;
 

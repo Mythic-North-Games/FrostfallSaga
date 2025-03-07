@@ -443,7 +443,7 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void HighlightShorterPathCells()
         {
-            var i = 0;
+            int i = 0;
             foreach (FightCell cell in _currentMovePath)
             {
                 if (i < _possessedFighter.GetMovePoints())

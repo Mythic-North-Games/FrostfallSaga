@@ -20,12 +20,12 @@ namespace FrostfallSaga.Procedural
 
         public int GetCloserSite(float x, float y)
         {
-            var minDistance = float.MaxValue;
-            var closestSiteIndex = -1;
+            float minDistance = float.MaxValue;
+            int closestSiteIndex = -1;
 
-            for (var i = 0; i < _sites.Count; i++)
+            for (int i = 0; i < _sites.Count; i++)
             {
-                var distance = Vector2.Distance(new Vector2(x, y), _sites[i]);
+                float distance = Vector2.Distance(new Vector2(x, y), _sites[i]);
                 if (distance < minDistance)
                 {
                     minDistance = distance;

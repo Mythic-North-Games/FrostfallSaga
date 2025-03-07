@@ -236,9 +236,9 @@ Shader "TextMeshPro/Distance Field Overlay"
                 output.atlas = input.texcoord0;
                 output.param = float4(alphaClip, scale, bias, weight);
                 output.mask = half4(vert.xy * 2 - clampedRect.xy - clampedRect.zw,
-                           0.25 / (0.25 * half2(_MaskSoftnessX, _MaskSoftnessY) + pixelSize.xy));
+                                    0.25 / (0.25 * half2(_MaskSoftnessX, _MaskSoftnessY) + pixelSize.xy));
                 output.viewDir = mul((float3x3)_EnvMatrix,
-                                              _WorldSpaceCameraPos.xyz - mul(unity_ObjectToWorld, vert).xyz);
+                                     _WorldSpaceCameraPos.xyz - mul(unity_ObjectToWorld, vert).xyz);
                 #if (UNDERLAY_ON || UNDERLAY_INNER)
 			output.texcoord2 = float4(input.texcoord0 + bOffset, bScale, bBias);
 			output.underlayColor =	underlayColor;
@@ -274,8 +274,8 @@ Shader "TextMeshPro/Distance Field Overlay"
 
                 faceColor *= tex2D(_FaceTex, input.textures.xy + float2(_FaceUVSpeedX, _FaceUVSpeedY) * _Time.y);
                 outlineColor *= tex2D(_OutlineTex,
-                                     input.textures.zw + float2(
-                                         _OutlineUVSpeedX, _OutlineUVSpeedY) * _Time.y);
+                             input.textures.zw + float2(
+                                 _OutlineUVSpeedX, _OutlineUVSpeedY) * _Time.y);
 
                 faceColor = GetColor(sd, faceColor, outlineColor, outline, softness);
 

@@ -88,7 +88,7 @@ namespace FrostfallSaga.Core.Quests
             // Initialize the next non decisive action if they are ordered. Otherwise, they already are initialized.
             if (OrderedNonDecisiveActions)
             {
-                var nextActionIndex = NonDecisiveActions.IndexOf(completedAction) + 1;
+                int nextActionIndex = NonDecisiveActions.IndexOf(completedAction) + 1;
                 if (nextActionIndex < NonDecisiveActions.Count)
                     NonDecisiveActions[nextActionIndex].Initialize(completedAction.SceneManager);
             }

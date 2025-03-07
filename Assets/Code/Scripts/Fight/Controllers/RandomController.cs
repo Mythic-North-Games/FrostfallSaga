@@ -130,10 +130,10 @@ namespace FrostfallSaga.Fight.Controllers
         private FightCell[] GetRandomMovePath(Fighter fighterThatWillMove, AHexGrid fightGrid)
         {
             List<FightCell> randomMovePath = new();
-            var numberOfCellsInPath = Randomizer.GetRandomIntBetween(1, fighterThatWillMove.GetMovePoints());
+            int numberOfCellsInPath = Randomizer.GetRandomIntBetween(1, fighterThatWillMove.GetMovePoints());
 
             FightCell currentCellOfPath = fighterThatWillMove.cell;
-            for (var i = 0; i < numberOfCellsInPath; i++)
+            for (int i = 0; i < numberOfCellsInPath; i++)
             {
                 List<FightCell> currentCellOfPathNeighbors = new(
                     Array.ConvertAll(

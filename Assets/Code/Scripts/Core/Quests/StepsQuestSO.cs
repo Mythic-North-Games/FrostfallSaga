@@ -43,7 +43,7 @@ namespace FrostfallSaga.Core.Quests
             }
 
             // If the quest step is completed, initialize the next child step.
-            var decisiveActionIndex = questStep.GetData().Actions.ChosenDecisiveActionIndex;
+            int decisiveActionIndex = questStep.GetData().Actions.ChosenDecisiveActionIndex;
             TreeNode<QuestStep> nextStep = questStep.GetChildren()[decisiveActionIndex];
             InitializeQuestSteps(nextStep, currentSceneManager);
         }
@@ -54,7 +54,7 @@ namespace FrostfallSaga.Core.Quests
             completedStep.onQuestStepCompleted -= OnQuestStepCompleted;
 
             // Try to find the last completed step path.
-            var lastCompletedStepPath = GetLastCompletedStepPath(Steps);
+            int[] lastCompletedStepPath = GetLastCompletedStepPath(Steps);
 
             // If no completed step path, the quest is not completed yet. Initialize the next step.
             if (lastCompletedStepPath.Length == 0)

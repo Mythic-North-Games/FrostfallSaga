@@ -56,7 +56,7 @@ namespace FrostfallSaga.PlayModeTests
             AudioSource[] audioSources;
             AudioClip testClip = AudioClip.Create("TestClip", 44100, 1, 44100, false);
             Transform testTransform = new GameObject().transform;
-            var volume = 1.0f;
+            float volume = 1.0f;
 
             audioManager.PlaySoundEffectClip(testClip, testTransform, volume);
             audioSources = Object.FindObjectsOfType<AudioSource>();

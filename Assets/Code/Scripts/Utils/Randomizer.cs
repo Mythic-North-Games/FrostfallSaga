@@ -30,9 +30,9 @@ namespace FrostfallSaga.Utils
             T[] copy = new T[array.Length];
             Array.Copy(array, copy, array.Length);
 
-            for (var i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
-                var randomIndex = _randomizer.Next(0, copy.Length);
+                int randomIndex = _randomizer.Next(0, copy.Length);
                 result[i] = copy[randomIndex];
                 copy[randomIndex] = copy[^1];
                 Array.Resize(ref copy, copy.Length - 1);
@@ -54,7 +54,7 @@ namespace FrostfallSaga.Utils
         public static T GetRandomElementFromEnum<T>(T[] toExclude = null) where T : Enum
         {
             Array values = Enum.GetValues(typeof(T));
-            var randomIndex = _randomizer.Next(0, values.Length);
+            int randomIndex = _randomizer.Next(0, values.Length);
 
             if (toExclude != null)
                 while (Array.Exists(toExclude, element => element.Equals(values.GetValue(randomIndex))))

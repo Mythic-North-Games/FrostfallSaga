@@ -81,13 +81,13 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             if (children.Count == 0) return;
 
             Rect parentRect = parentNode.GetPosition();
-            var startX = parentRect.x - (children.Count - 1) * HORIZONTAL_SPACING / 2;
-            var newY = parentRect.y + (VERTICAL_SPACING * parentNode.Depth + 1);
+            float startX = parentRect.x - (children.Count - 1) * HORIZONTAL_SPACING / 2;
+            float newY = parentRect.y + (VERTICAL_SPACING * parentNode.Depth + 1);
 
-            for (var i = 0; i < children.Count; i++)
+            for (int i = 0; i < children.Count; i++)
             {
                 DialogueNode childNode = children[i];
-                var newX = startX + i * HORIZONTAL_SPACING;
+                float newX = startX + i * HORIZONTAL_SPACING;
                 childNode.SetPosition(new Rect(newX, newY, NODE_WIDTH, NODE_HEIGHT));
             }
         }
@@ -123,7 +123,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             TreeNode<DialogueLine> parentTreeNode = nodeToRemove.TreeNode.GetParent();
             if (parentTreeNode == null) return;
 
-            var index = parentTreeNode.GetChildren().IndexOf(nodeToRemove.TreeNode);
+            int index = parentTreeNode.GetChildren().IndexOf(nodeToRemove.TreeNode);
             parentTreeNode.RemoveChild(nodeToRemove.TreeNode);
             DialogueLine parentData = parentTreeNode.GetData();
             if (parentData.Answers != null && parentData.Answers.Length > 0 && index < parentData.Answers.Length)

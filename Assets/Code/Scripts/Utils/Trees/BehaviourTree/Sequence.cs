@@ -18,7 +18,7 @@ namespace FrostfallSaga.Utils.Trees.BehaviourTree
 
         public override NodeState Evaluate()
         {
-            var anyChildIsRunning = false;
+            bool anyChildIsRunning = false;
 
             foreach (Node node in children)
                 switch (node.Evaluate())

@@ -100,7 +100,7 @@ namespace FrostfallSaga.Fight.Abilities
                 return;
             }
 
-            var isMasterstroke = Masterstrokable && initiator.TryMasterstroke();
+            bool isMasterstroke = Masterstrokable && initiator.TryMasterstroke();
             foreach (AEffect effect in Effects)
                 effect.ApplyEffect(
                     receiver,

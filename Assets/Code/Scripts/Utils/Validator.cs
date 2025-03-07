@@ -14,10 +14,10 @@ namespace FrostfallSaga.Utils
 
             foreach (FieldInfo field in fields)
             {
-                var requiredAttr = field.GetCustomAttributes(typeof(RequiredAttribute), false).FirstOrDefault();
+                object requiredAttr = field.GetCustomAttributes(typeof(RequiredAttribute), false).FirstOrDefault();
 
                 if (requiredAttr == null) continue;
-                var value = field.GetValue(target);
+                object value = field.GetValue(target);
                 if (value == null) Debug.LogError($"Required field '{field.Name}' is not set in {type.Name}.");
             }
         }

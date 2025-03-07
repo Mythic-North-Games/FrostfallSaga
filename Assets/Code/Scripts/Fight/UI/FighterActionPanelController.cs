@@ -140,9 +140,9 @@ namespace FrostfallSaga.Fight.UI
         private void UpdateAbilityButtons(Fighter fighter)
         {
             _buttonToActiveAbility.Clear();
-            var abilitiesButtonCount = GetAbilitiesButtons().Length;
+            int abilitiesButtonCount = GetAbilitiesButtons().Length;
 
-            var i = 0;
+            int i = 0;
             fighter.ActiveAbilities.ToList().ForEach(ability =>
             {
                 if (i <= abilitiesButtonCount)
@@ -203,7 +203,7 @@ namespace FrostfallSaga.Fight.UI
             List<Button> abilitiesButtons = new();
 
             VisualElement abilitiesContainer = _uiDoc.rootVisualElement.Q(ABILITIES_CONTAINER_UI_NAME);
-            for (var i = 0; i < abilitiesContainer.childCount; i++)
+            for (int i = 0; i < abilitiesContainer.childCount; i++)
                 abilitiesButtons.Add(abilitiesContainer.Q<Button>($"{ABILITY_BUTTON_UI_NAME}{i}"));
 
             return abilitiesButtons.ToArray();

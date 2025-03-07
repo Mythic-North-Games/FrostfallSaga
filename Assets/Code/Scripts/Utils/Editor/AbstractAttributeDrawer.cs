@@ -50,7 +50,7 @@ namespace FrostfallSaga.Utils.Editor
         private void ShowInstanceDetails(Rect position, SerializedProperty property)
         {
             // Get the name of the instantiated class
-            var instanceName = property.managedReferenceValue.GetType().Name;
+            string instanceName = property.managedReferenceValue.GetType().Name;
 
             // Display the name of the current instance
             EditorGUI.LabelField(
@@ -99,7 +99,7 @@ namespace FrostfallSaga.Utils.Editor
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             // Get the height of the normal property
-            var height = EditorGUI.GetPropertyHeight(property, label, true);
+            float height = EditorGUI.GetPropertyHeight(property, label, true);
 
             // If an instance exists, add extra height for the instance details and buttons
             if (property.managedReferenceValue != null)

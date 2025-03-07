@@ -27,7 +27,7 @@ namespace FrostfallSaga.Audio
         /// </summary>
         public void PlaySoundEffectClip(AudioClip audioClip, Transform spawnTransform, float audioVolume)
         {
-            var clipLength = audioClip.length;
+            float clipLength = audioClip.length;
             AudioSource audioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
             audioSource.clip = audioClip;
             audioSource.volume = audioVolume;

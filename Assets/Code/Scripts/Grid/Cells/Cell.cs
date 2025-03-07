@@ -154,14 +154,14 @@ namespace FrostfallSaga.Grid.Cells
 
         private IEnumerator SmoothMoveToHeight(ECellHeight targetHeight, float duration)
         {
-            var startHeight = transform.position.y;
-            var targetY = (float)targetHeight;
-            var elapsedTime = 0f;
+            float startHeight = transform.position.y;
+            float targetY = (float)targetHeight;
+            float elapsedTime = 0f;
 
             while (elapsedTime < duration)
             {
                 elapsedTime += Time.deltaTime;
-                var newY = Mathf.Lerp(startHeight, targetY, elapsedTime / duration);
+                float newY = Mathf.Lerp(startHeight, targetY, elapsedTime / duration);
                 transform.position = new Vector3(transform.position.x, newY, transform.position.z);
                 yield return null;
             }
@@ -172,13 +172,13 @@ namespace FrostfallSaga.Grid.Cells
         private void SetParentGridFromGameObjectTree()
         {
             _parentGrid ??= GetComponentInParent<AHexGrid>();
-            if (_parentGrid == null) Debug.LogError("Cell " + name + " doesn't have parent Grid.");
+            if (!_parentGrid) Debug.LogError("Cell " + name + " doesn't have parent Grid.");
         }
 
         private void SetCellVisualFromGameObjectTree()
         {
             HighlightController ??= GetComponentInChildren<MaterialHighlightable>();
-            if (HighlightController == null) Debug.LogError("Cell " + name + " doesn't have a cell visual as child.");
+            if (!HighlightController) Debug.LogError("Cell " + name + " doesn't have a cell visual as child.");
         }
 
         private void SetCellMouseEventsControllerFromGameObjectTree()

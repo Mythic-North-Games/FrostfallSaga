@@ -50,13 +50,13 @@ namespace FrostfallSaga.Fight.FightItems
 
         public PhysicalDamageEffect GetPhysicalDamagesEffect(EEntityRace targetEntityID, bool atMax = false)
         {
-            var finalDamages = GetComputedPhysicalDamages(targetEntityID, atMax);
+            int finalDamages = GetComputedPhysicalDamages(targetEntityID, atMax);
             return new PhysicalDamageEffect(finalDamages);
         }
 
         private int GetComputedPhysicalDamages(EEntityRace targetEntityID, bool atMax = false)
         {
-            var finalDamages = GetRandomPhysicalDamagesInRange(atMax);
+            int finalDamages = GetRandomPhysicalDamagesInRange(atMax);
             if (FightersStrengths == null || FightersStrengths.Length == 0) return finalDamages;
 
             Dictionary<EEntityRace, float> fightersStrength =

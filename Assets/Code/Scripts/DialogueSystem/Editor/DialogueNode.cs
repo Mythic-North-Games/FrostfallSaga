@@ -139,7 +139,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             _answersContainer.Clear();
 
             if (Data.Answers != null)
-                foreach (var answer in Data.Answers)
+                foreach (string answer in Data.Answers)
                 {
                     TextField answerField = new("Answer") { value = answer };
                     answerField.RegisterValueChangedCallback(evt => UpdateAnswer(answer, evt.newValue));
@@ -155,7 +155,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         private void UpdateAnswer(string oldAnswer, string newAnswer)
         {
             List<string> answers = Data.Answers.ToList();
-            var index = answers.IndexOf(oldAnswer);
+            int index = answers.IndexOf(oldAnswer);
             if (index != -1)
             {
                 answers[index] = newAnswer;

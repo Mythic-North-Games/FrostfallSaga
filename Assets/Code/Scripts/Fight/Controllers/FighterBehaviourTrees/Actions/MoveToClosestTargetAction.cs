@@ -46,12 +46,12 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
         private List<Fighter> GetFightersToMoveTowards()
         {
             List<Fighter> targetsToMoveTo = new();
-            var _possessedFighterTeam = _fighterTeams[_possessedFighter];
+            bool _possessedFighterTeam = _fighterTeams[_possessedFighter];
 
             foreach (Fighter fighter in _fighterTeams.Keys.Where(fighter =>
                          fighter != _possessedFighter && fighter.GetHealth() > 0))
             {
-                var fighterIsAlly = _fighterTeams[fighter] == _possessedFighterTeam;
+                bool fighterIsAlly = _fighterTeams[fighter] == _possessedFighterTeam;
                 if (fighterIsAlly && _possibleTargets.Contains(ETarget.ALLIES))
                 {
                     targetsToMoveTo.Add(fighter);

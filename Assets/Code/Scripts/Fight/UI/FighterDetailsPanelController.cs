@@ -104,8 +104,8 @@ namespace FrostfallSaga.Fight.UI
         {
             foreach (KeyValuePair<EMagicalElement, int> magicalResistance in fighter.GetMagicalResistances())
             {
-                var elementName = magicalResistance.Key.ToUIString();
-                var resistance = magicalResistance.Value;
+                string elementName = magicalResistance.Key.ToUIString();
+                int resistance = magicalResistance.Value;
 
                 _detailsPanel.Q($"{elementName}{MAGICAL_STRENGTHS_STAT_CONTAINER_NAME}").Q<Label>("StatLabel").text =
                     resistance.ToString();
@@ -143,7 +143,7 @@ namespace FrostfallSaga.Fight.UI
 
             foreach (KeyValuePair<EMagicalElement, Texture2D> magicalElementIcon in magicalElementIcons)
             {
-                var elementName = magicalElementIcon.Key.ToUIString();
+                string elementName = magicalElementIcon.Key.ToUIString();
                 AssignSingleStatIcon(_detailsPanel.Q($"{elementName}{MAGICAL_STRENGTHS_STAT_CONTAINER_NAME}"),
                     magicalElementIcon.Value);
                 AssignSingleStatIcon(_detailsPanel.Q($"{elementName}{MAGICAL_RESISTANCES_STAT_CONTAINER_NAME}"),

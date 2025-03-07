@@ -100,7 +100,7 @@ namespace FrostfallSaga.Fight.Targeters
             AFightCellAlteration[] cellAlterations = null
         )
         {
-            var distanceToInitiator = CellsPathFinding.GetShorterPath(
+            int distanceToInitiator = CellsPathFinding.GetShorterPath(
                 fightGrid,
                 initiatorCell,
                 originCell,
@@ -191,7 +191,7 @@ namespace FrostfallSaga.Fight.Targeters
             };
             Vector2Int direction = Cell.GetHexDirection(initiatorCell, originCell);
 
-            for (var i = 1; i < CellsSequence.Length; i++)
+            for (int i = 1; i < CellsSequence.Length; i++)
                 if (StartFromInitiator)
                 {
                     Vector2Int nextCellCoordinates = GetNextCellCoordinatesToDirection(
@@ -341,7 +341,7 @@ namespace FrostfallSaga.Fight.Targeters
             Dictionary<Fighter, bool> fightersTeams
         )
         {
-            var initiatorIsAlly = fightersTeams.First(fighterTeam => fighterTeam.Key.cell == initiatorCell).Value;
+            bool initiatorIsAlly = fightersTeams.First(fighterTeam => fighterTeam.Key.cell == initiatorCell).Value;
             foreach (ETarget target in TargetsToExclude)
                 switch (target)
                 {
@@ -371,10 +371,10 @@ namespace FrostfallSaga.Fight.Targeters
         private bool CheckExcludedRelativeHeights(FightCell[] targetedCells, FightCell initiatorCell,
             Dictionary<Fighter, bool> fightersTeams)
         {
-            foreach (var excludedHeight in RelativeHeightsToExclude)
+            foreach (int excludedHeight in RelativeHeightsToExclude)
                 if (targetedCells.Any(cell =>
                     {
-                        var relativeHeight = (int)cell.Height - (int)initiatorCell.Height;
+                        int relativeHeight = (int)cell.Height - (int)initiatorCell.Height;
                         return relativeHeight == excludedHeight;
                     }))
                     throw new TargeterUnresolvableException("Height exluded from available targets.");
@@ -384,15 +384,15 @@ namespace FrostfallSaga.Fight.Targeters
 
         private List<FightCell> GetCellsUntilStoppedByInaccessible(List<FightCell> targetedCells)
         {
-            var indexOfFirstInaccessible = targetedCells.FindIndex(cell => !cell.IsTerrainAccessible());
+            int indexOfFirstInaccessible = targetedCells.FindIndex(cell => !cell.IsTerrainAccessible());
             if (indexOfFirstInaccessible != -1) targetedCells = targetedCells.Take(indexOfFirstInaccessible).ToList();
             return targetedCells;
         }
 
         private List<FightCell> GetCellsUntilStoppedByTheXthFighter(List<FightCell> targetedCells, int xthFighter)
         {
-            var fightersEncountered = 0;
-            for (var i = 0; i < targetedCells.Count; i++)
+            int fightersEncountered = 0;
+            for (int i = 0; i < targetedCells.Count; i++)
             {
                 if (targetedCells[i].HasFighter()) fightersEncountered++;
 
@@ -409,7 +409,7 @@ namespace FrostfallSaga.Fight.Targeters
         private List<FightCell> GetCellsUntilStoppedByTooHighCell(List<FightCell> targetedCells, FightCell originCell)
         {
             FightCell currentCompareCell = originCell;
-            for (var i = 0; i < targetedCells.Count; i++)
+            for (int i = 0; i < targetedCells.Count; i++)
             {
                 if ((int)targetedCells[i].Height >= (int)currentCompareCell.Height &&
                     (int)targetedCells[i].Height - (int)currentCompareCell.Height >= StopedAtXthHigherHeightDifference)
@@ -427,7 +427,7 @@ namespace FrostfallSaga.Fight.Targeters
         private List<FightCell> GetCellsUntilStoppedByTooLowCell(List<FightCell> targetedCells, FightCell originCell)
         {
             FightCell currentCompareCell = originCell;
-            for (var i = 0; i < targetedCells.Count; i++)
+            for (int i = 0; i < targetedCells.Count; i++)
             {
                 if ((int)targetedCells[i].Height <= (int)currentCompareCell.Height &&
                     (int)currentCompareCell.Height - (int)targetedCells[i].Height >= StopedAtXthLowerHeightDifference)

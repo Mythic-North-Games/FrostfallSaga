@@ -103,7 +103,7 @@ namespace FrostfallSaga.Kingdom
         {
             KeyValuePair<string, EntityConfigurationSO>[] enemiesFighterConfigs =
                 new KeyValuePair<string, EntityConfigurationSO>[enemiesGroup.Entities.Length];
-            for (var i = 0; i < enemiesGroup.Entities.Length; i++)
+            for (int i = 0; i < enemiesGroup.Entities.Length; i++)
             {
                 Entity enemyGroupEntity = enemiesGroup.Entities[i];
                 enemiesFighterConfigs[i] = new KeyValuePair<string, EntityConfigurationSO>(enemyGroupEntity.SessionId,

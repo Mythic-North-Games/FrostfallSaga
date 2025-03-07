@@ -218,7 +218,7 @@ namespace FrostfallSaga.Kingdom
 
         private EntitiesGroup GetFoughtEnemiesGroup(Dictionary<string, PostFightFighterState> enemiesPostFightState)
         {
-            var enemySessionId = enemiesPostFightState.Keys.First();
+            string enemySessionId = enemiesPostFightState.Keys.First();
             return _respawnedEnemiesGroups.Find(enemiesGroup =>
                 enemiesGroup.Entities.Any(entity => entity.SessionId == enemySessionId));
         }

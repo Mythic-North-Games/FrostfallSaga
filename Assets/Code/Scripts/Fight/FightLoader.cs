@@ -8,19 +8,19 @@ namespace FrostfallSaga.Fight
 {
     public class FightLoader : MonoBehaviour
     {
-        [SerializeField] private FightHexGrid _fightHexGrid;
+        [SerializeField] private FightHexGrid fightHexGrid;
 
-        [SerializeField] private EntityConfigurationSO[] _devAlliesConfs;
-        [SerializeField] private EntityConfigurationSO[] _devEnemiesConfs;
+        [SerializeField] private EntityConfigurationSO[] devAlliesConfs;
+        [SerializeField] private EntityConfigurationSO[] devEnemiesConfs;
         private FightersGenerator _fighterGenerator;
-        public Action<Fighter[], Fighter[]> onFightLoaded;
+        public Action<Fighter[], Fighter[]> OnFightLoaded;
 
         #region Setup & tear down
 
         private void Awake()
         {
-            if (_fightHexGrid == null) _fightHexGrid = FindObjectOfType<FightHexGrid>();
-            _fighterGenerator = new FightersGenerator(_devAlliesConfs, _devEnemiesConfs);
+            if (fightHexGrid == null) fightHexGrid = FindObjectOfType<FightHexGrid>();
+            _fighterGenerator = new FightersGenerator(devAlliesConfs, devEnemiesConfs);
         }
 
         #endregion
@@ -30,15 +30,15 @@ namespace FrostfallSaga.Fight
             Debug.Log("Generating FightHexGrid...");
             GenerateGrid();
             Debug.Log("FightHexGrid Generated !");
-            Debug.Log("Generating Figthers...");
+            Debug.Log("Generating Fighters...");
             KeyValuePair<Fighter[], Fighter[]> fighters = GenerateFighters();
             Debug.Log("Fighters Generated !");
-            onFightLoaded?.Invoke(fighters.Key, fighters.Value);
+            OnFightLoaded?.Invoke(fighters.Key, fighters.Value);
         }
 
         private void GenerateGrid()
         {
-            _fightHexGrid.GenerateGrid();
+            fightHexGrid.GenerateGrid();
         }
 
         private KeyValuePair<Fighter[], Fighter[]> GenerateFighters()

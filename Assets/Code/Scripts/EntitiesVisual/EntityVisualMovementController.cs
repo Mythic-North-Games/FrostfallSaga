@@ -27,7 +27,7 @@ namespace FrostfallSaga.EntitiesVisual
 
         public void Move(Cell currentCell, Cell newTargetCell, bool isLastMove)
         {
-            var movementIsJump = CellsNeighbors.GetHeightDifference(currentCell, newTargetCell) != 0;
+            bool movementIsJump = CellsNeighbors.GetHeightDifference(currentCell, newTargetCell) != 0;
             if (movementIsJump)
                 EntityVisualAnimationController.PlayAnimationState("Jump");
             else
@@ -64,11 +64,11 @@ namespace FrostfallSaga.EntitiesVisual
 
         private IEnumerator SmoothMove(Cell currentCell, Cell targetCell, bool isJump, bool isLastMove)
         {
-            var duration = 1f / (isJump ? JumpSpeed : RunSpeed);
-            var elapsedTime = 0f;
+            float duration = 1f / (isJump ? JumpSpeed : RunSpeed);
+            float elapsedTime = 0f;
 
             float heightDifference = CellsNeighbors.GetHeightDifference(currentCell, targetCell);
-            var jumpHeight = Mathf.Max(heightDifference, 1f);
+            float jumpHeight = Mathf.Max(heightDifference, 1f);
             if (targetCell.Height > currentCell.Height)
                 jumpHeight += 1.5f;
             else if (targetCell.Height < currentCell.Height) jumpHeight += 1f;
@@ -78,14 +78,14 @@ namespace FrostfallSaga.EntitiesVisual
 
             while (elapsedTime < duration)
             {
-                var t = elapsedTime / duration;
+                float t = elapsedTime / duration;
 
                 t = Mathf.Lerp(0, 1, t); // Linear interpolation for movement
                 Vector3 position = Vector3.Lerp(startPosition, endPosition, t);
 
                 if (isJump)
                 {
-                    var height = Mathf.Sin(t * Mathf.PI) * jumpHeight; // Arc height
+                    float height = Mathf.Sin(t * Mathf.PI) * jumpHeight; // Arc height
                     position.y += height;
                 }
 
@@ -102,7 +102,7 @@ namespace FrostfallSaga.EntitiesVisual
 
         private IEnumerator SmoothRotate(Quaternion startRotation, Quaternion targetRotation, float duration)
         {
-            var elapsedTime = 0f;
+            float elapsedTime = 0f;
 
             // Lock target rotation to the Y-axis only
             Vector3 targetEulerAngles = targetRotation.eulerAngles;

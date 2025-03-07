@@ -214,7 +214,7 @@ namespace FrostfallSaga.Fight
             _randomController.Setup(this);
             _randomController.onFighterTurnEnded += OnFighterTurnEnded;
             _randomController.onFighterActionEnded += OnFighterActionEnded;
-            _fightLoader.onFightLoaded += OnFightLoaded;
+            _fightLoader.OnFightLoaded += OnFightLoaded;
         }
 
         #endregion
@@ -231,7 +231,7 @@ namespace FrostfallSaga.Fight
 
         private void PositionFightersOnGrid(AHexGrid fightGrid, Fighter[] allies, Fighter[] enemies)
         {
-            var xCellIndex = 0;
+            int xCellIndex = 0;
             foreach (Fighter ally in allies)
             {
                 FightCell cellForAlly = (FightCell)fightGrid.Cells[new Vector2Int(xCellIndex, 0)];
@@ -257,7 +257,7 @@ namespace FrostfallSaga.Fight
 
         private EWinner GetWinner(List<Fighter> allies, List<Fighter> enemies)
         {
-            var teamHealth = 0;
+            int teamHealth = 0;
             allies.ForEach(ally => teamHealth += ally.GetHealth());
             if (teamHealth <= 0) // Should be equal to zero at minimum, but just in case, we check for negative values
                 return EWinner.ENEMIES;

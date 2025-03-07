@@ -199,7 +199,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <exception cref="ArgumentOutOfRangeException">Raised if the fighter does not have enough move points.</exception>
         public void Move(FightCell[] cellsPath, bool goUntilAllMovePointsUsed = false)
         {
-            var pathLongerThanMovePoints = cellsPath.Length > _stats.movePoints;
+            bool pathLongerThanMovePoints = cellsPath.Length > _stats.movePoints;
 
             // Check if the fighter has enough move points to move
             if (!goUntilAllMovePointsUsed && pathLongerThanMovePoints)
@@ -278,7 +278,7 @@ namespace FrostfallSaga.Fight.Fighters
             PlayAnimationIfAny(_receiveDamageAnimationName);
 
             // Compute the inflicted physical damage amount
-            var inflictedPhysicalDamageAmount = Math.Max(0, physicalDamageAmount - _stats.physicalResistance);
+            int inflictedPhysicalDamageAmount = Math.Max(0, physicalDamageAmount - _stats.physicalResistance);
             inflictedPhysicalDamageAmount -= GetArmorPhysicalResistance();
 
             // Decrease the health of the fighter
@@ -306,7 +306,7 @@ namespace FrostfallSaga.Fight.Fighters
             PlayAnimationIfAny(_receiveDamageAnimationName);
 
             // Compute the inflicted magical damage amount
-            var inflictedMagicalDamageAmount =
+            int inflictedMagicalDamageAmount =
                 Math.Max(0, magicalDamageAmount - _stats.magicalResistances[magicalElement]);
             inflictedMagicalDamageAmount -= GetArmorMagicalResistances()[magicalElement];
 

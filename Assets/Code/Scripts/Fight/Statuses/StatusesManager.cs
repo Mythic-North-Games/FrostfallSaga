@@ -45,8 +45,8 @@ namespace FrostfallSaga.Fight.Statuses
 
             foreach (AStatus status in temporaryStatusesOfTriggerTime)
             {
-                var (isActuallyActive, currentDuration) = _temporaryStatuses[status];
-                var willBeActive = isActuallyActive;
+                (bool isActuallyActive, int currentDuration) = _temporaryStatuses[status];
+                bool willBeActive = isActuallyActive;
 
                 if (isActuallyActive)
                 {

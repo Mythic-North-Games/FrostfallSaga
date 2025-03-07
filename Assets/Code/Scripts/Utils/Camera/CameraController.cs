@@ -98,10 +98,10 @@ namespace FrostfallSaga.Utils.Camera
             _camera.m_Lens.FieldOfView = Math.Clamp(newFOV, MinFOV, MaxFOV);
 
             // Normalize the FOV value between 0 and 1
-            var zoomFactor = Mathf.InverseLerp(MinFOV, MaxFOV, _camera.m_Lens.FieldOfView);
+            float zoomFactor = Mathf.InverseLerp(MinFOV, MaxFOV, _camera.m_Lens.FieldOfView);
 
             // Linearly interpolate the Y position based on the FOV
-            var targetY = Mathf.Lerp(MinY, MaxY, zoomFactor);
+            float targetY = Mathf.Lerp(MinY, MaxY, zoomFactor);
 
             // Apply the calculated Y position to the mouse follow target
             Vector3 targetPosition = MouseFollowTarget.position;
@@ -116,7 +116,7 @@ namespace FrostfallSaga.Utils.Camera
             Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
 
             // Raycast to find where the mouse hits the plane
-            if (plane.Raycast(ray, out var distance))
+            if (plane.Raycast(ray, out float distance))
             {
                 Vector3 mouseWorldPos = ray.GetPoint(distance);
 

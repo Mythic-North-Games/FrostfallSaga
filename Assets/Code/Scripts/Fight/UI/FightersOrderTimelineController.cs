@@ -44,7 +44,7 @@ namespace FrostfallSaga.Fight.UI
         {
             VisualElement[] characterContainers = GetCharacterContainers();
 
-            var containerIndex = 0;
+            int containerIndex = 0;
             while (containerIndex < characterContainers.Length)
             {
                 VisualElement characterContainer = characterContainers[containerIndex];
@@ -97,8 +97,8 @@ namespace FrostfallSaga.Fight.UI
         {
             List<VisualElement> characterContainers = new();
 
-            var availableCharacterContainersCount = _uiDoc.rootVisualElement.Q(TIMELINE_UI_NAME).childCount - 1;
-            for (var containerIndex = 0; containerIndex < availableCharacterContainersCount; containerIndex++)
+            int availableCharacterContainersCount = _uiDoc.rootVisualElement.Q(TIMELINE_UI_NAME).childCount - 1;
+            for (int containerIndex = 0; containerIndex < availableCharacterContainersCount; containerIndex++)
                 characterContainers.Add(_uiDoc.rootVisualElement.Q($"{CHARACTER_CONTAINER_UI_NAME}{containerIndex}"));
 
             return characterContainers.ToArray();

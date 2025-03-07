@@ -60,7 +60,6 @@ namespace FrostfallSaga.Kingdom.Entities
             if (AnimationController) return AnimationController.gameObject.activeSelf;
             Debug.LogError("Entity " + name + " does not have an entity visual.");
             return false;
-
         }
 
         public void Setup(string sessionId, bool isDead)

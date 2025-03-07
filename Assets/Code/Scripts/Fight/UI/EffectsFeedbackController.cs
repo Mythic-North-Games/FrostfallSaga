@@ -39,7 +39,7 @@ namespace FrostfallSaga.Fight.UI
 
         private void Awake()
         {
-            _fightLoader.onFightLoaded += OnFightLoaded;
+            _fightLoader.OnFightLoaded += OnFightLoaded;
         }
 
         #endregion
@@ -158,11 +158,11 @@ namespace FrostfallSaga.Fight.UI
             Vector3 fighterScreenPosition = Camera.main.WorldToScreenPoint(fighter.transform.position);
 
             // Get the camera's FOV scaling factor
-            var fovScale = GetFovScalingFactor();
+            float fovScale = GetFovScalingFactor();
 
             // Apply FOV scaling to the margin
-            var scaledMarginX = _displayMarginFromFighter.x * 2 * fovScale;
-            var scaledMarginY = _displayMarginFromFighter.y * fovScale;
+            float scaledMarginX = _displayMarginFromFighter.x * 2 * fovScale;
+            float scaledMarginY = _displayMarginFromFighter.y * fovScale;
 
             // Calculate a random position around the center in screen space
             return Camera.main.ScreenToWorldPoint(

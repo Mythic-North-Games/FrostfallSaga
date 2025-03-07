@@ -10,7 +10,7 @@ namespace FrostfallSaga.Fight
     public class FightCamera : MonoBehaviour
     {
         [SerializeField] private CinemachineVirtualCamera _camera;
-        [SerializeField] private FightManager _fightManager;
+        [SerializeField] private FightManager fightManager;
 
         private void OnEnable()
         {
@@ -21,23 +21,23 @@ namespace FrostfallSaga.Fight
                 return;
             }
 
-            if (_fightManager == null) _fightManager = FindAnyObjectByType<FightManager>();
-            if (_fightManager == null)
+            if (fightManager == null) fightManager = FindAnyObjectByType<FightManager>();
+            if (fightManager == null)
             {
                 Debug.LogError("Fight camera does not find a fight manager to work with.");
                 return;
             }
 
-            _fightManager.onFighterTurnBegan += OnFighterTurnBegan;
-            _fightManager.onFightEnded += OnFightEnded;
+            fightManager.onFighterTurnBegan += OnFighterTurnBegan;
+            fightManager.onFightEnded += OnFightEnded;
         }
 
-        private void OnFighterTurnBegan(Fighter fighter, bool _isAlly)
+        private void OnFighterTurnBegan(Fighter fighter, bool isAlly)
         {
             _camera.Follow = fighter.CameraAnchor;
         }
 
-        private void OnFightEnded(Fighter[] _allies, Fighter[] _enemies)
+        private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
         {
             _camera.enabled = false;
         }

@@ -21,7 +21,7 @@ namespace FrostfallSaga.Fight.Effects
             bool adjustGodFavorsPoints = true
         )
         {
-            var finalHealAmount = HealAmount;
+            int finalHealAmount = HealAmount;
 
             // Increase heal amount if masterstroke
             if (isMasterstroke)

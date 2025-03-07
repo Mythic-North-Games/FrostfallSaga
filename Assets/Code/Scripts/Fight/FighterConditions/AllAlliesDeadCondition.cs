@@ -15,7 +15,7 @@ namespace FrostfallSaga.Fight.FightConditions
         public override bool CheckCondition(Fighter fighter, AHexGrid fightGrid,
             Dictionary<Fighter, bool> fightersTeams)
         {
-            var fighterTeam = fightersTeams[fighter];
+            bool fighterTeam = fightersTeams[fighter];
             return fightersTeams.All(f => f.Key.GetHealth() <= 0 || f.Value != fighterTeam);
         }
 

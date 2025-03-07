@@ -57,8 +57,8 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             ActiveAbilitySO activeAbilityToUse = attacker.ActiveAbilities[0];
             MagicalDamageEffect magicalDamageEffect = (MagicalDamageEffect)activeAbilityToUse.Effects[0];
 
-            var expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
-            var expectedReceiverHealth = receiver.GetStatsForTests().health -
+            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
+            int expectedReceiverHealth = receiver.GetStatsForTests().health -
                                          fireDamages +
                                          receiver.GetStatsForTests().magicalResistances[EMagicalElement.FIRE];
 
@@ -100,11 +100,11 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 
             ActiveAbilitySO activeAbilityToUse = attacker.ActiveAbilities[0];
 
-            var expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
-            var expectedReceiverHealth = receiver.GetStatsForTests().health -
+            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
+            int expectedReceiverHealth = receiver.GetStatsForTests().health -
                                          fireDamages +
                                          receiver.GetStatsForTests().magicalResistances[EMagicalElement.FIRE];
-            var expectedReceiverHealth2 = receiver2.GetStatsForTests().health -
+            int expectedReceiverHealth2 = receiver2.GetStatsForTests().health -
                                           fireDamages +
                                           receiver2.GetStatsForTests().magicalResistances[EMagicalElement.FIRE];
 
@@ -143,8 +143,8 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 
             ActiveAbilitySO activeAbilityToUse = attacker.ActiveAbilities[0];
 
-            var expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
-            var expectedNotTargetedFighterHealth = notTargetedFighter.GetStatsForTests().health;
+            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
+            int expectedNotTargetedFighterHealth = notTargetedFighter.GetStatsForTests().health;
 
             FightCell[] targetedCells = { (FightCell)grid.Cells[new Vector2Int(1, 1)] };
 

@@ -56,7 +56,6 @@ namespace FrostfallSaga.Grid
                 Vector2Int neighborCoord = cellToGetTheNeighbors.Coordinates + direction;
                 Dictionary<Vector2Int, Cell> cellsByCoordinates = hexGrid.Cells;
                 if (cellsByCoordinates.TryGetValue(neighborCoord, out Cell currentNeighbor))
-                {
                     if (
                         mandatoryCells.Contains(currentNeighbor) ||
                         ((includeOccupiedNeighbors || currentNeighbor.IsFree()) &&
@@ -67,7 +66,6 @@ namespace FrostfallSaga.Grid
                          ))
                     )
                         neighbors.Add(currentNeighbor);
-                }
             }
 
             return neighbors.ToArray();

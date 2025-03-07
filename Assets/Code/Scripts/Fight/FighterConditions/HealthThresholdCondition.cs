@@ -19,7 +19,7 @@ namespace FrostfallSaga.Fight.FightConditions
         public override bool CheckCondition(Fighter fighter, AHexGrid fightGrid,
             Dictionary<Fighter, bool> fightersTeams)
         {
-            var finalThreshold = Threshold;
+            int finalThreshold = Threshold;
             if (UsePercentage) finalThreshold = (int)(fighter.GetMaxHealth() * Threshold / 100f);
             return fighter.GetHealth() > 0 && StatConditionType.CompareIntegers(fighter.GetHealth(), finalThreshold);
         }

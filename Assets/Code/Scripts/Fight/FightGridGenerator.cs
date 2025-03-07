@@ -9,7 +9,7 @@ namespace FrostfallSaga.Grid
 {
     public class FightGridGenerator : ABaseGridGenerator
     {
-        public static BiomeTypeSO DefaultBiome =
+        private static readonly BiomeTypeSO DefaultBiome =
             Resources.Load<BiomeTypeSO>("EditModeTests/ScriptableObjects/TestBiome");
 
         private readonly PerlinTerrainManager _perlinTerrainManager;
@@ -25,8 +25,8 @@ namespace FrostfallSaga.Grid
         {
             Dictionary<Vector2Int, Cell> gridCells = new();
 
-            for (var y = 0; y < GridHeight; y++)
-            for (var x = 0; x < GridWidth; x++)
+            for (int y = 0; y < GridHeight; y++)
+            for (int x = 0; x < GridWidth; x++)
             {
                 Vector3 centerPosition = HexMetrics.Center(HexSize, x, y);
                 Cell cell = Object.Instantiate(HexPrefab, centerPosition, Quaternion.identity, ParentGrid);
@@ -40,7 +40,7 @@ namespace FrostfallSaga.Grid
 
         private void SetupCell(Cell cell, int x, int y, BiomeTypeSO selectedBiome, float hexSize)
         {
-            var perlinValue = _perlinTerrainManager.GetNoiseValue(x, y);
+            float perlinValue = _perlinTerrainManager.GetNoiseValue(x, y);
             TerrainTypeSO selectedTerrain = GetTerrainTypeFromPerlinValue(perlinValue, selectedBiome);
             cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, hexSize, selectedTerrain, selectedBiome);
             cell.HighlightController.SetupInitialMaterial(selectedTerrain.CellMaterial);
@@ -58,10 +58,10 @@ namespace FrostfallSaga.Grid
                 return null;
             }
 
-            var terrainCount = availableTerrains.Length;
-            var segmentSize = 1f / terrainCount;
+            int terrainCount = availableTerrains.Length;
+            float segmentSize = 1f / terrainCount;
 
-            for (var i = 0; i < terrainCount; i++)
+            for (int i = 0; i < terrainCount; i++)
                 if (perlinValue < (i + 1) * segmentSize)
                     return availableTerrains[i];
 

@@ -110,7 +110,7 @@ namespace FrostfallSaga.DebugPanel
                 button.AddToClassList("btnCmd");
                 // Définir le text du boutton a la description de l'annotation
                 button.text = methodInfo.Attribute.Description;
-                var category = methodInfo.Attribute.Category;
+                string category = methodInfo.Attribute.Category;
                 button.clicked += () =>
                 {
                     Component targetComponent =

@@ -9,11 +9,11 @@ namespace FrostfallSaga.EditModeTests.Grid
         public void OuterRadius_Test()
         {
             // Arrange
-            var hexagoneSize = 10f;
-            var expectedOuterRadius = 10f;
+            float hexagoneSize = 10f;
+            float expectedOuterRadius = 10f;
 
             // Act
-            var outerRadius = HexMetrics.OuterRadius(hexagoneSize);
+            float outerRadius = HexMetrics.OuterRadius(hexagoneSize);
 
             // Assert
             Assert.AreEqual(expectedOuterRadius, outerRadius);
@@ -23,11 +23,11 @@ namespace FrostfallSaga.EditModeTests.Grid
         public void InnerRadius_Test()
         {
             // Arrange
-            var hexagoneSize = 10f;
-            var expectedInnerRadius = 8.66025352f;
+            float hexagoneSize = 10f;
+            float expectedInnerRadius = 8.66025352f;
 
             // Act
-            var innerRadius = HexMetrics.InnerRadius(hexagoneSize);
+            float innerRadius = HexMetrics.InnerRadius(hexagoneSize);
 
             // Assert
             Assert.AreEqual(expectedInnerRadius, innerRadius);
@@ -37,11 +37,11 @@ namespace FrostfallSaga.EditModeTests.Grid
         public void OuterRadius_GreaterThen_InnerRadius_Test()
         {
             // Arrange
-            var hexagoneSize = 10f;
+            float hexagoneSize = 10f;
 
             // Act
-            var outerRadius = HexMetrics.OuterRadius(hexagoneSize);
-            var innerRadius = HexMetrics.InnerRadius(hexagoneSize);
+            float outerRadius = HexMetrics.OuterRadius(hexagoneSize);
+            float innerRadius = HexMetrics.InnerRadius(hexagoneSize);
 
             // Assert
             Assert.Greater(outerRadius, innerRadius);

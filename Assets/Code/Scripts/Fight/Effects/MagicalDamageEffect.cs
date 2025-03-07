@@ -31,7 +31,7 @@ namespace FrostfallSaga.Fight.Effects
             bool adjustGodFavorsPoints = true
         )
         {
-            var finalDamageAmount = MagicalDamageAmount;
+            int finalDamageAmount = MagicalDamageAmount;
 
             // Increase heal amount if masterstroke
             if (isMasterstroke && initiator != null)

@@ -17,7 +17,7 @@ namespace FrostfallSaga.Utils
         /// <returns>True if the GameObject is on the specified layer, otherwise false.</returns>
         public static bool IsOnLayer(GameObject gameObject, string layerName)
         {
-            var layer = LayerMask.NameToLayer(layerName);
+            int layer = LayerMask.NameToLayer(layerName);
             return gameObject != null && gameObject.layer == layer;
         }
 
@@ -42,7 +42,7 @@ namespace FrostfallSaga.Utils
         {
             if (gameObject == null) return;
 
-            var layer = LayerMask.NameToLayer(layerName);
+            int layer = LayerMask.NameToLayer(layerName);
             if (layer == -1)
             {
                 Debug.LogError($"Layer '{layerName}' does not exist.");
@@ -71,7 +71,7 @@ namespace FrostfallSaga.Utils
         /// <remarks>Logs an error if the layer name does not exist.</remarks>
         public static void SetLayerForGameObjects(GameObject[] gameObjects, string layerName)
         {
-            var layer = LayerMask.NameToLayer(layerName);
+            int layer = LayerMask.NameToLayer(layerName);
             if (layer == -1)
             {
                 Debug.LogError($"Layer '{layerName}' does not exist.");
@@ -101,7 +101,7 @@ namespace FrostfallSaga.Utils
         /// <remarks>Logs an error if the layer name does not exist.</remarks>
         public static void SetLayerRecursively(GameObject parent, string layerName)
         {
-            var layer = LayerMask.NameToLayer(layerName);
+            int layer = LayerMask.NameToLayer(layerName);
             if (layer == -1)
             {
                 Debug.LogError($"Layer '{layerName}' does not exist.");

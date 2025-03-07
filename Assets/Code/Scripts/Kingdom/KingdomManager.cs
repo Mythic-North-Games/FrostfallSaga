@@ -152,7 +152,7 @@ namespace FrostfallSaga.Kingdom
 
         private void HighlightShorterPathCells()
         {
-            var i = 0;
+            int i = 0;
             foreach (Cell cell in _currentHeroGroupMovePath.Path)
             {
                 if (i < HeroGroup.movePoints)

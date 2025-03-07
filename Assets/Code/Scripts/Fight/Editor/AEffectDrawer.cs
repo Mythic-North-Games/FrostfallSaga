@@ -26,7 +26,7 @@ namespace FrostfallSaga.FFSEditor.Fight
             );
 
             // Track current position for drawing fields
-            var currentY = position.y + EditorGUIUtility.singleLineHeight;
+            float currentY = position.y + EditorGUIUtility.singleLineHeight;
 
             if (property.isExpanded)
             {
@@ -111,7 +111,7 @@ namespace FrostfallSaga.FFSEditor.Fight
         private float DrawPropertyField(Rect fieldRect, SerializedProperty property)
         {
             // Check if the property is an array to handle height accordingly
-            var propertyHeight = EditorGUI.GetPropertyHeight(property, true);
+            float propertyHeight = EditorGUI.GetPropertyHeight(property, true);
             EditorGUI.PropertyField(new Rect(fieldRect.x, fieldRect.y, fieldRect.width, propertyHeight), property,
                 true);
 
@@ -129,7 +129,7 @@ namespace FrostfallSaga.FFSEditor.Fight
             );
 
             // Draw the ReorderableList and compute its height
-            var listHeight = reorderableList.GetHeight();
+            float listHeight = reorderableList.GetHeight();
             reorderableList.DoList(new Rect(fieldRect.x, fieldRect.y, fieldRect.width, listHeight));
 
             // Adjust expandedHeight and return the new y position

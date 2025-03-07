@@ -79,7 +79,7 @@ namespace FrostfallSaga.Core.Dialogues
 
             // Get the index of the clicked answer
             Button clickedAnswer = clickEvent.currentTarget as Button;
-            var answerIndex = _answersContainer.IndexOf(clickedAnswer.parent);
+            int answerIndex = _answersContainer.IndexOf(clickedAnswer.parent);
 
             // Get the next dialogue line based on the answer index
             StartCoroutine(LoadNextDialogueLine(_currentDialogueLine.GetChildren()[answerIndex]));
@@ -146,7 +146,7 @@ namespace FrostfallSaga.Core.Dialogues
             _richTextLabel.text = dialogueLine.RichText;
 
             if (dialogueLine.Answers != null && dialogueLine.Answers.Length > 0)
-                foreach (var answer in dialogueLine.Answers)
+                foreach (string answer in dialogueLine.Answers)
                 {
                     TemplateContainer answerButtonContainer = _answerContainerTemplate.Instantiate();
                     Button answerButton = answerButtonContainer.Q<Button>(ANSWER_BUTTON_UI_NAME);
@@ -160,7 +160,7 @@ namespace FrostfallSaga.Core.Dialogues
 
         private void SetPanelOrientation(bool isRight)
         {
-            var oppositeOrientationSuffix = isRight ? "Left" : "Right";
+            string oppositeOrientationSuffix = isRight ? "Left" : "Right";
             _dialogueLineContainer.RemoveFromClassList(DIALOGUE_LINE_CONTAINER_BASE_CLASSNAME +
                                                        oppositeOrientationSuffix);
             _dialogueBoxContainer.RemoveFromClassList(DIALOGUE_BOX_CONTAINER_BASE_CLASSNAME +
@@ -169,7 +169,7 @@ namespace FrostfallSaga.Core.Dialogues
             _richTextContainer.RemoveFromClassList(RICH_TEXT_CONTAINER_BASE_CLASSNAME + oppositeOrientationSuffix);
             _answersContainer.RemoveFromClassList(ANSWERS_CONTAINER_BASE_CLASSNAME + oppositeOrientationSuffix);
 
-            var orientationSuffix = isRight ? "Right" : "Left";
+            string orientationSuffix = isRight ? "Right" : "Left";
             _dialogueLineContainer.AddToClassList(DIALOGUE_LINE_CONTAINER_BASE_CLASSNAME + orientationSuffix);
             _dialogueBoxContainer.AddToClassList(DIALOGUE_BOX_CONTAINER_BASE_CLASSNAME + orientationSuffix);
             _characterIcon.AddToClassList(CHARACTER_ICON_BASE_CLASSNAME + orientationSuffix);

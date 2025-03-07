@@ -30,10 +30,10 @@ namespace FrostfallSaga.Procedural
         {
             _sites = new List<Vector2>();
 
-            for (var i = 0; i < biomeCount; i++)
+            for (int i = 0; i < biomeCount; i++)
             {
-                var x = Randomizer.GetRandomFloatBetween(0f, width);
-                var y = Randomizer.GetRandomFloatBetween(0f, height);
+                float x = Randomizer.GetRandomFloatBetween(0f, width);
+                float y = Randomizer.GetRandomFloatBetween(0f, height);
                 _sites.Add(new Vector2(x, y));
             }
         }

@@ -43,8 +43,8 @@ namespace FrostfallSaga.Fight.Effects
         protected static int ApplyMasterstroke(int baseValue)
         {
             // Random multiplier between 1.5 and 2.0 for critical hit damage
-            var criticalMultiplier = 1.5f + Random.value * 0.5f;
-            var finalValue = Mathf.RoundToInt(baseValue * criticalMultiplier);
+            float criticalMultiplier = 1.5f + Random.value * 0.5f;
+            int finalValue = Mathf.RoundToInt(baseValue * criticalMultiplier);
             Debug.Log($"Masterstroke! Damage multiplied by {criticalMultiplier:F2}, final damage: {finalValue}");
             return finalValue;
         }

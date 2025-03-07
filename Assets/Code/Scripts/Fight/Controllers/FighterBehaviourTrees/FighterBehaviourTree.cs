@@ -43,7 +43,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
         /// <returns>True if the possessed fighter is doing an action, false otherwise.</returns>
         public bool IsActionRunning()
         {
-            var actionRunning = _root.GetSharedData(FBTNode.ACTION_RUNNING_SHARED_DATA_KEY);
+            object actionRunning = _root.GetSharedData(FBTNode.ACTION_RUNNING_SHARED_DATA_KEY);
             return actionRunning != null && (bool)actionRunning;
         }
 
@@ -53,7 +53,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
         /// <returns>True if the turn has ended, false otherwise.</returns>
         public bool HasTurnEnded()
         {
-            var turnEnded = _root.GetSharedData(EndTurnAction.TURN_ENDED_SHARED_DATA_KEY);
+            object turnEnded = _root.GetSharedData(EndTurnAction.TURN_ENDED_SHARED_DATA_KEY);
             return turnEnded != null && (bool)turnEnded;
         }
 

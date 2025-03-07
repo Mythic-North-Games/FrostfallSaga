@@ -43,7 +43,7 @@ namespace FrostfallSaga.InventorySystem
             BootsSlot = new InventorySlot(1);
 
             BagSlots = new InventorySlot[24];
-            for (var i = 0; i < BagSlots.Length; i++) BagSlots[i] = new InventorySlot();
+            for (int i = 0; i < BagSlots.Length; i++) BagSlots[i] = new InventorySlot();
         }
 
         #region Getters
@@ -130,7 +130,7 @@ namespace FrostfallSaga.InventorySystem
             }
 
             if (replacedItem != null)
-                for (var i = 0; i < replacedItem.Item2; i++)
+                for (int i = 0; i < replacedItem.Item2; i++)
                     AddItemToBag(replacedItem.Item1);
 
             OnInventoryUpdated?.Invoke(this);

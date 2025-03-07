@@ -94,7 +94,7 @@ namespace FrostfallSaga.City.UI
 
         private ACitySituationSO GetSituationFromButton(VisualElement situationButton)
         {
-            var situationIndex = _situationsContainer.IndexOf(situationButton);
+            int situationIndex = _situationsContainer.IndexOf(situationButton);
             return _currentCitySituations[situationIndex];
         }
 

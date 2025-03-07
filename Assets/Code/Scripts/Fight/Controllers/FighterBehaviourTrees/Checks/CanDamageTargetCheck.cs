@@ -40,13 +40,13 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
         private List<Fighter> GetDamagableFighters()
         {
             List<Fighter> damagableTargets = new();
-            var _possessedFighterTeam = _fighterTeams[_possessedFighter];
+            bool _possessedFighterTeam = _fighterTeams[_possessedFighter];
 
             foreach (Fighter fighter in _fighterTeams.Keys.Where(fighter => fighter.GetHealth() > 0))
             {
                 if (fighter == _possessedFighter && !_possibleTargets.Contains(ETarget.SELF)) continue;
 
-                var fighterIsAlly = _fighterTeams[fighter] == _possessedFighterTeam;
+                bool fighterIsAlly = _fighterTeams[fighter] == _possessedFighterTeam;
                 if (fighterIsAlly && !_possibleTargets.Contains(ETarget.ALLIES)) continue;
 
                 if (!fighterIsAlly && !_possibleTargets.Contains(ETarget.OPONENTS)) continue;

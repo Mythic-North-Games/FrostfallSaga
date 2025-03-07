@@ -197,8 +197,8 @@ Shader "TextMeshPro/Mobile/Distance Field - Masking"
                     float4(input.texcoord0.x, input.texcoord0.y, maskUV.x, maskUV.y),
                     half4(scale, bias - outline, bias + outline, bias),
                     half4(vert.xy * 2 - clampedRect.xy - clampedRect.zw,
-   0.25 / (0.25 * half2(_MaskSoftnessX, _MaskSoftnessY) +
-       pixelSize.xy)),
+                          0.25 / (0.25 * half2(_MaskSoftnessX, _MaskSoftnessY) +
+                              pixelSize.xy)),
                     #if (UNDERLAY_ON | UNDERLAY_INNER)
 				float4(input.texcoord0 + layerOffset, input.color.a, 0),
 				half2(layerScale, layerBias),

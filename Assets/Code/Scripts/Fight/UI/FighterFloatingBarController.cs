@@ -28,7 +28,7 @@ namespace FrostfallSaga.Fight.UI
 
         private void Awake()
         {
-            _fightLoader.onFightLoaded += OnFightLoaded;
+            _fightLoader.OnFightLoaded += OnFightLoaded;
             _fightManager.onFightEnded += OnFightEnded;
         }
 

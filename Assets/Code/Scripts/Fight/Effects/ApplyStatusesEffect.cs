@@ -23,8 +23,8 @@ namespace FrostfallSaga.Fight.Effects
             bool adjustGodFavorsPoints = true
         )
         {
-            var atLeastOneBuff = false;
-            var atLeastOneDebuff = false;
+            bool atLeastOneBuff = false;
+            bool atLeastOneDebuff = false;
 
             // Apply the statuses
             foreach (AStatus status in StatusesToApply)

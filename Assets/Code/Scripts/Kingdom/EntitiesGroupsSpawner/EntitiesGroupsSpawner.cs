@@ -63,7 +63,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
         {
             _spawnedEntitiesGroups = FindObjectsOfType<EntitiesGroup>().ToList()
                 .FindAll(entitiesGroup => entitiesGroup.name != "HeroGroup");
-            for (var i = 0; i < _spawnedEntitiesGroups.Count; i++)
+            for (int i = 0; i < _spawnedEntitiesGroups.Count; i++)
                 _spawnedEntitiesGroups[i].name = $"{BaseGroupName}{i}";
         }
 

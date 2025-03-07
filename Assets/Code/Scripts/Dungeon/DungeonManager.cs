@@ -66,22 +66,22 @@ namespace FrostfallSaga.Dungeon
             DungeonFightConfiguration dungeonFightConfiguration)
         {
             // Randomize the number of optional enemies
-            var optionalEnemiesCount = Randomizer.GetRandomIntBetween(
+            int optionalEnemiesCount = Randomizer.GetRandomIntBetween(
                 dungeonFightConfiguration.MinOptionalEnemies,
                 dungeonFightConfiguration.MaxOptionalEnemies
             );
-            var totalEnemiesCount = dungeonFightConfiguration.MandatoryEnemies.Length + optionalEnemiesCount;
+            int totalEnemiesCount = dungeonFightConfiguration.MandatoryEnemies.Length + optionalEnemiesCount;
             KeyValuePair<string, EntityConfigurationSO>[] enemies =
                 new KeyValuePair<string, EntityConfigurationSO>[totalEnemiesCount];
 
             // Add mandatory enemies
-            for (var i = 0; i < dungeonFightConfiguration.MandatoryEnemies.Length; i++)
+            for (int i = 0; i < dungeonFightConfiguration.MandatoryEnemies.Length; i++)
                 enemies[i] =
                     new KeyValuePair<string, EntityConfigurationSO>(null,
                         dungeonFightConfiguration.MandatoryEnemies[i]);
 
             // Add random optional enemies
-            for (var i = dungeonFightConfiguration.MandatoryEnemies.Length; i < totalEnemiesCount; i++)
+            for (int i = dungeonFightConfiguration.MandatoryEnemies.Length; i < totalEnemiesCount; i++)
                 enemies[i] = new KeyValuePair<string, EntityConfigurationSO>(null,
                     Randomizer.GetRandomElementFromArray(dungeonFightConfiguration.OptionalEnemies));
 

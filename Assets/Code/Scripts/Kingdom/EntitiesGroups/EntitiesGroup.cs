@@ -118,15 +118,13 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
 
             if (entities.Count >= maxNumberOfEntities) return entities.ToArray();
 
-            var placeLeftInTeam = maxNumberOfEntities - minNumberOfEntities;
-            for (var i = 0; i < placeLeftInTeam; i++)
-            {
+            int placeLeftInTeam = maxNumberOfEntities - minNumberOfEntities;
+            for (int i = 0; i < placeLeftInTeam; i++)
                 if (Randomizer.GetBooleanOnChance(0.5f))
                 {
                     GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntityPrefabs));
                     entities.Add(entityPrefab.GetComponent<Entity>());
                 }
-            }
 
             return entities.ToArray();
         }

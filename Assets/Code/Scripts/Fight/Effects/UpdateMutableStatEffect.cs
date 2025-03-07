@@ -39,7 +39,7 @@ namespace FrostfallSaga.Fight.Effects
 
         public override void RestoreEffect(Fighter receiver)
         {
-            var finalUpdateAmount = Amount;
+            int finalUpdateAmount = Amount;
             if (UsePercentage) finalUpdateAmount = (int)(receiver.GetMutableStat(StatToUpdate) * Amount / 100f);
 
             receiver.UpdateMutableStat(StatToUpdate, -finalUpdateAmount, true, false);

@@ -30,7 +30,7 @@ namespace FrostfallSaga.Fight
             {
                 Debug.Log("Saving dungeon progress...");
 
-                var alliesHaveWon = allies.All(ally => ally.GetHealth() > 0);
+                bool alliesHaveWon = allies.All(ally => ally.GetHealth() > 0);
                 gameStateManager.SaveDungeonProgress(alliesHaveWon);
 
                 Debug.Log("Dungeon progress saved!");

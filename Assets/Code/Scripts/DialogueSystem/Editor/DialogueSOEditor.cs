@@ -72,7 +72,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             if (parent != null)
                 if (GUILayout.Button("Remove Node", GUILayout.MaxWidth(100)))
                 {
-                    var index = parent.GetChildren().IndexOf(node);
+                    int index = parent.GetChildren().IndexOf(node);
                     parent.RemoveChild(node);
 
                     if (index >= 0 && parent.GetData().Answers != null && index < parent.GetData().Answers.Length)
@@ -91,10 +91,10 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
             if (_nodeFoldouts[node])
             {
-                var newTitle = EditorGUILayout.TextField("Title", data.Title);
+                string newTitle = EditorGUILayout.TextField("Title", data.Title);
                 if (newTitle != data.Title) data.SetTitle(newTitle);
 
-                var newRichText = EditorGUILayout.TextField("Rich Text", data.RichText);
+                string newRichText = EditorGUILayout.TextField("Rich Text", data.RichText);
                 if (newRichText != data.RichText) data.SetRichText(newRichText);
 
                 DialogueParticipantSO newSpeaker =
@@ -102,7 +102,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
                         typeof(DialogueParticipantSO), false);
                 if (newSpeaker != data.Speaker) data.SetSpeaker(newSpeaker);
 
-                var newIsRight = EditorGUILayout.Toggle("Is Speaker on Right?", data.IsRight);
+                bool newIsRight = EditorGUILayout.Toggle("Is Speaker on Right?", data.IsRight);
                 if (newIsRight != data.IsRight) data.SetIsRight(newIsRight);
 
                 EditorGUILayout.Space();
@@ -121,11 +121,11 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             {
                 EditorGUILayout.LabelField("Answers:", EditorStyles.boldLabel);
 
-                for (var i = 0; i < data.Answers.Length; i++)
+                for (int i = 0; i < data.Answers.Length; i++)
                 {
                     EditorGUILayout.BeginHorizontal();
 
-                    var newAnswer = EditorGUILayout.TextField($"Answer {i + 1}", data.Answers[i]);
+                    string newAnswer = EditorGUILayout.TextField($"Answer {i + 1}", data.Answers[i]);
 
                     if (newAnswer != data.Answers[i])
                     {

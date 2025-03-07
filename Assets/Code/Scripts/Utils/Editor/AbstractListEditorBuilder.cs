@@ -36,7 +36,7 @@ namespace FrostfallSaga.Utils.Editor
                     foreach (Type type in alterationTypes)
                         menu.AddItem(new GUIContent(type.Name), false, () =>
                         {
-                            var newIndex = abstractListProperty.arraySize;
+                            int newIndex = abstractListProperty.arraySize;
                             abstractListProperty.InsertArrayElementAtIndex(newIndex);
 
                             SerializedProperty newElement = abstractListProperty.GetArrayElementAtIndex(newIndex);

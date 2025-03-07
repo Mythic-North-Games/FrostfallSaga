@@ -75,8 +75,8 @@ namespace FrostfallSaga.Grid
         /// </summary>
         public void GenerateRandomHeight()
         {
-            var childCount = transform.childCount;
-            for (var i = 0; i < childCount; i++)
+            int childCount = transform.childCount;
+            for (int i = 0; i < childCount; i++)
             {
                 Cell cell = transform.GetChild(i).GetComponent<Cell>();
                 ECellHeight randomCellHeight;
