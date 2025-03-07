@@ -117,10 +117,10 @@ namespace FrostfallSaga.Core.InventorySystem
 
         #region Inventory management
 
-        public void EquipItem(ItemSO item, bool fromBag = true)
+        public void EquipItem(ItemSO item, bool isFromBag = true)
         {
             // If item comes from the bag, remove it
-            if (fromBag)
+            if (isFromBag)
             {
                 InventorySlot bagSlotWithItem = GetBagSlotWithItem(item);
                 bagSlotWithItem?.RemoveItem();
@@ -169,7 +169,7 @@ namespace FrostfallSaga.Core.InventorySystem
         {
             try
             {
-                EquipItem(item, fromBag: false);
+                EquipItem(item, isFromBag: false);
                 return true;
             }
             catch (InventoryException)
