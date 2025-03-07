@@ -7,9 +7,7 @@ namespace FrostfallSaga.Fight.Statuses
     [Serializable]
     public abstract class AStatus
     {
-        [field: SerializeField, Header("For the UI")] public string Name { get; protected set; }
-        [field: SerializeField] public string Description { get; protected set; }
-        [field: SerializeField] public Sprite Icon { get; protected set; }
+        [field: SerializeField, Header("For the UI")] public Sprite Icon { get; protected set; }
 
         [field: SerializeField, Header("Status parameters")] public EStatusType StatusType { get; protected set; }
         [field: SerializeField] public bool IsPermanent { get; protected set; }
@@ -23,8 +21,6 @@ namespace FrostfallSaga.Fight.Statuses
 
         public AStatus(
             EStatusType statusType,
-            string name,
-            string description,
             bool isPermanent,
             int duration,
             bool triggerOnFirstApply,
@@ -34,8 +30,6 @@ namespace FrostfallSaga.Fight.Statuses
         )
         {
             StatusType = statusType;
-            Name = name;
-            Description = description;
             IsPermanent = isPermanent;
             Duration = duration;
             TriggerOnFirstApply = triggerOnFirstApply;

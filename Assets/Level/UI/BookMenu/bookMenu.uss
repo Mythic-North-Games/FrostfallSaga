@@ -57,3 +57,34 @@
     translate: 0 150%;
     opacity: 0.2;
 }
+
+.heroChoiceContainerRootLeft {
+    width: 30%;
+    height: 90%;
+    position: absolute;
+    top: -16%;
+}
+
+.heroChoiceContainerRootMiddle {
+    width: 30%;
+    height: 90%;
+    position: absolute;
+    bottom: -5%;
+    left: 18%;
+}
+
+.heroChoiceContainerRootRight {
+    width: 30%;
+    height: 90%;
+    position: absolute;
+    top: -16%;
+    left: 36%;
+}
+
+.heroChooserContainerRootDefault {
+    position: absolute;
+    width: 30%;
+    height: 15%;
+    left: 2.5%;
+    top: 2.5%;
+}
