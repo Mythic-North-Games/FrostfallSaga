@@ -24,6 +24,7 @@ namespace FrostfallSaga.Core.HeroTeam
                 new(string.Format(BASE_ENTITY_CONFIGURATION_SO_CONFIG_PATH, COMPANION1_CONFIG_NAME, COMPANION1_CONFIG_NAME)),
                 new(string.Format(BASE_ENTITY_CONFIGURATION_SO_CONFIG_PATH, COMPANION2_CONFIG_NAME, COMPANION2_CONFIG_NAME))
             };
+            Stycas = 100;
             FullHealTeam(); // * For now, we fully heal the team on initialization.
         }
 
