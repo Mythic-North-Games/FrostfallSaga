@@ -107,6 +107,7 @@ namespace FrostfallSaga.City.UI
 
         private void OnSituationResolved(ACitySituationSO _citySituation)
         {
+            _situationsMenuController.SetupSituationsMenu(_cityConfiguration.CitySituations);
             StartCoroutine(_situationsMenuController.Display());
         }
 

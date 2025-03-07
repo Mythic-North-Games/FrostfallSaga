@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Fight.Fighters;
-using Unity.Properties;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight
@@ -30,8 +29,8 @@ namespace FrostfallSaga.Fight
 
         private void GenerateGrid()
         {
+            _fightHexGrid.ClearCells();
             _fightHexGrid.GenerateGrid();
-
         }
 
         private KeyValuePair<Fighter[], Fighter[]> GenerateFighters()

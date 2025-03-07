@@ -54,7 +54,6 @@ namespace FrostfallSaga.Fight.Effects
         /// <returns>Returns the maximum potential damage that the effect can do.</returns>
         public abstract int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke);
 
-        /// <summary>
         /// Compute the maximum potential heal that the effect can do.
         /// </summary>
         /// <param name="initiator">The fighter that initiates the effect.</param>
@@ -62,5 +61,11 @@ namespace FrostfallSaga.Fight.Effects
         /// <param name="canMasterstroke">True if the effect can be masterstroked, false otherwise.</param>
         /// <returns>Returns the maximum potential heal that the effect can do.</returns>
         public abstract int GetPotentialEffectHeal(Fighter initiator, Fighter receiver, bool canMasterstroke);
+
+        /// <summary>
+        /// Get the description of the effect for the UI.
+        /// </summary>
+        /// <returns>Returns the description of the effect for the UI.</returns>
+        public abstract string GetUIEffectDescription();
     }
 }

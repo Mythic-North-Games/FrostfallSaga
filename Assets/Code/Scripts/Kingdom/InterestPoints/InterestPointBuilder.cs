@@ -1,14 +1,13 @@
+using UnityEngine;
 using FrostfallSaga.Core.GameState.Kingdom;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
-using UnityEngine;
 
 namespace FrostfallSaga.Kingdom.InterestPoints
 {
     public class InterestPointBuilder : MonoBehaviourPersistingSingleton<InterestPointBuilder>
     {
-        public InterestPoint BuildInterestPoint(InterestPointData interestPointData, AHexGrid grid)
+        public InterestPoint BuildInterestPoint(InterestPointData interestPointData, KingdomHexGrid grid)
         {
             GameObject interestPointPrefab = WorldGameObjectInstantiator.Instance.Instantiate(
                 interestPointData.interestPointConfiguration.InterestPointPrefab
