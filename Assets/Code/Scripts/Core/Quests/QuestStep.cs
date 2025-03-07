@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace FrostfallSaga.Core.Quests
@@ -23,6 +24,7 @@ namespace FrostfallSaga.Core.Quests
 
         public bool IsCompleted()
         {
+            Actions.CheckIsCompleted();
             return Actions.ChosenDecisiveActionIndex > -1;
         }
 

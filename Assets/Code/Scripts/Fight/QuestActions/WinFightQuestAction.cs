@@ -11,6 +11,8 @@ namespace FrostfallSaga.Fight.QuestActions
     [Serializable]
     public class WinFightQuestAction : AQuestAction
     {
+        public override string GetInstruction() => "Win the fight";
+
         public override void Initialize(MonoBehaviour sceneManager)
         {
             base.Initialize(sceneManager);

@@ -1,32 +1,17 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance"
-         engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
-         noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Level/UI/Kingdom/EnterDungeonPanel.uss?fileID=7433441132597879392&amp;guid=b47c091f2bea1f94eaf6c2e75bc84155&amp;type=3#EnterDungeonPanel"/>
-    <ui:VisualElement name="ScreenPanelContainer" class="panelContainerDefault"
-                      style="transition-duration: 0.5s; transition-timing-function: ease-in-out-cubic; min-width: 100%; min-height: 100%;">
-        <ui:VisualElement name="DungeonPanelContainer" class="dungeonPanelContainerDefault"
-                          style="transition-duration: 0.4s; transition-timing-function: ease-in-out-cubic;">
-            <ui:VisualElement name="DungeonPreview"
-                              style="width: 100%; height: 30%; background-image: url(&quot;project://database/Assets/Art/UI/Illustrations/ExampleCityPreview.png?fileID=2800000&amp;guid=c3a157f9e73a14755a121403c6676395&amp;type=3#ExampleCityPreview&quot;); -unity-background-scale-mode: scale-and-crop;"/>
-            <ui:VisualElement name="DungeonDialogContainer"
-                              style="flex-grow: 1; background-color: rgb(24, 24, 24); border-left-color: rgb(225, 225, 225); border-right-color: rgb(225, 225, 225); border-top-color: rgb(225, 225, 225); border-bottom-color: rgb(225, 225, 225); border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; justify-content: space-between; padding-top: 5%; padding-right: 5%; padding-bottom: 5%; padding-left: 5%;">
-                <ui:Label tabindex="-1"
-                          text="Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet  Lorem ipsum dolor sit amet  Lorem ipsum dolor sit amet  Lorem ipsum dolor sit amet  Lorem ipsum dolor sit amet "
-                          parse-escape-sequences="true" display-tooltip-when-elided="true" name="DescriptionLabel"
-                          style="max-height: 75%; margin-top: 1%; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 28px; white-space: normal; -unity-text-align: upper-center; color: rgb(231, 231, 231);"/>
-                <ui:VisualElement name="ButtonsContainer"
-                                  style="width: 100%; height: 25%; justify-content: space-around; flex-direction: row; align-items: center;">
-                    <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true"
-                               name="ExitButton" class="dungeonGateButtonDefault"/>
-                    <ui:Button text="Enter" parse-escape-sequences="true" display-tooltip-when-elided="true"
-                               name="EnterButton" class="dungeonGateButtonDefault"/>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Kingdom/EnterDungeonPanel.uss?fileID=7433441132597879392&amp;guid=b47c091f2bea1f94eaf6c2e75bc84155&amp;type=3#EnterDungeonPanel" />
+    <ui:VisualElement name="ScreenPanelContainer" class="panelContainerDefault" style="transition-duration: 0.5s; transition-timing-function: ease-in-out-cubic; min-width: 100%; min-height: 100%;">
+        <ui:VisualElement name="DungeonPanelContainer" class="dungeonPanelContainerDefault" style="transition-duration: 0.4s; transition-timing-function: ease-in-out-cubic;">
+            <ui:VisualElement name="DungeonPreview" style="width: 100%; height: 30%; background-image: url(&quot;project://database/Assets/Art/UI/Illustrations/ExampleCityPreview.png?fileID=2800000&amp;guid=c3a157f9e73a14755a121403c6676395&amp;type=3#ExampleCityPreview&quot;); -unity-background-scale-mode: scale-and-crop;" />
+            <ui:VisualElement name="DungeonDialogContainer" style="flex-grow: 1; background-color: rgb(60, 60, 60); border-left-color: rgb(25, 25, 25); border-right-color: rgb(25, 25, 25); border-top-color: rgb(25, 25, 25); border-bottom-color: rgb(25, 25, 25); border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; justify-content: space-between; padding-top: 5%; padding-right: 5%; padding-bottom: 5%; padding-left: 5%;">
+                <ui:Label tabindex="-1" text="Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet  Lorem ipsum dolor sit amet  Lorem ipsum dolor sit amet  Lorem ipsum dolor sit amet  Lorem ipsum dolor sit amet " parse-escape-sequences="true" display-tooltip-when-elided="true" name="DescriptionLabel" style="max-height: 75%; margin-top: 1%; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 28px; white-space: normal; -unity-text-align: upper-center; color: rgb(231, 231, 231);" />
+                <ui:VisualElement name="ButtonsContainer" style="width: 100%; height: 25%; justify-content: space-around; flex-direction: row; align-items: center;">
+                    <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExitButton" class="dungeonGateButtonDefault" />
+                    <ui:Button text="Enter" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EnterButton" class="dungeonGateButtonDefault" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="DungeonNameContainer"
-                              style="width: 66%; height: 7.5%; margin-left: 16%; margin-bottom: 0; margin-top: -2%; background-color: rgb(29, 29, 29); position: absolute; top: 28%; border-left-color: rgb(226, 226, 226); border-right-color: rgb(226, 226, 226); border-top-color: rgb(226, 226, 226); border-bottom-color: rgb(226, 226, 226); border-top-width: 2.5px; border-right-width: 2.5px; border-bottom-width: 2.5px; border-left-width: 2.5px;">
-                <ui:Label tabindex="-1" text="Ratsewer" parse-escape-sequences="true" display-tooltip-when-elided="true"
-                          name="DungeonNameLabel"
-                          style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 1%; padding-right: 1%; padding-bottom: 1%; padding-left: 1%; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); width: 100%; height: 100%; color: rgb(224, 224, 224); font-size: 32px; -unity-text-align: middle-center;"/>
+            <ui:VisualElement name="DungeonNameContainer" style="width: 66%; height: 7.5%; margin-left: 16%; margin-bottom: 0; margin-top: -2%; background-color: rgb(60, 60, 60); position: absolute; top: 28%; border-left-color: rgb(25, 25, 25); border-right-color: rgb(25, 25, 25); border-top-color: rgb(25, 25, 25); border-bottom-color: rgb(25, 25, 25); border-top-width: 2.5px; border-right-width: 2.5px; border-bottom-width: 2.5px; border-left-width: 2.5px;">
+                <ui:Label tabindex="-1" text="Ratsewer" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DungeonNameLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 1%; padding-right: 1%; padding-bottom: 1%; padding-left: 1%; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); width: 100%; height: 100%; color: rgb(224, 224, 224); font-size: 32px; -unity-text-align: middle-center;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

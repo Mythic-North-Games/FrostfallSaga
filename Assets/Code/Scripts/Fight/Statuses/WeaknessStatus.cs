@@ -7,16 +7,11 @@ namespace FrostfallSaga.Fight.Statuses
     [Serializable]
     public class WeaknessStatus : AStatus
     {
-        private static readonly string NAME = "Weakness";
-        private static readonly string DESCRIPTION = "The fighter's strength is reduced.";
-
         [field: SerializeField] public int StrengthReduction { get; private set; }
 
         public WeaknessStatus()
         {
             StatusType = EStatusType.WEAKNESS;
-            Name = NAME;
-            Description = DESCRIPTION;
         }
 
         public WeaknessStatus(
@@ -28,8 +23,7 @@ namespace FrostfallSaga.Fight.Statuses
             FighterBuffVisualsController visualsController,
             int strengthReduction
         )
-            : base(EStatusType.WEAKNESS, NAME, DESCRIPTION, isPermanent, duration, triggerOnFirstApply, isRecurring,
-                triggerTime, visualsController)
+            : base(EStatusType.WEAKNESS, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
         {
             StrengthReduction = strengthReduction;
         }
@@ -50,6 +44,16 @@ namespace FrostfallSaga.Fight.Statuses
                 false
             );
             Debug.Log($"{fighter.name}'s strength is back to normal !");
+        }
+
+        public override int GetPotentialDamages()
+        {
+            return 0;
+        }
+
+        public override int GetPotentialHeal()
+        {
+            return 0;
         }
     }
 }

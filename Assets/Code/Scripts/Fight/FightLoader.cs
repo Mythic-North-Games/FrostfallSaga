@@ -38,6 +38,7 @@ namespace FrostfallSaga.Fight
 
         private void GenerateGrid()
         {
+            fightHexGrid.ClearCells();
             fightHexGrid.GenerateGrid();
         }
 

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e27b99b3691eaf15a53476af7c3b8b1, type: 3}
+  m_Name: HeroTeamConfiguration
+  m_EditorClassIdentifier: 
+  <HeroEntityConfiguration>k__BackingField: {fileID: 11400000, guid: d5746e71b0a5c65469ca2b997f19b595, type: 2}
+  <Companion1EntityConfiguration>k__BackingField: {fileID: 11400000, guid: 2feb0362d51c4ed4e9245678b6bef79f, type: 2}
+  <Companion2EntityConfiguration>k__BackingField: {fileID: 11400000, guid: b7e92890f66efb24ca7baca0d5973873, type: 2}
+  Stycas: 0

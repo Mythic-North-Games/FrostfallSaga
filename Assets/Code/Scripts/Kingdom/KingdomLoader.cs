@@ -45,6 +45,7 @@ namespace FrostfallSaga.Kingdom
 
         private void Start()
         {
+            kingdomHexGrid.ClearCells();
             kingdomHexGrid.GenerateGrid();
             if (_gameStateManager.IsFirstSceneLaunch())
             {

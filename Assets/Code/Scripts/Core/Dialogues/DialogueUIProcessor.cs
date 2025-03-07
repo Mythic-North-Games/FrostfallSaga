@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Utils.Trees;
 using FrostfallSaga.Utils.UI;
 using UnityEngine;
@@ -62,6 +63,11 @@ namespace FrostfallSaga.Core.Dialogues
             // If no children, end of the dialogue
             if (!_currentDialogueLine.HasChildren())
             {
+                // Add the quest if there is one
+                if (_currentDialogueLine.GetData().Quest != null)
+                {
+                    HeroTeamQuests.Instance.AddQuest(_currentDialogueLine.GetData().Quest);
+                }
                 StartCoroutine(HideRootContainerAndEndDialogue());
                 return;
             }
@@ -120,6 +126,12 @@ namespace FrostfallSaga.Core.Dialogues
 
         private IEnumerator LoadNextDialogueLine(TreeNode<DialogueLine> nextDialogueLine)
         {
+            // Add the quest if there is one
+            if (_currentDialogueLine != null && _currentDialogueLine.GetData().Quest != null)
+            {
+                HeroTeamQuests.Instance.AddQuest(_currentDialogueLine.GetData().Quest);
+            }
+
             _previousDialogueLine = _currentDialogueLine;
             if (_previousDialogueLine != null &&
                 nextDialogueLine.GetData().Speaker != _previousDialogueLine.GetData().Speaker)

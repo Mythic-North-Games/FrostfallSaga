@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightConditions
@@ -16,8 +15,7 @@ namespace FrostfallSaga.Fight.FightConditions
         [SerializeField] public int Threshold;
         [SerializeField] public bool UsePercentage;
 
-        public override bool CheckCondition(Fighter fighter, AHexGrid fightGrid,
-            Dictionary<Fighter, bool> fightersTeams)
+        public override bool CheckCondition(Fighter fighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
         {
             int finalThreshold = Threshold;
             if (UsePercentage) finalThreshold = (int)(fighter.GetMaxHealth() * Threshold / 100f);

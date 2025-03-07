@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfab220a3a1e5ab99b8db9e565cf11c9, type: 3}
+  m_Name: ExampleStepsQuest
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: 
+  <Description>k__BackingField: 
+  <OriginLocation>k__BackingField: 
+  <Type>k__BackingField: 0
+  <IsCompleted>k__BackingField: 0
+  <PossibleQuestEndings>k__BackingField:
+  - element: 00000000
+    value:
+      <ConclusionText>k__BackingField: 
+      <EndingIllustration>k__BackingField: {fileID: 0}

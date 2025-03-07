@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Grid.Cells;
@@ -24,8 +23,10 @@ namespace FrostfallSaga.Kingdom.InterestPoints
             Cell cell = grid.GetCellAtCoordinates(coordinates);
             if (cell == null) return null;
 
-            InterestPoint interestPoint = InstantiateInterestPoint(interestPointData.interestPointConfiguration,
-                cell.GetComponent<KingdomCell>());
+            InterestPoint interestPoint = InstantiateInterestPoint(
+                interestPointData.interestPointConfiguration,
+                cell.GetComponent<KingdomCell>()
+            );
             return interestPoint;
         }
 

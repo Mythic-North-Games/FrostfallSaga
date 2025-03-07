@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
 
 namespace FrostfallSaga.Fight.FightConditions
 {
@@ -12,8 +11,7 @@ namespace FrostfallSaga.Fight.FightConditions
     [Serializable]
     public class OneAllyDeadCondition : AFighterCondition
     {
-        public override bool CheckCondition(Fighter fighter, AHexGrid fightGrid,
-            Dictionary<Fighter, bool> fightersTeams)
+        public override bool CheckCondition(Fighter fighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
         {
             bool fighterTeam = fightersTeams[fighter];
             return fightersTeams.Any(f => f.Key.GetHealth() <= 0 && f.Value == fighterTeam);

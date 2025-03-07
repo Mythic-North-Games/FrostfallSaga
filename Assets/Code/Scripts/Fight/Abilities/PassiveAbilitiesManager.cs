@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
 
 namespace FrostfallSaga.Fight.Abilities
 {
@@ -26,7 +25,7 @@ namespace FrostfallSaga.Fight.Abilities
         /// </summary>
         /// <param name="fightGrid">The grid where the fight is happening.</param>
         /// <param name="fighterTeams">The fighters and their team.</param>
-        public void UpdatePassiveAbilities(AHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
+        public void UpdatePassiveAbilities(FightHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
         {
             foreach (PassiveAbilitySO passiveAbility in _fighter.PassiveAbilities)
                 if (passiveAbility.CheckConditions(_fighter, fightGrid, fighterTeams))

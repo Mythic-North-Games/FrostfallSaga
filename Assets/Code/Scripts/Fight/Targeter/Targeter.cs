@@ -93,7 +93,7 @@ namespace FrostfallSaga.Fight.Targeters
         /// <returns>The extracted cells in order if resolvable.</returns>
         /// <exception cref="TargeterUnresolvableException">If one of the targeter's condition is not respected.</exception>
         public FightCell[] Resolve(
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             FightCell initiatorCell,
             FightCell originCell,
             Dictionary<Fighter, bool> fightersTeams,
@@ -122,7 +122,7 @@ namespace FrostfallSaga.Fight.Targeters
         }
 
         public List<FightCell[]> GetAllResolvedCellsSequences(
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             FightCell initiatorCell,
             Dictionary<Fighter, bool> fightersTeams,
             AFightCellAlteration[] cellAlterations = null
@@ -158,7 +158,7 @@ namespace FrostfallSaga.Fight.Targeters
         /// <returns>One random resolved targeter cell sequence for the given context if it does exist.</returns>
         /// <exception cref="TargeterUnresolvableException">If the targeter can't be resolved around the initiator.</exception>
         public FightCell[] GetRandomTargetCells(
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             FightCell initiatorCell,
             Dictionary<Fighter, bool> fightersTeams
         )
@@ -176,7 +176,7 @@ namespace FrostfallSaga.Fight.Targeters
         /// <param name="cellAlterations">The cell alterations that can be applied to the cells.</param>
         /// <returns>The extracted cells in order, targeter's conditions are ignored.</returns>
         public FightCell[] GetCellsFromSequence(
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             FightCell initiatorCell,
             FightCell originCell,
             AFightCellAlteration[] cellAlterations = null
@@ -245,7 +245,7 @@ namespace FrostfallSaga.Fight.Targeters
         /// <param name="cellAlterations">The cell alterations that can be applied to the cells.</param>
         /// <returns>All the cells that are in range depending on the initiator position and the targeter</returns>
         public FightCell[] GetAllCellsAvailableForTargeting(
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             FightCell initiatorCell,
             Dictionary<Fighter, bool> fightersTeams,
             AFightCellAlteration[] cellAlterations = null
@@ -279,7 +279,7 @@ namespace FrostfallSaga.Fight.Targeters
         /// <param name="cellAlterations">The cell alterations that can be applied to the cells.</param>
         /// <returns>True if the target cell is in range, false otherwise.</returns>
         public bool IsCellTargetable(
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             FightCell initiatorCell,
             FightCell targetCell,
             Dictionary<Fighter, bool> fightersTeams,
@@ -303,7 +303,7 @@ namespace FrostfallSaga.Fight.Targeters
         ///     false otherwise.
         /// </returns>
         public bool AtLeastOneCellResolvable(
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             FightCell initiatorCell,
             Dictionary<Fighter, bool> fightersTeams,
             AFightCellAlteration[] cellAlterations = null
@@ -356,7 +356,7 @@ namespace FrostfallSaga.Fight.Targeters
                         if (targetedCells.Any(cell => alliesCells.Contains(cell)))
                             throw new TargeterUnresolvableException("Allies exluded from available targets.");
                         break;
-                    case ETarget.OPONENTS:
+                    case ETarget.OPONNENTS:
                         List<FightCell> oponentsCells = fightersTeams.Where(fighterTeam =>
                             fighterTeam.Value != initiatorIsAlly
                         ).Select(fighterTeam => fighterTeam.Key.cell).ToList();

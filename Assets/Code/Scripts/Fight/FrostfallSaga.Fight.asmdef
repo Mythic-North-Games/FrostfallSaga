@@ -1,23 +1,23 @@
 {
-  "name": "FrostfallSaga.Fight",
-  "rootNamespace": "FrostfallSaga.Fight",
-  "references": [
-    "Cinemachine",
-    "FrostfallSaga.Core",
-    "FrostfallSaga.Grid",
-    "FrostfallSaga.EntitiesVisual",
-    "FrostfallSaga.GameObjectVisuals",
-    "FrostfallSaga.InventorySystem",
-    "FrostfallSaga.Utils",
-    "FrostfallSaga.Procedural"
-  ],
-  "includePlatforms": [],
-  "excludePlatforms": [],
-  "allowUnsafeCode": false,
-  "overrideReferences": false,
-  "precompiledReferences": [],
-  "autoReferenced": true,
-  "defineConstraints": [],
-  "versionDefines": [],
-  "noEngineReferences": false
+    "name": "FrostfallSaga.Fight",
+    "rootNamespace": "FrostfallSaga.Fight",
+    "references": [
+        "Cinemachine",
+        "FrostfallSaga.Core",
+        "FrostfallSaga.Grid",
+        "FrostfallSaga.EntitiesVisual",
+        "FrostfallSaga.GameObjectVisuals",
+        "FrostfallSaga.InventorySystem",
+        "FrostfallSaga.Procedural",
+        "FrostfallSaga.Utils"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

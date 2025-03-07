@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using FrostfallSaga.Core.Fight;
+using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Fight.Controllers;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Fight.UI;
-using FrostfallSaga.Grid;
-using UnityEngine;
 
 namespace FrostfallSaga.Fight
 {
@@ -22,7 +22,7 @@ namespace FrostfallSaga.Fight
         // Needed external components
         [SerializeField] private FightLoader _fightLoader;
 
-        [field: SerializeField] public AHexGrid FightGrid { get; private set; }
+        [field: SerializeField] public FightHexGrid FightGrid { get; private set; }
         [SerializeField] private FighterActionPanelController _actionPanel;
         [SerializeField] private Material _cellHighlightMaterial;
         [SerializeField] private Material _cellActionableHighlightMaterial;
@@ -45,6 +45,11 @@ namespace FrostfallSaga.Fight
         public Action<Fighter, bool> onFighterTurnEnded; // <the fighter that plays, if he's an ally>
 
         public Dictionary<Fighter, bool> FighterTeams => GetFighterTeamsAsDict(_allies, _enemies);
+
+        private void Awake()
+        {
+            HeroTeamQuests.Instance.InitializeQuests(this);
+        }
 
         private void OnFightLoaded(Fighter[] allies, Fighter[] enemies)
         {
@@ -183,7 +188,7 @@ namespace FrostfallSaga.Fight
 
         private void OnEnable()
         {
-            if (FightGrid == null) FightGrid = FindObjectOfType<AHexGrid>();
+            if (FightGrid == null) FightGrid = FindObjectOfType<FightHexGrid>();
             if (FightGrid == null)
             {
                 Debug.LogError("No fight grid found.");
@@ -229,7 +234,7 @@ namespace FrostfallSaga.Fight
             return teams;
         }
 
-        private void PositionFightersOnGrid(AHexGrid fightGrid, Fighter[] allies, Fighter[] enemies)
+        private void PositionFightersOnGrid(FightHexGrid fightGrid, Fighter[] allies, Fighter[] enemies)
         {
             int xCellIndex = 0;
             foreach (Fighter ally in allies)

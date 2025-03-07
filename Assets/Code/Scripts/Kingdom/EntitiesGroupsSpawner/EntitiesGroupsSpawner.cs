@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
@@ -18,7 +17,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
         [field: SerializeField] public int MaxEntitiesGroupsOnMap { get; private set; }
         [field: SerializeField] public string BaseGroupName { get; private set; }
 
-        [SerializeField] private AHexGrid grid;
+        [SerializeField] private KingdomHexGrid grid;
         [SerializeField] private KingdomLoader kingdomLoader;
         private int _noSpawnInARow;
         private List<EntitiesGroup> _spawnedEntitiesGroups;
@@ -28,7 +27,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
 
         private void Awake()
         {
-            if (grid == null) grid = FindObjectOfType<AHexGrid>();
+            if (grid == null) grid = FindObjectOfType<KingdomHexGrid>();
             if (grid == null)
             {
                 Debug.LogError("No hex grid found on scene. Can't spawn objects.");

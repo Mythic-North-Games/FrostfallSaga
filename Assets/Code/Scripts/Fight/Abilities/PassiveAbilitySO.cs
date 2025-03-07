@@ -4,7 +4,6 @@ using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.FightConditions;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities
@@ -15,10 +14,11 @@ namespace FrostfallSaga.Fight.Abilities
     ///     targets.
     ///     If no conditions are set, the passive ability will be applied to the targets automatically when the fight begins.
     /// </summary>
-    [CreateAssetMenu(fileName = "PassiveAbility", menuName = "ScriptableObjects/Fight/Abilities/PassiveAbility",
-        order = 0)]
+    [CreateAssetMenu(fileName = "PassiveAbility", menuName = "ScriptableObjects/Fight/Abilities/PassiveAbility", order = 0)]
     public class PassiveAbilitySO : ABaseAbility
     {
+        [SerializeReference] public AEffect[] Effects;
+
         [SerializeReference]
         [Header("Passive ability specific configuration")]
         [Tooltip("The conditions that need to be met for the passive ability to be applied.")]
@@ -37,7 +37,6 @@ namespace FrostfallSaga.Fight.Abilities
         public bool LastsForFight { get; private set; }
 
         public FighterBuffVisualsController VisualsController;
-        [field: SerializeField] public AEffect[] Effects { get; private set; }
 
         /// <summary>
         ///     Applies the passive ability to the given fighter. Effects application, visuals, sounds and events are handled here.
@@ -94,7 +93,7 @@ namespace FrostfallSaga.Fight.Abilities
             initiator.onPassiveAbilityRemoved?.Invoke(initiator, this);
         }
 
-        public bool CheckConditions(Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
+        public bool CheckConditions(Fighter fighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
         {
             return ActivationConditions.Length == 0 ||
                    ActivationConditions.All(condition => condition.CheckCondition(fighter, fightGrid, fighterTeams));
@@ -117,7 +116,7 @@ namespace FrostfallSaga.Fight.Abilities
                                 .Select(pair => pair.Key)
                         );
                         break;
-                    case ETarget.OPONENTS:
+                    case ETarget.OPONNENTS:
                         targets.AddRange(
                             fighterTeams
                                 .Where(fighterTeam => fighterTeam.Value != fighterTeams[initiator])

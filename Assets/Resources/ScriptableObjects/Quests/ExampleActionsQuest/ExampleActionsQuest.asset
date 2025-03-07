@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: ExampleActionsQuest
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Example actions quest
-  <Description>k__BackingField: Lorem ipsum dolor sit amet
+  <Description>k__BackingField: You have to do this then that because the world is
+    mad you know.
+  <OriginLocation>k__BackingField: Sovengard
   <Type>k__BackingField: 2
   <IsCompleted>k__BackingField: 0
   Actions:
@@ -26,10 +28,8 @@ MonoBehaviour:
     - rid: 2054917332478984194
       type: {class: EncounterEnemiesGroupQuestAction, ns: FrostfallSaga.Kingdom.QuestActions, asm: FrostfallSaga.Kingdom}
       data:
-        <Instruction>k__BackingField: 
-        <IsCompleted>k__BackingField: 0
+        <IsCompleted>k__BackingField: 1
     - rid: 2054917332478984195
       type: {class: WinFightQuestAction, ns: FrostfallSaga.Fight.QuestActions, asm: FrostfallSaga.Fight}
       data:
-        <Instruction>k__BackingField: 
         <IsCompleted>k__BackingField: 0

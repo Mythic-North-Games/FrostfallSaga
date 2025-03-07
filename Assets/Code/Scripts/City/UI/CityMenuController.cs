@@ -3,8 +3,9 @@ using FrostfallSaga.Core;
 using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Core.Cities.CitySituations;
 using FrostfallSaga.Core.GameState;
-using FrostfallSaga.Utils.Scenes;
+using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Utils.UI;
+using FrostfallSaga.Utils.Scenes;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -70,6 +71,7 @@ namespace FrostfallSaga.City.UI
 
         private void Start()
         {
+            HeroTeamQuests.Instance.InitializeQuests(this);
             SetupMainMenu();
         }
 
@@ -145,6 +147,7 @@ namespace FrostfallSaga.City.UI
 
         private void OnSituationResolved(ACitySituationSO citySituation)
         {
+            _situationsMenuController.SetupSituationsMenu(_cityConfiguration.CitySituations);
             StartCoroutine(_situationsMenuController.Display());
         }
 

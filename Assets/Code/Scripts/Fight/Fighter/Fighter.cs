@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
+using FrostfallSaga.Core.InventorySystem;
+using FrostfallSaga.Grid;
+using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Effects;
@@ -12,9 +15,6 @@ using FrostfallSaga.Fight.FightCells.Impediments;
 using FrostfallSaga.Fight.FightItems;
 using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Fight.Targeters;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.InventorySystem;
 using FrostfallSaga.Utils;
 using UnityEngine;
 
@@ -46,11 +46,13 @@ namespace FrostfallSaga.Fight.Fighters
         [SerializeField] private int _godFavorsPoints;
         [field: SerializeField] public FighterClassSO FighterClass { get; private set; }
         [field: SerializeField] public PersonalityTraitSO PersonalityTrait { get; private set; }
-        [SerializeField] private Inventory _inventory;
+        [field: SerializeField] public Inventory Inventory { get; private set; }
         [field: SerializeField] public WeaponSO Weapon { get; private set; }
         [field: SerializeField] public ActiveAbilitySO[] ActiveAbilities { get; private set; }
         [field: SerializeField] public PassiveAbilitySO[] PassiveAbilities { get; private set; }
         [field: SerializeField] public bool IsParalyzed { get; private set; }
+        [field: SerializeField] public int MinStycasLoot { get; private set; }
+        [field: SerializeField] public int MaxStycasLoot { get; private set; }
 
         /////////////////////////////////////
         // Movements & location properties //
@@ -173,10 +175,12 @@ namespace FrostfallSaga.Fight.Fighters
             _initialStats = fighterConfiguration.ExtractFighterStats();
             FighterClass = fighterConfiguration.FighterClass;
             PersonalityTrait = fighterConfiguration.PersonalityTrait as PersonalityTraitSO;
-            _inventory = inventory;
-            Weapon = _inventory.GetWeapon() as WeaponSO;
+            Inventory = inventory;
+            Weapon = Inventory.GetWeapon() as WeaponSO;
             ActiveAbilities = equippedActiveAbilities;
             PassiveAbilities = equippedPassiveAbilities;
+            MinStycasLoot = fighterConfiguration.MinStycasLoot;
+            MaxStycasLoot = fighterConfiguration.MaxStycasLoot;
             _receiveDamageAnimationName = fighterConfiguration.ReceiveDamageAnimationName;
             _healSelfAnimationName = fighterConfiguration.HealSelfAnimationName;
             _reduceStatAnimationName = fighterConfiguration.ReduceStatAnimationName;
@@ -528,10 +532,11 @@ namespace FrostfallSaga.Fight.Fighters
             return _stats.maxHealth;
         }
 
-        public int GetStrength()
-        {
-            return _stats.strength;
-        }
+        public bool IsDead() => _stats.health <= 0;
+
+        public bool IsDamaged() => _stats.health < _stats.maxHealth;
+
+        public int GetStrength() => _stats.strength;
 
         public int GetDexterity()
         {
@@ -661,7 +666,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
         /// <returns>True if he has enough move points and if there is at least on cell free around him.</returns>
-        public bool CanMove(AHexGrid fightGrid)
+        public bool CanMove(FightHexGrid fightGrid)
         {
             return _stats.movePoints > 0 && CellsNeighbors.GetNeighbors(fightGrid, cell).Length > 0;
         }
@@ -673,7 +678,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="fightersTeams">The teams of the fighters in the fight.</param>
         /// <param name="target">The optional target to check if the direct attack can be used on.</param>
         /// <returns>True if he has enough actions points and if the direct attack targeter can be resolved around him.</returns>
-        public bool CanDirectAttack(AHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams, Fighter target = null)
+        public bool CanDirectAttack(FightHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams, Fighter target = null)
         {
             return Weapon.UseActionPointsCost <= _stats.actionPoints && (
                 (
@@ -693,7 +698,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="mandatoryEffectTypes">The optionnal effect to apply.</param>
         /// <returns>True if he has enough actions points and if an active ability targeter can be resolved around him.</returns>
         public bool CanUseAtLeastOneActiveAbility(
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fightersTeams,
             Fighter target = null,
             ListOfTypes<AEffect> mandatoryEffectTypes = null
@@ -706,9 +711,12 @@ namespace FrostfallSaga.Fight.Fighters
                     if (!CanUseActiveAbility(fightGrid, activeAbility, fightersTeams, target)) return false;
                     if (mandatoryEffectTypes != null && mandatoryEffectTypes.Any())
                     {
-                        AEffect[] abilityEffects = activeAbility.Effects;
-                        return mandatoryEffectTypes.Any(effect =>
-                            abilityEffects.Any(e => e.GetType() == effect.GetType()));
+                        if (!CanUseActiveAbility(fightGrid, activeAbility, fightersTeams, target)) return false;
+                        if (mandatoryEffectTypes != null && mandatoryEffectTypes.Count > 0)
+                        {
+                            return mandatoryEffectTypes.Any(effectType => AbilityHasEffect(activeAbility, effectType));
+                        }
+                        return true;
                     }
 
                     return true;
@@ -728,7 +736,7 @@ namespace FrostfallSaga.Fight.Fighters
         public FightCell[] GetFirstTouchingCellSequence(
             Targeter targeter,
             Fighter target,
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fightersTeams
         )
         {
@@ -746,7 +754,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="target">The optional target to check if the active ability can be used on.</param>
         /// <returns>True if he has enough actions points and if the active ability targeter can be resolved around him.</returns>
         public bool CanUseActiveAbility(
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             ActiveAbilitySO activeAbility,
             Dictionary<Fighter, bool> fightersTeams,
             Fighter target = null
@@ -774,7 +782,7 @@ namespace FrostfallSaga.Fight.Fighters
         /// </summary>
         /// <param name="fightGrid">The fight grid where the fighter is currently fighting.</param>
         /// <returns>True if he can move, direct attack or use one of its active ability.</returns>
-        public bool CanAct(AHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        public bool CanAct(FightHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
         {
             return CanMove(fightGrid) ||
                    CanDirectAttack(fightGrid, fightersTeams) ||
@@ -821,7 +829,7 @@ namespace FrostfallSaga.Fight.Fighters
         private bool CanUseTargeterOnFighter(
             Targeter targeter,
             Fighter target,
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fightersTeams,
             AFightCellAlteration[] cellAlterations = null
         )
@@ -831,9 +839,14 @@ namespace FrostfallSaga.Fight.Fighters
             );
         }
 
+        private bool AbilityHasEffect(ActiveAbilitySO activeAbility, Type effectType)
+        {
+            return activeAbility.Effects.Any(abilityEffect => abilityEffect.GetType() == effectType);
+        }
+
         private int GetArmorPhysicalResistance()
         {
-            return _inventory.GetArmorPieces().Sum(armorPiece => ((ArmorSO)armorPiece).PhysicalResistance);
+            return Inventory.GetArmorPieces().Sum(armorPiece => ((ArmorSO)armorPiece).PhysicalResistance);
         }
 
         private Dictionary<EMagicalElement, int> GetArmorMagicalResistances()
@@ -842,7 +855,7 @@ namespace FrostfallSaga.Fight.Fighters
             foreach (EMagicalElement magicalElement in Enum.GetValues(typeof(EMagicalElement)))
                 armorMagicalResistances.Add(magicalElement, 0);
 
-            foreach (ArmorSO armorPiece in _inventory.GetArmorPieces())
+            foreach (ArmorSO armorPiece in Inventory.GetArmorPieces())
             {
                 Dictionary<EMagicalElement, int> armorPieceMagicalResistances =
                     SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(

@@ -7,16 +7,11 @@ namespace FrostfallSaga.Fight.Statuses
     [Serializable]
     public class BleedStatus : AStatus
     {
-        private static readonly string NAME = "Bleed";
-        private static readonly string DESCRIPTION = "The fighter's health is reduced.";
-
         [field: SerializeField] public int BleedingDamage { get; private set; }
 
         public BleedStatus()
         {
             StatusType = EStatusType.BLEED;
-            Name = NAME;
-            Description = DESCRIPTION;
         }
 
         public BleedStatus(
@@ -28,8 +23,7 @@ namespace FrostfallSaga.Fight.Statuses
             FighterBuffVisualsController visualsController,
             int bleedingDamage
         )
-            : base(EStatusType.BLEED, NAME, DESCRIPTION, isPermanent, duration, triggerOnFirstApply, isRecurring,
-                triggerTime, visualsController)
+            : base(EStatusType.BLEED, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
         {
             BleedingDamage = bleedingDamage;
         }
@@ -44,6 +38,17 @@ namespace FrostfallSaga.Fight.Statuses
         protected override void DoRemoveStatus(Fighter fighter)
         {
             Debug.Log($"{fighter.name} stopped bleeding.");
+        }
+
+        public override int GetPotentialDamages()
+        {
+            if (IsPermanent) return BleedingDamage * 3;  // INFO: We multiply by three to get the "average" damage over the duration.
+            return BleedingDamage * Duration / 2;   // INFO: We divide by two to get the "average" damage over the duration.
+        }
+
+        public override int GetPotentialHeal()
+        {
+            return 0;
         }
     }
 }

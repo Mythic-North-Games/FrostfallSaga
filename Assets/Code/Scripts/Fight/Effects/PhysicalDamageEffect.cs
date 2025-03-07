@@ -55,5 +55,14 @@ namespace FrostfallSaga.Fight.Effects
         {
             return PhysicalDamageAmount * (canMasterstroke ? 2 : 1);
         }
+        public override int GetPotentialEffectHeal(Fighter initiator, Fighter receiver, bool canMasterstroke)
+        {
+            return 0;
+        }
+
+        public override string GetUIEffectDescription()
+        {
+            return $"Deals <color=red><b>{PhysicalDamageAmount}</b></color> physical damage to target.";
+        }
     }
 }

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FrostfallSaga.Fight.Abilities;
-using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.UI;
+using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using UnityEngine;
@@ -541,7 +541,7 @@ namespace FrostfallSaga.Fight.Controllers
 
         #region Cells mouse events binding
 
-        private void BindCellMouseEventsForTurn(AHexGrid fightGrid)
+        private void BindCellMouseEventsForTurn(FightHexGrid fightGrid)
         {
             foreach (Cell cell in fightGrid.GetCells())
             {
@@ -551,7 +551,7 @@ namespace FrostfallSaga.Fight.Controllers
             }
         }
 
-        private void UnbindCellMouseEvents(AHexGrid fightGrid)
+        private void UnbindCellMouseEvents(FightHexGrid fightGrid)
         {
             foreach (Cell cell in fightGrid.GetCells())
             {
