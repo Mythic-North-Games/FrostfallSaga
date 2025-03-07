@@ -35,7 +35,7 @@ namespace FrostfallSaga.Grid
         /// <param name="includeOccupiedNeighbors">If the occupied cells should be included.</param>
         /// <returns>The current cell neighbors in the given grid.</returns>
         public static Cell[] GetNeighbors(
-            HexGrid hexGrid,
+            AHexGrid hexGrid,
             Cell cellToGetTheNeighbors,
             bool includeInaccessibleNeighbors = false,
             bool includeHeightInaccessibleNeighbors = false,
@@ -53,7 +53,7 @@ namespace FrostfallSaga.Grid
             foreach (Vector2Int direction in directionsToCheck)
             {
                 Vector2Int neighborCoord = cellToGetTheNeighbors.Coordinates + direction;
-                Dictionary<Vector2Int, Cell> cellsByCoordinates = hexGrid.CellsByCoordinates;
+                Dictionary<Vector2Int, Cell> cellsByCoordinates = hexGrid.Cells;
                 if (cellsByCoordinates.ContainsKey(neighborCoord))
                 {
                     Cell currentNeighbor = cellsByCoordinates[neighborCoord];
@@ -73,6 +73,35 @@ namespace FrostfallSaga.Grid
             }
 
             return neighbors.ToArray();
+        }
+
+        public static List<Cell> GetCellsInRange(int range, Cell cell)
+        {
+            HashSet<Cell> visitedCells = new HashSet<Cell>();
+            Queue<Cell> queue = new Queue<Cell>();
+
+            queue.Enqueue(cell);
+            visitedCells.Add(cell);
+            for (int i = 0; i < range; i++)
+            {
+                int levelSize = queue.Count;
+                for (int j = 0; j < levelSize; j++)
+                {
+                    Cell currentCell = queue.Dequeue();
+                    Cell[] neighbors = GetNeighbors(currentCell.ParentGrid, currentCell);
+
+                    foreach (Cell neighbor in neighbors)
+                    {
+                        if (!visitedCells.Contains(neighbor))
+                        {
+                            visitedCells.Add(neighbor);
+                            queue.Enqueue(neighbor);
+                        }
+                    }
+                }
+            }
+            visitedCells.Remove(cell);
+            return visitedCells.ToList();
         }
 
         /// <summary>

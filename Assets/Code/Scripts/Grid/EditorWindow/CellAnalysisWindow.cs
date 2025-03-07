@@ -6,7 +6,7 @@ namespace FrostfallSaga.Grid
 {
     public class CellAnalysisWindow : EditorWindow
     {
-        [SerializeField] private HexGrid Grid;
+        [SerializeField] private AHexGrid Grid;
         [SerializeField] private Cell TargetCell;
 
         [MenuItem("Window/CellAnalysis")]
@@ -18,7 +18,7 @@ namespace FrostfallSaga.Grid
         private void OnGUI()
         {
             GUILayout.Label("Grid", EditorStyles.boldLabel);
-            Grid = EditorGUILayout.ObjectField("Select Grid", Grid, typeof(HexGrid), true) as HexGrid;
+            Grid = EditorGUILayout.ObjectField("Select Grid", Grid, typeof(AHexGrid), true) as AHexGrid;
 
             GUILayout.Label("Target Cell", EditorStyles.boldLabel);
             TargetCell = EditorGUILayout.ObjectField("Select Cell", TargetCell, typeof(Cell), true) as Cell;
@@ -27,9 +27,8 @@ namespace FrostfallSaga.Grid
             {
                 if (GUILayout.Button("Analyze Neighbors"))
                 {
-                    CellAnalysis analyzer = new CellAnalysis(TargetCell, Grid);
-                    analyzer.Analyze();
-                    analyzer.PrintAnalysisWithPercentages();
+                    CellAnalysis.AnalyzeAtCell(TargetCell, Grid);
+                    CellAnalysis.PrintAnalysisWithPercentages();
                 }
             }
         }

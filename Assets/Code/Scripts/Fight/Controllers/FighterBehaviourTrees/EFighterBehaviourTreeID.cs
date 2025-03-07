@@ -5,6 +5,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
     /// </summary>
     public enum EFighterBehaviourTreeID
     {
-        Aggressive
+        Aggressive,
+        Supportive,
     }
 }

@@ -29,6 +29,8 @@ namespace FrostfallSaga.Core.Fight
         [field: SerializeField, Range(0, 1)] public float DodgeChance { get; private set; }
         [field: SerializeField, Range(0, 1)] public float MasterstrokeChance { get; private set; }
         [field: SerializeField, Range(0, 9999)] public int Initiative { get; private set; }
+        [field: SerializeField] public int TrapDectectionRange  { get; private set; }
+        [field: SerializeField] public bool CanDetectTraps { get; private set; }
         #endregion
 
         #region Animations

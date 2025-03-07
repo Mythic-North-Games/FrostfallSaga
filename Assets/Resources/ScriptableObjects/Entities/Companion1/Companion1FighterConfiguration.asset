@@ -15,7 +15,8 @@ MonoBehaviour:
   <FighterPrefab>k__BackingField: {fileID: 2920049516156015753, guid: 5f1dab0e72fc4b080a019f723145dadf, type: 3}
   <FighterClass>k__BackingField: {fileID: 11400000, guid: 8d3cfbd8265f5e54cb7a7563a0ae8f1b, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 0}
-  <AvailableActiveAbilities>k__BackingField: []
+  <AvailableActiveAbilities>k__BackingField:
+  - {fileID: 11400000, guid: 9f5cc9b8b6b8ee642b15d9ccaaee38eb, type: 2}
   <ActiveAbilitiesCapacity>k__BackingField: 0
   <AvailablePassiveAbilities>k__BackingField: []
   <PassiveAbilitiesCapacity>k__BackingField: 0
@@ -60,7 +61,7 @@ MonoBehaviour:
   <ReduceStatAnimationName>k__BackingField: 
   <IncreaseStatAnimationName>k__BackingField: 
   <EquipedActiveAbilities>k__BackingField:
-  - {fileID: 11400000, guid: 9f5cc9b8b6b8ee642b15d9ccaaee38eb, type: 2}
+  - {fileID: 11400000, guid: 771f9999af2e0ca418b20108f04f7b1f, type: 2}
   - {fileID: 11400000, guid: 43c8941c52854fe4888d91f496a90702, type: 2}
   - {fileID: 11400000, guid: 5bb77328c24225e4e8cd1e0dba0dcacb, type: 2}
   - {fileID: 11400000, guid: 8aaa384903d024e4db7c6047799e8f6a, type: 2}
@@ -163,4 +164,4 @@ MonoBehaviour:
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
-  <Health>k__BackingField: 0
+  <Health>k__BackingField: 52

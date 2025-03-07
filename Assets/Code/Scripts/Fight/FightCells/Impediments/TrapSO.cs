@@ -7,6 +7,7 @@ using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Fight.Targeters;
 using System.Collections.Generic;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
+using FrostfallSaga.Grid.Cells;
 namespace FrostfallSaga.Fight.FightCells.Impediments
 {
     /// <summary>
@@ -26,6 +27,7 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
         [SerializeField] public ETrapType TrapType  { get; private set; }
 
         public Action onTrapTriggered;
+        [field: SerializeField] public GameObject TrapIsVisiblePrefab { get; private set; }
 
         public void
          Trigger(Fighter receiver, FightCell targetedCell)

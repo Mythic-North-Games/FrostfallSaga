@@ -43,5 +43,16 @@ namespace FrostfallSaga.Fight.Statuses
         {
             Debug.Log($"{fighter.name} stopped bleeding.");
         }
+
+        public override int GetPotentialDamages()
+        {
+            if (IsPermanent) return BleedingDamage * 3;  // INFO: We multiply by three to get the "average" damage over the duration.
+            return BleedingDamage * Duration / 2;   // INFO: We divide by two to get the "average" damage over the duration.
+        }
+
+        public override int GetPotentialHeal()
+        {
+            return 0;
+        }
     }
 }

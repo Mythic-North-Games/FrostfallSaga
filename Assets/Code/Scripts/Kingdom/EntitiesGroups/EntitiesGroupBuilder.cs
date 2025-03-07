@@ -17,7 +17,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         private readonly EntityBuilder _entityBuilder = new();
         public GameObject BlankEntitiesGroupPrefab { get; private set; }
 
-        public EntitiesGroup BuildEntitiesGroup(EntitiesGroupData entitiesGroupData, HexGrid grid)
+        public EntitiesGroup BuildEntitiesGroup(EntitiesGroupData entitiesGroupData, AHexGrid grid)
         {
             GameObject entitiesGroupPrefab = WorldGameObjectInstantiator.Instance.Instantiate(BlankEntitiesGroupPrefab);
             EntitiesGroup entitiesGroup = entitiesGroupPrefab.GetComponent<EntitiesGroup>();
@@ -26,7 +26,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             entitiesGroup.UpdateEntities(entities.ToArray());
             entitiesGroup.UpdateDisplayedEntity(entities.Find(entity => entity.SessionId == entitiesGroupData.displayedEntitySessionId));
             entitiesGroup.movePoints = entitiesGroupData.movePoints;
-            entitiesGroup.TeleportToCell(grid.CellsByCoordinates[new(entitiesGroupData.cellX, entitiesGroupData.cellY)] as KingdomCell);
+            entitiesGroup.TeleportToCell(grid.Cells[new(entitiesGroupData.cellX, entitiesGroupData.cellY)] as KingdomCell);
             return entitiesGroup;
         }
 

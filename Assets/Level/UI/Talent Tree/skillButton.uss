@@ -1,0 +1,126 @@
+.skillButtonEnable {
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    height: 100%;
+    background-image: none;
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(25, 25, 25, 0.82);
+    border-top-left-radius: 28%;
+    border-top-right-radius: 28%;
+    border-bottom-right-radius: 28%;
+    border-bottom-left-radius: 28%;
+    width: 100%;
+    text-overflow: clip;
+    visibility: visible;
+    position: relative;
+    flex-direction: column;
+    align-self: center;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    display: flex;
+    cursor: initial;
+    opacity: 1;
+}
+
+.skillButtonEnable:active {
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    height: 100%;
+    background-image: none;
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(5, 15, 89, 0.78);
+    border-top-left-radius: 28%;
+    border-top-right-radius: 28%;
+    border-bottom-right-radius: 28%;
+    border-bottom-left-radius: 28%;
+    width: 100%;
+    text-overflow: clip;
+    visibility: visible;
+    position: relative;
+    flex-direction: column;
+    align-self: center;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    display: flex;
+    cursor: initial;
+}
+
+.skillButtonEnable:hover {
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    height: 100%;
+    background-image: none;
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(22, 39, 103, 0.78);
+    border-top-left-radius: 28%;
+    border-top-right-radius: 28%;
+    border-bottom-right-radius: 28%;
+    border-bottom-left-radius: 28%;
+    width: 100%;
+    text-overflow: clip;
+    visibility: visible;
+    position: relative;
+    flex-direction: column;
+    align-self: center;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    display: flex;
+    cursor: initial;
+}
+
+.skillButtonEnable:disabled {
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    height: 100%;
+    background-image: none;
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(0, 53, 89, 0.78);
+    border-top-left-radius: 28%;
+    border-top-right-radius: 28%;
+    border-bottom-right-radius: 28%;
+    border-bottom-left-radius: 28%;
+    width: 100%;
+    text-overflow: clip;
+    visibility: visible;
+    position: relative;
+    flex-direction: column;
+    align-self: center;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    display: flex;
+    cursor: initial;
+}
+
+.skillButtonDisable {
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    height: 100%;
+    background-image: none;
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(25, 25, 25, 0.82);
+    border-top-left-radius: 28%;
+    border-top-right-radius: 28%;
+    border-bottom-right-radius: 28%;
+    border-bottom-left-radius: 28%;
+    width: 100%;
+    text-overflow: clip;
+    visibility: visible;
+    position: relative;
+    flex-direction: column;
+    align-self: center;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    display: flex;
+    cursor: initial;
+    opacity: 0.34;
+}
