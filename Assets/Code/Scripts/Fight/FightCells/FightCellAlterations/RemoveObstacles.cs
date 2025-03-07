@@ -17,7 +17,6 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
                 fightCell.Obstacle = null;
                 UnityEngine.Object.Destroy(fightCell.CurrentImpedimentGameObject);
             }
-
         }
 
         public override void Remove(FightCell cell)
