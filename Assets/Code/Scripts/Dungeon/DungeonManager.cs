@@ -9,6 +9,7 @@ using FrostfallSaga.Core.GameState.Dungeon;
 using FrostfallSaga.Core.GameState.Fight;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Scenes;
+using FrostfallSaga.Audio;
 
 namespace FrostfallSaga.Dungeon
 {
@@ -23,7 +24,7 @@ namespace FrostfallSaga.Dungeon
 
             DungeonConfigurationSO dungeonConfiguration = dungeonState.DungeonConfiguration;
             if (dungeonConfiguration == null)
-            {
+            {   
                 Debug.LogError("No dungeon configuration found. Not able to generate dungeon fights.");
                 return;
             }

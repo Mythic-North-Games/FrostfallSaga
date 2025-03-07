@@ -56,7 +56,8 @@ namespace FrostfallSaga.Audio
         #if UNITY_EDITOR
 
 
-        public void InitializeAudioClipSelectorFromTests(UIAudioClipsConfig uIAudioClipsConfig) {
+        public void InitializeAudioClipSelectorFromTests(UIAudioClipsConfig uIAudioClipsConfig) 
+        {
             uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
         }
         

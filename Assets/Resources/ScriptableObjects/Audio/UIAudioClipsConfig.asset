@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: UIAudioClipsConfig
   m_EditorClassIdentifier: 
   fightBeginSound: {fileID: 8300000, guid: 59ea31caf97182d439f6e06cfb477925, type: 3}
-  buttonClickSound: {fileID: 0}
-  buttonHoverSound: {fileID: 0}
-  fightWonSound: {fileID: 0}
-  fightLostSound: {fileID: 0}
+  buttonClickSound: {fileID: 8300000, guid: fc5d74cd565c24e40a4695c10b95bda5, type: 3}
+  buttonHoverSound: {fileID: 8300000, guid: 33a7be0e683eb6b4aab48130c7f4e42e, type: 3}
+  fightWonSound: {fileID: 8300000, guid: 5f193dd6196cda149b13896ee57f082f, type: 3}
+  fightLostSound: {fileID: 8300000, guid: 1633eae6c94a39841b67c17c4d9f79b2, type: 3}

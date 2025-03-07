@@ -9,6 +9,7 @@ using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Controllers;
 using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Fight.UI;
+using FrostfallSaga.Audio;
 
 namespace FrostfallSaga.Fight
 {
@@ -48,7 +49,10 @@ namespace FrostfallSaga.Fight
         private Fighter _playingFighter;
 
         private void OnFightersGenerated(Fighter[] allies, Fighter[] enemies)
-        {
+        {      
+            AudioManager.instance.PlayUISound(UISounds.FightBegin);
+            //AudioManager.instance.PlaySoundEffectClip()
+
             // Init
             _playingFighter = null;
             _allies = new(allies);
@@ -258,12 +262,14 @@ namespace FrostfallSaga.Fight
             }
         }
 
+
         private EWinner GetWinner(List<Fighter> allies, List<Fighter> enemies)
         {
             int teamHealth = 0;
             allies.ForEach(ally => teamHealth += ally.GetHealth());
             if (teamHealth <= 0)  // Should be equal to zero at minimum, but just in case, we check for negative values
             {
+                AudioManager.instance.PlayUISound(UISounds.FightLost);
                 return EWinner.ENEMIES;
             }
 
@@ -271,6 +277,7 @@ namespace FrostfallSaga.Fight
             enemies.ForEach(enemy => teamHealth += enemy.GetHealth());
             if (teamHealth <= 0)  // Should be equal to zero at minimum, but just in case, we check for negative values
             {
+                AudioManager.instance.PlayUISound(UISounds.FightWon);
                 return EWinner.ALLIES;
             }
 
