@@ -80,7 +80,6 @@ namespace FrostfallSaga.Kingdom.InterestPoints
         /// </summary>
         public InterestPointData ExtractInterestPointData(InterestPoint interestPoint)
         {
-            Debug.Log(interestPoint);
             return new InterestPointData(
                 interestPoint.InterestPointConfiguration,
                 interestPoint.cell.Coordinates.x,
