@@ -17,14 +17,22 @@ MonoBehaviour:
     mad you know.
   <OriginLocation>k__BackingField: Sovengard
   <Type>k__BackingField: 2
+  <RewardConfiguration>k__BackingField:
+    <MinStycas>k__BackingField: 100
+    <MaxStycas>k__BackingField: 100
+    <PossibleItems>k__BackingField:
+    - element: {fileID: 11400000, guid: 6d0f892e31201c0d0a9cfe9f295c83ac, type: 2}
+      value:
+        element: 1
+        value: 1
   <IsCompleted>k__BackingField: 0
   Actions:
-  - rid: 2054917404888137728
+  - rid: 6860899938052079616
   <OrderedActions>k__BackingField: 0
   references:
     version: 2
     RefIds:
-    - rid: 2054917404888137728
-      type: {class: WinFightQuestAction, ns: FrostfallSaga.Fight.QuestActions, asm: FrostfallSaga.Fight}
+    - rid: 6860899938052079616
+      type: {class: EncounterEnemiesGroupQuestAction, ns: FrostfallSaga.Kingdom.QuestActions, asm: FrostfallSaga.Kingdom}
       data:
         <IsCompleted>k__BackingField: 0
