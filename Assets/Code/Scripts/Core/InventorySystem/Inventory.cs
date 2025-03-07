@@ -93,6 +93,11 @@ namespace FrostfallSaga.Core.InventorySystem
             return armorPieces.ToArray();
         }
 
+        public InventorySlot[] GetEquipmentSlots()
+        {
+            return new InventorySlot[] { WeaponSlot, HelmetSlot, ChestplateSlot, GauntletsSlot, BootsSlot };
+        }
+
         public AConsumable[] GetConsumables()
         {
             return BagSlots
@@ -175,25 +180,12 @@ namespace FrostfallSaga.Core.InventorySystem
 
         private InventorySlot GetEquipmentSlotWithItem(ItemSO item)
         {
-            if (WeaponSlot.Item == item)
+            foreach (InventorySlot slot in GetEquipmentSlots())
             {
-                return WeaponSlot;
-            }
-            if (HelmetSlot.Item == item)
-            {
-                return HelmetSlot;
-            }
-            if (ChestplateSlot.Item == item)
-            {
-                return ChestplateSlot;
-            }
-            if (GauntletsSlot.Item == item)
-            {
-                return GauntletsSlot;
-            }
-            if (BootsSlot.Item == item)
-            {
-                return BootsSlot;
+                if (slot.Item == item)
+                {
+                    return slot;
+                }
             }
             return null;
         }
