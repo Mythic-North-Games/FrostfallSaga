@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
-using UnityEngine;
-using UnityEngine.UIElements;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Utils.UI;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Kingdom.UI
 {
@@ -20,13 +20,13 @@ namespace FrostfallSaga.Kingdom.UI
         private static readonly string PANEL_HIDDEN_CLASSNAME = "panelContainerHidden";
         private static readonly string CITY_PANEL_HIDDEN_CLASSNAME = "cityPanelContainerHidden";
 
-        public Action<CityBuildingConfigurationSO> onCityEnterClicked;
-
         [field: SerializeField] public VisualTreeAsset EnterCityPanelTemplate { get; private set; }
         [SerializeField] private KingdomManager _kingdomManager;
 
         private TemplateContainer _cityGatePanel;
         private CityBuildingConfigurationSO _currentCity;
+
+        public Action<CityBuildingConfigurationSO> onCityEnterClicked;
 
         private void Awake()
         {
@@ -35,15 +35,13 @@ namespace FrostfallSaga.Kingdom.UI
                 Debug.LogError("KingdomManager is not set. Won't be able to display city enter panel.");
                 return;
             }
-            _kingdomManager.onInterestPointEncountered += OnCityBuildingEncountered;
+
+            _kingdomManager.OnInterestPointEncountered += OnCityBuildingEncountered;
         }
 
         private void OnCityBuildingEncountered(AInterestPointConfigurationSO interestPointConfiguration)
         {
-            if (interestPointConfiguration is not CityBuildingConfigurationSO cityBuildingConfiguration)
-            {
-                return;
-            }
+            if (interestPointConfiguration is not CityBuildingConfigurationSO cityBuildingConfiguration) return;
 
             _currentCity = cityBuildingConfiguration;
             _cityGatePanel = EnterCityPanelTemplate.Instantiate();
@@ -59,7 +57,8 @@ namespace FrostfallSaga.Kingdom.UI
         {
             _cityGatePanel.Q<VisualElement>(PANEL_CONTAINER_UI_NAME).RemoveFromClassList(PANEL_HIDDEN_CLASSNAME);
             yield return new WaitForSeconds(0.1f);
-            _cityGatePanel.Q<VisualElement>(CITY_PANEL_CONTAINER_UI_NAME).RemoveFromClassList(CITY_PANEL_HIDDEN_CLASSNAME);
+            _cityGatePanel.Q<VisualElement>(CITY_PANEL_CONTAINER_UI_NAME)
+                .RemoveFromClassList(CITY_PANEL_HIDDEN_CLASSNAME);
         }
 
         private IEnumerator HidePanel()
@@ -76,7 +75,8 @@ namespace FrostfallSaga.Kingdom.UI
             _cityGatePanel.StretchToParentSize();
             _cityGatePanel.Q<VisualElement>(PANEL_CONTAINER_UI_NAME).AddToClassList(PANEL_HIDDEN_CLASSNAME);
             _cityGatePanel.Q<VisualElement>(CITY_PANEL_CONTAINER_UI_NAME).AddToClassList(CITY_PANEL_HIDDEN_CLASSNAME);
-            _cityGatePanel.Q<VisualElement>(PREVIEW_CONTAINER_UI_NAME).style.backgroundImage = new(cityBuildingConfiguration.CityPreview);
+            _cityGatePanel.Q<VisualElement>(PREVIEW_CONTAINER_UI_NAME).style.backgroundImage =
+                new StyleBackground(cityBuildingConfiguration.CityPreview);
             _cityGatePanel.Q<Label>(NAME_LABEL_UI_NAME).text = cityBuildingConfiguration.Name;
             _cityGatePanel.Q<Label>(DESCRIPTION_LABEL_UI_NAME).text = cityBuildingConfiguration.Description;
         }

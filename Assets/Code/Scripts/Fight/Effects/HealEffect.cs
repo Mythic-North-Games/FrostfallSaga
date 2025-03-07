@@ -1,17 +1,18 @@
 ﻿using System;
-using UnityEngine;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Effects
 {
     /// <summary>
-    /// Effect that applies heal to the target fighter.
+    ///     Effect that applies heal to the target fighter.
     /// </summary>
     [Serializable]
     public class HealEffect : AEffect
     {
-        [field: SerializeField, Range(0, 9999)] public int HealAmount;
+        [field: SerializeField] [field: Range(0, 9999)]
+        public int HealAmount;
 
         public override void ApplyEffect(
             Fighter receiver,
@@ -35,9 +36,7 @@ namespace FrostfallSaga.Fight.Effects
 
             // Increase god favors points if enabled
             if (adjustGodFavorsPoints && initiator != null)
-            {
                 initiator.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.HEAL);
-            }
         }
 
         public override void RestoreEffect(Fighter receiver)

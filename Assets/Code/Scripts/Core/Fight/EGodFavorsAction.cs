@@ -1,7 +1,7 @@
 namespace FrostfallSaga.Core.Fight
 {
     /// <summary>
-    /// Enum for the different actions that can be performed by a fighter to gain or loose god favors points.
+    ///     Enum for the different actions that can be performed by a fighter to gain or loose god favors points.
     /// </summary>
     public enum EGodFavorsAction
     {
@@ -10,6 +10,6 @@ namespace FrostfallSaga.Core.Fight
         KILL,
         REVIVE,
         BUFF,
-        DEBUFF,
+        DEBUFF
     }
 }

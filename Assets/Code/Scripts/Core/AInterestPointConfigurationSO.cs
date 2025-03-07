@@ -3,7 +3,7 @@ using UnityEngine;
 namespace FrostfallSaga.Core
 {
     /// <summary>
-    /// Base configuration for all interest points on the kingdom grid.
+    ///     Base configuration for all interest points on the kingdom grid.
     /// </summary>
     public abstract class AInterestPointConfigurationSO : ScriptableObject
     {

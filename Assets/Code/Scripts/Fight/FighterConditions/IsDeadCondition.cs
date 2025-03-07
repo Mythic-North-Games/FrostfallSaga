@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Grid;
 
 namespace FrostfallSaga.Fight.FightConditions
 {
     /// <summary>
-    /// Check if the fighter is dead.
+    ///     Check if the fighter is dead.
     /// </summary>
     [Serializable]
     public class IsDeadCondition : AFighterCondition

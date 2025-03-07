@@ -1,17 +1,17 @@
 {
-    "name": "FrostfallSaga.Grid",
-    "rootNamespace": "FrostfallSaga.Grid",
-    "references": [
-        "FrostfallSaga.Procedural",
-        "FrostfallSaga.Utils"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "FrostfallSaga.Grid",
+  "rootNamespace": "FrostfallSaga.Grid",
+  "references": [
+    "FrostfallSaga.Procedural",
+    "FrostfallSaga.Utils"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

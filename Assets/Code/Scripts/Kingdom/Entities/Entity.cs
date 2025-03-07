@@ -1,8 +1,8 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Core.Entities;
-using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Core.Fight;
+using FrostfallSaga.EntitiesVisual;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom.Entities
 {
@@ -14,9 +14,28 @@ namespace FrostfallSaga.Kingdom.Entities
         [field: SerializeField] public bool IsDead { get; set; }
         [field: SerializeField] public string SessionId { get; private set; }
 
+        #region Components setup
+
+        private void Awake()
+        {
+            AnimationController = GetComponentInChildren<EntityVisualAnimationController>();
+            if (!AnimationController)
+                Debug.LogWarning("Entity " + name + " does not have an animation controller and a visual.");
+            MovementController = GetComponentInChildren<EntityVisualMovementController>();
+            if (!MovementController)
+                Debug.LogWarning("Entity " + name + " does not have a movement controller and a visual.");
+
+            SessionId = Guid.NewGuid().ToString();
+            name = $"{EntityConfiguration.Name}_{SessionId}";
+            if (EntityConfiguration.FighterConfiguration is PersistedFighterConfigurationSO
+                persistedFighterConfiguration) IsDead = persistedFighterConfiguration.Health == 0;
+        }
+
+        #endregion
+
         public void ShowVisual()
         {
-            if (AnimationController == null)
+            if (!AnimationController)
             {
                 Debug.LogError("Entity " + name + " does not have an entity visual.");
                 return;
@@ -27,7 +46,7 @@ namespace FrostfallSaga.Kingdom.Entities
 
         public void HideVisual()
         {
-            if (AnimationController == null)
+            if (!AnimationController)
             {
                 Debug.LogError("Entity " + name + " does not have an entity visual.");
                 return;
@@ -38,13 +57,9 @@ namespace FrostfallSaga.Kingdom.Entities
 
         public bool IsVisualShown()
         {
-            if (AnimationController == null)
-            {
-                Debug.LogError("Entity " + name + " does not have an entity visual.");
-                return false;
-            }
-
-            return AnimationController.gameObject.activeSelf;
+            if (AnimationController) return AnimationController.gameObject.activeSelf;
+            Debug.LogError("Entity " + name + " does not have an entity visual.");
+            return false;
         }
 
         public void Setup(string sessionId, bool isDead)
@@ -52,30 +67,5 @@ namespace FrostfallSaga.Kingdom.Entities
             SessionId = sessionId;
             IsDead = isDead;
         }
-
-        #region Components setup
-
-        private void Awake()
-        {
-            AnimationController = GetComponentInChildren<EntityVisualAnimationController>();
-            if (AnimationController == null)
-            {
-                Debug.LogWarning("Entity " + name + " does not have an animation controller and a visual.");
-            }
-            MovementController = GetComponentInChildren<EntityVisualMovementController>();
-            if (MovementController == null)
-            {
-                Debug.LogWarning("Entity " + name + " does not have a movement controller and a visual.");
-            }
-
-            SessionId = Guid.NewGuid().ToString();
-            name = $"{EntityConfiguration.Name}_{SessionId}";
-            if (EntityConfiguration.FighterConfiguration is PersistedFighterConfigurationSO persistedFighterConfiguration)
-            {
-                IsDead = persistedFighterConfiguration.Health == 0;
-            }
-        }
-
-        #endregion
     }
 }

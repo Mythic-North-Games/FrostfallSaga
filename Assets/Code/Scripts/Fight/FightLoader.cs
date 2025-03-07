@@ -8,46 +8,43 @@ namespace FrostfallSaga.Fight
 {
     public class FightLoader : MonoBehaviour
     {
-        public Action<Fighter[], Fighter[]> onFightLoaded;
+        [SerializeField] private FightHexGrid fightHexGrid;
 
-        [SerializeField] private FightHexGrid _fightHexGrid;
+        [SerializeField] private EntityConfigurationSO[] devAlliesConfs;
+        [SerializeField] private EntityConfigurationSO[] devEnemiesConfs;
         private FightersGenerator _fighterGenerator;
+        public Action<Fighter[], Fighter[]> OnFightLoaded;
 
-        [SerializeField] private EntityConfigurationSO[] _devAlliesConfs;
-        [SerializeField] private EntityConfigurationSO[] _devEnemiesConfs;
+        #region Setup & tear down
 
-        void Start()
+        private void Awake()
+        {
+            if (fightHexGrid == null) fightHexGrid = FindObjectOfType<FightHexGrid>();
+            _fighterGenerator = new FightersGenerator(devAlliesConfs, devEnemiesConfs);
+        }
+
+        #endregion
+
+        private void Start()
         {
             Debug.Log("Generating FightHexGrid...");
             GenerateGrid();
             Debug.Log("FightHexGrid Generated !");
-            Debug.Log("Generating Figthers...");
-            KeyValuePair<Fighter[], Fighter[]>  fighters = GenerateFighters();
+            Debug.Log("Generating Fighters...");
+            KeyValuePair<Fighter[], Fighter[]> fighters = GenerateFighters();
             Debug.Log("Fighters Generated !");
-            onFightLoaded?.Invoke(fighters.Key, fighters.Value);
+            OnFightLoaded?.Invoke(fighters.Key, fighters.Value);
         }
 
         private void GenerateGrid()
         {
-            _fightHexGrid.ClearCells();
-            _fightHexGrid.GenerateGrid();
+            fightHexGrid.ClearCells();
+            fightHexGrid.GenerateGrid();
         }
 
         private KeyValuePair<Fighter[], Fighter[]> GenerateFighters()
         {
             return _fighterGenerator.GenerateFighters();
         }
-
-        #region Setup & tear down
-        private void Awake()
-        {
-            if (_fightHexGrid == null)
-            {
-                _fightHexGrid = FindObjectOfType<FightHexGrid>();
-            }
-            _fighterGenerator = new FightersGenerator(_devAlliesConfs, _devEnemiesConfs);
-        }
-        #endregion
-
     }
 }

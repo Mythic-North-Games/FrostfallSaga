@@ -29,37 +29,34 @@ namespace FrostfallSaga.Fight
 
         public KeyValuePair<Fighter[], Fighter[]> GenerateFighters()
         {
-
             PreFightData preFightData = GameStateManager.Instance.GetPreFightData();
 
             // Adjust fighter to build based on pre fight data or dev configuration
-            EntityConfigurationSO[] alliesFighterConf = (
-                preFightData.alliesEntityConf != null && preFightData.alliesEntityConf.Length > 0 ?
-                preFightData.alliesEntityConf :
-                _devAlliesConfs
-            );
-            KeyValuePair<string, EntityConfigurationSO>[] enemiesFighterConf = (
-                preFightData.enemiesEntityConf != null && preFightData.enemiesEntityConf.Length > 0 ?
-                preFightData.enemiesEntityConf :
-                BuildDevFighterConfMapping(_devEnemiesConfs)
+            EntityConfigurationSO[] alliesFighterConf =
+                preFightData.alliesEntityConf != null && preFightData.alliesEntityConf.Length > 0
+                    ? preFightData.alliesEntityConf
+                    : _devAlliesConfs;
+            KeyValuePair<string, EntityConfigurationSO>[] enemiesFighterConf =
+                preFightData.enemiesEntityConf != null && preFightData.enemiesEntityConf.Length > 0
+                    ? preFightData.enemiesEntityConf
+                    : BuildDevFighterConfMapping(_devEnemiesConfs);
+
+            List<Fighter> allies = new();
+            alliesFighterConf.ToList().ForEach(allyFighterConf =>
+                allies.Add(SpawnAndSetupFighter(allyFighterConf))
             );
 
-                List<Fighter> allies = new();
-                alliesFighterConf.ToList().ForEach(allyFighterConf =>
-                    allies.Add(SpawnAndSetupFighter(allyFighterConf))
-                );
-
-                List<Fighter> enemies = new();
-                enemiesFighterConf.ToList().ForEach(enemyFighterConf =>
-                    enemies.Add(
-                        SpawnAndSetupFighter(
-                            enemyFighterConf.Value,
-                            enemyFighterConf.Key,
-                            $"{enemies.Count}"
-                        )
+            List<Fighter> enemies = new();
+            enemiesFighterConf.ToList().ForEach(enemyFighterConf =>
+                enemies.Add(
+                    SpawnAndSetupFighter(
+                        enemyFighterConf.Value,
+                        enemyFighterConf.Key,
+                        $"{enemies.Count}"
                     )
-                );
-                return new KeyValuePair<Fighter[], Fighter[]>(allies.ToArray(), enemies.ToArray());
+                )
+            );
+            return new KeyValuePair<Fighter[], Fighter[]>(allies.ToArray(), enemies.ToArray());
         }
 
         private Fighter SpawnAndSetupFighter(
@@ -70,19 +67,16 @@ namespace FrostfallSaga.Fight
         {
             // Spawn fighter game object
             FighterConfigurationSO fighterConfiguration = entityConfiguration.FighterConfiguration;
-            GameObject fighterGameObject = WorldGameObjectInstantiator.Instance.Instantiate(fighterConfiguration.FighterPrefab);
-            fighterGameObject.name = new($"{entityConfiguration.Name}{nameSuffix}");
+            GameObject fighterGameObject =
+                WorldGameObjectInstantiator.Instance.Instantiate(fighterConfiguration.FighterPrefab);
+            fighterGameObject.name = new string($"{entityConfiguration.Name}{nameSuffix}");
 
             // Setup spawned fighter
             Fighter fighter = fighterGameObject.GetComponent<Fighter>();
             if (entityConfiguration.FighterConfiguration is PersistedFighterConfigurationSO)
-            {
                 SetupAllyFighter(fighter, entityConfiguration, sessionId);
-            }
             else
-            {
                 SetupEnemyFighter(fighter, entityConfiguration, sessionId);
-            }
 
             return fighter;
         }
@@ -111,7 +105,8 @@ namespace FrostfallSaga.Fight
             string sessionId
         )
         {
-            PersistedFighterConfigurationSO fighterConfiguration = entityConfiguration.FighterConfiguration as PersistedFighterConfigurationSO;
+            PersistedFighterConfigurationSO fighterConfiguration =
+                entityConfiguration.FighterConfiguration as PersistedFighterConfigurationSO;
             ActiveAbilitySO[] activeAbilities = Array.ConvertAll(
                 fighterConfiguration.EquipedActiveAbilities,
                 activeAbility => activeAbility as ActiveAbilitySO
@@ -124,10 +119,10 @@ namespace FrostfallSaga.Fight
             allyFighterToSetup.Setup(
                 entityConfiguration,
                 fighterConfiguration,
-                equippedActiveAbilities: activeAbilities,
-                equippedPassiveAbilities: passiveAbilities,
-                inventory: fighterConfiguration.Inventory,
-                sessionId: sessionId
+                activeAbilities,
+                passiveAbilities,
+                fighterConfiguration.Inventory,
+                sessionId
             );
             return allyFighterToSetup;
         }
@@ -202,7 +197,8 @@ namespace FrostfallSaga.Fight
             );
         }
 
-        private KeyValuePair<string, EntityConfigurationSO>[] BuildDevFighterConfMapping(EntityConfigurationSO[] devEntityConfs)
+        private KeyValuePair<string, EntityConfigurationSO>[] BuildDevFighterConfMapping(
+            EntityConfigurationSO[] devEntityConfs)
         {
             return devEntityConfs.Select(
                 devEntityConf => new KeyValuePair<string, EntityConfigurationSO>(null, devEntityConf)

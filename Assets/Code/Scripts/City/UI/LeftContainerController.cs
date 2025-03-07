@@ -4,9 +4,9 @@ namespace FrostfallSaga.City.UI
 {
     public class LeftContainerController
     {
-        private readonly static string LEFT_CONTAINER_HIDDEN_CLASSNAME = "leftContainerHidden";
+        private static readonly string LEFT_CONTAINER_HIDDEN_CLASSNAME = "leftContainerHidden";
 
-        private VisualElement _containerRoot;
+        private readonly VisualElement _containerRoot;
 
         public LeftContainerController(VisualElement leftContainerRoot)
         {

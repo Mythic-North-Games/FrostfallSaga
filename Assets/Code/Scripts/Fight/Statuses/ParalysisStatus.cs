@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Statuses
 {

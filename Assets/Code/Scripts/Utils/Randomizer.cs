@@ -34,7 +34,7 @@ namespace FrostfallSaga.Utils
             {
                 int randomIndex = _randomizer.Next(0, copy.Length);
                 result[i] = copy[randomIndex];
-                copy[randomIndex] = copy[copy.Length - 1];
+                copy[randomIndex] = copy[^1];
                 Array.Resize(ref copy, copy.Length - 1);
             }
 
@@ -53,19 +53,16 @@ namespace FrostfallSaga.Utils
 
         public static T GetRandomElementFromEnum<T>(T[] toExclude = null) where T : Enum
         {
-            var values = Enum.GetValues(typeof(T));
-            var randomIndex = _randomizer.Next(0, values.Length);
+            Array values = Enum.GetValues(typeof(T));
+            int randomIndex = _randomizer.Next(0, values.Length);
 
             if (toExclude != null)
-            {
                 while (Array.Exists(toExclude, element => element.Equals(values.GetValue(randomIndex))))
-                {
                     randomIndex = _randomizer.Next(0, values.Length);
-                }
-            }
 
-            return (T) values.GetValue(randomIndex);
+            return (T)values.GetValue(randomIndex);
         }
+
         public static Quaternion GetRandomRotationY(Quaternion rotation)
         {
             return Quaternion.Euler(rotation.x, RandomUnity.Range(0f, 360.0f), rotation.z);

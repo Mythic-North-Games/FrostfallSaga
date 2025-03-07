@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Fight.FightCells.Impediments;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 {
@@ -10,7 +10,8 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
     /// </summary>
     public class AddImpedimentAlteration : AFightCellAlteration
     {
-        [field: SerializeField, Header("Impediment alteration definition")]
+        [field: SerializeField]
+        [field: Header("Impediment alteration definition")]
         public AImpedimentSO Impediment { get; private set; }
 
         private FightCell _currentlyModifiedCell;

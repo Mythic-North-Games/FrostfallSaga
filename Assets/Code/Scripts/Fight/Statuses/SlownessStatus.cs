@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Statuses
 {
@@ -39,8 +39,8 @@ namespace FrostfallSaga.Fight.Statuses
             fighter.UpdateMutableStat(
                 EFighterMutableStat.Initiative,
                 -InitiativeReduction,
-                triggerAnimation: false,
-                triggerEvent: false
+                false,
+                false
             );
             Debug.Log($"{fighter.name}'s initiative is back to normal !");
         }

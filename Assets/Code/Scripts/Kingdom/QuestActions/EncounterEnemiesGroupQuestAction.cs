@@ -1,12 +1,12 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Kingdom.EntitiesGroups;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom.QuestActions
 {
     /// <summary>
-    /// If the player encounters an enemies group, the action is completed.
+    ///     If the player encounters an enemies group, the action is completed.
     /// </summary>
     [Serializable]
     public class EncounterEnemiesGroupQuestAction : AQuestAction
@@ -16,13 +16,10 @@ namespace FrostfallSaga.Kingdom.QuestActions
         public override void Initialize(MonoBehaviour sceneManager)
         {
             base.Initialize(sceneManager);
-            if (sceneManager.GetType() != typeof(KingdomManager))
-            {
-                return;
-            }
+            if (sceneManager.GetType() != typeof(KingdomManager)) return;
 
             KingdomManager kingdomManager = (KingdomManager)sceneManager;
-            kingdomManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
+            kingdomManager.OnEnemiesGroupEncountered += OnEnemiesGroupEncountered;
         }
 
         private void OnEnemiesGroupEncountered(EntitiesGroup encounteredEnemiesGroup, bool heroGroupInitiating)
@@ -33,7 +30,7 @@ namespace FrostfallSaga.Kingdom.QuestActions
         protected override void UnbindSceneManagerEvents()
         {
             KingdomManager kingdomManager = (KingdomManager)SceneManager;
-            kingdomManager.onEnemiesGroupEncountered -= OnEnemiesGroupEncountered;
+            kingdomManager.OnEnemiesGroupEncountered -= OnEnemiesGroupEncountered;
         }
     }
 }

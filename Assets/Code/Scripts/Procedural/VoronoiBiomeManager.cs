@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using FrostfallSaga.Utils;
+using UnityEngine;
 
 namespace FrostfallSaga.Procedural
 {
     [Serializable]
     public class VoronoiBiomeManager
     {
-        [field: NonSerialized] public List<Vector2> _sites { get; private set; }
         private int _seed;
         private VoronoiGenerator _voronoiGenerator;
 
@@ -19,6 +18,8 @@ namespace FrostfallSaga.Procedural
             GenerateVoronoiSites(width, height, biomeCount);
             _voronoiGenerator = new VoronoiGenerator(_sites, width, height);
         }
+
+        [field: NonSerialized] public List<Vector2> _sites { get; private set; }
 
         private void InitSeed()
         {
@@ -43,4 +44,3 @@ namespace FrostfallSaga.Procedural
         }
     }
 }
-

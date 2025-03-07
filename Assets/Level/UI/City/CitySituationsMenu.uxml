@@ -18,6 +18,6 @@
             </ui:ScrollView>
             <ui:Button text="Return" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ReturnButton" class="mainMenuButtonDefault" style="width: 80%;" />
         </ui:VisualElement>
-        <ui:VisualElement name="SituationIllustration" class="situationIllustrationDefault" />
+        <ui:VisualElement name="SituationIllustration" class="situationIllustrationDefault"/>
     </ui:VisualElement>
 </ui:UXML>

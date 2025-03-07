@@ -1,19 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FrostfallSaga.Audio
 {
     public class UIAudioClipSelector
     {
-        private UIAudioClipsConfig _uIAudioClipsConfig ;
+        private readonly UIAudioClipsConfig _uIAudioClipsConfig;
 
-        public UIAudioClipSelector(UIAudioClipsConfig uIAudioClipsConfig) {
+        public UIAudioClipSelector(UIAudioClipsConfig uIAudioClipsConfig)
+        {
             _uIAudioClipsConfig = uIAudioClipsConfig;
         }
 
-        public AudioClip SelectAudioClip(UISounds soundName){
-
+        public AudioClip SelectAudioClip(UISounds soundName)
+        {
             if (_uIAudioClipsConfig == null)
             {
                 Debug.LogError("UIAudioClipsConfig n'est pas assigné dans UIAudioClipSelector !");

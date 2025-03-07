@@ -1,19 +1,21 @@
 ﻿using System;
-using UnityEngine;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Effects
 {
     /// <summary>
-    /// Effect that applies physical damage to the target fighter.
+    ///     Effect that applies physical damage to the target fighter.
     /// </summary>
     [Serializable]
     public class PhysicalDamageEffect : AEffect
     {
-        [SerializeField, Range(0, 9999)] public int PhysicalDamageAmount;
+        [SerializeField] [Range(0, 9999)] public int PhysicalDamageAmount;
 
-        public PhysicalDamageEffect() {}
+        public PhysicalDamageEffect()
+        {
+        }
 
         public PhysicalDamageEffect(int physicalDamageAmount)
         {
@@ -32,7 +34,7 @@ namespace FrostfallSaga.Fight.Effects
             // Increase damage amount if masterstroke
             if (isMasterstroke && initiator != null)
             {
-                finalDamageAmount = ApplyMasterstroke(PhysicalDamageAmount);                
+                finalDamageAmount = ApplyMasterstroke(PhysicalDamageAmount);
                 Debug.Log($"Masterstroke succeeded, damage amount increased to {finalDamageAmount}.");
             }
 
@@ -41,9 +43,7 @@ namespace FrostfallSaga.Fight.Effects
 
             // Increase god favors points if enabled
             if (adjustGodFavorsPoints && initiator != null)
-            {
                 initiator.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.DAMAGE);
-            }
         }
 
         public override void RestoreEffect(Fighter receiver)

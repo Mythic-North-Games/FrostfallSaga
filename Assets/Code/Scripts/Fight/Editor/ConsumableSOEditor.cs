@@ -1,17 +1,17 @@
-using UnityEditor;
-using UnityEditorInternal;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.FightItems;
 using FrostfallSaga.Utils.Editor;
+using UnityEditor;
+using UnityEditorInternal;
 
 namespace FrostfallSaga.FFSEditor.Fight
 {
     [CustomEditor(typeof(ConsumableSO))]
     public class ConsumableEditor : Editor
     {
-        private readonly static string EFFECTS_PROPERTY_NAME = "Effects";
-        private SerializedProperty effectsProperty;
+        private static readonly string EFFECTS_PROPERTY_NAME = "Effects";
         private ReorderableList effectsList;
+        private SerializedProperty effectsProperty;
 
         private void OnEnable()
         {

@@ -3,11 +3,11 @@ using UnityEngine;
 namespace FrostfallSaga.Utils.GameObjectVisuals
 {
     /// <summary>
-    /// Instantiates game objects in the world under a given default parent.
+    ///     Instantiates game objects in the world under a given default parent.
     /// </summary>
     public class WorldGameObjectInstantiator : MonoBehaviourPersistingSingleton<WorldGameObjectInstantiator>
     {
-        private static string DEFAULT_WORLD_GO_PARENT_NAME = "WORLD";
+        private static readonly string DEFAULT_WORLD_GO_PARENT_NAME = "WORLD";
 
         private GameObject FindOrCreateDefaultWorldGOParent()
         {
@@ -17,11 +17,12 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
                 Debug.Log("DefaultWorldGOParent is still null. Creating a new one.");
                 defaultWorldGOParent = new GameObject(DEFAULT_WORLD_GO_PARENT_NAME);
             }
+
             return defaultWorldGOParent;
         }
 
         /// <summary>
-        /// Instantiates a game object in the world under the default parent.
+        ///     Instantiates a game object in the world under the default parent.
         /// </summary>
         /// <param name="gameObject">The game object to instantiate.</param>
         /// <returns>The instantiated game object.</returns>

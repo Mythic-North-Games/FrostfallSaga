@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Statuses
 {
@@ -31,7 +31,8 @@ namespace FrostfallSaga.Fight.Statuses
         protected override void DoApplyStatus(Fighter fighter)
         {
             fighter.ReceiveRawDamages(BleedingDamage, false);
-            Debug.Log($"{fighter.name} is bleeding and loses ${BleedingDamage} HP! ==> Health : ${fighter.GetHealth()}");
+            Debug.Log(
+                $"{fighter.name} is bleeding and loses ${BleedingDamage} HP! ==> Health : ${fighter.GetHealth()}");
         }
 
         protected override void DoRemoveStatus(Fighter fighter)

@@ -1,14 +1,14 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Level/UI/globalStyles.uss?fileID=7433441132597879392&amp;guid=1849fa32056df9a58b3c371fd6e7ddf2&amp;type=3#globalStyles" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/globalStyles.uss?fileID=7433441132597879392&amp;guid=1849fa32056df9a58b3c371fd6e7ddf2&amp;type=3#globalStyles"/>
     <ui:VisualElement name="StatusesBarContainer" class="defaultRowContainer">
-        <ui:VisualElement name="StatusContainer0" class="defaultContainerElement" />
-        <ui:VisualElement name="StatusContainer1" class="defaultContainerElement" />
-        <ui:VisualElement name="StatusContainer2" class="defaultContainerElement" />
-        <ui:VisualElement name="StatusContainer3" class="defaultContainerElement" />
-        <ui:VisualElement name="StatusContainer4" class="defaultContainerElement" />
-        <ui:VisualElement name="StatusContainer5" class="defaultContainerElement" />
-        <ui:VisualElement name="StatusContainer6" class="defaultContainerElement" />
-        <ui:VisualElement name="StatusContainer7" class="defaultContainerElement" />
-        <ui:VisualElement name="StatusContainer8" class="defaultContainerElement" />
+        <ui:VisualElement name="StatusContainer0" class="defaultContainerElement"/>
+        <ui:VisualElement name="StatusContainer1" class="defaultContainerElement"/>
+        <ui:VisualElement name="StatusContainer2" class="defaultContainerElement"/>
+        <ui:VisualElement name="StatusContainer3" class="defaultContainerElement"/>
+        <ui:VisualElement name="StatusContainer4" class="defaultContainerElement"/>
+        <ui:VisualElement name="StatusContainer5" class="defaultContainerElement"/>
+        <ui:VisualElement name="StatusContainer6" class="defaultContainerElement"/>
+        <ui:VisualElement name="StatusContainer7" class="defaultContainerElement"/>
+        <ui:VisualElement name="StatusContainer8" class="defaultContainerElement"/>
     </ui:VisualElement>
 </ui:UXML>

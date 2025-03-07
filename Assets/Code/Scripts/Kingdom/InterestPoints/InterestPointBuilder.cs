@@ -1,35 +1,83 @@
-using UnityEngine;
+using System.Collections.Generic;
+using FrostfallSaga.Core;
 using FrostfallSaga.Core.GameState.Kingdom;
+using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Utils;
-using FrostfallSaga.Utils.GameObjectVisuals;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom.InterestPoints
 {
     public class InterestPointBuilder : MonoBehaviourPersistingSingleton<InterestPointBuilder>
     {
+        static InterestPointBuilder()
+        {
+            PersistAcrossScenes = false;
+        }
+
+        /// <summary>
+        ///     Construit un InterestPoint à partir des données sauvegardées
+        /// </summary>
         public InterestPoint BuildInterestPoint(InterestPointData interestPointData, KingdomHexGrid grid)
         {
-            GameObject interestPointPrefab = WorldGameObjectInstantiator.Instance.Instantiate(
-                interestPointData.interestPointConfiguration.InterestPointPrefab
+            Vector2Int coordinates = new(interestPointData.cellX, interestPointData.cellY);
+            Cell cell = grid.GetCellAtCoordinates(coordinates);
+            if (cell == null) return null;
+
+            InterestPoint interestPoint = InstantiateInterestPoint(
+                interestPointData.interestPointConfiguration,
+                cell.GetComponent<KingdomCell>()
             );
-            InterestPoint interestPoint = interestPointPrefab.GetComponent<InterestPoint>();
-            interestPoint.cell = grid.Cells[new(interestPointData.cellX, interestPointData.cellY)] as KingdomCell;
-            interestPoint.transform.position = interestPoint.cell.GetCenter();
             return interestPoint;
         }
 
-        public InterestPointData ExtractInterestPointDataFromInterestPoint(InterestPoint interestPoint)
+        /// <summary>
+        ///     Génère les InterestPoints initiaux
+        /// </summary>
+        public void FirstBuildInterestPoints(KingdomHexGrid kingdomHexGrid, List<AInterestPointConfigurationSO> interestPoints)
         {
-            return new(
+            Debug.Log("Generating Interest Points...");
+
+            List<KingdomCell> freeCells = kingdomHexGrid.GetFreeCells();
+            if (freeCells.Count == 0 && freeCells.Count > interestPoints.Count)
+            {
+                Debug.LogWarning("No free cells available for InterestPoints!");
+                return;
+            }
+
+            foreach (AInterestPointConfigurationSO interestPointConfig in interestPoints)
+            {
+                KingdomCell cell = Randomizer.GetRandomElementFromArray(freeCells.ToArray());
+                InstantiateInterestPoint(interestPointConfig, cell);
+                freeCells.Remove(cell);
+            }
+        }
+
+        /// <summary>
+        ///     Crée une instance d'un InterestPoint sur une cellule
+        /// </summary>
+        private InterestPoint InstantiateInterestPoint(AInterestPointConfigurationSO conf, KingdomCell cell)
+        {
+            GameObject instantiateGameObject = Instantiate(conf.InterestPointPrefab);
+            InterestPoint instantiateInterestPoint = instantiateGameObject.GetComponent<InterestPoint>();
+            instantiateInterestPoint.cell = cell;
+            cell.SetOccupier(instantiateInterestPoint);
+            Vector3 position = cell.GetCenter();
+            position.y += 0.5f;
+            instantiateInterestPoint.transform.SetPositionAndRotation(position, Quaternion.identity);
+            instantiateInterestPoint.transform.SetParent(cell.transform);
+            return instantiateInterestPoint;
+        }
+
+        /// <summary>
+        ///     Extrait les données d'un InterestPoint pour sauvegarde
+        /// </summary>
+        public InterestPointData ExtractInterestPointData(InterestPoint interestPoint)
+        {
+            return new InterestPointData(
                 interestPoint.InterestPointConfiguration,
                 interestPoint.cell.Coordinates.x,
                 interestPoint.cell.Coordinates.y
             );
-        }
-
-        static InterestPointBuilder()
-        {
-            PersistAcrossScenes = false;
         }
     }
 }

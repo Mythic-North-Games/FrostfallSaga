@@ -1,6 +1,6 @@
+using FrostfallSaga.Grid.Cells;
 using UnityEditor;
 using UnityEngine;
-using FrostfallSaga.Grid.Cells;
 
 namespace FrostfallSaga.Grid
 {
@@ -8,12 +8,6 @@ namespace FrostfallSaga.Grid
     {
         [SerializeField] private AHexGrid Grid;
         [SerializeField] private Cell TargetCell;
-
-        [MenuItem("Window/CellAnalysis")]
-        public static void ShowWindow()
-        {
-            GetWindow<CellAnalysisWindow>("CellAnalysis");
-        }
 
         private void OnGUI()
         {
@@ -30,7 +24,19 @@ namespace FrostfallSaga.Grid
                     CellAnalysis.AnalyzeAtCell(TargetCell, Grid);
                     CellAnalysis.PrintAnalysisWithPercentages();
                 }
+
+                if (GUILayout.Button("Print Analyze Dict"))
+                {
+                    CellAnalysis.AnalyzeAtCell(TargetCell, Grid);
+                    CellAnalysis.PrintAnalysisDict();
+                }
             }
+        }
+
+        [MenuItem("Window/CellAnalysis")]
+        public static void ShowWindow()
+        {
+            GetWindow<CellAnalysisWindow>("CellAnalysis");
         }
     }
 }

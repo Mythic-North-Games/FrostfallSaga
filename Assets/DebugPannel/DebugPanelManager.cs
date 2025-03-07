@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,12 +9,14 @@ namespace FrostfallSaga.DebugPanel
 {
     public class DebugPanelManager : MonoBehaviour
     {
-        public static DebugPanelManager Instance { get; private set; }
         // Start is called before the first frame update
         public UIDocument UIDInstance;
-        private GameObject uiDocumentObject;
-        [SerializeField] VisualTreeAsset myTreeAssetMember;
-        [SerializeField] PanelSettings myPanelSetting;
+        [SerializeField] private VisualTreeAsset myTreeAssetMember;
+        [SerializeField] private PanelSettings myPanelSetting;
+        private VisualElement _debugPanelElement;
+        private GameObject _uiDocumentObject;
+        public static DebugPanelManager Instance { get; private set; }
+
         private void Awake()
         {
             if (Instance == null)
@@ -27,35 +30,34 @@ namespace FrostfallSaga.DebugPanel
                 Destroy(gameObject);
             }
         }
-        private VisualElement debugPanelElement;
-        void GenrateUIElements()
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.F10)) ToggleDebugPanel();
+        }
+
+        private void GenrateUIElements()
         {
             if (UIDInstance == null)
             {
-                uiDocumentObject = new GameObject("UIDocument");
-                UIDInstance = uiDocumentObject.AddComponent<UIDocument>();
+                _uiDocumentObject = new GameObject("UIDocument");
+                UIDInstance = _uiDocumentObject.AddComponent<UIDocument>();
 
                 UIDInstance.visualTreeAsset = myTreeAssetMember;
                 UIDInstance.panelSettings = myPanelSetting;
 
-                DontDestroyOnLoad(uiDocumentObject);
+                DontDestroyOnLoad(_uiDocumentObject);
 
-                uiDocumentObject.SetActive(false);
+                _uiDocumentObject.SetActive(false);
             }
         }
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.F10))
-            {
-                ToggleDebugPanel();
-            }
-        }
+
         public void ToggleDebugPanel()
         {
-            if (uiDocumentObject != null)
+            if (_uiDocumentObject)
             {
-                bool isActive = uiDocumentObject.activeSelf;
-                uiDocumentObject.SetActive(!isActive);
+                bool isActive = _uiDocumentObject.activeSelf;
+                _uiDocumentObject.SetActive(!isActive);
                 if (!isActive)
                     MapMethodsToButtons();
             }
@@ -65,22 +67,23 @@ namespace FrostfallSaga.DebugPanel
         public void MapMethodsToButtons()
         {
             // Trouver tous les composants dans la scène
-            var allComponents = FindObjectsOfType<Component>();
+            Component[] allComponents = FindObjectsOfType<Component>();
 
             // Collecter toutes les méthodes publiques sans paramètres et annotés
             var methods = allComponents
                 .SelectMany(component => component.GetType()
                     .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
                     .Where(m => !m.IsSpecialName
-                        && m.GetParameters().Length == 0
-                        && IsUserDefinedType(component.GetType()) // Filtres sur les workspaces
-                        && m.IsDefined(typeof(DebugPanelAttribute))) // Vérifier si la méthode contient l'atribute de debug
-                .Select(m => new
-                {
-                    Method = m,
-                    Component = component,
-                    Attribute = (DebugPanelAttribute)m.GetCustomAttribute(typeof(DebugPanelAttribute))
-                })
+                                && m.GetParameters().Length == 0
+                                && IsUserDefinedType(component.GetType()) // Filtres sur les workspaces
+                                && m.IsDefined(
+                                    typeof(DebugPanelAttribute))) // Vérifier si la méthode contient l'atribute de debug
+                    .Select(m => new
+                    {
+                        Method = m,
+                        Component = component,
+                        Attribute = (DebugPanelAttribute)m.GetCustomAttribute(typeof(DebugPanelAttribute))
+                    })
                 )
                 .ToList();
 
@@ -92,71 +95,61 @@ namespace FrostfallSaga.DebugPanel
                 Debug.LogError("rootVisualElement is null.");
                 return;
             }
-            VisualElement ActionButtonCont = uiRoot.Q("ActionCmdList");
-            VisualElement BaseButtonCont = uiRoot.Q("BaseCmdList");
-            VisualElement MiscButtonCont = uiRoot.Q("MiscCmdList");
+
+            VisualElement actionButtonCont = uiRoot.Q("ActionCmdList");
+            VisualElement baseButtonCont = uiRoot.Q("BaseCmdList");
+            VisualElement miscButtonCont = uiRoot.Q("MiscCmdList");
             //supprimer tout les bouttons déja contenus
-            ActionButtonCont.Clear();
-            BaseButtonCont.Clear();
-            MiscButtonCont.Clear();
+            actionButtonCont.Clear();
+            baseButtonCont.Clear();
+            miscButtonCont.Clear();
             // Créer des boutons pour chaque méthode et les ajouter au conteneur
             foreach (var methodInfo in methods)
             {
-                Button button = new Button();
+                Button button = new();
                 button.AddToClassList("btnCmd");
                 // Définir le text du boutton a la description de l'annotation
                 button.text = methodInfo.Attribute.Description;
                 string category = methodInfo.Attribute.Category;
                 button.clicked += () =>
                 {
-                    Component targetComponent = FindObjectsOfType(methodInfo.Method.DeclaringType).FirstOrDefault() as Component;
+                    Component targetComponent =
+                        FindObjectsOfType(methodInfo.Method.DeclaringType).FirstOrDefault() as Component;
                     if (targetComponent != null)
-                    {
                         methodInfo.Method.Invoke(targetComponent, null);
-                    }
                     else
-                    {
                         Debug.LogWarning($"No instance of component {methodInfo.Method.DeclaringType.Name} found.");
-                    }
                 };
                 switch (category.ToLower())
                 {
                     case "action":
-                        ActionButtonCont.Add(button);
+                        actionButtonCont.Add(button);
                         break;
                     case "base":
-                        BaseButtonCont.Add(button);
+                        baseButtonCont.Add(button);
                         break;
                     default:
-                        MiscButtonCont.Add(button);
+                        miscButtonCont.Add(button);
                         break;
                 }
                 // Ajouter le bouton au conteneur
 
                 button.MarkDirtyRepaint();
-                if (ActionButtonCont.parent == null)
-                {
+                if (actionButtonCont.parent == null)
                     Debug.LogError("ActionButtonCont is not added to the UI hierarchy.");
-                }
             }
         }
+
         private bool IsUserDefinedType(Type type)
         {
             // Vérifiez si le type est défini dans un assembly qui n'est pas un assembly de système
-            if (type.IsDefined(typeof(System.Runtime.CompilerServices.CompilerGeneratedAttribute)))
-            {
-                return false;
-            }
+            if (type.IsDefined(typeof(CompilerGeneratedAttribute))) return false;
 
             // Vérifiez les namespaces pour exclure les types système et Unity
-            if (type.Namespace != null && (type.Namespace.StartsWith("UnityEngine")
-                                        || type.Namespace.StartsWith("System")
-                                        || type.Namespace.StartsWith("TMPro"))) // Correction pour TextMeshPro namespace
-            {
-                return false;
-            }
-
-            return true;
+            return type.Namespace == null || (!type.Namespace.StartsWith("UnityEngine")
+                                              && !type.Namespace.StartsWith("System")
+                                              && !type.Namespace
+                                                  .StartsWith("TMPro")); // Correction pour TextMeshPro namespace
         }
     }
 }

@@ -1,20 +1,20 @@
 using System;
 using System.Collections.Generic;
+using FrostfallSaga.Core.Dialogues;
+using FrostfallSaga.Core.Quests;
+using FrostfallSaga.Utils.Trees;
 using UnityEditor;
 using UnityEngine;
-using FrostfallSaga.Core.Dialogues;
-using FrostfallSaga.Utils.Trees;
-using FrostfallSaga.Core.Quests;
 
 namespace FrostfallSaga.FFSEditor.DialogueSystem
 {
     [CustomEditor(typeof(DialogueSO))]
     public class DialogueSOEditor : Editor
     {
-        public Action onDialogueChanged;
+        private readonly Dictionary<TreeNode<DialogueLine>, bool> _nodeFoldouts = new();
         private DialogueSO _dialogueSO;
         private bool _showTree = true;
-        private readonly Dictionary<TreeNode<DialogueLine>, bool> _nodeFoldouts = new();
+        public Action onDialogueChanged;
 
         private void OnEnable()
         {
@@ -32,11 +32,9 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             if (_dialogueSO.DialogueTreeRoot == null || _dialogueSO.DialogueTreeRoot.GetData() == null)
             {
                 if (GUILayout.Button("Create Root Node"))
-                {
                     _dialogueSO.SetRoot(new TreeNode<DialogueLine>(
                         new DialogueLine("Dialogue start", "Starter line", null, false)
                     ));
-                }
             }
             else
             {
@@ -61,7 +59,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         {
             if (node == null) return;
 
-            var data = node.GetData();
+            DialogueLine data = node.GetData();
 
             if (!_nodeFoldouts.ContainsKey(node))
                 _nodeFoldouts[node] = true;
@@ -69,10 +67,10 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             EditorGUILayout.BeginVertical("box");
             EditorGUILayout.BeginHorizontal();
 
-            _nodeFoldouts[node] = EditorGUILayout.Foldout(_nodeFoldouts[node], string.IsNullOrEmpty(data.Title) ? "Untitled Node" : data.Title, true);
+            _nodeFoldouts[node] = EditorGUILayout.Foldout(_nodeFoldouts[node],
+                string.IsNullOrEmpty(data.Title) ? "Untitled Node" : data.Title, true);
 
             if (parent != null)
-            {
                 if (GUILayout.Button("Remove Node", GUILayout.MaxWidth(100)))
                 {
                     int index = parent.GetChildren().IndexOf(node);
@@ -80,7 +78,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
                     if (index >= 0 && parent.GetData().Answers != null && index < parent.GetData().Answers.Length)
                     {
-                        var answersList = new List<string>(parent.GetData().Answers);
+                        List<string> answersList = new(parent.GetData().Answers);
                         answersList.RemoveAt(index);
                         parent.GetData().SetAnswers(answersList.ToArray());
                     }
@@ -89,7 +87,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
                     EditorGUILayout.EndVertical();
                     return;
                 }
-            }
+
             EditorGUILayout.EndHorizontal();
 
             if (_nodeFoldouts[node])
@@ -143,7 +141,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
         private void DrawAnswersAndChildren(TreeNode<DialogueLine> node)
         {
-            var data = node.GetData();
+            DialogueLine data = node.GetData();
 
             if (data.Answers != null && data.Answers.Length > 0)
             {
@@ -161,7 +159,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
                         if (node.GetChildren() != null && i < node.GetChildren().Count)
                         {
-                            var childNode = node.GetChildren()[i];
+                            TreeNode<DialogueLine> childNode = node.GetChildren()[i];
                             childNode.GetData().SetTitle($"{newAnswer} answer");
                         }
                     }
@@ -196,7 +194,8 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
                             node.SetChildren(new List<TreeNode<DialogueLine>>());
 
                         node.GetChildren().Add(new TreeNode<DialogueLine>(
-                            new DialogueLine($"{node.GetData().Title} line continuation", $"Continuation of {node.GetData().Title} line", null, false)
+                            new DialogueLine($"{node.GetData().Title} line continuation",
+                                $"Continuation of {node.GetData().Title} line", null, false)
                         ));
                     }
                 }
@@ -210,18 +209,13 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
             if (node.GetChildren().Count == 1 && node.GetData().Answers == null) return;
 
-            if (GUILayout.Button("Add answer"))
-            {
-                AddAnswerAndChild(node, "New answer");
-            }
-
-            EditorUtility.SetDirty(_dialogueSO);
+            if (GUILayout.Button("Add answer")) AddAnswerAndChild(node, "New answer");
         }
 
 
         private void AddAnswerAndChild(TreeNode<DialogueLine> parentNode, string answerText)
         {
-            var data = parentNode.GetData();
+            DialogueLine data = parentNode.GetData();
             List<string> answersList = data.Answers != null ? new List<string>(data.Answers) : new List<string>();
 
             answersList.Add(answerText);
@@ -239,7 +233,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
         private void RemoveAnswerAndChild(TreeNode<DialogueLine> parentNode, int index)
         {
-            var data = parentNode.GetData();
+            DialogueLine data = parentNode.GetData();
 
             if (data.Answers != null && index < data.Answers.Length)
             {
@@ -249,9 +243,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             }
 
             if (parentNode.GetChildren() != null && index < parentNode.GetChildren().Count)
-            {
                 parentNode.GetChildren().RemoveAt(index);
-            }
 
             EditorUtility.SetDirty(_dialogueSO);
         }

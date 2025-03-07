@@ -1,20 +1,22 @@
 ﻿using System;
-using UnityEngine;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Effects
 {
     /// <summary>
-    /// Effect that applies magical damage to the target fighter.
+    ///     Effect that applies magical damage to the target fighter.
     /// </summary>
     [Serializable]
     public class MagicalDamageEffect : AEffect
     {
-        [SerializeField, Range(0, 9999)] public int MagicalDamageAmount;
+        [SerializeField] [Range(0, 9999)] public int MagicalDamageAmount;
         [SerializeField] public EMagicalElement MagicalElement;
 
-        public MagicalDamageEffect() {}
+        public MagicalDamageEffect()
+        {
+        }
 
         public MagicalDamageEffect(int magicalDamageAmount, EMagicalElement magicalElement)
         {
@@ -43,10 +45,8 @@ namespace FrostfallSaga.Fight.Effects
             Debug.Log($"Dealt {finalDamageAmount} magical damage of {MagicalElement} to {receiver.name}.");
 
             // Increase god favors points if enabled
-            if (adjustGodFavorsPoints  && initiator != null)
-            {
+            if (adjustGodFavorsPoints && initiator != null)
                 initiator.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.DAMAGE);
-            }
         }
 
         public override void RestoreEffect(Fighter receiver)

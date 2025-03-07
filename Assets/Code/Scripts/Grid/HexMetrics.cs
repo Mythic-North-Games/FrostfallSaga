@@ -3,11 +3,11 @@ using UnityEngine;
 namespace FrostfallSaga.Grid
 {
     /// <summary>
-    /// HexMetrics provides all the maths methods needed to create and manage the HexGrid.
+    ///     HexMetrics provides all the maths methods needed to create and manage the HexGrid.
     /// </summary>
     public static class HexMetrics
     {
-        private static readonly float INNER_RADIUS_RATIO = 0.866025404f;
+        private const float INNER_RADIUS_RATIO = 0.866025404f;
 
         public static float OuterRadius(float hexSize)
         {
@@ -19,20 +19,18 @@ namespace FrostfallSaga.Grid
             return hexSize * INNER_RADIUS_RATIO;
         }
 
-        public static Vector3[] Corners(float HexSize)
+        public static Vector3[] Corners(float hexSize)
         {
             Vector3[] corners = new Vector3[6];
-            for (int i = 0; i < 6; i++)
-            {
-                corners[i] = Corner(HexSize, i);
-            }
+            for (int i = 0; i < 6; i++) corners[i] = Corner(hexSize, i);
             return corners;
         }
 
-        public static Vector3 Corner(float HexSize, int index)
+        private static Vector3 Corner(float hexSize, int index)
         {
             float angle = 60f * index + 30f;
-            Vector3 corner = new Vector3(HexSize * Mathf.Cos(angle * Mathf.Deg2Rad), 0f, HexSize * Mathf.Sin(angle * Mathf.Deg2Rad));
+            Vector3 corner = new(hexSize * Mathf.Cos(angle * Mathf.Deg2Rad), 0f,
+                hexSize * Mathf.Sin(angle * Mathf.Deg2Rad));
             return corner;
         }
 
@@ -64,25 +62,12 @@ namespace FrostfallSaga.Grid
         {
             // Define the rotation matrix based on direction (you can add more cases if needed)
             if (direction.x == 1 && direction.y == -1)
-            {
                 return new Vector2Int(axialVector.y + axialVector.x, -axialVector.x);
-            }
-            if (direction.x == 0 && direction.y == -1)
-            {
-                return new Vector2Int(axialVector.y, -axialVector.x);
-            }
-            if (direction.x == 0 && direction.y == 1)
-            {
-                return new Vector2Int(axialVector.y, axialVector.x);
-            }
-            if (direction.x == -1 && direction.y == 0)
-            {
-                return new Vector2Int(-axialVector.x, -axialVector.y);
-            }
+            if (direction.x == 0 && direction.y == -1) return new Vector2Int(axialVector.y, -axialVector.x);
+            if (direction.x == 0 && direction.y == 1) return new Vector2Int(axialVector.y, axialVector.x);
+            if (direction.x == -1 && direction.y == 0) return new Vector2Int(-axialVector.x, -axialVector.y);
             if (direction.x == -1 && direction.y == 1)
-            {
                 return new Vector2Int(-axialVector.x - axialVector.y, axialVector.x);
-            }
             return axialVector;
         }
     }

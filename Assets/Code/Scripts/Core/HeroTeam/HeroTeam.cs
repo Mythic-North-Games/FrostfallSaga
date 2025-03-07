@@ -12,6 +12,14 @@ namespace FrostfallSaga.Core.HeroTeam
     {
         private const string HERO_TEAM_CONFIGURATION_RESOURCE_PATH = "ScriptableObjects/Entities/HeroTeamConfiguration";
 
+        /// <summary>
+        ///     Automatically initialize the singleton on scene load.
+        /// </summary>
+        static HeroTeam()
+        {
+            AutoInitializeOnSceneLoad = true;
+        }
+
         public List<Hero> Heroes { get; private set; }
         public int Stycas => _heroTeamConfiguration.Stycas;
         private HeroTeamConfigurationSO _heroTeamConfiguration;
@@ -96,14 +104,6 @@ namespace FrostfallSaga.Core.HeroTeam
             return heroes
                 .Select(hero => hero.PersistedFighterConfiguration.Inventory)
                 .FirstOrDefault(inventory => inventory.CanAddItemToBag(item));
-        }
-
-        /// <summary>
-        /// Automatically initialize the singleton on scene load.
-        /// </summary>
-        static HeroTeam()
-        {
-            AutoInitializeOnSceneLoad = true;
         }
     }
 }

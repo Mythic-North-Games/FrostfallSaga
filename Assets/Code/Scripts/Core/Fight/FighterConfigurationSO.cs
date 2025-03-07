@@ -1,12 +1,13 @@
 using System;
-using UnityEngine;
-using FrostfallSaga.Utils;
 using FrostfallSaga.Core.InventorySystem;
+using FrostfallSaga.Utils;
+using UnityEngine;
 
 
 namespace FrostfallSaga.Core.Fight
 {
-    [CreateAssetMenu(fileName = "FighterConfiguration", menuName = "ScriptableObjects/Entities/FighterConfiguration", order = 0)]
+    [CreateAssetMenu(fileName = "FighterConfiguration", menuName = "ScriptableObjects/Entities/FighterConfiguration",
+        order = 0)]
     public class FighterConfigurationSO : ScriptableObject
     {
         [field: SerializeField] public GameObject FighterPrefab { get; private set; }
@@ -17,32 +18,67 @@ namespace FrostfallSaga.Core.Fight
         [field: SerializeField] public ABaseAbility[] AvailablePassiveAbilities { get; private set; }
         [field: SerializeField] public int PassiveAbilitiesCapacity { get; private set; }
 
-        [field: SerializeField, Tooltip("Item -> (Apparition chance at fight start, Max apparition count)")] 
+        [field: SerializeField]
+        [field: Tooltip("Item -> (Apparition chance at fight start, Max apparition count)")] 
         public SElementToValue<ItemSO, SElementToValue<float, int>>[] AvailableItems { get; private set; }
 
         [field: SerializeField] public int MinStycasLoot { get; private set; }
         [field: SerializeField] public int MaxStycasLoot { get; private set; }
 
-        #region Base stats
-        [field: SerializeField, Range(0, 9999)] public int MaxHealth { get; private set; }
-        [field: SerializeField, Range(0, 9999)] public int MaxActionPoints { get; private set; }
-        [field: SerializeField, Range(0, 9999)] public int MaxMovePoints { get; private set; }
-        [field: SerializeField, Range(0, 9999)] public int Strength { get; private set; }
-        [field: SerializeField, Range(0, 9999)] public int Dexterity { get; private set; }
-        [field: SerializeField, Range(0, 9999)] public int Tenacity { get; private set; }
-        [field: SerializeField, Range(0, 9999)] public int PhysicalResistance { get; private set; }
+        #region Base stats #region Base stats
+
+        [field: SerializeField]
+        [field: Range(0, 9999)]
+        public int MaxHealth { get; private set; }
+
+        [field: SerializeField]
+        [field: Range(0, 9999)]
+        public int MaxActionPoints { get; private set; }
+
+        [field: SerializeField]
+        [field: Range(0, 9999)]
+        public int MaxMovePoints { get; private set; }
+
+        [field: SerializeField]
+        [field: Range(0, 9999)]
+        public int Strength { get; private set; }
+
+        [field: SerializeField]
+        [field: Range(0, 9999)]
+        public int Dexterity { get; private set; }
+
+        [field: SerializeField]
+        [field: Range(0, 9999)]
+        public int Tenacity { get; private set; }
+
+        [field: SerializeField]
+        [field: Range(0, 9999)]
+        public int PhysicalResistance { get; private set; }
+
         [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MagicalResistances { get; private set; }
         [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MagicalStrengths { get; private set; }
-        [field: SerializeField, Range(0, 1)] public float DodgeChance { get; private set; }
-        [field: SerializeField, Range(0, 1)] public float MasterstrokeChance { get; private set; }
-        [field: SerializeField, Range(0, 9999)] public int Initiative { get; private set; }
+
+        [field: SerializeField]
+        [field: Range(0, 1)]
+        public float DodgeChance { get; private set; }
+
+        [field: SerializeField]
+        [field: Range(0, 1)]
+        public float MasterstrokeChance { get; private set; }
+
+        [field: SerializeField]
+        [field: Range(0, 9999)]
+        public int Initiative { get; private set; }
+
         #endregion
 
         #region Animations
+
         [field: SerializeField] public string HealSelfAnimationName { get; private set; }
         [field: SerializeField] public string ReceiveDamageAnimationName { get; private set; }
         [field: SerializeField] public string ReduceStatAnimationName { get; private set; }
         [field: SerializeField] public string IncreaseStatAnimationName { get; private set; }
+
         #endregion
 
         public FighterConfigurationSO()
@@ -78,7 +114,6 @@ namespace FrostfallSaga.Core.Fight
                 new(EMagicalElement.EARTH, 0),
                 new(EMagicalElement.LIGHT, 0),
                 new(EMagicalElement.DARKNESS, 0)
-
             };
             DodgeChance = 0;
             MasterstrokeChance = 0;
@@ -91,7 +126,7 @@ namespace FrostfallSaga.Core.Fight
 
         public virtual FighterStats ExtractFighterStats()
         {
-            return new()
+            return new FighterStats
             {
                 maxHealth = MaxHealth,
                 health = MaxHealth,

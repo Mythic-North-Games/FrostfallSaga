@@ -1,23 +1,25 @@
 using System;
-using UnityEngine;
-using UnityEngine.UIElements;
 using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Core.HeroTeam;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.City.UI
 {
     public class TavernDialogController
     {
-        private readonly static string WELCOME_LABEL_UI_NAME = "WelcomeLabel";
-        private readonly static string REST_QUESTION_UI_NAME = "QuestionLabel";
-        private readonly static string REST_BUTTON_UI_NAME = "RestButton";
-        private readonly static string EXIT_BUTTON_UI_NAME = "ExitButton";
-        private readonly static string TAVERN_DIALOG_HIDDEN_CLASSNAME = "tavernDialogHidden";
+        #region UXML Names and classes
+        private static readonly string WELCOME_LABEL_UI_NAME = "WelcomeLabel";
+        private static readonly string REST_QUESTION_UI_NAME = "QuestionLabel";
+        private static readonly string REST_BUTTON_UI_NAME = "RestButton";
+        private static readonly string EXIT_BUTTON_UI_NAME = "ExitButton";
+        private static readonly string TAVERN_DIALOG_HIDDEN_CLASSNAME = "tavernDialogHidden";
+        #endregion
 
-        public Action onRestButtonClicked;
-        public Action onExitClicked;
+        public Action OnExitClicked;
+        public Action OnRestButtonClicked;
 
-        private VisualElement _dialogRoot;
+        private readonly VisualElement _dialogRoot;
         private TavernConfiguration _tavernConfiguration;
 
         public TavernDialogController(VisualElement tavernDialogRoot)
@@ -29,7 +31,8 @@ namespace FrostfallSaga.City.UI
         {
             _tavernConfiguration = tavernConfiguration;
             _dialogRoot.Q<Label>(WELCOME_LABEL_UI_NAME).text = $"Welcome to {tavernConfiguration.Name}!";
-            _dialogRoot.Q<Label>(REST_QUESTION_UI_NAME).text = $"Would you like to rest for {tavernConfiguration.RestCost} stycas?";
+            _dialogRoot.Q<Label>(REST_QUESTION_UI_NAME).text =
+                $"Would you like to rest for {tavernConfiguration.RestCost} stycas?";
             _dialogRoot.Q<Button>(EXIT_BUTTON_UI_NAME).clicked += OnExitButtonClicked;
 
             if (HeroTeam.Instance.Stycas < tavernConfiguration.RestCost)
@@ -38,7 +41,7 @@ namespace FrostfallSaga.City.UI
                 return;
             }
             _dialogRoot.Q<Button>(REST_BUTTON_UI_NAME).SetEnabled(true);
-            _dialogRoot.Q<Button>(REST_BUTTON_UI_NAME).clicked += OnRestButtonClicked;
+            _dialogRoot.Q<Button>(REST_BUTTON_UI_NAME).clicked += RestButtonClicked;
         }
 
         public void Display()
@@ -51,7 +54,7 @@ namespace FrostfallSaga.City.UI
             _dialogRoot.AddToClassList(TAVERN_DIALOG_HIDDEN_CLASSNAME);
         }
 
-        public void OnRestButtonClicked()
+        public void RestButtonClicked()
         {
             HeroTeam heroTeam = HeroTeam.Instance;
 
@@ -67,12 +70,12 @@ namespace FrostfallSaga.City.UI
             heroTeam.FullHealTeam();
 
             Debug.Log("Team fully healed.");
-            onRestButtonClicked?.Invoke();
+            OnRestButtonClicked?.Invoke();
         }
 
         public void OnExitButtonClicked()
         {
-            onExitClicked?.Invoke();
+            OnExitClicked?.Invoke();
         }
     }
 }

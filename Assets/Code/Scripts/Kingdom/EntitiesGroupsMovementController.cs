@@ -2,23 +2,23 @@ using System;
 using System.Collections.Generic;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.Kingdom.InterestPoints;
 using FrostfallSaga.Kingdom.EntitiesGroups;
+using FrostfallSaga.Kingdom.InterestPoints;
 using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Kingdom
 {
     public class EntitiesGroupsMovementController
     {
-        public Action onAllEntitiesMoved;
-        public Action<EntitiesGroup, bool> onEnemiesGroupEncountered;
-        public Action<InterestPoint> onInterestPointEncountered;
+        private readonly Dictionary<EntitiesGroup, MovePath> _currentPathPerEnemiesGroup = new();
+        private readonly KingdomHexGrid _kingdomGrid;
+        private readonly EntitiesGroup _heroGroup;
 
-        private KingdomHexGrid _kingdomGrid;
-        private EntitiesGroup _heroGroup;
         private MovePath _currentHeroGroupMovePath;
         private EntitiesGroup[] _enemiesGroupsToMove;
-        private readonly Dictionary<EntitiesGroup, MovePath> _currentPathPerEnemiesGroup = new();
+        public Action OnAllEntitiesMoved;
+        public Action<EntitiesGroup, bool> OnEnemiesGroupEncountered;
+        public Action<InterestPoint> OnInterestPointEncountered;
 
         public EntitiesGroupsMovementController(KingdomHexGrid kingdomGrid, EntitiesGroup heroGroup)
         {
@@ -42,16 +42,12 @@ namespace FrostfallSaga.Kingdom
             KingdomCell cellToMoveTo = _currentHeroGroupMovePath.GetNextCellInPath() as KingdomCell;
 
             // Check if collide with enemies group
-            if (cellToMoveTo.HasOccupier())
+            if (cellToMoveTo && cellToMoveTo.HasOccupier())
             {
                 if (cellToMoveTo.Occupier is EntitiesGroup collidingEnemiesGroup)
-                {
-                    onEnemiesGroupEncountered?.Invoke(collidingEnemiesGroup, true);
-                }
+                    OnEnemiesGroupEncountered?.Invoke(collidingEnemiesGroup, true);
                 else if (cellToMoveTo.Occupier is InterestPoint upcomingInterestPoint)
-                {
-                    onInterestPointEncountered?.Invoke(upcomingInterestPoint);
-                }
+                    OnInterestPointEncountered?.Invoke(upcomingInterestPoint);
                 UnbindEntitiesGroupsMovementEvents();
             }
             else
@@ -63,13 +59,9 @@ namespace FrostfallSaga.Kingdom
         private void OnHeroGroupMoved(EntitiesGroup _heroGroup, Cell _destinationCell)
         {
             if (!_currentHeroGroupMovePath.IsLastMove)
-            {
                 MakeHeroGroupMove();
-            }
             else
-            {
                 MakeAllEnemiesGroupsMoveSimultaneously();
-            }
         }
 
         private void MakeAllEnemiesGroupsMoveSimultaneously()
@@ -79,24 +71,17 @@ namespace FrostfallSaga.Kingdom
                 _enemiesGroupsToMove
             );
             foreach (KeyValuePair<EntitiesGroup, KingdomCell[]> item in movePathPerEnemiesGroup)
-            {
-                _currentPathPerEnemiesGroup.Add(item.Key, new(item.Value));
-            }
+                _currentPathPerEnemiesGroup.Add(item.Key, new MovePath(item.Value));
 
             bool atLeastOneEnemiesGroupMoved = false;
             foreach (KeyValuePair<EntitiesGroup, MovePath> item in _currentPathPerEnemiesGroup)
-            {
-                if (item.Value.PathLength > 0)  // Sometimes enemies groups don't move :)
+                if (item.Value.PathLength > 0) // Sometimes enemies groups don't move :)
                 {
                     MakeEnemiesGroupMove(item.Key);
                     atLeastOneEnemiesGroupMoved = true;
                 }
-            }
 
-            if (!atLeastOneEnemiesGroupMoved)
-            {
-                EndMovementProcess();
-            }
+            if (!atLeastOneEnemiesGroupMoved) EndMovementProcess();
         }
 
 
@@ -107,7 +92,7 @@ namespace FrostfallSaga.Kingdom
             if (cellToMoveTo == _heroGroup.cell)
             {
                 UnbindEntitiesGroupsMovementEvents();
-                onEnemiesGroupEncountered?.Invoke(EntitiesGroup, false);
+                OnEnemiesGroupEncountered?.Invoke(EntitiesGroup, false);
             }
             else
             {
@@ -119,41 +104,27 @@ namespace FrostfallSaga.Kingdom
         {
             MovePath enemiesGroupMovePath = _currentPathPerEnemiesGroup[EntitiesGroup];
             if (!enemiesGroupMovePath.IsLastMove)
-            {
                 MakeEnemiesGroupMove(EntitiesGroup);
-            }
-            else if (HaveAllEnnemiesGroupMoved())
-            {
-                EndMovementProcess();
-            }
+            else if (HaveAllEnnemiesGroupMoved()) EndMovementProcess();
         }
 
         private bool HaveAllEnnemiesGroupMoved()
         {
-            if (_currentPathPerEnemiesGroup.Count == 0)
-            {
-                return true;
-            }
+            if (_currentPathPerEnemiesGroup.Count == 0) return true;
 
             foreach (KeyValuePair<EntitiesGroup, MovePath> item in _currentPathPerEnemiesGroup)
-            {
                 if (item.Value.DoesNextCellExists())
-                {
                     return false;
-                }
-            }
+
             return true;
         }
 
         private EntitiesGroup GetEnemiesGroupThatWillCollide(Cell targetCell)
         {
             foreach (EntitiesGroup EntitiesGroup in _enemiesGroupsToMove)
-            {
                 if (EntitiesGroup.cell == targetCell)
-                {
                     return EntitiesGroup;
-                }
-            }
+
             return null;
         }
 
@@ -161,32 +132,12 @@ namespace FrostfallSaga.Kingdom
         {
             _currentPathPerEnemiesGroup.Clear();
             UnbindEntitiesGroupsMovementEvents();
-            onAllEntitiesMoved?.Invoke();
+            OnAllEntitiesMoved?.Invoke();
         }
-
-        #region Entities movements event binding and unbinding
-        private void BindEntitiesGroupsMovementEvents()
-        {
-            _heroGroup.onEntityGroupMoved += OnHeroGroupMoved;
-            foreach (EntitiesGroup entitiesGroup in _enemiesGroupsToMove)
-            {
-                entitiesGroup.onEntityGroupMoved += OnEnemiesGroupMoved;
-            }
-        }
-
-        private void UnbindEntitiesGroupsMovementEvents()
-        {
-            _heroGroup.onEntityGroupMoved -= OnHeroGroupMoved;
-            foreach (EntitiesGroup entitiesGroup in _enemiesGroupsToMove)
-            {
-                entitiesGroup.onEntityGroupMoved -= OnEnemiesGroupMoved;
-            }
-        }
-        #endregion
 
         /// <summary>
-        /// Generate random move paths for the given entities groups inside the given grid.
-        /// The generated move paths will not collide with each other.
+        ///     Generate random move paths for the given entities groups inside the given grid.
+        ///     The generated move paths will not collide with each other.
         /// </summary>
         /// <param name="grid">The grid to move inside.</param>
         /// <param name="entitiesGroups">The entities groups to generate a move path for.</param>
@@ -201,21 +152,21 @@ namespace FrostfallSaga.Kingdom
             Dictionary<EntitiesGroup, KingdomCell[]> pathPerEntitiesGroup = new();
             HashSet<KingdomCell> cellsCoveredByEntitiesGroups = new();
             foreach (EntitiesGroup entitiesGroup in entitiesGroups)
-            {
                 cellsCoveredByEntitiesGroups.Add(entitiesGroup.cell);
-            }
 
             foreach (EntitiesGroup entitiesGroup in entitiesGroups)
             {
-                KingdomCell[] path = GenerateRandomMovePathForEntitiesGroup(grid, entitiesGroup, cellsCoveredByEntitiesGroups, minPathLength);
+                KingdomCell[] path = GenerateRandomMovePathForEntitiesGroup(grid, entitiesGroup,
+                    cellsCoveredByEntitiesGroups, minPathLength);
                 cellsCoveredByEntitiesGroups.UnionWith(path);
                 pathPerEntitiesGroup.Add(entitiesGroup, path);
             }
+
             return pathPerEntitiesGroup;
         }
 
         /// <summary>
-        /// Computes a random cell's path for the given entities group inside the given grid.
+        ///     Computes a random cell's path for the given entities group inside the given grid.
         /// </summary>
         /// <param name="kingdomGrid">The grid to generate the path in.</param>
         /// <param name="entitiesGroup">The entities group to generate a path for.</param>
@@ -230,13 +181,8 @@ namespace FrostfallSaga.Kingdom
         {
             // To ensure the maximum path length is the entities group move points.
             if (minPathLength > entitiesGroup.movePoints)
-            {
                 minPathLength = entitiesGroup.movePoints;
-            }
-            else if (minPathLength < 0)
-            {
-                throw new ArgumentException("minPathLength can't be less than zero.");
-            }
+            else if (minPathLength < 0) throw new ArgumentException("minPathLength can't be less than zero.");
 
             List<KingdomCell> randomMovePath = new();
             int numberOfCellsInPath = Randomizer.GetRandomIntBetween(minPathLength, entitiesGroup.movePoints);
@@ -245,22 +191,40 @@ namespace FrostfallSaga.Kingdom
             for (int i = 0; i < numberOfCellsInPath; i++)
             {
                 Cell[] neighbors = CellsNeighbors.GetNeighbors(kingdomGrid, currentCellOfPath);
-                List<KingdomCell> currentCellOfPathNeighbors = new(Array.ConvertAll(neighbors, cell => cell as KingdomCell));
+                List<KingdomCell> currentCellOfPathNeighbors =
+                    new(Array.ConvertAll(neighbors, cell => cell as KingdomCell));
                 currentCellOfPathNeighbors.Remove(entitiesGroup.cell);
                 currentCellOfPathNeighbors.RemoveAll(cell => randomMovePath.Contains(cell));
                 currentCellOfPathNeighbors.RemoveAll(cell => prohibitedCells.Contains(cell));
 
-                if (currentCellOfPathNeighbors.Count == 0)  // Stop generating path if no cell is available to move.
-                {
+                if (currentCellOfPathNeighbors.Count == 0) // Stop generating path if no cell is available to move.
                     break;
-                }
 
-                KingdomCell neighborCellToAdd = Randomizer.GetRandomElementFromArray(currentCellOfPathNeighbors.ToArray());
+                KingdomCell neighborCellToAdd =
+                    Randomizer.GetRandomElementFromArray(currentCellOfPathNeighbors.ToArray());
                 randomMovePath.Add(neighborCellToAdd);
                 currentCellOfPath = neighborCellToAdd;
             }
 
             return randomMovePath.ToArray();
         }
+
+        #region Entities movements event binding and unbinding
+
+        private void BindEntitiesGroupsMovementEvents()
+        {
+            _heroGroup.OnEntityGroupMoved += OnHeroGroupMoved;
+            foreach (EntitiesGroup entitiesGroup in _enemiesGroupsToMove)
+                entitiesGroup.OnEntityGroupMoved += OnEnemiesGroupMoved;
+        }
+
+        private void UnbindEntitiesGroupsMovementEvents()
+        {
+            _heroGroup.OnEntityGroupMoved -= OnHeroGroupMoved;
+            foreach (EntitiesGroup entitiesGroup in _enemiesGroupsToMove)
+                entitiesGroup.OnEntityGroupMoved -= OnEnemiesGroupMoved;
+        }
+
+        #endregion
     }
 }

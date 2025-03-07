@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Statuses
 {
@@ -31,7 +31,8 @@ namespace FrostfallSaga.Fight.Statuses
         protected override void DoApplyStatus(Fighter fighter)
         {
             fighter.UpdateMutableStat(EFighterMutableStat.Strength, -StrengthReduction);
-            Debug.Log($"{fighter.name}'s strength is reduced by {StrengthReduction} == > Strength : {fighter.GetStrength()}.");
+            Debug.Log(
+                $"{fighter.name}'s strength is reduced by {StrengthReduction} == > Strength : {fighter.GetStrength()}.");
         }
 
         protected override void DoRemoveStatus(Fighter fighter)
@@ -39,8 +40,8 @@ namespace FrostfallSaga.Fight.Statuses
             fighter.UpdateMutableStat(
                 EFighterMutableStat.Strength,
                 StrengthReduction,
-                triggerAnimation: false,
-                triggerEvent: false
+                false,
+                false
             );
             Debug.Log($"{fighter.name}'s strength is back to normal !");
         }

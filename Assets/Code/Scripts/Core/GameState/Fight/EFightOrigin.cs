@@ -3,7 +3,7 @@ using System;
 namespace FrostfallSaga.Core.GameState.Fight
 {
     /// <summary>
-    /// From where the fight is launched.
+    ///     From where the fight is launched.
     /// </summary>
     public enum EFightOrigin
     {
