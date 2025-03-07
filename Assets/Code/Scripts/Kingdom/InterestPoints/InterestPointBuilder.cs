@@ -36,7 +36,7 @@ namespace FrostfallSaga.Kingdom.InterestPoints
         {
             Debug.Log("Generating Interest Points...");
 
-            List<KingdomCell> freeCells = RetrieveFreeCells(kingdomHexGrid.Cells);
+            List<KingdomCell> freeCells = kingdomHexGrid.GetFreeCells();
             if (freeCells.Count == 0 && freeCells.Count > interestPoints.Count)
             {
                 Debug.LogWarning("No free cells available for InterestPoints!");
@@ -49,14 +49,6 @@ namespace FrostfallSaga.Kingdom.InterestPoints
                 InstantiateInterestPoint(point.InterestPointConfiguration, cell);
                 freeCells.Remove(cell);
             }
-        }
-
-        /// <summary>
-        ///     Récupère une cellule libre du KingdomGrid
-        /// </summary>
-        private List<KingdomCell> RetrieveFreeCells(Dictionary<Vector2Int, Cell> cells)
-        {
-            return cells.Values.OfType<KingdomCell>().Where(cell => cell.IsFree()).ToList();
         }
 
         /// <summary>

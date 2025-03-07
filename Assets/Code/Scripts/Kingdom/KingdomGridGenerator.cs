@@ -22,7 +22,7 @@ namespace FrostfallSaga.Grid
             _voronoiBiomeManager = new VoronoiBiomeManager(gridWidth, gridHeight, availableBiomes.Length, seed);
         }
 
-        public override Dictionary<Vector2Int, Cell> GeneratorGenerateGrid()
+        public override Dictionary<Vector2Int, Cell> GenerateGrid()
         {
             Debug.Log("Generating Kingdom Grid...");
             Dictionary<Vector2Int, Cell> gridCells = new();

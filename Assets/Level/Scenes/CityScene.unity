@@ -203,9 +203,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 445625828}
-  _devCityConfiguration: {fileID: 11400000, guid: da725d013726748eb8d0de034b579136, type: 2}
-  _situationsController: {fileID: 445625831}
-  _situationsButtonTemplate: {fileID: 9197481963319205126, guid: 130f3a2de60defc1fa58720b7fdaeb92, type: 3}
+  devCityConfiguration: {fileID: 0}
+  situationsController: {fileID: 445625831}
+  situationsButtonTemplate: {fileID: 9197481963319205126, guid: 130f3a2de60defc1fa58720b7fdaeb92, type: 3}
 --- !u!114 &445625828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -858,6 +858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a337116156b60604b92b6cfc653c9566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiAudioClipsConfig: {fileID: 0}
   audioSourceObject: {fileID: 4094540750882597515, guid: 55fc8c5428cc982aa9f10837f51f70e0, type: 3}
 --- !u!4 &2109054032
 Transform:

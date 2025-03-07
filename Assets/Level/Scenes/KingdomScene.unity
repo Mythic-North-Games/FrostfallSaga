@@ -245,12 +245,11 @@ MonoBehaviour:
   <EntitiesGroupPrefab>k__BackingField: {fileID: 2373063617049297155, guid: f9e865b9881c3fb40849619aac6166c7, type: 3}
   <SpawnableEntities>k__BackingField:
   - {fileID: 6060947195042707832, guid: ffd14caba15bf4242a0eaa8bb5de0df2, type: 3}
-  <SpawnChance>k__BackingField: 0.5
   <MaxNoSpawnInARow>k__BackingField: 0
   <MaxEntitiesGroupsOnMap>k__BackingField: 3
   <BaseGroupName>k__BackingField: EnemiesGroup
-  _grid: {fileID: 742855832}
-  _kingdomLoader: {fileID: 483864513}
+  grid: {fileID: 0}
+  kingdomLoader: {fileID: 0}
 --- !u!1 &125306505
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,7 +743,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kingdomHexGrid: {fileID: 742855832}
   camera: {fileID: 2047304806}
-  interestPoints: []
+  interestPoints:
+  - {fileID: 8464999841580522387, guid: 1bae81d9ee487648593aa1e4799a9785, type: 3}
+  - {fileID: 4372790175766052833, guid: 93ef8c6f4f6efe146957172931db7402, type: 3}
 --- !u!1001 &742855830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1066,8 +1067,9 @@ MonoBehaviour:
   <CellInaccessibleHighlightMaterial>k__BackingField: {fileID: 2100000, guid: 3a49c1857eb90d545bdc83727456b7b3, type: 2}
   <KingdomGrid>k__BackingField: {fileID: 742855832}
   <HeroGroup>k__BackingField: {fileID: 0}
+  <InterestPoints>k__BackingField: []
   <EnemiesGroups>k__BackingField: []
-  enemiesGroupSpawner: {fileID: 0}
+  enemiesGroupSpawner: {fileID: 106982315}
   kingdomLoader: {fileID: 483864513}
 --- !u!1 &1268217342
 GameObject:
@@ -1181,8 +1183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ea139d9832e8390b21b3a8ac39d3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _kingdomManager: {fileID: 899991118}
-  _enterDungeonPanelController: {fileID: 791242500}
+  kingdomManager: {fileID: 899991118}
+  enterDungeonPanelController: {fileID: 791242500}
 --- !u!1 &1446529808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,10 +1229,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e823463cf38a754a8520874f3d6c08d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _kingdomManager: {fileID: 899991118}
-  _sceneTransitioner: {fileID: 26075752}
-  _readyToFightAnimationDuration: 2
-  _delayBeforeLoadingSceneAfterReadyAnimation: 1
+  kingdomManager: {fileID: 899991118}
+  sceneTransitioner: {fileID: 26075752}
+  readyToFightAnimationDuration: 2
+  delayBeforeLoadingSceneAfterReadyAnimation: 10
 --- !u!1 &1449699357
 GameObject:
   m_ObjectHideFlags: 3

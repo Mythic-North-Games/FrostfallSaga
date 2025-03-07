@@ -21,7 +21,7 @@ namespace FrostfallSaga.Grid
             _perlinTerrainManager = new PerlinTerrainManager(noiseScale, seed);
         }
 
-        public override Dictionary<Vector2Int, Cell> GeneratorGenerateGrid()
+        public override Dictionary<Vector2Int, Cell> GenerateGrid()
         {
             Dictionary<Vector2Int, Cell> gridCells = new();
 

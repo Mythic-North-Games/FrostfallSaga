@@ -13,7 +13,7 @@ namespace FrostfallSaga.Fight
             Debug.Log("Generate Grid...");
             FightGridGenerator fightGridGenerator =
                 new(_hexFightPrefab, Width, Height, AvailableBiomes, transform, NoiseScale, Seed);
-            Cells = fightGridGenerator.GeneratorGenerateGrid();
+            Cells = fightGridGenerator.GenerateGrid();
         }
 
         #region Setup & tear down

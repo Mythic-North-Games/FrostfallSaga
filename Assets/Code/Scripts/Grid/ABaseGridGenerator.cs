@@ -42,7 +42,7 @@ namespace FrostfallSaga.Grid
         protected float? NoiseScale { get; set; }
         protected int? Seed { get; set; }
         protected Cell HexPrefab { get; set; }
-        public abstract Dictionary<Vector2Int, Cell> GeneratorGenerateGrid();
+        public abstract Dictionary<Vector2Int, Cell> GenerateGrid();
 
         public override string ToString()
         {

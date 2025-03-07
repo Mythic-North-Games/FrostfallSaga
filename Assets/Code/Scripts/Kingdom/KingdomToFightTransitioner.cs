@@ -34,6 +34,14 @@ namespace FrostfallSaga.Kingdom
                 Debug.LogError("No KingdomManager found. Can't transition to fight scene.");
                 return;
             }
+            
+            sceneTransitioner ??= FindObjectOfType<SceneTransitioner>();
+
+            if (!sceneTransitioner)
+            {
+                Debug.LogError("No SceneTransitioner found. Can't transition to fight scene.");
+                return;
+            }
 
             kingdomManager.OnEnemiesGroupEncountered += OnEnemiesGroupEncountered;
             _onEncounterAnimationEnded += OnEncounterAnimationEnded;
