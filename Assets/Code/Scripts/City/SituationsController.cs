@@ -45,11 +45,7 @@ namespace FrostfallSaga.City
 
         private void EndCitySituation()
         {
-            if (_currentCitySituation.OnEndQuest != null)
-            {
-                // Add quest to hero team's quest list
-                HeroTeamQuests.Instance.AddQuest(_currentCitySituation.OnEndQuest);
-            }
+            _currentCitySituation.ResolveSituation();
             onSituationResolved?.Invoke(_currentCitySituation);
         }
 

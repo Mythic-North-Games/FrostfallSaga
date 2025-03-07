@@ -98,12 +98,14 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
                 if (newTitle != data.Title)
                 {
                     data.SetTitle(newTitle);
+                    EditorUtility.SetDirty(_dialogueSO);
                 }
 
                 string newRichText = EditorGUILayout.TextField("Rich Text", data.RichText);
                 if (newRichText != data.RichText)
                 {
                     data.SetRichText(newRichText);
+                    EditorUtility.SetDirty(_dialogueSO);
                 }
 
                 DialogueParticipantSO newSpeaker = (DialogueParticipantSO)EditorGUILayout.ObjectField(
@@ -112,12 +114,14 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
                 if (newSpeaker != data.Speaker)
                 {
                     data.SetSpeaker(newSpeaker);
+                    EditorUtility.SetDirty(_dialogueSO);
                 }
 
                 bool newIsRight = EditorGUILayout.Toggle("Is Speaker on Right?", data.IsRight);
                 if (newIsRight != data.IsRight)
                 {
                     data.SetIsRight(newIsRight);
+                    EditorUtility.SetDirty(_dialogueSO);
                 }
 
                 AQuestSO newQuest = (AQuestSO)EditorGUILayout.ObjectField(
@@ -126,6 +130,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
                 if (newQuest != data.Quest)
                 {
                     data.SetQuest(newQuest);
+                    EditorUtility.SetDirty(_dialogueSO);
                 }
 
                 EditorGUILayout.Space();
@@ -209,6 +214,8 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             {
                 AddAnswerAndChild(node, "New answer");
             }
+
+            EditorUtility.SetDirty(_dialogueSO);
         }
 
 
@@ -226,6 +233,8 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             parentNode.GetChildren().Add(new TreeNode<DialogueLine>(
                 new DialogueLine($"{answerText} answer", "New dialogue line", null, false)
             ));
+
+            EditorUtility.SetDirty(_dialogueSO);
         }
 
         private void RemoveAnswerAndChild(TreeNode<DialogueLine> parentNode, int index)
@@ -243,6 +252,8 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             {
                 parentNode.GetChildren().RemoveAt(index);
             }
+
+            EditorUtility.SetDirty(_dialogueSO);
         }
     }
 }

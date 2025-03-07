@@ -3,14 +3,19 @@
     <Style src="project://database/Assets/Level/UI/City/CityStyles.uss?fileID=7433441132597879392&amp;guid=41b3143ea7e0b52078409fcf6bbfda5c&amp;type=3#CityStyles" />
     <ui:VisualElement name="SituationsMenuContainer" style="width: 100%; height: 100%; align-items: flex-start; flex-direction: row;">
         <ui:VisualElement name="SituationLeftContainer" class="situationLeftContainerDefault" style="align-items: center;">
-            <ui:VisualElement name="SituationsContainer" style="justify-content: flex-start; align-items: flex-start; height: 75%; width: 100%; margin-top: 10%; margin-right: 0; margin-bottom: 10%; margin-left: 0; padding-left: 5%; padding-top: 0; padding-right: 5%; padding-bottom: 0;">
-                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainer" />
-                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainer" />
-                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainer" />
-                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainer" />
-                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainer" />
-                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainer" />
-            </ui:VisualElement>
+            <ui:ScrollView name="SituationsContainer" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="situationsContainerDefault">
+                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainerRoot" />
+                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainerRoot" />
+                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainerRoot" />
+                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainerRoot" />
+                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainerRoot" />
+                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainerRoot" />
+                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainerRoot" />
+                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainerRoot" />
+                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainerRoot" />
+                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainerRoot" />
+                <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainerRoot" />
+            </ui:ScrollView>
             <ui:Button text="Return" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ReturnButton" class="mainMenuButtonDefault" style="width: 80%;" />
         </ui:VisualElement>
         <ui:VisualElement name="SituationIllustration" class="situationIllustrationDefault" />

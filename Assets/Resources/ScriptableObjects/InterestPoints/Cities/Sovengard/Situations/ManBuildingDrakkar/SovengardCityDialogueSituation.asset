@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: A man is building a Drakkar
   <Illustration>k__BackingField: {fileID: 21300000, guid: b4cc9cfff98603c0eb309d1d579beca6, type: 3}
+  <IsReplayable>k__BackingField: 0
+  <IsDone>k__BackingField: 1
+  <OnStartQuest>k__BackingField: {fileID: 0}
+  <OnEndQuest>k__BackingField: {fileID: 11400000, guid: f572c0de53101d97ebadf6b1b9e6e337, type: 2}
   <Dialogue>k__BackingField: {fileID: 11400000, guid: e9f2cb4c1ad4fe5ae9a28e15e4242760, type: 2}
