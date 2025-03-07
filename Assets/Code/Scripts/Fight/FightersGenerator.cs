@@ -99,7 +99,7 @@ namespace FrostfallSaga.Fight
                 fighterConfiguration,
                 equippedActiveAbilities: ChooseEnemyActiveAbilities(fighterConfiguration),
                 equippedPassiveAbilities: ChooseEnemyPassiveAbilities(fighterConfiguration),
-                inventory: GenerateEnemyFightInventory(),
+                inventory: GenerateEnemyFightInventory(fighterConfiguration),
                 sessionId: sessionId
             );
             return enemyFighterToSetup;
@@ -132,11 +132,50 @@ namespace FrostfallSaga.Fight
             return allyFighterToSetup;
         }
 
-        private Inventory GenerateEnemyFightInventory()
+        private Inventory GenerateEnemyFightInventory(FighterConfigurationSO fighterConfiguration)
         {
             Inventory inventory = new();
-            inventory.EquipItem(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath));
+
+            // Get the start items for the enemy inventory
+            ItemSO[] startItems = ComputeEnemyInventoryStartItems(
+                SElementToValue<ItemSO, SElementToValue<float, int>>.GetDictionaryFromArray(fighterConfiguration.AvailableItems)
+            );
+            foreach (ItemSO item in startItems)
+            {
+                inventory.AddItemAndEquipIfPossible(item);
+            }
+
+            if (inventory.WeaponSlot.IsEmpty())
+            {
+                Debug.LogWarning("Enemy inventory is missing a weapon. Default weapon will be equipped.");
+                inventory.EquipItem(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath));
+            }
             return inventory;
+        }
+
+        /// <summary>
+        /// Compute the enemy inventory at fight start based on the available items and their apparition chances.
+        /// </summary>
+        /// <param name="availableItems">The available items and their apparition chances.</param>
+        /// <returns>The computed enemy start items.</returns>
+        private ItemSO[] ComputeEnemyInventoryStartItems(Dictionary<ItemSO, SElementToValue<float, int>> availableItems)
+        {
+            List<ItemSO> items = new();
+            foreach (KeyValuePair<ItemSO, SElementToValue<float, int>> item in availableItems)
+            {
+                ItemSO possibleItem = item.Key;
+                float includeInInventoryChance = item.Value.element;
+                int maxPossibleItemCount = item.Value.value;
+
+                for (int i = 0; i < maxPossibleItemCount; i++)
+                {
+                    if (Randomizer.GetBooleanOnChance(includeInInventoryChance))
+                    {
+                        items.Add(possibleItem);
+                    }
+                }
+            }
+            return items.ToArray();
         }
 
         private ActiveAbilitySO[] ChooseEnemyActiveAbilities(FighterConfigurationSO fighterConfiguration)
