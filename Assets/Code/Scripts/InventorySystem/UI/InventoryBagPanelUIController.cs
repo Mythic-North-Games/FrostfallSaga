@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
 using FrostfallSaga.Core.InventorySystem;
+using FrostfallSaga.Core.HeroTeam;
 
 namespace FrostfallSaga.InventorySystem.UI
 {
@@ -14,6 +15,7 @@ namespace FrostfallSaga.InventorySystem.UI
         private static readonly string ITEM_NAME_LABEL_UI_NAME = "ItemNameLabel";
         private static readonly string ITEM_DESCRIPTION_LABEL_UI_NAME = "ItemDescriptionLabel";
         private static readonly string ITEM_DETAILS_CONTENT_ROOT_UI_NAME = "ItemDetailsContentRoot";
+        private static readonly string STYCAS_COUNT_LABEL_UI_NAME = "StycasCountLabel";
         #endregion
 
         public Action<InventorySlot> onItemSlotSelected;
@@ -35,6 +37,9 @@ namespace FrostfallSaga.InventorySystem.UI
                 _root.Q<VisualElement>(ITEM_DETAILS_CONTENT_ROOT_UI_NAME),
                 itemStatContainerTemplate
             );
+
+            // Setup stycas count
+            _root.Q<Label>(STYCAS_COUNT_LABEL_UI_NAME).text = HeroTeam.Instance.Stycas.ToString();
 
             // Setup item slot containers
             VisualElement bagSlotsContainer = _root.Q<VisualElement>(BAG_SLOTS_CONTAINER_LABEL_UI_NAME);
