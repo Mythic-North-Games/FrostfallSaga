@@ -1,18 +1,18 @@
 using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
+using NUnit.Framework;
+using UnityEngine;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
     public class FighterStatusAbilitiesTests
     {
-        Fighter fighter;
-        StatusesManager statusManager;
-        BleedStatus bleedStatus;
-        WeaknessStatus weaknessStatus;
-        ParalysisStatus paralysisStatus;
+        private BleedStatus bleedStatus;
+        private Fighter fighter;
+        private ParalysisStatus paralysisStatus;
+        private StatusesManager statusManager;
+        private WeaknessStatus weaknessStatus;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -66,8 +66,8 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void ApplyBleedStatus_ShouldReduceHealthOverTime()
         {
             // arrange
-            int initialHealth = fighter.GetHealth();
-            int expectedHealthReduction = bleedStatus.BleedingDamage;
+            var initialHealth = fighter.GetHealth();
+            var expectedHealthReduction = bleedStatus.BleedingDamage;
 
             // Act
             statusManager.ApplyStatus(bleedStatus);
@@ -81,7 +81,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void ApplyBleedStatus_ShouldNotReduceHealthOverTime()
         {
             // arrange
-            int initialHealth = fighter.GetHealth();
+            var initialHealth = fighter.GetHealth();
 
             // Act
             statusManager.ApplyStatus(bleedStatus);
@@ -96,19 +96,16 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         {
             // arrange
             statusManager.ApplyStatus(bleedStatus);
-            int initialHealth = fighter.GetHealth();
-            int expectedHealthReduction = bleedStatus.BleedingDamage;
+            var initialHealth = fighter.GetHealth();
+            var expectedHealthReduction = bleedStatus.BleedingDamage;
 
             // Act
-            for (int i = 0; i < bleedStatus.Duration; i++)
-            {
-                statusManager.UpdateStatuses(EStatusTriggerTime.StartOfTurn);
-            }
+            for (var i = 0; i < bleedStatus.Duration; i++) statusManager.UpdateStatuses(EStatusTriggerTime.StartOfTurn);
 
             // Assert
-            Assert.AreEqual(initialHealth - (bleedStatus.Duration * expectedHealthReduction), fighter.GetHealth());
+            Assert.AreEqual(initialHealth - bleedStatus.Duration * expectedHealthReduction, fighter.GetHealth());
             Dictionary<AStatus, (bool isActive, int duration)> statusEffects = statusManager.GetStatuses();
-            bool isActive = statusEffects.ContainsKey(bleedStatus);
+            var isActive = statusEffects.ContainsKey(bleedStatus);
             Assert.IsFalse(isActive);
         }
 
@@ -120,10 +117,8 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 
 
             // Act
-            for (int i = 0; i < bleedStatus.Duration - 1; i++)
-            {
+            for (var i = 0; i < bleedStatus.Duration - 1; i++)
                 statusManager.UpdateStatuses(EStatusTriggerTime.StartOfTurn);
-            }
             statusManager.ApplyStatus(bleedStatus);
             statusManager.UpdateStatuses(EStatusTriggerTime.StartOfTurn);
 
@@ -138,8 +133,8 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void ApplyWeakeningStatus_ShouldReduceStrengthOnce()
         {
             // arrange
-            int initialStrength = fighter.GetStrength();
-            int expectedStrengthReduction = weaknessStatus.StrengthReduction;
+            var initialStrength = fighter.GetStrength();
+            var expectedStrengthReduction = weaknessStatus.StrengthReduction;
 
             // Act
             statusManager.ApplyStatus(weaknessStatus);
@@ -153,15 +148,13 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void ApplyWeakeningStatus_StrengthShouldBeBackToNormalAfterDuration()
         {
             // arrange
-            int initialStrength = fighter.GetStrength();
-            int expectedStrengthReduction = weaknessStatus.StrengthReduction;
+            var initialStrength = fighter.GetStrength();
+            var expectedStrengthReduction = weaknessStatus.StrengthReduction;
 
             // Act
             statusManager.ApplyStatus(weaknessStatus);
-            for (int i = 0; i < weaknessStatus.Duration - 1; i++)
-            {
+            for (var i = 0; i < weaknessStatus.Duration - 1; i++)
                 statusManager.UpdateStatuses(EStatusTriggerTime.StartOfTurn);
-            }
 
             // Assert
             Assert.AreEqual(initialStrength - expectedStrengthReduction, fighter.GetStrength());
@@ -172,14 +165,13 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             // Assert 2
             Assert.AreEqual(initialStrength, fighter.GetStrength());
             Dictionary<AStatus, (bool isActive, int duration)> statusEffects = statusManager.GetStatuses();
-            bool isActive = statusEffects.ContainsKey(weaknessStatus);
+            var isActive = statusEffects.ContainsKey(weaknessStatus);
             Assert.IsFalse(isActive);
         }
 
         [Test]
         public void ApplyParalysisStatus_ShouldSkipFighterTurn()
         {
-
             // Act
             statusManager.ApplyStatus(paralysisStatus);
             statusManager.UpdateStatuses(EStatusTriggerTime.StartOfTurn);
@@ -192,13 +184,10 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         [Test]
         public void ApplyParalysisStatus_ShouldUnparalyzedFighterAfterDuration()
         {
-
             // Act
             statusManager.ApplyStatus(paralysisStatus);
-            for (int i = 0; i < paralysisStatus.Duration - 1; i++)
-            {
+            for (var i = 0; i < paralysisStatus.Duration - 1; i++)
                 statusManager.UpdateStatuses(EStatusTriggerTime.StartOfTurn);
-            }
 
             //Assert
             Assert.IsTrue(fighter.IsParalyzed);

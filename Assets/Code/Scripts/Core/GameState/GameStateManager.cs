@@ -1,24 +1,29 @@
-using System.Linq;
 using System.Collections.Generic;
-using FrostfallSaga.Utils;
-using FrostfallSaga.Core.Entities;
-using FrostfallSaga.Core.Fight;
+using System.Linq;
 using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Core.Dungeons;
-using FrostfallSaga.Core.GameState.Kingdom;
-using FrostfallSaga.Core.GameState.Fight;
+using FrostfallSaga.Core.Entities;
+using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.GameState.City;
 using FrostfallSaga.Core.GameState.Dungeon;
+using FrostfallSaga.Core.GameState.Fight;
+using FrostfallSaga.Core.GameState.Kingdom;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Core.GameState
 {
     public class GameStateManager : MonoBehaviourPersistingSingleton<GameStateManager>
     {
-        private KingdomState _kingdomState;
-        private PreFightData _preFightData;
-        private PostFightData _postFightData;
         private CityLoadData _cityLoadData;
         private DungeonState _dungeonState;
+        private KingdomState _kingdomState;
+        private PostFightData _postFightData;
+        private PreFightData _preFightData;
+
+        static GameStateManager()
+        {
+            AutoInitializeOnSceneLoad = true;
+        }
 
         protected override void Init()
         {
@@ -89,8 +94,11 @@ namespace FrostfallSaga.Core.GameState
 
         public void SavePostFightData(AFighter[] enemies)
         {
-            _postFightData.enemiesState = new();
-            enemies.ToList().ForEach(enemy => _postFightData.enemiesState.Add(new(enemy.EntitySessionId, new(enemy.GetHealth()))));
+            _postFightData.enemiesState = new List<SElementToValue<string, PostFightFighterState>>();
+            enemies.ToList().ForEach(enemy =>
+                _postFightData.enemiesState.Add(
+                    new SElementToValue<string, PostFightFighterState>(enemy.EntitySessionId,
+                        new PostFightFighterState(enemy.GetHealth()))));
 
             _postFightData.isActive = true;
         }
@@ -112,7 +120,7 @@ namespace FrostfallSaga.Core.GameState
         }
 
         #endregion Fight states
-    
+
         #region City states
 
         public CityLoadData GetCityLoadData()
@@ -155,10 +163,5 @@ namespace FrostfallSaga.Core.GameState
         }
 
         #endregion
-    
-        static GameStateManager()
-        {
-            AutoInitializeOnSceneLoad = true;
-        }
     }
 }

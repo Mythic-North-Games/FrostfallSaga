@@ -1,19 +1,19 @@
 using System;
+using FrostfallSaga.Fight;
+using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Fighters;
 using NUnit.Framework;
 using UnityEngine;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.FightCells;
-using FrostfallSaga.Fight;
+using Object = UnityEngine.Object;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
     public class FighterUseDirectAttackTests
     {
-        FightHexGrid grid;
-        Fighter attacker;
-        int minAttackerDamages;
-        int maxAttackerDamages;
+        private Fighter attacker;
+        private FightHexGrid grid;
+        private int maxAttackerDamages;
+        private int minAttackerDamages;
 
 
         [SetUp]
@@ -34,10 +34,10 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         [TearDown]
         public void TearDown()
         {
-            UnityEngine.Object.DestroyImmediate(grid.gameObject);
+            Object.DestroyImmediate(grid.gameObject);
             grid = null;
 
-            UnityEngine.Object.DestroyImmediate(attacker.gameObject);
+            Object.DestroyImmediate(attacker.gameObject);
             attacker = null;
 
             minAttackerDamages = 0;
@@ -52,14 +52,14 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             receiver.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, receiver, new Vector2Int(0, 1));
 
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.Weapon.UseActionPointsCost;
-            int minExpectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - maxAttackerDamages);
-            int maxExpectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - minAttackerDamages);
+            var expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.Weapon.UseActionPointsCost;
+            var minExpectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - maxAttackerDamages);
+            var maxExpectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - minAttackerDamages);
 
             FightCell[] targetedCells = { receiver.cell };
 
             // Act
-            attacker.onDirectAttackEnded += (Fighter attacker) =>
+            attacker.onDirectAttackEnded += attacker =>
             {
                 /// ASSERTS ///
                 // Check actions points have been decreased
@@ -86,22 +86,23 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             FightTestsHelper.SetupFighterPositionOnGrid(grid, receiver2, new Vector2Int(1, 0));
             receiver2.name = "Receiver 2";
 
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.Weapon.UseActionPointsCost;
+            var expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.Weapon.UseActionPointsCost;
 
-            int minExpectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - maxAttackerDamages);
-            int maxExpectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - minAttackerDamages);
+            var minExpectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - maxAttackerDamages);
+            var maxExpectedReceiverHealth = Math.Max(0, receiver.GetStatsForTests().health - minAttackerDamages);
 
-            int minExpectedReceiverHealth2 = Math.Max(0, receiver2.GetStatsForTests().health - maxAttackerDamages);
-            int maxExpectedReceiverHealth2 = Math.Max(0, receiver2.GetStatsForTests().health - minAttackerDamages);
+            var minExpectedReceiverHealth2 = Math.Max(0, receiver2.GetStatsForTests().health - maxAttackerDamages);
+            var maxExpectedReceiverHealth2 = Math.Max(0, receiver2.GetStatsForTests().health - minAttackerDamages);
 
-            FightCell[] targetedCells = {
+            FightCell[] targetedCells =
+            {
                 receiver.cell,
                 receiver2.cell,
-                (FightCell)grid.Cells[new(1, 1)],
+                (FightCell)grid.Cells[new Vector2Int(1, 1)]
             };
 
             // Act
-            attacker.onDirectAttackEnded += (Fighter attacker) =>
+            attacker.onDirectAttackEnded += attacker =>
             {
                 /// ASSERTS ///
                 Assert.AreEqual(expectedActionPoints, attacker.GetStatsForTests().actionPoints);
@@ -123,13 +124,13 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             Fighter notTargetedFighter = FightTestsHelper.CreateFighter();
             notTargetedFighter.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, notTargetedFighter, new Vector2Int(0, 1));
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.Weapon.UseActionPointsCost;
-            int expectedNotTargetedFighterHealth = notTargetedFighter.GetStatsForTests().health;
+            var expectedActionPoints = attacker.GetStatsForTests().actionPoints - attacker.Weapon.UseActionPointsCost;
+            var expectedNotTargetedFighterHealth = notTargetedFighter.GetStatsForTests().health;
 
-            FightCell[] targetedCells = { (FightCell)grid.Cells[new(1, 1)] };
+            FightCell[] targetedCells = { (FightCell)grid.Cells[new Vector2Int(1, 1)] };
 
             // Act
-            attacker.onDirectAttackEnded += (Fighter attacker) =>
+            attacker.onDirectAttackEnded += attacker =>
             {
                 /// ASSERTS ///
                 // Check actions points have been decreased
@@ -156,7 +157,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         {
             // Arrange
             attacker.GetStatsForTests().actionPoints = 1;
-            FightCell[] targetedCells = { (FightCell)grid.Cells[new(0, 1)] };
+            FightCell[] targetedCells = { (FightCell)grid.Cells[new Vector2Int(0, 1)] };
 
             // Act
             Assert.Throws<InvalidOperationException>(() => attacker.UseDirectAttack(targetedCells));

@@ -1,21 +1,21 @@
 ﻿using System;
+using FrostfallSaga.Core.Fight;
+using FrostfallSaga.Fight;
+using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Fighters;
 using NUnit.Framework;
 using UnityEngine;
-using FrostfallSaga.Core.Fight;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Fight.Effects;
-using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.FightCells;
-using FrostfallSaga.Fight.Abilities;
-using FrostfallSaga.Fight;
+using Object = UnityEngine.Object;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
     public class FighterUseActiveAbilityTests
     {
-        FightHexGrid grid;
-        Fighter attacker;
-        int fireDamages;
+        private Fighter attacker;
+        private int fireDamages;
+        private FightHexGrid grid;
 
 
         [SetUp]
@@ -37,10 +37,10 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         [TearDown]
         public void TearDown()
         {
-            UnityEngine.Object.DestroyImmediate(grid.gameObject);
+            Object.DestroyImmediate(grid.gameObject);
             grid = null;
 
-            UnityEngine.Object.DestroyImmediate(attacker.gameObject);
+            Object.DestroyImmediate(attacker.gameObject);
             attacker = null;
 
             fireDamages = 0;
@@ -57,17 +57,15 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             ActiveAbilitySO activeAbilityToUse = attacker.ActiveAbilities[0];
             MagicalDamageEffect magicalDamageEffect = (MagicalDamageEffect)activeAbilityToUse.Effects[0];
 
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
-            int expectedReceiverHealth = (
-                receiver.GetStatsForTests().health -
-                fireDamages +
-                receiver.GetStatsForTests().magicalResistances[EMagicalElement.FIRE]
-            );
+            var expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
+            var expectedReceiverHealth = receiver.GetStatsForTests().health -
+                                         fireDamages +
+                                         receiver.GetStatsForTests().magicalResistances[EMagicalElement.FIRE];
 
             FightCell[] targetedCells = { receiver.cell };
 
             // Act
-            attacker.onActiveAbilityEnded += (Fighter attacker, ActiveAbilitySO usedAbility) =>
+            attacker.onActiveAbilityEnded += (attacker, usedAbility) =>
             {
                 /// ASSERTS ///
                 // Check actions points have been decreased
@@ -102,26 +100,23 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 
             ActiveAbilitySO activeAbilityToUse = attacker.ActiveAbilities[0];
 
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
-            int expectedReceiverHealth = (
-                receiver.GetStatsForTests().health -
-                fireDamages +
-                receiver.GetStatsForTests().magicalResistances[EMagicalElement.FIRE]
-            );
-            int expectedReceiverHealth2 = (
-                receiver2.GetStatsForTests().health -
-                fireDamages +
-                receiver2.GetStatsForTests().magicalResistances[EMagicalElement.FIRE]
-            );
+            var expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
+            var expectedReceiverHealth = receiver.GetStatsForTests().health -
+                                         fireDamages +
+                                         receiver.GetStatsForTests().magicalResistances[EMagicalElement.FIRE];
+            var expectedReceiverHealth2 = receiver2.GetStatsForTests().health -
+                                          fireDamages +
+                                          receiver2.GetStatsForTests().magicalResistances[EMagicalElement.FIRE];
 
-            FightCell[] targetedCells = {
+            FightCell[] targetedCells =
+            {
                 receiver.cell,
                 receiver2.cell,
-                (FightCell)grid.Cells[new(1, 1)],
+                (FightCell)grid.Cells[new Vector2Int(1, 1)]
             };
 
             // Act
-            attacker.onActiveAbilityEnded += (Fighter attacker, ActiveAbilitySO usedAbility) =>
+            attacker.onActiveAbilityEnded += (attacker, usedAbility) =>
             {
                 /// ASSERTS ///
                 // Check actions points have been decreased
@@ -148,13 +143,13 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 
             ActiveAbilitySO activeAbilityToUse = attacker.ActiveAbilities[0];
 
-            int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
-            int expectedNotTargetedFighterHealth = notTargetedFighter.GetStatsForTests().health;
+            var expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
+            var expectedNotTargetedFighterHealth = notTargetedFighter.GetStatsForTests().health;
 
-            FightCell[] targetedCells = { (FightCell)grid.Cells[new(1, 1)] };
+            FightCell[] targetedCells = { (FightCell)grid.Cells[new Vector2Int(1, 1)] };
 
             // Act
-            attacker.onActiveAbilityEnded += (Fighter attacker, ActiveAbilitySO usedAbility) =>
+            attacker.onActiveAbilityEnded += (attacker, usedAbility) =>
             {
                 /// ASSERTS ///
                 // Check actions points have been decreased
@@ -191,10 +186,11 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             attacker.GetStatsForTests().actionPoints = 1;
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
             ActiveAbilitySO activeAbilityToUse = attacker.ActiveAbilities[0];
-            FightCell[] targetedCells = { (FightCell)grid.Cells[new(0, 1)] };
+            FightCell[] targetedCells = { (FightCell)grid.Cells[new Vector2Int(0, 1)] };
 
             // Act
-            Assert.Throws<InvalidOperationException>(() => attacker.UseActiveAbility(activeAbilityToUse, targetedCells));
+            Assert.Throws<InvalidOperationException>(() =>
+                attacker.UseActiveAbility(activeAbilityToUse, targetedCells));
         }
     }
 }

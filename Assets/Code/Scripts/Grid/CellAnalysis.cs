@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Grid.Cells;
@@ -8,20 +7,21 @@ namespace FrostfallSaga.Grid
 {
     public static class CellAnalysis
     {
+        public static Dictionary<HexDirection, Cell> CellsByDirection = new();
+        private static float _totalCells;
         public static Cell TargetCell { get; private set; }
         public static Cell[] NeighborCells { get; private set; }
         public static Dictionary<TerrainTypeSO, int> TerrainCount { get; private set; }
         public static Dictionary<TerrainTypeSO, float> TerrainComposition { get; private set; }
         public static Dictionary<BiomeTypeSO, int> BiomeCount { get; private set; }
-        public static Dictionary<int, TerrainTypeSO> TerrainAxial { get; private set; }
-        private static float _totalCells = 0;
 
 
         public static void AnalyzeAtCell(Cell targetCell, AHexGrid grid)
         {
             Debug.Log(grid.ToString());
             TargetCell = targetCell;
-            NeighborCells = CellsNeighbors.GetNeighbors(grid, targetCell);
+            NeighborCells = CellsNeighbors.GetNeighbors(grid, targetCell, includeHeightInaccessibleNeighbors: true,
+                includeOccupiedNeighbors: true, includeInaccessibleNeighbors: true);
             TerrainCount = new Dictionary<TerrainTypeSO, int>();
             TerrainComposition = new Dictionary<TerrainTypeSO, float>();
             BiomeCount = new Dictionary<BiomeTypeSO, int>();
@@ -31,37 +31,36 @@ namespace FrostfallSaga.Grid
             CountTerrain(TargetCell.TerrainType);
             CountBiome(TargetCell.BiomeType);
 
-            for (int i = 0; i < NeighborCells.Length; i++)
+            HexDirection[] direction =
+            {
+                HexDirection.NORTHWEST, HexDirection.NORTHEAST,
+                HexDirection.WEST, HexDirection.SOUTHEAST,
+                HexDirection.SOUTHWEST, HexDirection.WEST
+            };
+
+            for (var i = 0; i < NeighborCells.Length; i++)
             {
                 Cell neighbor = NeighborCells[i];
                 CountTerrain(neighbor.TerrainType);
                 CountBiome(neighbor.BiomeType);
-                TerrainAxial.Add(i, neighbor.TerrainType); // FIXME
+                CellsByDirection[direction[i]] = neighbor;
             }
         }
 
         private static void CountTerrain(TerrainTypeSO terrain)
         {
             if (TerrainCount.ContainsKey(terrain))
-            {
                 TerrainCount[terrain]++;
-            }
             else
-            {
                 TerrainCount[terrain] = 1;
-            }
         }
 
         private static void CountBiome(BiomeTypeSO biome)
         {
             if (BiomeCount.ContainsKey(biome))
-            {
                 BiomeCount[biome]++;
-            }
             else
-            {
                 BiomeCount[biome] = 1;
-            }
         }
 
         private static Dictionary<TerrainTypeSO, float> GetTerrainPercentages()
@@ -79,11 +78,11 @@ namespace FrostfallSaga.Grid
             Debug.Log($"Analysis for Cell at {TargetCell.Coordinates}:");
 
             Debug.Log("Terrains:");
-            foreach (var terrain in TerrainCount)
+            foreach (KeyValuePair<TerrainTypeSO, int> terrain in TerrainCount)
                 Debug.Log($"{terrain.Key}: {terrain.Value}");
 
             Debug.Log("Biomes:");
-            foreach (var biome in BiomeCount)
+            foreach (KeyValuePair<BiomeTypeSO, int> biome in BiomeCount)
                 Debug.Log($"{biome.Key}: {biome.Value}");
         }
 
@@ -92,21 +91,19 @@ namespace FrostfallSaga.Grid
             Debug.Log($"Analysis for Cell at {TargetCell.Coordinates}:");
 
             Debug.Log("Terrain Percentages:");
-            foreach (var terrain in GetTerrainPercentages())
+            foreach (KeyValuePair<TerrainTypeSO, float> terrain in GetTerrainPercentages())
                 Debug.Log($"{terrain.Key}: {terrain.Value:F2}%");
 
             Debug.Log("Biome Percentages:");
-            foreach (var biome in GetBiomePercentages())
+            foreach (KeyValuePair<BiomeTypeSO, float> biome in GetBiomePercentages())
                 Debug.Log($"{biome.Key}: {biome.Value:F2}%");
         }
 
         public static void PrintAnalysisDict()
         {
-            foreach (KeyValuePair<int, TerrainTypeSO> item in TerrainAxial)
-            {
-                Debug.Log(String.Format("Cell int : {0} || Cell terrain : {1}", item.Key, item.Value));
-            }
+            foreach (KeyValuePair<HexDirection, Cell> item in CellsByDirection)
+                Debug.Log(string.Format("HexDirection : {0} || Cell name : {1} || Cell Terrain name : {2}", item.Key,
+                    item.Value.name, item.Value.TerrainType.name));
         }
     }
-
 }

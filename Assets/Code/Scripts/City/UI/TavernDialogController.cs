@@ -1,23 +1,23 @@
 using System;
-using UnityEngine;
-using UnityEngine.UIElements;
 using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Core.HeroTeam;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.City.UI
 {
     public class TavernDialogController
     {
-        private readonly static string WELCOME_LABEL_UI_NAME = "WelcomeLabel";
-        private readonly static string REST_QUESTION_UI_NAME = "QuestionLabel";
-        private readonly static string REST_BUTTON_UI_NAME = "RestButton";
-        private readonly static string EXIT_BUTTON_UI_NAME = "ExitButton";
-        private readonly static string TAVERN_DIALOG_HIDDEN_CLASSNAME = "tavernDialogHidden";
+        private static readonly string WELCOME_LABEL_UI_NAME = "WelcomeLabel";
+        private static readonly string REST_QUESTION_UI_NAME = "QuestionLabel";
+        private static readonly string REST_BUTTON_UI_NAME = "RestButton";
+        private static readonly string EXIT_BUTTON_UI_NAME = "ExitButton";
+        private static readonly string TAVERN_DIALOG_HIDDEN_CLASSNAME = "tavernDialogHidden";
 
-        public Action onRestButtonClicked;
+        private readonly VisualElement _dialogRoot;
         public Action onExitClicked;
 
-        private VisualElement _dialogRoot;
+        public Action onRestButtonClicked;
 
         public TavernDialogController(VisualElement tavernDialogRoot)
         {
@@ -27,7 +27,8 @@ namespace FrostfallSaga.City.UI
         public void SetupTavernDialog(TavernConfiguration tavernConfiguration)
         {
             _dialogRoot.Q<Label>(WELCOME_LABEL_UI_NAME).text = $"Welcome to {tavernConfiguration.Name}!";
-            _dialogRoot.Q<Label>(REST_QUESTION_UI_NAME).text = $"Would you like to rest for {tavernConfiguration.RestCost} stycas?";
+            _dialogRoot.Q<Label>(REST_QUESTION_UI_NAME).text =
+                $"Would you like to rest for {tavernConfiguration.RestCost} stycas?";
             _dialogRoot.Q<Button>(REST_BUTTON_UI_NAME).clicked += OnRestButtonClicked;
             _dialogRoot.Q<Button>(EXIT_BUTTON_UI_NAME).clicked += OnExitButtonClicked;
         }

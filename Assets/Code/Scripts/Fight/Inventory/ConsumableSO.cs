@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using UnityEngine;
-using FrostfallSaga.InventorySystem;
 using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.InventorySystem;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightItems
 {

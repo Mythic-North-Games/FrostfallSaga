@@ -1,14 +1,14 @@
-using System.Linq;
 using System.Collections.Generic;
-using FrostfallSaga.Utils.Trees.BehaviourTree;
+using System.Linq;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Utils;
+using FrostfallSaga.Utils.Trees.BehaviourTree;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 {
     /// <summary>
-    /// Check if the possessed fighter can damage any target between the possible targets and types given in parameters.
+    ///     Check if the possessed fighter can damage any target between the possible targets and types given in parameters.
     /// </summary>
     public class CanDamageTargetCheck : FBTNode
     {
@@ -31,10 +31,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
         public override NodeState Evaluate()
         {
             List<Fighter> damagableTargets = GetDamagableFighters();
-            if (damagableTargets.Count == 0)
-            {
-                return NodeState.FAILURE;
-            }
+            if (damagableTargets.Count == 0) return NodeState.FAILURE;
 
             SetSharedData(TARGET_SHARED_DATA_KEY, GetPreferredTarget(damagableTargets));
             return NodeState.SUCCESS;
@@ -43,30 +40,18 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
         private List<Fighter> GetDamagableFighters()
         {
             List<Fighter> damagableTargets = new();
-            bool _possessedFighterTeam = _fighterTeams[_possessedFighter];
+            var _possessedFighterTeam = _fighterTeams[_possessedFighter];
 
             foreach (Fighter fighter in _fighterTeams.Keys.Where(fighter => fighter.GetHealth() > 0))
             {
-                if (fighter == _possessedFighter && !_possibleTargets.Contains(ETarget.SELF))
-                {
-                    continue;
-                }
+                if (fighter == _possessedFighter && !_possibleTargets.Contains(ETarget.SELF)) continue;
 
-                bool fighterIsAlly = _fighterTeams[fighter] == _possessedFighterTeam;
-                if (fighterIsAlly && !_possibleTargets.Contains(ETarget.ALLIES))
-                {
-                    continue;
-                }
+                var fighterIsAlly = _fighterTeams[fighter] == _possessedFighterTeam;
+                if (fighterIsAlly && !_possibleTargets.Contains(ETarget.ALLIES)) continue;
 
-                if (!fighterIsAlly && !_possibleTargets.Contains(ETarget.OPONENTS))
-                {
-                    continue;
-                }
+                if (!fighterIsAlly && !_possibleTargets.Contains(ETarget.OPONENTS)) continue;
 
-                if (!CanDamageFighter(fighter))
-                {
-                    continue;
-                }
+                if (!CanDamageFighter(fighter)) continue;
                 damagableTargets.Add(fighter);
             }
 
@@ -75,10 +60,8 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 
         private bool CanDamageFighter(Fighter fighter)
         {
-            return (
-                _possessedFighter.CanDirectAttack(_fightGrid, _fighterTeams, fighter) ||
-                _possessedFighter.CanUseAtLeastOneActiveAbility(_fightGrid, _fighterTeams, fighter)
-            );
+            return _possessedFighter.CanDirectAttack(_fightGrid, _fighterTeams, fighter) ||
+                   _possessedFighter.CanUseAtLeastOneActiveAbility(_fightGrid, _fighterTeams, fighter);
         }
 
         private Fighter GetPreferredTarget(List<Fighter> damagableTargets)
@@ -93,12 +76,12 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
                         _fightGrid,
                         _possessedFighter.cell,
                         fighter.cell,
-                        includeInaccessibleNeighbors: true,
-                        includeHeightInaccessibleNeighbors: true,
-                        includeOccupiedNeighbors: true
+                        true,
+                        true,
+                        true
                     ).Length
                 ).First(),
-                _ => null,
+                _ => null
             };
         }
     }

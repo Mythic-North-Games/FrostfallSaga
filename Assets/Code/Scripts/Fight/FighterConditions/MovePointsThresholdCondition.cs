@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Grid;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightConditions
 {
     /// <summary>
-    /// Check if the fighter's move points is [StatConditionType] compared to the given Threshold.
+    ///     Check if the fighter's move points is [StatConditionType] compared to the given Threshold.
     /// </summary>
     [Serializable]
     public class MovePointsThresholdCondition : AFighterCondition
@@ -16,13 +16,11 @@ namespace FrostfallSaga.Fight.FightConditions
         [SerializeField] public int Threshold;
         [SerializeField] public bool UsePercentage;
 
-        public override bool CheckCondition(Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        public override bool CheckCondition(Fighter fighter, AHexGrid fightGrid,
+            Dictionary<Fighter, bool> fightersTeams)
         {
-            int finalThreshold = Threshold;
-            if (UsePercentage)
-            {
-                finalThreshold = (int) (fighter.GetMaxMovePoints() * Threshold / 100f);
-            }
+            var finalThreshold = Threshold;
+            if (UsePercentage) finalThreshold = (int)(fighter.GetMaxMovePoints() * Threshold / 100f);
             return StatConditionType.CompareIntegers(fighter.GetMovePoints(), finalThreshold);
         }
 
@@ -33,7 +31,8 @@ namespace FrostfallSaga.Fight.FightConditions
 
         public override string GetDescription()
         {
-            return $"Check if the fighter's move points are {StatConditionType.GetAsString()} {Threshold}{(UsePercentage ? "%" : "")}.";
+            return
+                $"Check if the fighter's move points are {StatConditionType.GetAsString()} {Threshold}{(UsePercentage ? "%" : "")}.";
         }
     }
 }

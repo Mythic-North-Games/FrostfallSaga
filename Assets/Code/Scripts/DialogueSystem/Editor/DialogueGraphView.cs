@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using FrostfallSaga.Core.Dialogues;
 using FrostfallSaga.Utils.Trees;
+using UnityEditor;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.FFSEditor.DialogueSystem
 {
@@ -26,7 +26,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
 
-            var grid = new GridBackground();
+            GridBackground grid = new();
             Insert(0, grid);
             grid.StretchToParentSize();
         }
@@ -51,9 +51,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         {
             DialogueNode graphNode = CreateDialogueNode(treeNode, depth, parentNode);
             foreach (TreeNode<DialogueLine> child in treeNode.GetChildren())
-            {
                 CreateGraphNodeTree(child, depth + 1, graphNode);
-            }
 
             return graphNode;
         }
@@ -83,13 +81,13 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             if (children.Count == 0) return;
 
             Rect parentRect = parentNode.GetPosition();
-            float startX = parentRect.x - (children.Count - 1) * HORIZONTAL_SPACING / 2;
-            float newY = parentRect.y + (VERTICAL_SPACING * parentNode.Depth + 1);
+            var startX = parentRect.x - (children.Count - 1) * HORIZONTAL_SPACING / 2;
+            var newY = parentRect.y + (VERTICAL_SPACING * parentNode.Depth + 1);
 
-            for (int i = 0; i < children.Count; i++)
+            for (var i = 0; i < children.Count; i++)
             {
                 DialogueNode childNode = children[i];
-                float newX = startX + i * HORIZONTAL_SPACING;
+                var newX = startX + i * HORIZONTAL_SPACING;
                 childNode.SetPosition(new Rect(newX, newY, NODE_WIDTH, NODE_HEIGHT));
             }
         }
@@ -123,12 +121,9 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         {
             DialogueNode parentNode = nodeToRemove.ParentNode;
             TreeNode<DialogueLine> parentTreeNode = nodeToRemove.TreeNode.GetParent();
-            if (parentTreeNode == null)
-            {
-                return;
-            }
+            if (parentTreeNode == null) return;
 
-            int index = parentTreeNode.GetChildren().IndexOf(nodeToRemove.TreeNode);
+            var index = parentTreeNode.GetChildren().IndexOf(nodeToRemove.TreeNode);
             parentTreeNode.RemoveChild(nodeToRemove.TreeNode);
             DialogueLine parentData = parentTreeNode.GetData();
             if (parentData.Answers != null && parentData.Answers.Length > 0 && index < parentData.Answers.Length)
@@ -138,6 +133,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
                 parentData.SetAnswers(answersList.ToArray());
                 (nodeToRemove.InputPort.connections.First().output.node as DialogueNode).RefreshNode();
             }
+
             AutoSave();
 
             RemoveNodeAndChildrenInGraph(nodeToRemove);
@@ -150,22 +146,14 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
             foreach (Edge edge in nodeToRemove.OutputPort.connections.ToList())
             {
-                if (edge.input.node is DialogueNode childNode)
-                {
-                    childrenToRemove.Add(childNode);
-                }
+                if (edge.input.node is DialogueNode childNode) childrenToRemove.Add(childNode);
                 RemoveElement(edge);
             }
 
-            foreach (DialogueNode child in childrenToRemove)
-            {
-                RemoveNodeAndChildrenInGraph(child);
-            }
+            foreach (DialogueNode child in childrenToRemove) RemoveNodeAndChildrenInGraph(child);
 
             if (nodeToRemove.InputPort.connections.Count() > 0)
-            {
                 RemoveElement(nodeToRemove.InputPort.connections.First());
-            }
 
             RemoveElement(nodeToRemove);
         }
@@ -180,10 +168,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
         public void ClearGraph()
         {
-            foreach (GraphElement element in graphElements.ToList())
-            {
-                RemoveElement(element);
-            }
+            foreach (GraphElement element in graphElements.ToList()) RemoveElement(element);
         }
 
         private void AutoSave()

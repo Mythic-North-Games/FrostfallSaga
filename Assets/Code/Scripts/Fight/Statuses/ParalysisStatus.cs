@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Statuses
 {
@@ -24,7 +24,8 @@ namespace FrostfallSaga.Fight.Statuses
             bool isRecurring,
             EStatusTriggerTime triggerTime,
             FighterBuffVisualsController visualsController
-        ) : base(EStatusType.PARALYSIS, NAME, DESCRIPTION, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+        ) : base(EStatusType.PARALYSIS, NAME, DESCRIPTION, isPermanent, duration, triggerOnFirstApply, isRecurring,
+            triggerTime, visualsController)
         {
         }
 

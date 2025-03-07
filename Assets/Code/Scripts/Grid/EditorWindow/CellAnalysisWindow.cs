@@ -9,12 +9,6 @@ namespace FrostfallSaga.Grid
         [SerializeField] private AHexGrid Grid;
         [SerializeField] private Cell TargetCell;
 
-        [MenuItem("Window/CellAnalysis")]
-        public static void ShowWindow()
-        {
-            GetWindow<CellAnalysisWindow>("CellAnalysis");
-        }
-
         private void OnGUI()
         {
             GUILayout.Label("Grid", EditorStyles.boldLabel);
@@ -37,6 +31,12 @@ namespace FrostfallSaga.Grid
                     CellAnalysis.PrintAnalysisDict();
                 }
             }
+        }
+
+        [MenuItem("Window/CellAnalysis")]
+        public static void ShowWindow()
+        {
+            GetWindow<CellAnalysisWindow>("CellAnalysis");
         }
     }
 }

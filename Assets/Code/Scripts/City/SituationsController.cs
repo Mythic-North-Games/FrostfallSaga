@@ -1,19 +1,18 @@
 using System;
-using UnityEngine;
-using FrostfallSaga.Core.Dialogues;
-using FrostfallSaga.Core.Cities.CitySituations;
 using FrostfallSaga.City.UI;
+using FrostfallSaga.Core.Cities.CitySituations;
+using FrostfallSaga.Core.Dialogues;
+using UnityEngine;
 
 namespace FrostfallSaga.City
 {
     public class SituationsController : MonoBehaviour
     {
-        public Action<ACitySituationSO> onSituationResolved;
-
         [SerializeField] private DialogueUIProcessor _dialogueUIProcessor;
         [SerializeField] private CityMenuController _cityMenuController;
 
         private ACitySituationSO _currentCitySituation;
+        public Action<ACitySituationSO> onSituationResolved;
 
         private void Awake()
         {
@@ -22,7 +21,7 @@ namespace FrostfallSaga.City
                 Debug.LogError("CityMenuController is not assigned in SituationsController.");
                 return;
             }
-            
+
             _cityMenuController.onCitySituationClicked += OnCitySituationClicked;
         }
 

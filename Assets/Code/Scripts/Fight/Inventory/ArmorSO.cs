@@ -1,8 +1,8 @@
-using UnityEngine;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.InventorySystem;
 using FrostfallSaga.Utils;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightItems
 {

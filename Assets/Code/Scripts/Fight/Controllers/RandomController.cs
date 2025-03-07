@@ -1,19 +1,19 @@
 using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using FrostfallSaga.Grid;
+using System.Linq;
+using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
-using FrostfallSaga.Fight.FightCells;
-using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Grid;
 using FrostfallSaga.Utils;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Controllers
 {
     /// <summary>
-    /// Make the fighter do random doable actions.
+    ///     Make the fighter do random doable actions.
     /// </summary>
     public class RandomController : AFighterController
     {
@@ -21,10 +21,10 @@ namespace FrostfallSaga.Fight.Controllers
         public int timeBetweenActionsInSec = 2;
 
         private FightManager _fightManager;
-        private Fighter _possessedFighter;
+        private int _numberOfActionsDoneForTurn;
 
         private int _numberOfActionsToDoForTurn;
-        private int _numberOfActionsDoneForTurn;
+        private Fighter _possessedFighter;
 
         public void Setup(FightManager fightManager, int maxActionsPerTurn = 4, int timeBetweenActionsInSec = 2)
         {
@@ -52,31 +52,24 @@ namespace FrostfallSaga.Fight.Controllers
         {
             List<FighterAction> doableActions = new();
 
-            if (fighterThatWillAct.CanMove(fightGrid))
-            {
-                doableActions.Add(FighterAction.MOVE);
-            }
+            if (fighterThatWillAct.CanMove(fightGrid)) doableActions.Add(FighterAction.MOVE);
             if (fighterThatWillAct.CanDirectAttack(fightGrid, _fightManager.FighterTeams))
-            {
                 doableActions.Add(FighterAction.DIRECT_ATTACK);
-            }
             if (fighterThatWillAct.CanUseAtLeastOneActiveAbility(fightGrid, _fightManager.FighterTeams))
-            {
                 doableActions.Add(FighterAction.ACTIVE_ABILITY);
-            }
             return doableActions[Randomizer.GetRandomIntBetween(0, doableActions.Count)];
         }
 
         /// <summary>
-        /// If fighter can no longer act or he has done its maximum number of actions, end its turn, 
-        /// otherwise do a random doable action.
+        ///     If fighter can no longer act or he has done its maximum number of actions, end its turn,
+        ///     otherwise do a random doable action.
         /// </summary>
         private IEnumerator DoNextAction()
         {
             if (!_possessedFighter.CanAct(
-                _fightManager.FightGrid, _fightManager.FighterTeams) ||
+                    _fightManager.FightGrid, _fightManager.FighterTeams) ||
                 _numberOfActionsDoneForTurn == _numberOfActionsToDoForTurn
-            )
+               )
             {
                 UnbindFighterEventsForTurn(_possessedFighter);
                 onFighterTurnEnded?.Invoke(_possessedFighter);
@@ -96,14 +89,30 @@ namespace FrostfallSaga.Fight.Controllers
                 case FighterAction.ACTIVE_ABILITY:
                     MakeFighterUseActiveAbility(_possessedFighter, _fightManager.FightGrid);
                     break;
-                default:
-                    break;
             }
 
             _numberOfActionsDoneForTurn += 1;
         }
 
+        #region Suicide handling
+
+        private void OnPossessedFighterDied(Fighter fighterThatDied)
+        {
+            if (fighterThatDied != _possessedFighter) return;
+            UnbindFighterEventsForTurn(fighterThatDied);
+        }
+
+        #endregion
+
+        private enum FighterAction
+        {
+            MOVE = 0,
+            DIRECT_ATTACK = 1,
+            ACTIVE_ABILITY = 2
+        }
+
         #region Movement handling
+
         private void MakeFighterMove(Fighter fighter, AHexGrid fightGrid)
         {
             Debug.Log($"Fighter {fighter.name} is randomly moving.");
@@ -121,10 +130,10 @@ namespace FrostfallSaga.Fight.Controllers
         private FightCell[] GetRandomMovePath(Fighter fighterThatWillMove, AHexGrid fightGrid)
         {
             List<FightCell> randomMovePath = new();
-            int numberOfCellsInPath = Randomizer.GetRandomIntBetween(1, fighterThatWillMove.GetMovePoints());
+            var numberOfCellsInPath = Randomizer.GetRandomIntBetween(1, fighterThatWillMove.GetMovePoints());
 
             FightCell currentCellOfPath = fighterThatWillMove.cell;
-            for (int i = 0; i < numberOfCellsInPath; i++)
+            for (var i = 0; i < numberOfCellsInPath; i++)
             {
                 List<FightCell> currentCellOfPathNeighbors = new(
                     Array.ConvertAll(
@@ -134,21 +143,22 @@ namespace FrostfallSaga.Fight.Controllers
                 currentCellOfPathNeighbors.Remove(fighterThatWillMove.cell);
                 currentCellOfPathNeighbors.RemoveAll(cell => randomMovePath.Contains(cell));
 
-                if (currentCellOfPathNeighbors.Count == 0)  // Stop generating path if no cell is available to move.
-                {
+                if (currentCellOfPathNeighbors.Count == 0) // Stop generating path if no cell is available to move.
                     break;
-                }
 
-                FightCell neighborCellToAdd = Randomizer.GetRandomElementFromArray(currentCellOfPathNeighbors.ToArray());
+                FightCell neighborCellToAdd =
+                    Randomizer.GetRandomElementFromArray(currentCellOfPathNeighbors.ToArray());
                 randomMovePath.Add(neighborCellToAdd);
                 currentCellOfPath = neighborCellToAdd;
             }
 
             return randomMovePath.ToArray();
         }
+
         #endregion
 
         #region Direct attack handling
+
         private void MakeFighterDirectAttack(Fighter fighter, AHexGrid fightGrid)
         {
             try
@@ -163,7 +173,8 @@ namespace FrostfallSaga.Fight.Controllers
             }
             catch (TargeterUnresolvableException)
             {
-                Debug.LogError($"Fighter {fighter.name} can't use its direct attack. It should not have been triggered.");
+                Debug.LogError(
+                    $"Fighter {fighter.name} can't use its direct attack. It should not have been triggered.");
             }
         }
 
@@ -173,9 +184,11 @@ namespace FrostfallSaga.Fight.Controllers
             onFighterActionEnded?.Invoke(fighterThatDirectAttacked);
             _possessedFighter.StartCoroutine(DoNextAction());
         }
+
         #endregion
 
         #region Active ability handling
+
         private void MakeFighterUseActiveAbility(Fighter fighter, AHexGrid fightGrid)
         {
             ActiveAbilitySO activeAbilityToUse = GetRandomUsableActiveAbility(fighter, fightGrid);
@@ -197,7 +210,6 @@ namespace FrostfallSaga.Fight.Controllers
                     "It should not have been triggered."
                 );
             }
-
         }
 
         private void OnFighterActiveAbilityEnded(Fighter fighter, ActiveAbilitySO usedAbility)
@@ -211,21 +223,10 @@ namespace FrostfallSaga.Fight.Controllers
         {
             List<ActiveAbilitySO> usableActiveAbilities = new();
             fighter.ActiveAbilities.ToList()
-                .FindAll(activeAbility => fighter.CanUseActiveAbility(fightGrid, activeAbility, _fightManager.FighterTeams))
+                .FindAll(activeAbility =>
+                    fighter.CanUseActiveAbility(fightGrid, activeAbility, _fightManager.FighterTeams))
                 .ForEach(activeAbility => usableActiveAbilities.Add(activeAbility));
             return Randomizer.GetRandomElementFromArray(usableActiveAbilities.ToArray());
-        }
-        #endregion
-
-        #region Suicide handling
-
-        private void OnPossessedFighterDied(Fighter fighterThatDied)
-        {
-            if (fighterThatDied != _possessedFighter)
-            {
-                return;
-            }
-            UnbindFighterEventsForTurn(fighterThatDied);
         }
 
         #endregion
@@ -249,12 +250,5 @@ namespace FrostfallSaga.Fight.Controllers
         }
 
         #endregion
-
-        private enum FighterAction
-        {
-            MOVE = 0,
-            DIRECT_ATTACK = 1,
-            ACTIVE_ABILITY = 2,
-        }
     }
 }

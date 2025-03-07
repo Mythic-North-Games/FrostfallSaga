@@ -1,22 +1,22 @@
-using UnityEditor;
-using UnityEditorInternal;
-using FrostfallSaga.Utils.Editor;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.FightConditions;
+using FrostfallSaga.Utils.Editor;
+using UnityEditor;
+using UnityEditorInternal;
 
 namespace FrostfallSaga.FFSEditor.Fight
 {
     [CustomEditor(typeof(PassiveAbilitySO))]
     public class PassiveAbilitySOEditor : Editor
     {
-        private readonly static string EFFECTS_PROPERTY_NAME = "Effects";
-        private SerializedProperty effectsProperty;
-        private ReorderableList effectsList;
+        private static readonly string EFFECTS_PROPERTY_NAME = "Effects";
 
-        private readonly static string CONDITIONS_PROPERTY_NAME = "ActivationConditions";
-        private SerializedProperty conditionsProperty;
+        private static readonly string CONDITIONS_PROPERTY_NAME = "ActivationConditions";
         private ReorderableList conditionsList;
+        private SerializedProperty conditionsProperty;
+        private ReorderableList effectsList;
+        private SerializedProperty effectsProperty;
 
         private void OnEnable()
         {
@@ -24,7 +24,8 @@ namespace FrostfallSaga.FFSEditor.Fight
             effectsList = AbstractListEditorBuilder.BuildAbstractList<AEffect>(serializedObject, effectsProperty);
 
             conditionsProperty = serializedObject.FindProperty(CONDITIONS_PROPERTY_NAME);
-            conditionsList = AbstractListEditorBuilder.BuildAbstractList<AFighterCondition>(serializedObject, conditionsProperty);
+            conditionsList =
+                AbstractListEditorBuilder.BuildAbstractList<AFighterCondition>(serializedObject, conditionsProperty);
         }
 
         public override void OnInspectorGUI()

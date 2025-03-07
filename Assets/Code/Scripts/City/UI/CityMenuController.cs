@@ -1,37 +1,73 @@
 using System;
-using UnityEngine;
-using UnityEngine.UIElements;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Cities;
-using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.Cities.CitySituations;
-using FrostfallSaga.Utils.UI;
+using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Utils.Scenes;
+using FrostfallSaga.Utils.UI;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.City.UI
 {
     public class CityMenuController : BaseUIController
     {
-        private readonly static string CITY_NAME_LABEL_UI_NAME = "CityNameLabel";
-        private readonly static string CITY_BG_UI_NAME = "MainMenuContainer";
-        private readonly static string TAVERN_BUTTON_UI_NAME = "TavernButton";
-        private readonly static string EXPLORE_BUTTON_UI_NAME = "ExploreButton";
-        private readonly static string EXIT_BUTTON_UI_NAME = "ExitButton";
-        private readonly static string LEFT_CONTAINER_UI_NAME = "LeftContainer";
-        private readonly static string TAVERN_DIALOG_ROOT_UI_NAME = "TavernDialog";
-        private readonly static string SITUATIONS_MENU_ROOT_UI_NAME = "CitySituationsMenu";
-
-        public Action<ACitySituationSO> onCitySituationClicked;
+        private static readonly string CITY_NAME_LABEL_UI_NAME = "CityNameLabel";
+        private static readonly string CITY_BG_UI_NAME = "MainMenuContainer";
+        private static readonly string TAVERN_BUTTON_UI_NAME = "TavernButton";
+        private static readonly string EXPLORE_BUTTON_UI_NAME = "ExploreButton";
+        private static readonly string EXIT_BUTTON_UI_NAME = "ExitButton";
+        private static readonly string LEFT_CONTAINER_UI_NAME = "LeftContainer";
+        private static readonly string TAVERN_DIALOG_ROOT_UI_NAME = "TavernDialog";
+        private static readonly string SITUATIONS_MENU_ROOT_UI_NAME = "CitySituationsMenu";
 
         [SerializeField] private InCityConfigurationSO _devCityConfiguration;
         [SerializeField] private SituationsController _situationsController;
         [SerializeField] private VisualTreeAsset _situationsButtonTemplate;
         private InCityConfigurationSO _cityConfiguration;
         private LeftContainerController _leftContainerController;
-        private TavernDialogController _tavernDialogController;
         private CitySituationsMenuController _situationsMenuController;
+        private TavernDialogController _tavernDialogController;
+
+        public Action<ACitySituationSO> onCitySituationClicked;
+
+        #region Class setup
+
+        private void Awake()
+        {
+            // Get city configuration to load
+            InCityConfigurationSO gameStateConf = GameStateManager.Instance.GetCityConfigurationToLoad();
+            _cityConfiguration = gameStateConf != null ? gameStateConf : _devCityConfiguration;
+
+            // Setup main menu
+            _leftContainerController =
+                new LeftContainerController(_uiDoc.rootVisualElement.Q<VisualElement>(LEFT_CONTAINER_UI_NAME));
+
+            // Setup tavern dialog
+            _tavernDialogController =
+                new TavernDialogController(_uiDoc.rootVisualElement.Q<VisualElement>(TAVERN_DIALOG_ROOT_UI_NAME));
+            _tavernDialogController.onRestButtonClicked += OnTavernDialogRestButtonClicked;
+            _tavernDialogController.onExitClicked += OnTavernDialogExitButtonClicked;
+
+            // Setup city situations
+            _situationsMenuController = GetComponent<CitySituationsMenuController>();
+            _situationsMenuController.onCitySituationClicked += OnSituationButtonClicked;
+            _situationsMenuController.onReturnClicked += OnSituationsMenuReturnClicked;
+
+            // Setup situations controller
+            if (_situationsController == null)
+            {
+                Debug.LogError("SituationsController is not assigned in CityMenuController.");
+                return;
+            }
+
+            _situationsController.onSituationResolved += OnSituationResolved;
+        }
+
+        #endregion
 
         #region Main menu setup
+
         private void Start()
         {
             SetupMainMenu();
@@ -41,7 +77,8 @@ namespace FrostfallSaga.City.UI
         {
             // Main menu setup
             _uiDoc.rootVisualElement.Q<Label>(CITY_NAME_LABEL_UI_NAME).text = _cityConfiguration.Name;
-            _uiDoc.rootVisualElement.Q<VisualElement>(CITY_BG_UI_NAME).style.backgroundImage = new(_cityConfiguration.CityBackground);
+            _uiDoc.rootVisualElement.Q<VisualElement>(CITY_BG_UI_NAME).style.backgroundImage =
+                new StyleBackground(_cityConfiguration.CityBackground);
             _uiDoc.rootVisualElement.Q<Button>(TAVERN_BUTTON_UI_NAME).clicked += OnTavernButtonClicked;
             _uiDoc.rootVisualElement.Q<Button>(EXPLORE_BUTTON_UI_NAME).clicked += OnExploreButtonClicked;
             _uiDoc.rootVisualElement.Q<Button>(EXIT_BUTTON_UI_NAME).clicked += OnExitButtonClicked;
@@ -56,9 +93,11 @@ namespace FrostfallSaga.City.UI
                 _cityConfiguration.CitySituations
             );
         }
+
         #endregion
 
         #region Navigation
+
         private void OnTavernButtonClicked()
         {
             _leftContainerController.Hide();
@@ -93,6 +132,7 @@ namespace FrostfallSaga.City.UI
         {
             SceneTransitioner.Instance.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
         }
+
         #endregion
 
         #region Situations interactions
@@ -108,36 +148,6 @@ namespace FrostfallSaga.City.UI
             StartCoroutine(_situationsMenuController.Display());
         }
 
-        #endregion
-
-        #region Class setup
-        private void Awake()
-        {
-            // Get city configuration to load
-            InCityConfigurationSO gameStateConf = GameStateManager.Instance.GetCityConfigurationToLoad();
-            _cityConfiguration = gameStateConf != null ? gameStateConf : _devCityConfiguration;
-
-            // Setup main menu
-            _leftContainerController = new(_uiDoc.rootVisualElement.Q<VisualElement>(LEFT_CONTAINER_UI_NAME));
-
-            // Setup tavern dialog
-            _tavernDialogController = new(_uiDoc.rootVisualElement.Q<VisualElement>(TAVERN_DIALOG_ROOT_UI_NAME));
-            _tavernDialogController.onRestButtonClicked += OnTavernDialogRestButtonClicked;
-            _tavernDialogController.onExitClicked += OnTavernDialogExitButtonClicked;
-
-            // Setup city situations
-            _situationsMenuController = GetComponent<CitySituationsMenuController>();
-            _situationsMenuController.onCitySituationClicked += OnSituationButtonClicked;
-            _situationsMenuController.onReturnClicked += OnSituationsMenuReturnClicked;
-
-            // Setup situations controller
-            if (_situationsController == null)
-            {
-                Debug.LogError("SituationsController is not assigned in CityMenuController.");
-                return;
-            }
-            _situationsController.onSituationResolved += OnSituationResolved;
-        }
         #endregion
     }
 }

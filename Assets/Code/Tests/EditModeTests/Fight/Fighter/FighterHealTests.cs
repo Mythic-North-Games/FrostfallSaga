@@ -1,5 +1,6 @@
 using FrostfallSaga.Fight.Fighters;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
@@ -17,7 +18,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         [TearDown]
         public void TearDown()
         {
-            UnityEngine.Object.DestroyImmediate(fighter.gameObject);
+            Object.DestroyImmediate(fighter.gameObject);
             fighter = null;
         }
 
@@ -25,9 +26,9 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void Heal_PositiveAmountAdded_Test()
         {
             // Arrange
-            int healAmount = 10;
-            int initialFighterHealth = 50;
-            int expectedFighterHealth = initialFighterHealth + healAmount;
+            var healAmount = 10;
+            var initialFighterHealth = 50;
+            var expectedFighterHealth = initialFighterHealth + healAmount;
 
             fighter.GetStatsForTests().health = initialFighterHealth;
 
@@ -42,9 +43,9 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void Heal_NullAmountAdded_Test()
         {
             // Arrange
-            int healAmount = 0;
-            int initialFighterHealth = 50;
-            int expectedFighterHealth = initialFighterHealth + healAmount;
+            var healAmount = 0;
+            var initialFighterHealth = 50;
+            var expectedFighterHealth = initialFighterHealth + healAmount;
 
             fighter.GetStatsForTests().health = initialFighterHealth;
 
@@ -59,9 +60,9 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void Heal_NegativeAmountAdded_Test()
         {
             // Arrange
-            int healAmount = -10;
-            int initialFighterHealth = 50;
-            int expectedFighterHealth = initialFighterHealth + healAmount;
+            var healAmount = -10;
+            var initialFighterHealth = 50;
+            var expectedFighterHealth = initialFighterHealth + healAmount;
 
             fighter.GetStatsForTests().health = initialFighterHealth;
 
@@ -76,12 +77,12 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void Heal_MaxHealthCap_Test()
         {
             // Arrange
-            int healAmount = 1000;
-            int initialFighterHealth = 50;
+            var healAmount = 1000;
+            var initialFighterHealth = 50;
 
             fighter.GetStatsForTests().health = initialFighterHealth;
 
-            int expectedFighterHealth = fighter.GetStatsForTests().maxHealth;
+            var expectedFighterHealth = fighter.GetStatsForTests().maxHealth;
 
             // Act
             fighter.Heal(healAmount, false);
@@ -94,9 +95,9 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void Heal_MinHealthCap_Test()
         {
             // Arrange
-            int healAmount = -1000;
-            int initialFighterHealth = 50;
-            int expectedFighterHealth = 0;
+            var healAmount = -1000;
+            var initialFighterHealth = 50;
+            var expectedFighterHealth = 0;
 
             fighter.GetStatsForTests().health = initialFighterHealth;
 

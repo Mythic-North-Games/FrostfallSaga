@@ -8,6 +8,6 @@ namespace FrostfallSaga.InventorySystem
         FEET,
         HANDS,
         WEAPON,
-        BAG,
+        BAG
     }
 }

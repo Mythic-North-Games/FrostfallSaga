@@ -1,21 +1,21 @@
 {
-    "name": "FrostfallSaga.Kingdom",
-    "rootNamespace": "FrostfallSaga.Kingdom",
-    "references": [
-        "Cinemachine",
-        "FrostfallSaga.Core",
-        "FrostfallSaga.EntitiesVisual",
-        "FrostfallSaga.Utils",
-        "FrostfallSaga.Grid",
-        "FrostfallSaga.Procedural"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "FrostfallSaga.Kingdom",
+  "rootNamespace": "FrostfallSaga.Kingdom",
+  "references": [
+    "Cinemachine",
+    "FrostfallSaga.Core",
+    "FrostfallSaga.EntitiesVisual",
+    "FrostfallSaga.Utils",
+    "FrostfallSaga.Grid",
+    "FrostfallSaga.Procedural"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

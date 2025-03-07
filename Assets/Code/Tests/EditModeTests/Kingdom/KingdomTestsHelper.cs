@@ -1,6 +1,6 @@
-using UnityEngine;
 using FrostfallSaga.Kingdom;
 using FrostfallSaga.Kingdom.EntitiesGroups;
+using UnityEngine;
 
 namespace FrostfallSaga.EditModeTests.Kingdom
 {

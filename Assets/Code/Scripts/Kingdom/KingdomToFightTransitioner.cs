@@ -12,7 +12,6 @@ using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils.Scenes;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -24,19 +23,37 @@ namespace FrostfallSaga.Kingdom
         [SerializeField] private float _delayBeforeLoadingSceneAfterReadyAnimation = 10f;
         private Action _onEncounterAnimationEnded;
 
+        #region Setup and tear down
+
+        private void Awake()
+        {
+            _kingdomManager ??= FindObjectOfType<KingdomManager>();
+
+            if (_kingdomManager == null)
+            {
+                Debug.LogError("No KingdomManager found. Can't transition to fight scene.");
+                return;
+            }
+
+            _kingdomManager.OnEnemiesGroupEncountered += OnEnemiesGroupEncountered;
+            _onEncounterAnimationEnded += OnEncounterAnimationEnded;
+        }
+
+        #endregion
+
         /// <summary>
-        /// Start the encounter animation before saving the kingdom state and launching the fight scene.
+        ///     Start the encounter animation before saving the kingdom state and launching the fight scene.
         /// </summary>
         /// <param name="enemiesGroup">The encountered enemies group.</param>
         /// <param name="heroGroupInitiating">True if the hero group is initiating the fight, false otherwise.</param>
-		private void OnEnemiesGroupEncountered(EntitiesGroup enemiesGroup, bool heroGroupInitiating)
+        private void OnEnemiesGroupEncountered(EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
             PrepareAndSavePreFightData(enemiesGroup);
             StartCoroutine(StartEncounterAnimation(enemiesGroup, heroGroupInitiating));
         }
 
         /// <summary>
-        /// Once the group has moved, some other animation can be done, but for now, end it and start the fight.
+        ///     Once the group has moved, some other animation can be done, but for now, end it and start the fight.
         /// </summary>
         private void OnInitiatorGroupMoved(EntitiesGroup groupThatMoved, Cell destinationCell)
         {
@@ -45,9 +62,9 @@ namespace FrostfallSaga.Kingdom
         }
 
         /// <summary>
-		/// Plays a ready to fight animation then make the initiating group move to the targeted group.
-		/// </summary>
-		private IEnumerator StartEncounterAnimation(EntitiesGroup enemiesGroup, bool heroGroupInitiating)
+        ///     Plays a ready to fight animation then make the initiating group move to the targeted group.
+        /// </summary>
+        private IEnumerator StartEncounterAnimation(EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
             EntitiesGroup heroGroup = _kingdomManager.HeroGroup;
             Entity heroEntity = heroGroup.GetDisplayedEntity();
@@ -84,12 +101,15 @@ namespace FrostfallSaga.Kingdom
 
         private void PrepareAndSavePreFightData(EntitiesGroup enemiesGroup)
         {
-            KeyValuePair<string, EntityConfigurationSO>[] enemiesFighterConfigs = new KeyValuePair<string, EntityConfigurationSO>[enemiesGroup.Entities.Length];
-            for (int i = 0; i < enemiesGroup.Entities.Length; i++)
+            KeyValuePair<string, EntityConfigurationSO>[] enemiesFighterConfigs =
+                new KeyValuePair<string, EntityConfigurationSO>[enemiesGroup.Entities.Length];
+            for (var i = 0; i < enemiesGroup.Entities.Length; i++)
             {
                 Entity enemyGroupEntity = enemiesGroup.Entities[i];
-                enemiesFighterConfigs[i] = new(enemyGroupEntity.SessionId, enemyGroupEntity.EntityConfiguration);
+                enemiesFighterConfigs[i] = new KeyValuePair<string, EntityConfigurationSO>(enemyGroupEntity.SessionId,
+                    enemyGroupEntity.EntityConfiguration);
             }
+
             GameStateManager.Instance.SavePreFightData(
                 HeroTeam.Instance.GetAliveHeroesEntityConfig(),
                 enemiesFighterConfigs,
@@ -103,22 +123,6 @@ namespace FrostfallSaga.Kingdom
             CellAnalysis.AnalyzeAtCell(targetCell, _kingdomManager.KingdomGrid);
             //CellAnalysis.PrintAnalysisWithPercentages();
             //TODO
-
         }
-
-        #region Setup and tear down
-        private void Awake()
-        {
-            _kingdomManager ??= FindObjectOfType<KingdomManager>();
-      
-            if (_kingdomManager == null)
-            {
-                Debug.LogError("No KingdomManager found. Can't transition to fight scene.");
-                return;
-            }
-            _kingdomManager.onEnemiesGroupEncountered += OnEnemiesGroupEncountered;
-            _onEncounterAnimationEnded += OnEncounterAnimationEnded;
-        }
-        #endregion
     }
 }

@@ -2,6 +2,7 @@ using System;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Fight.Fighters;
 using NUnit.Framework;
+using Object = UnityEngine.Object;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
@@ -19,7 +20,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         [TearDown]
         public void TearDown()
         {
-            UnityEngine.Object.DestroyImmediate(fighter.gameObject);
+            Object.DestroyImmediate(fighter.gameObject);
             fighter = null;
         }
 
@@ -27,11 +28,11 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void MagicalWithstand_PositiveAmountAndResistanceToElement_Test()
         {
             // Arrange
-            int damageAmount = 10;
+            var damageAmount = 10;
             EMagicalElement damageMagicalElement = EMagicalElement.FIRE;
-            int initialFighterHealth = 50;
-            int fighterMagicalResistance = 5;
-            int expectedFighterHealth = initialFighterHealth - (damageAmount - fighterMagicalResistance);
+            var initialFighterHealth = 50;
+            var fighterMagicalResistance = 5;
+            var expectedFighterHealth = initialFighterHealth - (damageAmount - fighterMagicalResistance);
 
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
@@ -47,11 +48,11 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void MagicalWithstand_HigherResistanceToElement_Test()
         {
             // Arrange
-            int damageAmount = 10;
+            var damageAmount = 10;
             EMagicalElement damageMagicalElement = EMagicalElement.FIRE;
-            int initialFighterHealth = 50;
-            int fighterMagicalResistance = 20;
-            int expectedFighterHealth = initialFighterHealth;
+            var initialFighterHealth = 50;
+            var fighterMagicalResistance = 20;
+            var expectedFighterHealth = initialFighterHealth;
 
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
@@ -67,11 +68,11 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void MagicalWithstand_NullAmountAndResistanceToElement_Test()
         {
             // Arrange
-            int damageAmount = 0;
+            var damageAmount = 0;
             EMagicalElement damageMagicalElement = EMagicalElement.FIRE;
-            int initialFighterHealth = 50;
-            int fighterMagicalResistance = 5;
-            int expectedFighterHealth = initialFighterHealth;
+            var initialFighterHealth = 50;
+            var fighterMagicalResistance = 5;
+            var expectedFighterHealth = initialFighterHealth;
 
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
@@ -87,11 +88,11 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void MagicalWithstand_NegativeAmountAndResistanceToElement_Test()
         {
             // Arrange
-            int damageAmount = -10;
+            var damageAmount = -10;
             EMagicalElement damageMagicalElement = EMagicalElement.FIRE;
-            int initialFighterHealth = 50;
-            int fighterMagicalResistance = 5;
-            int expectedFighterHealth = initialFighterHealth;
+            var initialFighterHealth = 50;
+            var fighterMagicalResistance = 5;
+            var expectedFighterHealth = initialFighterHealth;
 
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
@@ -107,11 +108,11 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void MagicalWithstand_MinHealthCap_Test()
         {
             // Arrange
-            int damageAmount = 10000;
+            var damageAmount = 10000;
             EMagicalElement damageMagicalElement = EMagicalElement.FIRE;
-            int initialFighterHealth = 50;
-            int fighterMagicalResistance = 20;
-            int expectedFighterHealth = 0;
+            var initialFighterHealth = 50;
+            var fighterMagicalResistance = 20;
+            var expectedFighterHealth = 0;
 
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances[damageMagicalElement] = fighterMagicalResistance;
@@ -127,11 +128,11 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void MagicalWithstand_DifferentResistanceElement_Test()
         {
             // Arrange
-            int damageAmount = 10;
+            var damageAmount = 10;
             EMagicalElement damageMagicalElement = EMagicalElement.FIRE;
-            int initialFighterHealth = 50;
-            int fighterMagicalResistance = 20;
-            int expectedFighterHealth = initialFighterHealth - damageAmount;
+            var initialFighterHealth = 50;
+            var fighterMagicalResistance = 20;
+            var expectedFighterHealth = initialFighterHealth - damageAmount;
 
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances[EMagicalElement.FIRE] = 0;
@@ -148,16 +149,17 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         public void MagicalWithstand_NotSpecifiedResistanceElement_Test()
         {
             // Arrange
-            int damageAmount = 10;
+            var damageAmount = 10;
             EMagicalElement damageMagicalElement = EMagicalElement.FIRE;
-            int initialFighterHealth = 50;
-            int expectedFighterHealth = initialFighterHealth - damageAmount;
+            var initialFighterHealth = 50;
+            var expectedFighterHealth = initialFighterHealth - damageAmount;
 
             fighter.GetStatsForTests().health = initialFighterHealth;
             fighter.GetStatsForTests().magicalResistances.Remove(EMagicalElement.FIRE);
 
             // Act & Assert
-            Assert.Throws<NullReferenceException>(() => fighter.MagicalWithstand(damageAmount, damageMagicalElement, false));
+            Assert.Throws<NullReferenceException>(() =>
+                fighter.MagicalWithstand(damageAmount, damageMagicalElement, false));
         }
     }
 }

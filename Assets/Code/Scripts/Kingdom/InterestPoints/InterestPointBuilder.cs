@@ -1,36 +1,91 @@
+using System.Collections.Generic;
+using System.Linq;
+using FrostfallSaga.Core;
 using FrostfallSaga.Core.GameState.Kingdom;
-using FrostfallSaga.Grid;
+using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Utils;
-using FrostfallSaga.Utils.GameObjectVisuals;
 using UnityEngine;
 
 namespace FrostfallSaga.Kingdom.InterestPoints
 {
     public class InterestPointBuilder : MonoBehaviourPersistingSingleton<InterestPointBuilder>
     {
-        public InterestPoint BuildInterestPoint(InterestPointData interestPointData, AHexGrid grid)
+        static InterestPointBuilder()
         {
-            GameObject interestPointPrefab = WorldGameObjectInstantiator.Instance.Instantiate(
-                interestPointData.interestPointConfiguration.InterestPointPrefab
-            );
-            InterestPoint interestPoint = interestPointPrefab.GetComponent<InterestPoint>();
-            interestPoint.cell = grid.Cells[new(interestPointData.cellX, interestPointData.cellY)] as KingdomCell;
-            interestPoint.transform.position = interestPoint.cell.GetCenter();
+            PersistAcrossScenes = false;
+        }
+
+        /// <summary>
+        ///     Construit un InterestPoint à partir des données sauvegardées
+        /// </summary>
+        public InterestPoint BuildInterestPoint(InterestPointData interestPointData, KingdomHexGrid grid)
+        {
+            Vector2Int coordinates = new(interestPointData.cellX, interestPointData.cellY);
+            Cell cell = grid.GetCellAtCoordinates(coordinates);
+            if (cell == null) return null;
+
+            InterestPoint interestPoint = InstantiateInterestPoint(interestPointData.interestPointConfiguration,
+                cell.GetComponent<KingdomCell>());
             return interestPoint;
         }
 
-        public InterestPointData ExtractInterestPointDataFromInterestPoint(InterestPoint interestPoint)
+        /// <summary>
+        ///     Génère les InterestPoints initiaux
+        /// </summary>
+        public void FirstBuildInterestPoints(KingdomHexGrid kingdomHexGrid, List<InterestPoint> interestPoints)
         {
-            return new(
+            Debug.Log("Generating Interest Points...");
+
+            List<KingdomCell> freeCells = RetrieveFreeCells(kingdomHexGrid.Cells);
+            if (freeCells.Count == 0 && freeCells.Count > interestPoints.Count)
+            {
+                Debug.LogWarning("No free cells available for InterestPoints!");
+                return;
+            }
+
+            foreach (InterestPoint point in interestPoints)
+            {
+                KingdomCell cell = Randomizer.GetRandomElementFromArray(freeCells.ToArray());
+                InstantiateInterestPoint(point.InterestPointConfiguration, cell);
+                freeCells.Remove(cell);
+            }
+        }
+
+        /// <summary>
+        ///     Récupère une cellule libre du KingdomGrid
+        /// </summary>
+        private List<KingdomCell> RetrieveFreeCells(Dictionary<Vector2Int, Cell> cells)
+        {
+            return cells.Values.OfType<KingdomCell>().Where(cell => cell.IsFree()).ToList();
+        }
+
+        /// <summary>
+        ///     Crée une instance d'un InterestPoint sur une cellule
+        /// </summary>
+        private InterestPoint InstantiateInterestPoint(AInterestPointConfigurationSO conf, KingdomCell cell)
+        {
+            GameObject instantiateGameObject = Instantiate(conf.InterestPointPrefab);
+            InterestPoint instantiateInterestPoint = instantiateGameObject.GetComponent<InterestPoint>();
+            instantiateInterestPoint.cell = cell;
+            cell.SetOccupier(instantiateInterestPoint);
+            Vector3 position = cell.GetCenter();
+            position.y += 0.5f;
+            instantiateInterestPoint.transform.SetPositionAndRotation(position, Quaternion.identity);
+            instantiateInterestPoint.transform.SetParent(cell.transform);
+            return instantiateInterestPoint;
+        }
+
+        /// <summary>
+        ///     Extrait les données d'un InterestPoint pour sauvegarde
+        /// </summary>
+        public InterestPointData ExtractInterestPointData(InterestPoint interestPoint)
+        {
+            Debug.Log(interestPoint);
+            return new InterestPointData(
                 interestPoint.InterestPointConfiguration,
                 interestPoint.cell.Coordinates.x,
                 interestPoint.cell.Coordinates.y
             );
-        }
-
-        static InterestPointBuilder()
-        {
-            PersistAcrossScenes = false;
         }
     }
 }

@@ -1,5 +1,5 @@
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.Statuses
@@ -40,12 +40,13 @@ namespace FrostfallSaga.Fight.Statuses
 
         public void UpdateStatuses(EStatusTriggerTime triggerTime)
         {
-            List<AStatus> temporaryStatusesOfTriggerTime = _temporaryStatuses.Keys.Where(s => s.TriggerTime == triggerTime).ToList();
+            List<AStatus> temporaryStatusesOfTriggerTime =
+                _temporaryStatuses.Keys.Where(s => s.TriggerTime == triggerTime).ToList();
 
             foreach (AStatus status in temporaryStatusesOfTriggerTime)
             {
                 var (isActuallyActive, currentDuration) = _temporaryStatuses[status];
-                bool willBeActive = isActuallyActive;
+                var willBeActive = isActuallyActive;
 
                 if (isActuallyActive)
                 {
@@ -53,14 +54,10 @@ namespace FrostfallSaga.Fight.Statuses
                     if (!status.IsRecurring) willBeActive = false;
                 }
 
-                if (currentDuration == 1)   // Last turn of the status
-                {
+                if (currentDuration == 1) // Last turn of the status
                     RemoveStatus(status);
-                }
                 else
-                {
                     _temporaryStatuses[status] = (willBeActive, currentDuration - 1);
-                }
             }
 
             _permanentStatuses
@@ -80,22 +77,17 @@ namespace FrostfallSaga.Fight.Statuses
         }
 
         /// <summary>
-        /// Returns a dictionary of all statuses that are currently active on the fighter.
+        ///     Returns a dictionary of all statuses that are currently active on the fighter.
         /// </summary>
         /// <returns></returns>
         public Dictionary<AStatus, (bool isActive, int duration)> GetStatuses()
         {
             Dictionary<AStatus, (bool isActive, int duration)> statuses = new();
 
-            foreach (AStatus status in _permanentStatuses)
-            {
-                statuses[status] = (true, -1);
-            }
+            foreach (AStatus status in _permanentStatuses) statuses[status] = (true, -1);
 
             foreach (KeyValuePair<AStatus, (bool isActive, int duration)> status in _temporaryStatuses)
-            {
                 statuses[status.Key] = status.Value;
-            }
 
             return statuses;
         }

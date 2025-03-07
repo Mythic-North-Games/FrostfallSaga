@@ -1,9 +1,9 @@
-using UnityEditor;
-using UnityEditorInternal;
-using UnityEngine;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Utils.Editor;
+using UnityEditor;
+using UnityEditorInternal;
+using UnityEngine;
 
 namespace FrostfallSaga.FFSEditor.Fight
 {
@@ -15,7 +15,7 @@ namespace FrostfallSaga.FFSEditor.Fight
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             // Reset expandedHeight for fresh computation
-            expandedHeight = EditorGUIUtility.singleLineHeight;  // Start with foldout height
+            expandedHeight = EditorGUIUtility.singleLineHeight; // Start with foldout height
             EditorGUI.BeginProperty(position, label, property);
 
             // Draw the foldout
@@ -26,7 +26,7 @@ namespace FrostfallSaga.FFSEditor.Fight
             );
 
             // Track current position for drawing fields
-            float currentY = position.y + EditorGUIUtility.singleLineHeight;
+            var currentY = position.y + EditorGUIUtility.singleLineHeight;
 
             if (property.isExpanded)
             {
@@ -111,8 +111,9 @@ namespace FrostfallSaga.FFSEditor.Fight
         private float DrawPropertyField(Rect fieldRect, SerializedProperty property)
         {
             // Check if the property is an array to handle height accordingly
-            float propertyHeight = EditorGUI.GetPropertyHeight(property, true);
-            EditorGUI.PropertyField(new Rect(fieldRect.x, fieldRect.y, fieldRect.width, propertyHeight), property, true);
+            var propertyHeight = EditorGUI.GetPropertyHeight(property, true);
+            EditorGUI.PropertyField(new Rect(fieldRect.x, fieldRect.y, fieldRect.width, propertyHeight), property,
+                true);
 
             // Increment expandedHeight by the full height of the property (including arrays' full height)
             expandedHeight += propertyHeight + EditorGUIUtility.standardVerticalSpacing;
@@ -128,7 +129,7 @@ namespace FrostfallSaga.FFSEditor.Fight
             );
 
             // Draw the ReorderableList and compute its height
-            float listHeight = reorderableList.GetHeight();
+            var listHeight = reorderableList.GetHeight();
             reorderableList.DoList(new Rect(fieldRect.x, fieldRect.y, fieldRect.width, listHeight));
 
             // Adjust expandedHeight and return the new y position

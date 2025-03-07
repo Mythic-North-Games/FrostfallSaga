@@ -1,35 +1,34 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.UI;
-using FrostfallSaga.Fight.FightCells;
-using FrostfallSaga.Fight.Abilities;
-using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Controllers
 {
     /// <summary>
-    /// Make the fighter do what the player indicates through the UI.
+    ///     Make the fighter do what the player indicates through the UI.
     /// </summary>
     public class PlayerController : AFighterController
     {
-        private FightManager _fightManager;
-        private Fighter _possessedFighter;
-
         private FighterActionPanelController _actionPanel;
-        private Material _cellHighlightMaterial;
         private Material _cellActionableHighlightMaterial;
+        private Material _cellHighlightMaterial;
         private Material _cellInaccessibleHighlightMaterial;
+        private ActiveAbilitySO _currentActiveAbility;
 
         private FightCell[] _currentMovePath = { };
         private bool _fighterIsActing;
-        private bool _fighterIsTargetingForDirectAttack;
-        private ActiveAbilitySO _currentActiveAbility;
         private bool _fighterIsTargetingForActiveAbility;
+        private bool _fighterIsTargetingForDirectAttack;
+        private FightManager _fightManager;
+        private Fighter _possessedFighter;
 
         public void Setup(
             FightManager fightManager,
@@ -55,16 +54,19 @@ namespace FrostfallSaga.Fight.Controllers
                 Debug.LogError("Player controller has no action panel to work with.");
                 return;
             }
+
             if (_cellHighlightMaterial == null)
             {
                 Debug.LogError("Player controller has no cell highlight material to work with.");
                 return;
             }
+
             if (_cellActionableHighlightMaterial == null)
             {
                 Debug.LogError("Player controller has no cell highlight material to work with.");
                 return;
             }
+
             if (_cellInaccessibleHighlightMaterial == null)
             {
                 Debug.LogError("Player controller has no cell highlight material to work with.");
@@ -86,36 +88,24 @@ namespace FrostfallSaga.Fight.Controllers
         {
             FightCell clickedFightCell = (FightCell)clickedCell;
 
-            if (_fighterIsActing)
-            {
-                return;
-            }
+            if (_fighterIsActing) return;
 
             if (_fighterIsTargetingForDirectAttack && clickedFightCell != _possessedFighter.cell)
-            {
                 TryTriggerDirectAttack(clickedFightCell);
-            }
             else if (_fighterIsTargetingForActiveAbility)
-            {
                 TryTriggerActiveAbility(clickedFightCell);
-            }
             else if (
                 _currentMovePath != null &&
                 _currentMovePath.Length > 0 && clickedFightCell != _possessedFighter.cell
             )
-            {
                 MakeFighterMove(clickedFightCell);
-            }
         }
 
         private void OnCellHovered(Cell hoveredCell)
         {
             FightCell hoveredFightCell = (FightCell)hoveredCell;
 
-            if (_fighterIsActing)
-            {
-                return;
-            }
+            if (_fighterIsActing) return;
 
             if (
                 _fighterIsTargetingForDirectAttack &&
@@ -132,14 +122,12 @@ namespace FrostfallSaga.Fight.Controllers
             }
             else if (
                 _fighterIsTargetingForActiveAbility &&
-                (
-                    _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
-                        _fightManager.FightGrid,
-                        _possessedFighter.cell,
-                        _fightManager.FighterTeams,
-                        _currentActiveAbility.CellAlterations
-                    ).Contains(hoveredFightCell)
-                )
+                _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
+                    _fightManager.FightGrid,
+                    _possessedFighter.cell,
+                    _fightManager.FighterTeams,
+                    _currentActiveAbility.CellAlterations
+                ).Contains(hoveredFightCell)
             )
             {
                 HighlightTargeterCells(_currentActiveAbility.Targeter, hoveredFightCell);
@@ -165,37 +153,26 @@ namespace FrostfallSaga.Fight.Controllers
                     _fighterIsTargetingForActiveAbility || _fighterIsTargetingForDirectAttack
                 )
             )
-            {
                 _possessedFighter.MovementController.RotateTowardsCell(hoveredCell);
-            }
         }
 
         private void OnCellUnhovered(Cell unhoveredCell)
         {
             FightCell unhoveredFightCell = (FightCell)unhoveredCell;
 
-            if (_fighterIsActing)
-            {
-                return;
-            }
+            if (_fighterIsActing) return;
 
             if (_fighterIsTargetingForDirectAttack)
-            {
                 ResetTargeterCellsMaterial(_possessedFighter.Weapon.AttackTargeter, unhoveredFightCell);
-            }
             else if (_fighterIsTargetingForActiveAbility)
-            {
                 ResetTargeterCellsMaterial(_currentActiveAbility.Targeter, unhoveredFightCell);
-            }
             else if (
                 !_fighterIsTargetingForActiveAbility &&
                 !_fighterIsTargetingForDirectAttack &&
                 _currentMovePath != null &&
                 _currentMovePath.Length > 0
             )
-            {
                 ResetShorterPathCellsDefaultMaterial();
-            }
         }
 
         private void OnFighterHovered(Fighter hoveredFighter)
@@ -227,14 +204,24 @@ namespace FrostfallSaga.Fight.Controllers
             UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
         }
 
+        #region Suicide handling
+
+        private void OnPossessedFighterDied(Fighter _fighterThatDied)
+        {
+            if (_fighterThatDied != _possessedFighter) return;
+            UnbindFighterEventsForTurn();
+            UnbindCellMouseEvents(_fightManager.FightGrid);
+            UnbindUIEventsForTurn();
+            UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
+        }
+
+        #endregion
+
         #region Movement handling
 
         private void MakeFighterMove(FightCell destinationCell)
         {
-            if (_currentMovePath.Length > _possessedFighter.GetMovePoints())
-            {
-                return;
-            }
+            if (_currentMovePath.Length > _possessedFighter.GetMovePoints()) return;
 
             ResetShorterPathCellsDefaultMaterial();
             _fighterIsActing = true;
@@ -259,31 +246,29 @@ namespace FrostfallSaga.Fight.Controllers
                 Debug.Log("Fighter " + _possessedFighter.name + " is doing something else. Wait for it to finish.");
                 return;
             }
+
             if (_fighterIsTargetingForDirectAttack)
             {
                 StopTargetingForDirectAttack();
                 return;
             }
+
             if (_possessedFighter.Weapon.UseActionPointsCost > _possessedFighter.GetActionPoints())
             {
-                Debug.Log("Fighter " + _possessedFighter.name + " does not have enough action points to execute its direct attack.");
+                Debug.Log("Fighter " + _possessedFighter.name +
+                          " does not have enough action points to execute its direct attack.");
                 return;
             }
 
-            if (_fighterIsTargetingForActiveAbility)
-            {
-                StopTargetingActiveActiveAbility();
-            }
-            if (_currentMovePath.Length > 0)
-            {
-                ResetShorterPathCellsDefaultMaterial();
-            }
+            if (_fighterIsTargetingForActiveAbility) StopTargetingActiveActiveAbility();
+            if (_currentMovePath.Length > 0) ResetShorterPathCellsDefaultMaterial();
 
-            FightCell[] cellsAvailableForTargeting = _possessedFighter.Weapon.AttackTargeter.GetAllCellsAvailableForTargeting(
-                _fightManager.FightGrid,
-                _possessedFighter.cell,
-                _fightManager.FighterTeams
-            );
+            FightCell[] cellsAvailableForTargeting =
+                _possessedFighter.Weapon.AttackTargeter.GetAllCellsAvailableForTargeting(
+                    _fightManager.FightGrid,
+                    _possessedFighter.cell,
+                    _fightManager.FighterTeams
+                );
             cellsAvailableForTargeting.ToList().ForEach(
                 cell => cell.HighlightController.UpdateCurrentDefaultMaterial(_cellHighlightMaterial)
             );
@@ -308,11 +293,11 @@ namespace FrostfallSaga.Fight.Controllers
                 _fighterIsActing = true;
                 _possessedFighter.UseDirectAttack(targetedCells);
                 onFighterActionStarted?.Invoke(_possessedFighter);
-
             }
             catch (TargeterUnresolvableException)
             {
-                Debug.Log("Fighter " + _possessedFighter.name + " can't use its direct attack from cell " + _possessedFighter.cell.name);
+                Debug.Log("Fighter " + _possessedFighter.name + " can't use its direct attack from cell " +
+                          _possessedFighter.cell.name);
             }
         }
 
@@ -342,30 +327,29 @@ namespace FrostfallSaga.Fight.Controllers
                 Debug.Log("Fighter " + _possessedFighter.name + " is doing something else. Wait for it to finish.");
                 return;
             }
+
             if (_fighterIsTargetingForActiveAbility)
             {
                 StopTargetingActiveActiveAbility();
                 return;
             }
+
             if (clickedAbility.ActionPointsCost > _possessedFighter.GetActionPoints())
             {
-                Debug.Log("Fighter " + _possessedFighter.name + " does not have enough action points to execute the ability");
-                return;
-            }
-            if (clickedAbility.GodFavorsPointsCost > _possessedFighter.GetGodFavorsPoints())
-            {
-                Debug.Log("Fighter " + _possessedFighter.name + " does not have enough god favors points to execute the ability");
+                Debug.Log("Fighter " + _possessedFighter.name +
+                          " does not have enough action points to execute the ability");
                 return;
             }
 
-            if (_fighterIsTargetingForDirectAttack)
+            if (clickedAbility.GodFavorsPointsCost > _possessedFighter.GetGodFavorsPoints())
             {
-                StopTargetingForDirectAttack();
+                Debug.Log("Fighter " + _possessedFighter.name +
+                          " does not have enough god favors points to execute the ability");
+                return;
             }
-            if (_currentMovePath.Length > 0)
-            {
-                ResetShorterPathCellsDefaultMaterial();
-            }
+
+            if (_fighterIsTargetingForDirectAttack) StopTargetingForDirectAttack();
+            if (_currentMovePath.Length > 0) ResetShorterPathCellsDefaultMaterial();
 
             _currentActiveAbility = clickedAbility;
             FightCell[] cellsAvailableForTargeting =
@@ -382,8 +366,6 @@ namespace FrostfallSaga.Fight.Controllers
                 cell => cell.HighlightController.Highlight(_cellHighlightMaterial)
             );
             _fighterIsTargetingForActiveAbility = true;
-
-
         }
 
         private void TryTriggerActiveAbility(FightCell clickedCell)
@@ -402,12 +384,11 @@ namespace FrostfallSaga.Fight.Controllers
                 _fighterIsActing = true;
                 _possessedFighter.UseActiveAbility(_currentActiveAbility, targetedCells);
                 onFighterActionStarted?.Invoke(_possessedFighter);
-
-
             }
             catch (TargeterUnresolvableException)
             {
-                Debug.Log($"Fighter {_possessedFighter.name} can't use its active ability from cell {_possessedFighter.cell.name}");
+                Debug.Log(
+                    $"Fighter {_possessedFighter.name} can't use its active ability from cell {_possessedFighter.cell.name}");
             }
         }
 
@@ -439,18 +420,10 @@ namespace FrostfallSaga.Fight.Controllers
                 Debug.Log("Fighter " + _possessedFighter.name + " is doing something else. Wait for it to finish.");
                 return;
             }
-            if (_fighterIsTargetingForDirectAttack)
-            {
-                StopTargetingForDirectAttack();
-            }
-            if (_fighterIsTargetingForActiveAbility)
-            {
-                StopTargetingActiveActiveAbility();
-            }
-            if (_currentMovePath.Length > 0)
-            {
-                ResetShorterPathCellsDefaultMaterial();
-            }
+
+            if (_fighterIsTargetingForDirectAttack) StopTargetingForDirectAttack();
+            if (_fighterIsTargetingForActiveAbility) StopTargetingActiveActiveAbility();
+            if (_currentMovePath.Length > 0) ResetShorterPathCellsDefaultMaterial();
 
             EndPossessedFighterTurn();
         }
@@ -466,47 +439,24 @@ namespace FrostfallSaga.Fight.Controllers
 
         #endregion
 
-        #region Suicide handling
-
-        private void OnPossessedFighterDied(Fighter _fighterThatDied)
-        {
-            if (_fighterThatDied != _possessedFighter)
-            {
-                return;
-            }
-            UnbindFighterEventsForTurn();
-            UnbindCellMouseEvents(_fightManager.FightGrid);
-            UnbindUIEventsForTurn();
-            UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
-        }
-
-        #endregion
-
         #region Cells highlighting for player feedback
 
         private void HighlightShorterPathCells()
         {
-            int i = 0;
+            var i = 0;
             foreach (FightCell cell in _currentMovePath)
             {
                 if (i < _possessedFighter.GetMovePoints())
-                {
                     cell.HighlightController.Highlight(_cellHighlightMaterial);
-                }
                 else
-                {
                     cell.HighlightController.Highlight(_cellInaccessibleHighlightMaterial);
-                }
                 i++;
             }
         }
 
         private void ResetShorterPathCellsDefaultMaterial()
         {
-            foreach (FightCell cell in _currentMovePath)
-            {
-                cell.HighlightController.ResetToDefaultMaterial();
-            }
+            foreach (FightCell cell in _currentMovePath) cell.HighlightController.ResetToDefaultMaterial();
         }
 
         private void HighlightTargeterCells(Targeter targeter, FightCell originCell)
@@ -519,7 +469,8 @@ namespace FrostfallSaga.Fight.Controllers
                     originCell,
                     _fightManager.FighterTeams
                 );
-                targetedCells.ToList().ForEach(cell => cell.HighlightController.Highlight(_cellActionableHighlightMaterial));
+                targetedCells.ToList()
+                    .ForEach(cell => cell.HighlightController.Highlight(_cellActionableHighlightMaterial));
             }
             catch (TargeterUnresolvableException)
             {
@@ -550,10 +501,7 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void BindUIEventsForTurn()
         {
-            if (_actionPanel == null)
-            {
-                Debug.LogError("Player controller has no action panel to work with.");
-            }
+            if (_actionPanel == null) Debug.LogError("Player controller has no action panel to work with.");
 
             _actionPanel.onDirectAttackClicked += OnDirectAttackClicked;
             _actionPanel.onActiveAbilityClicked += OnActiveAbilityClicked;
@@ -562,10 +510,7 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void UnbindUIEventsForTurn()
         {
-            if (_actionPanel == null)
-            {
-                Debug.LogError("Player controller has no action panel to work with.");
-            }
+            if (_actionPanel == null) Debug.LogError("Player controller has no action panel to work with.");
 
             _actionPanel.onDirectAttackClicked -= OnDirectAttackClicked;
             _actionPanel.onActiveAbilityClicked -= OnActiveAbilityClicked;

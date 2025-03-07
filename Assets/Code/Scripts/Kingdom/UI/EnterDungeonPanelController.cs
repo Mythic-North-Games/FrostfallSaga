@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
-using UnityEngine;
-using UnityEngine.UIElements;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Dungeons;
 using FrostfallSaga.Utils.UI;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Kingdom.UI
 {
@@ -20,13 +20,13 @@ namespace FrostfallSaga.Kingdom.UI
         private static readonly string PANEL_HIDDEN_CLASSNAME = "panelContainerHidden";
         private static readonly string DUNGEON_PANEL_HIDDEN_CLASSNAME = "dungeonPanelContainerHidden";
 
-        public Action<DungeonBuildingConfigurationSO> onDungeonEnterClicked;
-
         [field: SerializeField] public VisualTreeAsset EnterDungeonPanelTemplate { get; private set; }
         [SerializeField] private KingdomManager _kingdomManager;
+        private DungeonBuildingConfigurationSO _currentDungeon;
 
         private TemplateContainer _dungeonGatePanel;
-        private DungeonBuildingConfigurationSO _currentDungeon;
+
+        public Action<DungeonBuildingConfigurationSO> onDungeonEnterClicked;
 
         private void Awake()
         {
@@ -35,15 +35,13 @@ namespace FrostfallSaga.Kingdom.UI
                 Debug.LogError("KingdomManager is not set. Won't be able to display dungeon enter panel.");
                 return;
             }
-            _kingdomManager.onInterestPointEncountered += OnDungeonBuildingEncountered;
+
+            _kingdomManager.OnInterestPointEncountered += OnDungeonBuildingEncountered;
         }
 
         private void OnDungeonBuildingEncountered(AInterestPointConfigurationSO interestPointConfiguration)
         {
-            if (interestPointConfiguration is not DungeonBuildingConfigurationSO dungeonBuildingConfiguration)
-            {
-                return;
-            }
+            if (interestPointConfiguration is not DungeonBuildingConfigurationSO dungeonBuildingConfiguration) return;
 
             _currentDungeon = dungeonBuildingConfiguration;
             _dungeonGatePanel = EnterDungeonPanelTemplate.Instantiate();
@@ -59,12 +57,14 @@ namespace FrostfallSaga.Kingdom.UI
         {
             _dungeonGatePanel.Q<VisualElement>(PANEL_CONTAINER_UI_NAME).RemoveFromClassList(PANEL_HIDDEN_CLASSNAME);
             yield return new WaitForSeconds(0.1f);
-            _dungeonGatePanel.Q<VisualElement>(DUNGEON_PANEL_CONTAINER_UI_NAME).RemoveFromClassList(DUNGEON_PANEL_HIDDEN_CLASSNAME);
+            _dungeonGatePanel.Q<VisualElement>(DUNGEON_PANEL_CONTAINER_UI_NAME)
+                .RemoveFromClassList(DUNGEON_PANEL_HIDDEN_CLASSNAME);
         }
 
         private IEnumerator HidePanel()
         {
-            _dungeonGatePanel.Q<VisualElement>(DUNGEON_PANEL_CONTAINER_UI_NAME).AddToClassList(DUNGEON_PANEL_HIDDEN_CLASSNAME);
+            _dungeonGatePanel.Q<VisualElement>(DUNGEON_PANEL_CONTAINER_UI_NAME)
+                .AddToClassList(DUNGEON_PANEL_HIDDEN_CLASSNAME);
             yield return new WaitForSeconds(0.1f);
             _dungeonGatePanel.Q<VisualElement>(PANEL_CONTAINER_UI_NAME).AddToClassList(PANEL_HIDDEN_CLASSNAME);
             yield return new WaitForSeconds(0.4f);
@@ -75,8 +75,10 @@ namespace FrostfallSaga.Kingdom.UI
         {
             _dungeonGatePanel.style.flexGrow = 1;
             _dungeonGatePanel.Q<VisualElement>(PANEL_CONTAINER_UI_NAME).AddToClassList(PANEL_HIDDEN_CLASSNAME);
-            _dungeonGatePanel.Q<VisualElement>(DUNGEON_PANEL_CONTAINER_UI_NAME).AddToClassList(DUNGEON_PANEL_HIDDEN_CLASSNAME);
-            _dungeonGatePanel.Q<VisualElement>(PREVIEW_CONTAINER_UI_NAME).style.backgroundImage = new(dungeonBuildingConfiguration.DungeonPreview);
+            _dungeonGatePanel.Q<VisualElement>(DUNGEON_PANEL_CONTAINER_UI_NAME)
+                .AddToClassList(DUNGEON_PANEL_HIDDEN_CLASSNAME);
+            _dungeonGatePanel.Q<VisualElement>(PREVIEW_CONTAINER_UI_NAME).style.backgroundImage =
+                new StyleBackground(dungeonBuildingConfiguration.DungeonPreview);
             _dungeonGatePanel.Q<Label>(NAME_LABEL_UI_NAME).text = dungeonBuildingConfiguration.Name;
             _dungeonGatePanel.Q<Label>(DESCRIPTION_LABEL_UI_NAME).text = dungeonBuildingConfiguration.Description;
         }

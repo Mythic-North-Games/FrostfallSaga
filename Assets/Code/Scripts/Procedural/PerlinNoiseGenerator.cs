@@ -7,8 +7,8 @@ namespace FrostfallSaga.Procedural
     [Serializable]
     public class PerlinNoiseGenerator
     {
-        private float _noiseScale;
         private Vector2 _noiseOffset;
+        private float _noiseScale;
 
         public PerlinNoiseGenerator(float noiseScale)
         {

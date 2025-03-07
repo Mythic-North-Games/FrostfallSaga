@@ -4,6 +4,6 @@
     {
         MAXIMIZE_DAMAGE,
         MINIMIZE_COST,
-        RANDOM,
+        RANDOM
     }
 }

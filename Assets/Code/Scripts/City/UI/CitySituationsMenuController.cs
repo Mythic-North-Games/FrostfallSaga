@@ -1,35 +1,35 @@
 using System;
 using System.Collections;
+using FrostfallSaga.Core.Cities.CitySituations;
 using UnityEngine;
 using UnityEngine.UIElements;
-using FrostfallSaga.Core.Cities.CitySituations;
 
 namespace FrostfallSaga.City.UI
 {
     public class CitySituationsMenuController : MonoBehaviour
     {
-        private readonly static string SITUATIONS_CONTAINER_UI_NAME = "SituationsContainer";
-        private readonly static string SITUATION_ILLUSTRATION_UI_NAME = "SituationIllustration";
-        private readonly static string SITUATION_BUTTON_UI_NAME = "SituationButton";
-        private readonly static string RETURN_BUTTON_UI_NAME = "ReturnButton";
+        private static readonly string SITUATIONS_CONTAINER_UI_NAME = "SituationsContainer";
+        private static readonly string SITUATION_ILLUSTRATION_UI_NAME = "SituationIllustration";
+        private static readonly string SITUATION_BUTTON_UI_NAME = "SituationButton";
+        private static readonly string RETURN_BUTTON_UI_NAME = "ReturnButton";
 
-        private readonly static string SITUATIONS_MENU_HIDDEN_CLASSNAME = "situationMenuHidden";
-        private readonly static string SITUATION_ILLUSTRATION_HIDDEN_CLASSNAME = "situationIllustrationHidden";
-        private readonly static string SITUATION_BUTTON_CONTAINER_DEFAULT_CLASSNAME = "situationButtonContainer";
-        private readonly static string SITUATION_BUTTON_CONTAINER_HIDDEN_CLASSNAME = "situationButtonContainerHidden";
-
-        public Action<ACitySituationSO> onCitySituationClicked;
-        public Action onReturnClicked;
-
-        private VisualElement _situationsMenuRoot;
-        private VisualElement _situationsContainer;
-        private VisualElement _situationIllustration;
-        private Button _returnButton;
+        private static readonly string SITUATIONS_MENU_HIDDEN_CLASSNAME = "situationMenuHidden";
+        private static readonly string SITUATION_ILLUSTRATION_HIDDEN_CLASSNAME = "situationIllustrationHidden";
+        private static readonly string SITUATION_BUTTON_CONTAINER_DEFAULT_CLASSNAME = "situationButtonContainer";
+        private static readonly string SITUATION_BUTTON_CONTAINER_HIDDEN_CLASSNAME = "situationButtonContainerHidden";
         private VisualTreeAsset _citySituationButtonTemplate;
         private ACitySituationSO[] _currentCitySituations;
+        private Button _returnButton;
+        private VisualElement _situationIllustration;
+        private VisualElement _situationsContainer;
+
+        private VisualElement _situationsMenuRoot;
 
         private float _timeBeforeSituationsButtonDisplay;
         private float _timeBetweenSituationsButtonDisplay;
+
+        public Action<ACitySituationSO> onCitySituationClicked;
+        public Action onReturnClicked;
 
         public void Init(
             VisualElement citySituationsMenuRoot,
@@ -77,7 +77,7 @@ namespace FrostfallSaga.City.UI
         private void OnSituationButtonHovered(MouseEnterEvent mouseEnterEvent)
         {
             ACitySituationSO hoveredSituation = GetSituationFromButton(mouseEnterEvent.currentTarget as VisualElement);
-            _situationIllustration.style.backgroundImage = new(hoveredSituation.Illustration);
+            _situationIllustration.style.backgroundImage = new StyleBackground(hoveredSituation.Illustration);
             _situationIllustration.RemoveFromClassList(SITUATION_ILLUSTRATION_HIDDEN_CLASSNAME);
         }
 
@@ -94,7 +94,7 @@ namespace FrostfallSaga.City.UI
 
         private ACitySituationSO GetSituationFromButton(VisualElement situationButton)
         {
-            int situationIndex = _situationsContainer.IndexOf(situationButton);
+            var situationIndex = _situationsContainer.IndexOf(situationButton);
             return _currentCitySituations[situationIndex];
         }
 
@@ -107,7 +107,6 @@ namespace FrostfallSaga.City.UI
             _situationsMenuRoot.RemoveFromClassList(SITUATIONS_MENU_HIDDEN_CLASSNAME);
             yield return new WaitForSeconds(_timeBeforeSituationsButtonDisplay);
             StartCoroutine(DisplaySituationsButton());
-
         }
 
         public void Hide()

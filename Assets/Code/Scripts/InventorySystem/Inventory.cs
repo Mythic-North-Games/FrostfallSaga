@@ -13,7 +13,9 @@ namespace FrostfallSaga.InventorySystem
         ///////////////////////
         /// Equipment slots ///
         ///////////////////////
-        [field: SerializeField] public InventorySlot WeaponSlot { get; protected set; }
+        [field: SerializeField]
+        public InventorySlot WeaponSlot { get; protected set; }
+
         [field: SerializeField] public InventorySlot HelmetSlot { get; protected set; }
         [field: SerializeField] public InventorySlot ChestplateSlot { get; protected set; }
         [field: SerializeField] public InventorySlot GlovesSlot { get; protected set; }
@@ -23,7 +25,8 @@ namespace FrostfallSaga.InventorySystem
         /////////////////
         /// Bag slots ///
         /////////////////
-        [field: SerializeField] public InventorySlot[] BagSlots { get; protected set; }
+        [field: SerializeField]
+        public InventorySlot[] BagSlots { get; protected set; }
 
         ////////////////////////
         /// Inventory events ///
@@ -40,10 +43,7 @@ namespace FrostfallSaga.InventorySystem
             BootsSlot = new InventorySlot(1);
 
             BagSlots = new InventorySlot[24];
-            for (int i = 0; i < BagSlots.Length; i++)
-            {
-                BagSlots[i] = new InventorySlot();
-            }
+            for (var i = 0; i < BagSlots.Length; i++) BagSlots[i] = new InventorySlot();
         }
 
         #region Getters
@@ -81,26 +81,11 @@ namespace FrostfallSaga.InventorySystem
         public AArmor[] GetArmorPieces()
         {
             List<AArmor> armorPieces = new();
-            if (!HelmetSlot.IsEmpty())
-            {
-                armorPieces.Add(HelmetSlot.Item as AArmor);
-            }
-            if (!ChestplateSlot.IsEmpty())
-            {
-                armorPieces.Add(ChestplateSlot.Item as AArmor);
-            }
-            if (!GlovesSlot.IsEmpty())
-            {
-                armorPieces.Add(GlovesSlot.Item as AArmor);
-            }
-            if (!LeggingsSlot.IsEmpty())
-            {
-                armorPieces.Add(LeggingsSlot.Item as AArmor);
-            }
-            if (!BootsSlot.IsEmpty())
-            {
-                armorPieces.Add(BootsSlot.Item as AArmor);
-            }
+            if (!HelmetSlot.IsEmpty()) armorPieces.Add(HelmetSlot.Item as AArmor);
+            if (!ChestplateSlot.IsEmpty()) armorPieces.Add(ChestplateSlot.Item as AArmor);
+            if (!GlovesSlot.IsEmpty()) armorPieces.Add(GlovesSlot.Item as AArmor);
+            if (!LeggingsSlot.IsEmpty()) armorPieces.Add(LeggingsSlot.Item as AArmor);
+            if (!BootsSlot.IsEmpty()) armorPieces.Add(BootsSlot.Item as AArmor);
             return armorPieces.ToArray();
         }
 
@@ -145,12 +130,9 @@ namespace FrostfallSaga.InventorySystem
             }
 
             if (replacedItem != null)
-            {
-                for (int i = 0; i < replacedItem.Item2; i++)
-                {
+                for (var i = 0; i < replacedItem.Item2; i++)
                     AddItemToBag(replacedItem.Item1);
-                }
-            }
+
             OnInventoryUpdated?.Invoke(this);
         }
 
@@ -162,24 +144,23 @@ namespace FrostfallSaga.InventorySystem
                 existingSlotForItem.AddItem(item);
                 return;
             }
+
             InventorySlot emptySlot = GetFirstEmptyBagSlot();
             if (emptySlot != null)
             {
                 emptySlot.AddItem(item);
                 return;
             }
+
             throw new InventoryException("No more space in the bag");
         }
 
         private InventorySlot GetBagSlotWithItem(ItemSO item)
         {
             foreach (InventorySlot slot in BagSlots)
-            {
                 if (slot.Item == item)
-                {
                     return slot;
-                }
-            }
+
             return null;
         }
 

@@ -7,9 +7,9 @@ namespace FrostfallSaga.Procedural
     [Serializable]
     public class VoronoiGenerator
     {
-        private List<Vector2> _sites;
-        private int _gridWidth;
         private int _gridHeight;
+        private int _gridWidth;
+        private List<Vector2> _sites;
 
         public VoronoiGenerator(List<Vector2> sites, int width, int height)
         {
@@ -20,20 +20,20 @@ namespace FrostfallSaga.Procedural
 
         public int GetCloserSite(float x, float y)
         {
-            float minDistance = float.MaxValue;
-            int closestSiteIndex = -1;
+            var minDistance = float.MaxValue;
+            var closestSiteIndex = -1;
 
-            for (int i = 0; i < _sites.Count; i++)
+            for (var i = 0; i < _sites.Count; i++)
             {
-                float distance = Vector2.Distance(new Vector2(x, y), _sites[i]);
+                var distance = Vector2.Distance(new Vector2(x, y), _sites[i]);
                 if (distance < minDistance)
                 {
                     minDistance = distance;
                     closestSiteIndex = i;
                 }
             }
+
             return closestSiteIndex;
         }
     }
 }
-

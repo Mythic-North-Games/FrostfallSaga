@@ -4,6 +4,5 @@ namespace FrostfallSaga.Kingdom
 {
     public class KingdomCellOccupierMouseEventsController : BaseMouseEventsController<KingdomCellOccupier>
     {
-
     }
 }

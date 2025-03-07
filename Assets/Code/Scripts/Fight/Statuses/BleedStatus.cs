@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Statuses
 {
@@ -28,7 +28,8 @@ namespace FrostfallSaga.Fight.Statuses
             FighterBuffVisualsController visualsController,
             int bleedingDamage
         )
-            : base(EStatusType.BLEED, NAME, DESCRIPTION, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+            : base(EStatusType.BLEED, NAME, DESCRIPTION, isPermanent, duration, triggerOnFirstApply, isRecurring,
+                triggerTime, visualsController)
         {
             BleedingDamage = bleedingDamage;
         }
@@ -36,7 +37,8 @@ namespace FrostfallSaga.Fight.Statuses
         protected override void DoApplyStatus(Fighter fighter)
         {
             fighter.ReceiveRawDamages(BleedingDamage, false);
-            Debug.Log($"{fighter.name} is bleeding and loses ${BleedingDamage} HP! ==> Health : ${fighter.GetHealth()}");
+            Debug.Log(
+                $"{fighter.name} is bleeding and loses ${BleedingDamage} HP! ==> Health : ${fighter.GetHealth()}");
         }
 
         protected override void DoRemoveStatus(Fighter fighter)

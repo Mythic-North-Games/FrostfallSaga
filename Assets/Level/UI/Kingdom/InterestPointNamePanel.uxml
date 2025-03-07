@@ -1,5 +1,9 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="InterestPointNameContainer" style="position: absolute; padding-top: 0.5%; padding-right: 1%; padding-bottom: 0.5%; padding-left: 1%; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Backgrounds/fadedCircleBackground.png?fileID=2800000&amp;guid=bdd35670b3e5cc541a7d4be14cc1e577&amp;type=3#fadedCircleBackground&quot;); -unity-background-scale-mode: stretch-to-fill;">
-        <ui:Label text="Sovengard" name="InterestPointNameLabel" style="-unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 30%; color: rgb(233, 233, 233);" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance"
+         engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="InterestPointNameContainer"
+                      style="position: absolute; padding-top: 0.5%; padding-right: 1%; padding-bottom: 0.5%; padding-left: 1%; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Backgrounds/fadedCircleBackground.png?fileID=2800000&amp;guid=bdd35670b3e5cc541a7d4be14cc1e577&amp;type=3#fadedCircleBackground&quot;); -unity-background-scale-mode: stretch-to-fill;">
+        <ui:Label text="Sovengard" name="InterestPointNameLabel"
+                  style="-unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 30%; color: rgb(233, 233, 233);"/>
     </ui:VisualElement>
 </ui:UXML>

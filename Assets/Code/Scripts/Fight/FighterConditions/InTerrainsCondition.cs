@@ -1,21 +1,22 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
-using FrostfallSaga.Grid;
+using System.Linq;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Grid;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightConditions
 {
     /// <summary>
-    /// Check if the fighter is inside one of the terrains.
+    ///     Check if the fighter is inside one of the terrains.
     /// </summary>
     [Serializable]
     public class InTerrainsCondition : AFighterCondition
     {
         [SerializeField] public TerrainTypeSO[] AvailableTerrains;
 
-        public override bool CheckCondition(Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        public override bool CheckCondition(Fighter fighter, AHexGrid fightGrid,
+            Dictionary<Fighter, bool> fightersTeams)
         {
             return fighter.cell != null && AvailableTerrains.Contains(fighter.cell.TerrainType);
         }

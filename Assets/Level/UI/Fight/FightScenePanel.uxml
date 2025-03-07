@@ -1,55 +1,76 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Template name="WhiteDiamondContainer" src="project://database/Assets/Level/UI/Components/WhiteDiamondContainer.uxml?fileID=9197481963319205126&amp;guid=0cb67aec6c6f8a96a9da9d0aba980a43&amp;type=3#WhiteDiamondContainer" />
-    <ui:Template name="StatusesBar" src="project://database/Assets/Level/UI/Components/StatusesBar.uxml?fileID=9197481963319205126&amp;guid=495c80ca846d4147698ec2e485a822e6&amp;type=3#StatusesBar" />
-    <ui:Template name="ProgressBars" src="project://database/Assets/Level/UI/Components/ProgressBars.uxml?fileID=9197481963319205126&amp;guid=73cc8529925e73d4a9097dd4e72cd77f&amp;type=3#ProgressBars" />
-    <Style src="project://database/Assets/Level/UI/Fight/FightScenePanel.uss?fileID=7433441132597879392&amp;guid=e5eb9d2bf6d4bff42afd0f1a4c723e76&amp;type=3#FightScenePanel" />
-    <Style src="project://database/Assets/Level/UI/globalStyles.uss?fileID=7433441132597879392&amp;guid=1849fa32056df9a58b3c371fd6e7ddf2&amp;type=3#globalStyles" />
-    <ui:VisualElement name="RootActionPanel" style="flex-grow: 1; position: absolute; width: 100%; height: 18%; justify-content: space-between; top: auto; flex-direction: row; align-self: auto; align-items: auto; bottom: -2%; padding-bottom: 1.5%;">
-        <ui:VisualElement name="TeamInfoPanel" style="margin-bottom: 1%; width: 40%; height: 200%; justify-content: flex-end;">
-            <ui:VisualElement name="TeamMatePanelOtherCharacter" style="justify-content: space-between; align-self: auto; flex-direction: row; width: 43%; height: 40%; position: absolute; top: 13%; left: 2.5%;">
-                <ui:Instance template="WhiteDiamondContainer" name="TeamMateIconContainer1" class="teamMateContainer" />
-                <ui:Instance template="WhiteDiamondContainer" name="TeamMateIconContainer2" class="teamMateContainer" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Template name="WhiteDiamondContainer"
+                 src="project://database/Assets/Level/UI/Components/WhiteDiamondContainer.uxml?fileID=9197481963319205126&amp;guid=0cb67aec6c6f8a96a9da9d0aba980a43&amp;type=3#WhiteDiamondContainer"/>
+    <ui:Template name="StatusesBar"
+                 src="project://database/Assets/Level/UI/Components/StatusesBar.uxml?fileID=9197481963319205126&amp;guid=495c80ca846d4147698ec2e485a822e6&amp;type=3#StatusesBar"/>
+    <ui:Template name="ProgressBars"
+                 src="project://database/Assets/Level/UI/Components/ProgressBars.uxml?fileID=9197481963319205126&amp;guid=73cc8529925e73d4a9097dd4e72cd77f&amp;type=3#ProgressBars"/>
+    <Style src="project://database/Assets/Level/UI/Fight/FightScenePanel.uss?fileID=7433441132597879392&amp;guid=e5eb9d2bf6d4bff42afd0f1a4c723e76&amp;type=3#FightScenePanel"/>
+    <Style src="project://database/Assets/Level/UI/globalStyles.uss?fileID=7433441132597879392&amp;guid=1849fa32056df9a58b3c371fd6e7ddf2&amp;type=3#globalStyles"/>
+    <ui:VisualElement name="RootActionPanel"
+                      style="flex-grow: 1; position: absolute; width: 100%; height: 18%; justify-content: space-between; top: auto; flex-direction: row; align-self: auto; align-items: auto; bottom: -2%; padding-bottom: 1.5%;">
+        <ui:VisualElement name="TeamInfoPanel"
+                          style="margin-bottom: 1%; width: 40%; height: 200%; justify-content: flex-end;">
+            <ui:VisualElement name="TeamMatePanelOtherCharacter"
+                              style="justify-content: space-between; align-self: auto; flex-direction: row; width: 43%; height: 40%; position: absolute; top: 13%; left: 2.5%;">
+                <ui:Instance template="WhiteDiamondContainer" name="TeamMateIconContainer1" class="teamMateContainer"/>
+                <ui:Instance template="WhiteDiamondContainer" name="TeamMateIconContainer2" class="teamMateContainer"/>
             </ui:VisualElement>
-            <ui:VisualElement name="TeamMatePanelMainCharacter" style="flex-direction: row; margin-left: 10%; align-items: flex-end; height: 65%;">
-                <ui:Instance template="WhiteDiamondContainer" name="PlayingCharacterIconContainer" style="width: 30%; height: 100%;" />
+            <ui:VisualElement name="TeamMatePanelMainCharacter"
+                              style="flex-direction: row; margin-left: 10%; align-items: flex-end; height: 65%;">
+                <ui:Instance template="WhiteDiamondContainer" name="PlayingCharacterIconContainer"
+                             style="width: 30%; height: 100%;"/>
                 <ui:VisualElement name="PlayingFighterDetails" style="padding-left: 3%; width: 60%;">
-                    <ui:Instance template="StatusesBar" name="StatusesBar" style="height: 15%;" />
-                    <ui:Label name="FighterNameLabel" text="Fighter&apos;s name" class="defaultText" style="-unity-font-style: bold; color: rgb(255, 255, 255); font-size: 30px;" />
-                    <ui:Instance template="ProgressBars" name="ProgressBars" />
+                    <ui:Instance template="StatusesBar" name="StatusesBar" style="height: 15%;"/>
+                    <ui:Label name="FighterNameLabel" text="Fighter&apos;s name" class="defaultText"
+                              style="-unity-font-style: bold; color: rgb(255, 255, 255); font-size: 30px;"/>
+                    <ui:Instance template="ProgressBars" name="ProgressBars"/>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="ActionPanel" style="align-items: flex-start; height: 50%; width: 50%; padding-right: 10%; flex-direction: row; margin-bottom: 1%;">
-            <ui:VisualElement name="DirectAttackButton" class="directAttackButton" style="flex-grow: 1;" />
+        <ui:VisualElement name="ActionPanel"
+                          style="align-items: flex-start; height: 50%; width: 50%; padding-right: 10%; flex-direction: row; margin-bottom: 1%;">
+            <ui:VisualElement name="DirectAttackButton" class="directAttackButton" style="flex-grow: 1;"/>
             <ui:VisualElement name="AbilitiesContainer" class="abilitiesContainer" style="height: 100%; width: 90%;">
-                <ui:Button name="AbilityButton0" class="abilitiesButton" />
-                <ui:Button name="AbilityButton1" class="abilitiesButton" />
-                <ui:Button name="AbilityButton2" class="abilitiesButton" />
-                <ui:Button name="AbilityButton3" class="abilitiesButton" />
-                <ui:Button name="AbilityButton4" class="abilitiesButton" />
-                <ui:Button name="AbilityButton5" class="abilitiesButton" />
+                <ui:Button name="AbilityButton0" class="abilitiesButton"/>
+                <ui:Button name="AbilityButton1" class="abilitiesButton"/>
+                <ui:Button name="AbilityButton2" class="abilitiesButton"/>
+                <ui:Button name="AbilityButton3" class="abilitiesButton"/>
+                <ui:Button name="AbilityButton4" class="abilitiesButton"/>
+                <ui:Button name="AbilityButton5" class="abilitiesButton"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:Button name="EndTurnButton" class="endTurnButton endTurnButtonHover">
-            <ui:VisualElement name="EndTurnButtonIconHourglass" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Icons/hourglassIcon.png?fileID=2800000&amp;guid=59698b652a80ef84c855c4138a8296d7&amp;type=3#hourglassIcon&quot;); width: 20%; height: 50%; left: 20%; max-height: 50%; max-width: 20%; top: 25%; -unity-background-scale-mode: scale-to-fit;" />
-            <ui:Label text="End turn" name="EndTurnButtonLabel" class="defaultText" style="font-size: 28px; color: rgb(255, 255, 255); -unity-font-style: bold; margin-top: 0; margin-right: 10px; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+            <ui:VisualElement name="EndTurnButtonIconHourglass"
+                              style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Icons/hourglassIcon.png?fileID=2800000&amp;guid=59698b652a80ef84c855c4138a8296d7&amp;type=3#hourglassIcon&quot;); width: 20%; height: 50%; left: 20%; max-height: 50%; max-width: 20%; top: 25%; -unity-background-scale-mode: scale-to-fit;"/>
+            <ui:Label text="End turn" name="EndTurnButtonLabel" class="defaultText"
+                      style="font-size: 28px; color: rgb(255, 255, 255); -unity-font-style: bold; margin-top: 0; margin-right: 10px; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
         </ui:Button>
     </ui:VisualElement>
     <ui:VisualElement name="TimelinePanel" class="timelinePanel">
-        <ui:VisualElement name="RoundPanel" style="flex-direction: row; align-items: center; align-self: flex-end; justify-content: space-around; width: 100%; right: 0; margin-bottom: 0; background-color: rgba(0, 0, 0, 0.67); padding-bottom: 7px; padding-top: 7px; padding-right: 4px; padding-left: 4px; font-size: 12px;">
-            <ui:Label tabindex="-1" text="Round" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RoundPanel_RoundText" class="defaultText" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 29px; color: rgb(255, 255, 255);" />
-            <ui:Label tabindex="-1" text="12" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RoundPanel_TextNumRound" class="defaultText" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); font-size: 28px;" />
+        <ui:VisualElement name="RoundPanel"
+                          style="flex-direction: row; align-items: center; align-self: flex-end; justify-content: space-around; width: 100%; right: 0; margin-bottom: 0; background-color: rgba(0, 0, 0, 0.67); padding-bottom: 7px; padding-top: 7px; padding-right: 4px; padding-left: 4px; font-size: 12px;">
+            <ui:Label tabindex="-1" text="Round" parse-escape-sequences="true" display-tooltip-when-elided="true"
+                      name="RoundPanel_RoundText" class="defaultText"
+                      style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 29px; color: rgb(255, 255, 255);"/>
+            <ui:Label tabindex="-1" text="12" parse-escape-sequences="true" display-tooltip-when-elided="true"
+                      name="RoundPanel_TextNumRound" class="defaultText"
+                      style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; color: rgb(255, 255, 255); font-size: 28px;"/>
         </ui:VisualElement>
-        <ui:VisualElement name="TimelineCharacterContainer0" class="timelineCharacterContainer" />
-        <ui:VisualElement name="TimelineCharacterContainer1" class="timelineCharacterContainer" />
-        <ui:VisualElement name="TimelineCharacterContainer2" class="timelineCharacterContainer" />
-        <ui:VisualElement name="TimelineCharacterContainer3" class="timelineCharacterContainer" />
-        <ui:VisualElement name="TimelineCharacterContainer4" class="timelineCharacterContainer" />
-        <ui:VisualElement name="TimelineCharacterContainer5" class="timelineCharacterContainer" />
+        <ui:VisualElement name="TimelineCharacterContainer0" class="timelineCharacterContainer"/>
+        <ui:VisualElement name="TimelineCharacterContainer1" class="timelineCharacterContainer"/>
+        <ui:VisualElement name="TimelineCharacterContainer2" class="timelineCharacterContainer"/>
+        <ui:VisualElement name="TimelineCharacterContainer3" class="timelineCharacterContainer"/>
+        <ui:VisualElement name="TimelineCharacterContainer4" class="timelineCharacterContainer"/>
+        <ui:VisualElement name="TimelineCharacterContainer5" class="timelineCharacterContainer"/>
     </ui:VisualElement>
-    <ui:VisualElement name="SettingsPanel" style="width: 10%; height: 10%; align-self: flex-end; background-color: rgba(0, 0, 44, 0); -unity-background-image-tint-color: rgba(0, 0, 0, 0); -unity-background-scale-mode: stretch-to-fill; justify-content: center; align-items: stretch; visibility: visible; overflow: visible; opacity: 1; display: none; left: auto; background-image: none; right: 0; top: 0; position: absolute;">
-        <ui:Button parse-escape-sequences="false" display-tooltip-when-elided="true" name="SettingBouton" enable-rich-text="true" focusable="true" class="SettingBouton" style="left: 50%; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; top: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;">
-            <ui:VisualElement name="SettingSharpIcon" class="Setting_Sharp_Icon" style="left: 20%; top: 27.5%; width: 20%; height: 45%; max-width: 20%; max-height: 45%;" />
+    <ui:VisualElement name="SettingsPanel"
+                      style="width: 10%; height: 10%; align-self: flex-end; background-color: rgba(0, 0, 44, 0); -unity-background-image-tint-color: rgba(0, 0, 0, 0); -unity-background-scale-mode: stretch-to-fill; justify-content: center; align-items: stretch; visibility: visible; overflow: visible; opacity: 1; display: none; left: auto; background-image: none; right: 0; top: 0; position: absolute;">
+        <ui:Button parse-escape-sequences="false" display-tooltip-when-elided="true" name="SettingBouton"
+                   enable-rich-text="true" focusable="true" class="SettingBouton"
+                   style="left: 50%; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; top: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;">
+            <ui:VisualElement name="SettingSharpIcon" class="Setting_Sharp_Icon"
+                              style="left: 20%; top: 27.5%; width: 20%; height: 45%; max-width: 20%; max-height: 45%;"/>
         </ui:Button>
     </ui:VisualElement>
 </ui:UXML>

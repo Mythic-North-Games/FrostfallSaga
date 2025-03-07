@@ -1,16 +1,17 @@
 using System.Collections.Generic;
-using FrostfallSaga.Utils.Trees.BehaviourTree;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
+using FrostfallSaga.Utils.Trees.BehaviourTree;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 {
     /// <summary>
-    /// Check if the possessed fighter can move. Enough move points and no obstacles.
+    ///     Check if the possessed fighter can move. Enough move points and no obstacles.
     /// </summary>
     public class CanMoveCheck : FBTNode
     {
-        public CanMoveCheck(Fighter possessedFighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams) : base(possessedFighter, fightGrid, fighterTeams)
+        public CanMoveCheck(Fighter possessedFighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams) :
+            base(possessedFighter, fightGrid, fighterTeams)
         {
         }
 

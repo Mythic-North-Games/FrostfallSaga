@@ -26,7 +26,7 @@ namespace FrostfallSaga.Core.Quests
             return Actions.ChosenDecisiveActionIndex > -1;
         }
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
 
         public QuestStep(string title, string description, QuestStepActionsSO actions)
         {
@@ -50,6 +50,6 @@ namespace FrostfallSaga.Core.Quests
             Actions = newActions;
         }
 
-        #endif
+#endif
     }
 }

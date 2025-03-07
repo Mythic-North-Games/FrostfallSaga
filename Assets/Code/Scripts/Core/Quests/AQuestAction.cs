@@ -8,12 +8,12 @@ namespace FrostfallSaga.Core.Quests
     {
         [field: SerializeField] public string Instruction { get; protected set; }
         [field: SerializeField] public bool IsCompleted { get; protected set; }
-        
+
         public Action<AQuestAction> onActionCompleted;
         public MonoBehaviour SceneManager { get; protected set; }
 
         /// <summary>
-        /// Start listening to the events that will update the action completion.
+        ///     Start listening to the events that will update the action completion.
         /// </summary>
         /// <param name="sceneManager">The specific manager of the scene the action is related to.</param>
         public virtual void Initialize(MonoBehaviour sceneManager)
@@ -22,7 +22,7 @@ namespace FrostfallSaga.Core.Quests
         }
 
         /// <summary>
-        /// Stop listening to the events that will update the action completion.
+        ///     Stop listening to the events that will update the action completion.
         /// </summary>
         protected abstract void UnbindSceneManagerEvents();
 
@@ -30,7 +30,7 @@ namespace FrostfallSaga.Core.Quests
         {
             UnbindSceneManagerEvents();
             SceneManager = null;
-            
+
             IsCompleted = true;
             onActionCompleted?.Invoke(this);
         }

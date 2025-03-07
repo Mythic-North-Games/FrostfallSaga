@@ -1,18 +1,18 @@
 using System;
-using UnityEngine;
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
     public abstract class AAbilityAnimationSO : ScriptableObject
     {
-        public Action<Fighter> onFighterTouched;
-        public Action<FightCell> onCellTouched;
         public Action<Fighter> onAnimationEnded;
+        public Action<FightCell> onCellTouched;
+        public Action<Fighter> onFighterTouched;
 
         /// <summary>
-        /// Executes the ability animation as configured.
+        ///     Executes the ability animation as configured.
         /// </summary>
         public abstract void Execute(Fighter fighterThatWillExecute, FightCell[] abilityTargetCells);
 

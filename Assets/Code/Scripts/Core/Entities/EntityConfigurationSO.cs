@@ -1,9 +1,10 @@
-using UnityEngine;
 using FrostfallSaga.Core.Fight;
+using UnityEngine;
 
 namespace FrostfallSaga.Core.Entities
 {
-    [CreateAssetMenu(fileName = "EntityConfiguration", menuName = "ScriptableObjects/Entities/EntityConfiguration", order = 0)]
+    [CreateAssetMenu(fileName = "EntityConfiguration", menuName = "ScriptableObjects/Entities/EntityConfiguration",
+        order = 0)]
     public class EntityConfigurationSO : ScriptableObject
     {
         [field: SerializeField] public string Name { get; private set; }

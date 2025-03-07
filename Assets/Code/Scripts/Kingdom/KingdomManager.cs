@@ -14,26 +14,26 @@ using UnityEngine;
 namespace FrostfallSaga.Kingdom
 {
     /// <summary>
-    /// Responsible for managing entities movements and encounters.
+    ///     Responsible for managing entities movements and encounters.
     /// </summary>
     public class KingdomManager : MonoBehaviour
     {
-        // Parameters are: Encountered enemies group, hero group initiating ?
-        public Action<EntitiesGroup, bool> onEnemiesGroupEncountered;
-        public Action<AInterestPointConfigurationSO> onInterestPointEncountered;
-
         [field: SerializeField] public Material CellHighlightMaterial { get; private set; }
         [field: SerializeField] public Material CellInaccessibleHighlightMaterial { get; private set; }
-        [field: SerializeField] public AHexGrid KingdomGrid { get; private set; }
+        [field: SerializeField] public KingdomHexGrid KingdomGrid { get; private set; }
         [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
+        [field: SerializeField] public List<InterestPoint> InterestPoints { get; private set; }
         [field: SerializeField] public List<EntitiesGroup> EnemiesGroups { get; private set; } = new();
-        [field: SerializeField] public InterestPoint[] InterestPoints { get; private set; }
-
-        [SerializeField] private EntitiesGroupsSpawner.EntitiesGroupsSpawner _enemiesGroupSpawner;
-        [SerializeField] private KingdomLoader _kingdomLoader;
-        private EntitiesGroupsMovementController _entitiesGroupsMovementController;
+        [SerializeField] private EntitiesGroupsSpawner.EntitiesGroupsSpawner enemiesGroupSpawner;
+        [SerializeField] private KingdomLoader kingdomLoader;
         private MovePath _currentHeroGroupMovePath;
         private bool _entitiesAreMoving;
+
+        private EntitiesGroupsMovementController _entitiesGroupsMovementController;
+
+        // Parameters are: Encountered enemies group, hero group initiating ?
+        public Action<EntitiesGroup, bool> OnEnemiesGroupEncountered;
+        public Action<AInterestPointConfigurationSO> OnInterestPointEncountered;
 
         private void OnKingdomLoaded()
         {
@@ -43,30 +43,30 @@ namespace FrostfallSaga.Kingdom
         public void SaveKingdomState()
         {
             EntitiesGroupBuilder entitiesGroupBuilder = EntitiesGroupBuilder.Instance;
+
+            // Extracting Hero Data
             EntitiesGroupData heroGroupData = entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(HeroGroup);
 
-            List<EntitiesGroupData> enemiesGroupsData = new();
-            EnemiesGroups.ForEach(group =>
-            {
-                enemiesGroupsData.Add(entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(group));
-            });
+            // Extracting data from enemy groups
+            EntitiesGroupData[] enemiesGroupsData = EnemiesGroups
+                .Select(group => entitiesGroupBuilder.ExtractEntitiesGroupDataFromEntiesGroup(group))
+                .ToArray();
 
-            List<InterestPointData> interestPointsData = new();
-            foreach (InterestPoint interestPoint in InterestPoints)
-            {
-                interestPointsData.Add(InterestPointBuilder.Instance.ExtractInterestPointDataFromInterestPoint(interestPoint));
-            }
-            GameStateManager.Instance.SaveKingdomState(heroGroupData, enemiesGroupsData.ToArray(), interestPointsData.ToArray());
-            Debug.Log("KingdomConfiguration Saved !");
+            // Extracting data from points of interest
+            InterestPointData[] interestPointsData = InterestPoints
+                .Select(point => InterestPointBuilder.Instance.ExtractInterestPointData(point))
+                .ToArray();
+
+            // Save into GameStateManager
+            GameStateManager.Instance.SaveKingdomState(heroGroupData, enemiesGroupsData, interestPointsData);
         }
+
 
         // It's inside this function that the magic happens. It makes the hero group then the enemies move.
         private void OnCellClicked(Cell clickedCell)
         {
-            if (_entitiesAreMoving || _currentHeroGroupMovePath.PathLength > HeroGroup.movePoints || !_currentHeroGroupMovePath.DoesNextCellExists())
-            {
-                return;
-            }
+            if (_entitiesAreMoving || _currentHeroGroupMovePath.PathLength > HeroGroup.movePoints ||
+                !_currentHeroGroupMovePath.DoesNextCellExists()) return;
 
             _entitiesAreMoving = true;
             ResetShorterPathCellsDefaultMaterial();
@@ -83,17 +83,18 @@ namespace FrostfallSaga.Kingdom
             OnCellClicked(clickedOccupier.cell);
         }
 
-        private void OnEnemiesGroupEncounteredDuringMovement(EntitiesGroup encounteredEnemiesGroup, bool heroGroupHasInitiated)
+        private void OnEnemiesGroupEncounteredDuringMovement(EntitiesGroup encounteredEnemiesGroup,
+            bool heroGroupHasInitiated)
         {
-            onEnemiesGroupEncountered?.Invoke(encounteredEnemiesGroup, heroGroupHasInitiated);
+            OnEnemiesGroupEncountered?.Invoke(encounteredEnemiesGroup, heroGroupHasInitiated);
         }
 
-        private void OnInterestPointEncountered(InterestPoint encounteredInterestPoint)
+        private void InterestPointEncountered(InterestPoint encounteredInterestPoint)
         {
             _entitiesAreMoving = false;
             HeroGroup.GetDisplayedEntity().AnimationController.RestoreDefaultAnimation();
             HeroGroup.GetDisplayedEntity().MovementController.RotateTowardsCell(encounteredInterestPoint.cell);
-            onInterestPointEncountered?.Invoke(encounteredInterestPoint.InterestPointConfiguration);
+            OnInterestPointEncountered?.Invoke(encounteredInterestPoint.InterestPointConfiguration);
         }
 
         private void OnAllEntitiesMoved()
@@ -101,7 +102,7 @@ namespace FrostfallSaga.Kingdom
             _entitiesAreMoving = false;
             try
             {
-                _enemiesGroupSpawner.TrySpawnEntitiesGroup();
+                enemiesGroupSpawner.TrySpawnEntitiesGroup();
             }
             catch (ImpossibleSpawnException)
             {
@@ -118,12 +119,11 @@ namespace FrostfallSaga.Kingdom
         }
 
         #region Cells hovering and highlighting
+
         private void OnCellHovered(Cell hoveredCell)
         {
             if (_entitiesAreMoving) // To prevent the player from spaming movements
-            {
                 return;
-            }
 
             Cell[] shorterPathToHoveredCell = CellsPathFinding.GetShorterPath(
                 KingdomGrid,
@@ -131,7 +131,7 @@ namespace FrostfallSaga.Kingdom
                 hoveredCell,
                 checkLastCell: false
             );
-            _currentHeroGroupMovePath = new(shorterPathToHoveredCell);
+            _currentHeroGroupMovePath = new MovePath(shorterPathToHoveredCell);
             HighlightShorterPathCells();
         }
 
@@ -152,50 +152,41 @@ namespace FrostfallSaga.Kingdom
 
         private void HighlightShorterPathCells()
         {
-            int i = 0;
+            var i = 0;
             foreach (Cell cell in _currentHeroGroupMovePath.path)
             {
                 if (i < HeroGroup.movePoints)
-                {
                     cell.HighlightController.Highlight(CellHighlightMaterial);
-                }
                 else
-                {
                     cell.HighlightController.Highlight(CellInaccessibleHighlightMaterial);
-                }
                 i++;
             }
         }
 
         private void ResetShorterPathCellsDefaultMaterial()
         {
-            foreach (Cell cell in _currentHeroGroupMovePath.path)
-            {
-                cell.HighlightController.ResetToDefaultMaterial();
-            }
+            foreach (Cell cell in _currentHeroGroupMovePath.path) cell.HighlightController.ResetToDefaultMaterial();
         }
+
         #endregion
 
         #region Setup and tear down
+
         private void Awake()
         {
-            if (_enemiesGroupSpawner == null)
-            {
-                _enemiesGroupSpawner = FindObjectOfType<EntitiesGroupsSpawner.EntitiesGroupsSpawner>();
-            }
-            if (_enemiesGroupSpawner == null)
+            if (enemiesGroupSpawner == null)
+                enemiesGroupSpawner = FindObjectOfType<EntitiesGroupsSpawner.EntitiesGroupsSpawner>();
+            if (enemiesGroupSpawner == null)
             {
                 Debug.LogError("No enemies groups spawner found. Enemies groups will not spawn.");
                 return;
             }
 
-            if (_kingdomLoader == null)
+            if (kingdomLoader == null) kingdomLoader = FindObjectOfType<KingdomLoader>();
+            if (kingdomLoader == null)
             {
-                _kingdomLoader = FindObjectOfType<KingdomLoader>();
-            }
-            if (_kingdomLoader == null)
-            {
-                Debug.LogError("No kingdom loader found. Won't be able to correctly manage entities groups after fight.");
+                Debug.LogError(
+                    "No kingdom loader found. Won't be able to correctly manage entities groups after fight.");
                 return;
             }
 
@@ -205,33 +196,31 @@ namespace FrostfallSaga.Kingdom
                 return;
             }
 
-            _enemiesGroupSpawner.onEntitiesGroupSpawned += OnEnemiesGroupSpawned;
-            _kingdomLoader.onKingdomLoaded += OnKingdomLoaded;
+            enemiesGroupSpawner.onEntitiesGroupSpawned += OnEnemiesGroupSpawned;
+            kingdomLoader.OnKingdomLoaded += OnKingdomLoaded;
         }
 
         private void Setup()
         {
-            if (KingdomGrid == null)
-            {
-                KingdomGrid = FindObjectOfType<AHexGrid>();
-            }
+            KingdomGrid ??= FindObjectOfType<KingdomHexGrid>();
             if (KingdomGrid == null)
             {
                 Debug.LogError("No HexGrid found in the scene. The Kingdom manager can't work.");
                 gameObject.SetActive(false);
                 return;
             }
+
             BindCellMouseEvents();
 
-            HeroGroup = FindObjectsOfType<EntitiesGroup>().ToList().Find(entitiesGroup => entitiesGroup.name == "HeroGroup");
-            EnemiesGroups = FindObjectsOfType<EntitiesGroup>().ToList().FindAll(entitiesGroup => entitiesGroup.name != "HeroGroup");
-
-            _entitiesGroupsMovementController = new(KingdomGrid, HeroGroup);
+            HeroGroup = FindObjectsOfType<EntitiesGroup>().ToList()
+                .Find(entitiesGroup => entitiesGroup.name == "HeroGroup");
+            EnemiesGroups = FindObjectsOfType<EntitiesGroup>().ToList()
+                .FindAll(entitiesGroup => entitiesGroup.name != "HeroGroup");
+            InterestPoints = FindObjectsOfType<InterestPoint>().ToList();
+            _entitiesGroupsMovementController = new EntitiesGroupsMovementController(KingdomGrid, HeroGroup);
             _entitiesGroupsMovementController.onAllEntitiesMoved += OnAllEntitiesMoved;
             _entitiesGroupsMovementController.onEnemiesGroupEncountered += OnEnemiesGroupEncounteredDuringMovement;
-            _entitiesGroupsMovementController.onInterestPointEncountered += OnInterestPointEncountered;
-
-            InterestPoints = FindObjectsOfType<InterestPoint>();
+            _entitiesGroupsMovementController.onInterestPointEncountered += InterestPointEncountered;
 
             BindOccupiersMouseEvents();
         }
@@ -256,6 +245,7 @@ namespace FrostfallSaga.Kingdom
                 occupier.MouseEventsController.OnLeftMouseUp += OnKingdomCellOccupierClicked;
             }
         }
+
         #endregion
     }
 }

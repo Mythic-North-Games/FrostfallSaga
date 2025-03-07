@@ -1,20 +1,21 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using FrostfallSaga.Grid;
+using System.Linq;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Grid;
 
 namespace FrostfallSaga.Fight.FightConditions
 {
     /// <summary>
-    /// Check if one of the fighter allies is dead.
+    ///     Check if one of the fighter allies is dead.
     /// </summary>
     [Serializable]
     public class OneAllyDeadCondition : AFighterCondition
     {
-        public override bool CheckCondition(Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        public override bool CheckCondition(Fighter fighter, AHexGrid fightGrid,
+            Dictionary<Fighter, bool> fightersTeams)
         {
-            bool fighterTeam = fightersTeams[fighter];
+            var fighterTeam = fightersTeams[fighter];
             return fightersTeams.Any(f => f.Key.GetHealth() <= 0 && f.Value == fighterTeam);
         }
 

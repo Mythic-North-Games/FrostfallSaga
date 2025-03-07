@@ -34,23 +34,20 @@ namespace FrostfallSaga.InventorySystem
 
         public void AddItem(ItemSO newItem)
         {
-            if(newItem != Item)
+            if (newItem != Item)
             {
                 ReplaceItem(newItem);
                 return;
             }
 
-            if (ItemCount >= MaxItemCount)
-            {
-                throw new InventoryException("Inventory slot is full");
-            }
-            
+            if (ItemCount >= MaxItemCount) throw new InventoryException("Inventory slot is full");
+
             ItemCount++;
         }
 
         public void RemoveItem()
         {
-            if(ItemCount > 1)
+            if (ItemCount > 1)
             {
                 ItemCount--;
             }

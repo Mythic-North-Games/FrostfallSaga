@@ -3,7 +3,7 @@ using UnityEngine;
 namespace FrostfallSaga.Grid
 {
     /// <summary>
-    /// HexMetrics provides all the maths methods needed to create and manage the HexGrid.
+    ///     HexMetrics provides all the maths methods needed to create and manage the HexGrid.
     /// </summary>
     public static class HexMetrics
     {
@@ -22,17 +22,15 @@ namespace FrostfallSaga.Grid
         public static Vector3[] Corners(float HexSize)
         {
             Vector3[] corners = new Vector3[6];
-            for (int i = 0; i < 6; i++)
-            {
-                corners[i] = Corner(HexSize, i);
-            }
+            for (var i = 0; i < 6; i++) corners[i] = Corner(HexSize, i);
             return corners;
         }
 
         public static Vector3 Corner(float HexSize, int index)
         {
-            float angle = 60f * index + 30f;
-            Vector3 corner = new Vector3(HexSize * Mathf.Cos(angle * Mathf.Deg2Rad), 0f, HexSize * Mathf.Sin(angle * Mathf.Deg2Rad));
+            var angle = 60f * index + 30f;
+            Vector3 corner = new(HexSize * Mathf.Cos(angle * Mathf.Deg2Rad), 0f,
+                HexSize * Mathf.Sin(angle * Mathf.Deg2Rad));
             return corner;
         }
 
@@ -48,15 +46,15 @@ namespace FrostfallSaga.Grid
 
         public static Vector2Int OffsetToAxial(Vector2Int offsetCoords)
         {
-            int q = offsetCoords.x - (offsetCoords.y - (offsetCoords.y & 1)) / 2;
-            int r = offsetCoords.y;
+            var q = offsetCoords.x - (offsetCoords.y - (offsetCoords.y & 1)) / 2;
+            var r = offsetCoords.y;
             return new Vector2Int(q, r);
         }
 
         public static Vector2Int AxialToOffset(Vector2Int axialCoords)
         {
-            int x = axialCoords.x + (axialCoords.y - (axialCoords.y & 1)) / 2;
-            int y = axialCoords.y;
+            var x = axialCoords.x + (axialCoords.y - (axialCoords.y & 1)) / 2;
+            var y = axialCoords.y;
             return new Vector2Int(x, y);
         }
 
@@ -64,25 +62,12 @@ namespace FrostfallSaga.Grid
         {
             // Define the rotation matrix based on direction (you can add more cases if needed)
             if (direction.x == 1 && direction.y == -1)
-            {
                 return new Vector2Int(axialVector.y + axialVector.x, -axialVector.x);
-            }
-            if (direction.x == 0 && direction.y == -1)
-            {
-                return new Vector2Int(axialVector.y, -axialVector.x);
-            }
-            if (direction.x == 0 && direction.y == 1)
-            {
-                return new Vector2Int(axialVector.y, axialVector.x);
-            }
-            if (direction.x == -1 && direction.y == 0)
-            {
-                return new Vector2Int(-axialVector.x, -axialVector.y);
-            }
+            if (direction.x == 0 && direction.y == -1) return new Vector2Int(axialVector.y, -axialVector.x);
+            if (direction.x == 0 && direction.y == 1) return new Vector2Int(axialVector.y, axialVector.x);
+            if (direction.x == -1 && direction.y == 0) return new Vector2Int(-axialVector.x, -axialVector.y);
             if (direction.x == -1 && direction.y == 1)
-            {
                 return new Vector2Int(-axialVector.x - axialVector.y, axialVector.x);
-            }
             return axialVector;
         }
     }

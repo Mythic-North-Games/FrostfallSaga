@@ -1,56 +1,53 @@
+using System;
 using System.Collections;
+using FrostfallSaga.Utils.Trees;
+using FrostfallSaga.Utils.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
-using FrostfallSaga.Utils.UI;
-using FrostfallSaga.Utils.Trees;
-using System;
 
 namespace FrostfallSaga.Core.Dialogues
 {
     public class DialogueUIProcessor : BaseUIController
     {
-        #region Static UI template references
-        private static readonly string ROOT_CONTAINER_UI_NAME = "DialogueScreenRoot";
-        private static readonly string DIALOGUE_LINE_CONTAINER_UI_NAME = "DialogueLineContainer";
-        private static readonly string DIALOGUE_BOX_CONTAINER_UI_NAME = "DialogueBoxContainer";
-        private static readonly string CHARACTER_ICON_UI_NAME = "CharacterIcon";
-        private static readonly string CHARACTER_NAME_UI_NAME = "CharacterNameLabel";
-        private static readonly string RICH_TEXT_CONTAINER_UI_NAME = "RichTextContainer";
-        private static readonly string RICH_TEXT_LABEL_UI_NAME = "RichTextLabel";
-        private static readonly string ANSWERS_CONTAINER_UI_NAME = "AnswersContainer";
-        private static readonly string ANSWER_BUTTON_UI_NAME = "AnswerButton";
-
-        private static readonly string ROOT_CONTAINER_HIDDEN_CLASSNAME = "dialogueScreenRootHidden";
-        private static readonly string DIALOGUE_LINE_CONTAINER_BASE_CLASSNAME = "dialogueLineContainer";
-        private static readonly string DIALOGUE_LINE_CONTAINER_HIDDEN_CLASSNAME = "dialogueLineContainerHidden";
-        private static readonly string DIALOGUE_BOX_CONTAINER_BASE_CLASSNAME = "dialogueBoxContainer";
-        private static readonly string CHARACTER_ICON_BASE_CLASSNAME = "characterIcon";
-        private static readonly string RICH_TEXT_CONTAINER_BASE_CLASSNAME = "richTextContainer";
-        private static readonly string ANSWERS_CONTAINER_BASE_CLASSNAME = "answersContainer";
-        private static readonly string ANSWER_CONTAINER_ROOT_DEFAULT_CLASSNAME = "answerContainerRootDefault";
-        private static readonly string ANSWER_CONTAINER_ROOT_HIDDEN_CLASSNAME = "answerContainerRootHidden";
-        #endregion
-
-        public Action<DialogueSO> onDialogueEnded;
-
         [SerializeField] private VisualTreeAsset _answerContainerTemplate;
         [SerializeField] private float _timeBeforeFirstLineDisplay = 1f;
         [SerializeField] private float _timeBetweenDialogueLines = 0.5f;
         [SerializeField] private float _timeBeforeAnswersDisplay = 0.5f;
         [SerializeField] private float _timeBetweenAnswersDisplay = 0.2f;
-
-        private VisualElement _rootContainer;
-        private VisualElement _dialogueLineContainer;
-        private VisualElement _dialogueBoxContainer;
+        private VisualElement _answersContainer;
         private VisualElement _characterIcon;
         private Label _characterNameLabel;
-        private VisualElement _richTextContainer;
-        private Label _richTextLabel;
-        private VisualElement _answersContainer;
 
         private DialogueSO _currentDialogue;
         private TreeNode<DialogueLine> _currentDialogueLine;
+        private VisualElement _dialogueBoxContainer;
+        private VisualElement _dialogueLineContainer;
         private TreeNode<DialogueLine> _previousDialogueLine;
+        private VisualElement _richTextContainer;
+        private Label _richTextLabel;
+
+        private VisualElement _rootContainer;
+
+        public Action<DialogueSO> onDialogueEnded;
+
+        #region Setup
+
+        private void Awake()
+        {
+            _rootContainer = _uiDoc.rootVisualElement.Q<VisualElement>(ROOT_CONTAINER_UI_NAME);
+            _dialogueLineContainer = _rootContainer.Q<VisualElement>(DIALOGUE_LINE_CONTAINER_UI_NAME);
+            _dialogueBoxContainer = _rootContainer.Q<VisualElement>(DIALOGUE_BOX_CONTAINER_UI_NAME);
+            _characterIcon = _rootContainer.Q<VisualElement>(CHARACTER_ICON_UI_NAME);
+            _characterNameLabel = _rootContainer.Q<Label>(CHARACTER_NAME_UI_NAME);
+            _richTextContainer = _rootContainer.Q<VisualElement>(RICH_TEXT_CONTAINER_UI_NAME);
+            _richTextLabel = _rootContainer.Q<Label>(RICH_TEXT_LABEL_UI_NAME);
+            _answersContainer = _rootContainer.Q<VisualElement>(ANSWERS_CONTAINER_UI_NAME);
+
+            _rootContainer.AddToClassList(ROOT_CONTAINER_HIDDEN_CLASSNAME);
+            HideDialogueLineContainer();
+        }
+
+        #endregion
 
         public void ProcessDialogue(DialogueSO dialogue)
         {
@@ -70,10 +67,7 @@ namespace FrostfallSaga.Core.Dialogues
             }
 
             // If children and answers, wait for answer click
-            if (_currentDialogueLine.GetData().Answers.Length > 0)
-            {
-                return;
-            }
+            if (_currentDialogueLine.GetData().Answers.Length > 0) return;
 
             // If children and no answers, display next dialogue line
             StartCoroutine(LoadNextDialogueLine(_currentDialogueLine.GetChildren()[0]));
@@ -85,11 +79,35 @@ namespace FrostfallSaga.Core.Dialogues
 
             // Get the index of the clicked answer
             Button clickedAnswer = clickEvent.currentTarget as Button;
-            int answerIndex = _answersContainer.IndexOf(clickedAnswer.parent);
+            var answerIndex = _answersContainer.IndexOf(clickedAnswer.parent);
 
             // Get the next dialogue line based on the answer index
             StartCoroutine(LoadNextDialogueLine(_currentDialogueLine.GetChildren()[answerIndex]));
         }
+
+        #region Static UI template references
+
+        private static readonly string ROOT_CONTAINER_UI_NAME = "DialogueScreenRoot";
+        private static readonly string DIALOGUE_LINE_CONTAINER_UI_NAME = "DialogueLineContainer";
+        private static readonly string DIALOGUE_BOX_CONTAINER_UI_NAME = "DialogueBoxContainer";
+        private static readonly string CHARACTER_ICON_UI_NAME = "CharacterIcon";
+        private static readonly string CHARACTER_NAME_UI_NAME = "CharacterNameLabel";
+        private static readonly string RICH_TEXT_CONTAINER_UI_NAME = "RichTextContainer";
+        private static readonly string RICH_TEXT_LABEL_UI_NAME = "RichTextLabel";
+        private static readonly string ANSWERS_CONTAINER_UI_NAME = "AnswersContainer";
+        private static readonly string ANSWER_BUTTON_UI_NAME = "AnswerButton";
+
+        private static readonly string ROOT_CONTAINER_HIDDEN_CLASSNAME = "dialogueScreenRootHidden";
+        private static readonly string DIALOGUE_LINE_CONTAINER_BASE_CLASSNAME = "dialogueLineContainer";
+        private static readonly string DIALOGUE_LINE_CONTAINER_HIDDEN_CLASSNAME = "dialogueLineContainerHidden";
+        private static readonly string DIALOGUE_BOX_CONTAINER_BASE_CLASSNAME = "dialogueBoxContainer";
+        private static readonly string CHARACTER_ICON_BASE_CLASSNAME = "characterIcon";
+        private static readonly string RICH_TEXT_CONTAINER_BASE_CLASSNAME = "richTextContainer";
+        private static readonly string ANSWERS_CONTAINER_BASE_CLASSNAME = "answersContainer";
+        private static readonly string ANSWER_CONTAINER_ROOT_DEFAULT_CLASSNAME = "answerContainerRootDefault";
+        private static readonly string ANSWER_CONTAINER_ROOT_HIDDEN_CLASSNAME = "answerContainerRootHidden";
+
+        #endregion
 
         #region Dialogue UI setup
 
@@ -97,15 +115,14 @@ namespace FrostfallSaga.Core.Dialogues
         {
             _rootContainer.RegisterCallback<ClickEvent>(OnDialogueLineClicked);
             if (dialogue.DialogueBackground != null)
-            {
-                _rootContainer.style.backgroundImage = new(dialogue.DialogueBackground);
-            }
+                _rootContainer.style.backgroundImage = new StyleBackground(dialogue.DialogueBackground);
         }
 
         private IEnumerator LoadNextDialogueLine(TreeNode<DialogueLine> nextDialogueLine)
         {
             _previousDialogueLine = _currentDialogueLine;
-            if (_previousDialogueLine != null && nextDialogueLine.GetData().Speaker != _previousDialogueLine.GetData().Speaker)
+            if (_previousDialogueLine != null &&
+                nextDialogueLine.GetData().Speaker != _previousDialogueLine.GetData().Speaker)
             {
                 HideDialogueLineContainer();
                 yield return new WaitForSeconds(_timeBetweenDialogueLines);
@@ -116,9 +133,7 @@ namespace FrostfallSaga.Core.Dialogues
             DisplayDialogueLineContainer();
             yield return new WaitForSeconds(_timeBeforeAnswersDisplay);
             if (_currentDialogueLine.GetData().Answers != null && _currentDialogueLine.GetData().Answers.Length > 0)
-            {
                 StartCoroutine(DisplayAnswers());
-            }
         }
 
         private void SetupDialogueLine(DialogueLine dialogueLine)
@@ -126,13 +141,12 @@ namespace FrostfallSaga.Core.Dialogues
             ClearAnswers();
             SetPanelOrientation(dialogueLine.IsRight);
 
-            _characterIcon.style.backgroundImage = new(dialogueLine.Speaker.Icon);
+            _characterIcon.style.backgroundImage = new StyleBackground(dialogueLine.Speaker.Icon);
             _characterNameLabel.text = dialogueLine.Speaker.Name;
             _richTextLabel.text = dialogueLine.RichText;
 
             if (dialogueLine.Answers != null && dialogueLine.Answers.Length > 0)
-            {
-                foreach (string answer in dialogueLine.Answers)
+                foreach (var answer in dialogueLine.Answers)
                 {
                     TemplateContainer answerButtonContainer = _answerContainerTemplate.Instantiate();
                     Button answerButton = answerButtonContainer.Q<Button>(ANSWER_BUTTON_UI_NAME);
@@ -142,19 +156,20 @@ namespace FrostfallSaga.Core.Dialogues
                     answerButtonContainer.AddToClassList(ANSWER_CONTAINER_ROOT_HIDDEN_CLASSNAME);
                     _answersContainer.Add(answerButtonContainer);
                 }
-            }
         }
 
         private void SetPanelOrientation(bool isRight)
         {
-            string oppositeOrientationSuffix = isRight ? "Left" : "Right";
-            _dialogueLineContainer.RemoveFromClassList(DIALOGUE_LINE_CONTAINER_BASE_CLASSNAME + oppositeOrientationSuffix);
-            _dialogueBoxContainer.RemoveFromClassList(DIALOGUE_BOX_CONTAINER_BASE_CLASSNAME + oppositeOrientationSuffix);
+            var oppositeOrientationSuffix = isRight ? "Left" : "Right";
+            _dialogueLineContainer.RemoveFromClassList(DIALOGUE_LINE_CONTAINER_BASE_CLASSNAME +
+                                                       oppositeOrientationSuffix);
+            _dialogueBoxContainer.RemoveFromClassList(DIALOGUE_BOX_CONTAINER_BASE_CLASSNAME +
+                                                      oppositeOrientationSuffix);
             _characterIcon.RemoveFromClassList(CHARACTER_ICON_BASE_CLASSNAME + oppositeOrientationSuffix);
             _richTextContainer.RemoveFromClassList(RICH_TEXT_CONTAINER_BASE_CLASSNAME + oppositeOrientationSuffix);
             _answersContainer.RemoveFromClassList(ANSWERS_CONTAINER_BASE_CLASSNAME + oppositeOrientationSuffix);
 
-            string orientationSuffix = isRight ? "Right" : "Left";
+            var orientationSuffix = isRight ? "Right" : "Left";
             _dialogueLineContainer.AddToClassList(DIALOGUE_LINE_CONTAINER_BASE_CLASSNAME + orientationSuffix);
             _dialogueBoxContainer.AddToClassList(DIALOGUE_BOX_CONTAINER_BASE_CLASSNAME + orientationSuffix);
             _characterIcon.AddToClassList(CHARACTER_ICON_BASE_CLASSNAME + orientationSuffix);
@@ -200,9 +215,7 @@ namespace FrostfallSaga.Core.Dialogues
         {
             _dialogueLineContainer.AddToClassList(DIALOGUE_LINE_CONTAINER_HIDDEN_CLASSNAME);
             if (_currentDialogueLine != null && _currentDialogueLine.GetData().Answers.Length > 0)
-            {
                 StartCoroutine(HideAnswers());
-            }
         }
 
         private IEnumerator DisplayAnswers()
@@ -221,25 +234,6 @@ namespace FrostfallSaga.Core.Dialogues
                 answer.AddToClassList(ANSWER_CONTAINER_ROOT_HIDDEN_CLASSNAME);
                 yield return new WaitForSeconds(_timeBetweenAnswersDisplay);
             }
-        }
-
-        #endregion
-
-        #region Setup
-
-        private void Awake()
-        {
-            _rootContainer = _uiDoc.rootVisualElement.Q<VisualElement>(ROOT_CONTAINER_UI_NAME);
-            _dialogueLineContainer = _rootContainer.Q<VisualElement>(DIALOGUE_LINE_CONTAINER_UI_NAME);
-            _dialogueBoxContainer = _rootContainer.Q<VisualElement>(DIALOGUE_BOX_CONTAINER_UI_NAME);
-            _characterIcon = _rootContainer.Q<VisualElement>(CHARACTER_ICON_UI_NAME);
-            _characterNameLabel = _rootContainer.Q<Label>(CHARACTER_NAME_UI_NAME);
-            _richTextContainer = _rootContainer.Q<VisualElement>(RICH_TEXT_CONTAINER_UI_NAME);
-            _richTextLabel = _rootContainer.Q<Label>(RICH_TEXT_LABEL_UI_NAME);
-            _answersContainer = _rootContainer.Q<VisualElement>(ANSWERS_CONTAINER_UI_NAME);
-
-            _rootContainer.AddToClassList(ROOT_CONTAINER_HIDDEN_CLASSNAME);
-            HideDialogueLineContainer();
         }
 
         #endregion

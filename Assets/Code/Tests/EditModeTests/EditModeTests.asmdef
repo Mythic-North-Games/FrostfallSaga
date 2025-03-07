@@ -1,31 +1,31 @@
 {
-    "name": "EditModeTests",
-    "rootNamespace": "FrostfallSaga.EditModeTests",
-    "references": [
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
-        "FrostfallSaga.Core",
-        "FrostfallSaga.Grid",
-        "FrostfallSaga.Kingdom",
-        "FrostfallSaga.InventorySystem",
-        "FrostfallSaga.Fight",
-        "FrostfallSaga.EntitiesVisual",
-        "FrostfallSaga.Utils"
-    ],
-    "includePlatforms": [
-        "Editor"
-    ],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": true,
-    "precompiledReferences": [
-        "nunit.framework.dll",
-        ""
-    ],
-    "autoReferenced": false,
-    "defineConstraints": [
-        "UNITY_INCLUDE_TESTS"
-    ],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "EditModeTests",
+  "rootNamespace": "FrostfallSaga.EditModeTests",
+  "references": [
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner",
+    "FrostfallSaga.Core",
+    "FrostfallSaga.Grid",
+    "FrostfallSaga.Kingdom",
+    "FrostfallSaga.InventorySystem",
+    "FrostfallSaga.Fight",
+    "FrostfallSaga.EntitiesVisual",
+    "FrostfallSaga.Utils"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll",
+    ""
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

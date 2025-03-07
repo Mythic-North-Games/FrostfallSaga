@@ -1,16 +1,13 @@
-using UnityEngine;
 using FrostfallSaga.Grid;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 {
     /// <summary>
-    /// Alteration that sets the terrain of a cell.
+    ///     Alteration that sets the terrain of a cell.
     /// </summary>
     public class SetTerrainAlteration : AFightCellAlteration
     {
-        [field: SerializeField, Header("Set terrain alteration definition")]
-        public TerrainTypeSO TerrainType { get; private set; }
-
         private TerrainTypeSO _previousTerrainType;
 
         public SetTerrainAlteration(
@@ -22,6 +19,10 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
         ) : base(name, description, icon, isPermanent, duration, true, true)
         {
         }
+
+        [field: SerializeField]
+        [field: Header("Set terrain alteration definition")]
+        public TerrainTypeSO TerrainType { get; private set; }
 
         public override void Apply(FightCell cell)
         {

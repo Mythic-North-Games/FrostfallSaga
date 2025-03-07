@@ -1,10 +1,9 @@
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
 using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Trees;
+using UnityEditor;
+using UnityEngine;
 
 namespace FrostfallSaga.FFSEditor.Quests
 {
@@ -27,10 +26,7 @@ namespace FrostfallSaga.FFSEditor.Quests
 
             EditorGUILayout.LabelField("Quest Steps", EditorStyles.boldLabel);
             showTree = EditorGUILayout.Foldout(showTree, "Quest Steps Tree");
-            if (showTree)
-            {
-                DrawQuestStepTree(quest.Steps, 0, new List<int>());
-            }
+            if (showTree) DrawQuestStepTree(quest.Steps, 0, new List<int>());
 
             serializedObject.ApplyModifiedProperties();
         }
@@ -39,9 +35,10 @@ namespace FrostfallSaga.FFSEditor.Quests
         {
             if (node == null)
             {
-                node = new(new QuestStep("First step", "Lorem ipsum dolor sit amet", null));
+                node = new TreeNode<QuestStep>(new QuestStep("First step", "Lorem ipsum dolor sit amet", null));
                 SyncPossibleQuestEndings();
             }
+
             if (node.GetData() == null)
             {
                 node.SetData(new QuestStep("First step", "Lorem ipsum dolor sit amet", null));
@@ -56,7 +53,8 @@ namespace FrostfallSaga.FFSEditor.Quests
             EditorGUILayout.LabelField("Step: " + data.Title);
             data.SetTitle(EditorGUILayout.TextField("Title", data.Title));
             data.SetDescription(EditorGUILayout.TextField("Description", data.Description));
-            data.SetActions((QuestStepActionsSO)EditorGUILayout.ObjectField("Actions", data.Actions, typeof(QuestStepActionsSO), false));
+            data.SetActions((QuestStepActionsSO)EditorGUILayout.ObjectField("Actions", data.Actions,
+                typeof(QuestStepActionsSO), false));
 
             if (GUILayout.Button("Add Child Step"))
             {
@@ -69,12 +67,9 @@ namespace FrostfallSaga.FFSEditor.Quests
                 SyncPossibleQuestEndings();
             }
 
-            if (node.GetChildren() == null)
-            {
-                return;
-            }
+            if (node.GetChildren() == null) return;
 
-            for (int i = 0; i < node.GetChildren().Count; i++)
+            for (var i = 0; i < node.GetChildren().Count; i++)
             {
                 List<int> childPath = new(currentPath) { i };
                 DrawQuestStepTree(node.GetChildren()[i], indentLevel + 1, childPath);
@@ -108,7 +103,8 @@ namespace FrostfallSaga.FFSEditor.Quests
             EditorUtility.SetDirty(quest);
         }
 
-        private void GeneratePossibleEndings(TreeNode<QuestStep> node, List<int> currentPath, List<SElementToValue<int[], QuestEnding>> endingsList)
+        private void GeneratePossibleEndings(TreeNode<QuestStep> node, List<int> currentPath,
+            List<SElementToValue<int[], QuestEnding>> endingsList)
         {
             if (node.GetChildren() == null)
             {
@@ -124,7 +120,7 @@ namespace FrostfallSaga.FFSEditor.Quests
             }
 
             // Otherwise, recursively process children
-            for (int i = 0; i < node.GetChildren().Count; i++)
+            for (var i = 0; i < node.GetChildren().Count; i++)
             {
                 List<int> childPath = new(currentPath) { i };
                 GeneratePossibleEndings(node.GetChildren()[i], childPath, endingsList);

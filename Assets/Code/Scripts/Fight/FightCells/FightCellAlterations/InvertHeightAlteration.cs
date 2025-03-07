@@ -25,13 +25,13 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
         public override void Apply(FightCell cell)
         {
             _previousHeight = cell.Height;
-            cell.UpdateHeight(GetInvertedHeight(cell.Height),0);
+            cell.UpdateHeight(GetInvertedHeight(cell.Height), 0);
             onAlterationApplied?.Invoke(cell, this);
         }
 
         public override void Remove(FightCell cell)
         {
-            cell.UpdateHeight(_previousHeight,0);
+            cell.UpdateHeight(_previousHeight, 0);
             onAlterationRemoved?.Invoke(cell, this);
         }
 
@@ -42,7 +42,7 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
                 ECellHeight.LOW => ECellHeight.HIGH,
                 ECellHeight.MEDIUM => ECellHeight.MEDIUM,
                 ECellHeight.HIGH => ECellHeight.LOW,
-                _ => throw new System.NotImplementedException(),
+                _ => throw new NotImplementedException()
             };
         }
     }

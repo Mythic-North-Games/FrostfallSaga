@@ -1,3 +1,5 @@
+using System;
+
 namespace FrostfallSaga.Core.Fight
 {
     public enum EMagicalElement
@@ -7,7 +9,7 @@ namespace FrostfallSaga.Core.Fight
         LIGHTNING,
         EARTH,
         LIGHT,
-        DARKNESS,
+        DARKNESS
     }
 
     public static class EMagicalElementMethods
@@ -22,7 +24,7 @@ namespace FrostfallSaga.Core.Fight
                 EMagicalElement.EARTH => "Earth",
                 EMagicalElement.LIGHT => "Light",
                 EMagicalElement.DARKNESS => "Darkness",
-                _ => throw new System.InvalidOperationException("Unknown magical element."),
+                _ => throw new InvalidOperationException("Unknown magical element.")
             };
         }
     }

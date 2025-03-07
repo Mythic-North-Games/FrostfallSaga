@@ -4,8 +4,8 @@ namespace FrostfallSaga.Grid
 {
     public class MovePath
     {
-        public int _currentCellDestinationIndex;
         public readonly Cell[] path;
+        public int _currentCellDestinationIndex;
 
         public MovePath(Cell[] movePath)
         {
@@ -13,37 +13,23 @@ namespace FrostfallSaga.Grid
             path = movePath;
         }
 
-        public int PathLength
-        {
-            get => path.Length;
-        }
+        public int PathLength => path.Length;
 
-        public Cell CurrentDestinationCell
-        {
-            get => path[_currentCellDestinationIndex];
-        }
+        public Cell CurrentDestinationCell => path[_currentCellDestinationIndex];
 
-        public bool IsLastMove
-        {
-            get => _currentCellDestinationIndex == PathLength - 1;
-        }
+        public bool IsLastMove => _currentCellDestinationIndex == PathLength - 1;
 
         public Cell GetNextCellInPath()
         {
-            if (IsLastMove || PathLength == 0)
-            {
-                return null;
-            }
+            if (IsLastMove || PathLength == 0) return null;
 
             _currentCellDestinationIndex += 1;
             return CurrentDestinationCell;
         }
+
         public bool DoesNextCellExists()
         {
-            if (IsLastMove || PathLength == 0)
-            {
-                return false;
-            }
+            if (IsLastMove || PathLength == 0) return false;
 
             return true;
         }
