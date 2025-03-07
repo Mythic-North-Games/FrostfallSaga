@@ -67,7 +67,6 @@ namespace FrostfallSaga.Fight.Abilities
                         }
                     );
             onActiveAbilityEnded?.Invoke(this);
-
         }
 
         /// <summary>

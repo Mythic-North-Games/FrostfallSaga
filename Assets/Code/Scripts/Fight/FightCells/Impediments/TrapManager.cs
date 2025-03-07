@@ -13,11 +13,9 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
         private HashSet<Cell> VisibleTrapcells = new HashSet<Cell>();
         public int adjustedOffset = 3;
 
-
-
         public void UpdateTrapDetection(int range, Fighter fighter)
         {
-            if (fighter.FighterClass.ClassType != ClassType.THIEF) return;
+            if (fighter.FighterConfiguration.CanDetectTraps == false) return;
 
             List<Cell> cells = CellsNeighbors.GetCellsInRange(range, fighter.cell);
             HashSet<Cell> trapsInRange = new HashSet<Cell>();
@@ -53,10 +51,6 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
             }
         }
 
-
-
-
-
         public void ShowTrap(FightCell fightCell)
         {
             if (!fightCell.IsTrapVisible)
@@ -74,11 +68,7 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
                 {
                     fightCell.TrapVisibleInstance.SetActive(true);
                 }
-
-
-
             }
-
         }
 
         public void HideTrap(FightCell fightCell)

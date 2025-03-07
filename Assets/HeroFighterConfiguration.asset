@@ -66,7 +66,7 @@ MonoBehaviour:
   <EquipedActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
   - {fileID: 11400000, guid: 3d87480334b9b4742a045fc9f48e94c5, type: 2}
-  - {fileID: 11400000, guid: ff0c42fa4855b934cb87b6909d1b7f76, type: 2}
+  - {fileID: 11400000, guid: 3d87480334b9b4742a045fc9f48e94c5, type: 2}
   <EquipedPassiveAbilities>k__BackingField: []
   <Inventory>k__BackingField:
     <WeaponSlot>k__BackingField:

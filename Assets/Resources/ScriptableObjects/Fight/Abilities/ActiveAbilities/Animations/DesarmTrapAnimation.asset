@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b15bc642ab647f4db22884ea96f1dc9, type: 3}
   m_Name: DesarmTrapAnimation
   m_EditorClassIdentifier: 
-  <ProjectilePrefab>k__BackingField: {fileID: 1714552243977966, guid: 16ea51caab512f94185d974a6b1c2adc, type: 3}
+  <ProjectilePrefab>k__BackingField: {fileID: 1778345465858944, guid: c05185d017f4d9944bd47c837be893a6, type: 3}
   Executor:
     rid: 7399184692357103671
   references:

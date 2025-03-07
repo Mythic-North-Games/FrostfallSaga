@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a92309899b8b9f04ea20210cad65d66f, type: 3}
-  m_Name: DesarmTrap
+  m_Name: RemoveObstacle
   m_EditorClassIdentifier: 
   <Name>k__BackingField: 
   <Description>k__BackingField: 
@@ -34,12 +34,12 @@ MonoBehaviour:
   Effects: []
   MasterstrokeEffects: []
   CellAlterations:
-  - rid: 6710315211424792584
+  - rid: 6710315211424792615
   references:
     version: 2
     RefIds:
-    - rid: 6710315211424792584
-      type: {class: RemoveTraps, ns: FrostfallSaga.Fight.FightCells.FightCellAlterations, asm: FrostfallSaga.Fight}
+    - rid: 6710315211424792615
+      type: {class: RemoveObstacles, ns: FrostfallSaga.Fight.FightCells.FightCellAlterations, asm: FrostfallSaga.Fight}
       data:
         <Name>k__BackingField: 
         <Description>k__BackingField: 

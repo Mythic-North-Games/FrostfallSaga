@@ -8,7 +8,6 @@ namespace FrostfallSaga.Core.Fight
     public class FighterClassSO : ScriptableObject
     {
         [field: SerializeField] public string ClassName { get; private set; }
-        [field: SerializeField] public ClassType ClassType { get; private set; }
         [field: SerializeField] public int ClassMaxHealth { get; private set; }
         [field: SerializeField] public int ClassMaxActionPoints { get; private set; }
         [field: SerializeField] public int ClassMaxMovePoints { get; private set; }

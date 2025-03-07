@@ -1,12 +1,11 @@
 using System;
 using System.Linq;
+using UnityEngine;
+using System.Collections.Generic;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
 using FrostfallSaga.Fight.FightCells.Impediments;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid.Cells;
-using UnityEngine;
-using System.Collections.Generic;
-using System.Collections;
 
 namespace FrostfallSaga.Fight.FightCells
 {
@@ -17,22 +16,22 @@ namespace FrostfallSaga.Fight.FightCells
     {
         [field: SerializeField, Header("Fight related"), Tooltip("The optional fighter occupying the cell.")]
         public Fighter Fighter { get; private set; }
-
-        [field: SerializeField, Tooltip("The current obstacle")] public AImpedimentSO Obstacle { get; private set; }
+        [field: SerializeField, Tooltip("The current obstacle")] public AImpedimentSO Obstacle { get;  set; }
         [field: SerializeField, Tooltip("The current traps")] public List<TrapSO> TrapList { get; private set; }
         private Queue<TrapSO> _trapsToTrigger = new Queue<TrapSO>();
-        private GameObject _currentImpedimentGameObject;
         public FightCellAlterationsManager AlterationsManager { get; private set; }
         public Action onTrapTriggered;
         public bool IsTrapVisible { get; private set; } = false;
         public GameObject TrapVisibleInstance;
+        public GameObject CurrentImpedimentGameObject;
+
+        public new FightHexGrid ParentGrid => (FightHexGrid)_parentGrid;
 
         public FightCell()
         {
             AlterationsManager = new(this);
             TrapList = new List<TrapSO>();
         }
-
         public void SetFighter(Fighter fighter)
         {
             Fighter = fighter;
@@ -57,7 +56,7 @@ namespace FrostfallSaga.Fight.FightCells
             {
                 Obstacle = impediment;
             }
-            _currentImpedimentGameObject = impediementGameObject;
+            CurrentImpedimentGameObject = impediementGameObject;
         }
 
 
@@ -102,7 +101,6 @@ namespace FrostfallSaga.Fight.FightCells
         }
 
 
-
         /// <summary>
         /// Update the alterations on the cell.
         /// If a temporary alteration is over, it will be removed.
@@ -126,23 +124,19 @@ namespace FrostfallSaga.Fight.FightCells
             if (!IsTrapVisible)
             {
                 IsTrapVisible = true;
-                Debug.Log("Le piège est maintenant visible !");
+                Debug.Log("The trap is visible !");
             }
         }
-
-
         public void HideTrap()
         {
             if (IsTrapVisible)
             {
                 IsTrapVisible = false;
-                Debug.Log("Le piège est maintenant invisible !");
+                Debug.Log("The trap is hidden !");
 
             }
 
         }
-
-
 
         public AFightCellAlteration[] GetAlterations()
         {
@@ -176,7 +170,7 @@ namespace FrostfallSaga.Fight.FightCells
 
         public GameObject GetImpedimentGameObject()
         {
-            return _currentImpedimentGameObject;
+            return CurrentImpedimentGameObject;
         }
 
         public override string ToString()
@@ -184,7 +178,6 @@ namespace FrostfallSaga.Fight.FightCells
             return base.ToString() + "\n" +
                    $"FightCell:\n" +
                    $"- Fighter: {(Fighter != null ? Fighter.name : "None")}\n" +
-                   $"- Impediment: {(Impediment != null ? Impediment.name : "None")}\n" +
                    $"- HasObstacle: {HasObstacle()}\n" +
                    $"- HasTrap: {HasTrap()}\n" +
                    $"- Alterations: {(GetAlterations().Length > 0 ? string.Join(", ", GetAlterations().Select(a => a.Name)) : "None")}";

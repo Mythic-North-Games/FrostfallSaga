@@ -191,7 +191,6 @@ Transform:
   - {fileID: 1656478351}
   - {fileID: 1541036564}
   - {fileID: 999864227}
-  - {fileID: 1644039836}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &793609178
@@ -913,54 +912,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &1644039835
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1644039836}
-  - component: {fileID: 1644039837}
-  m_Layer: 0
-  m_Name: FightersGenerator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1644039836
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1644039835}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 607521707}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1644039837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1644039835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 012eac00980d68e42aee8f0fa6c34ac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _devAlliesConfs:
-  - {fileID: 11400000, guid: d5746e71b0a5c65469ca2b997f19b595, type: 2}
-  _devEnemiesConfs:
-  - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
 --- !u!1 &1656478350
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,7 +1002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <RoundCount>k__BackingField: 0
-  _fightLoader: {fileID: 2012426617}
+  _fightLoader: {fileID: 0}
   <FightGrid>k__BackingField: {fileID: 2056515858}
   _actionPanel: {fileID: 1952024164}
   _cellHighlightMaterial: {fileID: 2100000, guid: 1317001a5366be047821b25e2a15c957, type: 2}

@@ -30,6 +30,8 @@ namespace FrostfallSaga.Fight.Targeters
         [field: SerializeField, Tooltip("If true, the cell sequence will rotate towards fighter direction. It will also affect the obstacles checks.")]
         public bool StartFromInitiator { get; private set; }
 
+        [field: SerializeField, Tooltip("If true, can target cell with obstacles.")]
+        public bool IncludeObstacleCells { get; private set; }
 
         /// <summary>
         /// Resolve conditions
@@ -102,7 +104,7 @@ namespace FrostfallSaga.Fight.Targeters
             }
             CheckExcludedTargets(targetedCells, initiatorCell, fightersTeams);
             CheckExcludedRelativeHeights(targetedCells, initiatorCell, fightersTeams);
-            ExcludedCellsWithObstacles(targetedCells);
+            if ( ! IncludeObstacleCells ) ExcludedCellsWithObstacles(targetedCells);
             return targetedCells;
         }
 

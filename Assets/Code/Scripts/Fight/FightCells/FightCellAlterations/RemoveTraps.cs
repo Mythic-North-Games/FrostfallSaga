@@ -7,15 +7,15 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
     /// <summary>
     /// Alteration that adds an impediment to a cell.
     /// </summary>
-    public class RemoveImpediment : AFightCellAlteration
+    public class RemoveTraps : AFightCellAlteration
     {
-
         public override void Apply(FightCell fightCell)
         {
+            Duration = 0;
             if (fightCell.TrapList.Count > 0)
             {
                 fightCell.TrapList.Clear();
-                UnityEngine.Object.Destroy(fightCell.TrapVisibleInstance);
+                UnityEngine.Object.Destroy(fightCell.CurrentImpedimentGameObject);
             }
         }
 
