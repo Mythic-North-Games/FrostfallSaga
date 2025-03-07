@@ -267,7 +267,7 @@ namespace FrostfallSaga.Fight.Fighters
             // Trigger the ability
             _stats.actionPoints -= activeAbility.ActionPointsCost;
             onActiveAbilityStarted?.Invoke(this, activeAbility);
-            activeAbility.onActiveAbilityEnded += OnActiveAbilityEnded;
+            activeAbility.OnActiveAbilityEnded += OnActiveAbilityEnded;
             activeAbility.Trigger(targetedCells, this);
         }
 
@@ -494,7 +494,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         private void OnActiveAbilityEnded(ActiveAbilitySO activeAbility)
         {
-            activeAbility.onActiveAbilityEnded -= OnActiveAbilityEnded;
+            activeAbility.OnActiveAbilityEnded -= OnActiveAbilityEnded;
             onActiveAbilityEnded?.Invoke(this, activeAbility);
         }
 

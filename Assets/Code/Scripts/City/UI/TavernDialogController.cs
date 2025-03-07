@@ -41,7 +41,7 @@ namespace FrostfallSaga.City.UI
                 return;
             }
             _dialogRoot.Q<Button>(REST_BUTTON_UI_NAME).SetEnabled(true);
-            _dialogRoot.Q<Button>(REST_BUTTON_UI_NAME).clicked += OnRestButtonClicked;
+            _dialogRoot.Q<Button>(REST_BUTTON_UI_NAME).clicked += RestButtonClicked;
         }
 
         public void Display()

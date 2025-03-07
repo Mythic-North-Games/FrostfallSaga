@@ -91,9 +91,9 @@ namespace FrostfallSaga.City.UI
             // City situations menu setup
             _situationsMenuController.Init(
                 _uiDoc.rootVisualElement.Q<VisualElement>(SITUATIONS_MENU_ROOT_UI_NAME),
-                situationsButtonTemplate,
-                _cityConfiguration.CitySituations
+                situationsButtonTemplate
             );
+            _situationsMenuController.SetupSituationsMenu(_cityConfiguration.CitySituations);
         }
 
         #endregion
@@ -121,6 +121,7 @@ namespace FrostfallSaga.City.UI
         private void OnExploreButtonClicked()
         {
             _leftContainerController.Hide();
+            _situationsMenuController.SetupSituationsMenu(_cityConfiguration.CitySituations);
             StartCoroutine(_situationsMenuController.Display());
         }
 

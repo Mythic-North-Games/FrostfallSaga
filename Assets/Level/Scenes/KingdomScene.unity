@@ -2411,8 +2411,8 @@ MonoBehaviour:
   <MaxNoSpawnInARow>k__BackingField: 0
   <MaxEntitiesGroupsOnMap>k__BackingField: 3
   <BaseGroupName>k__BackingField: EnemiesGroup
-  _grid: {fileID: 742855832}
-  _kingdomLoader: {fileID: 483864513}
+  grid: {fileID: 742855832}
+  kingdomLoader: {fileID: 483864513}
 --- !u!1 &110652787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2698,7 +2698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a337116156b60604b92b6cfc653c9566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiAudioClipsConfig: {fileID: 0}
+  uiAudioClipsConfig: {fileID: 11400000, guid: aef339ccaf3b4d5418f6a13c4eb33e47, type: 2}
   audioSourceObject: {fileID: 4094540750882597515, guid: b034ff1c05b1ef24fb9925f182960e04, type: 3}
 --- !u!4 &125306507
 Transform:
@@ -2948,8 +2948,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf0e441dff967b529e3572e0a5aa94f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _kingdomManager: {fileID: 899991118}
-  _enterCityPanelController: {fileID: 791242499}
+  kingdomManager: {fileID: 899991118}
+  enterCityPanelController: {fileID: 791242499}
 --- !u!1 &145742860
 GameObject:
   m_ObjectHideFlags: 0
@@ -5602,7 +5602,7 @@ MonoBehaviour:
   _equippedPanelTemplate: {fileID: 9197481963319205126, guid: 85cc35556c3486bfdb3589f4f7f9de63, type: 3}
   _bagPanelTemplate: {fileID: 9197481963319205126, guid: 620d5dbc289500c3bbae70a2ddaf0182, type: 3}
   _itemDetailsStatContainerTemplate: {fileID: 9197481963319205126, guid: c1226ff7b268e102ea2657852a72c277, type: 3}
-  _devHero: {fileID: 11400000, guid: d5746e71b0a5c65469ca2b997f19b595, type: 2}
+  _devHero: {fileID: 0}
 --- !u!114 &293406201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5621,10 +5621,7 @@ MonoBehaviour:
   _questDetailsTemplate: {fileID: 9197481963319205126, guid: b123ec5ba851f1362b9e5b0a92e90d7e, type: 3}
   _questStepTemplate: {fileID: 9197481963319205126, guid: 74be39bbe00f23ca480296fb4699af3f, type: 3}
   _actionInstructionTemplate: {fileID: 9197481963319205126, guid: 8c05b7c3f827d9ac18bfa213c03059dd, type: 3}
-  _devQuests:
-  - {fileID: 11400000, guid: 3a253f80c6e9bcf7ebccfc658f089b55, type: 2}
-  - {fileID: 11400000, guid: 38bf9a4a88efbe424b184c4c917c1320, type: 2}
-  - {fileID: 11400000, guid: f572c0de53101d97ebadf6b1b9e6e337, type: 2}
+  _devQuests: []
 --- !u!114 &293406202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8311,8 +8308,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3946d9a5339a31e4585616736b70c96b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _kingdomHexGrid: {fileID: 742855832}
-  _camera: {fileID: 2047304806}
+  kingdomHexGrid: {fileID: 742855832}
+  camera: {fileID: 2047304806}
+  interestPointConfigs:
+  - {fileID: 11400000, guid: 051484d2f41c9b40587d385c75ee6b8a, type: 2}
+  - {fileID: 11400000, guid: 4762792f3dfda5a23abdd8c64aab5bf1, type: 2}
 --- !u!1 &492162235
 GameObject:
   m_ObjectHideFlags: 0
@@ -11111,11 +11111,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <Width>k__BackingField
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <Height>k__BackingField
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <InterestPoints>k__BackingField.Array.size
@@ -13757,8 +13757,9 @@ MonoBehaviour:
   <KingdomGrid>k__BackingField: {fileID: 742855832}
   <HeroGroup>k__BackingField: {fileID: 0}
   <InterestPoints>k__BackingField: []
-  _enemiesGroupSpawner: {fileID: 106982315}
-  _kingdomLoader: {fileID: 483864513}
+  <EnemiesGroups>k__BackingField: []
+  enemiesGroupSpawner: {fileID: 106982315}
+  kingdomLoader: {fileID: 483864513}
 --- !u!1 &908662907
 GameObject:
   m_ObjectHideFlags: 0
@@ -21698,8 +21699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ea139d9832e8390b21b3a8ac39d3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _kingdomManager: {fileID: 899991118}
-  _enterDungeonPanelController: {fileID: 791242500}
+  kingdomManager: {fileID: 899991118}
+  enterDungeonPanelController: {fileID: 791242500}
 --- !u!1 &1361176910
 GameObject:
   m_ObjectHideFlags: 0
@@ -23292,7 +23293,7 @@ MonoBehaviour:
   kingdomManager: {fileID: 899991118}
   sceneTransitioner: {fileID: 26075752}
   readyToFightAnimationDuration: 2
-  delayBeforeLoadingSceneAfterReadyAnimation: 10
+  delayBeforeLoadingSceneAfterReadyAnimation: 1
 --- !u!1 &1449699357
 GameObject:
   m_ObjectHideFlags: 3

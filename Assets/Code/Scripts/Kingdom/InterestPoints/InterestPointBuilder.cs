@@ -33,7 +33,7 @@ namespace FrostfallSaga.Kingdom.InterestPoints
         /// <summary>
         ///     Génère les InterestPoints initiaux
         /// </summary>
-        public void FirstBuildInterestPoints(KingdomHexGrid kingdomHexGrid, List<InterestPoint> interestPoints)
+        public void FirstBuildInterestPoints(KingdomHexGrid kingdomHexGrid, List<AInterestPointConfigurationSO> interestPoints)
         {
             Debug.Log("Generating Interest Points...");
 
@@ -44,10 +44,10 @@ namespace FrostfallSaga.Kingdom.InterestPoints
                 return;
             }
 
-            foreach (InterestPoint point in interestPoints)
+            foreach (AInterestPointConfigurationSO interestPointConfig in interestPoints)
             {
                 KingdomCell cell = Randomizer.GetRandomElementFromArray(freeCells.ToArray());
-                InstantiateInterestPoint(point.InterestPointConfiguration, cell);
+                InstantiateInterestPoint(interestPointConfig, cell);
                 freeCells.Remove(cell);
             }
         }

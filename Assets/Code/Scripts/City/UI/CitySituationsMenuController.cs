@@ -16,8 +16,8 @@ namespace FrostfallSaga.City.UI
 
         private static readonly string SITUATIONS_MENU_HIDDEN_CLASSNAME = "situationMenuHidden";
         private static readonly string SITUATION_ILLUSTRATION_HIDDEN_CLASSNAME = "situationIllustrationHidden";
-        private static readonly string SITUATION_BUTTON_CONTAINER_DEFAULT_CLASSNAME = "situationButtonContainer";
-        private static readonly string SITUATION_BUTTON_CONTAINER_HIDDEN_CLASSNAME = "situationButtonContainerHidden";
+        private static readonly string SITUATION_BUTTON_CONTAINER_DEFAULT_CLASSNAME = "situationButtonContainerRoot";
+        private static readonly string SITUATION_BUTTON_CONTAINER_HIDDEN_CLASSNAME = "situationButtonContainerRootHidden";
         #endregion
 
         public Action<ACitySituationSO> OnCitySituationClicked;
@@ -35,7 +35,6 @@ namespace FrostfallSaga.City.UI
         public void Init(
             VisualElement citySituationsMenuRoot,
             VisualTreeAsset citySituationButtonTemplate,
-            ACitySituationSO[] citySituations,
             float timeBeforeSituationsButtonDisplay = 0.5f,
             float timeBetweenSituationsButtonDisplay = 0.2f
         )
@@ -49,9 +48,6 @@ namespace FrostfallSaga.City.UI
             _timeBeforeSituationsButtonDisplay = timeBeforeSituationsButtonDisplay;
             _timeBetweenSituationsButtonDisplay = timeBetweenSituationsButtonDisplay;
             _returnButton.RegisterCallback<ClickEvent>(evt => OnReturnClicked?.Invoke());
-
-            // Setup the situations menu
-            SetupSituationsMenu(citySituations);
         }
 
         public void SetupSituationsMenu(ACitySituationSO[] citySituations)
