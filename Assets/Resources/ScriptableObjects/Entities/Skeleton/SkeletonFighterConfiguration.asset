@@ -22,6 +22,21 @@ MonoBehaviour:
   <AvailablePassiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
   <PassiveAbilitiesCapacity>k__BackingField: 1
+  <AvailableItems>k__BackingField:
+  - element: {fileID: 11400000, guid: 57da2480a19997f6da45abf7f0877db4, type: 2}
+    value:
+      element: 1
+      value: 3
+  - element: {fileID: 11400000, guid: f9f8d3f2ae1c570718ab3063f1c07830, type: 2}
+    value:
+      element: 0.5
+      value: 1
+  - element: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
+    value:
+      element: 1
+      value: 1
+  <MinStycasLoot>k__BackingField: 5
+  <MaxStycasLoot>k__BackingField: 20
   <MaxHealth>k__BackingField: 70
   <MaxActionPoints>k__BackingField: 3
   <MaxMovePoints>k__BackingField: 3

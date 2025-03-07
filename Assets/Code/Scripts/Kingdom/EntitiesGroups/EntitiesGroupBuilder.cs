@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using FrostfallSaga.Core.GameState.Kingdom;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
@@ -17,7 +16,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         private readonly EntityBuilder _entityBuilder = new();
         public GameObject BlankEntitiesGroupPrefab { get; private set; }
 
-        public EntitiesGroup BuildEntitiesGroup(EntitiesGroupData entitiesGroupData, AHexGrid grid)
+        public EntitiesGroup BuildEntitiesGroup(EntitiesGroupData entitiesGroupData, KingdomHexGrid grid)
         {
             GameObject entitiesGroupPrefab = WorldGameObjectInstantiator.Instance.Instantiate(BlankEntitiesGroupPrefab);
             EntitiesGroup entitiesGroup = entitiesGroupPrefab.GetComponent<EntitiesGroup>();

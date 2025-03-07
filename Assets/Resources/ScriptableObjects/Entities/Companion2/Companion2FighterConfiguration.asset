@@ -76,11 +76,7 @@ MonoBehaviour:
       <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
-    <GlovesSlot>k__BackingField:
-      <Item>k__BackingField: {fileID: 0}
-      <ItemCount>k__BackingField: 0
-      <MaxItemCount>k__BackingField: 1
-    <LeggingsSlot>k__BackingField:
+    <GauntletsSlot>k__BackingField:
       <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
@@ -89,6 +85,39 @@ MonoBehaviour:
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
     <BagSlots>k__BackingField:
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
-using FrostfallSaga.InventorySystem;
+using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.EntitiesVisual;
@@ -47,11 +47,13 @@ namespace FrostfallSaga.Fight.Fighters
         [SerializeField] private int _godFavorsPoints;
         [field: SerializeField] public FighterClassSO FighterClass { get; private set; }
         [field: SerializeField] public PersonalityTraitSO PersonalityTrait { get; private set; }
-        [SerializeField] private Inventory _inventory;
+        [field: SerializeField] public Inventory Inventory { get; private set; }
         [field: SerializeField] public WeaponSO Weapon { get; private set; }
         [field: SerializeField] public ActiveAbilitySO[] ActiveAbilities { get; private set; }
         [field: SerializeField] public PassiveAbilitySO[] PassiveAbilities { get; private set; }
         [field: SerializeField] public bool IsParalyzed { get; private set; }
+        [field: SerializeField] public int MinStycasLoot { get; private set; }
+        [field: SerializeField] public int MaxStycasLoot { get; private set; }
 
         /////////////////////////////////////
         // Movements & location properties //
@@ -164,10 +166,12 @@ namespace FrostfallSaga.Fight.Fighters
             _initialStats = fighterConfiguration.ExtractFighterStats();
             FighterClass = fighterConfiguration.FighterClass;
             PersonalityTrait = fighterConfiguration.PersonalityTrait as PersonalityTraitSO;
-            _inventory = inventory;
-            Weapon = _inventory.GetWeapon() as WeaponSO;
+            Inventory = inventory;
+            Weapon = Inventory.GetWeapon() as WeaponSO;
             ActiveAbilities = equippedActiveAbilities;
             PassiveAbilities = equippedPassiveAbilities;
+            MinStycasLoot = fighterConfiguration.MinStycasLoot;
+            MaxStycasLoot = fighterConfiguration.MaxStycasLoot;
             _receiveDamageAnimationName = fighterConfiguration.ReceiveDamageAnimationName;
             _healSelfAnimationName = fighterConfiguration.HealSelfAnimationName;
             _reduceStatAnimationName = fighterConfiguration.ReduceStatAnimationName;
@@ -798,7 +802,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         private int GetArmorPhysicalResistance()
         {
-            return _inventory.GetArmorPieces().Sum(armorPiece => ((ArmorSO)armorPiece).PhysicalResistance);
+            return Inventory.GetArmorPieces().Sum(armorPiece => ((ArmorSO)armorPiece).PhysicalResistance);
         }
 
         private Dictionary<EMagicalElement, int> GetArmorMagicalResistances()
@@ -809,7 +813,7 @@ namespace FrostfallSaga.Fight.Fighters
                 armorMagicalResistances.Add(magicalElement, 0);
             }
 
-            foreach (ArmorSO armorPiece in _inventory.GetArmorPieces())
+            foreach (ArmorSO armorPiece in Inventory.GetArmorPieces())
             {
                 Dictionary<EMagicalElement, int> armorPieceMagicalResistances = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
                     armorPiece.MagicalResistances

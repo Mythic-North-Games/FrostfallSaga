@@ -17,6 +17,14 @@ MonoBehaviour:
     mad you know.
   <OriginLocation>k__BackingField: Sovengard
   <Type>k__BackingField: 2
+  <RewardConfiguration>k__BackingField:
+    <MinStycas>k__BackingField: 100
+    <MaxStycas>k__BackingField: 100
+    <PossibleItems>k__BackingField:
+    - element: {fileID: 11400000, guid: 6d0f892e31201c0d0a9cfe9f295c83ac, type: 2}
+      value:
+        element: 1
+        value: 1
   <IsCompleted>k__BackingField: 0
   Actions:
   - rid: 6860899929795592192
