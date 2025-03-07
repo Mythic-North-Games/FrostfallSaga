@@ -32,7 +32,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
             if (projectile.TryGetComponent(out FighterCollider projectileCollider))
                 projectileCollider.onFighterEnter += OnFighterTouched;
             if (projectile.TryGetComponent(out CellCollider cellCollider))
-                cellCollider.onCellEnter += OnCellTouched;
+                cellCollider.OnCellEnter += OnCellTouched;
         }
 
         protected void OnFighterTouched(Fighter touchedFighter)

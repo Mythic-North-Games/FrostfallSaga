@@ -7,7 +7,7 @@ namespace FrostfallSaga.Grid
     /// </summary>
     public static class HexMetrics
     {
-        private static readonly float INNER_RADIUS_RATIO = 0.866025404f;
+        private const float INNER_RADIUS_RATIO = 0.866025404f;
 
         public static float OuterRadius(float hexSize)
         {
@@ -19,18 +19,18 @@ namespace FrostfallSaga.Grid
             return hexSize * INNER_RADIUS_RATIO;
         }
 
-        public static Vector3[] Corners(float HexSize)
+        public static Vector3[] Corners(float hexSize)
         {
             Vector3[] corners = new Vector3[6];
-            for (var i = 0; i < 6; i++) corners[i] = Corner(HexSize, i);
+            for (var i = 0; i < 6; i++) corners[i] = Corner(hexSize, i);
             return corners;
         }
 
-        public static Vector3 Corner(float HexSize, int index)
+        private static Vector3 Corner(float hexSize, int index)
         {
             var angle = 60f * index + 30f;
-            Vector3 corner = new(HexSize * Mathf.Cos(angle * Mathf.Deg2Rad), 0f,
-                HexSize * Mathf.Sin(angle * Mathf.Deg2Rad));
+            Vector3 corner = new(hexSize * Mathf.Cos(angle * Mathf.Deg2Rad), 0f,
+                hexSize * Mathf.Sin(angle * Mathf.Deg2Rad));
             return corner;
         }
 

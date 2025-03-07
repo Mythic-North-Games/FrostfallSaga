@@ -16,9 +16,9 @@ namespace FrostfallSaga.Kingdom
         private readonly AHexGrid _kingdomGrid;
         private MovePath _currentHeroGroupMovePath;
         private EntitiesGroup[] _enemiesGroupsToMove;
-        public Action onAllEntitiesMoved;
-        public Action<EntitiesGroup, bool> onEnemiesGroupEncountered;
-        public Action<InterestPoint> onInterestPointEncountered;
+        public Action OnAllEntitiesMoved;
+        public Action<EntitiesGroup, bool> OnEnemiesGroupEncountered;
+        public Action<InterestPoint> OnInterestPointEncountered;
 
         public EntitiesGroupsMovementController(AHexGrid kingdomGrid, EntitiesGroup heroGroup)
         {
@@ -42,12 +42,12 @@ namespace FrostfallSaga.Kingdom
             KingdomCell cellToMoveTo = _currentHeroGroupMovePath.GetNextCellInPath() as KingdomCell;
 
             // Check if collide with enemies group
-            if (cellToMoveTo.HasOccupier())
+            if (cellToMoveTo && cellToMoveTo.HasOccupier())
             {
                 if (cellToMoveTo.Occupier is EntitiesGroup collidingEnemiesGroup)
-                    onEnemiesGroupEncountered?.Invoke(collidingEnemiesGroup, true);
+                    OnEnemiesGroupEncountered?.Invoke(collidingEnemiesGroup, true);
                 else if (cellToMoveTo.Occupier is InterestPoint upcomingInterestPoint)
-                    onInterestPointEncountered?.Invoke(upcomingInterestPoint);
+                    OnInterestPointEncountered?.Invoke(upcomingInterestPoint);
                 UnbindEntitiesGroupsMovementEvents();
             }
             else
@@ -92,7 +92,7 @@ namespace FrostfallSaga.Kingdom
             if (cellToMoveTo == _heroGroup.cell)
             {
                 UnbindEntitiesGroupsMovementEvents();
-                onEnemiesGroupEncountered?.Invoke(EntitiesGroup, false);
+                OnEnemiesGroupEncountered?.Invoke(EntitiesGroup, false);
             }
             else
             {
@@ -132,7 +132,7 @@ namespace FrostfallSaga.Kingdom
         {
             _currentPathPerEnemiesGroup.Clear();
             UnbindEntitiesGroupsMovementEvents();
-            onAllEntitiesMoved?.Invoke();
+            OnAllEntitiesMoved?.Invoke();
         }
 
         /// <summary>
@@ -213,16 +213,16 @@ namespace FrostfallSaga.Kingdom
 
         private void BindEntitiesGroupsMovementEvents()
         {
-            _heroGroup.onEntityGroupMoved += OnHeroGroupMoved;
+            _heroGroup.OnEntityGroupMoved += OnHeroGroupMoved;
             foreach (EntitiesGroup entitiesGroup in _enemiesGroupsToMove)
-                entitiesGroup.onEntityGroupMoved += OnEnemiesGroupMoved;
+                entitiesGroup.OnEntityGroupMoved += OnEnemiesGroupMoved;
         }
 
         private void UnbindEntitiesGroupsMovementEvents()
         {
-            _heroGroup.onEntityGroupMoved -= OnHeroGroupMoved;
+            _heroGroup.OnEntityGroupMoved -= OnHeroGroupMoved;
             foreach (EntitiesGroup entitiesGroup in _enemiesGroupsToMove)
-                entitiesGroup.onEntityGroupMoved -= OnEnemiesGroupMoved;
+                entitiesGroup.OnEntityGroupMoved -= OnEnemiesGroupMoved;
         }
 
         #endregion

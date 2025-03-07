@@ -34,7 +34,7 @@ namespace FrostfallSaga.Utils
             {
                 var randomIndex = _randomizer.Next(0, copy.Length);
                 result[i] = copy[randomIndex];
-                copy[randomIndex] = copy[copy.Length - 1];
+                copy[randomIndex] = copy[^1];
                 Array.Resize(ref copy, copy.Length - 1);
             }
 

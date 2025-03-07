@@ -128,7 +128,7 @@ Shader "TextMeshPro/Bitmap Custom Atlas"
                 // Clamp _ClipRect to 16bit.
                 float4 clampedRect = clamp(_ClipRect, -2e10, 2e10);
                 OUT.mask = float4(vert.xy * 2 - clampedRect.xy - clampedRect.zw,
-                                          0.25 / (0.25 * half2(_MaskSoftnessX, _MaskSoftnessY) + pixelSize.xy));
+                                  0.25 / (0.25 * half2(_MaskSoftnessX, _MaskSoftnessY) + pixelSize.xy));
 
                 return OUT;
             }

@@ -153,7 +153,7 @@ namespace FrostfallSaga.Kingdom
         private void HighlightShorterPathCells()
         {
             var i = 0;
-            foreach (Cell cell in _currentHeroGroupMovePath.path)
+            foreach (Cell cell in _currentHeroGroupMovePath.Path)
             {
                 if (i < HeroGroup.movePoints)
                     cell.HighlightController.Highlight(CellHighlightMaterial);
@@ -165,7 +165,7 @@ namespace FrostfallSaga.Kingdom
 
         private void ResetShorterPathCellsDefaultMaterial()
         {
-            foreach (Cell cell in _currentHeroGroupMovePath.path) cell.HighlightController.ResetToDefaultMaterial();
+            foreach (Cell cell in _currentHeroGroupMovePath.Path) cell.HighlightController.ResetToDefaultMaterial();
         }
 
         #endregion
@@ -196,7 +196,7 @@ namespace FrostfallSaga.Kingdom
                 return;
             }
 
-            enemiesGroupSpawner.onEntitiesGroupSpawned += OnEnemiesGroupSpawned;
+            enemiesGroupSpawner.OnEntitiesGroupSpawned += OnEnemiesGroupSpawned;
             kingdomLoader.OnKingdomLoaded += OnKingdomLoaded;
         }
 
@@ -218,9 +218,9 @@ namespace FrostfallSaga.Kingdom
                 .FindAll(entitiesGroup => entitiesGroup.name != "HeroGroup");
             InterestPoints = FindObjectsOfType<InterestPoint>().ToList();
             _entitiesGroupsMovementController = new EntitiesGroupsMovementController(KingdomGrid, HeroGroup);
-            _entitiesGroupsMovementController.onAllEntitiesMoved += OnAllEntitiesMoved;
-            _entitiesGroupsMovementController.onEnemiesGroupEncountered += OnEnemiesGroupEncounteredDuringMovement;
-            _entitiesGroupsMovementController.onInterestPointEncountered += InterestPointEncountered;
+            _entitiesGroupsMovementController.OnAllEntitiesMoved += OnAllEntitiesMoved;
+            _entitiesGroupsMovementController.OnEnemiesGroupEncountered += OnEnemiesGroupEncounteredDuringMovement;
+            _entitiesGroupsMovementController.OnInterestPointEncountered += InterestPointEncountered;
 
             BindOccupiersMouseEvents();
         }

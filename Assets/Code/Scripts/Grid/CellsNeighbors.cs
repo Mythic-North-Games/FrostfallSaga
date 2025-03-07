@@ -11,14 +11,14 @@ namespace FrostfallSaga.Grid
     /// </summary>
     public static class CellsNeighbors
     {
-        public static Vector2Int[] directionsToCheckIfHeightOdd =
+        private static readonly Vector2Int[] DirectionsToCheckIfHeightOdd =
         {
             new(1, 0), new(-1, 0),
             new(1, 1), new(0, -1),
             new(1, -1), new(0, 1)
         };
 
-        public static Vector2Int[] directionsToCheckIfHeightEven =
+        private static readonly Vector2Int[] DirectionsToCheckIfHeightEven =
         {
             new(1, 0), new(-1, 0),
             new(0, 1), new(-1, -1),
@@ -33,6 +33,7 @@ namespace FrostfallSaga.Grid
         /// <param name="includeInaccessibleNeighbors">If the inaccessible cells should be included.</param>
         /// <param name="includeHeightInaccessibleNeighbors">If only the height inaccessible cells should be included.</param>
         /// <param name="includeOccupiedNeighbors">If the occupied cells should be included.</param>
+        /// <param name="mandatoryCells">Cells are mandatory</param>
         /// <returns>The current cell neighbors in the given grid.</returns>
         public static Cell[] GetNeighbors(
             AHexGrid hexGrid,
@@ -43,20 +44,19 @@ namespace FrostfallSaga.Grid
             Cell[] mandatoryCells = null
         )
         {
-            mandatoryCells ??= new Cell[0];
+            mandatoryCells ??= Array.Empty<Cell>();
 
             List<Cell> neighbors = new();
             Vector2Int[] directionsToCheck = cellToGetTheNeighbors.Coordinates.y % 2 == 0
-                ? directionsToCheckIfHeightEven
-                : directionsToCheckIfHeightOdd;
+                ? DirectionsToCheckIfHeightEven
+                : DirectionsToCheckIfHeightOdd;
 
             foreach (Vector2Int direction in directionsToCheck)
             {
                 Vector2Int neighborCoord = cellToGetTheNeighbors.Coordinates + direction;
                 Dictionary<Vector2Int, Cell> cellsByCoordinates = hexGrid.Cells;
-                if (cellsByCoordinates.ContainsKey(neighborCoord))
+                if (cellsByCoordinates.TryGetValue(neighborCoord, out Cell currentNeighbor))
                 {
-                    Cell currentNeighbor = cellsByCoordinates[neighborCoord];
                     if (
                         mandatoryCells.Contains(currentNeighbor) ||
                         ((includeOccupiedNeighbors || currentNeighbor.IsFree()) &&

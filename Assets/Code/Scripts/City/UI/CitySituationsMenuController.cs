@@ -28,8 +28,8 @@ namespace FrostfallSaga.City.UI
         private float _timeBeforeSituationsButtonDisplay;
         private float _timeBetweenSituationsButtonDisplay;
 
-        public Action<ACitySituationSO> onCitySituationClicked;
-        public Action onReturnClicked;
+        public Action<ACitySituationSO> OnCitySituationClicked;
+        public Action OnReturnClicked;
 
         public void Init(
             VisualElement citySituationsMenuRoot,
@@ -47,7 +47,7 @@ namespace FrostfallSaga.City.UI
             _citySituationButtonTemplate = citySituationButtonTemplate;
             _timeBeforeSituationsButtonDisplay = timeBeforeSituationsButtonDisplay;
             _timeBetweenSituationsButtonDisplay = timeBetweenSituationsButtonDisplay;
-            _returnButton.RegisterCallback<ClickEvent>(_evt => onReturnClicked?.Invoke());
+            _returnButton.RegisterCallback<ClickEvent>(evt => OnReturnClicked?.Invoke());
 
             // Setup the situations menu
             SetupSituationsMenu(citySituations);
@@ -89,7 +89,7 @@ namespace FrostfallSaga.City.UI
         private void OnSituationButtonClicked(ClickEvent clickEvent)
         {
             ACitySituationSO clickedSituation = GetSituationFromButton(clickEvent.currentTarget as VisualElement);
-            onCitySituationClicked?.Invoke(clickedSituation);
+            OnCitySituationClicked?.Invoke(clickedSituation);
         }
 
         private ACitySituationSO GetSituationFromButton(VisualElement situationButton)

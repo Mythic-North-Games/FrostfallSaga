@@ -19,10 +19,10 @@ namespace FrostfallSaga.Utils
             {
                 lock (_instanceLock)
                 {
-                    if (_instance == null && !_quitting)
+                    if (!_instance && !_quitting)
                     {
                         _instance = FindObjectOfType<T>();
-                        if (_instance == null)
+                        if (!_instance)
                         {
                             GameObject go = new(typeof(T).ToString());
                             _instance = go.AddComponent<T>();
@@ -38,7 +38,7 @@ namespace FrostfallSaga.Utils
 
         protected virtual void Awake()
         {
-            if (_instance == null)
+            if (!_instance)
             {
                 _instance = GetComponent<T>();
             }

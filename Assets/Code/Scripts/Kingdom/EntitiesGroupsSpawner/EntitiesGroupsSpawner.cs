@@ -14,26 +14,22 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
         [field: SerializeField] public GameObject EntitiesGroupPrefab { get; private set; }
         [field: SerializeField] public GameObject[] SpawnableEntities { get; private set; }
 
-        [field: SerializeField]
-        [field: Range(0, 1)]
-        public float SpawnChance { get; private set; }
-
         [field: SerializeField] public int MaxNoSpawnInARow { get; private set; }
         [field: SerializeField] public int MaxEntitiesGroupsOnMap { get; private set; }
         [field: SerializeField] public string BaseGroupName { get; private set; }
 
-        [SerializeField] private AHexGrid _grid;
-        [SerializeField] private KingdomLoader _kingdomLoader;
+        [SerializeField] private AHexGrid grid;
+        [SerializeField] private KingdomLoader kingdomLoader;
         private int _noSpawnInARow;
         private List<EntitiesGroup> _spawnedEntitiesGroups;
-        public Action<EntitiesGroup> onEntitiesGroupSpawned;
+        public Action<EntitiesGroup> OnEntitiesGroupSpawned;
 
         #region Setup and tear down
 
         private void Awake()
         {
-            if (_grid == null) _grid = FindObjectOfType<AHexGrid>();
-            if (_grid == null)
+            if (grid == null) grid = FindObjectOfType<AHexGrid>();
+            if (grid == null)
             {
                 Debug.LogError("No hex grid found on scene. Can't spawn objects.");
                 return;
@@ -45,14 +41,14 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
                 return;
             }
 
-            if (_kingdomLoader == null) _kingdomLoader = FindObjectOfType<KingdomLoader>();
-            if (_kingdomLoader == null)
+            if (kingdomLoader == null) kingdomLoader = FindObjectOfType<KingdomLoader>();
+            if (kingdomLoader == null)
             {
                 Debug.LogError("No kingdom loader found. Won't be able to correctly configure spawner after fight.");
                 return;
             }
 
-            _kingdomLoader.OnKingdomLoaded += OnKingdomLoaded;
+            kingdomLoader.OnKingdomLoaded += OnKingdomLoaded;
         }
 
         #endregion
@@ -102,13 +98,13 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
             spawnedEtitiesGroup.TeleportToCell(cellToSpawnTo);
             _spawnedEntitiesGroups.Add(spawnedEtitiesGroup);
             _noSpawnInARow = 0;
-            onEntitiesGroupSpawned?.Invoke(spawnedEtitiesGroup);
+            OnEntitiesGroupSpawned?.Invoke(spawnedEtitiesGroup);
         }
 
         private KingdomCell[] GetAvailableCellsForSpawn()
         {
             KingdomCell[] kingdomCells = Array.ConvertAll(
-                _grid.GetCells(),
+                grid.GetCells(),
                 cell => cell as KingdomCell
             );
             return kingdomCells.Where(cell => cell.IsFree()).ToArray();

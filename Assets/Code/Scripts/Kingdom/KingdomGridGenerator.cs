@@ -5,14 +5,17 @@ using FrostfallSaga.Kingdom;
 using FrostfallSaga.Procedural;
 using UnityEngine;
 
+// ReSharper disable All
+
 namespace FrostfallSaga.Grid
 {
     public class KingdomGridGenerator : ABaseGridGenerator
     {
-        private VoronoiBiomeManager _voronoiBiomeManager;
-        private PerlinTerrainManager _perlinTerrainManager;
+        private readonly PerlinTerrainManager _perlinTerrainManager;
+        private readonly VoronoiBiomeManager _voronoiBiomeManager;
 
-        public KingdomGridGenerator(KingdomCell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid, float noiseScale, int seed)
+        public KingdomGridGenerator(KingdomCell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes,
+            Transform parentGrid, float noiseScale, int seed)
             : base(hexPrefab, gridWidth, gridHeight, availableBiomes, parentGrid, noiseScale, seed)
         {
             _perlinTerrainManager = new PerlinTerrainManager(noiseScale, seed);
@@ -37,6 +40,7 @@ namespace FrostfallSaga.Grid
                     gridCells[new Vector2Int(x, y)] = cell;
                 }
             }
+
             return gridCells;
         }
 
@@ -70,19 +74,20 @@ namespace FrostfallSaga.Grid
                     return availableTerrains[i];
                 }
             }
+
             return availableTerrains[terrainCount - 1];
         }
 
         public override string ToString()
         {
-            return $"BaseGridGenerator:\n" +
-                    $"- HexPrefab: {HexPrefab.name}\n" +
-                    $"- GridWidth: {GridWidth}\n" +
-                    $"- GridHeight: {GridHeight}\n" +
-                    $"- Available Biomes: {(AvailableBiomes != null && AvailableBiomes.Length > 0 ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +
-                    $"- ParentGrid: {ParentGrid?.name ?? "None"}\n" +
-                    $"- NoiseScale: {(NoiseScale.HasValue ? NoiseScale.Value.ToString() : "None")}\n" +
-                    $"- Seed: {Seed?.ToString() ?? "None"}";
+            return "BaseGridGenerator:\n" +
+                   $"- HexPrefab: {HexPrefab.name}\n" +
+                   $"- GridWidth: {GridWidth}\n" +
+                   $"- GridHeight: {GridHeight}\n" +
+                   $"- Available Biomes: {(AvailableBiomes != null && AvailableBiomes.Length > 0 ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +
+                   $"- ParentGrid: {ParentGrid?.name ?? "None"}\n" +
+                   $"- NoiseScale: {(NoiseScale.HasValue ? NoiseScale.Value.ToString() : "None")}\n" +
+                   $"- Seed: {Seed?.ToString() ?? "None"}";
         }
     }
 }

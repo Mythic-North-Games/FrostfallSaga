@@ -15,9 +15,9 @@ namespace FrostfallSaga.City.UI
         private static readonly string TAVERN_DIALOG_HIDDEN_CLASSNAME = "tavernDialogHidden";
 
         private readonly VisualElement _dialogRoot;
-        public Action onExitClicked;
+        public Action OnExitClicked;
 
-        public Action onRestButtonClicked;
+        public Action OnRestButtonClicked;
 
         public TavernDialogController(VisualElement tavernDialogRoot)
         {
@@ -29,7 +29,7 @@ namespace FrostfallSaga.City.UI
             _dialogRoot.Q<Label>(WELCOME_LABEL_UI_NAME).text = $"Welcome to {tavernConfiguration.Name}!";
             _dialogRoot.Q<Label>(REST_QUESTION_UI_NAME).text =
                 $"Would you like to rest for {tavernConfiguration.RestCost} stycas?";
-            _dialogRoot.Q<Button>(REST_BUTTON_UI_NAME).clicked += OnRestButtonClicked;
+            _dialogRoot.Q<Button>(REST_BUTTON_UI_NAME).clicked += RestButtonClicked;
             _dialogRoot.Q<Button>(EXIT_BUTTON_UI_NAME).clicked += OnExitButtonClicked;
         }
 
@@ -43,16 +43,16 @@ namespace FrostfallSaga.City.UI
             _dialogRoot.AddToClassList(TAVERN_DIALOG_HIDDEN_CLASSNAME);
         }
 
-        public void OnRestButtonClicked()
+        public void RestButtonClicked()
         {
             HeroTeam.Instance.FullHealTeam();
             Debug.Log("Team fully healed.");
-            onRestButtonClicked?.Invoke();
+            OnRestButtonClicked?.Invoke();
         }
 
         public void OnExitButtonClicked()
         {
-            onExitClicked?.Invoke();
+            OnExitClicked?.Invoke();
         }
     }
 }

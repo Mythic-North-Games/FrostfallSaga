@@ -7,13 +7,13 @@ namespace FrostfallSaga.Grid
 {
     public static class CellAnalysis
     {
-        public static Dictionary<HexDirection, Cell> CellsByDirection = new();
+        private static readonly Dictionary<HexDirection, Cell> CellsByDirection = new();
         private static float _totalCells;
-        public static Cell TargetCell { get; private set; }
-        public static Cell[] NeighborCells { get; private set; }
-        public static Dictionary<TerrainTypeSO, int> TerrainCount { get; private set; }
+        private static Cell TargetCell { get; set; }
+        private static Cell[] NeighborCells { get; set; }
+        private static Dictionary<TerrainTypeSO, int> TerrainCount { get; set; }
         public static Dictionary<TerrainTypeSO, float> TerrainComposition { get; private set; }
-        public static Dictionary<BiomeTypeSO, int> BiomeCount { get; private set; }
+        private static Dictionary<BiomeTypeSO, int> BiomeCount { get; set; }
 
 
         public static void AnalyzeAtCell(Cell targetCell, AHexGrid grid)
@@ -26,7 +26,7 @@ namespace FrostfallSaga.Grid
             TerrainComposition = new Dictionary<TerrainTypeSO, float>();
             BiomeCount = new Dictionary<BiomeTypeSO, int>();
             _totalCells = NeighborCells.Count() + 1;
-            Debug.Log(string.Format("TOTAL CELLS : {0}", _totalCells));
+            Debug.Log($"TOTAL CELLS : {_totalCells}");
 
             CountTerrain(TargetCell.TerrainType);
             CountBiome(TargetCell.BiomeType);
@@ -35,7 +35,7 @@ namespace FrostfallSaga.Grid
             {
                 HexDirection.NORTHWEST, HexDirection.NORTHEAST,
                 HexDirection.WEST, HexDirection.SOUTHEAST,
-                HexDirection.SOUTHWEST, HexDirection.WEST
+                HexDirection.SOUTHWEST, HexDirection.EAST
             };
 
             for (var i = 0; i < NeighborCells.Length; i++)
@@ -49,18 +49,14 @@ namespace FrostfallSaga.Grid
 
         private static void CountTerrain(TerrainTypeSO terrain)
         {
-            if (TerrainCount.ContainsKey(terrain))
+            if (!TerrainCount.TryAdd(terrain, 1))
                 TerrainCount[terrain]++;
-            else
-                TerrainCount[terrain] = 1;
         }
 
         private static void CountBiome(BiomeTypeSO biome)
         {
-            if (BiomeCount.ContainsKey(biome))
+            if (!BiomeCount.TryAdd(biome, 1))
                 BiomeCount[biome]++;
-            else
-                BiomeCount[biome] = 1;
         }
 
         private static Dictionary<TerrainTypeSO, float> GetTerrainPercentages()

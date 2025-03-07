@@ -77,7 +77,7 @@ namespace FrostfallSaga.Grid.Cells
             SetCellMouseEventsControllerFromGameObjectTree();
 
             HighlightController = GetComponentInChildren<MaterialHighlightable>();
-            if (HighlightController != null)
+            if (HighlightController)
                 HighlightController.transform.localScale = Vector3.one * hexSize / 2.68f;
             else
                 Debug.LogError("Cell " + name + " has no visual to be set up. Please add a cell visual as a child.");
@@ -115,7 +115,7 @@ namespace FrostfallSaga.Grid.Cells
         {
             TerrainType = terrainType;
             Renderer renderer = GetComponentInChildren<Renderer>();
-            if (renderer != null && TerrainType != null && TerrainType.CellMaterial != null)
+            if (renderer && TerrainType && TerrainType.CellMaterial)
             {
                 if (TerrainType.VisualsTerrain != null && TerrainType.VisualsTerrain.Length != 0)
                 {
@@ -184,7 +184,7 @@ namespace FrostfallSaga.Grid.Cells
         private void SetCellMouseEventsControllerFromGameObjectTree()
         {
             CellMouseEventsController ??= GetComponentInChildren<CellMouseEventsController>();
-            if (CellMouseEventsController == null)
+            if (!CellMouseEventsController)
                 Debug.LogError("Cell " + name + " doesn't have a cell mouse controller as child.");
         }
 

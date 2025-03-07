@@ -17,25 +17,25 @@ namespace FrostfallSaga.Kingdom
 {
     public class KingdomToFightTransitioner : MonoBehaviour
     {
-        [SerializeField] private KingdomManager _kingdomManager;
-        [SerializeField] private SceneTransitioner _sceneTransitioner;
-        [SerializeField] private float _readyToFightAnimationDuration = 2f;
-        [SerializeField] private float _delayBeforeLoadingSceneAfterReadyAnimation = 10f;
+        [SerializeField] private KingdomManager kingdomManager;
+        [SerializeField] private SceneTransitioner sceneTransitioner;
+        [SerializeField] private float readyToFightAnimationDuration = 2f;
+        [SerializeField] private float delayBeforeLoadingSceneAfterReadyAnimation = 10f;
         private Action _onEncounterAnimationEnded;
 
         #region Setup and tear down
 
         private void Awake()
         {
-            _kingdomManager ??= FindObjectOfType<KingdomManager>();
+            kingdomManager ??= FindObjectOfType<KingdomManager>();
 
-            if (_kingdomManager == null)
+            if (kingdomManager == null)
             {
                 Debug.LogError("No KingdomManager found. Can't transition to fight scene.");
                 return;
             }
 
-            _kingdomManager.OnEnemiesGroupEncountered += OnEnemiesGroupEncountered;
+            kingdomManager.OnEnemiesGroupEncountered += OnEnemiesGroupEncountered;
             _onEncounterAnimationEnded += OnEncounterAnimationEnded;
         }
 
@@ -57,7 +57,7 @@ namespace FrostfallSaga.Kingdom
         /// </summary>
         private void OnInitiatorGroupMoved(EntitiesGroup groupThatMoved, Cell destinationCell)
         {
-            groupThatMoved.onEntityGroupMoved -= OnInitiatorGroupMoved;
+            groupThatMoved.OnEntityGroupMoved -= OnInitiatorGroupMoved;
             _onEncounterAnimationEnded?.Invoke();
         }
 
@@ -66,7 +66,7 @@ namespace FrostfallSaga.Kingdom
         /// </summary>
         private IEnumerator StartEncounterAnimation(EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
-            EntitiesGroup heroGroup = _kingdomManager.HeroGroup;
+            EntitiesGroup heroGroup = kingdomManager.HeroGroup;
             Entity heroEntity = heroGroup.GetDisplayedEntity();
             Entity enemyEntity = enemiesGroup.GetDisplayedEntity();
 
@@ -77,26 +77,26 @@ namespace FrostfallSaga.Kingdom
             // Play ready to fight animation for a while
             heroEntity.AnimationController.PlayAnimationState("ReadyToFight");
             enemyEntity.AnimationController.PlayAnimationState("ReadyToFight");
-            yield return new WaitForSeconds(_readyToFightAnimationDuration);
+            yield return new WaitForSeconds(readyToFightAnimationDuration);
 
             // Make initiator group go to the cell of its enemy
             EntitiesGroup initiatorGroup = heroGroupInitiating ? heroGroup : enemiesGroup;
             EntitiesGroup attackedGroup = heroGroupInitiating ? enemiesGroup : heroGroup;
-            initiatorGroup.onEntityGroupMoved += OnInitiatorGroupMoved;
+            initiatorGroup.OnEntityGroupMoved += OnInitiatorGroupMoved;
             initiatorGroup.MoveToCell(attackedGroup.cell, true);
         }
 
         private void OnEncounterAnimationEnded()
         {
-            _kingdomManager.SaveKingdomState();
+            kingdomManager.SaveKingdomState();
             StartCoroutine(StartFightScene());
         }
 
         private IEnumerator StartFightScene()
         {
-            yield return new WaitForSeconds(_delayBeforeLoadingSceneAfterReadyAnimation);
+            yield return new WaitForSeconds(delayBeforeLoadingSceneAfterReadyAnimation);
             Debug.Log("Transitioning to fight");
-            _sceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
+            sceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
         }
 
         private void PrepareAndSavePreFightData(EntitiesGroup enemiesGroup)
@@ -120,7 +120,7 @@ namespace FrostfallSaga.Kingdom
 
         private void GenerateFightMap(KingdomCell targetCell)
         {
-            CellAnalysis.AnalyzeAtCell(targetCell, _kingdomManager.KingdomGrid);
+            CellAnalysis.AnalyzeAtCell(targetCell, kingdomManager.KingdomGrid);
             //CellAnalysis.PrintAnalysisWithPercentages();
             //TODO
         }

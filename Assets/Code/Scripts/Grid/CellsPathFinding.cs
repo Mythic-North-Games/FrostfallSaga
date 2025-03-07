@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Utils;
@@ -31,7 +32,7 @@ namespace FrostfallSaga.Grid
             bool checkLastCell = true
         )
         {
-            Cell[] mandatoryCells = checkLastCell ? new Cell[0] : new[] { endCell };
+            Cell[] mandatoryCells = checkLastCell ? Array.Empty<Cell>() : new[] { endCell };
 
             PriorityQueue<Cell> frontier = new();
             frontier.Enqueue(startCell, 0);
@@ -75,7 +76,7 @@ namespace FrostfallSaga.Grid
             }
             catch (KeyNotFoundException)
             {
-                return new Cell[0];
+                return Array.Empty<Cell>();
             }
         }
 

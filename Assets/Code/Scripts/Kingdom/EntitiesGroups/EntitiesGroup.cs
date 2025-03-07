@@ -18,8 +18,8 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         public int movePoints;
         [field: SerializeField] public Transform CameraAnchor { get; private set; }
         private Entity _displayedEntity;
-        public Action<EntitiesGroup, KingdomCell> onEntityGroupMoved;
-        public Entity[] Entities { get; protected set; }
+        public Action<EntitiesGroup, KingdomCell> OnEntityGroupMoved;
+        public Entity[] Entities { get; private set; }
 
         private void Start()
         {
@@ -28,8 +28,8 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             if (cell == null)
                 try
                 {
-                    KingdomCell _tryToGetStartCell = GameObject.Find("Cell[0;0]").GetComponent<KingdomCell>();
-                    if (_tryToGetStartCell.IsFree()) cell = _tryToGetStartCell;
+                    KingdomCell tryToGetStartCell = GameObject.Find("Cell[0;0]").GetComponent<KingdomCell>();
+                    if (tryToGetStartCell.IsFree()) cell = tryToGetStartCell;
                 }
                 catch
                 {
@@ -45,13 +45,13 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         public void MoveToCell(KingdomCell targetCell, bool isLastMove)
         {
             _displayedEntity.MovementController.Move(cell, targetCell, isLastMove);
-            if (cell != null) cell.SetOccupier(null);
+            if (cell) cell.SetOccupier(null);
         }
 
         public void TeleportToCell(KingdomCell targetCell)
         {
             _displayedEntity.MovementController.TeleportToCell(targetCell);
-            if (cell != null) cell.SetOccupier(null);
+            if (cell) cell.SetOccupier(null);
             cell = targetCell;
             cell.SetOccupier(this);
         }
@@ -61,7 +61,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             KingdomCell kingdomCell = destinationCell as KingdomCell;
             cell = kingdomCell;
             cell.SetOccupier(this);
-            onEntityGroupMoved?.Invoke(this, cell);
+            OnEntityGroupMoved?.Invoke(this, cell);
         }
 
         public Entity GetDisplayedEntity()
@@ -89,7 +89,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
             }
 
             Entities.ToList().ForEach(entity => entity.HideVisual());
-            if (_displayedEntity != null) _displayedEntity.MovementController.onMoveEnded -= OnMoveEnded;
+            if (_displayedEntity) _displayedEntity.MovementController.onMoveEnded -= OnMoveEnded;
 
             newDisplayedEntity.ShowVisual();
             newDisplayedEntity.GetComponentInChildren<EntityVisualMovementController>().UpdateParentToMove(gameObject);
@@ -120,11 +120,13 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
 
             var placeLeftInTeam = maxNumberOfEntities - minNumberOfEntities;
             for (var i = 0; i < placeLeftInTeam; i++)
+            {
                 if (Randomizer.GetBooleanOnChance(0.5f))
                 {
                     GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntityPrefabs));
                     entities.Add(entityPrefab.GetComponent<Entity>());
                 }
+            }
 
             return entities.ToArray();
         }

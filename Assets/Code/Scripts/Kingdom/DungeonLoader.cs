@@ -9,29 +9,29 @@ namespace FrostfallSaga.Kingdom
 {
     public class DungeonLoader : MonoBehaviour
     {
-        [SerializeField] private KingdomManager _kingdomManager;
-        [SerializeField] private EnterDungeonPanelController _enterDungeonPanelController;
+        [SerializeField] private KingdomManager kingdomManager;
+        [SerializeField] private EnterDungeonPanelController enterDungeonPanelController;
 
 
         #region Setup
 
         private void Awake()
         {
-            if (_enterDungeonPanelController == null)
+            if (enterDungeonPanelController == null)
             {
                 Debug.LogError(
                     "No EnterDungeonPanelController assigned to DungeonLoader. Won't be able to load dungeon scene correctly.");
                 return;
             }
 
-            if (_kingdomManager == null) _kingdomManager = FindObjectOfType<KingdomManager>();
-            if (_kingdomManager == null)
+            if (kingdomManager == null) kingdomManager = FindObjectOfType<KingdomManager>();
+            if (kingdomManager == null)
             {
                 Debug.LogError("No KingdomManager found in scene. Won't be able to save kingdom state.");
                 return;
             }
 
-            _enterDungeonPanelController.onDungeonEnterClicked += OnDungeonEnterClicked;
+            enterDungeonPanelController.onDungeonEnterClicked += OnDungeonEnterClicked;
         }
 
         #endregion
@@ -39,7 +39,7 @@ namespace FrostfallSaga.Kingdom
         private void OnDungeonEnterClicked(DungeonBuildingConfigurationSO dungeonBuildingConfiguration)
         {
             Debug.Log($"Saving kingdom state before loading dungeon scene for {dungeonBuildingConfiguration.Name}.");
-            _kingdomManager.SaveKingdomState();
+            kingdomManager.SaveKingdomState();
 
             Debug.Log($"Saving dungeon load data for {dungeonBuildingConfiguration.Name}.");
             GameStateManager.Instance.InitDungeonState(dungeonBuildingConfiguration.DungeonConfiguration);

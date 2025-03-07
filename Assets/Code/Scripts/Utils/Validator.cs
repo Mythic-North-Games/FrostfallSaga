@@ -16,11 +16,9 @@ namespace FrostfallSaga.Utils
             {
                 var requiredAttr = field.GetCustomAttributes(typeof(RequiredAttribute), false).FirstOrDefault();
 
-                if (requiredAttr != null)
-                {
-                    var value = field.GetValue(target);
-                    if (value == null) Debug.LogError($"Required field '{field.Name}' is not set in {type.Name}.");
-                }
+                if (requiredAttr == null) continue;
+                var value = field.GetValue(target);
+                if (value == null) Debug.LogError($"Required field '{field.Name}' is not set in {type.Name}.");
             }
         }
     }

@@ -11,12 +11,12 @@ namespace FrostfallSaga.Audio
 
         [SerializeField] private UIAudioClipsConfig uiAudioClipsConfig;
         [SerializeField] private AudioSource audioSourceObject;
-        private UIAudioClipSelector uIAudioClipSelector;
+        private UIAudioClipSelector _uIAudioClipSelector;
 
         private void Awake()
         {
             if (instance == null) instance = this;
-            uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
+            _uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace FrostfallSaga.Audio
         /// </summary>
         public void PlayUISound(UISounds sound)
         {
-            AudioClip audioClip = uIAudioClipSelector.SelectAudioClip(sound);
+            AudioClip audioClip = _uIAudioClipSelector.SelectAudioClip(sound);
             if (audioClip != null)
                 PlaySoundEffectClip(audioClip, transform, 1f);
             else
@@ -53,7 +53,7 @@ namespace FrostfallSaga.Audio
 
         public void InitializeAudioClipSelectorFromTests(UIAudioClipsConfig uIAudioClipsConfig)
         {
-            uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
+            _uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
         }
 
 
