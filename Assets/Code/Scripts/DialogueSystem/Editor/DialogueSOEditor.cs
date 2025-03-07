@@ -1,20 +1,24 @@
+using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using FrostfallSaga.DialogueSystem;
+using FrostfallSaga.Core.Dialogues;
 using FrostfallSaga.Utils.Trees;
-using System.Collections.Generic;
+using FrostfallSaga.Core.Quests;
 
 namespace FrostfallSaga.FFSEditor.DialogueSystem
 {
     [CustomEditor(typeof(DialogueSO))]
     public class DialogueSOEditor : Editor
     {
+        public Action onDialogueChanged;
         private DialogueSO _dialogueSO;
         private bool _showTree = true;
-        private Dictionary<TreeNode<DialogueLine>, bool> _nodeFoldouts = new();
+        private readonly Dictionary<TreeNode<DialogueLine>, bool> _nodeFoldouts = new();
 
         private void OnEnable()
         {
+            if (target == null) return;
             _dialogueSO = (DialogueSO)target;
         }
 
@@ -25,7 +29,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Dialogue Tree Editor", EditorStyles.boldLabel);
 
-            if (_dialogueSO.DialogueTreeRoot == null)
+            if (_dialogueSO.DialogueTreeRoot == null || _dialogueSO.DialogueTreeRoot.GetData() == null)
             {
                 if (GUILayout.Button("Create Root Node"))
                 {
@@ -48,6 +52,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
             if (GUI.changed)
             {
+                onDialogueChanged?.Invoke();
                 EditorUtility.SetDirty(target);
             }
         }
@@ -101,7 +106,9 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
                     data.SetRichText(newRichText);
                 }
 
-                var newSpeaker = (DialogueParticipantSO)EditorGUILayout.ObjectField("Speaker", data.Speaker, typeof(DialogueParticipantSO), false);
+                DialogueParticipantSO newSpeaker = (DialogueParticipantSO)EditorGUILayout.ObjectField(
+                    "Speaker", data.Speaker, typeof(DialogueParticipantSO), false
+                );
                 if (newSpeaker != data.Speaker)
                 {
                     data.SetSpeaker(newSpeaker);
@@ -111,6 +118,14 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
                 if (newIsRight != data.IsRight)
                 {
                     data.SetIsRight(newIsRight);
+                }
+
+                AQuestSO newQuest = (AQuestSO)EditorGUILayout.ObjectField(
+                    "Quest", data.Quest, typeof(AQuestSO), false
+                );
+                if (newQuest != data.Quest)
+                {
+                    data.SetQuest(newQuest);
                 }
 
                 EditorGUILayout.Space();

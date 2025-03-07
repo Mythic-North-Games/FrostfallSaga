@@ -1,18 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Cinemachine;
-using FrostfallSaga.Utils;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Core.GameState;
-using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Core.GameState.Fight;
+using FrostfallSaga.Core.GameState.Kingdom;
+using FrostfallSaga.Core.HeroTeam;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.InterestPoints;
-using FrostfallSaga.Core.HeroTeam;
+using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
 {
@@ -20,7 +19,7 @@ namespace FrostfallSaga.Kingdom
     {
         public Action onKingdomLoaded;
 
-        [SerializeField] private HexGrid _grid;
+        [SerializeField] private KingdomHexGrid _kingdomHexGrid;
         [SerializeField] CinemachineVirtualCamera _camera;
 
         private GameStateManager _gameStateManager;
@@ -31,10 +30,12 @@ namespace FrostfallSaga.Kingdom
 
         private void Start()
         {
+            _kingdomHexGrid.GenerateGrid();
             if (_gameStateManager.IsFirstSceneLaunch())
             {
                 Debug.Log("First scene launch. No kingdom to load.");
                 FirstSpawnHeroGroup();
+                _kingdomHexGrid.GenerateInterestPoints();
                 onKingdomLoaded?.Invoke();
                 return;
             }
@@ -74,15 +75,15 @@ namespace FrostfallSaga.Kingdom
         {
             EntitiesGroupBuilder entitiesGroupBuilder = EntitiesGroupBuilder.Instance;
             KingdomState kingdomState = _gameStateManager.GetKingdomState();
-   
+
             foreach (EntitiesGroupData enemiesGroupData in kingdomState.enemiesGroupsData)
             {
-                _respawnedEnemiesGroups.Add(entitiesGroupBuilder.BuildEntitiesGroup(enemiesGroupData, _grid));
+                _respawnedEnemiesGroups.Add(entitiesGroupBuilder.BuildEntitiesGroup(enemiesGroupData, _kingdomHexGrid));
             }
 
-            foreach(InterestPointData interestPointData in kingdomState.interestPointsData)
+            foreach (InterestPointData interestPointData in kingdomState.interestPointsData)
             {
-                _interestPoints.Add(InterestPointBuilder.Instance.BuildInterestPoint(interestPointData, _grid));
+                _interestPoints.Add(InterestPointBuilder.Instance.BuildInterestPoint(interestPointData, _kingdomHexGrid));
             }
         }
 
@@ -114,15 +115,15 @@ namespace FrostfallSaga.Kingdom
             // Configure the hero group with the hero entities
             _respawnedHeroGroup.UpdateEntities(heroGroupEntities.ToArray());
             _respawnedHeroGroup.movePoints = 10;    // * For now, we give the hero group 10 move points.
-            _respawnedHeroGroup.cell = _grid.CellsByCoordinates[new(0, 0)] as KingdomCell;
-
+            KingdomCell kingdomCell = _kingdomHexGrid.Cells[new(0, 0)] as KingdomCell;
+            kingdomCell.SetOccupier(_respawnedHeroGroup);
             AttachCameraToHeroGroup();
         }
 
         private void RestoreHeroGroup()
         {
             // Restore the hero group as lastly saved
-            _respawnedHeroGroup = EntitiesGroupBuilder.Instance.BuildEntitiesGroup(_gameStateManager.GetKingdomState().heroGroupData, _grid);
+            _respawnedHeroGroup = EntitiesGroupBuilder.Instance.BuildEntitiesGroup(_gameStateManager.GetKingdomState().heroGroupData, _kingdomHexGrid);
             _respawnedHeroGroup.name = "HeroGroup";
 
             // Adjust the entities depending on the hero team state
@@ -139,7 +140,7 @@ namespace FrostfallSaga.Kingdom
                 AttachCameraToHeroGroup();
                 return;
             }
-            
+
             // Otherwise, update the displayed entity if it's dead
             if (_respawnedHeroGroup.GetDisplayedEntity().IsDead)
             {
@@ -151,7 +152,7 @@ namespace FrostfallSaga.Kingdom
 
         private void RespawnHeroGroup()
         {
-            _respawnedHeroGroup.cell = _grid.CellsByCoordinates[new(0, 0)] as KingdomCell;
+            _respawnedHeroGroup.cell = _kingdomHexGrid.Cells[new(0, 0)] as KingdomCell;
             _respawnedHeroGroup.Entities.ToList().ForEach(entity => entity.IsDead = false);
             _heroTeam.FullHealTeam();
         }
@@ -172,18 +173,21 @@ namespace FrostfallSaga.Kingdom
         private void AdjustKingdomAfterFight()
         {
             PostFightData postFightData = _gameStateManager.GetPostFightData();
+            Dictionary<string, PostFightFighterState> enemiesPostFightState = SElementToValue<string, PostFightFighterState>.GetDictionaryFromArray(
+                    postFightData.enemiesState.ToArray()
+            );
+            EntitiesGroup foughtEnemiesGroup = GetFoughtEnemiesGroup(enemiesPostFightState);
+
 
             // If allies have lost, adjust enemies groups that won
             if (!postFightData.AlliesHaveWon())
             {
-                Dictionary<string, PostFightFighterState> enemiesPostFightState = SElementToValue<string, PostFightFighterState>.GetDictionaryFromArray(
-                    postFightData.enemiesState.ToArray()
-                );
-                UpdateEntitiesGroupAfterFight(GetFoughtEnemiesGroup(), enemiesPostFightState);
+
+                UpdateEntitiesGroupAfterFight(foughtEnemiesGroup, enemiesPostFightState);
             }
             else    // Otherwise, destroy enemies group that lost
             {
-                DestroyImmediate(GetFoughtEnemiesGroup().gameObject);
+                DestroyImmediate(foughtEnemiesGroup.gameObject);
             }
         }
 
@@ -207,9 +211,10 @@ namespace FrostfallSaga.Kingdom
             }
         }
 
-        private EntitiesGroup GetFoughtEnemiesGroup()
+        private EntitiesGroup GetFoughtEnemiesGroup(Dictionary<string, PostFightFighterState> enemiesPostFightState)
         {
-            return _respawnedEnemiesGroups.Find(enemiesGroup => enemiesGroup.cell == _respawnedHeroGroup.cell);
+            string enemySessionId = enemiesPostFightState.Keys.First();
+            return _respawnedEnemiesGroups.Find(enemiesGroup => enemiesGroup.Entities.Any(entity => entity.SessionId == enemySessionId));
         }
 
         #endregion
@@ -218,11 +223,8 @@ namespace FrostfallSaga.Kingdom
 
         private void Awake()
         {
-            if (_grid == null)
-            {
-                _grid = FindObjectOfType<HexGrid>();
-            }
-            if (_grid == null)
+            _kingdomHexGrid ??= FindObjectOfType<KingdomHexGrid>();
+            if (_kingdomHexGrid == null)
             {
                 Debug.LogError("No grid found. Can't know where to spawn the entities groups.");
                 return;

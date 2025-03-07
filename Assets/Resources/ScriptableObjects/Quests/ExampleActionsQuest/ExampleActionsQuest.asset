@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 898870be9abb1663fb922b45bdfb6b77, type: 3}
+  m_Name: ExampleActionsQuest
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Example actions quest
+  <Description>k__BackingField: You have to do this then that because the world is
+    mad you know.
+  <OriginLocation>k__BackingField: Sovengard
+  <Type>k__BackingField: 2
+  <IsCompleted>k__BackingField: 0
+  Actions:
+  - rid: 2054917332478984194
+  - rid: 2054917332478984195
+  <OrderedActions>k__BackingField: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2054917332478984194
+      type: {class: EncounterEnemiesGroupQuestAction, ns: FrostfallSaga.Kingdom.QuestActions, asm: FrostfallSaga.Kingdom}
+      data:
+        <IsCompleted>k__BackingField: 1
+    - rid: 2054917332478984195
+      type: {class: WinFightQuestAction, ns: FrostfallSaga.Fight.QuestActions, asm: FrostfallSaga.Fight}
+      data:
+        <IsCompleted>k__BackingField: 0

@@ -48,7 +48,7 @@ namespace FrostfallSaga.Fight.Controllers
             _possessedFighter.StartCoroutine(DoNextAction());
         }
 
-        private FighterAction GetRandomDoableAction(Fighter fighterThatWillAct, HexGrid fightGrid)
+        private FighterAction GetRandomDoableAction(Fighter fighterThatWillAct, FightHexGrid fightGrid)
         {
             List<FighterAction> doableActions = new();
 
@@ -104,7 +104,7 @@ namespace FrostfallSaga.Fight.Controllers
         }
 
         #region Movement handling
-        private void MakeFighterMove(Fighter fighter, HexGrid fightGrid)
+        private void MakeFighterMove(Fighter fighter, FightHexGrid fightGrid)
         {
             Debug.Log($"Fighter {fighter.name} is randomly moving.");
             fighter.Move(GetRandomMovePath(fighter, fightGrid));
@@ -118,7 +118,7 @@ namespace FrostfallSaga.Fight.Controllers
             _possessedFighter.StartCoroutine(DoNextAction());
         }
 
-        private FightCell[] GetRandomMovePath(Fighter fighterThatWillMove, HexGrid fightGrid)
+        private FightCell[] GetRandomMovePath(Fighter fighterThatWillMove, FightHexGrid fightGrid)
         {
             List<FightCell> randomMovePath = new();
             int numberOfCellsInPath = Randomizer.GetRandomIntBetween(1, fighterThatWillMove.GetMovePoints());
@@ -149,7 +149,7 @@ namespace FrostfallSaga.Fight.Controllers
         #endregion
 
         #region Direct attack handling
-        private void MakeFighterDirectAttack(Fighter fighter, HexGrid fightGrid)
+        private void MakeFighterDirectAttack(Fighter fighter, FightHexGrid fightGrid)
         {
             try
             {
@@ -176,7 +176,7 @@ namespace FrostfallSaga.Fight.Controllers
         #endregion
 
         #region Active ability handling
-        private void MakeFighterUseActiveAbility(Fighter fighter, HexGrid fightGrid)
+        private void MakeFighterUseActiveAbility(Fighter fighter, FightHexGrid fightGrid)
         {
             ActiveAbilitySO activeAbilityToUse = GetRandomUsableActiveAbility(fighter, fightGrid);
             try
@@ -207,7 +207,7 @@ namespace FrostfallSaga.Fight.Controllers
             _possessedFighter.StartCoroutine(DoNextAction());
         }
 
-        private ActiveAbilitySO GetRandomUsableActiveAbility(Fighter fighter, HexGrid fightGrid)
+        private ActiveAbilitySO GetRandomUsableActiveAbility(Fighter fighter, FightHexGrid fightGrid)
         {
             List<ActiveAbilitySO> usableActiveAbilities = new();
             fighter.ActiveAbilities.ToList()

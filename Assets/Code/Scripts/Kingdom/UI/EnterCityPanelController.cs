@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
+using FrostfallSaga.Core;
 using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Utils.UI;
 
@@ -34,11 +35,16 @@ namespace FrostfallSaga.Kingdom.UI
                 Debug.LogError("KingdomManager is not set. Won't be able to display city enter panel.");
                 return;
             }
-            _kingdomManager.onCityBuildingEncountered += OnCityBuildingEncountered;
+            _kingdomManager.onInterestPointEncountered += OnCityBuildingEncountered;
         }
 
-        private void OnCityBuildingEncountered(CityBuildingConfigurationSO cityBuildingConfiguration)
+        private void OnCityBuildingEncountered(AInterestPointConfigurationSO interestPointConfiguration)
         {
+            if (interestPointConfiguration is not CityBuildingConfigurationSO cityBuildingConfiguration)
+            {
+                return;
+            }
+
             _currentCity = cityBuildingConfiguration;
             _cityGatePanel = EnterCityPanelTemplate.Instantiate();
             _cityGatePanel.Q<Button>(ENTER_CITY_BUTTON_UI_NAME).clicked += OnDisplayClicked;
@@ -67,7 +73,7 @@ namespace FrostfallSaga.Kingdom.UI
 
         private void SetupCityPanel(CityBuildingConfigurationSO cityBuildingConfiguration)
         {
-            _cityGatePanel.style.flexGrow = 1;
+            _cityGatePanel.StretchToParentSize();
             _cityGatePanel.Q<VisualElement>(PANEL_CONTAINER_UI_NAME).AddToClassList(PANEL_HIDDEN_CLASSNAME);
             _cityGatePanel.Q<VisualElement>(CITY_PANEL_CONTAINER_UI_NAME).AddToClassList(CITY_PANEL_HIDDEN_CLASSNAME);
             _cityGatePanel.Q<VisualElement>(PREVIEW_CONTAINER_UI_NAME).style.backgroundImage = new(cityBuildingConfiguration.CityPreview);

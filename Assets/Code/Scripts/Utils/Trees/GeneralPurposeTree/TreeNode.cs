@@ -7,12 +7,13 @@ namespace FrostfallSaga.Utils.Trees
     public class TreeNode<T>
     {
         private T _data;
-        private List<TreeNode<T>> _children;
+        private List<TreeNode<T>> _children = new();
+        private TreeNode<T> _parent;
 
         public TreeNode(T data)
         {
             _data = data;
-            _children = new List<TreeNode<T>>();
+            _children = new List<TreeNode<T>>(); 
         }
 
         /// <summary>
@@ -22,6 +23,7 @@ namespace FrostfallSaga.Utils.Trees
         public void AddChild(TreeNode<T> child)
         {
             _children.Add(child);
+            child._parent = this;
         }
 
         /// <summary>
@@ -37,7 +39,7 @@ namespace FrostfallSaga.Utils.Trees
                 return true;
             }
 
-            foreach (var node in _children)
+            foreach (TreeNode<T> node in _children)
             {
                 if (node.RemoveChild(child))
                 {
@@ -71,6 +73,30 @@ namespace FrostfallSaga.Utils.Trees
         public bool HasChildren()
         {
             return _children.Count > 0;
+        }
+
+        public TreeNode<T> GetParent()
+        {
+            return _parent;
+        }
+
+        public static TreeNode<T> FindChild(TreeNode<T> root, T data)
+        {
+            if (root.GetData().Equals(data))
+            {
+                return root;
+            }
+
+            foreach (TreeNode<T> child in root.GetChildren())
+            {
+                TreeNode<T> found = FindChild(child, data);
+                if (found != null)
+                {
+                    return found;
+                }
+            }
+
+            return null;
         }
     }
 }
