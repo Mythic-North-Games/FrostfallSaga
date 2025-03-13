@@ -14,7 +14,7 @@ namespace FrostfallSaga.InventorySystem.UI
     {
         [SerializeField] private VisualTreeAsset _equippedPanelTemplate;
         [SerializeField] private VisualTreeAsset _bagPanelTemplate;
-        [SerializeField] private VisualTreeAsset _itemDetailsStatContainerTemplate;
+        [SerializeField] private VisualTreeAsset _statContainerTemplate;
         [SerializeField] private EntityConfigurationSO _devHero;
 
         private EntityConfigurationSO _currentHeroEntityConf;
@@ -50,7 +50,7 @@ namespace FrostfallSaga.InventorySystem.UI
             // Setup bag panel (right page)
             VisualElement bagPanelRoot = _bagPanelTemplate.Instantiate();
             bagPanelRoot.StretchToParentSize();
-            _bagPanelUIController = new InventoryBagPanelUIController(bagPanelRoot, _itemDetailsStatContainerTemplate);
+            _bagPanelUIController = new InventoryBagPanelUIController(bagPanelRoot, _statContainerTemplate);
             _bagPanelUIController.onItemSlotSelected += OnItemSlotSelected;
             _bagPanelUIController.onItemSlotEquipClicked += OnItemSlotEquipClicked;
             _bagPanelUIController.SetInventory(_currentHeroInventory);
@@ -136,7 +136,7 @@ namespace FrostfallSaga.InventorySystem.UI
                 Debug.LogError("Bag Panel Template is not set in the inspector.");
             }
 
-            if (_itemDetailsStatContainerTemplate == null)
+            if (_statContainerTemplate == null)
             {
                 Debug.LogError("Item Details Stat Container Template is not set in the inspector.");
             }
