@@ -229,7 +229,7 @@ MonoBehaviour:
   _uiDoc: {fileID: 709379821}
   _equippedPanelTemplate: {fileID: 9197481963319205126, guid: 85cc35556c3486bfdb3589f4f7f9de63, type: 3}
   _bagPanelTemplate: {fileID: 9197481963319205126, guid: 620d5dbc289500c3bbae70a2ddaf0182, type: 3}
-  _itemDetailsStatContainerTemplate: {fileID: 9197481963319205126, guid: c1226ff7b268e102ea2657852a72c277, type: 3}
+  _statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
   _devHero: {fileID: 0}
 --- !u!114 &709379819
 MonoBehaviour:
@@ -1333,12 +1333,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1952024163}
   - component: {fileID: 1952024162}
-  - component: {fileID: 1952024169}
   - component: {fileID: 1952024164}
-  - component: {fileID: 1952024165}
-  - component: {fileID: 1952024166}
   - component: {fileID: 1952024167}
   - component: {fileID: 1952024168}
+  - component: {fileID: 1952024165}
   m_Layer: 5
   m_Name: MainFightUI
   m_TagString: Untagged
@@ -1404,22 +1402,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
-  _fightManager: {fileID: 1678739252}
-  _fighterDetailsPanelController: {fileID: 1952024169}
-  _fighterDetailsOffset: {x: -20, y: -50}
---- !u!114 &1952024166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1952024161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 637f265d0482104d9be655f0749e7365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiDoc: {fileID: 1952024162}
+  _characterContainerTemplate: {fileID: 9197481963319205126, guid: 0748e2c7616b69c7c9a8edf950346285, type: 3}
+  _statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
+  _statusIconContainerTemplate: {fileID: 9197481963319205126, guid: e65bb5637e2f1d1eb92a395ee8971e67, type: 3}
   _fightManager: {fileID: 1678739252}
 --- !u!114 &1952024167
 MonoBehaviour:
@@ -1464,48 +1449,6 @@ MonoBehaviour:
   _floatingBarUIPanel: {fileID: 9197481963319205126, guid: 8e946bee0261af8448bed4da75f9cc6d, type: 3}
   _fightLoader: {fileID: 2012426617}
   _fightManager: {fileID: 1678739252}
---- !u!114 &1952024169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1952024161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc142501585ec14ebebb834d826d1f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiDoc: {fileID: 1952024162}
-  _fighterDetailsUIPanel: {fileID: 9197481963319205126, guid: d00385b87258a224ab3b968089d24399, type: 3}
-  _fighterStatIcons:
-  - element: 3
-    value: {fileID: 2800000, guid: e6b98d28e1ca0cf4c9abac72040c1e0e, type: 3}
-  - element: 4
-    value: {fileID: 2800000, guid: c602fd8b2264cac4ca5f9824576a8808, type: 3}
-  - element: 5
-    value: {fileID: 2800000, guid: 552a39c783629744a81436d7108d5e86, type: 3}
-  - element: 6
-    value: {fileID: 2800000, guid: bb21073f6f09a0d4bb2e78f5d739bdc8, type: 3}
-  - element: 9
-    value: {fileID: 2800000, guid: b9ff060170a9afe4eaad137638b2b65c, type: 3}
-  - element: 10
-    value: {fileID: 2800000, guid: 695a5ab3835fad14dbb6c5d571396e88, type: 3}
-  - element: 11
-    value: {fileID: 2800000, guid: 6c32bcc4ac5f8ec48b93309c2b7b1aef, type: 3}
-  _magicalElementIcons:
-  - element: 0
-    value: {fileID: 2800000, guid: 63a7459c7f7b7f24289d4c72b8eb8a6e, type: 3}
-  - element: 1
-    value: {fileID: 2800000, guid: e8c0290d9b28b6847901109deed9970f, type: 3}
-  - element: 2
-    value: {fileID: 2800000, guid: 25afa91d08dce2c41a09ab3b2efd0e7e, type: 3}
-  - element: 3
-    value: {fileID: 2800000, guid: 0724a26512e0d174ca1dca37827fe433, type: 3}
-  - element: 4
-    value: {fileID: 2800000, guid: 1c65da544d518d940a57b202f90f74a1, type: 3}
-  - element: 5
-    value: {fileID: 2800000, guid: db0c21c6a1db0b9469195ed4686d6350, type: 3}
 --- !u!1 &1963673181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1600,8 +1543,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fightHexGrid: {fileID: 0}
-  devAlliesConfs: []
-  devEnemiesConfs: []
+  devAlliesConfs:
+  - {fileID: 11400000, guid: d5746e71b0a5c65469ca2b997f19b595, type: 2}
+  devEnemiesConfs:
+  - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
+  - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
 --- !u!1 &2015873280
 GameObject:
   m_ObjectHideFlags: 0

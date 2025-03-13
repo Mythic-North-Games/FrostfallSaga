@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Fight/FightScenePanel.uss?fileID=7433441132597879392&amp;guid=e5eb9d2bf6d4bff42afd0f1a4c723e76&amp;type=3#FightScenePanel" />
+    <ui:VisualElement name="StatusIconContainer" style="width: 100%; height: 100%; border-top-left-radius: 100%; border-top-right-radius: 100%; border-bottom-right-radius: 100%; border-bottom-left-radius: 100%; border-left-color: rgb(225, 225, 225); border-right-color: rgb(225, 225, 225); border-top-color: rgb(225, 225, 225); border-bottom-color: rgb(225, 225, 225); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px;">
+        <ui:VisualElement name="StatusIcon" style="width: 100%; height: 100%; border-top-left-radius: 100%; border-top-right-radius: 100%; border-bottom-right-radius: 100%; border-bottom-left-radius: 100%; background-image: resource(&apos;UI/Icons/earthIcon&apos;); -unity-background-scale-mode: scale-to-fit;" />
+    </ui:VisualElement>
+</ui:UXML>

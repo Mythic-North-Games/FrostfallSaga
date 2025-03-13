@@ -8,6 +8,7 @@
         </ui:VisualElement>
         <ui:ScrollView name="QuestItemsList" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="max-height: 90%; margin-top: 3%; min-height: 90%;">
             <ui:Instance template="ListQuestItem" name="ListQuestItem" class="listQuestItemDefault" />
+            <ui:Instance template="ListQuestItem" name="ListQuestItem" class="listQuestItemDefault" />
         </ui:ScrollView>
     </ui:VisualElement>
 </ui:UXML>

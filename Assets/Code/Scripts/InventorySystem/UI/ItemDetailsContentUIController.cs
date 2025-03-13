@@ -1,8 +1,9 @@
-using UnityEngine.UIElements;
-using FrostfallSaga.Core.InventorySystem;
 using System.Collections.Generic;
+using FrostfallSaga.Core.UI;
+using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Utils.UI;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.InventorySystem.UI
 {
@@ -57,23 +58,25 @@ namespace FrostfallSaga.InventorySystem.UI
                 // Classic stats
                 foreach (KeyValuePair<string, string> statValue in equipment.GetStatsUIData())
                 {
-                    new ItemStatContainerUIController(
-                        _statsContainer,
-                        _statContainerTemplate,
+                    VisualElement statContainerRoot = _statContainerTemplate.Instantiate();
+                    StatContainerUIController.SetupStatContainer(
+                        statContainerRoot,
                         UIIconsProvider.Instance.GetIcon(statValue.Key),
                         statValue.Value
                     );
+                    _statsContainer.Add(statContainerRoot);
                 }
 
                 // Magical stats
                 foreach(KeyValuePair<EMagicalElement, string> magicalDamagesStats in equipment.GetMagicalStatsUIData())
                 {
-                    new ItemStatContainerUIController(
-                        _statsContainer,
-                        _statContainerTemplate,
+                    VisualElement statContainerRoot = _statContainerTemplate.Instantiate();
+                    StatContainerUIController.SetupStatContainer(
+                        statContainerRoot,
                         UIIconsProvider.Instance.GetIcon(magicalDamagesStats.Key.GetIconResourceName()),
                         magicalDamagesStats.Value
                     );
+                    _statsContainer.Add(statContainerRoot);
                 }
             }
             else if (item is AConsumable)
