@@ -147,3 +147,26 @@
     border-bottom-left-radius: 20px;
     opacity: 0;
 }
+
+.fighterInfoBarStatusIconContainerRoot {
+    width: 5.75%;
+    height: 100%;
+    margin-right: 1.5%;
+}
+
+.fighterInfoBarContainer {
+    position: absolute;
+    top: 6.5%;
+    left: 35%;
+    width: 30%;
+    height: 9%;
+}
+
+.fighterInfoBarContainerHidden {
+    position: absolute;
+    top: 5%;
+    left: 25%;
+    width: 50%;
+    height: 9%;
+    display: none;
+}

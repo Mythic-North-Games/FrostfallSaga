@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Fight.Fighters;
@@ -15,6 +16,9 @@ namespace FrostfallSaga.Fight.UI
 
         private static readonly string STATUS_ICON_CONTAINER_ROOT_CLASSNAME = "statusIconContainerRoot";
         #endregion
+
+        public Action<Fighter> onFighterHovered;
+        public Action<Fighter> onFighterUnhovered;
 
         private readonly VisualElement _root;
         private readonly Fighter _fighter;
@@ -55,8 +59,8 @@ namespace FrostfallSaga.Fight.UI
             fighter.onStatusRemoved += (_fighter, _status) => UpdateStatuses();
 
             // Setup hover behaviors
-            characterIcon.RegisterCallback<MouseEnterEvent>(_ => _resistancesPanelController.Display());
-            characterIcon.RegisterCallback<MouseOutEvent>(_ => _resistancesPanelController.Hide());
+            characterIcon.RegisterCallback<MouseEnterEvent>(OnCharacterIconHovered);
+            characterIcon.RegisterCallback<MouseOutEvent>(OnCharacterIconUnhovered);
         }
 
         private void UpdateStatuses()
@@ -86,6 +90,20 @@ namespace FrostfallSaga.Fight.UI
                 StatusContainerUIController.SetupStatusContainer(statusIconContainerRoot, status.Key);
                 statusesContainer.Add(statusIconContainerRoot);
             }
+        }
+
+        private void OnCharacterIconHovered(MouseEnterEvent evt)
+        {
+            evt.StopPropagation();
+            onFighterHovered?.Invoke(_fighter);
+            _resistancesPanelController.Display();
+        }
+
+        private void OnCharacterIconUnhovered(MouseOutEvent evt)
+        {
+            evt.StopPropagation();
+            onFighterUnhovered?.Invoke(_fighter);
+            _resistancesPanelController.Hide();
         }
 
         private void OnFighterMagicalStatMutated(
