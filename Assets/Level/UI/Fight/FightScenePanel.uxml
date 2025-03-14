@@ -3,6 +3,7 @@
     <ui:Template name="StatusesBar" src="project://database/Assets/Level/UI/Components/StatusesBar.uxml?fileID=9197481963319205126&amp;guid=495c80ca846d4147698ec2e485a822e6&amp;type=3#StatusesBar" />
     <ui:Template name="ProgressBars" src="project://database/Assets/Level/UI/Components/ProgressBars.uxml?fileID=9197481963319205126&amp;guid=73cc8529925e73d4a9097dd4e72cd77f&amp;type=3#ProgressBars" />
     <ui:Template name="TimelinePanel" src="project://database/Assets/Level/UI/Fight/TimelinePanel.uxml?fileID=9197481963319205126&amp;guid=0fa28d4408953c10f859548fb24df0f4&amp;type=3#TimelinePanel" />
+    <ui:Template name="FighteInfosBar" src="project://database/Assets/Level/UI/Fight/FighteInfosBar.uxml?fileID=9197481963319205126&amp;guid=2b6bad45990218da38e5dd7c86f814a2&amp;type=3#FighteInfosBar" />
     <Style src="project://database/Assets/Level/UI/Fight/FightScenePanel.uss?fileID=7433441132597879392&amp;guid=e5eb9d2bf6d4bff42afd0f1a4c723e76&amp;type=3#FightScenePanel" />
     <Style src="project://database/Assets/Level/UI/globalStyles.uss?fileID=7433441132597879392&amp;guid=1849fa32056df9a58b3c371fd6e7ddf2&amp;type=3#globalStyles" />
     <ui:VisualElement name="RootActionPanel" style="flex-grow: 1; position: absolute; width: 100%; height: 18%; justify-content: space-between; top: auto; flex-direction: row; align-self: auto; align-items: auto; bottom: -2%; padding-bottom: 1.5%;">
@@ -37,4 +38,5 @@
         </ui:Button>
     </ui:VisualElement>
     <ui:Instance template="TimelinePanel" name="TimelinePanelRoot" class="timelinePanel" />
+    <ui:Instance template="FighteInfosBar" name="FighteInfosBarContainer" class="fighterInfoBarContainer" />
 </ui:UXML>

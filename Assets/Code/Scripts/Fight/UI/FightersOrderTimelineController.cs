@@ -1,3 +1,4 @@
+using System;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Utils.UI;
 using UnityEngine;
@@ -13,6 +14,9 @@ namespace FrostfallSaga.Fight.UI
 
         private static readonly string TIMELINE_CHARACTER_CONTAINER_ROOT_CLASSNAME = "timelineCharacterContainerRoot";
         #endregion
+
+        public Action<Fighter> onFighterHovered;
+        public Action<Fighter> onFighterUnhovered;
 
         [SerializeField] private VisualTreeAsset _characterContainerTemplate;
         [SerializeField] private VisualTreeAsset _statContainerTemplate;
@@ -67,7 +71,12 @@ namespace FrostfallSaga.Fight.UI
                 // Configure the character container
                 VisualElement characterContainerRoot = _characterContainerTemplate.Instantiate();
                 characterContainerRoot.AddToClassList(TIMELINE_CHARACTER_CONTAINER_ROOT_CLASSNAME);
-                new TimelineCharacterUIController(characterContainerRoot, fighter, _statusIconContainerTemplate, _statContainerTemplate);
+                
+                TimelineCharacterUIController characterUIController = new(
+                    characterContainerRoot, fighter, _statusIconContainerTemplate, _statContainerTemplate
+                );
+                characterUIController.onFighterHovered += fighter => onFighterHovered?.Invoke(fighter);
+                characterUIController.onFighterUnhovered += fighter => onFighterUnhovered?.Invoke(fighter);
 
                 // Remove the character container from the timeline content container when the fighter dies
                 fighter.onFighterDied += _ =>

@@ -1335,8 +1335,8 @@ GameObject:
   - component: {fileID: 1952024162}
   - component: {fileID: 1952024164}
   - component: {fileID: 1952024167}
-  - component: {fileID: 1952024168}
   - component: {fileID: 1952024165}
+  - component: {fileID: 1952024168}
   m_Layer: 5
   m_Name: MainFightUI
   m_TagString: Untagged
@@ -1442,13 +1442,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1952024161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1be106528f785f443ae4322ce7aff800, type: 3}
+  m_Script: {fileID: 11500000, guid: ffdca51e84dd8c90cb7665f9bbee8a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
-  _floatingBarUIPanel: {fileID: 9197481963319205126, guid: 8e946bee0261af8448bed4da75f9cc6d, type: 3}
+  _statusContainerTemplate: {fileID: 9197481963319205126, guid: e65bb5637e2f1d1eb92a395ee8971e67, type: 3}
   _fightLoader: {fileID: 2012426617}
   _fightManager: {fileID: 1678739252}
+  _timelineController: {fileID: 1952024165}
+  _displayDurationOnAction: 2
 --- !u!1 &1963673181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,8 +1547,8 @@ MonoBehaviour:
   fightHexGrid: {fileID: 0}
   devAlliesConfs:
   - {fileID: 11400000, guid: d5746e71b0a5c65469ca2b997f19b595, type: 2}
+  - {fileID: 11400000, guid: 2feb0362d51c4ed4e9245678b6bef79f, type: 2}
   devEnemiesConfs:
-  - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
   - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
 --- !u!1 &2015873280
 GameObject:
