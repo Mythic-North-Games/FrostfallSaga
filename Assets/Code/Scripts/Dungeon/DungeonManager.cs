@@ -6,6 +6,8 @@ using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Dungeon;
 using FrostfallSaga.Core.GameState.Fight;
 using FrostfallSaga.Core.HeroTeam;
+using FrostfallSaga.Grid;
+using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Scenes;
 using UnityEngine;
@@ -58,7 +60,8 @@ namespace FrostfallSaga.Dungeon
             _gameStateManager.SavePreFightData(
                 HeroTeam.Instance.GetAliveHeroesEntityConfig(),
                 GetDungeonFightEnemies(dungeonFightConfiguration),
-                EFightOrigin.DUNGEON
+                EFightOrigin.DUNGEON,
+                new Dictionary<HexDirection, Cell>() //TEMP: pour une prochaine Feature
             );
         }
 

@@ -34,7 +34,7 @@ namespace FrostfallSaga.Kingdom
                 Debug.LogError("No KingdomManager found. Can't transition to fight scene.");
                 return;
             }
-            
+
             sceneTransitioner ??= FindObjectOfType<SceneTransitioner>();
 
             if (!sceneTransitioner)
@@ -118,19 +118,15 @@ namespace FrostfallSaga.Kingdom
                     enemyGroupEntity.EntityConfiguration);
             }
 
+            CellAnalysis.AnalyzeAtCell(enemiesGroup.cell, kingdomManager.KingdomGrid);
+            CellAnalysis.PrintAnalysisDict(); //TEMP à retirer après le Debug
+
             GameStateManager.Instance.SavePreFightData(
                 HeroTeam.Instance.GetAliveHeroesEntityConfig(),
                 enemiesFighterConfigs,
-                EFightOrigin.KINGDOM
+                EFightOrigin.KINGDOM,
+                CellAnalysis.CELLS_BY_DIRECTION
             );
-            GenerateFightMap(enemiesGroup.cell);
-        }
-
-        private void GenerateFightMap(KingdomCell targetCell)
-        {
-            CellAnalysis.AnalyzeAtCell(targetCell, kingdomManager.KingdomGrid);
-            //CellAnalysis.PrintAnalysisWithPercentages();
-            //TODO
         }
     }
 }

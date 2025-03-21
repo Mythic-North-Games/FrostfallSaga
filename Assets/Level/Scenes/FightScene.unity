@@ -515,7 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 985944592}
-  _fightManager: {fileID: 1678739252}
+  fightManager: {fileID: 0}
 --- !u!114 &985944595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,8 +730,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb0e5a37acdc104a9a2c026c99ab8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fightEndMenuController: {fileID: 793609179}
-  _sceneTransitioner: {fileID: 999864228}
+  fightEndMenuController: {fileID: 0}
+  sceneTransitioner: {fileID: 999864228}
 --- !u!1 &1597044135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,11 +1388,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 989a85e7f725cfd45966b24abe6da8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fightHexGrid: {fileID: 2056515858}
-  _devAlliesConfs:
-  - {fileID: 11400000, guid: d5746e71b0a5c65469ca2b997f19b595, type: 2}
-  _devEnemiesConfs:
-  - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
+  fightHexGrid: {fileID: 2056515858}
+  devAlliesConfs: []
+  devEnemiesConfs: []
 --- !u!1 &2015873280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,6 +1436,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: FightHexGrid
       objectReference: {fileID: 0}
+    - target: {fileID: 2124646453989874991, guid: 01e556993f221ac4fbda0ba65da88ddb, type: 3}
+      propertyPath: AnalysisDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d2f822effe2e1a4884a655273921a9d, type: 2}
+    - target: {fileID: 2124646453989874991, guid: 01e556993f221ac4fbda0ba65da88ddb, type: 3}
+      propertyPath: analysisDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d2f822effe2e1a4884a655273921a9d, type: 2}
     - target: {fileID: 6965603534334902354, guid: 01e556993f221ac4fbda0ba65da88ddb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

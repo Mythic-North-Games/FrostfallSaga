@@ -13,16 +13,32 @@ namespace FrostfallSaga.Grid
     {
         private static readonly Vector2Int[] DirectionsToCheckIfHeightOdd =
         {
-            new(1, 0), new(-1, 0),
-            new(1, 1), new(0, -1),
-            new(1, -1), new(0, 1)
+            new(1, 0), 
+            new(-1, 0),
+            new(1, 1), 
+            new(0, -1),
+            new(1, -1), 
+            new(0, 1)
         };
 
         private static readonly Vector2Int[] DirectionsToCheckIfHeightEven =
         {
-            new(1, 0), new(-1, 0),
-            new(0, 1), new(-1, -1),
-            new(0, -1), new(-1, 1)
+            new(1, 0), 
+            new(-1, 0),
+            new(0, 1), 
+            new(-1, -1),
+            new(0, -1), 
+            new(-1, 1)
+        };
+        
+        private static readonly Vector2Int[] DirectionsToClock =
+        {
+            new(-1, 0), // WEST
+            new(-1, 1), // NORTHWEST
+            new(0, 1), // NORTHEAST
+            new(1, 0), // EAST
+            new(1, -1), // SOUTHEAST
+            new(0, -1) // SOUTHWEST
         };
 
         /// <summary>
@@ -69,6 +85,28 @@ namespace FrostfallSaga.Grid
             }
 
             return neighbors.ToArray();
+        }
+        
+        /// <summary>
+        ///     Compute and returns the current cell neighbors in a fixed array of 6 elements, ordered as:
+        ///     Left -> Top Left -> Top Right -> Right -> Bottom Right -> Bottom Left.
+        ///     If a neighbor does not exist, the corresponding index will be null.
+        /// </summary>
+        /// <param name="hexGrid">The grid the current cell is considered inside.</param>
+        /// <param name="cell">The cell to get the neighbors from.</param>
+        /// <returns>A fixed array of 6 neighbors, with null for missing neighbors.</returns>
+        public static Cell[] GetNeighborsInClockwiseOrder(AHexGrid hexGrid, Cell cell)
+        {
+            Cell[] orderedNeighbors = new Cell[6];
+            Dictionary<Vector2Int, Cell> cellsByCoordinates = hexGrid.Cells;
+
+            for (int i = 0; i < 6; i++)
+            {
+                Vector2Int neighborCoord = cell.Coordinates + DirectionsToClock[i];
+                orderedNeighbors[i] = cellsByCoordinates.GetValueOrDefault(neighborCoord);
+            }
+
+            return orderedNeighbors;
         }
 
         /// <summary>

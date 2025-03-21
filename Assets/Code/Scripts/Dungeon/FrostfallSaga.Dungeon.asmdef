@@ -3,7 +3,8 @@
   "rootNamespace": "FrostfallSaga.Dungeon",
   "references": [
     "FrostfallSaga.Core",
-    "FrostfallSaga.Utils"
+    "FrostfallSaga.Utils",
+    "FrostfallSaga.Grid"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

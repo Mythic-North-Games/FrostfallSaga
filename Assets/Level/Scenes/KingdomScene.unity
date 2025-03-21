@@ -248,8 +248,8 @@ MonoBehaviour:
   <MaxNoSpawnInARow>k__BackingField: 0
   <MaxEntitiesGroupsOnMap>k__BackingField: 3
   <BaseGroupName>k__BackingField: EnemiesGroup
-  grid: {fileID: 0}
-  kingdomLoader: {fileID: 0}
+  grid: {fileID: 742855832}
+  kingdomLoader: {fileID: 483864513}
 --- !u!1 &125306505
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a337116156b60604b92b6cfc653c9566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiAudioClipsConfig: {fileID: 0}
+  uiAudioClipsConfig: {fileID: 11400000, guid: aef339ccaf3b4d5418f6a13c4eb33e47, type: 2}
   audioSourceObject: {fileID: 4094540750882597515, guid: b034ff1c05b1ef24fb9925f182960e04, type: 3}
 --- !u!4 &125306507
 Transform:
@@ -796,14 +796,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <Width>k__BackingField
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <Height>k__BackingField
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <InterestPoints>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
+      propertyPath: <AvailableBiomes>k__BackingField.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
@@ -814,6 +818,14 @@ PrefabInstance:
       propertyPath: <InterestPoints>k__BackingField.Array.data[1]
       value: 
       objectReference: {fileID: 1579975777369734056, guid: 93ef8c6f4f6efe146957172931db7402, type: 3}
+    - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
+      propertyPath: <AvailableBiomes>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9083c3a2086937d4db46edaace4ef140, type: 2}
+    - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
+      propertyPath: <AvailableBiomes>k__BackingField.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 62807aa1d0cd21844b1e3eef85934555, type: 2}
     - target: {fileID: 7303458109779293058, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: m_Name
       value: KingdomHexGrid
@@ -1232,7 +1244,7 @@ MonoBehaviour:
   kingdomManager: {fileID: 899991118}
   sceneTransitioner: {fileID: 26075752}
   readyToFightAnimationDuration: 2
-  delayBeforeLoadingSceneAfterReadyAnimation: 10
+  delayBeforeLoadingSceneAfterReadyAnimation: 1
 --- !u!1 &1449699357
 GameObject:
   m_ObjectHideFlags: 3
