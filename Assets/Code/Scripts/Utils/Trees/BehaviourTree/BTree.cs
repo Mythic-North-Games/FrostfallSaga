@@ -1,13 +1,13 @@
 namespace FrostfallSaga.Utils.Trees.BehaviourTree
 {
     /// <summary>
-    /// Base class for any behaviour tree.
-    /// This class is intended to be inherited from and the SetupTree method should be overridden to define the tree.
-    /// If not overriden by a child class, the `Execute` method will launch one evaluation of the tree.
+    ///     Base class for any behaviour tree.
+    ///     This class is intended to be inherited from and the SetupTree method should be overridden to define the tree.
+    ///     If not overriden by a child class, the `Execute` method will launch one evaluation of the tree.
     /// </summary>
     public abstract class BTree
     {
-        protected Node _root = null;
+        protected Node _root;
 
         public BTree()
         {
@@ -15,7 +15,7 @@ namespace FrostfallSaga.Utils.Trees.BehaviourTree
         }
 
         /// <summary>
-        /// Executes the tree once and returns if it succeeded or not.
+        ///     Executes the tree once and returns if it succeeded or not.
         /// </summary>
         /// <returns>True if the tree succeeded, false otherwise.</returns>
         public virtual bool Execute()
@@ -26,7 +26,7 @@ namespace FrostfallSaga.Utils.Trees.BehaviourTree
         }
 
         /// <summary>
-        /// Override this method to define the tree structure.
+        ///     Override this method to define the tree structure.
         /// </summary>
         /// <returns>The root node of the entire tree.</returns>
         protected abstract Node SetupTree();

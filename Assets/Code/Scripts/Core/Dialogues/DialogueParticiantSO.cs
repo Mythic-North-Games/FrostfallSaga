@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace FrostfallSaga.Core.Dialogues
 {
-    [CreateAssetMenu(fileName = "DialogueParticipant", menuName = "ScriptableObjects/Dialogues/DialogueParticipant", order = 0)]
+    [CreateAssetMenu(fileName = "DialogueParticipant", menuName = "ScriptableObjects/Dialogues/DialogueParticipant",
+        order = 0)]
     public class DialogueParticipantSO : ScriptableObject
     {
         [field: SerializeField] public string Name { get; private set; }

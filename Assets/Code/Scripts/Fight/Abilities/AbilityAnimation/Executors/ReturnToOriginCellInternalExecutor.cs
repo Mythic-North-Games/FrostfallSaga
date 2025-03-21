@@ -1,19 +1,18 @@
 using System;
 using System.Collections;
-using UnityEngine;
-using FrostfallSaga.Grid.Cells;
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Grid.Cells;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
-
     [Serializable]
     public class ReturnToOriginCellInternalExecutor : AInternalAbilityAnimationExecutor
     {
         private FightCell[] _abilityTargetCells;
-        private string _animationStateNameToTrigger;
         private float _animationDuration;
+        private string _animationStateNameToTrigger;
         private int _currentExecutionCellIndex;
 
         public override void Execute(

@@ -1,5 +1,5 @@
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Fighters;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
@@ -15,7 +15,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
         [SerializeReference] public AExternalAbilityAnimationExecutor Executor;
 
         /// <summary>
-        /// Executes the external ability animation as configured.
+        ///     Executes the external ability animation as configured.
         /// </summary>
         public override void Execute(Fighter fighterThatWillExecute, FightCell[] abilityTargetCells)
         {

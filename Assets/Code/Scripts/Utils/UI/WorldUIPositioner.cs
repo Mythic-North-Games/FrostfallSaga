@@ -1,20 +1,25 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-
 namespace FrostfallSaga.Utils.UI
 {
     /// <summary>
-    /// Class that attaches a UI element to a game object in the world.
+    ///     Class that attaches a UI element to a game object in the world.
     /// </summary>
     public class WorldUIPositioner : MonoBehaviour
     {
-        private IPanel _displayPanel;
-        private VisualElement _elementToAttach;
         private Transform _anchor;
         private bool _centerOnX;
         private bool _centerOnY;
+        private IPanel _displayPanel;
+        private VisualElement _elementToAttach;
         private Vector2 _offset;
+
+        private void Update()
+        {
+            if (_elementToAttach == null || _anchor == null) return;
+            _elementToAttach.transform.position = ComputeDisplayPosition();
+        }
 
         public void Setup(
             UIDocument documentToDisplayOn,
@@ -31,15 +36,6 @@ namespace FrostfallSaga.Utils.UI
             _centerOnX = centerOnX;
             _centerOnY = centerOnY;
             _offset = offset;
-        }
-
-        private void Update()
-        {
-            if (_elementToAttach == null || _anchor == null)
-            {
-                return;
-            }
-            _elementToAttach.transform.position = ComputeDisplayPosition();
         }
 
         private Vector2 ComputeDisplayPosition()

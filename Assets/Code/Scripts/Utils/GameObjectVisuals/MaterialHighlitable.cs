@@ -3,7 +3,7 @@ using UnityEngine;
 namespace FrostfallSaga.Utils.GameObjectVisuals
 {
     /// <summary>
-    /// Add the possibility to highlight the visual aspects of the element through materials.
+    ///     Add the possibility to highlight the visual aspects of the element through materials.
     /// </summary>
     [RequireComponent(typeof(MeshRenderer))]
     public class MaterialHighlightable : MonoBehaviour
@@ -12,7 +12,7 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
         [field: SerializeField] public Material CurrentDefaultMaterial { get; private set; }
 
         /// <summary>
-        /// Meant to be used only once during set up, sets the initial material of the element.
+        ///     Meant to be used only once during set up, sets the initial material of the element.
         /// </summary>
         /// <param name="initialMaterial">The initial material of the element that should not change after.</param>
         public void SetupInitialMaterial(Material initialMaterial)
@@ -21,8 +21,8 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
         }
 
         /// <summary>
-        /// Change the current default material to the one given.
-        /// The current default material is the material set when the element is not highlighted.
+        ///     Change the current default material to the one given.
+        ///     The current default material is the material set when the element is not highlighted.
         /// </summary>
         /// <param name="newDefaultMaterial">The new default material of the element.</param>
         public void UpdateCurrentDefaultMaterial(Material newDefaultMaterial)
@@ -31,7 +31,7 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
         }
 
         /// <summary>
-        /// Updates the current element's renderer material to highlight the element.
+        ///     Updates the current element's renderer material to highlight the element.
         /// </summary>
         /// <param name="highlightMaterial">The material to set.</param>
         public void Highlight(Material highlightMaterial)
@@ -40,7 +40,7 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
         }
 
         /// <summary>
-        /// Resets the element's renderer material to the current default material of the element.
+        ///     Resets the element's renderer material to the current default material of the element.
         /// </summary>
         public void ResetToDefaultMaterial()
         {
@@ -48,7 +48,7 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
         }
 
         /// <summary>
-        /// Resets the element's renderer material to the initial material of the element.
+        ///     Resets the element's renderer material to the initial material of the element.
         /// </summary>
         public void ResetToInitialMaterial()
         {

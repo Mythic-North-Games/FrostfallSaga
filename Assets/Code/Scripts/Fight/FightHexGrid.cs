@@ -11,7 +11,8 @@ namespace FrostfallSaga.Fight
         public override void GenerateGrid()
         {
             Debug.Log("Generate Grid...");
-            FightGridGenerator fightGridGenerator = new(_hexFightPrefab, Width, Height, AvailableBiomes, this.transform, NoiseScale, Seed);
+            FightGridGenerator fightGridGenerator =
+                new(_hexFightPrefab, Width, Height, AvailableBiomes, transform, NoiseScale, Seed);
             Cells = fightGridGenerator.GenerateGrid();
         }
 
@@ -26,6 +27,7 @@ namespace FrostfallSaga.Fight
         {
             _hexFightPrefab = Resources.Load<FightCell>("Prefabs/Grid/FightCell");
         }
+
         #endregion
     }
 }

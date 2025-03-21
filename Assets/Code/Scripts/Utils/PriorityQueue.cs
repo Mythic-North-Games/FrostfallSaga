@@ -6,19 +6,15 @@ namespace FrostfallSaga.Utils
 {
     public class PriorityQueue<T>
     {
-        private SortedList<float, Queue<T>> _elements = new SortedList<float, Queue<T>>();
-        private int _count = 0;
+        private readonly SortedList<float, Queue<T>> _elements = new();
 
-        public int Count => _count;
+        public int Count { get; private set; }
 
         public void Enqueue(T item, float priority)
         {
-            if (!_elements.ContainsKey(priority))
-            {
-                _elements[priority] = new Queue<T>();
-            }
+            if (!_elements.ContainsKey(priority)) _elements[priority] = new Queue<T>();
             _elements[priority].Enqueue(item);
-            _count++;
+            Count++;
         }
 
         public T Dequeue()
@@ -26,13 +22,10 @@ namespace FrostfallSaga.Utils
             if (_elements.Count == 0)
                 throw new InvalidOperationException("The priority queue is empty.");
 
-            var firstPair = _elements.First();
-            var item = firstPair.Value.Dequeue();
-            if (firstPair.Value.Count == 0)
-            {
-                _elements.Remove(firstPair.Key);
-            }
-            _count--;
+            KeyValuePair<float, Queue<T>> firstPair = _elements.First();
+            T item = firstPair.Value.Dequeue();
+            if (firstPair.Value.Count == 0) _elements.Remove(firstPair.Key);
+            Count--;
             return item;
         }
     }

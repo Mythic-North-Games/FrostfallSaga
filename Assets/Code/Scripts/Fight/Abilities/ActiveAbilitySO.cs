@@ -1,26 +1,32 @@
 using System;
 using System.Linq;
-using UnityEngine;
 using FrostfallSaga.Core.Fight;
-using FrostfallSaga.Fight.Targeters;
-using FrostfallSaga.Fight.Effects;
-using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.FightCells.FightCellAlterations;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
+using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.FightCells;
-
+using FrostfallSaga.Fight.FightCells.FightCellAlterations;
+using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Targeters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities
 {
     /// <summary>
-    /// Reperesents an active ability that can be used during a fight.
+    ///     Reperesents an active ability that can be used during a fight.
     /// </summary>
     [CreateAssetMenu(fileName = "ActiveAbility", menuName = "ScriptableObjects/Fight/Abilities/ActiveAbility", order = 0)]
     public class ActiveAbilitySO : ABaseAbility
     {
         [field: SerializeField] public Targeter Targeter { get; private set; }
-        [field: SerializeField, Range(0, 99)] public int ActionPointsCost { get; private set; }
-        [field: SerializeField, Range(0, 99)] public int GodFavorsPointsCost { get; private set; }
+
+        [field: SerializeField]
+        [field: Range(0, 99)]
+        public int ActionPointsCost { get; private set; }
+
+        [field: SerializeField]
+        [field: Range(0, 99)]
+        public int GodFavorsPointsCost { get; private set; }
+
         [field: SerializeField] public bool Dodgable { get; private set; }
         [field: SerializeField] public bool Masterstrokable { get; private set; }
         [SerializeReference] public AEffect[] Effects;
@@ -28,9 +34,9 @@ namespace FrostfallSaga.Fight.Abilities
         [SerializeReference] public AFightCellAlteration[] CellAlterations = { };
         [field: SerializeField] public AAbilityAnimationSO Animation { get; private set; }
 
-        public Action<ActiveAbilitySO> onActiveAbilityEnded;
-
         private Fighter _currentInitiator;
+
+        public Action<ActiveAbilitySO> OnActiveAbilityEnded;
 
         /// <summary>
         /// Trigger the ability on the targeted cells.
@@ -50,7 +56,7 @@ namespace FrostfallSaga.Fight.Abilities
                             ApplyAlterationsToCell(cell);
                         }
                     );
-                onActiveAbilityEnded?.Invoke(this);
+                OnActiveAbilityEnded?.Invoke(this);
             }
             else
             {
@@ -105,7 +111,7 @@ namespace FrostfallSaga.Fight.Abilities
             Animation.onFighterTouched -= OnActiveAbilityTouchedFighter;
             Animation.onCellTouched -= OnActiveAbilityTouchedCell;
             Animation.onAnimationEnded -= OnActiveAbilityAnimationEnded;
-            onActiveAbilityEnded?.Invoke(this);
+            OnActiveAbilityEnded?.Invoke(this);
         }
 
         private void ApplyAbilityToFighter(Fighter receiver, Fighter initiator)
@@ -119,36 +125,28 @@ namespace FrostfallSaga.Fight.Abilities
 
             bool isMasterstroke = Masterstrokable && initiator.TryMasterstroke();
             foreach (AEffect effect in Effects)
-            {
                 effect.ApplyEffect(
-                    receiver: receiver,
-                    isMasterstroke: isMasterstroke,
-                    initiator: initiator,
-                    adjustGodFavorsPoints: true
+                    receiver,
+                    isMasterstroke,
+                    initiator
                 );
-            }
 
             if (isMasterstroke)
             {
                 Debug.Log($"{initiator.name} masterstrokes the ability {Name}");
                 foreach (AEffect effect in MasterstrokeEffects)
-                {
                     effect.ApplyEffect(
-                        receiver: receiver,
-                        isMasterstroke: false,  // Masterstroke effects can't be masterstroked
-                        initiator: initiator,
-                        adjustGodFavorsPoints: false
+                        receiver,
+                        false, // Masterstroke effects can't be masterstroked
+                        initiator,
+                        false
                     );
-                }
             }
         }
 
         private void ApplyAlterationsToCell(FightCell cell)
         {
-            foreach (AFightCellAlteration alteration in CellAlterations)
-            {
-                alteration.Apply(cell);
-            }
+            foreach (AFightCellAlteration alteration in CellAlterations) alteration.Apply(cell);
         }
     }
 

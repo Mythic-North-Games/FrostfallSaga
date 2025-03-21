@@ -1,6 +1,6 @@
-using UnityEditor;
 using FrostfallSaga.Utils.Editor;
 using FrostfallSaga.Utils.GameObjectVisuals.GameObjectSpawnControllers;
+using UnityEditor;
 
 namespace FrostfallSaga.FFSEditor.GameObjectVisuals
 {

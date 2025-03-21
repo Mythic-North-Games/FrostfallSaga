@@ -1,7 +1,7 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Utils;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 {
@@ -27,14 +27,14 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
         {
             _previousHeight = cell.Height;
             cell.UpdateHeight(
-                Randomizer.GetRandomElementFromEnum<ECellHeight>(toExclude: new[] { cell.Height })
-            ,0);
+                Randomizer.GetRandomElementFromEnum(new[] { cell.Height })
+                , 0);
             onAlterationApplied?.Invoke(cell, this);
         }
 
         public override void Remove(FightCell cell)
         {
-            cell.UpdateHeight(_previousHeight,0);
+            cell.UpdateHeight(_previousHeight, 0);
             onAlterationRemoved?.Invoke(cell, this);
         }
     }

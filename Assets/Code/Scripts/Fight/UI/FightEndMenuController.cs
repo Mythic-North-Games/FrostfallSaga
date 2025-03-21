@@ -1,13 +1,13 @@
 using System;
-using UnityEngine;
-using UnityEngine.UIElements;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Utils.UI;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Fight.UI
 {
     /// <summary>
-    /// Responsible for controlling the fight end menu.
+    ///     Responsible for controlling the fight end menu.
     /// </summary>
     public class FightEndMenuController : BaseUIController
     {
@@ -15,9 +15,9 @@ namespace FrostfallSaga.Fight.UI
         private static readonly string ROUND_COUNT_LAEBL_UI_NAME = "RoundCountLabel";
         private static readonly string CONTINUE_BUTTON_UI_NAME = "ContinueButton";
 
-        public Action onContinueClicked;
-
         [SerializeField] private FightManager _fightManager;
+
+        public Action onContinueClicked;
 
         private void Start()
         {
@@ -34,12 +34,9 @@ namespace FrostfallSaga.Fight.UI
         private bool AlliesHaveWon(Fighter[] allies)
         {
             foreach (Fighter ally in allies)
-            {
                 if (ally.GetHealth() > 0)
-                {
                     return true;
-                }
-            }
+
             return false;
         }
 
@@ -53,21 +50,14 @@ namespace FrostfallSaga.Fight.UI
 
         private void Awake()
         {
-
-            if (_uiDoc == null)
-            {
-                _uiDoc = GetComponent<UIDocument>();
-            }
+            if (_uiDoc == null) _uiDoc = GetComponent<UIDocument>();
             if (_uiDoc == null)
             {
                 Debug.LogError("No UI Document to work with.");
                 return;
             }
 
-            if (_fightManager == null)
-            {
-                _fightManager = FindObjectOfType<FightManager>();
-            }
+            if (_fightManager == null) _fightManager = FindObjectOfType<FightManager>();
             if (_fightManager == null)
             {
                 Debug.LogError("No FightManager to work with. UI can't be updated dynamically.");
@@ -78,15 +68,11 @@ namespace FrostfallSaga.Fight.UI
 
             Button continueButton = _uiDoc.rootVisualElement.Q<Button>(CONTINUE_BUTTON_UI_NAME);
             continueButton.RegisterCallback<ClickEvent>(OnContinueButtonClicked);
-
         }
 
         private void Disable()
         {
-            if (_fightManager != null)
-            {
-                _fightManager.onFightEnded += OnFightEnded;
-            }
+            if (_fightManager != null) _fightManager.onFightEnded += OnFightEnded;
         }
 
         #endregion

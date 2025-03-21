@@ -1,14 +1,15 @@
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
-using FrostfallSaga.InventorySystem;
+using FrostfallSaga.Core.InventorySystem;
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Utils;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightItems
 {
@@ -21,7 +22,10 @@ namespace FrostfallSaga.Fight.FightItems
         [field: SerializeField] public int MaxPhysicalDamages { get; private set; }
         [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MinMagicalDamages { get; private set; }
         [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MaxMagicalDamages { get; private set; }
-        [field: SerializeField] public SElementToValue<EEntityRace, float>[] FightersStrengths { get; private set; } = {};
+
+        [field: SerializeField]
+        public SElementToValue<EEntityRace, float>[] FightersStrengths { get; private set; } = { };
+
         [SerializeReference] public List<AEffect> SpecialEffects;
         [field: SerializeField] public AAbilityAnimationSO AttackAnimation { get; private set; }
 
@@ -54,33 +58,23 @@ namespace FrostfallSaga.Fight.FightItems
         private int GetComputedPhysicalDamages(EEntityRace targetEntityID, bool atMax = false)
         {
             int finalDamages = GetRandomPhysicalDamagesInRange(atMax);
-            if (FightersStrengths == null || FightersStrengths.Length == 0)
-            {
-                return finalDamages;
-            }
+            if (FightersStrengths == null || FightersStrengths.Length == 0) return finalDamages;
 
-            Dictionary<EEntityRace, float> fightersStrength = SElementToValue<EEntityRace, float>.GetDictionaryFromArray(
-                FightersStrengths
-            );
+            Dictionary<EEntityRace, float> fightersStrength =
+                SElementToValue<EEntityRace, float>.GetDictionaryFromArray(
+                    FightersStrengths
+                );
 
             if (fightersStrength.Keys.Contains(targetEntityID))
-            {
                 finalDamages = (int)(fightersStrength[targetEntityID] * finalDamages);
-            }
             return finalDamages;
         }
 
         private int GetRandomPhysicalDamagesInRange(bool atMax = false)
         {
-            if (atMax)
-            {
-                return MaxPhysicalDamages;
-            }
+            if (atMax) return MaxPhysicalDamages;
 
-            if (MaxPhysicalDamages == 0)
-            {
-                return MinPhysicalDamages;
-            }
+            if (MaxPhysicalDamages == 0) return MinPhysicalDamages;
             return Randomizer.GetRandomIntBetween(MinPhysicalDamages, MaxPhysicalDamages);
         }
 
@@ -93,37 +87,37 @@ namespace FrostfallSaga.Fight.FightItems
             Dictionary<EMagicalElement, int> finalDamages = GetComputedMagicalDamages(targetEntityID, atMax);
             List<MagicalDamageEffect> magicalDamageEffects = new();
             foreach (EMagicalElement magicalElement in finalDamages.Keys)
-            {
                 magicalDamageEffects.Add(new MagicalDamageEffect(finalDamages[magicalElement], magicalElement));
-            }
             return magicalDamageEffects.ToArray();
         }
 
-        private Dictionary<EMagicalElement, int> GetComputedMagicalDamages(EEntityRace targetEntityID, bool atMax = false)
+        private Dictionary<EMagicalElement, int> GetComputedMagicalDamages(EEntityRace targetEntityID,
+            bool atMax = false)
         {
             Dictionary<EMagicalElement, int> finalDamages = GetRandomMagicalDamagesInRange(atMax);
-            Dictionary<EEntityRace, float> fightersStrength = SElementToValue<EEntityRace, float>.GetDictionaryFromArray(
-                FightersStrengths
-            );
+            Dictionary<EEntityRace, float> fightersStrength =
+                SElementToValue<EEntityRace, float>.GetDictionaryFromArray(
+                    FightersStrengths
+                );
 
             if (fightersStrength.Keys.Contains(targetEntityID))
-            {
                 foreach (EMagicalElement magicalElement in finalDamages.Keys)
-                {
-                    finalDamages[magicalElement] = (int)(fightersStrength[targetEntityID] * finalDamages[magicalElement]);
-                }
-            }
+                    finalDamages[magicalElement] =
+                        (int)(fightersStrength[targetEntityID] * finalDamages[magicalElement]);
+
             return finalDamages;
         }
 
         private Dictionary<EMagicalElement, int> GetRandomMagicalDamagesInRange(bool atMax = false)
         {
-            Dictionary<EMagicalElement, int> minMagicalDamages = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
-                MinMagicalDamages
-            );
-            Dictionary<EMagicalElement, int> maxMagicalDamages = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
-                MaxMagicalDamages
-            );
+            Dictionary<EMagicalElement, int> minMagicalDamages =
+                SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
+                    MinMagicalDamages
+                );
+            Dictionary<EMagicalElement, int> maxMagicalDamages =
+                SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
+                    MaxMagicalDamages
+                );
 
             Dictionary<EMagicalElement, int> finalMagicalDamages = new();
             foreach (EMagicalElement magicalElement in minMagicalDamages.Keys)
@@ -145,9 +139,59 @@ namespace FrostfallSaga.Fight.FightItems
                     Randomizer.GetRandomIntBetween(minMagicalDamages[magicalElement], maxMagicalDamages[magicalElement])
                 );
             }
+
             return finalMagicalDamages;
         }
 
         #endregion
+    
+        public override Dictionary<string, string> GetStatsUIData()
+        {
+            Dictionary<string, string> statsUIData = new()
+            {
+                { UIIcons.PHYSICAL_DAMAGE.GetIconResourceName(), $"[{MinPhysicalDamages}-{MaxPhysicalDamages}]" },
+                { UIIcons.RANGE.GetIconResourceName(), AttackTargeter.OriginCellRange.ToString() },
+                { UIIcons.ACTION_POINTS_COST.GetIconResourceName(), UseActionPointsCost.ToString() }
+            };
+            return statsUIData;
+        }
+
+        public override Dictionary<EMagicalElement, string> GetMagicalStatsUIData()
+        {
+            Dictionary<EMagicalElement, int> minMagicalDamages = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
+                MinMagicalDamages
+            );
+            Dictionary<EMagicalElement, int> maxMagicalDamages = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
+                MaxMagicalDamages
+            );
+
+            Dictionary<EMagicalElement, string> magicalDamagesUIData = new();
+            foreach (EMagicalElement magicalElement in minMagicalDamages.Keys)
+            {
+                magicalDamagesUIData.Add(
+                    magicalElement,
+                    $"[{minMagicalDamages[magicalElement]}-{maxMagicalDamages[magicalElement]}]"
+                );
+            }
+            return magicalDamagesUIData;
+        }
+
+        public override List<string> GetSpecialEffectsUIData()
+        {
+            List<string> specialEffectsUIData = new();
+            SpecialEffects.ForEach(effect => specialEffectsUIData.Add(effect.GetUIEffectDescription()));
+
+            Dictionary<EEntityRace, float> fightersStrengths = SElementToValue<EEntityRace, float>.GetDictionaryFromArray(
+                FightersStrengths
+            );
+            foreach (EEntityRace entityRace in fightersStrengths.Keys)
+            {
+                string sign = fightersStrengths[entityRace] > 0 ? "+" : "-";
+                int asPercentage = (int)((fightersStrengths[entityRace] - 1) * 100);
+                specialEffectsUIData.Add($"{sign}{asPercentage}% damages against {entityRace.ToUIString()}");
+            }
+
+            return specialEffectsUIData;
+        }
     }
 }

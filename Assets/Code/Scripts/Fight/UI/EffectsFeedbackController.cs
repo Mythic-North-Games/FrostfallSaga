@@ -1,12 +1,12 @@
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
+using System.Linq;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Camera;
 using FrostfallSaga.Utils.UI;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Fight.UI
 {
@@ -15,7 +15,9 @@ namespace FrostfallSaga.Fight.UI
         private static readonly string CONTAINER_UI_NAME = "EffectFeedbackContainer";
         private static readonly string EFFECT_LABEL_UI_NAME = "EffectFeedbackLabel";
 
-        [SerializeField, Header("UI options")] private VisualTreeAsset _effectsUIPanel;
+        [SerializeField] [Header("UI options")]
+        private VisualTreeAsset _effectsUIPanel;
+
         [SerializeField] private float _displayDuration = 2f;
         [SerializeField] private Vector2Int _displayMarginFromFighter = new(1, 1);
         [SerializeField] private string _damageStyleClass;
@@ -23,18 +25,30 @@ namespace FrostfallSaga.Fight.UI
         [SerializeField] private string _dodgeStyleClass;
         [SerializeField] private string _masterstrokeStyleClass;
         [SerializeField] private SElementToValue<EFighterMutableStat, Texture2D>[] _statIcons;
-        [SerializeField, Header("Needed components")] private FightLoader _fightLoader;
+
+        [SerializeField] [Header("Needed components")]
+        private FightLoader _fightLoader;
+
         [SerializeField] private CameraController _fightCameraController;
 
-        private Dictionary<Fighter, List<TemplateContainer>> _fighterEffectsPanel = new();
-        private Dictionary<TemplateContainer, WorldUIPositioner> _positioners = new();
-        private Dictionary<TemplateContainer, GameObject> _panelsAnchors = new();
+        private readonly Dictionary<Fighter, List<TemplateContainer>> _fighterEffectsPanel = new();
+        private readonly Dictionary<TemplateContainer, GameObject> _panelsAnchors = new();
+        private readonly Dictionary<TemplateContainer, WorldUIPositioner> _positioners = new();
+
+        #region Setup & teardown
+
+        private void Awake()
+        {
+            _fightLoader.OnFightLoaded += OnFightLoaded;
+        }
+
+        #endregion
 
         private void OnFightLoaded(Fighter[] allies, Fighter[] enemies)
         {
             foreach (Fighter fighter in allies.Concat(enemies))
             {
-                _fighterEffectsPanel.Add(fighter, new());
+                _fighterEffectsPanel.Add(fighter, new List<TemplateContainer>());
                 fighter.onDamageReceived += OnFighterReceivedDamages;
                 fighter.onHealReceived += OnFighterReceivedHeal;
                 fighter.onActionDodged += OnFighterDodged;
@@ -53,6 +67,7 @@ namespace FrostfallSaga.Fight.UI
             {
                 effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).text = $"{damageAmount}";
             }
+
             effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).AddToClassList(_damageStyleClass);
 
             _fighterEffectsPanel[receiver].ForEach(panel => StartCoroutine(DisplayWaitAndRemove(receiver, panel)));
@@ -71,6 +86,7 @@ namespace FrostfallSaga.Fight.UI
             {
                 effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).text = $"+{healAmount}";
             }
+
             effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).AddToClassList(_healStyleClass);
 
             _fighterEffectsPanel[receiver].ForEach(panel => StartCoroutine(DisplayWaitAndRemove(receiver, panel)));
@@ -152,7 +168,8 @@ namespace FrostfallSaga.Fight.UI
             return Camera.main.ScreenToWorldPoint(
                 new Vector3(
                     Random.Range(fighterScreenPosition.x - scaledMarginX, fighterScreenPosition.x + scaledMarginX),
-                    Screen.height - Random.Range(fighterScreenPosition.y - scaledMarginY, fighterScreenPosition.y + scaledMarginY),
+                    Screen.height - Random.Range(fighterScreenPosition.y - scaledMarginY,
+                        fighterScreenPosition.y + scaledMarginY),
                     fighterScreenPosition.z
                 )
             );
@@ -163,14 +180,5 @@ namespace FrostfallSaga.Fight.UI
             // Scale proportionally to the base FOV
             return _fightCameraController.BaseFOV / Camera.main.fieldOfView;
         }
-
-        #region Setup & teardown
-
-        private void Awake()
-        {
-            _fightLoader.onFightLoaded += OnFightLoaded;
-        }
-
-        #endregion
     }
 }

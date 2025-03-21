@@ -1,7 +1,7 @@
-using NUnit.Framework;
-using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using NUnit.Framework;
+using UnityEngine;
 
 namespace FrostfallSaga.EditModeTests.Grid.Cells
 {
@@ -26,35 +26,33 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         public void GetNeighbors_AllAccessible_InMiddle_Even_Test()
         {
             // Arrange
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 2)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(2, 2)],
-                grid.Cells[new(2, 3)],
-                grid.Cells[new(3, 3)],
-                grid.Cells[new(4, 2)],
-                grid.Cells[new(3, 1)],
-                grid.Cells[new(2, 1)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(3, 2)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(2, 2)],
+                grid.Cells[new Vector2Int(2, 3)],
+                grid.Cells[new Vector2Int(3, 3)],
+                grid.Cells[new Vector2Int(4, 2)],
+                grid.Cells[new Vector2Int(3, 1)],
+                grid.Cells[new Vector2Int(2, 1)]
             };
-            Debug.Log("Debug From Test : " + grid.ToString());
+            Debug.Log("Debug From Test : " + grid);
             // Act
             Cell[] actualNeighbors = CellsNeighbors.GetNeighbors(grid, cellToGetTheNeighborsFrom);
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
         public void GetNeighbors_AllAccessible_CornerBottomLeft_Even_Test()
         {
-            
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(0, 0)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(1, 0)],
-                grid.Cells[new(0, 1)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(0, 0)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(1, 0)],
+                grid.Cells[new Vector2Int(0, 1)]
             };
 
             // Act
@@ -62,42 +60,36 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
         public void GetNeighbors_AllAccessible_CornerBottomRight_Even_Test()
         {
-            
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(4, 0)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(4, 1)],
-                grid.Cells[new(3, 1)],
-                grid.Cells[new(3, 0)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(4, 0)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(4, 1)],
+                grid.Cells[new Vector2Int(3, 1)],
+                grid.Cells[new Vector2Int(3, 0)]
             };
 
             // Act
             Cell[] actualNeighbors = CellsNeighbors.GetNeighbors(grid, cellToGetTheNeighborsFrom);
 
             // Assert
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
         }
 
         [Test]
         public void GetNeighbors_AllAccessible_CornerTopLeft_Even_Test()
         {
-            
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(0, 4)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(1, 4)],
-                grid.Cells[new(0, 3)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(0, 4)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(1, 4)],
+                grid.Cells[new Vector2Int(0, 3)]
             };
 
             // Act
@@ -105,21 +97,18 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
         public void GetNeighbors_AllAccessible_CornerTopRight_Even_Test()
         {
-            
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(4, 4)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(4, 3)],
-                grid.Cells[new(3, 3)],
-                grid.Cells[new(3, 4)],
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(4, 4)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(4, 3)],
+                grid.Cells[new Vector2Int(3, 3)],
+                grid.Cells[new Vector2Int(3, 4)]
             };
 
             // Act
@@ -127,25 +116,24 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
         public void GetNeighbors_SomeInaccessible_Even_Test()
         {
-            
-            grid.Cells[new(2, 2)].Setup(new(2, 2), ECellHeight.LOW, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(3, 1)].Setup(new(3, 1), ECellHeight.LOW, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(2, 2)].Setup(new Vector2Int(2, 2), ECellHeight.LOW, 2f,
+                CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.LOW, 2f,
+                CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 2)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(2, 3)],
-                grid.Cells[new(3, 3)],
-                grid.Cells[new(4, 2)],
-                grid.Cells[new(2, 1)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(3, 2)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(2, 3)],
+                grid.Cells[new Vector2Int(3, 3)],
+                grid.Cells[new Vector2Int(4, 2)],
+                grid.Cells[new Vector2Int(2, 1)]
             };
 
             // Act
@@ -153,25 +141,24 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
         public void GetNeighbors_SomeHeightInaccessible_Even_Test()
         {
-            
-            grid.Cells[new(2, 2)].Setup(new(2, 2), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(3, 1)].Setup(new(3, 1), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(2, 2)].Setup(new Vector2Int(2, 2), ECellHeight.HIGH, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.HIGH, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 2)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(2, 3)],
-                grid.Cells[new(3, 3)],
-                grid.Cells[new(4, 2)],
-                grid.Cells[new(2, 1)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(3, 2)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(2, 3)],
+                grid.Cells[new Vector2Int(3, 3)],
+                grid.Cells[new Vector2Int(4, 2)],
+                grid.Cells[new Vector2Int(2, 1)]
             };
 
             // Act
@@ -179,27 +166,26 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
         public void GetNeighbors_LowHeightDifference_Even_Test()
         {
-            
-            grid.Cells[new(2, 2)].Setup(new(2, 2), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(3, 1)].Setup(new(3, 1), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(2, 2)].Setup(new Vector2Int(2, 2), ECellHeight.MEDIUM, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.MEDIUM, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 2)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(2, 2)],
-                grid.Cells[new(3, 1)],
-                grid.Cells[new(2, 3)],
-                grid.Cells[new(3, 3)],
-                grid.Cells[new(4, 2)],
-                grid.Cells[new(2, 1)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(3, 2)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(2, 2)],
+                grid.Cells[new Vector2Int(3, 1)],
+                grid.Cells[new Vector2Int(2, 3)],
+                grid.Cells[new Vector2Int(3, 3)],
+                grid.Cells[new Vector2Int(4, 2)],
+                grid.Cells[new Vector2Int(2, 1)]
             };
 
             // Act
@@ -207,24 +193,26 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
         public void GetNeighbors_Isolated_Even_Test()
         {
-            
-            grid.Cells[new(2, 2)].Setup(new(2, 2), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(3, 1)].Setup(new(3, 1), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(3, 3)].Setup(new(3, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(4, 2)].Setup(new(4, 2), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(2, 1)].Setup(new(2, 1), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(2, 2)].Setup(new Vector2Int(2, 2), ECellHeight.HIGH, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.HIGH, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.MEDIUM, 2f,
+                CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(3, 3)].Setup(new Vector2Int(3, 3), ECellHeight.MEDIUM, 2f,
+                CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(4, 2)].Setup(new Vector2Int(4, 2), ECellHeight.MEDIUM, 2f,
+                CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(2, 1)].Setup(new Vector2Int(2, 1), ECellHeight.MEDIUM, 2f,
+                CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 2)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(3, 2)];
             Cell[] expectedNeighbors = { };
 
             // Act
@@ -237,15 +225,15 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetNeighbors_AllAccessible_InMiddle_Odd_Test()
         {
-            
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(4, 3)],
-                grid.Cells[new(2, 3)],
-                grid.Cells[new(4, 4)],
-                grid.Cells[new(3, 2)],
-                grid.Cells[new(4, 2)],
-                grid.Cells[new(3, 4)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(3, 3)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(4, 3)],
+                grid.Cells[new Vector2Int(2, 3)],
+                grid.Cells[new Vector2Int(4, 4)],
+                grid.Cells[new Vector2Int(3, 2)],
+                grid.Cells[new Vector2Int(4, 2)],
+                grid.Cells[new Vector2Int(3, 4)]
             };
 
             // Act
@@ -253,10 +241,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
@@ -264,11 +249,12 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             AHexGrid grid = CommonTestsHelper.CreatePlainGridForTest(6, 6);
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(0, 5)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(0, 4)],
-                grid.Cells[new(1, 4)],
-                grid.Cells[new(1, 5)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(0, 5)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(0, 4)],
+                grid.Cells[new Vector2Int(1, 4)],
+                grid.Cells[new Vector2Int(1, 5)]
             };
 
             // Act
@@ -276,10 +262,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
@@ -287,10 +270,11 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         {
             // Arrange
             AHexGrid grid = CommonTestsHelper.CreatePlainGridForTest(5, 4);
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(4, 3)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(4, 2)],
-                grid.Cells[new(3, 3)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(4, 3)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(4, 2)],
+                grid.Cells[new Vector2Int(3, 3)]
             };
 
             // Act
@@ -298,25 +282,24 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
         public void GetNeighbors_SomeInaccessible_Odd_Test()
         {
-            
-            grid.Cells[new(4, 3)].Setup(new(4, 3), ECellHeight.LOW, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.LOW, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.LOW, 2f,
+                CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.LOW, 2f,
+                CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(4, 4)],
-                grid.Cells[new(3, 2)],
-                grid.Cells[new(4, 2)],
-                grid.Cells[new(3, 4)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(3, 3)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(4, 4)],
+                grid.Cells[new Vector2Int(3, 2)],
+                grid.Cells[new Vector2Int(4, 2)],
+                grid.Cells[new Vector2Int(3, 4)]
             };
 
             // Act
@@ -324,25 +307,24 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
         public void GetNeighbors_SomeHeightInaccessible_Odd_Test()
         {
-            
-            grid.Cells[new(4, 3)].Setup(new(4, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.HIGH, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.HIGH, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(4, 4)],
-                grid.Cells[new(3, 2)],
-                grid.Cells[new(4, 2)],
-                grid.Cells[new(3, 4)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(3, 3)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(4, 4)],
+                grid.Cells[new Vector2Int(3, 2)],
+                grid.Cells[new Vector2Int(4, 2)],
+                grid.Cells[new Vector2Int(3, 4)]
             };
 
             // Act
@@ -350,27 +332,26 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
         public void GetNeighbors_LowHeightDifference_Odd_Test()
         {
-            
-            grid.Cells[new(4, 3)].Setup(new(4, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.MEDIUM, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.MEDIUM, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(4, 3)],
-                grid.Cells[new(2, 3)],
-                grid.Cells[new(4, 4)],
-                grid.Cells[new(3, 2)],
-                grid.Cells[new(4, 2)],
-                grid.Cells[new(3, 4)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(3, 3)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(4, 3)],
+                grid.Cells[new Vector2Int(2, 3)],
+                grid.Cells[new Vector2Int(4, 4)],
+                grid.Cells[new Vector2Int(3, 2)],
+                grid.Cells[new Vector2Int(4, 2)],
+                grid.Cells[new Vector2Int(3, 4)]
             };
 
             // Act
@@ -378,25 +359,27 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
         public void GetNeighbors_Isolated_Odd_Test()
         {
-            
-            grid.Cells[new(4, 3)].Setup(new(4, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(4, 4)].Setup(new(4, 4), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(3, 2)].Setup(new(3, 2), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(4, 2)].Setup(new(4, 2), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(3, 4)].Setup(new(3, 4), ECellHeight.MEDIUM, 2f, CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.HIGH, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.HIGH, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(4, 4)].Setup(new Vector2Int(4, 4), ECellHeight.MEDIUM, 2f,
+                CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(3, 2)].Setup(new Vector2Int(3, 2), ECellHeight.MEDIUM, 2f,
+                CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(4, 2)].Setup(new Vector2Int(4, 2), ECellHeight.MEDIUM, 2f,
+                CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(3, 4)].Setup(new Vector2Int(3, 4), ECellHeight.MEDIUM, 2f,
+                CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
 
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(3, 3)];
             Cell[] expectedNeighbors = { };
 
             // Act
@@ -409,18 +392,20 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetNeighbors_IncludeInaccessible_Test()
         {
-            
-            grid.Cells[new(4, 3)].Setup(new(4, 3), ECellHeight.LOW, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.LOW, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.LOW, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.LOW, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(4, 3)],
-                grid.Cells[new(2, 3)],
-                grid.Cells[new(4, 4)],
-                grid.Cells[new(3, 2)],
-                grid.Cells[new(4, 2)],
-                grid.Cells[new(3, 4)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(3, 3)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(4, 3)],
+                grid.Cells[new Vector2Int(2, 3)],
+                grid.Cells[new Vector2Int(4, 4)],
+                grid.Cells[new Vector2Int(3, 2)],
+                grid.Cells[new Vector2Int(4, 2)],
+                grid.Cells[new Vector2Int(3, 4)]
             };
 
             // Act
@@ -428,27 +413,26 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
         public void GetNeighbors_IncludeHeightInaccessible_Test()
         {
-            
-            grid.Cells[new(4, 3)].Setup(new(4, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.HIGH, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.HIGH, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(4, 3)],
-                grid.Cells[new(2, 3)],
-                grid.Cells[new(4, 4)],
-                grid.Cells[new(3, 2)],
-                grid.Cells[new(4, 2)],
-                grid.Cells[new(3, 4)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(3, 3)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(4, 3)],
+                grid.Cells[new Vector2Int(2, 3)],
+                grid.Cells[new Vector2Int(4, 4)],
+                grid.Cells[new Vector2Int(3, 2)],
+                grid.Cells[new Vector2Int(4, 2)],
+                grid.Cells[new Vector2Int(3, 4)]
             };
 
             // Act
@@ -456,27 +440,26 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
 
         [Test]
         public void GetNeighbors_IncludeHeightInaccessibleAndInaccessible_Test()
         {
-            
-            grid.Cells[new(4, 3)].Setup(new(4, 3), ECellHeight.HIGH, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new(2, 3)].Setup(new(2, 3), ECellHeight.MEDIUM, 2f, CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.HIGH, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
+            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.MEDIUM, 2f,
+                CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
-            Cell cellToGetTheNeighborsFrom = grid.Cells[new(3, 3)];
-            Cell[] expectedNeighbors = {
-                grid.Cells[new(4, 3)],
-                grid.Cells[new(2, 3)],
-                grid.Cells[new(4, 4)],
-                grid.Cells[new(3, 2)],
-                grid.Cells[new(4, 2)],
-                grid.Cells[new(3, 4)]
+            Cell cellToGetTheNeighborsFrom = grid.Cells[new Vector2Int(3, 3)];
+            Cell[] expectedNeighbors =
+            {
+                grid.Cells[new Vector2Int(4, 3)],
+                grid.Cells[new Vector2Int(2, 3)],
+                grid.Cells[new Vector2Int(4, 4)],
+                grid.Cells[new Vector2Int(3, 2)],
+                grid.Cells[new Vector2Int(4, 2)],
+                grid.Cells[new Vector2Int(3, 4)]
             };
 
             // Act
@@ -484,10 +467,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
 
             // Assert
             Assert.AreEqual(expectedNeighbors.Length, actualNeighbors.Length);
-            foreach (Cell actualNeighbor in actualNeighbors)
-            {
-                Assert.Contains(actualNeighbor, expectedNeighbors);
-            }
+            foreach (Cell actualNeighbor in actualNeighbors) Assert.Contains(actualNeighbor, expectedNeighbors);
         }
     }
 }

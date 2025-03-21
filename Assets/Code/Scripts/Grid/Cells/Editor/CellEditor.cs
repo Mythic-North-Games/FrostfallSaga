@@ -17,15 +17,12 @@ namespace FrostfallSaga.FFSEditor.Grid
 
             if (GUILayout.Button("Update High"))
             {
-                cell.UpdateHeight(cell.Height,0);
+                cell.UpdateHeight(cell.Height, 0);
             }
             else if (GUILayout.Button("Get Neighbors"))
             {
                 Cell[] cellList = CellsNeighbors.GetNeighbors(cell.GetComponentInParent<AHexGrid>(), cell);
-                foreach (var item in cellList)
-                {
-                    Debug.Log(item.transform.name);
-                }
+                foreach (Cell item in cellList) Debug.Log(item.transform.name);
             }
         }
     }

@@ -1,12 +1,12 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.FightConditions
 {
     /// <summary>
-    /// Check if all of the fighter allies are dead.
+    ///     Check if all of the fighter allies are dead.
     /// </summary>
     [Serializable]
     public class AllAlliesDeadCondition : AFighterCondition

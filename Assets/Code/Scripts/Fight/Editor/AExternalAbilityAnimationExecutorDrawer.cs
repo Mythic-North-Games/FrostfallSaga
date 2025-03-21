@@ -1,6 +1,6 @@
-using UnityEditor;
-using FrostfallSaga.Utils.Editor;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
+using FrostfallSaga.Utils.Editor;
+using UnityEditor;
 
 namespace FrostfallSaga.FFSEditor.GameObjectVisuals
 {

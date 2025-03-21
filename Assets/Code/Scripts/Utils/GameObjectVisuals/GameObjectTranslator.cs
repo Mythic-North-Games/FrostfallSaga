@@ -4,45 +4,24 @@ using UnityEngine;
 namespace FrostfallSaga.Utils.GameObjectVisuals
 {
     /// <summary>
-    /// Helper class to move an object around the world.
+    ///     Helper class to move an object around the world.
     /// </summary>
     public class GameObjectTranslator : MonoBehaviour
     {
-        public Action<Transform> onTargetLocationReached;
-        public Action<Transform> onTargetRotationReached;
+        private bool _isMoving;
+        private bool _isRotating;
 
         private Transform _objectToMove;
+        private float _rotationSpeed;
         private Vector3 _targetLocation;
         private Quaternion _targetRotation;
         private float _translationSpeed;
-        private float _rotationSpeed;
-        private bool _isMoving = false;
-        private bool _isRotating = false;
-
-        public void TranslateTo(Transform objectToMove, Vector3 targetLocation, float translationSpeed = 1f)
-        {
-            _objectToMove = objectToMove;
-            _targetLocation = targetLocation;
-            _translationSpeed = translationSpeed;
-            _isMoving = true;
-        }
-
-        public void TranslateAndFaceTo(Transform objectToMove, Vector3 targetLocation, float translationSpeed = 1f, float rotationSpeed = 1f)
-        {
-            _objectToMove = objectToMove;
-            _targetLocation = targetLocation;
-            _translationSpeed = translationSpeed;
-            _rotationSpeed = rotationSpeed;
-            _isMoving = true;
-            _isRotating = true;
-        }
+        public Action<Transform> onTargetLocationReached;
+        public Action<Transform> onTargetRotationReached;
 
         private void Update()
         {
-            if (!IsMovingOrRotating())
-            {
-                return;
-            }
+            if (!IsMovingOrRotating()) return;
 
             if (HasReachedTargetLocation())
             {
@@ -65,6 +44,25 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
             {
                 MakeObjectMoveTowardsTargetLocation();
             }
+        }
+
+        public void TranslateTo(Transform objectToMove, Vector3 targetLocation, float translationSpeed = 1f)
+        {
+            _objectToMove = objectToMove;
+            _targetLocation = targetLocation;
+            _translationSpeed = translationSpeed;
+            _isMoving = true;
+        }
+
+        public void TranslateAndFaceTo(Transform objectToMove, Vector3 targetLocation, float translationSpeed = 1f,
+            float rotationSpeed = 1f)
+        {
+            _objectToMove = objectToMove;
+            _targetLocation = targetLocation;
+            _translationSpeed = translationSpeed;
+            _rotationSpeed = rotationSpeed;
+            _isMoving = true;
+            _isRotating = true;
         }
 
         private void MakeObjectMoveTowardsTargetLocation()

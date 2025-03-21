@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace FrostfallSaga.Utils
 {
     [Serializable]
@@ -19,10 +18,8 @@ namespace FrostfallSaga.Utils
         public static Dictionary<T, U> GetDictionaryFromArray(SElementToValue<T, U>[] elementToValues)
         {
             Dictionary<T, U> dictionary = new();
-            foreach (var magicalElementToValue in elementToValues)
-            {
+            foreach (SElementToValue<T, U> magicalElementToValue in elementToValues)
                 dictionary.Add(magicalElementToValue.element, magicalElementToValue.value);
-            }
             return dictionary;
         }
     }

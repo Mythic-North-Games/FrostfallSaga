@@ -1,21 +1,30 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/DebugPannel/cmdButtonStyle.uss?fileID=7433441132597879392&amp;guid=b7dc9334d9640344794c769d5fd52018&amp;type=3#cmdButtonStyle" />
-    <ui:VisualElement style="flex-grow: 1; max-height: 30%; min-height: 30%; background-color: rgba(0, 0, 0, 0.59); border-bottom-width: 2px; border-bottom-color: rgb(0, 0, 0);">
-        <ui:Label tabindex="-1" text="Debug Pannel" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); -unity-text-align: upper-center; -unity-font-style: bold;" />
-        <ui:VisualElement name="headers" style="flex-grow: 1; flex-direction: row; max-height: 10%; min-height: 10%; align-items: auto; justify-content: space-around; margin-top: 1px; margin-bottom: 1px;">
-            <ui:Label tabindex="-1" text="Actions" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-items: stretch; max-width: 100px; min-width: 100px; -unity-text-align: upper-center; -unity-font-style: bold;" />
-            <ui:Label tabindex="-1" text="Commands" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; max-width: 100px; min-width: 100px; -unity-text-align: upper-center; -unity-font-style: bold;" />
-            <ui:Label tabindex="-1" text="Misc&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; max-width: 100px; min-width: 100px; -unity-text-align: upper-center; -unity-font-style: bold;" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/DebugPannel/cmdButtonStyle.uss?fileID=7433441132597879392&amp;guid=b7dc9334d9640344794c769d5fd52018&amp;type=3#cmdButtonStyle"/>
+    <ui:VisualElement
+            style="flex-grow: 1; max-height: 30%; min-height: 30%; background-color: rgba(0, 0, 0, 0.59); border-bottom-width: 2px; border-bottom-color: rgb(0, 0, 0);">
+        <ui:Label tabindex="-1" text="Debug Pannel" parse-escape-sequences="true" display-tooltip-when-elided="true"
+                  style="color: rgb(255, 255, 255); -unity-text-align: upper-center; -unity-font-style: bold;"/>
+        <ui:VisualElement name="headers"
+                          style="flex-grow: 1; flex-direction: row; max-height: 10%; min-height: 10%; align-items: auto; justify-content: space-around; margin-top: 1px; margin-bottom: 1px;">
+            <ui:Label tabindex="-1" text="Actions" parse-escape-sequences="true" display-tooltip-when-elided="true"
+                      style="color: rgb(255, 255, 255); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-items: stretch; max-width: 100px; min-width: 100px; -unity-text-align: upper-center; -unity-font-style: bold;"/>
+            <ui:Label tabindex="-1" text="Commands" parse-escape-sequences="true" display-tooltip-when-elided="true"
+                      style="color: rgb(255, 255, 255); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; max-width: 100px; min-width: 100px; -unity-text-align: upper-center; -unity-font-style: bold;"/>
+            <ui:Label tabindex="-1" text="Misc&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true"
+                      style="color: rgb(255, 255, 255); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; max-width: 100px; min-width: 100px; -unity-text-align: upper-center; -unity-font-style: bold;"/>
         </ui:VisualElement>
         <ui:VisualElement name="listsGroup" style="flex-grow: 1; flex-direction: row; justify-content: space-between;">
             <ui:VisualElement style="flex-grow: 1; max-height: 100%; min-height: 100%;">
-                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="ActionCmdList" style="max-height: 100%; min-height: 100%; height: auto;" />
+                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="ActionCmdList"
+                               style="max-height: 100%; min-height: 100%; height: auto;"/>
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; max-height: 100%; min-height: 100%;">
-                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="BaseCmdList" style="max-height: 100%; min-height: 100%;" />
+                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="BaseCmdList"
+                               style="max-height: 100%; min-height: 100%;"/>
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; max-height: 100%; min-height: 100%;">
-                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="MiscCmdList" style="max-height: 100%; min-height: 100%;" />
+                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="MiscCmdList"
+                               style="max-height: 100%; min-height: 100%;"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

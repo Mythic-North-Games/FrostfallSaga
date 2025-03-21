@@ -1,51 +1,51 @@
-using UnityEngine;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Kingdom.UI;
 using FrostfallSaga.Utils.Scenes;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
 {
     public class CityLoader : MonoBehaviour
     {
-        [SerializeField] private KingdomManager _kingdomManager;
-        [SerializeField] private EnterCityPanelController _enterCityPanelController;
-
-        private void OnCityEnterClicked(CityBuildingConfigurationSO cityBuildingConfiguration)
-        {
-            Debug.Log($"Saving kingdom state before loading city scene for {cityBuildingConfiguration.Name}.");
-            _kingdomManager.SaveKingdomState();
-
-            Debug.Log($"Saving city load data for {cityBuildingConfiguration.Name}.");
-            GameStateManager.Instance.SaveCityLoadData(cityBuildingConfiguration.InCityConfiguration);
-
-            Debug.Log($"Launching city scene...");
-            SceneTransitioner.Instance.FadeInToScene(EScenesName.CITY.ToSceneString());
-        }
+        [SerializeField] private KingdomManager kingdomManager;
+        [SerializeField] private EnterCityPanelController enterCityPanelController;
 
 
         #region Setup
+
         private void Awake()
         {
-            if (_enterCityPanelController == null)
+            if (enterCityPanelController == null)
             {
-                Debug.LogError("No enter EnterCityPanelController assigned to CityLoader. Won't be able to load city scene correctly.");
+                Debug.LogError(
+                    "No enter EnterCityPanelController assigned to CityLoader. Won't be able to load city scene correctly.");
                 return;
             }
 
-            if (_kingdomManager == null)
-            {
-                _kingdomManager = FindObjectOfType<KingdomManager>();
-            }
-            if (_kingdomManager == null)
+            if (kingdomManager == null) kingdomManager = FindObjectOfType<KingdomManager>();
+            if (kingdomManager == null)
             {
                 Debug.LogError("No KingdomManager found in scene. Won't be able to save kingdom state.");
                 return;
             }
 
-            _enterCityPanelController.onCityEnterClicked += OnCityEnterClicked;
+            enterCityPanelController.onCityEnterClicked += OnCityEnterClicked;
         }
+
         #endregion
+
+        private void OnCityEnterClicked(CityBuildingConfigurationSO cityBuildingConfiguration)
+        {
+            Debug.Log($"Saving kingdom state before loading city scene for {cityBuildingConfiguration.Name}.");
+            kingdomManager.SaveKingdomState();
+
+            Debug.Log($"Saving city load data for {cityBuildingConfiguration.Name}.");
+            GameStateManager.Instance.SaveCityLoadData(cityBuildingConfiguration.InCityConfiguration);
+
+            Debug.Log("Launching city scene...");
+            SceneTransitioner.Instance.FadeInToScene(EScenesName.CITY.ToSceneString());
+        }
     }
 }

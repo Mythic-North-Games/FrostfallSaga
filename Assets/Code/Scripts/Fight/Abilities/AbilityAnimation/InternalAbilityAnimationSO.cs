@@ -1,5 +1,5 @@
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Fighters;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
@@ -12,11 +12,15 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
     public class InternalAbilityAnimationSO : AAbilityAnimationSO
     {
         [field: SerializeField] public string AnimationStateName { get; private set; }
-        [field: SerializeField, Range(0f, 99f)] public float AnimationDuration { get; private set; }
+
+        [field: SerializeField]
+        [field: Range(0f, 99f)]
+        public float AnimationDuration { get; private set; }
+
         [SerializeReference] public AInternalAbilityAnimationExecutor Executor;
 
         /// <summary>
-        /// Executes the internal ability animation as configured.
+        ///     Executes the internal ability animation as configured.
         /// </summary>
         public override void Execute(Fighter fighterThatWillExecute, FightCell[] abilityTargetCells)
         {
@@ -25,7 +29,8 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
             Executor.onAnimationEnded += OnExecutorAnimationEnded;
 
             FighterCollider fighterWeaponCollider = fighterThatWillExecute.GetWeaponCollider();
-            Executor.Execute(fighterThatWillExecute, abilityTargetCells, AnimationStateName, AnimationDuration, fighterWeaponCollider);
+            Executor.Execute(fighterThatWillExecute, abilityTargetCells, AnimationStateName, AnimationDuration,
+                fighterWeaponCollider);
         }
 
         protected override void OnExecutorAnimationEnded(Fighter initiator)

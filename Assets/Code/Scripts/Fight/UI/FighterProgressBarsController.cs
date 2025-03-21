@@ -1,10 +1,10 @@
-using UnityEngine.UIElements;
 using FrostfallSaga.Fight.Fighters;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Fight.UI
 {
     /// <summary>
-    /// Controller for the fighter progress bars in the UI.
+    ///     Controller for the fighter progress bars in the UI.
     /// </summary>
     public class FighterProgressBarsController
     {

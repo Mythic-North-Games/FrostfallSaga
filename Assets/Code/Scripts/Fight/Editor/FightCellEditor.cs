@@ -1,6 +1,6 @@
+using FrostfallSaga.Fight.FightCells;
 using UnityEditor;
 using UnityEngine;
-using FrostfallSaga.Fight.FightCells;
 
 namespace FrostfallSaga.FFSEditor.Fight
 {
@@ -14,10 +14,7 @@ namespace FrostfallSaga.FFSEditor.Fight
 
             FightCell fightCell = (FightCell)target;
 
-            if (GUILayout.Button("Update High"))
-            {
-                fightCell.UpdateHeight(fightCell.Height,0);
-            }
+            if (GUILayout.Button("Update High")) fightCell.UpdateHeight(fightCell.Height, 0);
         }
     }
 }

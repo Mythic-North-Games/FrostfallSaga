@@ -2,6 +2,8 @@ using System;
 
 namespace FrostfallSaga.Utils
 {
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
-    public class RequiredAttribute : Attribute {}
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
+    public class RequiredAttribute : Attribute
+    {
+    }
 }

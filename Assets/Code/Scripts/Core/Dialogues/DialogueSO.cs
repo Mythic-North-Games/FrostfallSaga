@@ -1,5 +1,5 @@
-using UnityEngine;
 using FrostfallSaga.Utils.Trees;
+using UnityEngine;
 
 namespace FrostfallSaga.Core.Dialogues
 {
@@ -17,10 +17,8 @@ namespace FrostfallSaga.Core.Dialogues
         public void PrintContent()
         {
             Debug.Log($"{DialogueTreeRoot.GetData().Title}");
-            foreach(TreeNode<DialogueLine> child in DialogueTreeRoot.GetChildren())
-            {
+            foreach (TreeNode<DialogueLine> child in DialogueTreeRoot.GetChildren())
                 Debug.Log($"{child.GetData().Title}");
-            }
         }
     }
 }
