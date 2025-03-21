@@ -1,4 +1,5 @@
-﻿using FrostfallSaga.Utils;
+﻿using UnityEngine;
+using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Trees;
 using FrostfallSaga.Core.Dialogues;
 
