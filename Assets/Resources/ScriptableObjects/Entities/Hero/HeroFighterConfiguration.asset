@@ -62,6 +62,7 @@ MonoBehaviour:
   <IncreaseStatAnimationName>k__BackingField: 
   <EquipedActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+  - {fileID: 11400000, guid: 5f043d044d913ad4682a195b63aa9106, type: 2}
   <EquipedPassiveAbilities>k__BackingField: []
   <Inventory>k__BackingField:
     <WeaponSlot>k__BackingField:
@@ -161,4 +162,5 @@ MonoBehaviour:
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
-  <Health>k__BackingField: 60
+  <Health>k__BackingField: 123
+  <UnlockedAbilities>k__BackingField: []

@@ -22,8 +22,9 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
             Executor.onFighterTouched += OnFighterTouched;
             Executor.onCellTouched += OnCellTouched;
             Executor.onAnimationEnded += OnExecutorAnimationEnded;
-
+            AbilityCameraFollow cameraFollow = FindObjectOfType<AbilityCameraFollow>();
             Executor.Execute(fighterThatWillExecute, abilityTargetCells, ProjectilePrefab);
+            cameraFollow.FollowAbility(abilityTargetCells[abilityTargetCells.Length-1].transform);
         }
 
         protected override void OnExecutorAnimationEnded(Fighter initiator)
@@ -32,6 +33,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
             Executor.onCellTouched -= OnCellTouched;
             Executor.onAnimationEnded -= OnExecutorAnimationEnded;
             base.OnExecutorAnimationEnded(initiator);
+            FindObjectOfType<AbilityCameraFollow>().StopFollowing();
         }
     }
 }
