@@ -233,8 +233,8 @@ namespace FrostfallSaga.Fight.Fighters
                                                     " does not have enough actions points to use its direct attack.");
 
             // Trigger the direct attack
-            onDirectAttackStarted?.Invoke(this);
             _stats.actionPoints -= Weapon.UseActionPointsCost;
+            onDirectAttackStarted?.Invoke(this);
             DirectAttackManager.onDirectAttackEnded += OnDirectAttackEnded;
             DirectAttackManager.DirectAttack(targetedCells.ToList());
         }
