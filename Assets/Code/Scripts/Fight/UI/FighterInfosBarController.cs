@@ -23,6 +23,7 @@ namespace FrostfallSaga.Fight.UI
         #endregion
 
         [SerializeField] private VisualTreeAsset _statusContainerTemplate;
+        [SerializeField] private FightManager _fightManager;
         [SerializeField] private FightLoader _fightLoader;
         [SerializeField] private FightersOrderTimelineController _timelineController;
         [SerializeField] private float _displayDurationOnAction = 2f;
@@ -116,6 +117,11 @@ namespace FrostfallSaga.Fight.UI
                 });
         }
 
+        private void OnFightEnded(Fighter[] _allies, Fighter[] _enemies)
+        {
+            _infosBarContainer.RemoveFromHierarchy();
+        }
+
         #region Setup
 
         private void Awake()
@@ -124,6 +130,13 @@ namespace FrostfallSaga.Fight.UI
             if (_uiDoc == null)
             {
                 Debug.LogError("No UI Document to work with.");
+                return;
+            }
+
+            if (_fightManager == null) _fightManager = FindObjectOfType<FightManager>();
+            if (_fightManager == null)
+            {
+                Debug.LogError("No FightManager to work with. UI can't be updated dynamically.");
                 return;
             }
 
@@ -147,6 +160,7 @@ namespace FrostfallSaga.Fight.UI
                 return;
             }
 
+            _fightManager.onFightEnded += OnFightEnded;
             _fightLoader.OnFightLoaded += OnFightLoaded;
             _timelineController.onFighterHovered += OnFighterHovered;
             _timelineController.onFighterUnhovered += OnFighterUnhovered;

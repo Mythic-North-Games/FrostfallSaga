@@ -82,7 +82,7 @@ namespace FrostfallSaga.Fight
             _playingFighter.StatusesManager.UpdateStatuses(EStatusTriggerTime.StartOfTurn);
 
             AFighterController controller = GetControllerForFighter(_playingFighter);
-            onFighterTurnBegan(_playingFighter, _allies.Contains(_playingFighter));
+            onFighterTurnBegan?.Invoke(_playingFighter, _allies.Contains(_playingFighter));
             controller.PlayTurn(_playingFighter);
         }
 
@@ -104,6 +104,9 @@ namespace FrostfallSaga.Fight
 
             // Update cells alterations
             UpdateFightGridCellsAlterations();
+
+            // Notify end of turn
+            onFighterTurnEnded?.Invoke(fighterThatPlayed, _allies.Contains(fighterThatPlayed));
 
             // Update turn order
             _fightersTurnOrder.RemoveAt(0);
@@ -139,7 +142,6 @@ namespace FrostfallSaga.Fight
 
             // Update order
             _fightersTurnOrder.Remove(fighterThatDied);
-            onFightersTurnOrderUpdated?.Invoke(_fightersTurnOrder.ToArray());
 
             // If suicide, end fight if needed, otherwise end fighter turn
             if (fighterThatDied == _playingFighter)
@@ -152,9 +154,14 @@ namespace FrostfallSaga.Fight
                 }
 
                 UpdateFightGridCellsAlterations();
+                onFighterTurnEnded?.Invoke(fighterThatDied, _allies.Contains(fighterThatDied));
+                onFightersTurnOrderUpdated?.Invoke(_fightersTurnOrder.ToArray());
                 PlayNextFighterTurn();
                 return;
             }
+
+            // Notify turn order update
+            onFightersTurnOrderUpdated?.Invoke(_fightersTurnOrder.ToArray());
 
             // Increase god favors points for the fighter that killed the other
             _playingFighter.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.KILL);

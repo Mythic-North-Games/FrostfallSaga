@@ -78,12 +78,6 @@ namespace FrostfallSaga.Fight.UI
                 characterUIController.onFighterHovered += fighter => onFighterHovered?.Invoke(fighter);
                 characterUIController.onFighterUnhovered += fighter => onFighterUnhovered?.Invoke(fighter);
 
-                // Remove the character container from the timeline content container when the fighter dies
-                fighter.onFighterDied += _ =>
-                {
-                    characterContainerRoot.RemoveFromHierarchy();
-                };
-
                 // Add the character container to the timeline content container
                 _timelineContentContainer.Add(characterContainerRoot);
             }

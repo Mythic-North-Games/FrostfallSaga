@@ -125,13 +125,16 @@ namespace FrostfallSaga.Fight.Abilities
 
             bool isMasterstroke = Masterstrokable && initiator.TryMasterstroke();
             foreach (AEffect effect in Effects)
+            {
                 effect.ApplyEffect(
                     receiver,
                     isMasterstroke,
                     initiator
                 );
+                if (receiver.IsDead()) break;
+            }
 
-            if (isMasterstroke)
+            if (isMasterstroke && !receiver.IsDead())
             {
                 Debug.Log($"{initiator.name} masterstrokes the ability {Name}");
                 foreach (AEffect effect in MasterstrokeEffects)
