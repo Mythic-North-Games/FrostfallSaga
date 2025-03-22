@@ -46,8 +46,11 @@ namespace FrostfallSaga.Fight.UI
 
         public void Hide()
         {
-            _hoveredFighter.onStatusApplied += OnFighterStatusUpdated;
-            _hoveredFighter.onStatusRemoved += OnFighterStatusUpdated;
+            if (_hoveredFighter != null)
+            {
+                _hoveredFighter.onStatusApplied -= OnFighterStatusUpdated;
+                _hoveredFighter.onStatusRemoved -= OnFighterStatusUpdated;
+            }
 
             _root.AddToClassList(RESISTANCES_STATS_CONTAINER_HIDDEN_CLASSNAME);
             _root.SetEnabled(false);

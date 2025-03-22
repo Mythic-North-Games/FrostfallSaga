@@ -55,8 +55,8 @@ namespace FrostfallSaga.Fight.UI
             fighter.onStatusRemoved += (_fighter, _status) => UpdateStatuses();
 
             // Setup hover events
-            _characterIconContainer.RegisterCallback<MouseEnterEvent>(_ => onFighterHovered?.Invoke(this));
-            _characterIconContainer.RegisterCallback<MouseLeaveEvent>(_ => onFighterUnhovered?.Invoke(this));
+            characterIcon.RegisterCallback<MouseEnterEvent>(_ => onFighterHovered?.Invoke(this));
+            characterIcon.RegisterCallback<MouseLeaveEvent>(_ => onFighterUnhovered?.Invoke(this));
         }
 
         private void UpdateHealth()
