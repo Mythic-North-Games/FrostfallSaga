@@ -1,5 +1,7 @@
 using FrostfallSaga.Core.UI;
+using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Statuses;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -29,6 +31,10 @@ namespace FrostfallSaga.Fight.UI
         private readonly Color _movementPointsProgressColor;
         private readonly Color _actionPointsProgressColor;
 
+        private Fighter _playingFighter;
+        private Fighter _mate1;
+        private Fighter _mate2;
+
         public TeamMatesPanelController(
             VisualElement root,
             Color movementPointsProgressColor,
@@ -54,38 +60,32 @@ namespace FrostfallSaga.Fight.UI
             _actionPointsProgressColor = actionPointsProgressColor;
         }
 
-        public void Setup(Fighter playingFighter, Fighter mate1 = null, Fighter mate2 = null)
+        public void Update(Fighter playingFighter, Fighter mate1 = null, Fighter mate2 = null)
         {
+            // Unregister previous fighter events for proper update
+            if (_playingFighter != null) UnregisterFightersEvents();
+
+            // Update current fighters
+            _playingFighter = playingFighter;
+            _mate1 = mate1;
+            _mate2 = mate2;
+
             // Set icons
-            _playingFighterIcon.style.backgroundImage = new(playingFighter.DiamondIcon);
-            _mate1Icon.style.backgroundImage = new(mate1 != null ? mate1.DiamondIcon : null);
+            _playingFighterIcon.style.backgroundImage = new(_playingFighter.DiamondIcon);
+            _mate1Icon.style.backgroundImage = new(_mate1 != null ? _mate1.DiamondIcon : null);
             _mate2Icon.style.backgroundImage = new(mate2 != null ? mate2.DiamondIcon : null);
 
             // Update playing fighter progress bars
-            UpdateLifeProgress(playingFighter, _playingFighterHealthProgressRoot, true);
-            UpdateMovementPointsProgress(playingFighter);
-            UpdateActionPointsProgress(playingFighter);
+            UpdateLifeProgress(_playingFighter, _playingFighterHealthProgressRoot, true);
+            UpdateMovementPointsProgress(_playingFighter);
+            UpdateActionPointsProgress(_playingFighter);
 
             // Update mate progress bars
-            UpdateLifeProgress(mate1, _mate1HealthProgressRoot, false);
+            UpdateLifeProgress(_mate1, _mate1HealthProgressRoot, false);
             UpdateLifeProgress(mate2, _mate2HealthProgressRoot, false);
 
-            // Register playing fighter events
-            RegisterPlayingFighterEvents(playingFighter);
-
-            // Register mate fighter events
-            if (mate1 != null)
-            {
-                mate1.onDamageReceived += (_, _, _) => {
-                    UpdateLifeProgress(mate1, _mate1HealthProgressRoot, false);
-                };
-                mate1.onHealReceived += (_, _, _) => UpdateLifeProgress(mate1, _mate1HealthProgressRoot, false);
-            }
-            if (mate2 != null)
-            {
-                mate2.onDamageReceived += (_, _, _) => UpdateLifeProgress(mate2, _mate2HealthProgressRoot, false);
-                mate2.onHealReceived += (_, _, _) => UpdateLifeProgress(mate2, _mate2HealthProgressRoot, false);
-            }
+            // Register fighter events to update progress bars during turn
+            RegisterFighterEvents();
         }
 
         private void UpdateLifeProgress(Fighter fighter, VisualElement progressRoot, bool displayLabel)
@@ -125,41 +125,116 @@ namespace FrostfallSaga.Fight.UI
             );
         }
 
-        private void RegisterPlayingFighterEvents(Fighter playingFighter)
+        private void OnPlayingFighterHealthChanged(Fighter playingFighter, int _value, bool _isMasterstroke)
         {
-            playingFighter.onDamageReceived += (_, _, _) => {
-                if (playingFighter.IsDead()) return;
-                UpdateLifeProgress(playingFighter, _playingFighterHealthProgressRoot, true);
-            };
-            playingFighter.onHealReceived += (_, _, _) => UpdateLifeProgress(playingFighter, _playingFighterHealthProgressRoot, true);
-            playingFighter.onActiveAbilityStarted += (_, _) => UpdateActionPointsProgress(playingFighter);
-            playingFighter.onDirectAttackEnded += (_) => UpdateActionPointsProgress(playingFighter);
-            playingFighter.onFighterMoved += (_) => UpdateMovementPointsProgress(playingFighter);
-            playingFighter.onNonMagicalStatMutated += (_, _, _) =>
-            {
-                UpdateMovementPointsProgress(playingFighter);
-                UpdateActionPointsProgress(playingFighter);
-            };
-            playingFighter.onPassiveAbilityApplied += (_, _) =>
-            {
-                UpdateMovementPointsProgress(playingFighter);
-                UpdateActionPointsProgress(playingFighter);
-            };
-            playingFighter.onPassiveAbilityRemoved += (_, _) =>
-            {
-                UpdateMovementPointsProgress(playingFighter);
-                UpdateActionPointsProgress(playingFighter);
-            };
-            playingFighter.onStatusApplied += (_, _) =>
-            {
-                UpdateMovementPointsProgress(playingFighter);
-                UpdateActionPointsProgress(playingFighter);
-            };
-            playingFighter.onStatusRemoved += (_, _) =>
-            {
-                UpdateMovementPointsProgress(playingFighter);
-                UpdateActionPointsProgress(playingFighter);
-            };
+            UpdateLifeProgress(_playingFighter, _playingFighterHealthProgressRoot, true);
         }
+
+        private void OnMateFighterHealthChanged(Fighter mateFighter, int _value, bool _isMasterstroke)
+        {
+            if (mateFighter == _mate1) UpdateLifeProgress(_mate1, _mate1HealthProgressRoot, false);
+            else if (mateFighter == _mate2) UpdateLifeProgress(_mate2, _mate2HealthProgressRoot, false);
+        }
+
+        private void OnPlayingFighterActiveAbilityStarted(Fighter playingFighter, ActiveAbilitySO ability)
+        {
+            UpdateActionPointsProgress(playingFighter);
+        }
+
+        private void OnPlayingFighterDirectAttackStarted(Fighter playingFighter)
+        {
+            UpdateActionPointsProgress(playingFighter);
+        }
+
+        private void OnPlayingFighterMoved(Fighter playingFighter)
+        {
+            UpdateMovementPointsProgress(playingFighter);
+        }
+
+        private void OnPlayingFighterNonMagicalStatMutated(
+            Fighter playingFighter,
+            EFighterMutableStat stat,
+            float value
+        )
+        {
+            UpdateMovementPointsProgress(playingFighter);
+            UpdateActionPointsProgress(playingFighter);
+        }
+
+        private void OnPlayingFighterPassiveAbilityChanged(Fighter playingFighter, PassiveAbilitySO ability)
+        {
+            UpdateMovementPointsProgress(playingFighter);
+            UpdateActionPointsProgress(playingFighter);
+        }
+
+        private void OnPlayingFighterStatusChanged(Fighter playingFighter, AStatus status)
+        {
+            UpdateMovementPointsProgress(playingFighter);
+            UpdateActionPointsProgress(playingFighter);
+        }
+
+        #region Fighter events registration
+        private void RegisterFighterEvents()
+        {
+            _playingFighter.onDamageReceived += OnPlayingFighterHealthChanged;
+            _playingFighter.onHealReceived += OnPlayingFighterHealthChanged;
+
+            _playingFighter.onActiveAbilityStarted += OnPlayingFighterActiveAbilityStarted;
+            _playingFighter.onDirectAttackStarted += OnPlayingFighterDirectAttackStarted;
+
+            _playingFighter.onFighterMoved += OnPlayingFighterMoved;
+
+            _playingFighter.onNonMagicalStatMutated += OnPlayingFighterNonMagicalStatMutated;
+
+            _playingFighter.onPassiveAbilityApplied += OnPlayingFighterPassiveAbilityChanged;
+            _playingFighter.onPassiveAbilityRemoved += OnPlayingFighterPassiveAbilityChanged;
+
+            _playingFighter.onStatusApplied += OnPlayingFighterStatusChanged;
+            _playingFighter.onStatusRemoved += OnPlayingFighterStatusChanged;
+
+            // Register mate fighter events
+            if (_mate1 != null)
+            {
+                _mate1.onDamageReceived += OnMateFighterHealthChanged;
+                _mate1.onHealReceived += OnMateFighterHealthChanged;
+            }
+            if (_mate2 != null)
+            {
+                _mate2.onDamageReceived += OnMateFighterHealthChanged;
+                _mate2.onHealReceived += OnMateFighterHealthChanged;
+            }
+        }
+
+        private void UnregisterFightersEvents()
+        {
+            _playingFighter.onDamageReceived -= OnPlayingFighterHealthChanged;
+            _playingFighter.onHealReceived -= OnPlayingFighterHealthChanged;
+
+            _playingFighter.onActiveAbilityStarted -= OnPlayingFighterActiveAbilityStarted;
+            _playingFighter.onDirectAttackStarted -= OnPlayingFighterDirectAttackStarted;
+
+            _playingFighter.onFighterMoved -= OnPlayingFighterMoved;
+
+            _playingFighter.onNonMagicalStatMutated -= OnPlayingFighterNonMagicalStatMutated;
+
+            _playingFighter.onPassiveAbilityApplied -= OnPlayingFighterPassiveAbilityChanged;
+            _playingFighter.onPassiveAbilityRemoved -= OnPlayingFighterPassiveAbilityChanged;
+
+            _playingFighter.onStatusApplied -= OnPlayingFighterStatusChanged;
+            _playingFighter.onStatusRemoved -= OnPlayingFighterStatusChanged;
+
+            // Unregister mate fighter events
+            if (_mate1 != null)
+            {
+                _mate1.onDamageReceived -= OnMateFighterHealthChanged;
+                _mate1.onHealReceived -= OnMateFighterHealthChanged;
+            }
+            if (_mate2 != null)
+            {
+                _mate2.onDamageReceived -= OnMateFighterHealthChanged;
+                _mate2.onHealReceived -= OnMateFighterHealthChanged;
+            }
+        }
+        #endregion
     }
 }

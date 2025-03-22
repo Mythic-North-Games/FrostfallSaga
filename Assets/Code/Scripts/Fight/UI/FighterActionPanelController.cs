@@ -79,6 +79,7 @@ namespace FrostfallSaga.Fight.UI
         private void OnFighterTurnEnded(Fighter playingFighter, bool isAlly)
         {
             if (!isAlly) return;
+            UnRegisterPlayingFighterEvents(playingFighter);
             Hide();
         }
 
@@ -90,7 +91,7 @@ namespace FrostfallSaga.Fight.UI
         private void SetupActionPanelForFighter(Fighter playingFighter)
         {
             Fighter[] teamMates = _fightManager.GetMatesOfFighter(playingFighter);
-            _teamMatesPanelController.Setup(
+            _teamMatesPanelController.Update(
                 playingFighter,
                 teamMates.ElementAtOrDefault(0),
                 teamMates.ElementAtOrDefault(1)
@@ -130,33 +131,64 @@ namespace FrostfallSaga.Fight.UI
             return _actionPanelRoot.ClassListContains(ACTION_PANEL_HIDDEN_CLASSNAME);
         }
 
+        private void OnPlayingFighterStatusesChanged(Fighter playingFighter, AStatus _status)
+        {
+            UpdateStatuses(playingFighter);
+        }
+
+        private void OnPlayingFighterActiveAbilitiesChanged(Fighter playingFighter, ActiveAbilitySO _ability)
+        {
+            _abilitiesBarController.UpdateAbilities(playingFighter);
+        }
+
+        private void OnPlayingFighterPassiveAbilitiesChanged(Fighter playingFighter, PassiveAbilitySO _ability)
+        {
+            UpdateStatuses(playingFighter);
+            _abilitiesBarController.UpdateAbilities(playingFighter);
+        }
+
+        private void OnPlayingFighterNonMagicalStatMutated(
+            Fighter playingFighter,
+            EFighterMutableStat _mutatedStat,
+            float _newValue
+        )
+        {
+            _abilitiesBarController.UpdateAbilities(playingFighter);
+        }
+
+        private void OnPlayingFighterDirectAttackEnded(Fighter playingFighter)
+        {
+            _abilitiesBarController.UpdateAbilities(playingFighter);
+        }
+
+        #region Playing fighter events registration
         private void RegisterPlayingFighterEvents(Fighter playingFighter)
         {
-            // Statuses events
-            playingFighter.onStatusApplied += (_fighter, _status) => {
-                UpdateStatuses(playingFighter);
-            };
-            playingFighter.onStatusRemoved += (_fighter, _status) => {
-                UpdateStatuses(playingFighter);
-            };
+            playingFighter.onStatusApplied += OnPlayingFighterStatusesChanged;
+            playingFighter.onStatusRemoved += OnPlayingFighterStatusesChanged;
 
-            // Abilities events
-            playingFighter.onActiveAbilityEnded += (_fighter, _ability) => {
-                if (playingFighter.IsDead()) return;    // Suicide ability ends after new turn so check the health 
-                _abilitiesBarController.UpdateAbilities(playingFighter);
-            };
-            playingFighter.onDirectAttackEnded += (_fighter) => _abilitiesBarController.UpdateAbilities(playingFighter);
-            playingFighter.onNonMagicalStatMutated += (_fighter, _mutatedStat, _newValue) => _abilitiesBarController.UpdateAbilities(playingFighter);
-            playingFighter.onPassiveAbilityApplied += (_fighter, _ability) =>
-            {
-                _abilitiesBarController.UpdateAbilities(playingFighter);
-                UpdateStatuses(playingFighter);
-            };
-            playingFighter.onPassiveAbilityRemoved += (_fighter, _ability) =>
-            {
-                _abilitiesBarController.UpdateAbilities(playingFighter);
-                UpdateStatuses(playingFighter);
-            };
+            playingFighter.onActiveAbilityEnded += OnPlayingFighterActiveAbilitiesChanged;
+            playingFighter.onDirectAttackEnded += OnPlayingFighterDirectAttackEnded;
+
+            playingFighter.onNonMagicalStatMutated += OnPlayingFighterNonMagicalStatMutated;
+
+            playingFighter.onPassiveAbilityApplied += OnPlayingFighterPassiveAbilitiesChanged;
+            playingFighter.onPassiveAbilityRemoved += OnPlayingFighterPassiveAbilitiesChanged;
         }
+
+        private void UnRegisterPlayingFighterEvents(Fighter playingFighter)
+        {
+            playingFighter.onStatusApplied -= OnPlayingFighterStatusesChanged;
+            playingFighter.onStatusRemoved -= OnPlayingFighterStatusesChanged;
+
+            playingFighter.onActiveAbilityEnded -= OnPlayingFighterActiveAbilitiesChanged;
+            playingFighter.onDirectAttackEnded -= OnPlayingFighterDirectAttackEnded;
+
+            playingFighter.onNonMagicalStatMutated -= OnPlayingFighterNonMagicalStatMutated;
+
+            playingFighter.onPassiveAbilityApplied -= OnPlayingFighterPassiveAbilitiesChanged;
+            playingFighter.onPassiveAbilityRemoved -= OnPlayingFighterPassiveAbilitiesChanged;
+        }
+        #endregion
     }
 }

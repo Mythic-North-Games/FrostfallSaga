@@ -22,8 +22,16 @@ namespace FrostfallSaga.Core.UI
             Color customColor = default
         )
         {
-            string valueLabel = displayValueLabel ? value.ToString() + (displayMaxValueLabel ? $" / {maxValue}" : "") : "";
-            root.Q<Label>(PROGRESS_BAR_LABEL_UI_NAME).text = valueLabel;
+            Label progressBarValueLabel = root.Q<Label>(PROGRESS_BAR_LABEL_UI_NAME);
+            if (displayValueLabel)
+            {
+                string valueLabelText = value.ToString() + (displayMaxValueLabel ? $" / {maxValue}" : "");
+                progressBarValueLabel.text = valueLabelText;
+            }
+            else if (progressBarValueLabel != null)
+            {
+                progressBarValueLabel.text = "";
+            }
 
             float progress = (float)value / maxValue * 100;
             if (invertProgress)
