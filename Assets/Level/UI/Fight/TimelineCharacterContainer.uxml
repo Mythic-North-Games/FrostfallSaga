@@ -1,14 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Template name="FighterResistancesPanel" src="project://database/Assets/Level/UI/Fight/FighterResistancesPanel.uxml?fileID=9197481963319205126&amp;guid=d00385b87258a224ab3b968089d24399&amp;type=3#FighterResistancesPanel" />
     <ui:Template name="StatusIconContainer" src="project://database/Assets/Level/UI/Fight/StatusIconContainer.uxml?fileID=9197481963319205126&amp;guid=e65bb5637e2f1d1eb92a395ee8971e67&amp;type=3#StatusIconContainer" />
     <Style src="project://database/Assets/Level/UI/Fight/FightScenePanel.uss?fileID=7433441132597879392&amp;guid=e5eb9d2bf6d4bff42afd0f1a4c723e76&amp;type=3#FightScenePanel" />
     <ui:VisualElement name="TimelineCharacterContainer" style="width: 100%; height: 100%; flex-direction: row; align-items: flex-start;">
-        <ui:Instance template="FighterResistancesPanel" name="FighterResistancesPanelRoot" class="fighterResistancesPanelRootDefault" />
         <ui:VisualElement name="TimelineCharacterStatusesContainer" style="flex-direction: row-reverse; flex-wrap: wrap; align-items: flex-start; justify-content: flex-start; width: 50%; height: 100%;">
             <ui:Instance template="StatusIconContainer" name="StatusIconContainerRoot" class="statusIconContainerRoot" />
         </ui:VisualElement>
-        <ui:VisualElement name="TimelineCharacterIconContainer" style="width: 50%; height: 100%;">
+        <ui:VisualElement name="TimelineCharacterContainer" style="width: 50%; height: 100%;">
             <ui:VisualElement name="TimelineCharacterIcon" style="width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Art/UI/Portraits/vikingSquarePortrait.jpeg?fileID=2800000&amp;guid=650560cad05210a4396e7d04c5ad61aa&amp;type=3#vikingSquarePortrait&quot;);" />
+            <ui:VisualElement name="ProgressBarFill" picking-mode="Ignore" style="position: absolute; width: 100%; height: 75%; background-color: rgba(125, 20, 20, 0.39); bottom: 0;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
