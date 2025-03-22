@@ -4,7 +4,7 @@
     <Style src="project://database/Assets/Level/UI/Fight/FightScenePanel.uss?fileID=7433441132597879392&amp;guid=e5eb9d2bf6d4bff42afd0f1a4c723e76&amp;type=3#FightScenePanel" />
     <ui:VisualElement name="FighterInfosBarContainer" style="width: 100%; height: 100%; justify-content: flex-start;">
         <ui:Label tabindex="-1" text="Wolf" parse-escape-sequences="true" display-tooltip-when-elided="true" name="FighterNameLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 100%; -unity-text-align: middle-center; text-overflow: ellipsis; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 34px; color: rgb(225, 225, 225); position: absolute; top: -40%;" />
-        <ui:Instance template="ProgressBar" name="LifeBar" style="width: 100%; height: 33%;" />
+        <ui:Instance template="ProgressBar" name="LifeBar" style="width: 100%; height: 25%;" />
         <ui:VisualElement name="StatusesBar" style="width: 100%; flex-direction: row; align-items: flex-start; padding-top: 1%; padding-left: 1%; padding-right: 1%; padding-bottom: 1%; height: 45%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
             <ui:Instance template="StatusIconContainer" name="StatusIconContainerRoot" class="fighterInfoBarStatusIconContainerRoot" />
             <ui:Instance template="StatusIconContainer" name="StatusIconContainerRoot" class="fighterInfoBarStatusIconContainerRoot" />

@@ -44,6 +44,7 @@ namespace FrostfallSaga.Fight.Controllers
             _cellActionableHighlightMaterial = cellActionableHighlightMaterial;
             _cellInaccessibleHighlightMaterial = cellInaccessibleHighlightMaterial;
 
+            BindUIEvents();
             _fightManager.onFightEnded += OnFightEnded;
         }
 
@@ -80,7 +81,6 @@ namespace FrostfallSaga.Fight.Controllers
 
             BindPossessedFighterEventsForTurn(fighterToPlay);
             BindFightersMouseEvents(_fightManager.FighterTeams.Keys.ToList());
-            BindUIEventsForTurn();
             BindCellMouseEventsForTurn(_fightManager.FightGrid);
         }
 
@@ -200,7 +200,6 @@ namespace FrostfallSaga.Fight.Controllers
         {
             UnbindFighterEventsForTurn();
             UnbindCellMouseEvents(_fightManager.FightGrid);
-            UnbindUIEventsForTurn();
             UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
         }
 
@@ -211,7 +210,6 @@ namespace FrostfallSaga.Fight.Controllers
             if (_fighterThatDied != _possessedFighter) return;
             UnbindFighterEventsForTurn();
             UnbindCellMouseEvents(_fightManager.FightGrid);
-            UnbindUIEventsForTurn();
             UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
         }
 
@@ -432,7 +430,6 @@ namespace FrostfallSaga.Fight.Controllers
         {
             UnbindFighterEventsForTurn();
             UnbindCellMouseEvents(_fightManager.FightGrid);
-            UnbindUIEventsForTurn();
             UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
             onFighterTurnEnded?.Invoke(_possessedFighter);
         }
@@ -499,22 +496,13 @@ namespace FrostfallSaga.Fight.Controllers
 
         #region UI events binding
 
-        private void BindUIEventsForTurn()
+        private void BindUIEvents()
         {
             if (_actionPanel == null) Debug.LogError("Player controller has no action panel to work with.");
 
             _actionPanel.onDirectAttackClicked += OnDirectAttackClicked;
             _actionPanel.onActiveAbilityClicked += OnActiveAbilityClicked;
             _actionPanel.onEndTurnClicked += OnEndTurnClicked;
-        }
-
-        private void UnbindUIEventsForTurn()
-        {
-            if (_actionPanel == null) Debug.LogError("Player controller has no action panel to work with.");
-
-            _actionPanel.onDirectAttackClicked -= OnDirectAttackClicked;
-            _actionPanel.onActiveAbilityClicked -= OnActiveAbilityClicked;
-            _actionPanel.onEndTurnClicked -= OnEndTurnClicked;
         }
 
         #endregion

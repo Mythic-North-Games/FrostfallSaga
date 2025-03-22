@@ -36,6 +36,17 @@ namespace FrostfallSaga.Fight
                 preFightData.alliesEntityConf != null && preFightData.alliesEntityConf.Length > 0
                     ? preFightData.alliesEntityConf
                     : _devAlliesConfs;
+
+            // Heal allies if from dev
+            if (alliesFighterConf == _devAlliesConfs)
+            {
+                alliesFighterConf.ToList().ForEach(allyFighterConf =>
+                {
+                    PersistedFighterConfigurationSO fighterConfiguration = allyFighterConf.FighterConfiguration as PersistedFighterConfigurationSO;
+                    fighterConfiguration.SetHealth(fighterConfiguration.MaxHealth);
+                });
+            }
+            
             KeyValuePair<string, EntityConfigurationSO>[] enemiesFighterConf =
                 preFightData.enemiesEntityConf != null && preFightData.enemiesEntityConf.Length > 0
                     ? preFightData.enemiesEntityConf
