@@ -73,6 +73,9 @@
                     <ui:Button text="+" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExpandInventoryButton" class="expandInventoryButton" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            <ui:VisualElement name="StatusDetailsPanel" class="bottomPanelStatusDetailsPanelDefault">
+                <ui:Label tabindex="-1" text="&lt;b&gt;Bleed&lt;/b&gt; applied permanently.\nStatus effect applied at &lt;b&gt;the start of the turn&lt;/b&gt;." parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatusDetailsLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); color: rgb(225, 225, 225);" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:Button parse-escape-sequences="false" display-tooltip-when-elided="false" name="EndTurnButton" enable-rich-text="false" class="endTurnButton">
             <ui:VisualElement name="HourglassIcon" picking-mode="Ignore" style="background-image: resource(&apos;UI/Icons/hourglassIcon&apos;); -unity-background-scale-mode: scale-to-fit; width: 40%; height: 40%; position: absolute; left: 30%; top: 30%; -unity-background-image-tint-color: rgb(25, 25, 25);" />

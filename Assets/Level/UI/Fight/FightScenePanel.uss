@@ -376,3 +376,49 @@
     border-bottom-left-radius: 15px;
     display: none;
 }
+
+.bottomPanelStatusDetailsPanelDefault {
+    position: absolute;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgba(25, 25, 25, 0.78);
+    padding-top: 1%;
+    padding-right: 1.5%;
+    padding-bottom: 1%;
+    padding-left: 1.5%;
+    top: -45%;
+    left: 4%;
+}
+
+.statusDetailsPanelHidden {
+    position: absolute;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgba(25, 25, 25, 0.78);
+    padding-top: 1%;
+    padding-right: 1.5%;
+    padding-bottom: 1%;
+    padding-left: 1.5%;
+    top: -45%;
+    left: 5%;
+    display: none;
+}
+
+.timelinePanelStatusDetailsPanelDefault {
+    position: absolute;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgba(25, 25, 25, 0.78);
+    padding-top: 1%;
+    padding-right: 1.5%;
+    padding-bottom: 1%;
+    padding-left: 1.5%;
+    top: 0;
+    left: -85%;
+}

@@ -1,5 +1,6 @@
 using System;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Utils.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,9 +10,11 @@ namespace FrostfallSaga.Fight.UI
     public class FightersOrderTimelineController : BaseUIController
     {
         #region UXML UI Names & Classes
+        private static readonly string TIMELINE_ROOT_UI_NAME = "TimelinePanelRoot";
+        private static readonly string TIMELINE_PANEL_UI_NAME = "TimelinePanel";
         private static readonly string TIMELINE_CONTENT_CONTAINER_UI_NAME = "TimelineContentContainer";
-        private static readonly string TIMELINE_UI_NAME = "TimelinePanel";
         private static readonly string FIGHTER_RESISTANCE_PANEL_UI_NAME = "FighterResistancesPanel";
+        private static readonly string STATUS_DETAILS_PANEL_UI_NAME = "StatusDetailsPanel";
 
         private static readonly string TIMELINE_CHARACTER_CONTAINER_ROOT_CLASSNAME = "timelineCharacterContainerRoot";
         #endregion
@@ -26,6 +29,7 @@ namespace FrostfallSaga.Fight.UI
 
         private VisualElement _timelineContentContainer;
         private FighterResistancesPanelController _resistancesPanelController;
+        private StatusDetailsPanelUIController _statusesDetailsPanelController;
 
         #region Setup & tear down
 
@@ -51,15 +55,21 @@ namespace FrostfallSaga.Fight.UI
                 return;
             }
 
-            _uiDoc.rootVisualElement.Q<ScrollView>(TIMELINE_UI_NAME).contentContainer.StretchToParentSize();
-            _uiDoc.rootVisualElement.Q<ScrollView>(TIMELINE_UI_NAME).contentContainer.style.minHeight = new StyleLength(new Length(100, LengthUnit.Percent));
-            _timelineContentContainer = _uiDoc.rootVisualElement.Q<VisualElement>(TIMELINE_CONTENT_CONTAINER_UI_NAME);
+            VisualElement timelineRoot = _uiDoc.rootVisualElement.Q<VisualElement>(TIMELINE_ROOT_UI_NAME);
+
+            ScrollView timelinePanel = timelineRoot.Q<ScrollView>(TIMELINE_PANEL_UI_NAME);
+            timelinePanel.contentContainer.StretchToParentSize();
+            timelinePanel.contentContainer.style.minHeight = new StyleLength(new Length(100, LengthUnit.Percent));
+            _timelineContentContainer = timelineRoot.Q<VisualElement>(TIMELINE_CONTENT_CONTAINER_UI_NAME);
 
             _resistancesPanelController = new(
-                _uiDoc.rootVisualElement.Q<VisualElement>(FIGHTER_RESISTANCE_PANEL_UI_NAME),
+                timelineRoot.Q<VisualElement>(FIGHTER_RESISTANCE_PANEL_UI_NAME),
                 _statContainerTemplate
             );
             _resistancesPanelController.Hide();
+
+            _statusesDetailsPanelController = new(timelineRoot.Q<VisualElement>(STATUS_DETAILS_PANEL_UI_NAME));
+            _statusesDetailsPanelController.Hide();
 
             _fightManager.onFightersTurnOrderUpdated += OnFightersTurnOrderUpdated;
             _fightManager.onFightEnded += (_, _) => _timelineContentContainer.RemoveFromHierarchy();
@@ -87,6 +97,8 @@ namespace FrostfallSaga.Fight.UI
                 );
                 characterUIController.onFighterHovered += OnFighterHovered;
                 characterUIController.onFighterUnhovered += OnFighterUnhovered;
+                characterUIController.onStatusIconHovered += OnStatusIconHovered;
+                characterUIController.onStatusIconUnhovered += OnStatusIconUnhovered;
 
                 // Add the character container to the timeline content container
                 _timelineContentContainer.Add(characterContainerRoot);
@@ -103,6 +115,17 @@ namespace FrostfallSaga.Fight.UI
         {
             _resistancesPanelController.Hide();
             onFighterUnhovered?.Invoke(unhoveredCharacter.Fighter);
+        }
+
+        private void OnStatusIconHovered(TimelineCharacterUIController character, AStatus status, int lastingDuration)
+        {
+            _statusesDetailsPanelController.Root.style.top = character.Root.worldBound.y - character.Root.worldBound.height + 20;
+            _statusesDetailsPanelController.Display(status, lastingDuration);
+        }
+
+        private void OnStatusIconUnhovered(TimelineCharacterUIController character, AStatus status, int lastingDuration)
+        {
+            _statusesDetailsPanelController.Hide();
         }
 
         private float GetTimelineCharacterContainerHeight(int characterContainerCount)

@@ -16,6 +16,7 @@ namespace FrostfallSaga.Fight.UI
         private static readonly string ACTION_PANEL_ROOT_UI_NAME = "ActionPanelRoot";
         private static readonly string TEAM_MATES_PANEL_ROOT_UI_NAME = "TeamInfosPanel";
         private static readonly string STATUSES_CONTAINER_UI_NAME = "StatusesContainer";
+        private static readonly string STATUS_DETAILS_PANEL_UI_NAME = "StatusDetailsPanel";
         private static readonly string ABILITIES_CONTAINER_UI_NAME = "AbilitiesContainer";
         private static readonly string END_TURN_BUTTON_UI_NAME = "EndTurnButton";
 
@@ -31,8 +32,11 @@ namespace FrostfallSaga.Fight.UI
         [SerializeField] private VisualTreeAsset _statusIconContainerTemplate;
         [SerializeField] private Color _movementPointsProgressColor;
         [SerializeField] private Color _actionPointsProgressColor;
+        [SerializeField] private float _statusDetailsPanelXOffset = 4f;
+
         private VisualElement _actionPanelRoot;
         private VisualElement _statusesContainer;
+        private StatusDetailsPanelUIController _statusDetailsPanelController;
         private TeamMatesPanelController _teamMatesPanelController;
         private AbilitiesBarController _abilitiesBarController;
 
@@ -48,6 +52,11 @@ namespace FrostfallSaga.Fight.UI
 
             _actionPanelRoot = _uiDoc.rootVisualElement.Q<VisualElement>(ACTION_PANEL_ROOT_UI_NAME);
             _statusesContainer = _uiDoc.rootVisualElement.Q<VisualElement>(STATUSES_CONTAINER_UI_NAME);
+            _statusDetailsPanelController = new StatusDetailsPanelUIController(
+                _actionPanelRoot.Q<VisualElement>(STATUS_DETAILS_PANEL_UI_NAME)
+            );
+            _statusDetailsPanelController.Hide();
+
             _teamMatesPanelController = new TeamMatesPanelController(
                 _uiDoc.rootVisualElement.Q<VisualElement>(TEAM_MATES_PANEL_ROOT_UI_NAME),
                 _movementPointsProgressColor,
@@ -110,6 +119,15 @@ namespace FrostfallSaga.Fight.UI
                 VisualElement statusIconContainerRoot = _statusIconContainerTemplate.Instantiate();
                 statusIconContainerRoot.AddToClassList(STATUS_ICON_CONTAINER_ROOT_CLASSNAME);
                 StatusContainerUIController.SetupStatusContainer(statusIconContainerRoot, status.Key);
+                statusIconContainerRoot.RegisterCallback<MouseEnterEvent>((_) =>
+                {
+                    DisplayStatusDetailsPanel(
+                        _statusesContainer.IndexOf(statusIconContainerRoot),
+                        status.Key,
+                        status.Value.duration
+                    );
+                });
+                statusIconContainerRoot.RegisterCallback<MouseLeaveEvent>(HideStatusDetailsPanel);
                 _statusesContainer.Add(statusIconContainerRoot);
             }
         }
@@ -129,6 +147,20 @@ namespace FrostfallSaga.Fight.UI
         private bool IsHidden()
         {
             return _actionPanelRoot.ClassListContains(ACTION_PANEL_HIDDEN_CLASSNAME);
+        }
+
+        private void DisplayStatusDetailsPanel(int statusIconIndex, AStatus statusToDisplay, int lastingDuration)
+        {
+            _statusDetailsPanelController.Root.style.left = new Length(
+                (statusIconIndex + 1) * _statusDetailsPanelXOffset,
+                LengthUnit.Percent
+            );
+            _statusDetailsPanelController.Display(statusToDisplay, lastingDuration);
+        }
+
+        private void HideStatusDetailsPanel(MouseLeaveEvent evt)
+        {
+            _statusDetailsPanelController.Hide();
         }
 
         private void OnPlayingFighterStatusesChanged(Fighter playingFighter, AStatus _status)
