@@ -2,7 +2,7 @@ using System;
 using UnityEngine.UIElements;
 using FrostfallSaga.Core.InventorySystem;
 
-namespace FrostfallSaga.InventorySystem.UI
+namespace FrostfallSaga.Core.UI
 {
     public class ItemSlotContainerUIController
     {
@@ -30,13 +30,26 @@ namespace FrostfallSaga.InventorySystem.UI
             _itemCountLabel = root.Q<Label>(ITEM_COUNT_LABEL_UI_NAME);
         }
 
-        public virtual void SetItemSlot(InventorySlot itemSlot)
+        /// <summary>
+        /// Set the item slot to display in the UI.
+        /// </summary>
+        /// <param name="itemSlot">The item slot to display.</param>
+        public void SetItemSlot(InventorySlot itemSlot)
         {
             _itemIcon.style.backgroundImage = itemSlot.Item == null ? null : new(itemSlot.Item.IconSprite);
             _itemCountLabelContainer.style.display = itemSlot.MaxItemCount > 1 && itemSlot.ItemCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
             _itemCountLabel.text = itemSlot.MaxItemCount > 1 ? itemSlot.ItemCount.ToString() : string.Empty;
 
             _currentItemSlot = itemSlot;
+        }
+
+        /// <summary>
+        /// Set the enabled state of the item slot.
+        /// </summary>
+        /// <param name="enabled">The enabled state to set.</param>
+        public void SetEnabled(bool enabled)
+        {
+            _root.SetEnabled(enabled);
         }
 
         private void OnItemSelected(MouseUpEvent clickEvent)

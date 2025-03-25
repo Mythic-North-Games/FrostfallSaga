@@ -54,9 +54,14 @@ namespace FrostfallSaga.Core.InventorySystem
             }
             else
             {
-                Item = null;
-                ItemCount = 0;
+                RemoveAllItems();
             }
+        }
+
+        public void RemoveAllItems()
+        {
+            Item = null;
+            ItemCount = 0;
         }
 
         public bool IsEmpty()

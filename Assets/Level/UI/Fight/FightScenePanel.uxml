@@ -4,6 +4,7 @@
     <ui:Template name="AllyDiamondProgress" src="project://database/Assets/Level/UI/Fight/AllyDiamondProgress.uxml?fileID=9197481963319205126&amp;guid=15f246463304c9e11a943c7f1ce1e51f&amp;type=3#AllyDiamondProgress" />
     <ui:Template name="RoundProgress" src="project://database/Assets/Level/UI/Components/RoundProgress.uxml?fileID=9197481963319205126&amp;guid=7c3ecac309c4d524b894f2c42fdda14e&amp;type=3#RoundProgress" />
     <ui:Template name="StatusIconContainer" src="project://database/Assets/Level/UI/Fight/StatusIconContainer.uxml?fileID=9197481963319205126&amp;guid=e65bb5637e2f1d1eb92a395ee8971e67&amp;type=3#StatusIconContainer" />
+    <ui:Template name="ConsumableSlot" src="project://database/Assets/Level/UI/Fight/ConsumableSlot.uxml?fileID=9197481963319205126&amp;guid=62007e018c618b539bc251fd95fa5911&amp;type=3#ConsumableSlot" />
     <Style src="project://database/Assets/Level/UI/Fight/FightScenePanel.uss?fileID=7433441132597879392&amp;guid=e5eb9d2bf6d4bff42afd0f1a4c723e76&amp;type=3#FightScenePanel" />
     <Style src="project://database/Assets/Level/UI/globalStyles.uss?fileID=7433441132597879392&amp;guid=1849fa32056df9a58b3c371fd6e7ddf2&amp;type=3#globalStyles" />
     <ui:Instance template="TimelinePanel" name="TimelinePanelRoot" picking-mode="Ignore" class="timelinePanel" />
@@ -49,28 +50,23 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="InventoryBar" style="width: 32%; height: 100%; flex-direction: row; justify-content: flex-start;">
-                <ui:VisualElement name="ConsumableSlotsContainer" style="width: 80%; height: 100%; flex-direction: row; flex-wrap: wrap; align-items: stretch; justify-content: space-around;">
-                    <ui:VisualElement name="ConsumableSlot" class="consumableSlot">
-                        <ui:VisualElement name="Icon" class="buttonContentIcon" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="ConsumableSlot" class="consumableSlot">
-                        <ui:VisualElement name="Icon" class="buttonContentIcon" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="ConsumableSlot" class="consumableSlot">
-                        <ui:VisualElement name="Icon" class="buttonContentIcon" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="ConsumableSlot" class="consumableSlot" style="margin-bottom: 0;">
-                        <ui:VisualElement name="Icon" class="buttonContentIcon" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="ConsumableSlot" class="consumableSlot" style="margin-bottom: 0;">
-                        <ui:VisualElement name="Icon" class="buttonContentIcon" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="ConsumableSlot" class="consumableSlot" style="margin-bottom: 0;">
-                        <ui:VisualElement name="Icon" class="buttonContentIcon" />
-                    </ui:VisualElement>
+                <ui:VisualElement name="ExtraConsumablesSlotsContainer" style="position: absolute; width: 82%; min-height: 50%; flex-direction: row; justify-content: flex-start; flex-wrap: wrap-reverse; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-items: stretch; bottom: 105%;">
+                    <ui:Instance template="ConsumableSlot" name="ExtraConsumableSlotRoot" class="extraConsumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ExtraConsumableSlotRoot" class="extraConsumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ExtraConsumableSlotRoot" class="extraConsumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ExtraConsumableSlotRoot" class="extraConsumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ExtraConsumableSlotRoot" class="extraConsumableSlotRoot" />
                 </ui:VisualElement>
-                <ui:VisualElement name="ExpandInventoryButtonContainer" style="height: 100%; width: 18%; margin-left: 1.25%;">
-                    <ui:Button text="+" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExpandInventoryButton" class="expandInventoryButton" />
+                <ui:VisualElement name="ConsumableSlotsContainer" style="width: 80%; height: 100%; flex-direction: row; flex-wrap: wrap; align-items: stretch; justify-content: space-around;">
+                    <ui:Instance template="ConsumableSlot" name="ConsumableSlotRoot" class="consumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ConsumableSlotRoot" class="consumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ConsumableSlotRoot" class="consumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ConsumableSlotRoot" class="consumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ConsumableSlotRoot" class="consumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ConsumableSlotRoot" class="consumableSlotRoot" />
+                </ui:VisualElement>
+                <ui:VisualElement name="ExpandConsumablesButtonContainer" style="height: 100%; width: 18%; margin-left: 1.25%;">
+                    <ui:Button text="+" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExpandConsumablesButton" class="expandInventoryButton" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="StatusDetailsPanel" class="bottomPanelStatusDetailsPanelDefault">
