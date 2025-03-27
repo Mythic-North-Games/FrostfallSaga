@@ -47,7 +47,16 @@ namespace FrostfallSaga.Grid
         public Material CellMaterial { get; private set; }
 
         [field: SerializeField]
-        [field: Tooltip("List of different prefab for visual over the cell")]
-        public GameObject[] VisualsTerrain { get; private set; }
+        [field: Tooltip("List of different prefab for visual over the cell when is accessible")]
+        public GameObject[] VisualsWhenAccessible { get; private set; }
+        
+        [field: SerializeField]
+        [field: Tooltip("List of different prefab for visual over the cell when not accessible")]
+        public GameObject[] VisualsWhenBlocked { get; private set; }
+        
+        [field: SerializeField]
+        [field: Range(0f, 1f)]
+        [field: Tooltip("For fight map only. Chance that a cell using this terrain is accessible.")]
+        public float AccessibilityChanceOverride { get; private set; } = 1f;
     }
 }

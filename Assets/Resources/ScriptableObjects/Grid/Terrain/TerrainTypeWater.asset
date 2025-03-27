@@ -20,7 +20,7 @@ MonoBehaviour:
   <InitiativePoint>k__BackingField: 0
   <IsAccessible>k__BackingField: 0
   <CellMaterial>k__BackingField: {fileID: 2100000, guid: 37616b845b7fa2e4ab8fd3c5b5c949e7, type: 2}
-  <VisualsTerrain>k__BackingField:
+  <VisualsWhenAccessible>k__BackingField:
   - {fileID: 598771669309824393, guid: 0ba5beead5321c740b96c650a4a44953, type: 3}
   - {fileID: 598771669309824393, guid: 76ba1bc95452e0d48b70b5389350ab76, type: 3}
   - {fileID: 598771669309824393, guid: f17969172fa2ca64a975ff31414495f7, type: 3}
@@ -29,3 +29,13 @@ MonoBehaviour:
   - {fileID: 598771669309824393, guid: 3b01d3bfb7584ec4382915f77a4cbf7e, type: 3}
   - {fileID: 598771669309824393, guid: f847b23a2c02b724780106da2cca3bf2, type: 3}
   - {fileID: 598771669309824393, guid: 6657d9ee9157c2c4bbfd92eeeb015eae, type: 3}
+  <VisualsWhenBlocked>k__BackingField:
+  - {fileID: 598771669309824393, guid: 0ba5beead5321c740b96c650a4a44953, type: 3}
+  - {fileID: 598771669309824393, guid: 76ba1bc95452e0d48b70b5389350ab76, type: 3}
+  - {fileID: 598771669309824393, guid: f17969172fa2ca64a975ff31414495f7, type: 3}
+  - {fileID: 598771669309824393, guid: bc35fbf74926ca44683737ca2d88ed2e, type: 3}
+  - {fileID: 598771669309824393, guid: fa020c1b8a64db642a087cb655f0ec25, type: 3}
+  - {fileID: 598771669309824393, guid: 3b01d3bfb7584ec4382915f77a4cbf7e, type: 3}
+  - {fileID: 598771669309824393, guid: f847b23a2c02b724780106da2cca3bf2, type: 3}
+  - {fileID: 598771669309824393, guid: 6657d9ee9157c2c4bbfd92eeeb015eae, type: 3}
+  <AccessibilityChanceOverride>k__BackingField: 0.8
