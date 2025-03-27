@@ -21,8 +21,14 @@ MonoBehaviour:
   <InitiativePoint>k__BackingField: 0
   <IsAccessible>k__BackingField: 1
   <CellMaterial>k__BackingField: {fileID: 2100000, guid: 3afc42c262e7fe4438a61bb4f3fb4632, type: 2}
-  <VisualsTerrain>k__BackingField:
+  <VisualsWhenAccessible>k__BackingField:
   - {fileID: 598771669309824393, guid: 9998be6008133c749a3bfdd63214c172, type: 3}
   - {fileID: 598771669309824393, guid: 3901b3f5140d7ca42ba076571300540e, type: 3}
   - {fileID: 598771669309824393, guid: 4e19d0e72c712a649a9409d17ab617a6, type: 3}
   - {fileID: 598771669309824393, guid: 91efedeb0547982418be4777886458e0, type: 3}
+  <VisualsWhenBlocked>k__BackingField:
+  - {fileID: 598771669309824393, guid: 9998be6008133c749a3bfdd63214c172, type: 3}
+  - {fileID: 598771669309824393, guid: 3901b3f5140d7ca42ba076571300540e, type: 3}
+  - {fileID: 598771669309824393, guid: 4e19d0e72c712a649a9409d17ab617a6, type: 3}
+  - {fileID: 598771669309824393, guid: 91efedeb0547982418be4777886458e0, type: 3}
+  <AccessibilityChanceOverride>k__BackingField: 0.8
