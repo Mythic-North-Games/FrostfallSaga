@@ -14,7 +14,16 @@ namespace FrostfallSaga.Kingdom
         {
             _kingdomGridGenerator = new KingdomGridGenerator(_hexKingdomPrefab, Width, Height, AvailableBiomes,
                 transform, NoiseScale, Seed);
+            ClearCells();
             Cells = _kingdomGridGenerator.GenerateGrid();
+        }
+
+        /// <summary>
+        ///     Retrieve all free cells from KingdomGrid
+        /// </summary>
+        public List<KingdomCell> GetFreeCells()
+        {
+            return Cells.Values.OfType<KingdomCell>().Where(cell => cell.IsFree()).ToList();
         }
 
         #region Setup & tear down
@@ -31,13 +40,5 @@ namespace FrostfallSaga.Kingdom
         }
 
         #endregion
-        
-        /// <summary>
-        ///     Retrieve all free cells from KingdomGrid
-        /// </summary>
-        public List<KingdomCell> GetFreeCells()
-        {
-            return Cells.Values.OfType<KingdomCell>().Where(cell => cell.IsFree()).ToList();
-        }
     }
 }

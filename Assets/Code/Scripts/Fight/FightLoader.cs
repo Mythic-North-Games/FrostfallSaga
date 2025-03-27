@@ -28,18 +28,12 @@ namespace FrostfallSaga.Fight
         private void Start()
         {
             Debug.Log("Generating FightHexGrid...");
-            GenerateGrid();
+            fightHexGrid.GenerateGrid();           
             Debug.Log("FightHexGrid Generated !");
             Debug.Log("Generating Fighters...");
             KeyValuePair<Fighter[], Fighter[]> fighters = GenerateFighters();
             Debug.Log("Fighters Generated !");
             OnFightLoaded?.Invoke(fighters.Key, fighters.Value);
-        }
-
-        private void GenerateGrid()
-        {
-            fightHexGrid.ClearCells();
-            fightHexGrid.GenerateGrid();
         }
 
         private KeyValuePair<Fighter[], Fighter[]> GenerateFighters()
