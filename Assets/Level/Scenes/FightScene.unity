@@ -1391,6 +1391,7 @@ MonoBehaviour:
   _uiDoc: {fileID: 1952024162}
   _fightManager: {fileID: 1678739252}
   _statusIconContainerTemplate: {fileID: 9197481963319205126, guid: e65bb5637e2f1d1eb92a395ee8971e67, type: 3}
+  _consumableSlotTemplate: {fileID: 9197481963319205126, guid: 62007e018c618b539bc251fd95fa5911, type: 3}
   _movementPointsProgressColor: {r: 0.17253397, g: 0.5459742, b: 0.7754027, a: 1}
   _actionPointsProgressColor: {r: 0.35846135, g: 0.8221862, b: 0.4000684, a: 1}
   _statusDetailsPanelXOffset: 4
@@ -1452,7 +1453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
   _statusContainerTemplate: {fileID: 9197481963319205126, guid: e65bb5637e2f1d1eb92a395ee8971e67, type: 3}
-  _fightManager: {fileID: 0}
+  _fightManager: {fileID: 1678739252}
   _fightLoader: {fileID: 2012426617}
   _timelineController: {fileID: 1952024165}
   _displayDurationOnAction: 2
