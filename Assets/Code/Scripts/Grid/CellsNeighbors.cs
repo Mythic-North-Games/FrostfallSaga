@@ -13,24 +13,24 @@ namespace FrostfallSaga.Grid
     {
         private static readonly Vector2Int[] DirectionsToCheckIfHeightOdd =
         {
-            new(1, 0), 
+            new(1, 0),
             new(-1, 0),
-            new(1, 1), 
+            new(1, 1),
             new(0, -1),
-            new(1, -1), 
+            new(1, -1),
             new(0, 1)
         };
 
         private static readonly Vector2Int[] DirectionsToCheckIfHeightEven =
         {
-            new(1, 0), 
+            new(1, 0),
             new(-1, 0),
-            new(0, 1), 
+            new(0, 1),
             new(-1, -1),
-            new(0, -1), 
+            new(0, -1),
             new(-1, 1)
         };
-        
+
         private static readonly Vector2Int[] DirectionsToClock =
         {
             new(-1, 0), // WEST
@@ -86,7 +86,7 @@ namespace FrostfallSaga.Grid
 
             return neighbors.ToArray();
         }
-        
+
         /// <summary>
         ///     Compute and returns the current cell neighbors in a fixed array of 6 elements, ordered as:
         ///     Left -> Top Left -> Top Right -> Right -> Bottom Right -> Bottom Left.

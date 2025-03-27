@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using RandomSys = System.Random;
 using RandomUnity = UnityEngine.Random;
@@ -22,6 +23,14 @@ namespace FrostfallSaga.Utils
         public static T GetRandomElementFromArray<T>(T[] array)
         {
             return array[_randomizer.Next(0, array.Length)];
+        }
+        
+        public static T GetRandomElementFromList<T>(List<T> list)
+        {
+            if (list == null || list.Count == 0)
+                throw new ArgumentException("List is null or empty");
+
+            return list[_randomizer.Next(0, list.Count)];
         }
 
         public static T[] GetRandomUniqueElementsFromArray<T>(T[] array, int count)

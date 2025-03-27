@@ -1,7 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using FrostfallSaga.Core;
-using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Grid.Cells;
 using UnityEngine;
 
@@ -20,12 +17,15 @@ namespace FrostfallSaga.Grid
 
         public static void AnalyzeAtCell(Cell targetCell, AHexGrid grid)
         {
+            CELLS_BY_DIRECTION.Clear();
             Cell[] neighborCells = CellsNeighbors.GetNeighborsInClockwiseOrder(grid, targetCell);
-
             for (int i = 0; i < neighborCells.Length; i++)
             {
                 Cell neighbor = neighborCells[i];
-                CELLS_BY_DIRECTION[Direction[i]] = neighbor;
+                if (neighbor)
+                {
+                    CELLS_BY_DIRECTION[Direction[i]] = neighbor;
+                }
             }
         }
 
@@ -36,7 +36,8 @@ namespace FrostfallSaga.Grid
                 string cellName = item.Value ? item.Value.name : "NULL";
                 string terrainTypeName = item.Value ? item.Value.TerrainType.name : "NULL";
 
-                Debug.Log($"HexDirection : {item.Key} || Cell name : {cellName} || Cell Terrain name : {terrainTypeName}");
+                Debug.Log(
+                    $"HexDirection : {item.Key} || Cell name : {cellName} || Cell Terrain name : {terrainTypeName}");
             }
         }
     }

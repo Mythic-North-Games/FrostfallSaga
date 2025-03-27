@@ -6,6 +6,7 @@ using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Procedural;
 using FrostfallSaga.Utils;
+using Meryel.UnityCodeAssist.Serilog;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -14,7 +15,7 @@ namespace FrostfallSaga.Grid
     public class FightGridGenerator : ABaseGridGenerator
     {
         private readonly TerrainTypeSO _defaultTerrainType =
-            Resources.Load<TerrainTypeSO>("ScriptableObjects/Grid/Terrain/TerrainTypeDarkForest");
+            Resources.Load<TerrainTypeSO>("ScriptableObjects/Grid/Terrain/TerrainTypePlain");
 
         private readonly Dictionary<HexDirection, Cell> _hexDirectionCells;
 
@@ -30,9 +31,10 @@ namespace FrostfallSaga.Grid
 
         public override Dictionary<Vector2Int, Cell> GenerateGrid()
         {
-            TerrainTypeSO[] validTerrainTypes = GetValidTerrainTypes();
             Dictionary<Vector2Int, Cell> gridCells = new();
             Vector2Int centerCoords = new(GridWidth / 2, GridHeight / 2);
+
+            Dictionary<HexDirection, TerrainTypeSO> terrainByDirection = BuildTerrainMapForDirections();
 
             for (int y = 0; y < GridHeight; y++)
             {
@@ -41,12 +43,12 @@ namespace FrostfallSaga.Grid
                     Vector3 centerPosition = HexMetrics.Center(HexSize, x, y);
                     Cell cell = Object.Instantiate(HexPrefab, centerPosition, Quaternion.identity, ParentGrid);
                     cell.name = $"Cell[{x};{y}]";
+
                     HexDirection section = DetermineSection(x, y, centerCoords);
-                    Debug.Log("Section : " + section);
-                    TerrainTypeSO selectedTerrain = SelectTerrainType(section, validTerrainTypes);
-                    Debug.Log("Selected terrain : " + selectedTerrain);
-                    BiomeTypeSO selectedBiome =
-                        AvailableBiomes.FirstOrDefault(biome => biome.TerrainTypeSO.Contains(selectedTerrain));
+                    TerrainTypeSO selectedTerrain = terrainByDirection[section];
+                    BiomeTypeSO selectedBiome = AvailableBiomes
+                        .FirstOrDefault(b => b.TerrainTypeSO.Contains(selectedTerrain));
+
                     SetupCell(cell, x, y, selectedBiome, HexSize, selectedTerrain);
                     gridCells[new Vector2Int(x, y)] = cell;
                 }
@@ -56,37 +58,10 @@ namespace FrostfallSaga.Grid
             return gridCells;
         }
 
-        private TerrainTypeSO SelectTerrainType(HexDirection section, TerrainTypeSO[] validTerrainTypes)
-        {
-            //FIXME PB avec les valeurs null en bord de terrain. (fix potentiel : au lieu de null => cell default aet set un terrain aléatoire cohérent)
-            if (_hexDirectionCells.TryGetValue(section, out Cell cell) && cell.TerrainType != null)
-            {
-                return cell.TerrainType;
-            }
-
-            if (validTerrainTypes.Length > 0)
-            {
-                return Randomizer.GetRandomElementFromArray(validTerrainTypes);
-            }
-
-            return _defaultTerrainType;
-        }
-
-        private TerrainTypeSO[] GetValidTerrainTypes()
-        {
-            TerrainTypeSO[] validTerrainTypes = _hexDirectionCells
-                .Where(keyValuePair => keyValuePair.Value != null && keyValuePair.Value.TerrainType != null)
-                .Select(keyValuePair => keyValuePair.Value.TerrainType)
-                .Distinct()
-                .ToArray();
-            Debug.Log(validTerrainTypes.Length);
-            return validTerrainTypes;
-        }
 
         private void SetupCell(Cell cell, int x, int y, BiomeTypeSO selectedBiome, float hexSize,
             TerrainTypeSO selectedTerrain)
         {
-            Debug.Log($"Selected terrain : " + selectedTerrain.name);
             cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, hexSize, selectedTerrain, selectedBiome);
             cell.HighlightController.SetupInitialMaterial(selectedTerrain.CellMaterial);
             cell.HighlightController.UpdateCurrentDefaultMaterial(selectedTerrain.CellMaterial);
@@ -95,20 +70,47 @@ namespace FrostfallSaga.Grid
 
         private HexDirection DetermineSection(int x, int y, Vector2Int center)
         {
-            int dx = x - center.x;
-            int dy = y - center.y;
+            Vector2 delta = new(x - center.x, y - center.y);
+            float angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
 
-            return dx switch
-            {
-                < 0 when dy == 0 => HexDirection.WEST,
-                < 0 when dy > 0 => HexDirection.NORTHWEST,
-                >= 0 when dy > 0 => HexDirection.NORTHEAST,
-                > 0 when dy == 0 => HexDirection.EAST,
-                > 0 when dy < 0 => HexDirection.SOUTHEAST,
-                <= 0 when dy < 0 => HexDirection.SOUTHWEST,
-                _ => HexDirection.WEST
-            };
+            angle = (angle + 360) % 360;
+
+            if (angle >= 330 || angle < 30) return HexDirection.EAST;
+            if (angle >= 30 && angle < 90) return HexDirection.NORTHEAST;
+            if (angle >= 90 && angle < 150) return HexDirection.NORTHWEST;
+            if (angle >= 150 && angle < 210) return HexDirection.WEST;
+            if (angle >= 210 && angle < 270) return HexDirection.SOUTHWEST;
+            return HexDirection.SOUTHEAST;
         }
+        
+        private Dictionary<HexDirection, TerrainTypeSO> BuildTerrainMapForDirections()
+        {
+            Dictionary<HexDirection, TerrainTypeSO> terrainByDirection = new();
+    
+            foreach (HexDirection dir in Enum.GetValues(typeof(HexDirection)))
+            {
+                if (_hexDirectionCells.TryGetValue(dir, out var cell) && cell?.TerrainType != null)
+                {
+                    terrainByDirection[dir] = cell.TerrainType;
+                }
+            }
+
+            List<TerrainTypeSO> knownTerrains = terrainByDirection.Values.Distinct().ToList();
+
+            foreach (HexDirection dir in Enum.GetValues(typeof(HexDirection)))
+            {
+                if (!terrainByDirection.ContainsKey(dir))
+                {
+                    terrainByDirection[dir] = knownTerrains.Count > 0
+                        ? Randomizer.GetRandomElementFromList(knownTerrains)
+                        : _defaultTerrainType;
+                }
+            }
+
+            return terrainByDirection;
+        }
+
+
 
         private void GenerateHighByFromPerlinNoise(Dictionary<Vector2Int, Cell> grid)
         {
