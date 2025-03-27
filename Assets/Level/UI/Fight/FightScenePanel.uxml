@@ -1,40 +1,83 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Template name="WhiteDiamondContainer" src="project://database/Assets/Level/UI/Components/WhiteDiamondContainer.uxml?fileID=9197481963319205126&amp;guid=0cb67aec6c6f8a96a9da9d0aba980a43&amp;type=3#WhiteDiamondContainer" />
-    <ui:Template name="StatusesBar" src="project://database/Assets/Level/UI/Components/StatusesBar.uxml?fileID=9197481963319205126&amp;guid=495c80ca846d4147698ec2e485a822e6&amp;type=3#StatusesBar" />
-    <ui:Template name="ProgressBars" src="project://database/Assets/Level/UI/Components/ProgressBars.uxml?fileID=9197481963319205126&amp;guid=73cc8529925e73d4a9097dd4e72cd77f&amp;type=3#ProgressBars" />
     <ui:Template name="TimelinePanel" src="project://database/Assets/Level/UI/Fight/TimelinePanel.uxml?fileID=9197481963319205126&amp;guid=0fa28d4408953c10f859548fb24df0f4&amp;type=3#TimelinePanel" />
+    <ui:Template name="FighteInfosBar" src="project://database/Assets/Level/UI/Fight/FighteInfosBar.uxml?fileID=9197481963319205126&amp;guid=2b6bad45990218da38e5dd7c86f814a2&amp;type=3#FighteInfosBar" />
+    <ui:Template name="AllyDiamondProgress" src="project://database/Assets/Level/UI/Fight/AllyDiamondProgress.uxml?fileID=9197481963319205126&amp;guid=15f246463304c9e11a943c7f1ce1e51f&amp;type=3#AllyDiamondProgress" />
+    <ui:Template name="RoundProgress" src="project://database/Assets/Level/UI/Components/RoundProgress.uxml?fileID=9197481963319205126&amp;guid=7c3ecac309c4d524b894f2c42fdda14e&amp;type=3#RoundProgress" />
+    <ui:Template name="StatusIconContainer" src="project://database/Assets/Level/UI/Fight/StatusIconContainer.uxml?fileID=9197481963319205126&amp;guid=e65bb5637e2f1d1eb92a395ee8971e67&amp;type=3#StatusIconContainer" />
+    <ui:Template name="ConsumableSlot" src="project://database/Assets/Level/UI/Fight/ConsumableSlot.uxml?fileID=9197481963319205126&amp;guid=62007e018c618b539bc251fd95fa5911&amp;type=3#ConsumableSlot" />
     <Style src="project://database/Assets/Level/UI/Fight/FightScenePanel.uss?fileID=7433441132597879392&amp;guid=e5eb9d2bf6d4bff42afd0f1a4c723e76&amp;type=3#FightScenePanel" />
     <Style src="project://database/Assets/Level/UI/globalStyles.uss?fileID=7433441132597879392&amp;guid=1849fa32056df9a58b3c371fd6e7ddf2&amp;type=3#globalStyles" />
-    <ui:VisualElement name="RootActionPanel" style="flex-grow: 1; position: absolute; width: 100%; height: 18%; justify-content: space-between; top: auto; flex-direction: row; align-self: auto; align-items: auto; bottom: -2%; padding-bottom: 1.5%;">
-        <ui:VisualElement name="TeamInfoPanel" style="margin-bottom: 1%; width: 40%; height: 200%; justify-content: flex-end;">
-            <ui:VisualElement name="TeamMatePanelOtherCharacter" style="justify-content: space-between; align-self: auto; flex-direction: row; width: 43%; height: 40%; position: absolute; top: 13%; left: 2.5%;">
-                <ui:Instance template="WhiteDiamondContainer" name="TeamMateIconContainer1" class="teamMateContainer" />
-                <ui:Instance template="WhiteDiamondContainer" name="TeamMateIconContainer2" class="teamMateContainer" />
+    <ui:Instance template="TimelinePanel" name="TimelinePanelRoot" picking-mode="Ignore" class="timelinePanel" />
+    <ui:Instance template="FighteInfosBar" name="FighteInfosBarContainer" class="fighterInfoBarContainer" />
+    <ui:VisualElement name="ActionPanelRoot" class="actionPanelRootDefault">
+        <ui:VisualElement name="TeamInfosPanel" style="width: 20%; height: 100%; justify-content: flex-end;">
+            <ui:VisualElement name="TeamMatePanelOtherCharacter" style="justify-content: space-between; align-self: auto; flex-direction: row; width: 100%; height: 40%; position: absolute; top: 13%; left: 2.5%;">
+                <ui:Instance template="AllyDiamondProgress" name="Mate1Progress" class="teamMateContainer" />
+                <ui:Instance template="AllyDiamondProgress" name="Mate2Progress" class="teamMateContainer" />
             </ui:VisualElement>
-            <ui:VisualElement name="TeamMatePanelMainCharacter" style="flex-direction: row; margin-left: 10%; align-items: flex-end; height: 65%;">
-                <ui:Instance template="WhiteDiamondContainer" name="PlayingCharacterIconContainer" style="width: 30%; height: 100%;" />
-                <ui:VisualElement name="PlayingFighterDetails" style="padding-left: 3%; width: 60%;">
-                    <ui:Instance template="StatusesBar" name="StatusesBar" style="height: 15%;" />
-                    <ui:Label name="FighterNameLabel" text="Fighter&apos;s name" class="defaultText" style="-unity-font-style: bold; color: rgb(255, 255, 255); font-size: 30px;" />
-                    <ui:Instance template="ProgressBars" name="ProgressBars" />
+            <ui:VisualElement name="TeamMatePanelMainCharacter" style="flex-direction: row; align-items: flex-end; height: 65%; width: 95%; margin-left: 2.5%;">
+                <ui:Instance template="RoundProgress" name="MovementPointsProgress" class="roundStatContainer" style="left: 11%;" />
+                <ui:Instance template="AllyDiamondProgress" name="PlayingFighterProgress" style="width: 70%; height: 100%; margin-left: 17.5%;" />
+                <ui:Instance template="RoundProgress" name="ActionPointsProgress" class="roundStatContainer" style="right: 8%;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="ActionPanel" style="align-items: flex-start; height: 55%; flex-direction: row; flex-grow: 1; margin-left: 0; margin-right: 1%;">
+            <ui:VisualElement name="AbilitiesAndStatusesBar" style="width: 68%; height: 100%; justify-content: flex-end;">
+                <ui:VisualElement name="StatusesContainer" style="height: 26%; flex-direction: row; width: 100%; margin-bottom: 1%; margin-top: 0.5%; margin-right: 0.5%; margin-left: 0.5%;">
+                    <ui:Instance template="StatusIconContainer" name="StatusIconContainer" class="bottomPanelStatusIconContainer" />
+                    <ui:Instance template="StatusIconContainer" name="StatusIconContainer" class="bottomPanelStatusIconContainer" />
+                    <ui:Instance template="StatusIconContainer" name="StatusIconContainer" class="bottomPanelStatusIconContainer" />
+                </ui:VisualElement>
+                <ui:VisualElement name="AbilitiesContainer" style="height: 62.5%; width: 100%; flex-direction: row; justify-content: flex-start; align-items: center;">
+                    <ui:Button parse-escape-sequences="false" display-tooltip-when-elided="false" name="DirectAttackButton" class="abilitiesButton">
+                        <ui:VisualElement name="Icon" class="buttonContentIcon" />
+                    </ui:Button>
+                    <ui:Button name="AbilityButton0" class="abilitiesButton">
+                        <ui:VisualElement name="Icon" class="buttonContentIcon" />
+                    </ui:Button>
+                    <ui:Button name="AbilityButton1" class="abilitiesButton">
+                        <ui:VisualElement name="Icon" class="buttonContentIcon" />
+                    </ui:Button>
+                    <ui:Button name="AbilityButton2" class="abilitiesButton">
+                        <ui:VisualElement name="Icon" class="buttonContentIcon" />
+                    </ui:Button>
+                    <ui:Button name="AbilityButton3" class="abilitiesButton">
+                        <ui:VisualElement name="Icon" class="buttonContentIcon" />
+                    </ui:Button>
+                    <ui:Button name="AbilityButton4" class="abilitiesButton">
+                        <ui:VisualElement name="Icon" class="buttonContentIcon" />
+                    </ui:Button>
                 </ui:VisualElement>
             </ui:VisualElement>
-        </ui:VisualElement>
-        <ui:VisualElement name="ActionPanel" style="align-items: flex-start; height: 50%; width: 50%; padding-right: 10%; flex-direction: row; margin-bottom: 1%;">
-            <ui:VisualElement name="DirectAttackButton" class="directAttackButton" style="flex-grow: 1;" />
-            <ui:VisualElement name="AbilitiesContainer" class="abilitiesContainer" style="height: 100%; width: 90%;">
-                <ui:Button name="AbilityButton0" class="abilitiesButton" />
-                <ui:Button name="AbilityButton1" class="abilitiesButton" />
-                <ui:Button name="AbilityButton2" class="abilitiesButton" />
-                <ui:Button name="AbilityButton3" class="abilitiesButton" />
-                <ui:Button name="AbilityButton4" class="abilitiesButton" />
-                <ui:Button name="AbilityButton5" class="abilitiesButton" />
+            <ui:VisualElement name="ConsumablesBar" style="width: 32%; height: 100%; flex-direction: row; justify-content: flex-start;">
+                <ui:VisualElement name="ExtraConsumablesSlotsContainer" style="position: absolute; width: 82%; min-height: 50%; flex-direction: row; justify-content: flex-start; flex-wrap: wrap-reverse; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-items: stretch; bottom: 105%;">
+                    <ui:Instance template="ConsumableSlot" name="ExtraConsumableSlotRoot" class="extraConsumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ExtraConsumableSlotRoot" class="extraConsumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ExtraConsumableSlotRoot" class="extraConsumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ExtraConsumableSlotRoot" class="extraConsumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ExtraConsumableSlotRoot" class="extraConsumableSlotRoot" />
+                </ui:VisualElement>
+                <ui:VisualElement name="ConsumableSlotsContainer" style="width: 80%; height: 100%; flex-direction: row; flex-wrap: wrap; align-items: stretch; justify-content: space-around;">
+                    <ui:Instance template="ConsumableSlot" name="ConsumableSlotRoot" class="consumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ConsumableSlotRoot" class="consumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ConsumableSlotRoot" class="consumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ConsumableSlotRoot" class="consumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ConsumableSlotRoot" class="consumableSlotRoot" />
+                    <ui:Instance template="ConsumableSlot" name="ConsumableSlotRoot" class="consumableSlotRoot" />
+                </ui:VisualElement>
+                <ui:VisualElement name="ExpandConsumablesButtonContainer" style="height: 100%; width: 18%; margin-left: 1.25%;">
+                    <ui:Button text="+" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExpandConsumablesButton" class="expandInventoryButton" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="StatusDetailsPanel" class="bottomPanelStatusDetailsPanelDefault">
+                <ui:Label tabindex="-1" text="&lt;b&gt;Bleed&lt;/b&gt; applied permanently.\nStatus effect applied at &lt;b&gt;the start of the turn&lt;/b&gt;." parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatusDetailsLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); color: rgb(225, 225, 225);" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Button name="EndTurnButton" class="endTurnButton endTurnButtonHover">
-            <ui:VisualElement name="EndTurnButtonIconHourglass" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Resources/UI/Icons/hourglassIcon.png?fileID=2800000&amp;guid=59698b652a80ef84c855c4138a8296d7&amp;type=3#hourglassIcon&quot;); width: 20%; height: 50%; left: 20%; max-height: 50%; max-width: 20%; top: 25%; -unity-background-scale-mode: scale-to-fit;" />
-            <ui:Label text="End turn" name="EndTurnButtonLabel" class="defaultText" style="font-size: 28px; color: rgb(255, 255, 255); -unity-font-style: bold; margin-top: 0; margin-right: 10px; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+        <ui:Button parse-escape-sequences="false" display-tooltip-when-elided="false" name="EndTurnButton" enable-rich-text="false" class="endTurnButton">
+            <ui:VisualElement name="HourglassIcon" picking-mode="Ignore" style="background-image: resource(&apos;UI/Icons/hourglassIcon&apos;); -unity-background-scale-mode: scale-to-fit; width: 40%; height: 40%; position: absolute; left: 30%; top: 30%; -unity-background-image-tint-color: rgb(25, 25, 25);" />
+            <ui:VisualElement name="RoundsCountLabelContainer" picking-mode="Ignore" style="width: 30%; height: 30%; position: absolute; background-color: rgb(25, 25, 25); border-top-left-radius: 100%; border-top-right-radius: 100%; border-bottom-right-radius: 100%; border-bottom-left-radius: 100%; border-left-color: rgb(225, 225, 225); border-right-color: rgb(225, 225, 225); border-top-color: rgb(225, 225, 225); border-bottom-color: rgb(225, 225, 225); border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; left: 35%; bottom: -5%;">
+                <ui:Label tabindex="-1" text="89" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RoundsCountLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 28px; -unity-text-align: middle-center; color: rgb(225, 225, 225); position: absolute; width: 100%; height: 100%; padding-top: 5%;" />
+            </ui:VisualElement>
         </ui:Button>
     </ui:VisualElement>
-    <ui:Instance template="TimelinePanel" name="TimelinePanelRoot" class="timelinePanel" />
 </ui:UXML>

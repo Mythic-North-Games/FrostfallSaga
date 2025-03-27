@@ -44,17 +44,18 @@ MonoBehaviour:
     - rid: 3629974515939016704
       type: {class: MagicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
-        MagicalDamageAmount: 0
+        MagicalDamageAmount: 20
         MagicalElement: 0
     - rid: 6860900088736645120
       type: {class: ApplyStatusesEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
         StatusesToApply:
         - rid: 6860900088736645121
+        - rid: 6860900300970000384
     - rid: 6860900088736645121
       type: {class: BleedStatus, ns: FrostfallSaga.Fight.Statuses, asm: FrostfallSaga.Fight}
       data:
-        <Icon>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
+        <Icon>k__BackingField: {fileID: 21300000, guid: 63a7459c7f7b7f24289d4c72b8eb8a6e, type: 3}
         <StatusType>k__BackingField: 1
         <IsPermanent>k__BackingField: 0
         <Duration>k__BackingField: 2
@@ -63,3 +64,15 @@ MonoBehaviour:
         <TriggerTime>k__BackingField: 0
         <VisualsController>k__BackingField: {fileID: 11400000, guid: e549f4ec3ffc32845ba84beb73ada695, type: 2}
         <BleedingDamage>k__BackingField: 2
+    - rid: 6860900300970000384
+      type: {class: WeaknessStatus, ns: FrostfallSaga.Fight.Statuses, asm: FrostfallSaga.Fight}
+      data:
+        <Icon>k__BackingField: {fileID: 21300000, guid: db0c21c6a1db0b9469195ed4686d6350, type: 3}
+        <StatusType>k__BackingField: 3
+        <IsPermanent>k__BackingField: 1
+        <Duration>k__BackingField: 0
+        <TriggerOnFirstApply>k__BackingField: 0
+        <IsRecurring>k__BackingField: 1
+        <TriggerTime>k__BackingField: 1
+        <VisualsController>k__BackingField: {fileID: 0}
+        <StrengthReduction>k__BackingField: 1

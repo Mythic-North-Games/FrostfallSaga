@@ -36,6 +36,17 @@ namespace FrostfallSaga.Fight
                 preFightData.alliesEntityConf != null && preFightData.alliesEntityConf.Length > 0
                     ? preFightData.alliesEntityConf
                     : _devAlliesConfs;
+
+            // Heal allies if from dev
+            if (alliesFighterConf == _devAlliesConfs)
+            {
+                alliesFighterConf.ToList().ForEach(allyFighterConf =>
+                {
+                    PersistedFighterConfigurationSO fighterConfiguration = allyFighterConf.FighterConfiguration as PersistedFighterConfigurationSO;
+                    fighterConfiguration.SetHealth(fighterConfiguration.MaxHealth);
+                });
+            }
+            
             KeyValuePair<string, EntityConfigurationSO>[] enemiesFighterConf =
                 preFightData.enemiesEntityConf != null && preFightData.enemiesEntityConf.Length > 0
                     ? preFightData.enemiesEntityConf
@@ -143,7 +154,7 @@ namespace FrostfallSaga.Fight
             if (inventory.WeaponSlot.IsEmpty())
             {
                 Debug.LogWarning("Enemy inventory is missing a weapon. Default weapon will be equipped.");
-                inventory.EquipItem(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath));
+                inventory.EquipEquipment(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath));
             }
             return inventory;
         }

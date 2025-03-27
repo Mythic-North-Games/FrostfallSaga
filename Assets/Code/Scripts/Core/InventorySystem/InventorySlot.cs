@@ -46,6 +46,11 @@ namespace FrostfallSaga.Core.InventorySystem
             ItemCount++;
         }
 
+        /// <summary>
+        /// Removes one item from the slot.
+        /// If the item count turns to 0, the item is removed from the slot.
+        /// If the slot is empty, does nothing.
+        /// </summary>
         public void RemoveItem()
         {
             if (ItemCount > 1)
@@ -54,9 +59,14 @@ namespace FrostfallSaga.Core.InventorySystem
             }
             else
             {
-                Item = null;
-                ItemCount = 0;
+                RemoveAllItems();
             }
+        }
+
+        public void RemoveAllItems()
+        {
+            Item = null;
+            ItemCount = 0;
         }
 
         public bool IsEmpty()
