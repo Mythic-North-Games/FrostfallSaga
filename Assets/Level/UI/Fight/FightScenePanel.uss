@@ -434,6 +434,6 @@
     left: -85%;
 }
 
-.extraConsumableSlotsContainerHidden {
+.extraConsumablesSlotsContainerHidden {
     display: none;
 }

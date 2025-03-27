@@ -1,6 +1,7 @@
 using System;
 using UnityEngine.UIElements;
 using FrostfallSaga.Core.InventorySystem;
+using System.Linq;
 
 namespace FrostfallSaga.Core.UI
 {
@@ -36,9 +37,12 @@ namespace FrostfallSaga.Core.UI
         /// <param name="itemSlot">The item slot to display.</param>
         public void SetItemSlot(InventorySlot itemSlot)
         {
-            _itemIcon.style.backgroundImage = itemSlot.Item == null ? null : new(itemSlot.Item.IconSprite);
-            _itemCountLabelContainer.style.display = itemSlot.MaxItemCount > 1 && itemSlot.ItemCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
-            _itemCountLabel.text = itemSlot.MaxItemCount > 1 ? itemSlot.ItemCount.ToString() : string.Empty;
+            bool itemIsNull = itemSlot == null || itemSlot.Item == null;
+            bool itemCountDisplayable = !itemIsNull && itemSlot.MaxItemCount > 1 && itemSlot.ItemCount > 0;
+
+            _itemIcon.style.backgroundImage = itemIsNull ? null : new(itemSlot.Item.IconSprite);
+            _itemCountLabelContainer.style.display = itemCountDisplayable ? DisplayStyle.Flex : DisplayStyle.None;
+            _itemCountLabel.text = itemCountDisplayable ? itemSlot.ItemCount.ToString() : string.Empty;
 
             _currentItemSlot = itemSlot;
         }
@@ -50,6 +54,8 @@ namespace FrostfallSaga.Core.UI
         public void SetEnabled(bool enabled)
         {
             _root.SetEnabled(enabled);
+            _root.pickingMode = enabled ? PickingMode.Position : PickingMode.Ignore;
+            _root.Children().ToList().ForEach(child => child.pickingMode = enabled ? PickingMode.Position : PickingMode.Ignore);
         }
 
         private void OnItemSelected(MouseUpEvent clickEvent)

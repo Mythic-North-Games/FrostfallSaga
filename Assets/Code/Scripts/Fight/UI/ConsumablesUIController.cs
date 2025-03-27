@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Core.UI;
+using FrostfallSaga.Fight.FightItems;
 using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Fight.UI
@@ -18,7 +19,7 @@ namespace FrostfallSaga.Fight.UI
         private static readonly string EXTRA_CONSUMABLES_SLOT_ROOT_CLASSNAME = "extraConsumableSlotRoot";
         #endregion
 
-        public Action<AConsumable> onConsumableUsed;
+        public Action<InventorySlot> onConsumableUsed;
 
         private readonly VisualElement _root;
         private readonly VisualTreeAsset _consumableSlotTemplate;
@@ -32,14 +33,19 @@ namespace FrostfallSaga.Fight.UI
             _root = root;
             _consumableSlotTemplate = consumableSlotTemplate;
 
+            // Setup extra consumables slots container
             _extraConsumablesSlotsContainer = _root.Q<VisualElement>(EXTRA_CONSUMABLES_SLOTS_CONTAINER_UI_NAME);
             _extraConsumablesSlotsContainer.AddToClassList(EXTRA_CONSUMABLES_SLOTS_CONTAINER_HIDDEN_CLASSNAME);
-            _expandConsumablesButton = _root.Q<Button>(EXPAND_CONSUMABLES_BUTTON_UI_NAME);
-            _expandConsumablesButton.RegisterCallback<MouseUpEvent>(OnExpandConsumablesButtonClicked);
+            _extraConsumablesSlotsContainer.Clear();
 
+            // Setup expand consumables button
+            _expandConsumablesButton = _root.Q<Button>(EXPAND_CONSUMABLES_BUTTON_UI_NAME);
+            _expandConsumablesButton.RegisterCallback<ClickEvent>(OnExpandConsumablesButtonClicked);
+
+            // Setup quick access consumable slots
             foreach (VisualElement consumableSlot in _root.Q<VisualElement>(CONSUMABLES_SLOTS_CONTAINER_UI_NAME).Children())
             {
-                _consumableSlotControllers.Add(new(consumableSlot));
+                _consumableSlotControllers.Add(new(consumableSlot.Children().First()));
             }
         }
 
@@ -51,7 +57,9 @@ namespace FrostfallSaga.Fight.UI
 
         private void SetupQuickAccessSlots(Inventory playingFighterInventory)
         {
-            InventorySlot[] consumablesQuickAccessSlots = playingFighterInventory.ConsumablesQuickAccessSlots;
+            InventorySlot[] consumablesQuickAccessSlots = playingFighterInventory.ConsumablesQuickAccessSlots
+                .Where(slot => slot.Item != null)
+                .ToArray();
             InventorySlot[] consumablesBagSlots = playingFighterInventory.GetConsumableSlotsInBag();
             _consumablesFromBagInQuickAccess.Clear();
             for (int i = 0; i < _consumableSlotControllers.Count; i++)
@@ -72,6 +80,7 @@ namespace FrostfallSaga.Fight.UI
                 }
                 else
                 {
+                    _consumableSlotControllers[i].SetItemSlot(null);
                     _consumableSlotControllers[i].onItemSelected -= OnConsumableSlotClicked;
                     _consumableSlotControllers[i].SetEnabled(false);
                 }
@@ -86,9 +95,19 @@ namespace FrostfallSaga.Fight.UI
                 .Where(consumableSlot => !_consumablesFromBagInQuickAccess.Contains(consumableSlot))
                 .ToList();
 
-            // If there are no extra consumables, do nothing
-            if (extraConsumablesSlot.Count == 0) return;
+            // If there are no extra consumables, disable expand button
+            if (extraConsumablesSlot.Count == 0)
+            {
+                _expandConsumablesButton.SetEnabled(false);
+                _expandConsumablesButton.pickingMode = PickingMode.Ignore;
+                return;
+            }
 
+            // Otherwise, enable the expand button
+            _expandConsumablesButton.SetEnabled(true);
+            _expandConsumablesButton.pickingMode = PickingMode.Position;
+
+            // Setup extra consumables slots
             _extraConsumablesSlotsContainer.Clear();
             foreach (InventorySlot consumableSlot in extraConsumablesSlot)
             {
@@ -105,15 +124,15 @@ namespace FrostfallSaga.Fight.UI
 
         private void OnConsumableSlotClicked(InventorySlot clickedConsumableSlot)
         {
-            if (clickedConsumableSlot.Item is AConsumable consumable)   // Should always be true
+            if (clickedConsumableSlot.Item is ConsumableSO)   // Should always be true
             {
-                onConsumableUsed?.Invoke(consumable);
+                onConsumableUsed?.Invoke(clickedConsumableSlot);
             }
         }
 
-        private void OnExpandConsumablesButtonClicked(MouseUpEvent clickEvent)
+        private void OnExpandConsumablesButtonClicked(ClickEvent clickEvent)
         {
-            _extraConsumablesSlotsContainer.AddToClassList(EXTRA_CONSUMABLES_SLOTS_CONTAINER_HIDDEN_CLASSNAME);
+            _extraConsumablesSlotsContainer.ToggleInClassList(EXTRA_CONSUMABLES_SLOTS_CONTAINER_HIDDEN_CLASSNAME);
         }
     }
 }

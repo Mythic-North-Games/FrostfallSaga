@@ -7,7 +7,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="TimelineCharacterContainer" style="width: 50%; height: 100%;">
             <ui:VisualElement name="TimelineCharacterIcon" style="width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Art/UI/Portraits/vikingSquarePortrait.jpeg?fileID=2800000&amp;guid=650560cad05210a4396e7d04c5ad61aa&amp;type=3#vikingSquarePortrait&quot;);" />
-            <ui:VisualElement name="ProgressBarFill" picking-mode="Ignore" style="position: absolute; width: 100%; height: 75%; background-color: rgba(125, 20, 20, 0.39); bottom: 0;" />
+            <ui:VisualElement name="ProgressBarFill" picking-mode="Ignore" style="position: absolute; width: 100%; height: 75%; background-color: rgba(125, 20, 20, 0.78); bottom: 0;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

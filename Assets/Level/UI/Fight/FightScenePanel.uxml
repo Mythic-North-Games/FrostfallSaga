@@ -49,7 +49,7 @@
                     </ui:Button>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="InventoryBar" style="width: 32%; height: 100%; flex-direction: row; justify-content: flex-start;">
+            <ui:VisualElement name="ConsumablesBar" style="width: 32%; height: 100%; flex-direction: row; justify-content: flex-start;">
                 <ui:VisualElement name="ExtraConsumablesSlotsContainer" style="position: absolute; width: 82%; min-height: 50%; flex-direction: row; justify-content: flex-start; flex-wrap: wrap-reverse; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-items: stretch; bottom: 105%;">
                     <ui:Instance template="ConsumableSlot" name="ExtraConsumableSlotRoot" class="extraConsumableSlotRoot" />
                     <ui:Instance template="ConsumableSlot" name="ExtraConsumableSlotRoot" class="extraConsumableSlotRoot" />
