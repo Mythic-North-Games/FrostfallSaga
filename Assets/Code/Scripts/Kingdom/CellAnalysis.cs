@@ -6,8 +6,6 @@ namespace FrostfallSaga.Grid
 {
     public static class CellAnalysis
     {
-        public static Dictionary<HexDirection, Cell> CELLS_BY_DIRECTION = new();
-
         private static readonly HexDirection[] Direction =
         {
             HexDirection.WEST, HexDirection.NORTHWEST,
@@ -15,23 +13,28 @@ namespace FrostfallSaga.Grid
             HexDirection.SOUTHEAST, HexDirection.SOUTHWEST
         };
 
-        public static void AnalyzeAtCell(Cell targetCell, AHexGrid grid)
+        public static Dictionary<HexDirection, Cell> AnalyzeAtCell(Cell targetCell, AHexGrid grid, bool isPrintAnalysis)
         {
-            CELLS_BY_DIRECTION.Clear();
+            Dictionary<HexDirection, Cell> cellsByDirections = new();
             Cell[] neighborCells = CellsNeighbors.GetNeighborsInClockwiseOrder(grid, targetCell);
             for (int i = 0; i < neighborCells.Length; i++)
             {
                 Cell neighbor = neighborCells[i];
                 if (neighbor)
                 {
-                    CELLS_BY_DIRECTION[Direction[i]] = neighbor;
+                    cellsByDirections[Direction[i]] = neighbor;
                 }
             }
+
+            if (isPrintAnalysis)
+                PrintAnalysisDict(cellsByDirections);
+
+            return cellsByDirections;
         }
 
-        public static void PrintAnalysisDict()
+        public static void PrintAnalysisDict(Dictionary<HexDirection, Cell> cellsByDirections)
         {
-            foreach (KeyValuePair<HexDirection, Cell> item in CELLS_BY_DIRECTION)
+            foreach (KeyValuePair<HexDirection, Cell> item in cellsByDirections)
             {
                 string cellName = item.Value ? item.Value.name : "NULL";
                 string terrainTypeName = item.Value ? item.Value.TerrainType.name : "NULL";

@@ -1245,6 +1245,7 @@ MonoBehaviour:
   sceneTransitioner: {fileID: 26075752}
   readyToFightAnimationDuration: 2
   delayBeforeLoadingSceneAfterReadyAnimation: 1
+  isPrintAnalysis: 0
 --- !u!1 &1449699357
 GameObject:
   m_ObjectHideFlags: 3

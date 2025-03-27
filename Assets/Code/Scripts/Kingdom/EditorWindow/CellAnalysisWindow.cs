@@ -19,10 +19,7 @@ namespace FrostfallSaga.Grid
 
             if (!targetCell) return;
             if (GUILayout.Button("Analyze Neighbors"))
-                CellAnalysis.AnalyzeAtCell(targetCell, grid);
-
-            if (!GUILayout.Button("Print Analyze Dict")) return;
-            CellAnalysis.PrintAnalysisDict();
+                CellAnalysis.AnalyzeAtCell(targetCell, grid, true);
         }
 
         [MenuItem("Window/CellAnalysis")]

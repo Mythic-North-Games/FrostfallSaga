@@ -21,6 +21,7 @@ namespace FrostfallSaga.Kingdom
         [SerializeField] private SceneTransitioner sceneTransitioner;
         [SerializeField] private float readyToFightAnimationDuration = 2f;
         [SerializeField] private float delayBeforeLoadingSceneAfterReadyAnimation = 10f;
+        [SerializeField] private bool isPrintAnalysis;
         private Action _onEncounterAnimationEnded;
 
         #region Setup and tear down
@@ -117,14 +118,13 @@ namespace FrostfallSaga.Kingdom
                     enemyGroupEntity.EntityConfiguration);
             }
 
-            CellAnalysis.AnalyzeAtCell(enemiesGroup.cell, kingdomManager.KingdomGrid);
-            CellAnalysis.PrintAnalysisDict(); //TEMP à retirer après le Debug
+            Dictionary<HexDirection, Cell> analyze = CellAnalysis.AnalyzeAtCell(enemiesGroup.cell, kingdomManager.KingdomGrid, isPrintAnalysis);
 
             GameStateManager.Instance.SavePreFightData(
                 HeroTeam.Instance.GetAliveHeroesEntityConfig(),
                 enemiesFighterConfigs,
                 EFightOrigin.KINGDOM,
-                CellAnalysis.CELLS_BY_DIRECTION
+                analyze
             );
         }
     }
