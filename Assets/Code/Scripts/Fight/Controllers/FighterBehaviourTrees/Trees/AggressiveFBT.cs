@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Utils.Trees.BehaviourTree;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
@@ -11,7 +10,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
     {
         public AggressiveFBT(
             Fighter possessedFighter,
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams
         ) : base(possessedFighter, fightGrid, fighterTeams)
         {
@@ -24,7 +23,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
         /// </summary>
         protected override Node SetupTree()
         {
-            List<ETarget> targets = new() { ETarget.OPONENTS };
+            List<ETarget> targets = new() { ETarget.OPONNENTS };
 
             return new Selector(
                 new List<Node>
@@ -53,11 +52,11 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
                         targets,
                         ETargetType.STRONGEST
                     ),
-                    new DamageTargetAction(
+                    new DamageDefinedTargetAction(
                         _possessedFighter,
                         _fightGrid,
                         _fighterTeams,
-                        EDamagePreference.MAXIMIZE_DAMAGE
+                        EAbilityUsagePreference.MAXIMIZE_EFFECT
                     )
                 }
             );

@@ -27,8 +27,7 @@ namespace FrostfallSaga.Kingdom
 
         private void Awake()
         {
-            kingdomManager ??= FindObjectOfType<KingdomManager>();
-
+            kingdomManager = kingdomManager != null ? kingdomManager : FindObjectOfType<KingdomManager>();
             if (kingdomManager == null)
             {
                 Debug.LogError("No KingdomManager found. Can't transition to fight scene.");

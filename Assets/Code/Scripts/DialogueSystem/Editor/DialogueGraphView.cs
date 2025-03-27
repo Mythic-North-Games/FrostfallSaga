@@ -59,10 +59,10 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         private DialogueNode CreateDialogueNode(TreeNode<DialogueLine> treeNode, int depth, DialogueNode parentNode)
         {
             DialogueNode newNode = new(treeNode, depth, parentNode);
-            newNode.onAnswerAdded += HandleAnswerAdded;
+            newNode.OnAnswerAdded += HandleAnswerAdded;
             newNode.OnAddLineContinuation += HandleContinuationAdded;
-            newNode.onNodeRemoved += HandleNodeRemoved;
-            newNode.onNodeModified += AutoSave;
+            newNode.OnNodeRemoved += HandleNodeRemoved;
+            newNode.OnNodeModified += AutoSave;
             AddElement(newNode);
 
             if (parentNode != null)

@@ -118,10 +118,7 @@ namespace FrostfallSaga.Fight.UI
         {
             TemplateContainer floatingBar = _fighterFloatingBars[fighter];
             VisualElement characterTraitIcon = floatingBar.Q<VisualElement>(PERSONALITY_TRAIT_ICON_UI_NAME);
-            if (fighter.PersonalityTrait == null)
-                characterTraitIcon.visible = false;
-            else
-                characterTraitIcon.style.backgroundImage = new StyleBackground(fighter.PersonalityTrait.Icon);
+            characterTraitIcon.visible = false;
         }
     }
 }

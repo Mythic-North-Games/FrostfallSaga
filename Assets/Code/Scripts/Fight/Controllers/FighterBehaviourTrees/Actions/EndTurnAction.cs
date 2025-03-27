@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Utils.Trees.BehaviourTree;
+
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 {
@@ -14,7 +14,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 
         public EndTurnAction(
             Fighter possessedFighter,
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams
         ) : base(possessedFighter, fightGrid, fighterTeams)
         {

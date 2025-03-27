@@ -49,5 +49,20 @@ namespace FrostfallSaga.Fight.Effects
         {
             return 0;
         }
+        public override int GetPotentialEffectHeal(Fighter initiator, Fighter receiver, bool canMasterstroke)
+        {
+            return 0;
+        }
+
+        public override string GetUIEffectDescription()
+        {
+            if (UsePercentage)
+            {
+                string verb = Amount > 0 ? "Increases" : "Decreases";
+                return $"{verb} {StatToUpdate} by <b>{Amount}%</b>.";
+            }
+            string sign = Amount > 0 ? "+" : "-";
+            return $"{sign}{Amount} {StatToUpdate}";
+        }
     }
 }

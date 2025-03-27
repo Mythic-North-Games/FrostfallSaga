@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Grid.Cells;
@@ -24,15 +23,17 @@ namespace FrostfallSaga.Kingdom.InterestPoints
             Cell cell = grid.GetCellAtCoordinates(coordinates);
             if (cell == null) return null;
 
-            InterestPoint interestPoint = InstantiateInterestPoint(interestPointData.interestPointConfiguration,
-                cell.GetComponent<KingdomCell>());
+            InterestPoint interestPoint = InstantiateInterestPoint(
+                interestPointData.interestPointConfiguration,
+                cell.GetComponent<KingdomCell>()
+            );
             return interestPoint;
         }
 
         /// <summary>
         ///     Génère les InterestPoints initiaux
         /// </summary>
-        public void FirstBuildInterestPoints(KingdomHexGrid kingdomHexGrid, List<InterestPoint> interestPoints)
+        public void FirstBuildInterestPoints(KingdomHexGrid kingdomHexGrid, List<AInterestPointConfigurationSO> interestPoints)
         {
             Debug.Log("Generating Interest Points...");
 
@@ -43,10 +44,10 @@ namespace FrostfallSaga.Kingdom.InterestPoints
                 return;
             }
 
-            foreach (InterestPoint point in interestPoints)
+            foreach (AInterestPointConfigurationSO interestPointConfig in interestPoints)
             {
                 KingdomCell cell = Randomizer.GetRandomElementFromArray(freeCells.ToArray());
-                InstantiateInterestPoint(point.InterestPointConfiguration, cell);
+                InstantiateInterestPoint(interestPointConfig, cell);
                 freeCells.Remove(cell);
             }
         }

@@ -7,12 +7,7 @@ namespace FrostfallSaga.Fight.Statuses
     [Serializable]
     public abstract class AStatus
     {
-        [field: SerializeField]
-        [field: Header("For the UI")]
-        public string Name { get; protected set; }
-
-        [field: SerializeField] public string Description { get; protected set; }
-        [field: SerializeField] public Sprite Icon { get; protected set; }
+        [field: SerializeField, Header("For the UI")] public Sprite Icon { get; protected set; }
 
         [field: SerializeField]
         [field: Header("Status parameters")]
@@ -34,8 +29,6 @@ namespace FrostfallSaga.Fight.Statuses
 
         public AStatus(
             EStatusType statusType,
-            string name,
-            string description,
             bool isPermanent,
             int duration,
             bool triggerOnFirstApply,
@@ -45,8 +38,6 @@ namespace FrostfallSaga.Fight.Statuses
         )
         {
             StatusType = statusType;
-            Name = name;
-            Description = description;
             IsPermanent = isPermanent;
             Duration = duration;
             TriggerOnFirstApply = triggerOnFirstApply;
@@ -95,6 +86,18 @@ namespace FrostfallSaga.Fight.Statuses
         /// </summary>
         /// <param name="fighter">The fighter that will have the status removed.</param>
         protected abstract void DoRemoveStatus(Fighter fighter);
+
+        /// <summary>
+        /// Get the potential damages that the status can do to a fighter.
+        /// </summary>
+        /// <returns>Returns the potential damages that the status can do to a fighter.</returns>
+        public abstract int GetPotentialDamages();
+
+        /// <summary>
+        /// Get the potential heal that the status can do to a fighter.
+        /// </summary>
+        /// <returns>Returns the potential heal that the status can do to a fighter.</returns>
+        public abstract int GetPotentialHeal();
 
 #if UNITY_EDITOR
         public void SetDuration(int duration)

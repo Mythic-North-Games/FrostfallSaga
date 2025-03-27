@@ -17,7 +17,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 
         public MoveToClosestTargetAction(
             Fighter possessedFighter,
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,
             List<ETarget> possibleTargets
         ) : base(possessedFighter, fightGrid, fighterTeams)
@@ -58,7 +58,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
                     continue;
                 }
 
-                if (!fighterIsAlly && _possibleTargets.Contains(ETarget.OPONENTS)) targetsToMoveTo.Add(fighter);
+                if (!fighterIsAlly && _possibleTargets.Contains(ETarget.OPONNENTS)) targetsToMoveTo.Add(fighter);
             }
 
             return targetsToMoveTo;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FrostfallSaga.Core.Dialogues;
+using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Utils.Trees;
 using UnityEditor;
 using UnityEngine;
@@ -92,18 +93,43 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             if (_nodeFoldouts[node])
             {
                 string newTitle = EditorGUILayout.TextField("Title", data.Title);
-                if (newTitle != data.Title) data.SetTitle(newTitle);
+                if (newTitle != data.Title)
+                {
+                    data.SetTitle(newTitle);
+                    EditorUtility.SetDirty(_dialogueSO);
+                }
 
                 string newRichText = EditorGUILayout.TextField("Rich Text", data.RichText);
-                if (newRichText != data.RichText) data.SetRichText(newRichText);
+                if (newRichText != data.RichText)
+                {
+                    data.SetRichText(newRichText);
+                    EditorUtility.SetDirty(_dialogueSO);
+                }
 
-                DialogueParticipantSO newSpeaker =
-                    (DialogueParticipantSO)EditorGUILayout.ObjectField("Speaker", data.Speaker,
-                        typeof(DialogueParticipantSO), false);
-                if (newSpeaker != data.Speaker) data.SetSpeaker(newSpeaker);
+                DialogueParticipantSO newSpeaker = (DialogueParticipantSO)EditorGUILayout.ObjectField(
+                    "Speaker", data.Speaker, typeof(DialogueParticipantSO), false
+                );
+                if (newSpeaker != data.Speaker)
+                {
+                    data.SetSpeaker(newSpeaker);
+                    EditorUtility.SetDirty(_dialogueSO);
+                }
 
                 bool newIsRight = EditorGUILayout.Toggle("Is Speaker on Right?", data.IsRight);
-                if (newIsRight != data.IsRight) data.SetIsRight(newIsRight);
+                if (newIsRight != data.IsRight)
+                {
+                    data.SetIsRight(newIsRight);
+                    EditorUtility.SetDirty(_dialogueSO);
+                }
+
+                AQuestSO newQuest = (AQuestSO)EditorGUILayout.ObjectField(
+                    "Quest", data.Quest, typeof(AQuestSO), false
+                );
+                if (newQuest != data.Quest)
+                {
+                    data.SetQuest(newQuest);
+                    EditorUtility.SetDirty(_dialogueSO);
+                }
 
                 EditorGUILayout.Space();
                 DrawAnswersAndChildren(node);
@@ -201,6 +227,8 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             parentNode.GetChildren().Add(new TreeNode<DialogueLine>(
                 new DialogueLine($"{answerText} answer", "New dialogue line", null, false)
             ));
+
+            EditorUtility.SetDirty(_dialogueSO);
         }
 
         private void RemoveAnswerAndChild(TreeNode<DialogueLine> parentNode, int index)
@@ -216,6 +244,8 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
             if (parentNode.GetChildren() != null && index < parentNode.GetChildren().Count)
                 parentNode.GetChildren().RemoveAt(index);
+
+            EditorUtility.SetDirty(_dialogueSO);
         }
     }
 }

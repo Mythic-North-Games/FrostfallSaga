@@ -10,9 +10,9 @@ using Object = UnityEngine.Object;
 
 namespace FrostfallSaga.EditModeTests.Kingdom
 {
-    public class EntitiesGroupsMovementControllerTests
-    {
-        private AHexGrid grid;
+	public class EntitiesGroupsMovementControllerTests
+	{
+		private KingdomHexGrid grid;
 
         [SetUp]
         public void Setup()

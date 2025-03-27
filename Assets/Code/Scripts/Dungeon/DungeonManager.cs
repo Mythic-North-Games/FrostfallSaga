@@ -8,6 +8,7 @@ using FrostfallSaga.Core.GameState.Fight;
 using FrostfallSaga.Core.HeroTeam;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Scenes;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace FrostfallSaga.Dungeon
 
         private void Awake()
         {
+            HeroTeamQuests.Instance.InitializeQuests(this);
+
             _gameStateManager = GameStateManager.Instance;
             DungeonState dungeonState = _gameStateManager.GetDungeonState();
 
@@ -33,7 +36,9 @@ namespace FrostfallSaga.Dungeon
             if (!dungeonState.AlliesWonLastFight || dungeonState.IsDungeonCompleted())
             {
                 Debug.Log(
-                    "Dungeon completed or allies lost last fight. Cleaning dungeon state and transitioning to kingdom...");
+                    "Dungeon completed or allies lost last fight. Cleaning dungeon state and transitioning to kingdom..."
+                );
+                dungeonState.DungeonConfiguration.CompleteDungeon();
                 _gameStateManager.CleanDungeonState();
                 SceneTransitioner.Instance.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
                 return;

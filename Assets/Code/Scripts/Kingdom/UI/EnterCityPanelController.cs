@@ -72,7 +72,7 @@ namespace FrostfallSaga.Kingdom.UI
 
         private void SetupCityPanel(CityBuildingConfigurationSO cityBuildingConfiguration)
         {
-            _cityGatePanel.style.flexGrow = 1;
+            _cityGatePanel.StretchToParentSize();
             _cityGatePanel.Q<VisualElement>(PANEL_CONTAINER_UI_NAME).AddToClassList(PANEL_HIDDEN_CLASSNAME);
             _cityGatePanel.Q<VisualElement>(CITY_PANEL_CONTAINER_UI_NAME).AddToClassList(CITY_PANEL_HIDDEN_CLASSNAME);
             _cityGatePanel.Q<VisualElement>(PREVIEW_CONTAINER_UI_NAME).style.backgroundImage =

@@ -1,12 +1,12 @@
 using System;
 using FrostfallSaga.Core.Entities;
+using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.EntitiesVisual;
-using FrostfallSaga.Fight;
-using FrostfallSaga.Fight.Abilities;
-using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.FightItems;
-using FrostfallSaga.InventorySystem;
+using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight;
 using UnityEngine;
 
 namespace FrostfallSaga.EditModeTests.FightTests

@@ -4,6 +4,7 @@ using System.Linq;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Kingdom;
+using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
@@ -198,6 +199,8 @@ namespace FrostfallSaga.Kingdom
 
             enemiesGroupSpawner.OnEntitiesGroupSpawned += OnEnemiesGroupSpawned;
             kingdomLoader.OnKingdomLoaded += OnKingdomLoaded;
+
+            HeroTeamQuests.Instance.InitializeQuests(this);
         }
 
         private void Setup()

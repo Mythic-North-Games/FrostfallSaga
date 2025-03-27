@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Utils.Trees.BehaviourTree;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
@@ -10,8 +9,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
     /// </summary>
     public class CanMoveCheck : FBTNode
     {
-        public CanMoveCheck(Fighter possessedFighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams) :
-            base(possessedFighter, fightGrid, fighterTeams)
+        public CanMoveCheck(Fighter possessedFighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams) : base(possessedFighter, fightGrid, fighterTeams)
         {
         }
 

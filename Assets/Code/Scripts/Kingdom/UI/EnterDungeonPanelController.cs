@@ -73,7 +73,7 @@ namespace FrostfallSaga.Kingdom.UI
 
         private void SetupDungeonPanel(DungeonBuildingConfigurationSO dungeonBuildingConfiguration)
         {
-            _dungeonGatePanel.style.flexGrow = 1;
+            _dungeonGatePanel.StretchToParentSize();
             _dungeonGatePanel.Q<VisualElement>(PANEL_CONTAINER_UI_NAME).AddToClassList(PANEL_HIDDEN_CLASSNAME);
             _dungeonGatePanel.Q<VisualElement>(DUNGEON_PANEL_CONTAINER_UI_NAME)
                 .AddToClassList(DUNGEON_PANEL_HIDDEN_CLASSNAME);

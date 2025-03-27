@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using FrostfallSaga.Core.Quests;
 
 namespace FrostfallSaga.Core.Dialogues
 {
@@ -11,6 +12,7 @@ namespace FrostfallSaga.Core.Dialogues
         [field: SerializeField] public DialogueParticipantSO Speaker { get; private set; }
         [field: SerializeField] public bool IsRight { get; private set; }
         [field: SerializeField] public string[] Answers { get; private set; }
+        [field: SerializeField] public AQuestSO Quest { get; private set; }
 
         /// <summary>
         ///     Constructor for DialogueLine.
@@ -54,6 +56,11 @@ namespace FrostfallSaga.Core.Dialogues
         public void SetAnswers(string[] newAnswers)
         {
             Answers = newAnswers;
+        }
+
+        public void SetQuest(AQuestSO newQuest)
+        {
+            Quest = newQuest;
         }
     }
 }

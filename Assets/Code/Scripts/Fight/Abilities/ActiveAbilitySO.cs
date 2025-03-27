@@ -14,8 +14,7 @@ namespace FrostfallSaga.Fight.Abilities
     /// <summary>
     ///     Reperesents an active ability that can be used during a fight.
     /// </summary>
-    [CreateAssetMenu(fileName = "ActiveAbility", menuName = "ScriptableObjects/Fight/Abilities/ActiveAbility",
-        order = 0)]
+    [CreateAssetMenu(fileName = "ActiveAbility", menuName = "ScriptableObjects/Fight/Abilities/ActiveAbility", order = 0)]
     public class ActiveAbilitySO : ABaseAbility
     {
         [field: SerializeField] public Targeter Targeter { get; private set; }
@@ -37,8 +36,13 @@ namespace FrostfallSaga.Fight.Abilities
 
         private Fighter _currentInitiator;
 
-        public Action<ActiveAbilitySO> onActiveAbilityEnded;
+        public Action<ActiveAbilitySO> OnActiveAbilityEnded;
 
+        /// <summary>
+        /// Trigger the ability on the targeted cells.
+        /// </summary>
+        /// <param name="targetedCells">The cells that are targeted by the ability.</param>
+        /// <param name="initiator">The fighter that initiated the ability.</param>
         public void Trigger(FightCell[] targetedCells, Fighter initiator)
         {
             if (Animation == null)
@@ -52,7 +56,7 @@ namespace FrostfallSaga.Fight.Abilities
                             ApplyAlterationsToCell(cell);
                         }
                     );
-                onActiveAbilityEnded?.Invoke(this);
+                OnActiveAbilityEnded?.Invoke(this);
             }
             else
             {
@@ -64,10 +68,29 @@ namespace FrostfallSaga.Fight.Abilities
             }
         }
 
+        /// <summary>
+        /// Compute the potential damages that the ability can do to the target.
+        /// </summary>
+        /// <param name="initiator">The initiator of the ability.</param>
+        /// <param name="target">The target that will receive the ability effects.</param>
+        /// <returns>The potential damages that the ability can do in this configuration to the target.</returns>
         public int GetDamagesPotential(Fighter initiator, Fighter target)
         {
             return Effects.Sum(
                 effect => effect.GetPotentialEffectDamages(initiator, target, Masterstrokable)
+            );
+        }
+
+        /// <summary>
+        /// Compute the potential heal that the ability can do to the target.
+        /// </summary>
+        /// <param name="initiator">The initiator of the ability.</param>
+        /// <param name="target">The target that will receive the ability effects.</param>
+        /// <returns>The potential heal that the ability can do in this configuration to the target.</returns>
+        public int GetHealPotential(Fighter initiator, Fighter target)
+        {
+            return Effects.Sum(
+                effect => effect.GetPotentialEffectHeal(initiator, target, Masterstrokable)
             );
         }
 
@@ -88,7 +111,7 @@ namespace FrostfallSaga.Fight.Abilities
             Animation.onFighterTouched -= OnActiveAbilityTouchedFighter;
             Animation.onCellTouched -= OnActiveAbilityTouchedCell;
             Animation.onAnimationEnded -= OnActiveAbilityAnimationEnded;
-            onActiveAbilityEnded?.Invoke(this);
+            OnActiveAbilityEnded?.Invoke(this);
         }
 
         private void ApplyAbilityToFighter(Fighter receiver, Fighter initiator)

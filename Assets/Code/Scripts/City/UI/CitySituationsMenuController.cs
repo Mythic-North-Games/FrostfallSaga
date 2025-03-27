@@ -8,6 +8,7 @@ namespace FrostfallSaga.City.UI
 {
     public class CitySituationsMenuController : MonoBehaviour
     {
+        #region UXML Names and classes
         private static readonly string SITUATIONS_CONTAINER_UI_NAME = "SituationsContainer";
         private static readonly string SITUATION_ILLUSTRATION_UI_NAME = "SituationIllustration";
         private static readonly string SITUATION_BUTTON_UI_NAME = "SituationButton";
@@ -15,26 +16,25 @@ namespace FrostfallSaga.City.UI
 
         private static readonly string SITUATIONS_MENU_HIDDEN_CLASSNAME = "situationMenuHidden";
         private static readonly string SITUATION_ILLUSTRATION_HIDDEN_CLASSNAME = "situationIllustrationHidden";
-        private static readonly string SITUATION_BUTTON_CONTAINER_DEFAULT_CLASSNAME = "situationButtonContainer";
-        private static readonly string SITUATION_BUTTON_CONTAINER_HIDDEN_CLASSNAME = "situationButtonContainerHidden";
-        private VisualTreeAsset _citySituationButtonTemplate;
-        private ACitySituationSO[] _currentCitySituations;
-        private Button _returnButton;
-        private VisualElement _situationIllustration;
-        private VisualElement _situationsContainer;
-
-        private VisualElement _situationsMenuRoot;
-
-        private float _timeBeforeSituationsButtonDisplay;
-        private float _timeBetweenSituationsButtonDisplay;
+        private static readonly string SITUATION_BUTTON_CONTAINER_DEFAULT_CLASSNAME = "situationButtonContainerRoot";
+        private static readonly string SITUATION_BUTTON_CONTAINER_HIDDEN_CLASSNAME = "situationButtonContainerRootHidden";
+        #endregion
 
         public Action<ACitySituationSO> OnCitySituationClicked;
         public Action OnReturnClicked;
 
+        private VisualElement _situationsMenuRoot;
+        private VisualElement _situationsContainer;
+        private VisualElement _situationIllustration;
+        private Button _returnButton;
+        private VisualTreeAsset _citySituationButtonTemplate;
+        private ACitySituationSO[] _currentCitySituations;
+        private float _timeBeforeSituationsButtonDisplay;
+        private float _timeBetweenSituationsButtonDisplay;
+
         public void Init(
             VisualElement citySituationsMenuRoot,
             VisualTreeAsset citySituationButtonTemplate,
-            ACitySituationSO[] citySituations,
             float timeBeforeSituationsButtonDisplay = 0.5f,
             float timeBetweenSituationsButtonDisplay = 0.2f
         )
@@ -48,9 +48,6 @@ namespace FrostfallSaga.City.UI
             _timeBeforeSituationsButtonDisplay = timeBeforeSituationsButtonDisplay;
             _timeBetweenSituationsButtonDisplay = timeBetweenSituationsButtonDisplay;
             _returnButton.RegisterCallback<ClickEvent>(evt => OnReturnClicked?.Invoke());
-
-            // Setup the situations menu
-            SetupSituationsMenu(citySituations);
         }
 
         public void SetupSituationsMenu(ACitySituationSO[] citySituations)
@@ -65,10 +62,17 @@ namespace FrostfallSaga.City.UI
                 situationButtonContainer.Q<Button>(SITUATION_BUTTON_UI_NAME).text = citySituation.Name;
                 situationButtonContainer.AddToClassList(SITUATION_BUTTON_CONTAINER_DEFAULT_CLASSNAME);
                 situationButtonContainer.AddToClassList(SITUATION_BUTTON_CONTAINER_HIDDEN_CLASSNAME);
+                _situationsContainer.Add(situationButtonContainer);
+
+                if (!citySituation.IsReplayable && citySituation.IsDone)
+                {
+                    situationButtonContainer.SetEnabled(false);
+                    return;
+                }
+
                 situationButtonContainer.RegisterCallback<MouseEnterEvent>(OnSituationButtonHovered);
                 situationButtonContainer.RegisterCallback<MouseLeaveEvent>(OnSituationButtonUnhovered);
                 situationButtonContainer.RegisterCallback<ClickEvent>(OnSituationButtonClicked);
-                _situationsContainer.Add(situationButtonContainer);
             }
         }
 

@@ -1,5 +1,6 @@
-using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees;
+
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight.Controllers
@@ -66,7 +67,7 @@ namespace FrostfallSaga.Fight.Controllers
             _firstExecution = false;
         }
 
-        public void Setup(FightManager fightManager, int timeBetweenActionsInSec = 2)
+        public void Setup(FightManager fightManager, int timeBetweenActionsInSec = 1)
         {
             _fightManager = fightManager;
             _timeBetweenActionsInSec = timeBetweenActionsInSec;

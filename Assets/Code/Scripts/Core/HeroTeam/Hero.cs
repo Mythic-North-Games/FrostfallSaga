@@ -1,19 +1,18 @@
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
-using UnityEngine;
 
 namespace FrostfallSaga.Core.HeroTeam
 {
     public class Hero
     {
-        public Hero(string entityConfigurationSOPath)
+        public EntityConfigurationSO EntityConfiguration { get; private set; }
+        public PersistedFighterConfigurationSO PersistedFighterConfiguration { get; private set; }
+
+        public Hero(EntityConfigurationSO entityConfiguration)
         {
-            EntityConfiguration = Resources.Load<EntityConfigurationSO>(entityConfigurationSOPath);
+            EntityConfiguration = entityConfiguration;
             PersistedFighterConfiguration = (PersistedFighterConfigurationSO)EntityConfiguration.FighterConfiguration;
         }
-
-        public EntityConfigurationSO EntityConfiguration { get; }
-        public PersistedFighterConfigurationSO PersistedFighterConfiguration { get; }
 
         public bool IsDead()
         {

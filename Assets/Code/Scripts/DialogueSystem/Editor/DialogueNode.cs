@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Core.Dialogues;
+using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Utils.Trees;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
@@ -11,6 +12,11 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 {
     public class DialogueNode : Node
     {
+        public Action<DialogueNode> OnAddLineContinuation;
+        public Action<DialogueNode> OnAnswerAdded;
+        public Action OnNodeModified;
+        public Action<DialogueNode> OnNodeRemoved;
+
         private Button _addAnswerButton;
         private Button _addContinuationButton;
         private VisualElement _answersContainer;
@@ -18,10 +24,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         private TextField _richTextField;
         private ObjectField _speakerField;
         private TextField _titleField;
-        public Action<DialogueNode> OnAddLineContinuation;
-        public Action<DialogueNode> onAnswerAdded;
-        public Action onNodeModified;
-        public Action<DialogueNode> onNodeRemoved;
+        private ObjectField _questField;
 
         public DialogueNode(TreeNode<DialogueLine> treeNode, int depth, DialogueNode parentNode)
         {
@@ -91,18 +94,22 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             _isRightToggle.RegisterValueChangedCallback(evt => UpdateIsRight(evt.newValue));
             container.Add(_isRightToggle);
 
+            _questField = new ObjectField("Quest") { objectType = typeof(AQuestSO), value = Data.Quest };
+            _questField.RegisterValueChangedCallback(evt => UpdateQuest(evt.newValue as AQuestSO));
+            container.Add(_questField);
+
             _answersContainer = new VisualElement();
             _answersContainer.style.marginTop = 5;
             container.Add(_answersContainer);
 
-            _addAnswerButton = new Button(() => onAnswerAdded?.Invoke(this)) { text = "Add Answer" };
+            _addAnswerButton = new Button(() => OnAnswerAdded?.Invoke(this)) { text = "Add Answer" };
             _addContinuationButton = new Button(() => OnAddLineContinuation?.Invoke(this))
                 { text = "Add Line Continuation" };
 
             container.Add(_addAnswerButton);
             container.Add(_addContinuationButton);
 
-            Button removeButton = new(() => onNodeRemoved?.Invoke(this)) { text = "Remove Node" };
+            Button removeButton = new(() => OnNodeRemoved?.Invoke(this)) { text = "Remove Node" };
             removeButton.style.marginTop = 5;
             container.Add(removeButton);
 
@@ -113,25 +120,31 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         {
             Data.SetTitle(newTitle);
             title = newTitle;
-            onNodeModified?.Invoke();
+            OnNodeModified?.Invoke();
         }
 
         private void UpdateRichText(string newText)
         {
             Data.SetRichText(newText);
-            onNodeModified?.Invoke();
+            OnNodeModified?.Invoke();
         }
 
         private void UpdateSpeaker(DialogueParticipantSO newSpeaker)
         {
             Data.SetSpeaker(newSpeaker);
-            onNodeModified?.Invoke();
+            OnNodeModified?.Invoke();
         }
 
         private void UpdateIsRight(bool newIsRight)
         {
             Data.SetIsRight(newIsRight);
-            onNodeModified?.Invoke();
+            OnNodeModified?.Invoke();
+        }
+
+        private void UpdateQuest(AQuestSO newQuest)
+        {
+            Data.SetQuest(newQuest);
+            OnNodeModified?.Invoke();
         }
 
         public void RefreshNode()
@@ -160,7 +173,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             {
                 answers[index] = newAnswer;
                 Data.SetAnswers(answers.ToArray());
-                onNodeModified?.Invoke();
+                OnNodeModified?.Invoke();
             }
         }
     }

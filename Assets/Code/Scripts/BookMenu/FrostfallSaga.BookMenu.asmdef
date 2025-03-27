@@ -1,0 +1,19 @@
+{
+    "name": "FrostfallSaga.BookMenu",
+    "rootNamespace": "FrostfallSaga.BookMenu",
+    "references": [
+        "FrostfallSaga.Core",
+        "FrostfallSaga.Utils",
+        "FrostfallSaga.Quests",
+        "FrostfallSaga.InventorySystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

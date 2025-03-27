@@ -1,6 +1,6 @@
-using FrostfallSaga.Fight.FightCells;
-using FrostfallSaga.Grid;
 using UnityEngine;
+using FrostfallSaga.Grid;
+using FrostfallSaga.Fight.FightCells;
 
 namespace FrostfallSaga.Fight
 {

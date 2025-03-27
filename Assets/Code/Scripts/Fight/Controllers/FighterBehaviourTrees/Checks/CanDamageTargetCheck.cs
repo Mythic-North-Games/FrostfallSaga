@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Trees.BehaviourTree;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
@@ -12,13 +10,12 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
     /// </summary>
     public class CanDamageTargetCheck : FBTNode
     {
-        public static string TARGET_SHARED_DATA_KEY = "damageTarget";
         private readonly List<ETarget> _possibleTargets;
         private readonly ETargetType _targetType;
 
         public CanDamageTargetCheck(
             Fighter possessedFighter,
-            AHexGrid fightGrid,
+            FightHexGrid fightGrid,
             Dictionary<Fighter, bool> fighterTeams,
             List<ETarget> possibleTargets,
             ETargetType targetType
@@ -33,7 +30,8 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
             List<Fighter> damagableTargets = GetDamagableFighters();
             if (damagableTargets.Count == 0) return NodeState.FAILURE;
 
-            SetSharedData(TARGET_SHARED_DATA_KEY, GetPreferredTarget(damagableTargets));
+            Fighter preferredTarget = _targetType.GetPreferedTargetInList(_possessedFighter, _fightGrid, damagableTargets);
+            SetSharedData(TARGET_SHARED_DATA_KEY, preferredTarget);
             return NodeState.SUCCESS;
         }
 
@@ -49,7 +47,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
                 bool fighterIsAlly = _fighterTeams[fighter] == _possessedFighterTeam;
                 if (fighterIsAlly && !_possibleTargets.Contains(ETarget.ALLIES)) continue;
 
-                if (!fighterIsAlly && !_possibleTargets.Contains(ETarget.OPONENTS)) continue;
+                if (!fighterIsAlly && !_possibleTargets.Contains(ETarget.OPONNENTS)) continue;
 
                 if (!CanDamageFighter(fighter)) continue;
                 damagableTargets.Add(fighter);
@@ -62,27 +60,6 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
         {
             return _possessedFighter.CanDirectAttack(_fightGrid, _fighterTeams, fighter) ||
                    _possessedFighter.CanUseAtLeastOneActiveAbility(_fightGrid, _fighterTeams, fighter);
-        }
-
-        private Fighter GetPreferredTarget(List<Fighter> damagableTargets)
-        {
-            return _targetType switch
-            {
-                ETargetType.RANDOM => Randomizer.GetRandomElementFromArray(damagableTargets.ToArray()),
-                ETargetType.WEAKEST => damagableTargets.OrderBy(fighter => fighter.GetHealth()).First(),
-                ETargetType.STRONGEST => damagableTargets.OrderByDescending(fighter => fighter.GetHealth()).First(),
-                ETargetType.CLOSEST => damagableTargets.OrderBy(
-                    fighter => CellsPathFinding.GetShorterPath(
-                        _fightGrid,
-                        _possessedFighter.cell,
-                        fighter.cell,
-                        true,
-                        true,
-                        true
-                    ).Length
-                ).First(),
-                _ => null
-            };
         }
     }
 }

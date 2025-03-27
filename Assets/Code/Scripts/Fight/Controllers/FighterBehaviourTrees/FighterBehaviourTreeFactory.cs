@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Grid;
+using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
 {
@@ -16,13 +15,18 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
         /// <param name="fightGrid">The fight grid.</param>
         /// <param name="fighterTeams">All the fighters of the fight and their corresponding team.</param>
         /// <returns>The created behaviour tree.</returns>
-        public static FighterBehaviourTree CreateBehaviourTree(EFighterBehaviourTreeID id, Fighter fighter,
-            AHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
+        public static FighterBehaviourTree CreateBehaviourTree(
+            EFighterBehaviourTreeID id,
+            Fighter fighter,
+            FightHexGrid fightGrid,
+            Dictionary<Fighter, bool> fighterTeams
+        )
         {
             return id switch
             {
                 EFighterBehaviourTreeID.Aggressive => new AggressiveFBT(fighter, fightGrid, fighterTeams),
-                _ => throw new NotImplementedException()
+                EFighterBehaviourTreeID.Supportive => new SupportiveFBT(fighter, fightGrid, fighterTeams),
+                _ => throw new NotImplementedException(),
             };
         }
     }

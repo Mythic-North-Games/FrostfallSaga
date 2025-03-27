@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
+using FrostfallSaga.Core;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Fight;
 using FrostfallSaga.Core.GameState.Kingdom;
@@ -19,7 +20,7 @@ namespace FrostfallSaga.Kingdom
     {
         [SerializeField] private KingdomHexGrid kingdomHexGrid;
         [SerializeField] private new CinemachineVirtualCamera camera;
-        [SerializeField] public List<InterestPoint> interestPoints;
+        [SerializeField] public List<AInterestPointConfigurationSO> interestPointConfigs;
         private readonly List<EntitiesGroup> _respawnedEnemiesGroups = new();
         private GameStateManager _gameStateManager;
         private HeroTeam _heroTeam;
@@ -45,12 +46,13 @@ namespace FrostfallSaga.Kingdom
 
         private void Start()
         {
+            kingdomHexGrid.ClearCells();
             kingdomHexGrid.GenerateGrid();
             if (_gameStateManager.IsFirstSceneLaunch())
             {
                 Debug.Log("First scene launch. No kingdom to load.");
                 FirstSpawnHeroGroup();
-                InterestPointBuilder.Instance.FirstBuildInterestPoints(kingdomHexGrid, interestPoints);
+                InterestPointBuilder.Instance.FirstBuildInterestPoints(kingdomHexGrid, interestPointConfigs);
                 OnKingdomLoaded?.Invoke();
                 return;
             }
@@ -95,7 +97,7 @@ namespace FrostfallSaga.Kingdom
                     EntitiesGroupBuilder.Instance.BuildEntitiesGroup(enemiesGroupData, kingdomHexGrid));
 
             foreach (InterestPointData interestPointData in kingdomState.interestPointsData)
-                interestPoints.Add(InterestPointBuilder.Instance.BuildInterestPoint(interestPointData, kingdomHexGrid));
+                InterestPointBuilder.Instance.BuildInterestPoint(interestPointData, kingdomHexGrid);
         }
 
         #endregion
