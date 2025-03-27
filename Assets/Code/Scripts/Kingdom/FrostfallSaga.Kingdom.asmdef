@@ -7,7 +7,6 @@
         "FrostfallSaga.EntitiesVisual",
         "FrostfallSaga.Grid",
         "FrostfallSaga.Procedural",
-        "FrostfallSaga.GameObjectVisuals",
         "FrostfallSaga.Utils"
     ],
     "includePlatforms": [],

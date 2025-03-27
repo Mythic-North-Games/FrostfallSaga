@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using FrostfallSaga.Core.Entities;
+using FrostfallSaga.Grid;
+using FrostfallSaga.Grid.Cells;
 
 namespace FrostfallSaga.Core.GameState.Fight
 {
@@ -10,5 +12,7 @@ namespace FrostfallSaga.Core.GameState.Fight
         public EntityConfigurationSO[] alliesEntityConf;
         public EFightOrigin fightOrigin;
         public KeyValuePair<string, EntityConfigurationSO>[] enemiesEntityConf;
+        public Dictionary<HexDirection, Cell> HexDirectionCells = new ();
+
     }
 }
