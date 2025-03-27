@@ -345,7 +345,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2015873281}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &805893669
+--- !u!1 &833512730
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -353,9 +353,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 805893672}
-  - component: {fileID: 805893671}
-  - component: {fileID: 805893670}
+  - component: {fileID: 833512733}
+  - component: {fileID: 833512732}
+  - component: {fileID: 833512731}
   m_Layer: 0
   m_Name: BookMenuBar
   m_TagString: Untagged
@@ -363,26 +363,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &805893670
+--- !u!114 &833512731
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 805893669}
+  m_GameObject: {fileID: 833512730}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 888a5e7aa3d2a82759140b84c3bed3f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiDoc: {fileID: 805893671}
---- !u!114 &805893671
+  _uiDoc: {fileID: 833512732}
+--- !u!114 &833512732
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 805893669}
+  m_GameObject: {fileID: 833512730}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
@@ -391,14 +391,14 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: c9372fe107bbfe94892b6360924cc721, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: cab944519d48e1b12985567342fab3de, type: 3}
-  m_SortingOrder: 0
---- !u!4 &805893672
+  m_SortingOrder: 1
+--- !u!4 &833512733
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 805893669}
+  m_GameObject: {fileID: 833512730}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -882,6 +882,109 @@ Transform:
   - {fileID: 1850674450}
   - {fileID: 2086321100}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1392665150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1392665155}
+  - component: {fileID: 1392665154}
+  - component: {fileID: 1392665153}
+  - component: {fileID: 1392665152}
+  - component: {fileID: 1392665151}
+  m_Layer: 0
+  m_Name: BookMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1392665151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392665150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ffc244b38bdda5f2abf51f7427d0b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDoc: {fileID: 1392665154}
+  _equippedPanelTemplate: {fileID: 9197481963319205126, guid: 85cc35556c3486bfdb3589f4f7f9de63, type: 3}
+  _bagPanelTemplate: {fileID: 9197481963319205126, guid: 620d5dbc289500c3bbae70a2ddaf0182, type: 3}
+  _statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
+  _devHero: {fileID: 0}
+--- !u!114 &1392665152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392665150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e52cf0e077c4efc6be9859029473fbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDoc: {fileID: 1392665154}
+  _questsListTemplate: {fileID: 9197481963319205126, guid: 44f5d685324fc5f08afba5dcde2ee82b, type: 3}
+  _listQuestItemTemplate: {fileID: 9197481963319205126, guid: 1b0add5b72ea4c93baa4fa470aaf9b98, type: 3}
+  _questDetailsTemplate: {fileID: 9197481963319205126, guid: b123ec5ba851f1362b9e5b0a92e90d7e, type: 3}
+  _questStepTemplate: {fileID: 9197481963319205126, guid: 74be39bbe00f23ca480296fb4699af3f, type: 3}
+  _actionInstructionTemplate: {fileID: 9197481963319205126, guid: 8c05b7c3f827d9ac18bfa213c03059dd, type: 3}
+  _devQuests: []
+--- !u!114 &1392665153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392665150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517d7d028839db53ab04cc2c5681043b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDoc: {fileID: 1392665154}
+  _bookMenuBarController: {fileID: 833512731}
+  _questsMenuController: {fileID: 1392665152}
+  _inventoryMenuController: {fileID: 1392665151}
+--- !u!114 &1392665154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392665150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: c9372fe107bbfe94892b6360924cc721, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: ecd6963f5449d98768bf725704cd7137, type: 3}
+  m_SortingOrder: 2
+--- !u!4 &1392665155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392665150}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2015873281}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1541036563
 GameObject:
@@ -1430,12 +1533,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1952024163}
   - component: {fileID: 1952024162}
-  - component: {fileID: 1952024169}
   - component: {fileID: 1952024164}
-  - component: {fileID: 1952024165}
-  - component: {fileID: 1952024166}
   - component: {fileID: 1952024167}
+  - component: {fileID: 1952024165}
   - component: {fileID: 1952024168}
+  - component: {fileID: 1952024169}
   m_Layer: 5
   m_Name: MainFightUI
   m_TagString: Untagged
@@ -1488,6 +1590,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
   _fightManager: {fileID: 1678739252}
+  _statusIconContainerTemplate: {fileID: 9197481963319205126, guid: e65bb5637e2f1d1eb92a395ee8971e67, type: 3}
+  _consumableSlotTemplate: {fileID: 9197481963319205126, guid: 62007e018c618b539bc251fd95fa5911, type: 3}
+  _movementPointsProgressColor: {r: 0.17253397, g: 0.5459742, b: 0.7754027, a: 1}
+  _actionPointsProgressColor: {r: 0.35846135, g: 0.8221862, b: 0.4000684, a: 1}
+  _statusDetailsPanelXOffset: 4
 --- !u!114 &1952024165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1501,22 +1608,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
-  _fightManager: {fileID: 1678739252}
-  _fighterDetailsPanelController: {fileID: 1952024169}
-  _fighterDetailsOffset: {x: -20, y: -50}
---- !u!114 &1952024166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1952024161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 637f265d0482104d9be655f0749e7365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiDoc: {fileID: 1952024162}
+  _characterContainerTemplate: {fileID: 9197481963319205126, guid: 0748e2c7616b69c7c9a8edf950346285, type: 3}
+  _statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
+  _statusIconContainerTemplate: {fileID: 9197481963319205126, guid: e65bb5637e2f1d1eb92a395ee8971e67, type: 3}
   _fightManager: {fileID: 1678739252}
 --- !u!114 &1952024167
 MonoBehaviour:
@@ -1554,13 +1648,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1952024161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1be106528f785f443ae4322ce7aff800, type: 3}
+  m_Script: {fileID: 11500000, guid: ffdca51e84dd8c90cb7665f9bbee8a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
-  _floatingBarUIPanel: {fileID: 9197481963319205126, guid: 8e946bee0261af8448bed4da75f9cc6d, type: 3}
-  _fightLoader: {fileID: 2012426617}
+  _statusContainerTemplate: {fileID: 9197481963319205126, guid: e65bb5637e2f1d1eb92a395ee8971e67, type: 3}
   _fightManager: {fileID: 1678739252}
+  _fightLoader: {fileID: 2012426617}
+  _timelineController: {fileID: 1952024165}
+  _displayDurationOnAction: 2
 --- !u!114 &1952024169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1570,39 +1666,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1952024161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc142501585ec14ebebb834d826d1f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 637f265d0482104d9be655f0749e7365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
-  _fighterDetailsUIPanel: {fileID: 9197481963319205126, guid: d00385b87258a224ab3b968089d24399, type: 3}
-  _fighterStatIcons:
-  - element: 3
-    value: {fileID: 2800000, guid: e6b98d28e1ca0cf4c9abac72040c1e0e, type: 3}
-  - element: 4
-    value: {fileID: 2800000, guid: c602fd8b2264cac4ca5f9824576a8808, type: 3}
-  - element: 5
-    value: {fileID: 2800000, guid: 552a39c783629744a81436d7108d5e86, type: 3}
-  - element: 6
-    value: {fileID: 2800000, guid: bb21073f6f09a0d4bb2e78f5d739bdc8, type: 3}
-  - element: 9
-    value: {fileID: 2800000, guid: b9ff060170a9afe4eaad137638b2b65c, type: 3}
-  - element: 10
-    value: {fileID: 2800000, guid: 695a5ab3835fad14dbb6c5d571396e88, type: 3}
-  - element: 11
-    value: {fileID: 2800000, guid: 6c32bcc4ac5f8ec48b93309c2b7b1aef, type: 3}
-  _magicalElementIcons:
-  - element: 0
-    value: {fileID: 2800000, guid: 63a7459c7f7b7f24289d4c72b8eb8a6e, type: 3}
-  - element: 1
-    value: {fileID: 2800000, guid: e8c0290d9b28b6847901109deed9970f, type: 3}
-  - element: 2
-    value: {fileID: 2800000, guid: 25afa91d08dce2c41a09ab3b2efd0e7e, type: 3}
-  - element: 3
-    value: {fileID: 2800000, guid: 0724a26512e0d174ca1dca37827fe433, type: 3}
-  - element: 4
-    value: {fileID: 2800000, guid: 1c65da544d518d940a57b202f90f74a1, type: 3}
-  - element: 5
-    value: {fileID: 2800000, guid: db0c21c6a1db0b9469195ed4686d6350, type: 3}
+  _fightManager: {fileID: 1678739252}
 --- !u!1 &1963673181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1696,9 +1764,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 989a85e7f725cfd45966b24abe6da8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fightHexGrid: {fileID: 2056515858}
-  devAlliesConfs: []
-  devEnemiesConfs: []
+  fightHexGrid: {fileID: 0}
+  devAlliesConfs:
+  - {fileID: 11400000, guid: d5746e71b0a5c65469ca2b997f19b595, type: 2}
+  - {fileID: 11400000, guid: 2feb0362d51c4ed4e9245678b6bef79f, type: 2}
+  devEnemiesConfs:
+  - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
 --- !u!1 &2015873280
 GameObject:
   m_ObjectHideFlags: 0
@@ -1730,7 +1801,8 @@ Transform:
   m_Children:
   - {fileID: 793609183}
   - {fileID: 1952024163}
-  - {fileID: 805893672}
+  - {fileID: 833512733}
+  - {fileID: 1392665155}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2053010645

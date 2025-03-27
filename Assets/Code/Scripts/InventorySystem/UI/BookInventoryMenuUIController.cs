@@ -14,7 +14,7 @@ namespace FrostfallSaga.InventorySystem.UI
     {
         [SerializeField] private VisualTreeAsset _equippedPanelTemplate;
         [SerializeField] private VisualTreeAsset _bagPanelTemplate;
-        [SerializeField] private VisualTreeAsset _itemDetailsStatContainerTemplate;
+        [SerializeField] private VisualTreeAsset _statContainerTemplate;
         [SerializeField] private EntityConfigurationSO _devHero;
 
         private EntityConfigurationSO _currentHeroEntityConf;
@@ -50,7 +50,7 @@ namespace FrostfallSaga.InventorySystem.UI
             // Setup bag panel (right page)
             VisualElement bagPanelRoot = _bagPanelTemplate.Instantiate();
             bagPanelRoot.StretchToParentSize();
-            _bagPanelUIController = new InventoryBagPanelUIController(bagPanelRoot, _itemDetailsStatContainerTemplate);
+            _bagPanelUIController = new InventoryBagPanelUIController(bagPanelRoot, _statContainerTemplate);
             _bagPanelUIController.onItemSlotSelected += OnItemSlotSelected;
             _bagPanelUIController.onItemSlotEquipClicked += OnItemSlotEquipClicked;
             _bagPanelUIController.SetInventory(_currentHeroInventory);
@@ -81,13 +81,24 @@ namespace FrostfallSaga.InventorySystem.UI
         private void OnItemSlotEquipClicked(InventorySlot selectedItemSlot)
         {
             // If item is not equippable, do nothing
-            if (selectedItemSlot.Item == null || selectedItemSlot.Item.SlotTag == EItemSlotTag.BAG)
+            if (selectedItemSlot.Item == null || !selectedItemSlot.Item.IsEquippable())
             {
                 return;
             }
 
             _bagPanelUIController.DisplayItemDetails(selectedItemSlot.Item); // Needs to be before equip because equipping will clear the item slot
-            _currentHeroInventory.EquipItem(selectedItemSlot.Item);
+
+            // Equip the item depending on its type
+            if (selectedItemSlot.Item is AArmor or AWeapon)
+            {
+                _currentHeroInventory.EquipEquipment(selectedItemSlot.Item);
+            }
+            else if (selectedItemSlot.Item is AConsumable)
+            {
+                _currentHeroInventory.AddConsumableSlotToQuickAccess(selectedItemSlot);
+            }
+            
+            // Update the UI
             _equippedPanelUIController.SetHero(_currentHeroEntityConf);
             _bagPanelUIController.SetInventory(_currentHeroInventory);
         }
@@ -95,13 +106,13 @@ namespace FrostfallSaga.InventorySystem.UI
         private void OnItemSlotUnequipClicked(InventorySlot selectedItemSlot)
         {
             // If item is not equippable, do nothing
-            if (selectedItemSlot.Item == null || selectedItemSlot.Item.SlotTag == EItemSlotTag.BAG)
+            if (selectedItemSlot.Item == null || !selectedItemSlot.Item.IsEquippable())
             {
                 return;
             }
 
             _bagPanelUIController.DisplayItemDetails(selectedItemSlot.Item); // Needs to be before equip because unequipping will clear the item slot
-            _currentHeroInventory.UnequipItem(selectedItemSlot.Item);
+            _currentHeroInventory.UnequipItem(selectedItemSlot);
             _equippedPanelUIController.SetHero(_currentHeroEntityConf);
             _bagPanelUIController.SetInventory(_currentHeroInventory);
         }
@@ -136,7 +147,7 @@ namespace FrostfallSaga.InventorySystem.UI
                 Debug.LogError("Bag Panel Template is not set in the inspector.");
             }
 
-            if (_itemDetailsStatContainerTemplate == null)
+            if (_statContainerTemplate == null)
             {
                 Debug.LogError("Item Details Stat Container Template is not set in the inspector.");
             }

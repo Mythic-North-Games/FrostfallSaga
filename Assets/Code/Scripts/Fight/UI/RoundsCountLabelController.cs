@@ -5,13 +5,13 @@ using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Fight.UI
 {
-    public class TurnLabelController : BaseUIController
+    public class RoundsCountLabelController : BaseUIController
     {
-        private static readonly string ROUND_COUNTER_UI_NAME = "RoundPanel_TextNumRound";
+        private static readonly string ROUNDS_COUNT_LABEL_UI_NAME = "RoundsCountLabel";
 
         [SerializeField] private FightManager _fightManager;
-        private int _roundCount;
-        private Label _roundCounter;
+        private int _roundsCount;
+        private Label _roundsCountLabel;
 
         private void OnFighterTurnBegan(Fighter currentFighter, bool isAlly)
         {
@@ -20,8 +20,8 @@ namespace FrostfallSaga.Fight.UI
 
         private void IncreaseRoundCount()
         {
-            _roundCount++;
-            _roundCounter.text = _roundCount.ToString();
+            _roundsCount++;
+            _roundsCountLabel.text = _roundsCount.ToString();
         }
 
         #region Setup & tear down
@@ -42,8 +42,8 @@ namespace FrostfallSaga.Fight.UI
                 return;
             }
 
-            _roundCount = 0;
-            _roundCounter = _uiDoc.rootVisualElement.Q<Label>(ROUND_COUNTER_UI_NAME);
+            _roundsCount = 0;
+            _roundsCountLabel = _uiDoc.rootVisualElement.Q<Label>(ROUNDS_COUNT_LABEL_UI_NAME);
 
             _fightManager.onFighterTurnBegan += OnFighterTurnBegan;
         }

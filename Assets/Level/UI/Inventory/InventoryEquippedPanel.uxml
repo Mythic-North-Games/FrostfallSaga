@@ -4,7 +4,10 @@
     <Style src="project://database/Assets/Level/UI/Inventory/inventory.uss?fileID=7433441132597879392&amp;guid=d49bf6daebebedc64ac592304a2a63e5&amp;type=3#inventory" />
     <Style src="project://database/Assets/Level/UI/BookMenu/bookMenu.uss?fileID=7433441132597879392&amp;guid=f1c6556d6bd019516a51483c72d964d5&amp;type=3#bookMenu" />
     <ui:VisualElement name="InventoryEquippedPanelContainer" style="width: 100%; height: 100%; padding-top: 1%; padding-right: 1%; padding-bottom: 1%; padding-left: 1%; align-items: center;">
-        <ui:VisualElement name="FighterEquipmentsContainer" style="width: 80%; height: 80%; margin-top: 10%; margin-bottom: 2.5%; flex-direction: row;">
+        <ui:VisualElement name="FighterNameContainer" style="margin-top: 5%; margin-bottom: 4%;">
+            <ui:Label tabindex="-1" text="Mulkihul" parse-escape-sequences="true" display-tooltip-when-elided="true" name="FighterNameLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 100%; height: 100%; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 40px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="FighterEquipmentsContainer" style="width: 72.5%; height: 72.5%; margin-top: 0; margin-bottom: 4%; flex-direction: row; margin-right: 0; margin-left: 0;">
             <ui:VisualElement name="FighterLeftEquipmentContainer" style="height: 100%; width: 15%; align-items: center; justify-content: center;">
                 <ui:Instance template="ItemSlotContainer" name="EquippedWeaponSlotContainer" class="equippedItemSlotContainerRootDefault" />
             </ui:VisualElement>
@@ -16,8 +19,13 @@
                 <ui:Instance template="ItemSlotContainer" name="EquippedBootsRuneSlotContainer" class="equippedItemSlotContainerRootDefault" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="FighterNameContainer">
-            <ui:Label tabindex="-1" text="Mulkihul" parse-escape-sequences="true" display-tooltip-when-elided="true" name="FighterNameLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 100%; height: 100%; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 40px;" />
+        <ui:VisualElement name="QuickAccessSlotsContainer" style="width: 75%; flex-direction: row; height: 8.5%; justify-content: space-between; align-items: center;">
+            <ui:Instance template="ItemSlotContainer" name="QuickAccessSlotContainer" class="quickAccessSlotContainer" />
+            <ui:Instance template="ItemSlotContainer" name="QuickAccessSlotContainer" class="quickAccessSlotContainer" />
+            <ui:Instance template="ItemSlotContainer" name="QuickAccessSlotContainer" class="quickAccessSlotContainer" />
+            <ui:Instance template="ItemSlotContainer" name="QuickAccessSlotContainer" class="quickAccessSlotContainer" />
+            <ui:Instance template="ItemSlotContainer" name="QuickAccessSlotContainer" class="quickAccessSlotContainer" />
+            <ui:Instance template="ItemSlotContainer" name="QuickAccessSlotContainer" class="quickAccessSlotContainer" />
         </ui:VisualElement>
         <ui:Instance template="HeroChooserContainer" name="HeroChooserContainerRoot" class="heroChooserContainerRootDefault" />
     </ui:VisualElement>
