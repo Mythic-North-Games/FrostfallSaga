@@ -192,6 +192,7 @@ Transform:
   - {fileID: 1656478351}
   - {fileID: 1541036564}
   - {fileID: 999864227}
+  - {fileID: 1644039836}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &681031797
@@ -1775,7 +1776,6 @@ Transform:
   - {fileID: 793609183}
   - {fileID: 1952024163}
   - {fileID: 805893672}
-  - {fileID: 709379822}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2053010645

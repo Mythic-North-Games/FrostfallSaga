@@ -1,18 +1,17 @@
 {
-  "name": "FrostfallSaga.Core",
-  "rootNamespace": "FrostfallSaga.Core",
-  "references": [
-    "FrostfallSaga.Utils",
-    "FrostfallSaga.InventorySystem",
-    "FrostfallSaga.Grid"
-  ],
-  "includePlatforms": [],
-  "excludePlatforms": [],
-  "allowUnsafeCode": false,
-  "overrideReferences": false,
-  "precompiledReferences": [],
-  "autoReferenced": true,
-  "defineConstraints": [],
-  "versionDefines": [],
-  "noEngineReferences": false
+    "name": "FrostfallSaga.Core",
+    "rootNamespace": "FrostfallSaga.Core",
+    "references": [
+        "FrostfallSaga.Utils",
+        "FrostfallSaga.Grid"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
