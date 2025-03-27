@@ -99,6 +99,18 @@ namespace FrostfallSaga.Fight.Statuses
         /// <returns>Returns the potential heal that the status can do to a fighter.</returns>
         public abstract int GetPotentialHeal();
 
+        /// <summary>
+        /// Builds the string to display in the UI for the status.
+        /// </summary>
+        /// <param name="lastingDuration">The number of turns left for the status to be active.</param>
+        /// <returns>The string to display in the UI for the status.</returns>
+        public string GetUIString(int lastingDuration)
+        {
+            return $"{StatusType.ToUIString()} applied " + 
+            (IsPermanent ? "<b>permanently</b>" : $"for {Duration} turns. <b>{lastingDuration}</b> turns left.") +
+            (IsRecurring ? $"\nStatus effect applied at the <b>{TriggerTime.ToUIString()}</b>." : "");
+        }
+
 #if UNITY_EDITOR
         public void SetDuration(int duration)
         {

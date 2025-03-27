@@ -42,6 +42,14 @@ namespace FrostfallSaga.Fight.UI
             VisualElement directAttackIcon = _directAttackButton.Q<VisualElement>(ABILITIES_ICON_UI_NAME);
             directAttackIcon.style.backgroundImage = new(fighter.Weapon.IconSprite);
 
+            // Set enabled or not depending on action points
+            bool canUseDirectAttack = fighter.GetActionPoints() >= fighter.Weapon.UseActionPointsCost;
+            _directAttackButton.SetEnabled(canUseDirectAttack);
+            _directAttackButton.pickingMode = canUseDirectAttack ? PickingMode.Position : PickingMode.Ignore;
+            _directAttackButton.Children().ToList().ForEach(
+                child => child.pickingMode = canUseDirectAttack ? PickingMode.Position : PickingMode.Ignore
+            );
+
             // Setup abilities buttons
             for (int i = 0; i < _abilitiesButtons.Count; i++)
             {
@@ -64,6 +72,10 @@ namespace FrostfallSaga.Fight.UI
 
                 // Set enabled or not
                 abilityButton.SetEnabled(canUseAbility);
+                abilityButton.pickingMode = canUseAbility ? PickingMode.Position : PickingMode.Ignore;
+                abilityButton.Children().ToList().ForEach(
+                    child => child.pickingMode = canUseAbility ? PickingMode.Position : PickingMode.Ignore
+                );
 
                 // Bind active ability to button
                 _abilitiesButtons[abilityButton] = canUseAbility ? fighter.ActiveAbilities[i] : null;
