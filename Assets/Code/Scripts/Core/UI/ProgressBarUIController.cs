@@ -25,7 +25,7 @@ namespace FrostfallSaga.Core.UI
             Label progressBarValueLabel = root.Q<Label>(PROGRESS_BAR_LABEL_UI_NAME);
             if (displayValueLabel)
             {
-                string valueLabelText = value.ToString() + (displayMaxValueLabel ? $" / {maxValue}" : "");
+                string valueLabelText = value.ToString() + (displayMaxValueLabel ? $" <b>/</b> {maxValue}" : "");
                 progressBarValueLabel.text = valueLabelText;
             }
             else if (progressBarValueLabel != null)

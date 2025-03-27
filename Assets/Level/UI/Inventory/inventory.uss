@@ -63,3 +63,8 @@
     -unity-text-align: middle-left;
     white-space: normal;
 }
+
+.quickAccessSlotContainer {
+    height: 100%;
+    width: 13%;
+}

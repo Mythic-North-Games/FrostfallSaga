@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
@@ -19,6 +20,8 @@ namespace FrostfallSaga.Fight.UI
 
         public Action<TimelineCharacterUIController> onFighterHovered;
         public Action<TimelineCharacterUIController> onFighterUnhovered;
+        public Action<TimelineCharacterUIController, AStatus, int> onStatusIconHovered;
+        public Action<TimelineCharacterUIController, AStatus, int> onStatusIconUnhovered;
 
         public VisualElement Root { get; private set; }
         public Fighter Fighter { get; private set; }
@@ -95,6 +98,12 @@ namespace FrostfallSaga.Fight.UI
                 VisualElement statusIconContainerRoot = _statusIconContainerTemplate.Instantiate();
                 statusIconContainerRoot.AddToClassList(STATUS_ICON_CONTAINER_ROOT_CLASSNAME);
                 StatusContainerUIController.SetupStatusContainer(statusIconContainerRoot, status.Key);
+                statusIconContainerRoot.RegisterCallback<MouseEnterEvent>(
+                    _ => onStatusIconHovered?.Invoke(this, status.Key, status.Value.duration)
+                );
+                statusIconContainerRoot.RegisterCallback<MouseLeaveEvent>(
+                    _ => onStatusIconUnhovered?.Invoke(this, status.Key, status.Value.duration)
+                );
                 statusesContainer.Add(statusIconContainerRoot);
             }
         }
