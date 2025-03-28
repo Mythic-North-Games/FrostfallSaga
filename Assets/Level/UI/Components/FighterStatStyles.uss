@@ -1,13 +1,15 @@
 .statContainer {
     flex-direction: row;
+    justify-content: space-between;
     width: 100%;
     height: 100%;
-    justify-content: space-between;
 }
 
 .statIcon {
     -unity-background-scale-mode: scale-to-fit;
-    flex-grow: 1;
+    height: 100%;
+    margin-right: 3%;
+    width: 33%;
 }
 
 .statLabel {
@@ -16,4 +18,6 @@
     -unity-text-align: middle-left;
     flex-grow: 0;
     font-size: 200%;
+    width: auto;
+    height: 100%;
 }

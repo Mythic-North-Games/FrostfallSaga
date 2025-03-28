@@ -963,6 +963,7 @@ MonoBehaviour:
   _equippedPanelTemplate: {fileID: 9197481963319205126, guid: 85cc35556c3486bfdb3589f4f7f9de63, type: 3}
   _bagPanelTemplate: {fileID: 9197481963319205126, guid: 620d5dbc289500c3bbae70a2ddaf0182, type: 3}
   _statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
+  _statValueColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   _devHero: {fileID: 0}
 --- !u!114 &1392665152
 MonoBehaviour:
@@ -1635,6 +1636,7 @@ MonoBehaviour:
   _uiDoc: {fileID: 1952024162}
   _fightManager: {fileID: 1678739252}
   _statusIconContainerTemplate: {fileID: 9197481963319205126, guid: e65bb5637e2f1d1eb92a395ee8971e67, type: 3}
+  _statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
   _consumableSlotTemplate: {fileID: 9197481963319205126, guid: 62007e018c618b539bc251fd95fa5911, type: 3}
   _movementPointsProgressColor: {r: 0.17253397, g: 0.5459742, b: 0.7754027, a: 1}
   _actionPointsProgressColor: {r: 0.35846135, g: 0.8221862, b: 0.4000684, a: 1}

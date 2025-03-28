@@ -56,7 +56,7 @@ namespace FrostfallSaga.Fight.Effects
 
         public override string GetUIEffectDescription()
         {
-            return $"Heals <color=green><b>{HealAmount}</b></color> health to target.";
+            return $"Heals <b>{HealAmount}</b> health to target.";
         }
     }
 }

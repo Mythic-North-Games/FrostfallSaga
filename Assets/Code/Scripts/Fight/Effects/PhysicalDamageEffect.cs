@@ -62,7 +62,7 @@ namespace FrostfallSaga.Fight.Effects
 
         public override string GetUIEffectDescription()
         {
-            return $"Deals <color=red><b>{PhysicalDamageAmount}</b></color> physical damage to target.";
+            return $"Deals <b>{PhysicalDamageAmount}</b> physical damage to target.";
         }
     }
 }

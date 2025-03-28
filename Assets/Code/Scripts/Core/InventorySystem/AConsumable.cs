@@ -12,6 +12,6 @@ namespace FrostfallSaga.Core.InventorySystem
             SlotTag = EItemSlotTag.BAG;
         }
 
-        public abstract List<string> GetSpecialEffectsUIData();
+        public abstract List<string> GetEffectsUIData();
     }
 }

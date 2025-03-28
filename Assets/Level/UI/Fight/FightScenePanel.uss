@@ -362,7 +362,7 @@
 .fighterResistancesPanelDefault {
     position: absolute;
     width: 30%;
-    background-color: rgba(25, 25, 25, 0.88);
+    background-color: rgb(25, 25, 25);
     border-top-width: 0;
     border-right-width: 0;
     border-bottom-width: 0;
@@ -389,22 +389,24 @@
 }
 
 .bottomPanelStatusDetailsPanelDefault {
-    position: absolute;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     background-color: rgba(25, 25, 25, 0.78);
-    padding-top: 1%;
-    padding-right: 1.5%;
-    padding-bottom: 1%;
-    padding-left: 1.5%;
-    top: -45%;
-    left: 4%;
+    width: 82.5%;
+    margin-top: 2%;
+    margin-left: 4%;
+    min-height: 24%;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
 }
 
 .statusDetailsPanelHidden {
-    position: absolute;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -414,8 +416,10 @@
     padding-right: 1.5%;
     padding-bottom: 1%;
     padding-left: 1.5%;
-    top: -45%;
-    left: 5%;
+    width: 80%;
+    height: 35%;
+    margin-top: 2%;
+    margin-left: 4%;
     display: none;
 }
 
@@ -435,5 +439,55 @@
 }
 
 .extraConsumablesSlotsContainerHidden {
+    display: none;
+}
+
+.objectDetailsEffectLine {
+    color: rgb(225, 225, 225);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    font-size: 135%;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+}
+
+.objectDetailsPanelContainerDefault {
+    width: 100%;
+    background-color: rgba(25, 25, 25, 0.88);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    padding-top: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out-cubic;
+    margin-left: 2.5%;
+    height: auto;
+}
+
+.objectDetailsPanelContainerHidden {
+    width: 100%;
+    background-color: rgba(25, 25, 25, 0.88);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    padding-top: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out-cubic;
+    margin-left: 2.5%;
+    height: auto;
+    opacity: 0;
     display: none;
 }

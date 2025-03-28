@@ -16,7 +16,7 @@ namespace FrostfallSaga.Core.UI
         public Action<InventorySlot> onItemSelected;
         public Action<InventorySlot> onItemEquipToggled;
 
-        private readonly VisualElement _root;
+        public VisualElement Root { get; private set; }
         private readonly VisualElement _itemIcon;
         private readonly VisualElement _itemCountLabelContainer;
         private readonly Label _itemCountLabel;
@@ -24,10 +24,10 @@ namespace FrostfallSaga.Core.UI
 
         public ItemSlotContainerUIController(VisualElement root)
         {
-            _root = root;
-            _root.RegisterCallback<MouseUpEvent>(OnItemSelected);
-            _itemIcon = _root.Q<VisualElement>(ITEM_ICON_UI_NAME);
-            _itemCountLabelContainer = _root.Q<VisualElement>(ITEM_SLOT_COUNT_CONTAINER_UI_NAME);
+            Root = root;
+            Root.RegisterCallback<MouseUpEvent>(OnItemSelected);
+            _itemIcon = Root.Q<VisualElement>(ITEM_ICON_UI_NAME);
+            _itemCountLabelContainer = Root.Q<VisualElement>(ITEM_SLOT_COUNT_CONTAINER_UI_NAME);
             _itemCountLabel = root.Q<Label>(ITEM_COUNT_LABEL_UI_NAME);
         }
 
@@ -53,9 +53,9 @@ namespace FrostfallSaga.Core.UI
         /// <param name="enabled">The enabled state to set.</param>
         public void SetEnabled(bool enabled)
         {
-            _root.SetEnabled(enabled);
-            _root.pickingMode = enabled ? PickingMode.Position : PickingMode.Ignore;
-            _root.Children().ToList().ForEach(child => child.pickingMode = enabled ? PickingMode.Position : PickingMode.Ignore);
+            Root.SetEnabled(enabled);
+            Root.pickingMode = enabled ? PickingMode.Position : PickingMode.Ignore;
+            Root.Children().ToList().ForEach(child => child.pickingMode = enabled ? PickingMode.Position : PickingMode.Ignore);
         }
 
         private void OnItemSelected(MouseUpEvent clickEvent)

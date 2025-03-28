@@ -15,6 +15,7 @@ namespace FrostfallSaga.InventorySystem.UI
         [SerializeField] private VisualTreeAsset _equippedPanelTemplate;
         [SerializeField] private VisualTreeAsset _bagPanelTemplate;
         [SerializeField] private VisualTreeAsset _statContainerTemplate;
+        [SerializeField] private Color _statValueColor = new(0.2f, 0.2f, 0.2f, 1f);
         [SerializeField] private EntityConfigurationSO _devHero;
 
         private EntityConfigurationSO _currentHeroEntityConf;
@@ -50,7 +51,7 @@ namespace FrostfallSaga.InventorySystem.UI
             // Setup bag panel (right page)
             VisualElement bagPanelRoot = _bagPanelTemplate.Instantiate();
             bagPanelRoot.StretchToParentSize();
-            _bagPanelUIController = new InventoryBagPanelUIController(bagPanelRoot, _statContainerTemplate);
+            _bagPanelUIController = new InventoryBagPanelUIController(bagPanelRoot, _statContainerTemplate, _statValueColor);
             _bagPanelUIController.onItemSlotSelected += OnItemSlotSelected;
             _bagPanelUIController.onItemSlotEquipClicked += OnItemSlotEquipClicked;
             _bagPanelUIController.SetInventory(_currentHeroInventory);
@@ -70,7 +71,7 @@ namespace FrostfallSaga.InventorySystem.UI
         {
             if (selectedItemSlot.Item == null)
             {
-                _bagPanelUIController.ClearItemDetails();
+                _bagPanelUIController.HideItemDetails();
             }
             else
             {
@@ -129,7 +130,7 @@ namespace FrostfallSaga.InventorySystem.UI
             _currentHeroInventory = ((PersistedFighterConfigurationSO)_currentHeroEntityConf.FighterConfiguration).Inventory;
             _equippedPanelUIController.SetHero(_currentHeroEntityConf);
             _bagPanelUIController.SetInventory(_currentHeroInventory);
-            _bagPanelUIController.ClearItemDetails();
+            _bagPanelUIController.HideItemDetails();
         }
 
         #region Setup

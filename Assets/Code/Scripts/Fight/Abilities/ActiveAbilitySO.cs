@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Core.Fight;
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
+using FrostfallSaga.Utils.UI;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities
@@ -151,7 +154,36 @@ namespace FrostfallSaga.Fight.Abilities
         {
             foreach (AFightCellAlteration alteration in CellAlterations) alteration.Apply(cell);
         }
-    }
 
-    #endregion
+        #endregion
+
+        #region For the UI
+
+        public Dictionary<Sprite, string> GetStatsUIData()
+        {
+            UIIconsProvider iconsProvider = UIIconsProvider.Instance;
+            return new()
+            {
+                { iconsProvider.GetIcon(UIIcons.ACTION_POINTS_COST.GetIconResourceName()), ActionPointsCost.ToString() },
+                { iconsProvider.GetIcon(UIIcons.PHYSICAL_RESISTANCE.GetIconResourceName()), Targeter.OriginCellRange.ToString() }
+            };
+        }
+
+        public List<string> GetEffectsUIData()
+        {
+            return Effects
+                .Select(effect => effect.GetUIEffectDescription())
+                .Concat(CellAlterations.Select(alteration => alteration.Description))
+                .ToList();
+        }
+
+        public List<string> GetMasterstrokeEffectsUIData()
+        {
+            return MasterstrokeEffects
+                .Select(effect => effect.GetUIEffectDescription())
+                .ToList();
+        }
+
+        #endregion
+    }
 }
