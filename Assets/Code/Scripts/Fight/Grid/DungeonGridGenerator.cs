@@ -37,6 +37,7 @@ namespace FrostfallSaga.Dungeon
                 if (!_biomeType || _biomeType.TerrainTypeSO.Length == 0)
                 {
                     Debug.LogError("No biome or terrain types available in default configuration.");
+                    return null;
                 }
             }
 

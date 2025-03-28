@@ -12,10 +12,9 @@ namespace FrostfallSaga.Kingdom
 
         public override void GenerateGrid()
         {
+            ClearCells();
             _kingdomGridGenerator = new KingdomGridGenerator(_hexKingdomPrefab, Width, Height, AvailableBiomes,
                 transform, NoiseScale, Seed);
-            if (Cells.Count > 0)
-                ClearCells();
             Cells = _kingdomGridGenerator.GenerateGrid();
         }
 

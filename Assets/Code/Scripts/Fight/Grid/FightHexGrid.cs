@@ -17,8 +17,7 @@ namespace FrostfallSaga.Fight
 
         public override void GenerateGrid()
         {
-            if (Cells.Count > 0)
-                ClearCells();
+            ClearCells();
             EFightOrigin fightOrigin = GameStateManager.Instance.GetPreFightData().fightOrigin;
             Seed = Randomizer.GetRandomIntBetween(000_000_000, 999_999_999);
             Debug.Log($"Fight origin : {fightOrigin}");
