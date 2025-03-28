@@ -6,8 +6,6 @@ using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Dungeon;
 using FrostfallSaga.Core.GameState.Fight;
 using FrostfallSaga.Core.HeroTeam;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Scenes;
@@ -27,7 +25,7 @@ namespace FrostfallSaga.Dungeon
             DungeonState dungeonState = _gameStateManager.GetDungeonState();
 
             DungeonConfigurationSO dungeonConfiguration = dungeonState.DungeonConfiguration;
-            if (dungeonConfiguration == null)
+            if (!dungeonConfiguration)
             {
                 Debug.LogError("No dungeon configuration found. Not able to generate dungeon fights.");
                 return;
@@ -40,7 +38,7 @@ namespace FrostfallSaga.Dungeon
                 );
                 dungeonState.DungeonConfiguration.CompleteDungeon();
                 _gameStateManager.CleanDungeonState();
-                SceneTransitioner.Instance.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
+                SceneTransitioner.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
                 return;
             }
 
@@ -57,7 +55,7 @@ namespace FrostfallSaga.Dungeon
             }
 
             Debug.Log("Dungeon fight prepared. Launching fight scene...");
-            SceneTransitioner.Instance.FadeInToScene(EScenesName.FIGHT.ToSceneString());
+            SceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
         }
 
         private void PrepareDungeonFight(DungeonFightConfiguration dungeonFightConfiguration)
@@ -66,11 +64,11 @@ namespace FrostfallSaga.Dungeon
                 HeroTeam.Instance.GetAliveHeroesEntityConfig(),
                 GetDungeonFightEnemies(dungeonFightConfiguration),
                 EFightOrigin.DUNGEON,
-                new Dictionary<HexDirection, Cell>() //TEMP: pour une prochaine Feature
+                null
             );
         }
 
-        private KeyValuePair<string, EntityConfigurationSO>[] GetDungeonFightEnemies(
+        private static KeyValuePair<string, EntityConfigurationSO>[] GetDungeonFightEnemies(
             DungeonFightConfiguration dungeonFightConfiguration)
         {
             // Randomize the number of optional enemies

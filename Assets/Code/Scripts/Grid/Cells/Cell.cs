@@ -36,6 +36,7 @@ namespace FrostfallSaga.Grid.Cells
 
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
         private AHexGrid _parentGrid;
+        private bool? _overrideAccessibility; 
 
         public Vector2Int AxialCoordinates => HexMetrics.OffsetToAxial(Coordinates);
 
@@ -89,8 +90,14 @@ namespace FrostfallSaga.Grid.Cells
         /// <returns>True if the terrain is accessible and if there are no obstacles, false otherwise</returns>
         public virtual bool IsTerrainAccessible()
         {
-            return TerrainType.IsAccessible;
+            return _overrideAccessibility ?? TerrainType.IsAccessible;
         }
+        
+        public void ForceAccessibility(bool value)
+        {
+            _overrideAccessibility = value;
+        }
+
 
         /// <summary>
         ///     Returns if the cell is free to be occupied.
@@ -114,23 +121,35 @@ namespace FrostfallSaga.Grid.Cells
         public void SetTerrain(TerrainTypeSO terrainType)
         {
             TerrainType = terrainType;
-            Renderer renderer = GetComponentInChildren<Renderer>();
-            if (renderer && TerrainType && TerrainType.CellMaterial)
+
+            GameObject[] visualsToUse = IsTerrainAccessible()
+                ? TerrainType.VisualsWhenAccessible
+                : TerrainType.VisualsWhenBlocked;
+
+            if (visualsToUse is { Length: > 0 })
             {
-                if (TerrainType.VisualsTerrain != null && TerrainType.VisualsTerrain.Length != 0)
-                {
-                    GameObject visualTerrain = Randomizer.GetRandomElementFromArray(TerrainType.VisualsTerrain);
-                    GameObject newVisualTerrain = Instantiate(visualTerrain, transform.position,
-                        Randomizer.GetRandomRotationY(transform.rotation), transform);
-                    newVisualTerrain.name = "Visual" + name;
-                    LayerUtils.SetLayerRecursively(newVisualTerrain, 2);
-                }
+                GameObject visual = Randomizer.GetRandomElementFromArray(visualsToUse);
+                GameObject newVisual = Instantiate(
+                    visual,
+                    transform.position,
+                    Randomizer.GetRandomRotationY(transform.rotation),
+                    transform
+                );
+                newVisual.name = "Visual" + name;
+                LayerUtils.SetLayerRecursively(newVisual, 2);
+            }
+
+            Renderer renderer = GetComponentInChildren<Renderer>();
+            if (renderer && TerrainType?.CellMaterial != null)
+            {
+                renderer.sharedMaterial = TerrainType.CellMaterial;
             }
             else
             {
-                Debug.LogError("Cell " + name + " doesn't have a renderer or a valid material.");
+                Debug.LogError($"Cell {name} is missing a renderer or a valid CellMaterial.");
             }
         }
+
 
         public Vector3 GetCenter()
         {
@@ -146,10 +165,16 @@ namespace FrostfallSaga.Grid.Cells
 
         private void SetPositionForCellHeight(ECellHeight cellHeight, float duration)
         {
-            if (duration == 0)
+            const float epsilon = 0.0001f;
+    
+            if (Mathf.Abs(duration) < epsilon)
+            {
                 transform.position = new Vector3(transform.position.x, (float)cellHeight, transform.position.z);
+            }
             else
+            {
                 StartCoroutine(SmoothMoveToHeight(cellHeight, duration));
+            }
         }
 
         private IEnumerator SmoothMoveToHeight(ECellHeight targetHeight, float duration)
@@ -194,12 +219,7 @@ namespace FrostfallSaga.Grid.Cells
             Vector2Int targetAxial = targetCell.AxialCoordinates;
             return targetAxial - initiatorAxial;
         }
-
-        public void SetParentGridForTests(AHexGrid grid)
-        {
-            _parentGrid = grid;
-        }
-
+        
         public override string ToString()
         {
             return "Cell: \n" +

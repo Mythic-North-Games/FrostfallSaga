@@ -65,6 +65,7 @@ namespace FrostfallSaga.Grid
         /// </summary>
         public void ClearCells()
         {
+            if (Cells.Count <= 0) return;
             foreach (Cell child in GetCells()) DestroyImmediate(child.gameObject);
             Cells?.Clear();
         }
