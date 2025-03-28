@@ -1,13 +1,11 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
 using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Core.HeroTeam;
 using FrostfallSaga.Core.UI;
 using UnityEngine;
-using FrostfallSaga.Utils.UI;
-using FrostfallSaga.Core.Fight;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.InventorySystem.UI
 {
@@ -98,12 +96,13 @@ namespace FrostfallSaga.InventorySystem.UI
 
         private Dictionary<Sprite, string> GetItemStats(ItemSO item)
         {
-            Dictionary<Sprite, string> itemStats = new();
             if (item is AEquipment equipment)
             {
-                itemStats.Concat(equipment.GetStatsUIData()).Concat(equipment.GetMagicalStatsUIData());
+                return equipment.GetStatsUIData()
+                    .Concat(equipment.GetMagicalStatsUIData())
+                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
             }
-            return itemStats;
+            return new Dictionary<Sprite, string>();
         }
 
         private List<string> GetItemEffects(ItemSO item)
