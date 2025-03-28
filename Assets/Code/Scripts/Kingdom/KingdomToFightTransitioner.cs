@@ -29,7 +29,7 @@ namespace FrostfallSaga.Kingdom
         private void Awake()
         {
             kingdomManager = kingdomManager != null ? kingdomManager : FindObjectOfType<KingdomManager>();
-            if (kingdomManager == null)
+            if (!kingdomManager)
             {
                 Debug.LogError("No KingdomManager found. Can't transition to fight scene.");
                 return;
@@ -104,7 +104,7 @@ namespace FrostfallSaga.Kingdom
         {
             yield return new WaitForSeconds(delayBeforeLoadingSceneAfterReadyAnimation);
             Debug.Log("Transitioning to fight");
-            sceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
+            SceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
         }
 
         private void PrepareAndSavePreFightData(EntitiesGroup enemiesGroup)
@@ -118,7 +118,8 @@ namespace FrostfallSaga.Kingdom
                     enemyGroupEntity.EntityConfiguration);
             }
 
-            Dictionary<HexDirection, Cell> analyze = CellAnalysis.AnalyzeAtCell(enemiesGroup.cell, kingdomManager.KingdomGrid, isPrintAnalysis);
+            Dictionary<HexDirection, Cell> analyze =
+                CellAnalysis.AnalyzeAtCell(enemiesGroup.cell, kingdomManager.KingdomGrid, isPrintAnalysis);
 
             GameStateManager.Instance.SavePreFightData(
                 HeroTeam.Instance.GetAliveHeroesEntityConfig(),

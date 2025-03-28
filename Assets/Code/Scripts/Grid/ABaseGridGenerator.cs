@@ -13,15 +13,6 @@ namespace FrostfallSaga.Grid
         {
         }
 
-        protected ABaseGridGenerator(Cell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes,
-            Transform parentGrid)
-        {
-            HexPrefab = hexPrefab;
-            GridWidth = gridWidth;
-            GridHeight = gridHeight;
-            AvailableBiomes = availableBiomes;
-            ParentGrid = parentGrid;
-        }
 
         protected ABaseGridGenerator(Cell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes,
             Transform parentGrid, float noiseScale, int seed)
@@ -30,6 +21,17 @@ namespace FrostfallSaga.Grid
             GridWidth = gridWidth;
             GridHeight = gridHeight;
             AvailableBiomes = availableBiomes;
+            ParentGrid = parentGrid;
+            NoiseScale = noiseScale;
+            Seed = seed;
+        }
+
+        protected ABaseGridGenerator(Cell hexPrefab, int gridWidth, int gridHeight, Transform parentGrid,
+            float noiseScale, int seed)
+        {
+            HexPrefab = hexPrefab;
+            GridWidth = gridWidth;
+            GridHeight = gridHeight;
             ParentGrid = parentGrid;
             NoiseScale = noiseScale;
             Seed = seed;

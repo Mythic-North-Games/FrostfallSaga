@@ -24,7 +24,6 @@ namespace FrostfallSaga.Grid
 
         public override Dictionary<Vector2Int, Cell> GenerateGrid()
         {
-            Debug.Log("Generating Kingdom Grid...");
             Dictionary<Vector2Int, Cell> gridCells = new();
 
             for (int y = 0; y < GridHeight; y++)
@@ -54,7 +53,7 @@ namespace FrostfallSaga.Grid
             cell.HighlightController.ResetToDefaultMaterial();
         }
 
-        private TerrainTypeSO GetTerrainTypeFromPerlinValue(float perlinValue, BiomeTypeSO selectedBiome)
+        private static TerrainTypeSO GetTerrainTypeFromPerlinValue(float perlinValue, BiomeTypeSO selectedBiome)
         {
             TerrainTypeSO[] availableTerrains = selectedBiome.TerrainTypeSO;
 

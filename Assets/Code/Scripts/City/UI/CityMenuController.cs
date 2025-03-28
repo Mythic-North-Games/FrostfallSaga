@@ -131,9 +131,9 @@ namespace FrostfallSaga.City.UI
             _leftContainerController.Display();
         }
 
-        private void OnExitButtonClicked()
+        private static void OnExitButtonClicked()
         {
-            SceneTransitioner.Instance.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
+            SceneTransitioner.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
         }
 
         #endregion

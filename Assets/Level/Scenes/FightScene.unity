@@ -1714,7 +1714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
-  _fightManager: {fileID: 1678739252}
+  fightManager: {fileID: 0}
 --- !u!1 &1963673181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,7 +1808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 989a85e7f725cfd45966b24abe6da8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fightHexGrid: {fileID: 0}
+  hexGrid: {fileID: 2056515858}
   devAlliesConfs:
   - {fileID: 11400000, guid: d5746e71b0a5c65469ca2b997f19b595, type: 2}
   - {fileID: 11400000, guid: 2feb0362d51c4ed4e9245678b6bef79f, type: 2}
@@ -1869,6 +1869,10 @@ PrefabInstance:
       propertyPath: analysisDataSO
       value: 
       objectReference: {fileID: 11400000, guid: 0d2f822effe2e1a4884a655273921a9d, type: 2}
+    - target: {fileID: 2124646453989874991, guid: 01e556993f221ac4fbda0ba65da88ddb, type: 3}
+      propertyPath: defaultBiomeType
+      value: 
+      objectReference: {fileID: 11400000, guid: 62807aa1d0cd21844b1e3eef85934555, type: 2}
     - target: {fileID: 2124646453989874991, guid: 01e556993f221ac4fbda0ba65da88ddb, type: 3}
       propertyPath: defaultTerrainType
       value: 
