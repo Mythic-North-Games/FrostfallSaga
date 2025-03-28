@@ -122,6 +122,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &273020650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 273020652}
+  - component: {fileID: 273020651}
+  m_Layer: 0
+  m_Name: FrostfallSaga.Core.GameState.GameStateManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &273020651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273020650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f3113053354c8f38172d85dd5e6298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &273020652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273020650}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &278980176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1825,6 +1869,10 @@ PrefabInstance:
       propertyPath: analysisDataSO
       value: 
       objectReference: {fileID: 11400000, guid: 0d2f822effe2e1a4884a655273921a9d, type: 2}
+    - target: {fileID: 2124646453989874991, guid: 01e556993f221ac4fbda0ba65da88ddb, type: 3}
+      propertyPath: defaultTerrainType
+      value: 
+      objectReference: {fileID: 11400000, guid: 108950b8803a7c945bfdf445711badcb, type: 2}
     - target: {fileID: 6965603534334902354, guid: 01e556993f221ac4fbda0ba65da88ddb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1926,3 +1974,4 @@ SceneRoots:
   - {fileID: 1334114583}
   - {fileID: 1683268109}
   - {fileID: 2015873281}
+  - {fileID: 273020652}
