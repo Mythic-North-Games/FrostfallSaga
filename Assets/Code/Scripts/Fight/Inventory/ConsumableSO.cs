@@ -19,7 +19,7 @@ namespace FrostfallSaga.Fight.FightItems
             }
         }
 
-        public override List<string> GetSpecialEffectsUIData()
+        public override List<string> GetEffectsUIData()
         {
             List<string> specialEffectsUIData = new();
             foreach (AEffect effect in Effects)

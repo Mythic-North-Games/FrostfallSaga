@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Fighters;
@@ -69,7 +70,10 @@ namespace FrostfallSaga.Fight.UI
 
                 Sprite magicalStatIcon = UIIconsProvider.Instance.GetIcon(magicalResistance.Key.GetIconResourceName());
                 StatContainerUIController.SetupStatContainer(
-                    statContainerRoot, magicalStatIcon, magicalResistance.Value.ToString()
+                    statContainerRoot.Children().First(),
+                    magicalStatIcon,
+                    magicalResistance.Value.ToString(),
+                    justifyContent: Justify.SpaceAround
                 );
 
                 _resistancesStatsContainer.Add(statContainerRoot);

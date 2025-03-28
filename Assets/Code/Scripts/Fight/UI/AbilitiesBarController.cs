@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Utils.UI;
 using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Fight.UI
@@ -19,20 +20,37 @@ namespace FrostfallSaga.Fight.UI
         #endregion
 
         public Action onDirectAttackClicked;
-        public Action<ActiveAbilitySO> onAbilityButtonClicked;
+        public Action onDirectAttackLongHovered;
+        public Action onDirectAttackLongUnhovered;
+        public Action<ActiveAbilitySO> onAbilityClicked;
+        public Action<ActiveAbilitySO> onAbilityLongHovered;
+        public Action<ActiveAbilitySO> onAbilityLongUnhovered;
 
         private readonly Button _directAttackButton;
         private readonly Dictionary<Button, ActiveAbilitySO> _abilitiesButtons = new();
 
         public AbilitiesBarController(VisualElement abilitiesBarRoot)
         {
+            // Setup direct attack button
             _directAttackButton = abilitiesBarRoot.Q<Button>(DIRECT_ATTACK_BUTTON_UI_NAME);
+
+            // Setup direct attack button events
             _directAttackButton.RegisterCallback<ClickEvent>(_ => onDirectAttackClicked?.Invoke());
+            LongHoverEventController<Button> directAttcklongHoverEventController = new(_directAttackButton);
+            directAttcklongHoverEventController.onElementLongHovered += OnDirectAttackLongHovered;
+            directAttcklongHoverEventController.onElementLongUnhovered += OnDirectAttackLongUnhovered;
+
+            // Setup ability buttons
             for (int i = 0; i < abilitiesBarRoot.childCount - 1; i++)
             {
                 Button abilityButton = abilitiesBarRoot.Q<Button>(ABILITY_BUTTON_BASE_UI_NAME + i);
-                abilityButton.RegisterCallback<ClickEvent>(OnAbilityButtonClicked);
                 _abilitiesButtons.Add(abilityButton, null);
+
+                // Setup ability button events
+                abilityButton.RegisterCallback<ClickEvent>(OnAbilityClicked);
+                LongHoverEventController<Button> abilityLongHoverEventController = new(abilityButton);
+                abilityLongHoverEventController.onElementLongHovered += OnAbilityLongHovered;
+                abilityLongHoverEventController.onElementLongUnhovered += OnAbilityLongUnhovered;
             }
         }
 
@@ -45,10 +63,6 @@ namespace FrostfallSaga.Fight.UI
             // Set enabled or not depending on action points
             bool canUseDirectAttack = fighter.GetActionPoints() >= fighter.Weapon.UseActionPointsCost;
             _directAttackButton.SetEnabled(canUseDirectAttack);
-            _directAttackButton.pickingMode = canUseDirectAttack ? PickingMode.Position : PickingMode.Ignore;
-            _directAttackButton.Children().ToList().ForEach(
-                child => child.pickingMode = canUseDirectAttack ? PickingMode.Position : PickingMode.Ignore
-            );
 
             // Setup abilities buttons
             for (int i = 0; i < _abilitiesButtons.Count; i++)
@@ -72,22 +86,44 @@ namespace FrostfallSaga.Fight.UI
 
                 // Set enabled or not
                 abilityButton.SetEnabled(canUseAbility);
-                abilityButton.pickingMode = canUseAbility ? PickingMode.Position : PickingMode.Ignore;
-                abilityButton.Children().ToList().ForEach(
-                    child => child.pickingMode = canUseAbility ? PickingMode.Position : PickingMode.Ignore
-                );
 
                 // Bind active ability to button
                 _abilitiesButtons[abilityButton] = canUseAbility ? fighter.ActiveAbilities[i] : null;
             }
         }
 
-        private void OnAbilityButtonClicked(ClickEvent evt)
+        private void OnAbilityClicked(ClickEvent evt)
         {
             Button abilityButton = (Button)evt.target;
             if (_abilitiesButtons.TryGetValue(abilityButton, out ActiveAbilitySO ability) && ability != null)
             {
-                onAbilityButtonClicked?.Invoke(ability);
+                onAbilityClicked?.Invoke(ability);
+            }
+        }
+
+        private void OnDirectAttackLongHovered(Button directAttackButton)
+        {
+            onDirectAttackLongHovered?.Invoke();
+        }
+
+        private void OnDirectAttackLongUnhovered(Button directAttackButton)
+        {
+            onDirectAttackLongUnhovered?.Invoke();
+        }
+
+        private void OnAbilityLongHovered(Button abilityButton)
+        {
+            if (_abilitiesButtons.TryGetValue(abilityButton, out ActiveAbilitySO ability) && ability != null)
+            {
+                onAbilityLongHovered?.Invoke(ability);
+            }
+        }
+
+        private void OnAbilityLongUnhovered(Button abilityButton)
+        {
+            if (_abilitiesButtons.TryGetValue(abilityButton, out ActiveAbilitySO ability) && ability != null)
+            {
+                onAbilityLongUnhovered?.Invoke(ability);
             }
         }
     }

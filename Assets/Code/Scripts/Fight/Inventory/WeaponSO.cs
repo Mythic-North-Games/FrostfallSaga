@@ -10,6 +10,7 @@ using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Utils;
 using UnityEngine;
+using FrostfallSaga.Utils.UI;
 
 namespace FrostfallSaga.Fight.FightItems
 {
@@ -144,20 +145,24 @@ namespace FrostfallSaga.Fight.FightItems
         }
 
         #endregion
-    
-        public override Dictionary<string, string> GetStatsUIData()
+
+        public override Dictionary<Sprite, string> GetStatsUIData()
         {
-            Dictionary<string, string> statsUIData = new()
+            UIIconsProvider iconsProvider = UIIconsProvider.Instance;
+
+            string physicalDamagesString = MinPhysicalDamages != MaxPhysicalDamages ? $"{MinPhysicalDamages}-{MaxPhysicalDamages}" : MinPhysicalDamages.ToString();
+            Dictionary<Sprite, string> statsUIData = new()
             {
-                { UIIcons.PHYSICAL_DAMAGE.GetIconResourceName(), $"[{MinPhysicalDamages}-{MaxPhysicalDamages}]" },
-                { UIIcons.RANGE.GetIconResourceName(), AttackTargeter.OriginCellRange.ToString() },
-                { UIIcons.ACTION_POINTS_COST.GetIconResourceName(), UseActionPointsCost.ToString() }
+                { iconsProvider.GetIcon(UIIcons.PHYSICAL_DAMAGE.GetIconResourceName()), physicalDamagesString },
+                { iconsProvider.GetIcon(UIIcons.RANGE.GetIconResourceName()), AttackTargeter.OriginCellRange.ToString() },
+                { iconsProvider.GetIcon(UIIcons.ACTION_POINTS_COST.GetIconResourceName()), UseActionPointsCost.ToString() }
             };
             return statsUIData;
         }
 
-        public override Dictionary<EMagicalElement, string> GetMagicalStatsUIData()
+        public override Dictionary<Sprite, string> GetMagicalStatsUIData()
         {
+            UIIconsProvider iconsProvider = UIIconsProvider.Instance;
             Dictionary<EMagicalElement, int> minMagicalDamages = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
                 MinMagicalDamages
             );
@@ -165,12 +170,16 @@ namespace FrostfallSaga.Fight.FightItems
                 MaxMagicalDamages
             );
 
-            Dictionary<EMagicalElement, string> magicalDamagesUIData = new();
+            Dictionary<Sprite, string> magicalDamagesUIData = new();
             foreach (EMagicalElement magicalElement in minMagicalDamages.Keys)
             {
+                int minDamages = minMagicalDamages[magicalElement];
+                int maxDamages = maxMagicalDamages[magicalElement];
+
+                string magicalDanmagesString = minDamages != maxDamages ? $"{minDamages}-{maxDamages}" : minDamages.ToString();
                 magicalDamagesUIData.Add(
-                    magicalElement,
-                    $"[{minMagicalDamages[magicalElement]}-{maxMagicalDamages[magicalElement]}]"
+                    iconsProvider.GetIcon(magicalElement.GetIconResourceName()),
+                    magicalDanmagesString
                 );
             }
             return magicalDamagesUIData;

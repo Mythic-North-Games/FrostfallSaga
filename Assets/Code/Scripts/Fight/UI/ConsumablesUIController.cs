@@ -4,6 +4,7 @@ using System.Linq;
 using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.FightItems;
+using FrostfallSaga.Utils.UI;
 using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Fight.UI
@@ -20,6 +21,8 @@ namespace FrostfallSaga.Fight.UI
         #endregion
 
         public Action<InventorySlot> onConsumableUsed;
+        public Action<InventorySlot> onConsumableLongHovered;
+        public Action<InventorySlot> onConsumableLongUnhovered;
 
         private readonly VisualElement _root;
         private readonly VisualTreeAsset _consumableSlotTemplate;
@@ -64,26 +67,40 @@ namespace FrostfallSaga.Fight.UI
             _consumablesFromBagInQuickAccess.Clear();
             for (int i = 0; i < _consumableSlotControllers.Count; i++)
             {
+                ItemSlotContainerUIController consumableSlotController = _consumableSlotControllers[i];
+                InventorySlot consumableSlotToSet = null;
+
+                // Get the consumable slot to set
                 if (i < consumablesQuickAccessSlots.Length)
                 {
-                    _consumableSlotControllers[i].SetItemSlot(consumablesQuickAccessSlots[i]);
-                    _consumableSlotControllers[i].onItemSelected += OnConsumableSlotClicked;
-                    _consumableSlotControllers[i].SetEnabled(true);
+                    consumableSlotToSet = consumablesQuickAccessSlots[i];
                 }
                 else if (i - consumablesQuickAccessSlots.Length < consumablesBagSlots.Length)
                 {
-                    InventorySlot consumableFromBagSlot = consumablesBagSlots[i - consumablesQuickAccessSlots.Length];
-                    _consumablesFromBagInQuickAccess.Add(consumableFromBagSlot);
-                    _consumableSlotControllers[i].SetItemSlot(consumableFromBagSlot);
-                    _consumableSlotControllers[i].onItemSelected += OnConsumableSlotClicked;
-                    _consumableSlotControllers[i].SetEnabled(true);
+                    consumableSlotToSet = consumablesBagSlots[i - consumablesQuickAccessSlots.Length];
+                    _consumablesFromBagInQuickAccess.Add(consumableSlotToSet);
                 }
-                else
+
+                if (consumableSlotToSet == null)
                 {
-                    _consumableSlotControllers[i].SetItemSlot(null);
-                    _consumableSlotControllers[i].onItemSelected -= OnConsumableSlotClicked;
-                    _consumableSlotControllers[i].SetEnabled(false);
+                    consumableSlotController.SetItemSlot(null);
+                    consumableSlotController.SetEnabled(false);
+                    continue;
                 }
+
+                // Setup consumable slot
+                consumableSlotController.SetItemSlot(consumableSlotToSet);
+                consumableSlotController.onItemSelected += OnConsumableSlotClicked;
+                consumableSlotController.SetEnabled(true);
+
+                // Setup consumable slot long hover events
+                LongHoverEventController<VisualElement> longHoverEventController = new(consumableSlotController.Root);
+                longHoverEventController.onElementLongHovered += (_) => {
+                    onConsumableLongHovered?.Invoke(consumableSlotToSet);
+                };
+                longHoverEventController.onElementLongUnhovered += (_) => {
+                    onConsumableLongUnhovered?.Invoke(consumableSlotToSet);
+                };
             }
         }
 
@@ -111,12 +128,22 @@ namespace FrostfallSaga.Fight.UI
             _extraConsumablesSlotsContainer.Clear();
             foreach (InventorySlot consumableSlot in extraConsumablesSlot)
             {
+                // Create a new consumable slot
                 VisualElement extraConsumableSlotRoot = _consumableSlotTemplate.CloneTree();
                 extraConsumableSlotRoot.AddToClassList(EXTRA_CONSUMABLES_SLOT_ROOT_CLASSNAME);
 
                 ItemSlotContainerUIController newConsumableSlotController = new(extraConsumableSlotRoot);
                 newConsumableSlotController.SetItemSlot(consumableSlot);
                 newConsumableSlotController.onItemSelected += OnConsumableSlotClicked;
+
+                // Setup extra consumable slot long hover events
+                LongHoverEventController<VisualElement> longHoverEventController = new(extraConsumableSlotRoot);
+                longHoverEventController.onElementLongHovered += (_) => {
+                    onConsumableLongHovered?.Invoke(consumableSlot);
+                };
+                longHoverEventController.onElementLongUnhovered += (_) => {
+                    onConsumableLongUnhovered?.Invoke(consumableSlot);
+                };
 
                 _extraConsumablesSlotsContainer.Add(extraConsumableSlotRoot);
             }

@@ -15,4 +15,26 @@ public static class StatContainerUIController
         root.Q<VisualElement>(STAT_ICON_UI_NAME).style.backgroundImage = new(icon);
         root.Q<Label>(STAT_LABEL_UI_NAME).text = statValue;
     }
+
+    public static void SetupStatContainer(VisualElement root, Sprite icon, string statValue, Color statValueColor)
+    {
+        root.Q<VisualElement>(STAT_ICON_UI_NAME).style.backgroundImage = new(icon);
+        root.Q<Label>(STAT_LABEL_UI_NAME).text = statValue;
+        root.Q<Label>(STAT_LABEL_UI_NAME).style.color = statValueColor;
+    }
+
+    public static void SetupStatContainer(VisualElement root, Sprite icon, string statValue, Justify justifyContent)
+    {
+        root.Q<VisualElement>(STAT_ICON_UI_NAME).style.backgroundImage = new(icon);
+        root.Q<Label>(STAT_LABEL_UI_NAME).text = statValue;
+        root.style.justifyContent = justifyContent;
+    }
+
+    public static void SetupStatContainer(VisualElement root, Sprite icon, string statValue, Color statValueColor, Justify justifyContent)
+    {
+        root.Q<VisualElement>(STAT_ICON_UI_NAME).style.backgroundImage = new(icon);
+        root.Q<Label>(STAT_LABEL_UI_NAME).text = statValue;
+        root.Q<Label>(STAT_LABEL_UI_NAME).style.color = statValueColor;
+        root.style.justifyContent = justifyContent;
+    }
 }

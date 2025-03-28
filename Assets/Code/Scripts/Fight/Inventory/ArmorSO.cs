@@ -4,6 +4,7 @@ using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Core.UI;
 using FrostfallSaga.Utils;
+using FrostfallSaga.Utils.UI;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightItems
@@ -15,25 +16,31 @@ namespace FrostfallSaga.Fight.FightItems
         [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MagicalResistances { get; private set; }
         [field: SerializeField] public SElementToValue<EEntityRace, float>[] FightersStrengths { get; private set; }
 
-        public override Dictionary<string, string> GetStatsUIData()
+        public override Dictionary<Sprite, string> GetStatsUIData()
         {
-            Dictionary<string, string> statsUIData = new()
+            Dictionary<Sprite, string> statsUIData = new()
             {
-                { UIIcons.PHYSICAL_RESISTANCE.GetIconResourceName(), PhysicalResistance.ToString() }
+                {
+                    UIIconsProvider.Instance.GetIcon(UIIcons.PHYSICAL_RESISTANCE.GetIconResourceName()),
+                    PhysicalResistance.ToString()
+                }
             };
             return statsUIData;
         }
 
-        public override Dictionary<EMagicalElement, string> GetMagicalStatsUIData()
+        public override Dictionary<Sprite, string> GetMagicalStatsUIData()
         {
-            Dictionary<EMagicalElement, string> magicalResistancesUIData = new();
-            
+            Dictionary<Sprite, string> magicalResistancesUIData = new();
+
             Dictionary<EMagicalElement, int> magicalResistances = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
                 MagicalResistances
             );
             foreach (EMagicalElement magicalElement in magicalResistances.Keys)
             {
-                magicalResistancesUIData.Add(magicalElement, magicalResistances[magicalElement].ToString());
+                magicalResistancesUIData.Add(
+                    UIIconsProvider.Instance.GetIcon(magicalElement.GetIconResourceName()), 
+                    magicalResistances[magicalElement].ToString()
+                );
             }
 
             return magicalResistancesUIData;
@@ -42,7 +49,7 @@ namespace FrostfallSaga.Fight.FightItems
         public override List<string> GetSpecialEffectsUIData()
         {
             List<string> specialEffectsUIData = new();
-            
+
             Dictionary<EEntityRace, float> fightersStrengths = SElementToValue<EEntityRace, float>.GetDictionaryFromArray(
                 FightersStrengths
             );
