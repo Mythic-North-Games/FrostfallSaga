@@ -11,6 +11,7 @@ using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Utils;
+using JetBrains.Annotations;
 
 namespace FrostfallSaga.Core.GameState
 {
@@ -76,12 +77,13 @@ namespace FrostfallSaga.Core.GameState
             EntityConfigurationSO[] alliesEntityConf,
             KeyValuePair<string, EntityConfigurationSO>[] enemiesEntityConf,
             EFightOrigin fightOrigin,
-            Dictionary<HexDirection, Cell> hexDirectionCell)
+            [CanBeNull] Dictionary<HexDirection, Cell> hexDirectionCell)
         {
             _preFightData.alliesEntityConf = alliesEntityConf;
             _preFightData.enemiesEntityConf = enemiesEntityConf;
             _preFightData.fightOrigin = fightOrigin;
-            _preFightData.HexDirectionCells = hexDirectionCell;
+            if (hexDirectionCell != null)
+                _preFightData.HexDirectionCells = hexDirectionCell;
         }
 
         public void CleanPreFightData()

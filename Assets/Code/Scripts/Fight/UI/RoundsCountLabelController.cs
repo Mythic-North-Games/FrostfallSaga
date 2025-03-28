@@ -9,7 +9,7 @@ namespace FrostfallSaga.Fight.UI
     {
         private static readonly string ROUNDS_COUNT_LABEL_UI_NAME = "RoundsCountLabel";
 
-        [SerializeField] private FightManager _fightManager;
+        [SerializeField] private FightManager fightManager;
         private int _roundsCount;
         private Label _roundsCountLabel;
 
@@ -28,15 +28,15 @@ namespace FrostfallSaga.Fight.UI
 
         private void Awake()
         {
-            if (_uiDoc == null) _uiDoc = GetComponent<UIDocument>();
-            if (_uiDoc == null)
+            _uiDoc ??= GetComponent<UIDocument>();
+            if (!_uiDoc)
             {
                 Debug.LogError("No UI Document to work with.");
                 return;
             }
 
-            if (_fightManager == null) _fightManager = FindObjectOfType<FightManager>();
-            if (_fightManager == null)
+            fightManager ??= FindObjectOfType<FightManager>();
+            if (!fightManager)
             {
                 Debug.LogError("No FightManager to work with. UI can't be updated dynamically.");
                 return;
@@ -45,19 +45,19 @@ namespace FrostfallSaga.Fight.UI
             _roundsCount = 0;
             _roundsCountLabel = _uiDoc.rootVisualElement.Q<Label>(ROUNDS_COUNT_LABEL_UI_NAME);
 
-            _fightManager.onFighterTurnBegan += OnFighterTurnBegan;
+            fightManager.onFighterTurnBegan += OnFighterTurnBegan;
         }
 
         private void OnDisable()
         {
-            if (_fightManager == null) _fightManager = FindObjectOfType<FightManager>();
-            if (_fightManager == null)
+            fightManager ??= FindObjectOfType<FightManager>();
+            if (!fightManager)
             {
                 Debug.LogWarning("No FightManager found. Can't tear down properly.");
                 return;
             }
 
-            _fightManager.onFighterTurnBegan -= OnFighterTurnBegan;
+            fightManager.onFighterTurnBegan -= OnFighterTurnBegan;
         }
 
         #endregion

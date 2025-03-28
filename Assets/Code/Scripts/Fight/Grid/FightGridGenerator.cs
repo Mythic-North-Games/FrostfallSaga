@@ -13,18 +13,18 @@ namespace FrostfallSaga.Grid
 {
     public class FightGridGenerator : ABaseGridGenerator
     {
+        private readonly BiomeTypeSO _defaultBiomeType;
 
         private readonly Dictionary<HexDirection, Cell> _hexDirectionCells;
         private readonly PerlinTerrainManager _perlinTerrainManager;
-        private readonly TerrainTypeSO _defaultTerrainType;
 
         public FightGridGenerator(FightCell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes,
-            Transform parentGrid, float noiseScale, int seed, TerrainTypeSO defaultTerrainType)
+            Transform parentGrid, float noiseScale, int seed, BiomeTypeSO defaultBiomeType)
             : base(hexPrefab, gridWidth, gridHeight, availableBiomes, parentGrid, noiseScale, seed)
         {
             _perlinTerrainManager = new PerlinTerrainManager(noiseScale, seed);
             _hexDirectionCells = GameStateManager.Instance.GetPreFightData().HexDirectionCells;
-            _defaultTerrainType = defaultTerrainType;
+            _defaultBiomeType = defaultBiomeType;
         }
 
         public override Dictionary<Vector2Int, Cell> GenerateGrid()
@@ -104,7 +104,7 @@ namespace FrostfallSaga.Grid
                 {
                     terrainByDirection[dir] = knownTerrains.Count > 0
                         ? Randomizer.GetRandomElementFromList(knownTerrains)
-                        : _defaultTerrainType;
+                        : Randomizer.GetRandomElementFromArray(_defaultBiomeType.TerrainTypeSO);
                 }
             }
 
@@ -149,7 +149,8 @@ namespace FrostfallSaga.Grid
             {
                 if (terrainByDirection.TryGetValue(dir, out TerrainTypeSO terrain))
                 {
-                    terrainMap += $"  • {dir}: {terrain.TypeName} (Accessible: {terrain.IsAccessible}, Chance: {terrain.AccessibilityChanceOverride:P0})\n";
+                    terrainMap +=
+                        $"  • {dir}: {terrain.TypeName} (Accessible: {terrain.IsAccessible}, Chance: {terrain.AccessibilityChanceOverride:P0})\n";
                 }
                 else
                 {

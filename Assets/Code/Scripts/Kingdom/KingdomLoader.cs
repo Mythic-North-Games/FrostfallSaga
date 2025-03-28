@@ -47,6 +47,7 @@ namespace FrostfallSaga.Kingdom
         private void Start()
         {
             kingdomHexGrid.ClearCells();
+            Debug.Log("Generating Kingdom Grid...");
             kingdomHexGrid.GenerateGrid();
             if (_gameStateManager.IsFirstSceneLaunch())
             {
@@ -80,7 +81,7 @@ namespace FrostfallSaga.Kingdom
         /// <summary>
         ///     If kingdom cell occupiers are placed directly in the scene for dev purposes, destroy them.
         /// </summary>
-        private void DestroyDevOccupiers()
+        private static void DestroyDevOccupiers()
         {
             FindObjectsOfType<KingdomCellOccupier>().ToList()
                 .ForEach(occupier => DestroyImmediate(occupier.gameObject));
@@ -204,7 +205,7 @@ namespace FrostfallSaga.Kingdom
         /// </summary>
         /// <param name="entitiesGroupToUpdate">The entities group to update.</param>
         /// <param name="entitiesState">The post fight state of the entities.</param>
-        private void UpdateEntitiesGroupAfterFight(EntitiesGroup entitiesGroupToUpdate,
+        private static void UpdateEntitiesGroupAfterFight(EntitiesGroup entitiesGroupToUpdate,
             Dictionary<string, PostFightFighterState> entitiesState)
         {
             foreach (KeyValuePair<string, PostFightFighterState> postFighterData in entitiesState)

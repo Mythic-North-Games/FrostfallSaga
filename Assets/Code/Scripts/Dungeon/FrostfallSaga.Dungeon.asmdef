@@ -4,7 +4,9 @@
   "references": [
     "FrostfallSaga.Core",
     "FrostfallSaga.Utils",
-    "FrostfallSaga.Grid"
+    "FrostfallSaga.Grid",
+    "FrostfallSaga.Procedural",
+    "FrostfallSaga.Fight"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

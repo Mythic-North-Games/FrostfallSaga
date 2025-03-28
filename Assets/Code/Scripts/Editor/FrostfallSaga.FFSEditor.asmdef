@@ -8,7 +8,8 @@
     "FrostfallSaga.Procedural",
     "FrostfallSaga.DialogueSystem",
     "FrostfallSaga.Utils",
-    "FrostfallSaga.Kingdom"
+    "FrostfallSaga.Kingdom",
+    "FrostfallSaga.Dungeon"
   ],
   "includePlatforms": [
     "Editor"
