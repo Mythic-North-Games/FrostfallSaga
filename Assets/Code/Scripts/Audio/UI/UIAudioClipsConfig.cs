@@ -3,6 +3,7 @@ using UnityEngine;
 namespace FrostfallSaga.Audio
 {
 
+
     [CreateAssetMenu(fileName = "UIAudioClipsConfig", menuName = "ScriptableObjects/Audio/UIAudioClipsConfig")]
     public class UIAudioClipsConfig : ScriptableObject
     {
@@ -11,5 +12,6 @@ namespace FrostfallSaga.Audio
         public AudioClip buttonHoverSound;
         public AudioClip fightWonSound;
         public AudioClip fightLostSound;
-    }
+    }      
+
 }

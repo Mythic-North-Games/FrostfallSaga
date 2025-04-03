@@ -957,10 +957,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012eac00980d68e42aee8f0fa6c34ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _devAlliesConfs:
-  - {fileID: 11400000, guid: d5746e71b0a5c65469ca2b997f19b595, type: 2}
-  _devEnemiesConfs:
-  - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
 --- !u!1 &1656478350
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,7 +1129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a337116156b60604b92b6cfc653c9566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiAudioClipsConfig: {fileID: 0}
+  uiAudioClipsConfig: {fileID: 11400000, guid: aef339ccaf3b4d5418f6a13c4eb33e47, type: 2}
+  fxAudioClipsConfig: {fileID: 11400000, guid: 889ebb1f4049c6c4da7af2b995d0c195, type: 2}
   audioSourceObject: {fileID: 4094540750882597515, guid: b034ff1c05b1ef24fb9925f182960e04, type: 3}
 --- !u!1 &1802787514
 GameObject:

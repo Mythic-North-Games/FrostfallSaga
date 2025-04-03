@@ -13,6 +13,8 @@ namespace FrostfallSaga.Audio
         [SerializeField] private UIAudioClipsConfig uiAudioClipsConfig;
         [SerializeField] private AudioSource audioSourceObject;
         private UIAudioClipSelector uIAudioClipSelector;
+        private AudioSource _currentFXAudioSource;
+        private Coroutine _fadeOutCoroutine;
 
         private void Awake()
         {
@@ -21,6 +23,11 @@ namespace FrostfallSaga.Audio
                 instance = this;
             }
             uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
+
+            // Créer une source audio persistante
+            _currentFXAudioSource = Instantiate(audioSourceObject, transform);
+            _currentFXAudioSource.gameObject.name = "PersistentFXAudioSource";
+            DontDestroyOnLoad(_currentFXAudioSource.gameObject);
         }
 
         /// <summary>
@@ -53,12 +60,113 @@ namespace FrostfallSaga.Audio
             }
         }
 
+        /// <summary>
+        /// Play a FX sound effect by using the FXSounds enum
+        /// <paramref name="sound"/> The sound to play
+        /// </summary>
+        /// 
+
+        public void PlayFXSound(AudioClip sound, Transform spawnTransform, float volume, float durationFadeOut)
+        {
+            if (sound == null)
+            return;
+
+            // Arrêter le fade-out en cours si il y en a un
+            if (_fadeOutCoroutine != null)
+            {
+                StopCoroutine(_fadeOutCoroutine);
+                _fadeOutCoroutine = null;
+            }
+
+            // Démarrer le fade-out du son actuel
+            if (_currentFXAudioSource != null && _currentFXAudioSource.isPlaying)
+            {
+                _fadeOutCoroutine = StartCoroutine(FadeOutAndDestroy(_currentFXAudioSource, durationFadeOut));
+            }
+
+            // Création d'une nouvelle AudioSource pour le nouveau son
+            AudioSource newAudioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
+            newAudioSource.clip = sound;
+            newAudioSource.volume = volume;
+            newAudioSource.Play();
+
+            // Définir cette nouvelle source comme l'actuelle
+            _currentFXAudioSource = newAudioSource;
+
+            // Détruire l'AudioSource après la fin du son
+            Destroy(newAudioSource.gameObject, sound.length);
+        }
+
+        // Coroutine pour effectuer un fade-out progressif et ensuite détruire l'AudioSource
+        private IEnumerator FadeOutAndDestroy(AudioSource audioSource, float fadeDuration)
+        {
+        float startVolume = audioSource.volume;
+        float timer = 0f;
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(startVolume, 0f, timer / fadeDuration);
+            yield return null;
+        }
+
+        audioSource.Stop();
+        Destroy(audioSource.gameObject);
+    }
+
+
+
+
+
+        // A UTILISER POUR LA MUSIQUE
+        //public void PlayMusicSound(FXSounds sound, Transform spawnTransform, float audioVolume, float duration)
+        //{
+            //AudioClip audioClip = fXAudioClipSelector.SelectAudioClip(sound);
+            //if (audioClip != null)
+            //{
+                //float clipLength = audioClip.length;
+                //float destroyTime = Mathf.Max(clipLength, duration); // On garde l'objet au moins le temps défini
+
+                // Créer une source audio
+                //AudioSource audioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
+                //audioSource.clip = audioClip;
+                //audioSource.volume = audioVolume;
+
+                // Activez la lecture en boucle si la durée souhaitée est plus longue que la durée du clip
+                //if (duration > audioClip.length)
+                //{
+                //    audioSource.loop = true;
+                //}
+
+                // Jouez le son
+                //audioSource.Play();
+
+                // Démarrer une coroutine pour arrêter le son après la durée spécifiée
+                //StartCoroutine(StopSoundAfterDuration(audioSource, duration));
+                
+                //Destroy(audioSource.gameObject, destroyTime);
+            //}
+            //else
+            //{
+                //Debug.LogError("Audio clip " + sound + " not found");
+            //}
+        //}
+
+        private IEnumerator StopSoundAfterDuration(AudioSource audioSource, float duration)
+        {
+            yield return new WaitForSeconds(duration); // Attendre la durée spécifiée
+            audioSource.Stop(); // Arrêter la lecture
+            Destroy(audioSource.gameObject); // Détruire l'objet audio
+        }
+
+
         #if UNITY_EDITOR
 
 
         public void InitializeAudioClipSelectorFromTests(UIAudioClipsConfig uIAudioClipsConfig) 
         {
             uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
+
         }
         
         

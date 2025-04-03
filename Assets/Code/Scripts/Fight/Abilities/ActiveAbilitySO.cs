@@ -8,6 +8,7 @@ using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Audio;
 
 
 namespace FrostfallSaga.Fight.Abilities
@@ -27,6 +28,11 @@ namespace FrostfallSaga.Fight.Abilities
         [SerializeReference] public AEffect[] MasterstrokeEffects = { };
         [SerializeReference] public AFightCellAlteration[] CellAlterations = { };
         [field: SerializeField] public AAbilityAnimationSO Animation { get; private set; }
+        // Nouveau champ pour le son
+        [field: SerializeField] public AudioClip AbilitySoundFX { get; private set; }
+        [field: SerializeField, Range(0f, 1f)] public float SoundVolume { get; private set; } = 1f;
+
+        [field: SerializeField, Range(0f, 3f)] public float DurationFadeOut { get; private set; } = 0.7f;
 
         public Action<ActiveAbilitySO> onActiveAbilityEnded;
 
@@ -39,6 +45,19 @@ namespace FrostfallSaga.Fight.Abilities
         /// <param name="initiator">The fighter that initiated the ability.</param>
         public void Trigger(FightCell[] targetedCells, Fighter initiator)
         {
+            // Jouer le son si configuré
+            if (AbilitySoundFX != null)
+            {
+                // Vous devrez avoir un système audio dans votre jeu pour jouer les sons
+                // Par exemple :
+                AudioManager.instance.PlayFXSound(AbilitySoundFX, initiator.transform, SoundVolume, DurationFadeOut);
+                // Ou utiliser votre propre système audio
+            }
+            else
+            {
+             Debug.Log($"There is no Ability Sound FX.");
+            }
+            
             if (Animation == null)
             {
                 Debug.LogWarning($"No animation attached to active ability {Name}.");
