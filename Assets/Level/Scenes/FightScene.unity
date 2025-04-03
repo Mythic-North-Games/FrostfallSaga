@@ -326,6 +326,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &732898559
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2015873281}
+    m_Modifications:
+    - target: {fileID: 3309779137989844280, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_Name
+      value: HeroInventoryRenderTextureScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+--- !u!4 &732898560 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+  m_PrefabInstance: {fileID: 732898559}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &732898561 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2491415837340818565, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+  m_PrefabInstance: {fileID: 732898559}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8466bc70d09df84f493e5e15759cb9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &793609178
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +1033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1392665154}
+  _heroRenderTextureSceneController: {fileID: 732898561}
   _equippedPanelTemplate: {fileID: 9197481963319205126, guid: 85cc35556c3486bfdb3589f4f7f9de63, type: 3}
   _bagPanelTemplate: {fileID: 9197481963319205126, guid: 620d5dbc289500c3bbae70a2ddaf0182, type: 3}
   _statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
@@ -1640,6 +1714,7 @@ MonoBehaviour:
   _consumableSlotTemplate: {fileID: 9197481963319205126, guid: 62007e018c618b539bc251fd95fa5911, type: 3}
   _movementPointsProgressColor: {r: 0.17253397, g: 0.5459742, b: 0.7754027, a: 1}
   _actionPointsProgressColor: {r: 0.35846135, g: 0.8221862, b: 0.4000684, a: 1}
+  _statValueColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
   _statusDetailsPanelXOffset: 4
 --- !u!114 &1952024165
 MonoBehaviour:
@@ -1849,6 +1924,7 @@ Transform:
   - {fileID: 1952024163}
   - {fileID: 833512733}
   - {fileID: 1392665155}
+  - {fileID: 732898560}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2053010645

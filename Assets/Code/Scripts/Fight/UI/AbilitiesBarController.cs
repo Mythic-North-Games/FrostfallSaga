@@ -78,6 +78,8 @@ namespace FrostfallSaga.Fight.UI
                 else
                 {
                     abilityIcon.style.backgroundImage = null;
+                    abilityButton.pickingMode = PickingMode.Ignore;
+                    abilityButton.Children().ToList().ForEach(child => child.pickingMode = PickingMode.Ignore);
                 }
 
                 bool canUseAbility =

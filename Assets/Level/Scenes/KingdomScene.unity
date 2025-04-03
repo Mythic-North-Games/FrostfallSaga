@@ -697,6 +697,7 @@ Transform:
   - {fileID: 791242496}
   - {fileID: 1074157368}
   - {fileID: 1660349218}
+  - {fileID: 1192035740}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &483864511
@@ -1147,6 +1148,79 @@ Transform:
   m_Children: []
   m_Father: {fileID: 411216151}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1192035739
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 411216151}
+    m_Modifications:
+    - target: {fileID: 3309779137989844280, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_Name
+      value: HeroInventoryRenderTextureScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+--- !u!4 &1192035740 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+  m_PrefabInstance: {fileID: 1192035739}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1192035741 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2491415837340818565, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+  m_PrefabInstance: {fileID: 1192035739}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8466bc70d09df84f493e5e15759cb9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1268217342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,9 +1536,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1660349217}
+  _heroRenderTextureSceneController: {fileID: 1192035741}
   _equippedPanelTemplate: {fileID: 9197481963319205126, guid: 85cc35556c3486bfdb3589f4f7f9de63, type: 3}
   _bagPanelTemplate: {fileID: 9197481963319205126, guid: 620d5dbc289500c3bbae70a2ddaf0182, type: 3}
   _statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
+  _statValueColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   _devHero: {fileID: 0}
 --- !u!114 &1660349215
 MonoBehaviour:

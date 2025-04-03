@@ -24,6 +24,7 @@ namespace FrostfallSaga.InventorySystem.UI
         public Action<InventorySlot> onItemSlotUnequipClicked;
 
         private readonly VisualElement _root;
+        private readonly InventoryHeroRenderTextureSceneController _heroRenderTextureSceneController;
         private readonly ItemSlotContainerUIController _weaponSlotContainer;
         private readonly ItemSlotContainerUIController _helmetSlotContainer;
         private readonly ItemSlotContainerUIController _chestSlotContainer;
@@ -34,10 +35,15 @@ namespace FrostfallSaga.InventorySystem.UI
         private EntityConfigurationSO _currentHeroEntityConf;
         private PersistedFighterConfigurationSO _currentHeroFighterConf;
 
-        public InventoryEquippedPanelUIController(VisualElement root)
+        public InventoryEquippedPanelUIController(
+            VisualElement root, 
+            InventoryHeroRenderTextureSceneController heroRenderTextureSceneController
+        )
         {
-            // Retrieve UI elements
             _root = root;
+            _heroRenderTextureSceneController = heroRenderTextureSceneController;
+
+            // Retrieve UI elements and create controllers for each equipment slot
             _weaponSlotContainer = new ItemSlotContainerUIController(_root.Q<VisualElement>(EQUIPPED_WEAPON_SLOT_CONTAINER_UI_NAME));
             _helmetSlotContainer = new ItemSlotContainerUIController(_root.Q<VisualElement>(EQUIPPED_HELMET_SLOT_CONTAINER_UI_NAME));
             _chestSlotContainer = new ItemSlotContainerUIController(_root.Q<VisualElement>(EQUIPPED_CHEST_SLOT_CONTAINER_UI_NAME));
@@ -76,6 +82,7 @@ namespace FrostfallSaga.InventorySystem.UI
 
         private void UpdatePanel()
         {
+            _heroRenderTextureSceneController.SetupHeroModel(_currentHeroEntityConf.InventoryVisualPrefab);
             UpdateFighterName();
             UpdateEquipment(_currentHeroFighterConf.Inventory);
             UpdateQuickAccessSlots(_currentHeroFighterConf.Inventory);

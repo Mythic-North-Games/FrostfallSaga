@@ -16,5 +16,6 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
   <DiamondIcon>k__BackingField: {fileID: 21300000, guid: 54602b48bb6b71e4b967d9777b79ae1e, type: 3}
   <KingdomEntityPrefab>k__BackingField: {fileID: 3433075431542448143, guid: ed66f60321a9b26419233eec6cf526e0, type: 3}
+  <InventoryVisualPrefab>k__BackingField: {fileID: 7229199734263576984, guid: fcda47e4a882eb51c82515252cf297fa, type: 3}
   <FighterConfiguration>k__BackingField: {fileID: 11400000, guid: be2a59e2c4ba3c543bde83ebbd0b85f3, type: 2}
   <Race>k__BackingField: 0
