@@ -1,0 +1,75 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="EndMenuFighterState" src="project://database/Assets/Level/UI/Fight/FightEndMenu/EndMenuFighterState.uxml?fileID=9197481963319205126&amp;guid=2315259c78f5cb26a82297c02e9c83ce&amp;type=3#EndMenuFighterState" />
+    <ui:Template name="ItemReward" src="project://database/Assets/Level/UI/Fight/FightEndMenu/ItemReward.uxml?fileID=9197481963319205126&amp;guid=29d858b9d0555dc3081d42492e454377&amp;type=3#ItemReward" />
+    <Style src="project://database/Assets/Level/UI/Fight/FightEndMenu/FightEndMenu.uss?fileID=7433441132597879392&amp;guid=2abc69ef2e7f95d4aa16f0f9bf33a813&amp;type=3#FightEndMenu" />
+    <ui:VisualElement name="FightEndMenuContainer" style="width: 45%; height: 90%; margin-left: 27.5%; background-color: rgba(25, 25, 25, 0.78); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-left-color: rgb(225, 225, 225); border-right-color: rgb(225, 225, 225); border-top-color: rgb(225, 225, 225); border-bottom-color: rgb(225, 225, 225); margin-top: 2.75%; border-top-left-radius: 2.5%; border-top-right-radius: 2.5%; border-bottom-right-radius: 2.5%; border-bottom-left-radius: 2.5%;">
+        <ui:Label tabindex="-1" text="Enemies defeated" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ResultLabel" style="margin-top: 4%; margin-right: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); color: rgb(225, 225, 225); width: 100%; font-size: 50%; -unity-text-align: middle-center;" />
+        <ui:VisualElement name="EndMenuSeparator" style="width: 80%; margin-left: 10%; height: 0.5%; background-color: rgb(225, 225, 225); margin-top: 2%; margin-bottom: 2%;" />
+        <ui:VisualElement name="AlliesStateContainer" style="width: 80%; height: 12.5%; margin-left: 10%; flex-direction: row;">
+            <ui:Instance template="EndMenuFighterState" name="EndMenuFighterStateRoot" class="fighterStateRoot" />
+            <ui:Instance template="EndMenuFighterState" name="EndMenuFighterStateRoot" class="fighterStateRoot" />
+            <ui:Instance template="EndMenuFighterState" name="EndMenuFighterStateRoot" class="fighterStateRoot" />
+        </ui:VisualElement>
+        <ui:VisualElement name="EnemiesStateContainer" style="width: 80%; margin-left: 10%; flex-direction: row; min-height: 12.5%; max-height: 27%; flex-wrap: wrap; margin-top: 4%;">
+            <ui:Instance template="EndMenuFighterState" name="EndMenuFighterStateRoot" class="fighterStateRoot" />
+        </ui:VisualElement>
+        <ui:Label tabindex="-1" text="Rewards" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RewardsLabel" style="margin-top: 4%; margin-right: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); color: rgb(225, 225, 225); width: 100%; font-size: 35%; -unity-text-align: middle-center;" />
+        <ui:VisualElement name="EndMenuSeparator" style="width: 80%; margin-left: 10%; height: 0.5%; background-color: rgb(225, 225, 225); margin-top: 2%; margin-bottom: 2%;" />
+        <ui:VisualElement name="StycasRewardContainer" style="width: 80%; margin-left: 10%; flex-direction: row; align-items: center; height: 5%;">
+            <ui:VisualElement name="StycasIcon" style="width: 8%; background-image: resource(&apos;UI/Icons/coinIcon&apos;); -unity-background-scale-mode: scale-to-fit; height: 100%;" />
+            <ui:Label tabindex="-1" text="+ 273 stycas" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StycasRewardLabel" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); color: rgb(225, 225, 225); font-size: 30%; -unity-text-align: middle-left;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ItemsRewardContainer" style="width: 80%; margin-left: 10%; margin-top: 3%; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: stretch; min-height: 11.5%;">
+            <ui:Instance template="ItemReward" name="ItemReward" class="itemRewardContainerRoot" />
+        </ui:VisualElement>
+        <ui:Button text="Continue" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ContinueButton" class="continueButton" />
+    </ui:VisualElement>
+    <ui:VisualElement name="ObjectDetailsPanelContainer" class="objectDetailsPanelContainerDefault" style="left: 32.5%; bottom: 44%;">
+        <ui:VisualElement name="ObjectDetailsPanel">
+            <Style src="project://database/Assets/Level/UI/Components/ObjectDetailsPanel.uss?fileID=7433441132597879392&amp;guid=ec2b51f90ef6f31ec99f3bc068c43e2e&amp;type=3#ObjectDetailsPanel" />
+            <ui:VisualElement name="ObjectDetailsContainer" style="padding-top: 0; padding-right: 1%; padding-bottom: 0; padding-left: 1%; justify-content: space-between; width: 100%;">
+                <ui:VisualElement name="DetailsHeader" style="width: 100%; flex-direction: row; max-height: 100%; min-height: 40%;">
+                    <ui:VisualElement name="IconContainer" style="width: 15%; height: 100%; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Backgrounds/fadedCircleBackground.png?fileID=2800000&amp;guid=bdd35670b3e5cc541a7d4be14cc1e577&amp;type=3#fadedCircleBackground&quot;); -unity-background-scale-mode: scale-to-fit;">
+                        <ui:VisualElement name="Icon" style="width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Resources/UI/Icons/physicalDamageIcon.png?fileID=2800000&amp;guid=c76bf23a91b91f547963ba85711ce108&amp;type=3#physicalDamageIcon&quot;); -unity-background-scale-mode: scale-to-fit;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="HeaderRightContainer" style="width: 84%; height: 100%; margin-left: 1%; justify-content: center;">
+                        <ui:Label tabindex="-1" text="Common sword" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NameLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 1%; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 30%; -unity-text-align: middle-left; color: rgb(225, 225, 225);" />
+                        <ui:Label tabindex="-1" text="A good sword for any beginner adventurer. Lorem ispum dolor sit amet Lorem ispum dolor sit amet." parse-escape-sequences="true" display-tooltip-when-elided="true" name="DescriptionLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 22%; -unity-text-align: middle-left; white-space: normal; color: rgb(225, 225, 225);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="DetailsContent" style="flex-direction: row; width: 100%; height: 55%; padding-left: 1%; padding-right: 1%; padding-top: 2%;">
+                    <ui:VisualElement name="StatsContainer" style="height: 100%; width: 15%; visibility: visible; display: flex;">
+                        <ui:VisualElement name="StatContainer">
+                            <Style src="project://database/Assets/Level/UI/Components/FighterStatStyles.uss?fileID=7433441132597879392&amp;guid=4a4089305efb072c198bee37cc2998b8&amp;type=3#FighterStatStyles" />
+                            <ui:VisualElement name="StatContainer" class="statContainer">
+                                <ui:VisualElement name="StatIcon" class="statIcon" style="background-image: url(&quot;project://database/Assets/Resources/UI/Icons/strenghtIcon.png?fileID=2800000&amp;guid=e6b98d28e1ca0cf4c9abac72040c1e0e&amp;type=3#strenghtIcon&quot;); background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: rgb(255, 255, 255);" />
+                                <ui:Label tabindex="-1" text="899" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatLabel" class="statLabel" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="StatContainer">
+                            <Style src="project://database/Assets/Level/UI/Components/FighterStatStyles.uss?fileID=7433441132597879392&amp;guid=4a4089305efb072c198bee37cc2998b8&amp;type=3#FighterStatStyles" />
+                            <ui:VisualElement name="StatContainer" class="statContainer">
+                                <ui:VisualElement name="StatIcon" class="statIcon" style="background-image: url(&quot;project://database/Assets/Resources/UI/Icons/strenghtIcon.png?fileID=2800000&amp;guid=e6b98d28e1ca0cf4c9abac72040c1e0e&amp;type=3#strenghtIcon&quot;); background-color: rgba(0, 0, 0, 0); -unity-background-image-tint-color: rgb(255, 255, 255);" />
+                                <ui:Label tabindex="-1" text="899" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatLabel" class="statLabel" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="EffectsListsContainer" style="flex-grow: 1; width: 82.5%; flex-direction: row; margin-left: 2.5%;">
+                        <ui:VisualElement name="EffectsContainer" style="width: 48%; margin-right: 2%;">
+                            <ui:Label tabindex="-1" text="Effects" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EffectsTitle" style="margin-top: 0; margin-right: 0; margin-bottom: 0.5%; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 22%; color: rgb(225, 225, 225);" />
+                            <ui:VisualElement name="EffectsList" style="flex-grow: 1; padding-top: 2%; padding-right: 2%; padding-bottom: 2%; padding-left: 2%;">
+                                <ui:Label tabindex="-1" text="- Deals &lt;b&gt;20&lt;/b&gt; damages of fire." parse-escape-sequences="true" display-tooltip-when-elided="true" name="EffectLine" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="SecondaryEffectsContainer" style="flex-grow: 0; width: 48%;">
+                            <ui:Label tabindex="-1" text="Materstroke effects" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SecondaryEffectsTitle" style="margin-top: 0; margin-right: 0; margin-bottom: 0.5%; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 22%; color: rgb(225, 225, 225);" />
+                            <ui:VisualElement name="SecondaryEffectsList" style="flex-grow: 1; padding-top: 2%; padding-right: 2%; padding-bottom: 2%; padding-left: 2%; color: rgb(225, 225, 225);">
+                                <ui:Label tabindex="-1" text="- Deals &lt;b&gt;20&lt;/b&gt; damages of fire." parse-escape-sequences="true" display-tooltip-when-elided="true" name="EffectLine" class="itemRewardDetailsEffectLine" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
