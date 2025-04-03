@@ -804,8 +804,8 @@ GameObject:
   - component: {fileID: -2203263797737145466}
   - component: {fileID: 3574491600124291405}
   - component: {fileID: 8901038719363039294}
-  - component: {fileID: 4841622593194046851}
-  - component: {fileID: -4359804814130803909}
+  - component: {fileID: -1549685295469248314}
+  - component: {fileID: -750095940487499108}
   m_Layer: 8
   m_Name: Warrior Variant Armed
   m_TagString: EntitiyVisual
@@ -948,7 +948,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &4841622593194046851
+--- !u!114 &-1549685295469248314
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -961,7 +961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <DefaultAnimationState>k__BackingField: Idle
---- !u!114 &-4359804814130803909
+--- !u!114 &-750095940487499108
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -973,7 +973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395e31fe06f423c429c6df683a903ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <EntityVisualAnimationController>k__BackingField: {fileID: 4841622593194046851}
+  <EntityVisualAnimationController>k__BackingField: {fileID: -1549685295469248314}
   <RunSpeed>k__BackingField: 1.75
   <JumpSpeed>k__BackingField: 1.25
   <RotationSpeed>k__BackingField: 4

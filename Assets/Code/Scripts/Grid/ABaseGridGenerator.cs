@@ -41,8 +41,8 @@ namespace FrostfallSaga.Grid
         protected int GridHeight { get; }
         protected BiomeTypeSO[] AvailableBiomes { get; }
         protected Transform ParentGrid { get; }
-        protected float? NoiseScale { get; set; }
-        protected int? Seed { get; set; }
+        protected float NoiseScale { get; set; }
+        protected int Seed { get; set; }
         protected Cell HexPrefab { get; set; }
         public abstract Dictionary<Vector2Int, Cell> GenerateGrid();
 
@@ -51,10 +51,10 @@ namespace FrostfallSaga.Grid
             return "BaseGridGenerator:\n" +
                    $"- GridWidth: {GridWidth}\n" +
                    $"- GridHeight: {GridHeight}\n" +
-                   $"- Available Biomes: {(AvailableBiomes != null && AvailableBiomes.Length > 0 ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +
+                   $"- Available Biomes: {(AvailableBiomes is { Length: > 0 } ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +
                    $"- ParentGrid: {ParentGrid?.name ?? "None"}\n" +
-                   $"- NoiseScale: {(NoiseScale.HasValue ? NoiseScale.Value.ToString() : "None")}\n" +
-                   $"- Seed: {Seed?.ToString() ?? "None"}";
+                   $"- NoiseScale: {NoiseScale}\n" +
+                   $"- Seed: {Seed}";
         }
     }
 }

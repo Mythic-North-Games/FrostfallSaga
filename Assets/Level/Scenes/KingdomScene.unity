@@ -244,7 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <EntitiesGroupPrefab>k__BackingField: {fileID: 2373063617049297155, guid: f9e865b9881c3fb40849619aac6166c7, type: 3}
   <SpawnableEntities>k__BackingField:
-  - {fileID: 6060947195042707832, guid: ffd14caba15bf4242a0eaa8bb5de0df2, type: 3}
+  - {fileID: 2212725807847524150, guid: 8a4e68b8dbb3ad94785d94170c7b1d0e, type: 3}
   <MaxNoSpawnInARow>k__BackingField: 0
   <MaxEntitiesGroupsOnMap>k__BackingField: 3
   <BaseGroupName>k__BackingField: EnemiesGroup
@@ -795,6 +795,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
+      propertyPath: <Seed>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <Width>k__BackingField
       value: 5
       objectReference: {fileID: 0}
@@ -808,7 +812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <AvailableBiomes>k__BackingField.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <InterestPoints>k__BackingField.Array.data[0]
@@ -821,11 +825,15 @@ PrefabInstance:
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <AvailableBiomes>k__BackingField.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 9083c3a2086937d4db46edaace4ef140, type: 2}
+      objectReference: {fileID: 11400000, guid: 62807aa1d0cd21844b1e3eef85934555, type: 2}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <AvailableBiomes>k__BackingField.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 62807aa1d0cd21844b1e3eef85934555, type: 2}
+    - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
+      propertyPath: <AvailableBiomes>k__BackingField.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9083c3a2086937d4db46edaace4ef140, type: 2}
     - target: {fileID: 7303458109779293058, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: m_Name
       value: KingdomHexGrid
