@@ -59,8 +59,7 @@ namespace FrostfallSaga.Utils.Camera
         [field: SerializeField] Texture2D grabCursor; 
         [field: SerializeField] Texture2D mouseCursor; 
 
-
-        private float _rotationSpeed = 10f; 
+        [field: SerializeField] float rotationSpeed = 10f; 
 
         private Vector3 _lastMousePosition;
         
@@ -72,7 +71,6 @@ namespace FrostfallSaga.Utils.Camera
         {
             if (_camera == null) Debug.LogError("No camera to control");
             UnityEngine.Cursor.SetCursor(mouseCursor, Vector2.zero, CursorMode.Auto);
-
         }
 
         #endregion
@@ -80,7 +78,6 @@ namespace FrostfallSaga.Utils.Camera
         private void Start()
         {
             SetFOV(BaseFOV);
-
         }
 
         private void Update()
@@ -93,7 +90,7 @@ namespace FrostfallSaga.Utils.Camera
                     _camera.Follow = _initialTarget;
                 }
                 else if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse) && _camera.Follow != null &&
-                         _camera.Follow != MouseFollowTarget)
+                    _camera.Follow != MouseFollowTarget)
                 {
                     _initialTarget = _camera.Follow;
                     MouseFollowTarget.position = _camera.transform.position = _initialTarget.position;
@@ -104,13 +101,14 @@ namespace FrostfallSaga.Utils.Camera
                     UnityEngine.Cursor.SetCursor(grabCursor, Vector2.zero, CursorMode.Auto);
                     UpdateMouseFollowTargetPosition();
                 }
-                else if (Input.GetMouseButtonUp((int)MouseButton.LeftMouse)) {
+                else if (Input.GetMouseButtonUp((int)MouseButton.LeftMouse) || Input.GetMouseButtonUp((int)MouseButton.RightMouse)) {
                     UnityEngine.Cursor.SetCursor(mouseCursor, Vector2.zero, CursorMode.Auto);
                 }
                 else if (Input.GetMouseButton((int)MouseButton.RightMouse))
                 {
+                    UnityEngine.Cursor.SetCursor(grabCursor, Vector2.zero, CursorMode.Auto);
                     UpdateCameraRotation();
-                }
+                }  
             }
         }
 
@@ -176,7 +174,7 @@ namespace FrostfallSaga.Utils.Camera
                 Vector3 delta = Input.mousePosition - _lastMousePosition;
                 _lastMousePosition = Input.mousePosition;
 
-                float rotationY = delta.x * _rotationSpeed * Time.deltaTime;
+                float rotationY = delta.x * rotationSpeed * Time.deltaTime;
 
                 _camera.transform.Rotate(Vector3.up, rotationY, Space.World);
             }

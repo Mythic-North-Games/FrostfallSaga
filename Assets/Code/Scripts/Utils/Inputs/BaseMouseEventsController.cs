@@ -18,8 +18,8 @@ namespace FrostfallSaga.Utils.Inputs
         protected T _target;
         private Dictionary<MouseButton, float> _clickStartTimes = new Dictionary<MouseButton, float>();
         [SerializeField] private float clickThreshold = 0.4f; 
-        private bool _isHoldingLeft =false;
-        private bool _isHoldingRight =false;
+        private bool _isHoldingLeft = false;
+        private bool _isHoldingRight = false;
         private bool _leftLongClickTriggered = false;
         private bool _rightLongClickTriggered = false;
 

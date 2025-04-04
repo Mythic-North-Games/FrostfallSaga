@@ -137,11 +137,13 @@ namespace FrostfallSaga.Kingdom
             HighlightShorterPathCells();
         }
 
-        private void OnLongClickHold (Cell cell){
+        private void OnLongClickHold (Cell cell)
+        {
             _mousLeftButtonHold = true;
         }
 
-        private void OnLongClick (Cell cell){
+        private void OnLongClick (Cell cell)
+        {
             _mousLeftButtonHold = false;
         }
 
