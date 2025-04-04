@@ -25,6 +25,6 @@ MonoBehaviour:
   - {fileID: 598771669309824393, guid: dbc05409ba1aa9941a994f410d40ed4e, type: 3}
   - {fileID: 598771669309824393, guid: d04d9cf7689639648804a86f14f6ada9, type: 3}
   <VisualsWhenBlocked>k__BackingField:
-  - {fileID: 598771669309824393, guid: fc89252ebe017234b9cfe9173c7e3433, type: 3}
-  - {fileID: 598771669309824393, guid: 6733f00e543107a4d810cf340f1c84d7, type: 3}
+  - {fileID: 598771669309824393, guid: 20b0c055a0e3ddc4d81576c0d63a331a, type: 3}
+  - {fileID: 598771669309824393, guid: 37487aeffaee17f48862405f05b3615e, type: 3}
   <AccessibilityChanceOverride>k__BackingField: 0.8

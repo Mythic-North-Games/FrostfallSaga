@@ -138,8 +138,8 @@ namespace FrostfallSaga.Grid
                               $"- GridHeight: {GridHeight}\n" +
                               $"- Available Biomes: {(AvailableBiomes is { Length: > 0 } ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +
                               $"- ParentGrid: {ParentGrid?.name ?? "None"}\n" +
-                              $"- NoiseScale: {(NoiseScale.HasValue ? NoiseScale.Value.ToString("F2") : "None")}\n" +
-                              $"- Seed: {Seed?.ToString() ?? "None"}\n";
+                              $"- NoiseScale: {NoiseScale}\n" +
+                              $"- Seed: {Seed}\n";
 
             string terrainMap = "- Terrain mapping by HexDirection:\n";
 

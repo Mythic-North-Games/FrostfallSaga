@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4b7b5c8e0aa1840a7d59aefe73981f, type: 3}
+  m_Name: TerrainTypePaving
+  m_EditorClassIdentifier: 
+  <TypeName>k__BackingField: Paving Stone
+  <TypeDescription>k__BackingField: TODO
+  <HealthPoint>k__BackingField: 0
+  <MovePoint>k__BackingField: 0
+  <RangePoint>k__BackingField: 0
+  <InitiativePoint>k__BackingField: 0
+  <IsAccessible>k__BackingField: 0
+  <CellMaterial>k__BackingField: {fileID: 2100000, guid: 08d15081e6107ce488b08729ac8971b4, type: 2}
+  <VisualsWhenAccessible>k__BackingField: []
+  <VisualsWhenBlocked>k__BackingField: []
+  <AccessibilityChanceOverride>k__BackingField: 1

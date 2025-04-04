@@ -30,4 +30,4 @@ MonoBehaviour:
     <MinStycas>k__BackingField: 0
     <MaxStycas>k__BackingField: 0
     <PossibleItems>k__BackingField: []
-  <BiomeType>k__BackingField: {fileID: 0}
+  <BiomeType>k__BackingField: {fileID: 11400000, guid: 8d4e48b6cfff9a04881c62782947b270, type: 2}
