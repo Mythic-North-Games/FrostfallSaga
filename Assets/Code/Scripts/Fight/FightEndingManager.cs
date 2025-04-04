@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using FrostfallSaga.Audio;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Fight;
@@ -53,6 +54,7 @@ namespace FrostfallSaga.Fight
             // Configure and display the fight end menu
             _fightEndMenuController.Setup(allies, enemies, alliesWon, stycasReward, itemsReward);
             _fightEndMenuController.SetVisible(true);
+            AudioManager.Instance.PlayUISound(alliesWon ? UISounds.FightWon : UISounds.FightLost);
         }
 
         private void OnPlayerContinues()

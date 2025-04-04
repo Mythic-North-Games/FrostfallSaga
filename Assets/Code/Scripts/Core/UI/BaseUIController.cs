@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace FrostfallSaga.Utils.UI
+namespace FrostfallSaga.Core.UI
 {
     /// <summary>
     ///     Base class that can be inherited from to help control UI.
@@ -9,5 +9,14 @@ namespace FrostfallSaga.Utils.UI
     public class BaseUIController : MonoBehaviour
     {
         [SerializeField] protected UIDocument _uiDoc;
+
+        private void Start()
+        {
+            if (_uiDoc == null)
+            {
+                Debug.LogError("UI Document is not set in the inspector.");
+                return;
+            }            
+        }
     }
 }

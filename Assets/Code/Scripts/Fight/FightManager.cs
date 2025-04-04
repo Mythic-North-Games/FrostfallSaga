@@ -8,6 +8,7 @@ using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Fight.UI;
+using FrostfallSaga.Audio;
 using FrostfallSaga.Grid.Cells;
 using UnityEngine;
 
@@ -53,7 +54,7 @@ namespace FrostfallSaga.Fight
         }
 
         private void OnFightLoaded(Fighter[] allies, Fighter[] enemies)
-        {
+        {   
             // Init
             _playingFighter = null;
             _allies = new List<Fighter>(allies);
