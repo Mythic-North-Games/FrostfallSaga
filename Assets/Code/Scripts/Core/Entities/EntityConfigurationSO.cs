@@ -11,6 +11,7 @@ namespace FrostfallSaga.Core.Entities
         [field: SerializeField] public Sprite Icon { get; private set; }
         [field: SerializeField] public Sprite DiamondIcon { get; private set; }
         [field: SerializeField] public GameObject KingdomEntityPrefab { get; private set; }
+        [field: SerializeField] public GameObject InventoryVisualPrefab { get; private set; }
         [field: SerializeField] public FighterConfigurationSO FighterConfiguration { get; private set; }
         [field: SerializeField] public EEntityRace Race { get; private set; }
     }

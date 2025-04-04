@@ -1502,7 +1502,7 @@ GameObject:
   - component: {fileID: 2464391179528041407}
   - component: {fileID: 9200886471806244700}
   m_Layer: 8
-  m_Name: Thief Variant Armed
+  m_Name: ThiefVisual
   m_TagString: EntitiyVisual
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

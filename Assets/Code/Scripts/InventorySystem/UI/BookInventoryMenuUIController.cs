@@ -12,6 +12,7 @@ namespace FrostfallSaga.InventorySystem.UI
 {
     public class BookInventoryMenuUIController : ABookMenuUIController
     {
+        [SerializeField] private InventoryHeroRenderTextureSceneController _heroRenderTextureSceneController;
         [SerializeField] private VisualTreeAsset _equippedPanelTemplate;
         [SerializeField] private VisualTreeAsset _bagPanelTemplate;
         [SerializeField] private VisualTreeAsset _statContainerTemplate;
@@ -38,7 +39,7 @@ namespace FrostfallSaga.InventorySystem.UI
             // Setup equipped panel (left page)
             VisualElement equippedPanelRoot = _equippedPanelTemplate.Instantiate();
             equippedPanelRoot.StretchToParentSize();
-            _equippedPanelUIController = new InventoryEquippedPanelUIController(equippedPanelRoot);
+            _equippedPanelUIController = new InventoryEquippedPanelUIController(equippedPanelRoot, _heroRenderTextureSceneController);
             _equippedPanelUIController.onItemSlotSelected += OnItemSlotSelected;
             _equippedPanelUIController.onItemSlotUnequipClicked += OnItemSlotUnequipClicked;
             _equippedPanelUIController.SetHero(_currentHeroEntityConf);
@@ -63,6 +64,7 @@ namespace FrostfallSaga.InventorySystem.UI
         public override void ClearMenu()
         {
             base.ClearMenu();
+            _heroRenderTextureSceneController.SetSceneActive(false);
             _equippedPanelUIController = null;
             _bagPanelUIController = null;
         }
@@ -138,19 +140,28 @@ namespace FrostfallSaga.InventorySystem.UI
         {
             base.Awake();
 
+            if (_heroRenderTextureSceneController == null)
+            {
+                Debug.LogError("Hero Render Texture Scene Controller is not set in the inspector.");
+                return;
+            }
+
             if (_equippedPanelTemplate == null)
             {
                 Debug.LogError("Equipped Panel Template is not set in the inspector.");
+                return;
             }
 
             if (_bagPanelTemplate == null)
             {
                 Debug.LogError("Bag Panel Template is not set in the inspector.");
+                return;
             }
 
             if (_statContainerTemplate == null)
             {
                 Debug.LogError("Item Details Stat Container Template is not set in the inspector.");
+                return;
             }
         }
         #endregion
