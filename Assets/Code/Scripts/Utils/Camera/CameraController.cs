@@ -56,11 +56,23 @@ namespace FrostfallSaga.Utils.Camera
 
         private Transform _initialTarget;
 
+        [field: SerializeField] Texture2D grabCursor; 
+        [field: SerializeField] Texture2D mouseCursor; 
+
+
+        private float _rotationSpeed = 10f; 
+
+        private Vector3 _lastMousePosition;
+        
+        private bool _isRotating = false;
+
         #region Setup & teardown
 
         private void Awake()
         {
             if (_camera == null) Debug.LogError("No camera to control");
+                        UnityEngine.Cursor.SetCursor(mouseCursor, Vector2.zero, CursorMode.Auto);
+
         }
 
         #endregion
@@ -68,6 +80,7 @@ namespace FrostfallSaga.Utils.Camera
         private void Start()
         {
             SetFOV(BaseFOV);
+
         }
 
         private void Update()
@@ -79,16 +92,24 @@ namespace FrostfallSaga.Utils.Camera
                 {
                     _camera.Follow = _initialTarget;
                 }
-                else if (Input.GetMouseButtonDown((int)MouseButton.RightMouse) && _camera.Follow != null &&
+                else if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse) && _camera.Follow != null &&
                          _camera.Follow != MouseFollowTarget)
                 {
                     _initialTarget = _camera.Follow;
                     MouseFollowTarget.position = _camera.transform.position = _initialTarget.position;
                     _camera.Follow = MouseFollowTarget;
                 }
+                else if (Input.GetMouseButton((int)MouseButton.LeftMouse)) 
+                {
+                    UnityEngine.Cursor.SetCursor(grabCursor, Vector2.zero, CursorMode.Auto);
+                    UpdateMouseFollowTargetPosition();
+                }
+                else if (Input.GetMouseButtonUp((int)MouseButton.LeftMouse)) {
+                    UnityEngine.Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                }
                 else if (Input.GetMouseButton((int)MouseButton.RightMouse))
                 {
-                    UpdateMouseFollowTargetPosition();
+                    UpdateCameraRotation();
                 }
             }
         }
@@ -137,5 +158,37 @@ namespace FrostfallSaga.Utils.Camera
                 MouseFollowTarget.position += direction;
             }
         }
-    }
+
+        private void UpdateCameraRotation()
+        {
+            if (Input.GetMouseButtonDown(1)) 
+            {
+                _isRotating = true;
+                _lastMousePosition = Input.mousePosition;
+            }
+            else if (Input.GetMouseButtonUp(1))
+            {
+                _isRotating = false;
+            }
+
+            if (_isRotating)
+            {
+                Vector3 delta = Input.mousePosition - _lastMousePosition;
+                _lastMousePosition = Input.mousePosition;
+
+                float rotationY = delta.x * _rotationSpeed * Time.deltaTime;
+
+                _camera.transform.Rotate(Vector3.up, rotationY, Space.World);
+            }
+        }
+    
+        private void OnDestroy()
+        {
+            if (MouseFollowTarget != null)
+            {
+                MouseFollowTarget.position = _initialTarget.position;
+                _camera.Follow = _initialTarget;
+            }
+        }
+}
 }

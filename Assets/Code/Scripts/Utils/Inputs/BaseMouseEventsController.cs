@@ -16,6 +16,12 @@ namespace FrostfallSaga.Utils.Inputs
         protected bool _mouseWasInsideUI;
         protected List<UIDocument> _scenesUIDocuments = new();
         protected T _target;
+        private Dictionary<MouseButton, float> _clickStartTimes = new Dictionary<MouseButton, float>();
+        [SerializeField] private float clickThreshold = 0.4f; 
+        private bool _isHoldingLeft =false;
+        private bool _isHoldingRight =false;
+        private bool _leftLongClickTriggered = false;
+        private bool _rightLongClickTriggered = false;
 
         protected bool blockWhenMouseOverUI = true;
 
@@ -36,6 +42,8 @@ namespace FrostfallSaga.Utils.Inputs
 
         private void Update()
         {
+            CheckLongHold(MouseButton.LeftMouse, ref _isHoldingLeft, ref _leftLongClickTriggered);
+            CheckLongHold(MouseButton.RightMouse, ref _isHoldingRight, ref _rightLongClickTriggered);
             // If any of the UI documents has mouse inside, do nothing
             if (
                 blockWhenMouseOverUI &&
@@ -62,6 +70,21 @@ namespace FrostfallSaga.Utils.Inputs
                     TriggerMouseClickEvent(mouseButton, MouseButtonDirection.DOWN);
         }
 
+        private void CheckLongHold(MouseButton button, ref bool isHolding, ref bool longClickTriggered)
+        {
+            if (!isHolding || !_clickStartTimes.ContainsKey(button)) return;
+
+            float duration = Time.time - _clickStartTimes[button];
+
+            if (!longClickTriggered && duration > clickThreshold)
+            {
+                longClickTriggered = true;
+                _rightLongClickTriggered = (button == MouseButton.LeftMouse) ? false : _rightLongClickTriggered;
+                _leftLongClickTriggered = (button == MouseButton.RightMouse) ? false : _leftLongClickTriggered;
+                
+                OnLongClickHold?.Invoke(_target);
+            }
+        }
         private void OnMouseEnter()
         {
             if (_isMouseInside) return;
@@ -88,18 +111,48 @@ namespace FrostfallSaga.Utils.Inputs
 
         private void TriggerMouseClickEvent(MouseButton mouseButton, MouseButtonDirection mouseButtonDirection)
         {
-            if (mouseButton == MouseButton.LeftMouse && mouseButtonDirection == MouseButtonDirection.UP)
-                OnLeftMouseUp?.Invoke(_target);
-            else if (mouseButton == MouseButton.LeftMouse && mouseButtonDirection == MouseButtonDirection.DOWN)
-                OnLeftMouseDown?.Invoke(_target);
-            else if (mouseButton == MouseButton.RightMouse && mouseButtonDirection == MouseButtonDirection.UP)
-                OnRightMouseUp?.Invoke(_target);
-            else if (mouseButton == MouseButton.RightMouse && mouseButtonDirection == MouseButtonDirection.DOWN)
-                OnRightMouseDown?.Invoke(_target);
-            else if (mouseButton == MouseButton.MiddleMouse && mouseButtonDirection == MouseButtonDirection.UP)
-                OnMiddleMouseUp?.Invoke(_target);
-            else if (mouseButton == MouseButton.MiddleMouse && mouseButtonDirection == MouseButtonDirection.DOWN)
-                OnMiddleMouseDown?.Invoke(_target);
+            if (mouseButton == MouseButton.MiddleMouse)
+            {
+                if (mouseButtonDirection == MouseButtonDirection.DOWN) OnMiddleMouseDown?.Invoke(_target);
+                else OnMiddleMouseUp?.Invoke(_target);
+                return;
+            }
+            HandleMouseClick(mouseButton, mouseButtonDirection);
+        }
+
+        private void HandleMouseClick(MouseButton button, MouseButtonDirection mouseButtonDirection)
+        {
+            bool isLeft = button == MouseButton.LeftMouse;
+            if (mouseButtonDirection == MouseButtonDirection.DOWN)
+            {
+                _isHoldingLeft = isLeft;
+                _isHoldingRight = !isLeft;
+                
+                _leftLongClickTriggered = false;
+                _rightLongClickTriggered = false;
+                
+                _clickStartTimes[button] = Time.time;
+                
+                if (isLeft) OnLeftMouseDown?.Invoke(_target);
+                else OnRightMouseDown?.Invoke(_target);
+            }
+            else if (mouseButtonDirection == MouseButtonDirection.UP)
+            {
+                _isHoldingLeft = false;
+                _isHoldingRight = false;
+
+                bool isLongClick = (Time.time - _clickStartTimes.GetValueOrDefault(button, 0)) > clickThreshold;
+
+                if (isLongClick)
+                {
+                    OnLongClick?.Invoke(_target);
+                }
+                else
+                {
+                    if (isLeft) OnLeftMouseUp?.Invoke(_target);
+                    else OnRightMouseUp?.Invoke(_target);
+                }
+            }
         }
 
         private bool IsMouseOverUIDocument(UIDocument uiDoc)
@@ -139,6 +192,9 @@ namespace FrostfallSaga.Utils.Inputs
 
         public Action<T> OnLeftMouseDown;
         public Action<T> OnLeftMouseUp;
+
+        public Action<T> OnLongClickHold;
+        public Action<T> OnLongClick;
 
         public Action<T> OnRightMouseDown;
         public Action<T> OnRightMouseUp;

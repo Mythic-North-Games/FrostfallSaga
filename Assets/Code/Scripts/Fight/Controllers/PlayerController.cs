@@ -29,6 +29,7 @@ namespace FrostfallSaga.Fight.Controllers
         private bool _fighterIsTargetingForDirectAttack;
         private FightManager _fightManager;
         private Fighter _possessedFighter;
+        private bool _mousLeftButtonHold;
 
         public void Setup(
             FightManager fightManager,
@@ -105,7 +106,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             FightCell hoveredFightCell = (FightCell)hoveredCell;
 
-            if (_fighterIsActing) return;
+            if (_fighterIsActing || _mousLeftButtonHold ) return;
 
             if (
                 _fighterIsTargetingForDirectAttack &&
@@ -194,6 +195,14 @@ namespace FrostfallSaga.Fight.Controllers
         {
             _fighterIsActing = false;
             onFighterActionEnded?.Invoke(_possessedFighter);
+        }
+
+        private void OnLongClickHold (Cell cell){
+             _mousLeftButtonHold = true;
+        }
+
+        private void OnLongClick (Cell cell){
+            _mousLeftButtonHold = false;
         }
 
         private void OnFightEnded(Fighter[] _allies, Fighter[] _enemies)
@@ -548,6 +557,8 @@ namespace FrostfallSaga.Fight.Controllers
                 cell.CellMouseEventsController.OnElementHover += OnCellHovered;
                 cell.CellMouseEventsController.OnElementUnhover += OnCellUnhovered;
                 cell.CellMouseEventsController.OnLeftMouseUp += OnCellClicked;
+                cell.CellMouseEventsController.OnLongClickHold += OnLongClickHold;
+                cell.CellMouseEventsController.OnLongClick += OnLongClick;
             }
         }
 
@@ -558,6 +569,8 @@ namespace FrostfallSaga.Fight.Controllers
                 cell.CellMouseEventsController.OnElementHover -= OnCellHovered;
                 cell.CellMouseEventsController.OnElementUnhover -= OnCellUnhovered;
                 cell.CellMouseEventsController.OnLeftMouseUp -= OnCellClicked;
+                cell.CellMouseEventsController.OnLongClickHold -= OnLongClickHold;
+                cell.CellMouseEventsController.OnLongClick -= OnLongClick;
             }
         }
 
