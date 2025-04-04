@@ -71,7 +71,7 @@ namespace FrostfallSaga.Utils.Camera
         private void Awake()
         {
             if (_camera == null) Debug.LogError("No camera to control");
-                        UnityEngine.Cursor.SetCursor(mouseCursor, Vector2.zero, CursorMode.Auto);
+            UnityEngine.Cursor.SetCursor(mouseCursor, Vector2.zero, CursorMode.Auto);
 
         }
 
@@ -105,7 +105,7 @@ namespace FrostfallSaga.Utils.Camera
                     UpdateMouseFollowTargetPosition();
                 }
                 else if (Input.GetMouseButtonUp((int)MouseButton.LeftMouse)) {
-                    UnityEngine.Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                    UnityEngine.Cursor.SetCursor(mouseCursor, Vector2.zero, CursorMode.Auto);
                 }
                 else if (Input.GetMouseButton((int)MouseButton.RightMouse))
                 {
