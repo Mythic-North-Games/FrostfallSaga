@@ -6,14 +6,3 @@ public enum UISounds
     FightWon,
     FightLost
 }
-
-
-public enum FXSounds{
-    GrassRun,
-    SnowRun,
-    RockRun,
-    WaterRun,
-    FireBallAbility,
-    HealAbility
-}
-

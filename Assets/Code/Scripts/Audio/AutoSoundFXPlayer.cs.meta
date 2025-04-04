@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 093b6c97b62aa03458fbdb7a9847d9b5
+guid: 2fca8afe4ecb717eab390536c7eeed5c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - fireBallAbilitySound: {instanceID: 0}
-  - healAbilitySound: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

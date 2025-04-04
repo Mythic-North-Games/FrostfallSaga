@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FrostfallSaga.Audio;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
@@ -37,11 +36,6 @@ namespace FrostfallSaga.Fight.Abilities
         [SerializeReference] public AEffect[] MasterstrokeEffects = { };
         [SerializeReference] public AFightCellAlteration[] CellAlterations = { };
         [field: SerializeField] public AAbilityAnimationSO Animation { get; private set; }
-        // Nouveau champ pour le son
-        [field: SerializeField] public AudioClip AbilitySoundFX { get; private set; }
-        [field: SerializeField, Range(0f, 1f)] public float SoundVolume { get; private set; } = 1f;
-
-        [field: SerializeField, Range(0f, 3f)] public float DurationFadeOut { get; private set; } = 0.7f;
 
         private Fighter _currentInitiator;
 
@@ -54,15 +48,6 @@ namespace FrostfallSaga.Fight.Abilities
         /// <param name="initiator">The fighter that initiated the ability.</param>
         public void Trigger(FightCell[] targetedCells, Fighter initiator)
         {
-            if (AbilitySoundFX != null)
-            {
-                AudioManager.instance.PlayFXSound(AbilitySoundFX, initiator.transform, SoundVolume, DurationFadeOut);                
-            }
-            else
-            {
-                Debug.LogWarning($"There is no Ability Sound FX.");
-            }
-
             if (Animation == null)
             {
                 Debug.LogWarning($"No animation attached to active ability {Name}.");

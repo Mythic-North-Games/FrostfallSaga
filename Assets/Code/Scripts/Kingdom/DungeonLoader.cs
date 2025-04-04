@@ -1,3 +1,4 @@
+using FrostfallSaga.Audio;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Dungeons;
 using FrostfallSaga.Core.GameState;
@@ -43,6 +44,8 @@ namespace FrostfallSaga.Kingdom
             Debug.Log($"Saving dungeon load data for {dungeonBuildingConfiguration.Name}.");
             GameStateManager.Instance.InitDungeonState(dungeonBuildingConfiguration.DungeonConfiguration);
             
+            AudioManager.Instance.PlayUISound(dungeonBuildingConfiguration.EnterDungeonSound);
+
             Debug.Log("Launching dungeon scene...");
             SceneTransitioner.FadeInToScene(EScenesName.DUNGEON.ToSceneString());
         }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 374068706361703874}
   - component: {fileID: 6538668152578226513}
   - component: {fileID: 8997862011497470851}
+  - component: {fileID: 4426954328969894305}
   m_Layer: 7
   m_Name: FireballExample
   m_TagString: Untagged
@@ -132,6 +133,21 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4426954328969894305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435735026039513003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fca8afe4ecb717eab390536c7eeed5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundFX: {fileID: 8300000, guid: bb12905e1ce304f49bcd6f5f1dca0fd1, type: 3}
+  volume: 1
+  fadeOutDuration: 0.5
 --- !u!1001 &1791609783840536871
 PrefabInstance:
   m_ObjectHideFlags: 0

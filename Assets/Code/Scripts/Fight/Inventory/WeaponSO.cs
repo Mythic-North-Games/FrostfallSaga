@@ -11,6 +11,7 @@ using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Utils;
 using UnityEngine;
 using FrostfallSaga.Utils.UI;
+using FrostfallSaga.Audio;
 
 namespace FrostfallSaga.Fight.FightItems
 {
@@ -30,6 +31,8 @@ namespace FrostfallSaga.Fight.FightItems
         [SerializeReference] public List<AEffect> SpecialEffects;
         [field: SerializeField] public AAbilityAnimationSO AttackAnimation { get; private set; }
 
+        [field: SerializeField] public AudioClip WeaponUseSoundFX { get; private set; }
+
         public AEffect[] GetWeaponEffects(EEntityRace targetEntityID, bool atMax = false)
         {
             List<AEffect> effects = new()
@@ -45,6 +48,17 @@ namespace FrostfallSaga.Fight.FightItems
         {
             return GetWeaponEffects(target.Race).ToList().Sum(
                 effect => effect.GetPotentialEffectDamages(holder, target, true)
+            );
+        }
+
+        public void PlayUseSoundFXIfAny(Transform weaponTransform)
+        {
+            if (WeaponUseSoundFX == null) return;
+            AudioManager.Instance.PlayFXSound(
+                WeaponUseSoundFX,
+                weaponTransform,
+                1f, 
+                0.5f
             );
         }
 
@@ -146,6 +160,7 @@ namespace FrostfallSaga.Fight.FightItems
 
         #endregion
 
+        #region For the UI
         public override Dictionary<Sprite, string> GetStatsUIData()
         {
             UIIconsProvider iconsProvider = UIIconsProvider.Instance;
@@ -202,5 +217,6 @@ namespace FrostfallSaga.Fight.FightItems
 
             return specialEffectsUIData;
         }
+        #endregion
     }
 }

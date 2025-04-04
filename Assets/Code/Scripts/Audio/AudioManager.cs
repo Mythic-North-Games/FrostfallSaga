@@ -5,37 +5,94 @@ namespace FrostfallSaga.Audio
 {
     public class AudioManager : MonoBehaviour
     {
-        /// <summary>
+        // <summary>
         ///     Instance a singleton of the AudioManager in the scene
         /// </summary>
-        public static AudioManager instance;
+        public static AudioManager Instance;
 
         [SerializeField] private UIAudioClipsConfig uiAudioClipsConfig;
         [SerializeField] private AudioSource audioSourceObject;
         private UIAudioClipSelector _uIAudioClipSelector;
         private AudioSource _currentFXAudioSource;
-        private Coroutine _fadeOutCoroutine;
 
         private void Awake()
         {
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = this;
+                Instance = this;
             }
-            _uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
 
-            // Créer une source audio persistante
-            _currentFXAudioSource = Instantiate(audioSourceObject, transform);
-            _currentFXAudioSource.gameObject.name = "PersistentFXAudioSource";
-            DontDestroyOnLoad(_currentFXAudioSource.gameObject);
+            _uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
+        }
+
+        /// <summary>
+        ///     Play a UI sound effect by using the UISounds enum
+        /// </summary>
+        /// <param name="sound">The sound to play</param>
+        public void PlayUISound(UISounds sound)
+        {
+            AudioClip audioClip = _uIAudioClipSelector.SelectAudioClip(sound);
+            if (audioClip != null) PlaySoundEffectClip(audioClip, transform, 1f);
+            else Debug.LogError("Audio clip " + sound + " not found");
+        }
+
+        /// <summary>
+        ///     Play a UI sound effect from a specific AudioClip
+        /// </summary>
+        /// <param name="sound">The sound to play</param>
+        public void PlayUISound(AudioClip sound)
+        {
+            PlaySoundEffectClip(sound, transform, 1f);
+        }
+
+        /// <summary>
+        /// Play a FX sound effect by using the FXSounds enum.
+        /// </summary>
+        /// <param name="sound">The sound to play</param>
+        /// <param name="spawnTransform">The transform to spawn the audio source at</param>
+        /// <param name="volume">The volume of the audio clip</param>
+        /// <param name="fadeOutDuration">The duration of the fade out effect</param>
+        /// <param name="loop">Whether the sound should loop or not</param>
+        public void PlayFXSound(
+            AudioClip sound,
+            Transform spawnTransform,
+            float volume,
+            float fadeOutDuration,
+            bool loop = false
+        )
+        {
+            if (sound == null)
+            {
+                Debug.LogWarning("Tried to play a null sound clip.");
+                return;
+            }
+
+            // Fade out the current sound if it is playing
+            if (_currentFXAudioSource != null && _currentFXAudioSource.isPlaying)
+            {
+                StartCoroutine(FadeOutAndDestroyAudioSource(_currentFXAudioSource, fadeOutDuration));
+            }
+
+            // Create and configure a new AudioSource
+            AudioSource newAudioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
+            newAudioSource.clip = sound;
+            newAudioSource.volume = volume;
+            newAudioSource.loop = loop;
+            _currentFXAudioSource = newAudioSource;
+
+            // Play the new sound
+            newAudioSource.Play();
+
+            // Destroy the AudioSource after the sound has finished playing if not looping
+            if (!newAudioSource.loop) Destroy(newAudioSource.gameObject, sound.length);
         }
 
         /// <summary>
         ///     Create an audioSource gameObject in the scene and play the audioClip, then delete the gameObject
-        ///     <paramref name="audioClip" /> The audio clip to play
-        ///     <paramref name="spawnTransform" /> The transform to spawn the audioSource gameObject
-        ///     <paramref name="audioVolume" /> The volume of the audio clip
         /// </summary>
+        /// <param name="audioClip">The audio clip to play</param>
+        /// <param name="spawnTransform">The transform to spawn the audio source at</param>
+        /// <param name="audioVolume">The volume of the audio clip</param>
         public void PlaySoundEffectClip(AudioClip audioClip, Transform spawnTransform, float audioVolume)
         {
             float clipLength = audioClip.length;
@@ -46,58 +103,7 @@ namespace FrostfallSaga.Audio
             Destroy(audioSource.gameObject, clipLength);
         }
 
-        /// <summary>
-        ///     Play a UI sound effect by using the UISounds enum
-        ///     <paramref name="sound" /> The sound to play
-        /// </summary>
-        public void PlayUISound(UISounds sound)
-        {
-            AudioClip audioClip = _uIAudioClipSelector.SelectAudioClip(sound);
-            if (audioClip != null)
-                PlaySoundEffectClip(audioClip, transform, 1f);
-            else
-                Debug.LogError("Audio clip " + sound + " not found");
-        }
-
-        /// <summary>
-        /// Play a FX sound effect by using the FXSounds enum
-        /// <paramref name="sound"/> The sound to play
-        /// </summary>
-        /// 
-
-        public void PlayFXSound(AudioClip sound, Transform spawnTransform, float volume, float durationFadeOut)
-        {
-            if (sound == null)
-                return;
-
-            // Arrêter le fade-out en cours si il y en a un
-            if (_fadeOutCoroutine != null)
-            {
-                StopCoroutine(_fadeOutCoroutine);
-                _fadeOutCoroutine = null;
-            }
-
-            // Démarrer le fade-out du son actuel
-            if (_currentFXAudioSource != null && _currentFXAudioSource.isPlaying)
-            {
-                _fadeOutCoroutine = StartCoroutine(FadeOutAndDestroy(_currentFXAudioSource, durationFadeOut));
-            }
-
-            // Création d'une nouvelle AudioSource pour le nouveau son
-            AudioSource newAudioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
-            newAudioSource.clip = sound;
-            newAudioSource.volume = volume;
-            newAudioSource.Play();
-
-            // Définir cette nouvelle source comme l'actuelle
-            _currentFXAudioSource = newAudioSource;
-
-            // Détruire l'AudioSource après la fin du son
-            Destroy(newAudioSource.gameObject, sound.length);
-        }
-
-        // Coroutine pour effectuer un fade-out progressif et ensuite détruire l'AudioSource
-        private IEnumerator FadeOutAndDestroy(AudioSource audioSource, float fadeDuration)
+        private IEnumerator FadeOutAndDestroyAudioSource(AudioSource audioSource, float fadeDuration)
         {
             float startVolume = audioSource.volume;
             float timer = 0f;
@@ -112,9 +118,6 @@ namespace FrostfallSaga.Audio
             audioSource.Stop();
             Destroy(audioSource.gameObject);
         }
-
-
-
 
 
         // A UTILISER POUR LA MUSIQUE
@@ -150,13 +153,6 @@ namespace FrostfallSaga.Audio
         //Debug.LogError("Audio clip " + sound + " not found");
         //}
         //}
-
-        private IEnumerator StopSoundAfterDuration(AudioSource audioSource, float duration)
-        {
-            yield return new WaitForSeconds(duration); // Attendre la durée spécifiée
-            audioSource.Stop(); // Arrêter la lecture
-            Destroy(audioSource.gameObject); // Détruire l'objet audio
-        }
 
 #if UNITY_EDITOR
         public void InitializeAudioClipSelectorFromTests(UIAudioClipsConfig uIAudioClipsConfig)

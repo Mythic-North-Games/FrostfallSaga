@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 using FrostfallSaga.Core.BookMenu;
-using FrostfallSaga.Utils.UI;
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Quests.UI;
 using FrostfallSaga.InventorySystem.UI;
 

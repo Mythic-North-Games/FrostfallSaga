@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using FrostfallSaga.Utils.UI;
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Statuses;

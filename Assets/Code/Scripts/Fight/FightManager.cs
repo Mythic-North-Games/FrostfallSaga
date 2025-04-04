@@ -55,8 +55,6 @@ namespace FrostfallSaga.Fight
 
         private void OnFightLoaded(Fighter[] allies, Fighter[] enemies)
         {   
-            AudioManager.instance.PlayUISound(UISounds.FightBegin);
-            
             // Init
             _playingFighter = null;
             _allies = new List<Fighter>(allies);
