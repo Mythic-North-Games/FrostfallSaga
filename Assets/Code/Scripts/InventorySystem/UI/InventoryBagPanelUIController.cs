@@ -1,9 +1,11 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
 using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Core.HeroTeam;
+using FrostfallSaga.Core.UI;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.InventorySystem.UI
 {
@@ -11,11 +13,10 @@ namespace FrostfallSaga.InventorySystem.UI
     {
         #region UI Elements Names & Classes
         private static readonly string BAG_SLOTS_CONTAINER_LABEL_UI_NAME = "BagSlotsContainer";
-        private static readonly string ITEM_ICON_UI_NAME = "ItemIcon";
-        private static readonly string ITEM_NAME_LABEL_UI_NAME = "ItemNameLabel";
-        private static readonly string ITEM_DESCRIPTION_LABEL_UI_NAME = "ItemDescriptionLabel";
-        private static readonly string ITEM_DETAILS_CONTENT_ROOT_UI_NAME = "ItemDetailsContentRoot";
+        private static readonly string ITEM_DETAILS_CONTAINER_ROOT_UI_NAME = "ItemDetailsContainer";
         private static readonly string STYCAS_COUNT_LABEL_UI_NAME = "StycasCountLabel";
+
+        private static readonly string ITEM_EFFECT_LINE_CLASSNAME = "effectLine";
         #endregion
 
         public Action<InventorySlot> onItemSlotSelected;
@@ -23,19 +24,25 @@ namespace FrostfallSaga.InventorySystem.UI
 
         private readonly VisualElement _root;
         private readonly Dictionary<VisualElement, ItemSlotContainerUIController> _itemSlotContainers = new();
-        private readonly ItemDetailsContentUIController _itemDetailsContentController;
+        private readonly VisualElement _itemDetailsContainerRoot;
+        private readonly ObjectDetailsUIController _itemDetailsController;
 
         private Inventory _currentInventory;
 
         public InventoryBagPanelUIController(
             VisualElement root,
-            VisualTreeAsset itemStatContainerTemplate
+            VisualTreeAsset itemStatContainerTemplate,
+            Color statValueColor = default
         )
         {
+            // Get UI elements
             _root = root;
-            _itemDetailsContentController = new ItemDetailsContentUIController(
-                _root.Q<VisualElement>(ITEM_DETAILS_CONTENT_ROOT_UI_NAME),
-                itemStatContainerTemplate
+            _itemDetailsContainerRoot = _root.Q<VisualElement>(ITEM_DETAILS_CONTAINER_ROOT_UI_NAME);
+            _itemDetailsController = new ObjectDetailsUIController(
+                _itemDetailsContainerRoot,
+                itemStatContainerTemplate,
+                ITEM_EFFECT_LINE_CLASSNAME,
+                statValueColor
             );
 
             // Setup stycas count
@@ -51,7 +58,7 @@ namespace FrostfallSaga.InventorySystem.UI
                 _itemSlotContainers.Add(child, itemSlotContainer);
             }
 
-            ClearItemDetails();
+            HideItemDetails();
         }
 
         public void SetInventory(Inventory newInventory)
@@ -62,18 +69,20 @@ namespace FrostfallSaga.InventorySystem.UI
 
         public void DisplayItemDetails(ItemSO item)
         {
-            _root.Q<Label>(ITEM_NAME_LABEL_UI_NAME).text = item.Name;
-            _root.Q<Label>(ITEM_DESCRIPTION_LABEL_UI_NAME).text = item.Description;
-            _root.Q<VisualElement>(ITEM_ICON_UI_NAME).style.backgroundImage = new(item.IconSprite);
-            _itemDetailsContentController.SetItem(item);
+            _itemDetailsContainerRoot.style.display = DisplayStyle.Flex;
+            _itemDetailsController.Setup(
+                name: item.Name,
+                description: item.Description,
+                icon: item.IconSprite,
+                stats: GetItemStats(item),
+                primaryEffectsTitle: item is AEquipment ? "Special effects" : "Effects",
+                primaryEffects: GetItemEffects(item)
+            );
         }
 
-        public void ClearItemDetails()
+        public void HideItemDetails()
         {
-            _root.Q<Label>(ITEM_NAME_LABEL_UI_NAME).text = string.Empty;
-            _root.Q<Label>(ITEM_DESCRIPTION_LABEL_UI_NAME).text = string.Empty;
-            _root.Q<VisualElement>(ITEM_ICON_UI_NAME).style.backgroundImage = null;
-            _itemDetailsContentController.ClearItem();
+            _itemDetailsContainerRoot.style.display = DisplayStyle.None;
         }
 
         private void UpdateBagSlots()
@@ -83,6 +92,24 @@ namespace FrostfallSaga.InventorySystem.UI
                 ItemSlotContainerUIController itemSlotContainer = _itemSlotContainers.ElementAt(i).Value;
                 itemSlotContainer.SetItemSlot(_currentInventory.BagSlots[i]);
             }
+        }
+
+        private Dictionary<Sprite, string> GetItemStats(ItemSO item)
+        {
+            if (item is AEquipment equipment)
+            {
+                return equipment.GetStatsUIData()
+                    .Concat(equipment.GetMagicalStatsUIData())
+                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            }
+            return new Dictionary<Sprite, string>();
+        }
+
+        private List<string> GetItemEffects(ItemSO item)
+        {
+            if (item is AEquipment equipment) return equipment.GetSpecialEffectsUIData();
+            if (item is AConsumable consumable) return consumable.GetEffectsUIData();
+            return new List<string>();
         }
     }
 }

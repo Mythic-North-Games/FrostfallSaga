@@ -41,13 +41,13 @@ namespace FrostfallSaga.PlayModeTests
             Object.Destroy(audioListener.gameObject);
             Object.Destroy(dummyAudioSource.gameObject);
             Object.Destroy(uIAudioClipsConfig);
-            AudioManager.instance = null;
+            AudioManager.Instance = null;
         }
 
         [Test]
         public void AudioManager_Instance_IsNotNull()
         {
-            Assert.IsNotNull(AudioManager.instance);
+            Assert.IsNotNull(AudioManager.Instance);
         }
 
         [UnityTest]

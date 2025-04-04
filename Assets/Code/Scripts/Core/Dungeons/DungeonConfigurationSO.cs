@@ -1,4 +1,5 @@
 using System;
+using FrostfallSaga.Grid;
 using UnityEngine;
 
 namespace FrostfallSaga.Core.Dungeons
@@ -10,6 +11,7 @@ namespace FrostfallSaga.Core.Dungeons
         [field: SerializeField] public DungeonFightConfiguration BossFightConfiguration { get; private set; }
         [field: SerializeField] public DungeonFightConfiguration[] PreBossFightConfigurations { get; private set; }
         [field: SerializeField] public RewardConfiguration RewardConfiguration { get; private set; }
+        [field: SerializeField] public BiomeTypeSO BiomeType { get; private set; }
 
         public Action<DungeonConfigurationSO> onDungeonCompleted;
 

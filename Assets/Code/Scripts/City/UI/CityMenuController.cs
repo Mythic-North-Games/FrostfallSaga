@@ -4,7 +4,7 @@ using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Core.Cities.CitySituations;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.Quests;
-using FrostfallSaga.Utils.UI;
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Utils.Scenes;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -131,9 +131,9 @@ namespace FrostfallSaga.City.UI
             _leftContainerController.Display();
         }
 
-        private void OnExitButtonClicked()
+        private static void OnExitButtonClicked()
         {
-            SceneTransitioner.Instance.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
+            SceneTransitioner.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
         }
 
         #endregion

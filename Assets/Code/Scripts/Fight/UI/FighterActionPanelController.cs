@@ -1,269 +1,340 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using FrostfallSaga.Fight.Abilities;
+using System.Collections.Generic;
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Utils.UI;
+using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.Statuses;
 using UnityEngine;
 using UnityEngine.UIElements;
+using FrostfallSaga.Core.InventorySystem;
+using FrostfallSaga.InventorySystem.UI;
 
 namespace FrostfallSaga.Fight.UI
 {
     public class FighterActionPanelController : BaseUIController
     {
-        private static readonly string NAME_LABEL_UI_NAME = "FighterNameLabel";
-        private static readonly string PROGRESS_BARS_CONTAINER_UI_NAME = "ProgressBarsContainer";
-        private static readonly string STATUSES_BAR_CONTAINER_UI_NAME = "StatusesBar";
-        private static readonly string PLAYING_CHARACTER_ICON_CONTAINER_UI_NAME = "PlayingCharacterIconContainer";
-        private static readonly string MATE1_ICON_CONTAINER_UI_NAME = "TeamMateIconContainer1";
-        private static readonly string MATE2_ICON_CONTAINER_UI_NAME = "TeamMateIconContainer2";
-        private static readonly string ACTION_PANEL_ROOT_UI_NAME = "ActionPanel";
+        #region UXML Element names and classes
+        private static readonly string ACTION_PANEL_ROOT_UI_NAME = "ActionPanelRoot";
+        private static readonly string TEAM_MATES_PANEL_ROOT_UI_NAME = "TeamInfosPanel";
+        private static readonly string STATUSES_CONTAINER_UI_NAME = "StatusesContainer";
+        private static readonly string DETAILS_PANELS_CONTAINER_UI_NAME = "DetailsPanelsContainer";
+        private static readonly string STATUS_DETAILS_PANEL_UI_NAME = "StatusDetailsPanel";
+        private static readonly string OBJECT_DETAILS_PANEL_CONTAINER_UI_NAME = "ObjectDetailsPanelContainer";
         private static readonly string ABILITIES_CONTAINER_UI_NAME = "AbilitiesContainer";
-        private static readonly string ABILITY_BUTTON_UI_NAME = "AbilityButton";
-        private static readonly string DIRECT_ATTACK_BUTTON_UI_NAME = "DirectAttackButton";
+        private static readonly string CONSUMABLES_BAR_UI_NAME = "ConsumablesBar";
         private static readonly string END_TURN_BUTTON_UI_NAME = "EndTurnButton";
-        private static readonly string ABILITY_UNUSABLE_CLASS_NAME = "abilitiesUnusable";
 
-        [SerializeField] private FightManager _fightManager;
-        private readonly Dictionary<Button, ActiveAbilitySO> _buttonToActiveAbility = new();
-        private FighterProgressBarsController _progressBarsController;
-        private FighterStatusesBarController _statusesBarController;
-        public Action<ActiveAbilitySO> onActiveAbilityClicked;
+        private static readonly string ACTION_PANEL_HIDDEN_CLASSNAME = "actionPanelRootHidden";
+        private static readonly string OBJECT_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME = "objectDetailsPanelContainerHidden";
+        private static readonly string OBJECT_DETAILS_EFFECT_LINE_CLASSNAME = "objectDetailsEffectLine";
+        private static readonly string STATUS_ICON_CONTAINER_ROOT_CLASSNAME = "bottomPanelStatusIconContainer";
+        #endregion
 
         public Action onDirectAttackClicked;
+        public Action<ActiveAbilitySO> onActiveAbilityClicked;
+        public Action<InventorySlot> onConsumableClicked;
         public Action onEndTurnClicked;
 
-        #region Setup & tear down
+        [SerializeField] private FightManager _fightManager;
+        [SerializeField] private VisualTreeAsset _statusIconContainerTemplate;
+        [SerializeField] private VisualTreeAsset _statContainerTemplate;
+        [SerializeField] private VisualTreeAsset _consumableSlotTemplate;
+        [SerializeField] private Color _movementPointsProgressColor;
+        [SerializeField] private Color _actionPointsProgressColor;
+        [SerializeField] private Color _statValueColor = new(0.8f, 0.8f, 0.8f);
+        [SerializeField] private float _statusDetailsPanelXOffset = 4f;
+
+        private VisualElement _actionPanelRoot;
+        private VisualElement _statusesContainer;
+        private VisualElement _detailsPanelsContainer;
+        private VisualElement _objectDetailsPanelContainer;
+        private StatusDetailsPanelUIController _statusDetailsPanelController;
+        private ObjectDetailsUIController _objectDetailsPanelController;
+        private TeamMatesPanelController _teamMatesPanelController;
+        private AbilitiesBarController _abilitiesBarController;
+        private ConsumablesUIController _consumablesUIController;
+
+        private Fighter _playingFighter;
 
         private void Awake()
         {
-            if (_uiDoc == null) _uiDoc = GetComponent<UIDocument>();
-            if (_uiDoc == null)
-            {
-                Debug.LogError("No UI Document to work with.");
-                return;
-            }
-
+            // Setup sub controllers and components
             if (_fightManager == null) _fightManager = FindObjectOfType<FightManager>();
             if (_fightManager == null)
             {
-                Debug.LogError("No FightManager to work with. UI can't be updated dynamically.");
+                Debug.LogError("FightManager not found in scene.");
                 return;
             }
 
-            _progressBarsController =
-                new FighterProgressBarsController(_uiDoc.rootVisualElement.Q(PROGRESS_BARS_CONTAINER_UI_NAME));
-            _statusesBarController =
-                new FighterStatusesBarController(_uiDoc.rootVisualElement.Q(STATUSES_BAR_CONTAINER_UI_NAME));
+            _actionPanelRoot = _uiDoc.rootVisualElement.Q<VisualElement>(ACTION_PANEL_ROOT_UI_NAME);
+            _statusesContainer = _uiDoc.rootVisualElement.Q<VisualElement>(STATUSES_CONTAINER_UI_NAME);
+            _detailsPanelsContainer = _uiDoc.rootVisualElement.Q<VisualElement>(DETAILS_PANELS_CONTAINER_UI_NAME);
 
-            VisualElement directAttackButton = _uiDoc.rootVisualElement.Q<VisualElement>(DIRECT_ATTACK_BUTTON_UI_NAME);
-            Button endTurnButton = _uiDoc.rootVisualElement.Q<Button>(END_TURN_BUTTON_UI_NAME);
-
-            directAttackButton.RegisterCallback<ClickEvent>(OnDirectAttackButtonClicked);
-            GetAbilitiesButtons().ToList().ForEach(
-                abilityButton => abilityButton.RegisterCallback<ClickEvent>(OnActiveAbilityButtonClicked)
+            // Setup sub controllers
+            _statusDetailsPanelController = new StatusDetailsPanelUIController(
+                _actionPanelRoot.Q<VisualElement>(STATUS_DETAILS_PANEL_UI_NAME)
             );
-            endTurnButton.RegisterCallback<ClickEvent>(OnEndTurnButtonClicked);
+            _statusDetailsPanelController.Hide();
 
+            _objectDetailsPanelContainer = _uiDoc.rootVisualElement.Q<VisualElement>(OBJECT_DETAILS_PANEL_CONTAINER_UI_NAME);
+            _objectDetailsPanelController = new ObjectDetailsUIController(
+                _objectDetailsPanelContainer,
+                _statContainerTemplate,
+                OBJECT_DETAILS_EFFECT_LINE_CLASSNAME,
+                _statValueColor
+            );
+            _objectDetailsPanelContainer.AddToClassList(OBJECT_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME);
+
+            _teamMatesPanelController = new TeamMatesPanelController(
+                _uiDoc.rootVisualElement.Q<VisualElement>(TEAM_MATES_PANEL_ROOT_UI_NAME),
+                _movementPointsProgressColor,
+                _actionPointsProgressColor
+            );
+            _abilitiesBarController = new AbilitiesBarController(
+                _uiDoc.rootVisualElement.Q<VisualElement>(ABILITIES_CONTAINER_UI_NAME)
+            );
+            _consumablesUIController = new ConsumablesUIController(
+                _uiDoc.rootVisualElement.Q<VisualElement>(CONSUMABLES_BAR_UI_NAME),
+                _consumableSlotTemplate
+            );
+
+            // Setup internal events
+            _abilitiesBarController.onDirectAttackClicked += () => onDirectAttackClicked?.Invoke();
+            _abilitiesBarController.onDirectAttackLongHovered += OnDirectAttackLongHovered;
+            _abilitiesBarController.onDirectAttackLongUnhovered += () => HideObjectDetailsPanel();
+
+            _abilitiesBarController.onAbilityClicked += (ability) => onActiveAbilityClicked?.Invoke(ability);
+            _abilitiesBarController.onAbilityLongHovered += OnAbilityButtonLongHovered;
+            _abilitiesBarController.onAbilityLongUnhovered += (_) => HideObjectDetailsPanel();
+
+            _consumablesUIController.onConsumableUsed += (consumableSlot) => onConsumableClicked?.Invoke(consumableSlot);
+            _consumablesUIController.onConsumableLongHovered += OnConsumableLongHovered;
+            _consumablesUIController.onConsumableLongUnhovered += (_) => HideObjectDetailsPanel();
+
+            _uiDoc.rootVisualElement.Q<Button>(END_TURN_BUTTON_UI_NAME).clicked += () => onEndTurnClicked?.Invoke();
+
+            // Subscribe to fight events
             _fightManager.onFighterTurnBegan += OnFighterTurnBegan;
             _fightManager.onFighterTurnEnded += OnFighterTurnEnded;
             _fightManager.onFightEnded += OnFightEnded;
         }
 
-        #endregion
-
-        /// <summary>
-        ///     Displays or hides the entire action panel.
-        /// </summary>
-        /// <param name="isVisible">True to display, False to hide.</param>
-        public void SetIsVisible(bool isVisible)
+        private void OnFighterTurnBegan(Fighter playingFighter, bool isAlly)
         {
-            _uiDoc.rootVisualElement.Q(ACTION_PANEL_ROOT_UI_NAME).style.visibility =
-                isVisible ? Visibility.Visible : Visibility.Hidden;
-            _uiDoc.rootVisualElement.Q(END_TURN_BUTTON_UI_NAME).style.visibility =
-                isVisible ? Visibility.Visible : Visibility.Hidden;
+            if (!isAlly) return;
+
+            _playingFighter = playingFighter;
+            SetupActionPanelForFighter(playingFighter);
+            RegisterPlayingFighterEvents(playingFighter);
+            if (IsHidden()) Display();
         }
 
-        private void OnFighterTurnBegan(Fighter currentFighter, bool isAlly)
+        private void OnFighterTurnEnded(Fighter playingFighter, bool isAlly)
         {
-            SetIsVisible(isAlly);
-            if (isAlly)
+            if (!isAlly) return;
+            UnRegisterPlayingFighterEvents(playingFighter);
+            Hide();
+        }
+
+        private void OnFightEnded(Fighter[] _allies, Fighter[] _enemies)
+        {
+            _actionPanelRoot.RemoveFromHierarchy();
+        }
+
+        private void SetupActionPanelForFighter(Fighter playingFighter)
+        {
+            Fighter[] teamMates = _fightManager.GetMatesOfFighter(playingFighter);
+            _teamMatesPanelController.Update(
+                playingFighter,
+                teamMates.ElementAtOrDefault(0),
+                teamMates.ElementAtOrDefault(1)
+            );
+            _abilitiesBarController.UpdateAbilities(playingFighter);
+            UpdateStatuses(playingFighter);
+            _consumablesUIController.UpdateConsumables(playingFighter.Inventory);
+        }
+
+        private void UpdateStatuses(Fighter playingFighter)
+        {
+            Dictionary<AStatus, (bool isActive, int duration)> currentStatuses = playingFighter.GetStatuses();
+            _statusesContainer.Clear();
+
+            foreach (KeyValuePair<AStatus, (bool isActive, int duration)> status in currentStatuses)
             {
-                RegisterFighterEvents(currentFighter);
-                UpdateActionPanelForFighter(currentFighter);
-                UpdateFighterIcons(currentFighter);
+                VisualElement statusIconContainerRoot = _statusIconContainerTemplate.Instantiate();
+                statusIconContainerRoot.AddToClassList(STATUS_ICON_CONTAINER_ROOT_CLASSNAME);
+                StatusContainerUIController.SetupStatusContainer(statusIconContainerRoot, status.Key);
+                statusIconContainerRoot.RegisterCallback<MouseEnterEvent>((_) =>
+                {
+                    DisplayStatusDetailsPanel(
+                        _statusesContainer.IndexOf(statusIconContainerRoot),
+                        status.Key,
+                        status.Value.duration
+                    );
+                });
+                statusIconContainerRoot.RegisterCallback<MouseLeaveEvent>(HideStatusDetailsPanel);
+                _statusesContainer.Add(statusIconContainerRoot);
             }
         }
 
-        private void UpdateActionPanelForFighter(Fighter fighter)
+        private void Display()
         {
-            UpdateAbilityButtons(fighter);
-            UpdateFighterDetails(fighter);
+            _actionPanelRoot.RemoveFromClassList(ACTION_PANEL_HIDDEN_CLASSNAME);
+            _actionPanelRoot.SetEnabled(true);
         }
 
-        private void UpdateFighterDetails(Fighter fighter)
+        private void Hide()
         {
-            Label fighterNameLabel = _uiDoc.rootVisualElement.Q<Label>(NAME_LABEL_UI_NAME);
-            fighterNameLabel.text = fighter.FighterName;
-
-            _progressBarsController.UpdateHealthBar(fighter);
-            _progressBarsController.UpdateActionBar(fighter);
-            _progressBarsController.UpdateMoveBar(fighter);
-            _statusesBarController.UpdateStatuses(fighter);
+            _actionPanelRoot.AddToClassList(ACTION_PANEL_HIDDEN_CLASSNAME);
+            _actionPanelRoot.SetEnabled(false);
         }
 
-        private void UpdateFighterIcons(Fighter playingFighter)
+        private bool IsHidden()
         {
-            // Get UI elements
-            VisualElement playingFighterIconContainer = _uiDoc.rootVisualElement
-                .Q(PLAYING_CHARACTER_ICON_CONTAINER_UI_NAME).Q("WhiteDiamondBackground");
-            VisualElement mate1IconContainer =
-                _uiDoc.rootVisualElement.Q(MATE1_ICON_CONTAINER_UI_NAME).Q("WhiteDiamondBackground");
-            VisualElement mate2IconContainer =
-                _uiDoc.rootVisualElement.Q(MATE2_ICON_CONTAINER_UI_NAME).Q("WhiteDiamondBackground");
-
-            // Update playing fighter icon
-            playingFighterIconContainer.style.backgroundImage = new StyleBackground(playingFighter.DiamondIcon);
-
-            // Set mate icons to null by default
-            mate1IconContainer.style.backgroundImage = null;
-            mate2IconContainer.style.backgroundImage = null;
-
-            Fighter[] aliveMates = _fightManager.GetMatesOfFighter(playingFighter).Where(mate => mate.GetHealth() > 0)
-                .ToArray();
-            if (aliveMates.Length > 0)
-                mate1IconContainer.style.backgroundImage = new StyleBackground(aliveMates[0].DiamondIcon);
-            if (aliveMates.Length > 1)
-                mate2IconContainer.style.backgroundImage = new StyleBackground(aliveMates[1].DiamondIcon);
+            return _actionPanelRoot.ClassListContains(ACTION_PANEL_HIDDEN_CLASSNAME);
         }
 
-        private void UpdateAbilityButtons(Fighter fighter)
+        private void HideObjectDetailsPanel()
         {
-            _buttonToActiveAbility.Clear();
-            int abilitiesButtonCount = GetAbilitiesButtons().Length;
+            _objectDetailsPanelContainer.AddToClassList(OBJECT_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME);
+        }
 
-            int i = 0;
-            fighter.ActiveAbilities.ToList().ForEach(ability =>
+        private void DisplayStatusDetailsPanel(int statusIconIndex, AStatus statusToDisplay, int lastingDuration)
+        {
+            _statusDetailsPanelController.Root.style.left = new Length(
+                (statusIconIndex + 1) * _statusDetailsPanelXOffset,
+                LengthUnit.Percent
+            );
+            _statusDetailsPanelController.Display(statusToDisplay, lastingDuration);
+        }
+
+        private void HideStatusDetailsPanel(MouseLeaveEvent evt)
+        {
+            _statusDetailsPanelController.Hide();
+        }
+
+        private void OnDirectAttackLongHovered()
+        {
+            List<string> weaponSpecialEffects = _playingFighter.Weapon.GetSpecialEffectsUIData();
+
+            _objectDetailsPanelContainer.RemoveFromClassList(OBJECT_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME);
+            _objectDetailsPanelController.Setup(
+                icon: _playingFighter.Weapon.IconSprite,
+                name: _playingFighter.Weapon.Name,
+                description: _playingFighter.Weapon.Description,
+                stats: _playingFighter.Weapon.GetStatsUIData(),
+                primaryEffectsTitle: weaponSpecialEffects.Count > 0 ? "Special effects" : null,
+                primaryEffects: weaponSpecialEffects
+            );
+        }
+
+        private void OnAbilityButtonLongHovered(ActiveAbilitySO longHoveredAbility)
+        {
+            _objectDetailsPanelContainer.RemoveFromClassList(OBJECT_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME);
+            _objectDetailsPanelController.Setup(
+                icon: longHoveredAbility.IconSprite,
+                name: longHoveredAbility.Name,
+                description: longHoveredAbility.Description,
+                stats: longHoveredAbility.GetStatsUIData(),
+                primaryEffectsTitle: "Effects",
+                primaryEffects: longHoveredAbility.GetEffectsUIData(),
+                secondaryEffectsTitle: "Masterstroke Effects",
+                secondaryEffects: longHoveredAbility.GetMasterstrokeEffectsUIData()
+            );
+        }
+
+        private void OnConsumableLongHovered(InventorySlot consumableSlot)
+        {
+            if (consumableSlot.Item == null || consumableSlot.Item is not AConsumable) return;
+
+            AConsumable consumable = (AConsumable)consumableSlot.Item;
+            _objectDetailsPanelContainer.RemoveFromClassList(OBJECT_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME);
+            _objectDetailsPanelController.Setup(
+                icon: consumable.IconSprite,
+                name: consumable.Name,
+                description: consumable.Description,
+                stats: null,
+                primaryEffectsTitle: "Effects",
+                primaryEffects: consumable.GetEffectsUIData()
+            );
+        }
+
+        private void OnPlayingFighterStatusesChanged(Fighter playingFighter, AStatus _status)
+        {
+            if (playingFighter.GetStatuses().Count == 0)
             {
-                if (i <= abilitiesButtonCount)
-                    SetupAbilityButton(fighter, ability, i);
-                else
-                    Debug.LogWarning($"Not enough abilities buttons for fighter {fighter.name}");
-                i++;
-            });
-        }
-
-        private void SetupAbilityButton(Fighter fighter, ActiveAbilitySO activeAbility, int slotIndex)
-        {
-            Button abilityButton = _uiDoc.rootVisualElement.Q<Button>($"{ABILITY_BUTTON_UI_NAME}{slotIndex}");
-            abilityButton.style.backgroundImage = new StyleBackground(activeAbility.IconSprite);
-            if (!fighter.CanUseActiveAbility(_fightManager.FightGrid, activeAbility, _fightManager.FighterTeams))
-            {
-                abilityButton.AddToClassList(ABILITY_UNUSABLE_CLASS_NAME);
-                abilityButton.SetEnabled(false);
+                _detailsPanelsContainer.style.bottom = new Length(70, LengthUnit.Percent); 
             }
             else
             {
-                abilityButton.RemoveFromClassList(ABILITY_UNUSABLE_CLASS_NAME);
-                abilityButton.SetEnabled(true);
+                _detailsPanelsContainer.style.bottom = new Length(100, LengthUnit.Percent);
             }
-
-            _buttonToActiveAbility.Add(abilityButton, activeAbility);
+            UpdateStatuses(playingFighter);
         }
 
-        private void OnFighterTurnEnded(Fighter currentFighter, bool isAlly)
+        private void OnPlayingFighterActiveAbilitiesChanged(Fighter playingFighter, ActiveAbilitySO _ability)
         {
-            SetIsVisible(!isAlly);
-            if (isAlly) UnregisterFighterEvents(currentFighter);
+            _abilitiesBarController.UpdateAbilities(playingFighter);
         }
 
-        private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
+        private void OnPlayingFighterConsumablesChanged(Fighter playingFighter, InventorySlot _consumableSlot)
         {
-            _uiDoc.rootVisualElement.visible = false;
+            _consumablesUIController.UpdateConsumables(playingFighter.Inventory);
         }
 
-        private void OnDirectAttackButtonClicked(ClickEvent _clickEvent)
+        private void OnPlayingFighterPassiveAbilitiesChanged(Fighter playingFighter, PassiveAbilitySO _ability)
         {
-            onDirectAttackClicked?.Invoke();
+            UpdateStatuses(playingFighter);
+            _abilitiesBarController.UpdateAbilities(playingFighter);
         }
 
-        private void OnActiveAbilityButtonClicked(ClickEvent clickEvent)
+        private void OnPlayingFighterNonMagicalStatMutated(
+            Fighter playingFighter,
+            EFighterMutableStat _mutatedStat,
+            float _newValue
+        )
         {
-            if (clickEvent.currentTarget is Button abilityButton && _buttonToActiveAbility.ContainsKey(abilityButton))
-                onActiveAbilityClicked?.Invoke(_buttonToActiveAbility[abilityButton]);
+            _abilitiesBarController.UpdateAbilities(playingFighter);
         }
 
-        private void OnEndTurnButtonClicked(ClickEvent _clickEvent)
+        private void OnPlayingFighterDirectAttackEnded(Fighter playingFighter)
         {
-            onEndTurnClicked?.Invoke();
+            _abilitiesBarController.UpdateAbilities(playingFighter);
         }
 
-        private Button[] GetAbilitiesButtons()
+        #region Playing fighter events registration
+        private void RegisterPlayingFighterEvents(Fighter playingFighter)
         {
-            List<Button> abilitiesButtons = new();
+            playingFighter.onStatusApplied += OnPlayingFighterStatusesChanged;
+            playingFighter.onStatusRemoved += OnPlayingFighterStatusesChanged;
 
-            VisualElement abilitiesContainer = _uiDoc.rootVisualElement.Q(ABILITIES_CONTAINER_UI_NAME);
-            for (int i = 0; i < abilitiesContainer.childCount; i++)
-                abilitiesButtons.Add(abilitiesContainer.Q<Button>($"{ABILITY_BUTTON_UI_NAME}{i}"));
+            playingFighter.onActiveAbilityEnded += OnPlayingFighterActiveAbilitiesChanged;
+            playingFighter.onDirectAttackEnded += OnPlayingFighterDirectAttackEnded;
 
-            return abilitiesButtons.ToArray();
+            playingFighter.onConsumableUseStarted += OnPlayingFighterConsumablesChanged;
+
+            playingFighter.onNonMagicalStatMutated += OnPlayingFighterNonMagicalStatMutated;
+
+            playingFighter.onPassiveAbilityApplied += OnPlayingFighterPassiveAbilitiesChanged;
+            playingFighter.onPassiveAbilityRemoved += OnPlayingFighterPassiveAbilitiesChanged;
         }
 
-        private void RegisterFighterEvents(Fighter fighter)
+        private void UnRegisterPlayingFighterEvents(Fighter playingFighter)
         {
-            fighter.onDamageReceived += (fighter, damage, isMasterstroke) =>
-                _progressBarsController.UpdateHealthBar(fighter);
-            fighter.onHealReceived += (fighter, damage, isMasterstroke) =>
-                _progressBarsController.UpdateHealthBar(fighter);
-            fighter.onDirectAttackStarted += fighter =>
-            {
-                _progressBarsController.UpdateActionBar(fighter);
-                UpdateAbilityButtons(fighter);
-            };
-            fighter.onDirectAttackEnded += fighter =>
-            {
-                _progressBarsController.UpdateActionBar(fighter);
-                UpdateAbilityButtons(fighter);
-            };
-            fighter.onActiveAbilityStarted += (fighter, usedAbility) =>
-            {
-                _progressBarsController.UpdateActionBar(fighter);
-                UpdateAbilityButtons(fighter);
-            };
-            fighter.onActiveAbilityEnded += (fighter, usedAbility) =>
-            {
-                _progressBarsController.UpdateActionBar(fighter);
-                UpdateAbilityButtons(fighter);
-            };
-            fighter.onFighterMoved += fighter => _progressBarsController.UpdateMoveBar(fighter);
-            fighter.onStatusApplied += (fighter, status) => _statusesBarController.UpdateStatuses(fighter);
-            fighter.onStatusRemoved += (fighter, status) => _statusesBarController.UpdateStatuses(fighter);
-            fighter.onNonMagicalStatMutated += (fighter, mutatedStat, amount) =>
-            {
-                _progressBarsController.UpdateHealthBar(fighter);
-                _progressBarsController.UpdateActionBar(fighter);
-                _progressBarsController.UpdateMoveBar(fighter);
-                UpdateAbilityButtons(fighter);
-            };
-            fighter.onFighterDied += fighter =>
-            {
-                UpdateFighterIcons(fighter);
-                UnregisterFighterEvents(fighter);
-            };
-        }
+            playingFighter.onStatusApplied -= OnPlayingFighterStatusesChanged;
+            playingFighter.onStatusRemoved -= OnPlayingFighterStatusesChanged;
 
-        private void UnregisterFighterEvents(Fighter fighter)
-        {
-            fighter.onDamageReceived = null;
-            fighter.onHealReceived = null;
-            fighter.onDirectAttackStarted = null;
-            fighter.onDirectAttackEnded = null;
-            fighter.onActiveAbilityStarted = null;
-            fighter.onActiveAbilityEnded = null;
-            fighter.onFighterMoved = null;
-            fighter.onStatusApplied = null;
-            fighter.onStatusRemoved = null;
-            fighter.onNonMagicalStatMutated = null;
+            playingFighter.onActiveAbilityEnded -= OnPlayingFighterActiveAbilitiesChanged;
+            playingFighter.onDirectAttackEnded -= OnPlayingFighterDirectAttackEnded;
+
+            playingFighter.onConsumableUseStarted -= OnPlayingFighterConsumablesChanged;
+
+            playingFighter.onNonMagicalStatMutated -= OnPlayingFighterNonMagicalStatMutated;
+
+            playingFighter.onPassiveAbilityApplied -= OnPlayingFighterPassiveAbilitiesChanged;
+            playingFighter.onPassiveAbilityRemoved -= OnPlayingFighterPassiveAbilitiesChanged;
         }
+        #endregion
     }
 }

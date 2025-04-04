@@ -8,5 +8,6 @@ namespace FrostfallSaga.Core.Dungeons
     {
         [field: SerializeField] public Sprite DungeonPreview { get; private set; }
         [field: SerializeField] public DungeonConfigurationSO DungeonConfiguration { get; private set; }
+        [field: SerializeField] public AudioClip EnterDungeonSound { get; private set; }
     }
 }

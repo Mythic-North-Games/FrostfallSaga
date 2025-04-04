@@ -39,7 +39,7 @@ MonoBehaviour:
   <MaxStycasLoot>k__BackingField: 20
   <MaxHealth>k__BackingField: 70
   <MaxActionPoints>k__BackingField: 3
-  <MaxMovePoints>k__BackingField: 3
+  <MaxMovePoints>k__BackingField: 0
   <Strength>k__BackingField: 4
   <Dexterity>k__BackingField: 2
   <Tenacity>k__BackingField: 0

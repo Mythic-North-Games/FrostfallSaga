@@ -1,16 +1,23 @@
 .statContainer {
     flex-direction: row;
-    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
 }
 
 .statIcon {
     -unity-background-scale-mode: scale-to-fit;
-    width: 30%;
     height: 100%;
+    margin-right: 3%;
+    width: 33%;
 }
 
 .statLabel {
     color: rgb(249, 249, 249);
     -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 32px;
+    -unity-text-align: middle-left;
+    flex-grow: 0;
+    font-size: 200%;
+    width: auto;
+    height: 100%;
 }

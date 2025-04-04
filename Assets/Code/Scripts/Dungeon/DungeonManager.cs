@@ -25,7 +25,7 @@ namespace FrostfallSaga.Dungeon
             DungeonState dungeonState = _gameStateManager.GetDungeonState();
 
             DungeonConfigurationSO dungeonConfiguration = dungeonState.DungeonConfiguration;
-            if (dungeonConfiguration == null)
+            if (!dungeonConfiguration)
             {
                 Debug.LogError("No dungeon configuration found. Not able to generate dungeon fights.");
                 return;
@@ -38,7 +38,7 @@ namespace FrostfallSaga.Dungeon
                 );
                 dungeonState.DungeonConfiguration.CompleteDungeon();
                 _gameStateManager.CleanDungeonState();
-                SceneTransitioner.Instance.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
+                SceneTransitioner.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
                 return;
             }
 
@@ -55,7 +55,7 @@ namespace FrostfallSaga.Dungeon
             }
 
             Debug.Log("Dungeon fight prepared. Launching fight scene...");
-            SceneTransitioner.Instance.FadeInToScene(EScenesName.FIGHT.ToSceneString());
+            SceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
         }
 
         private void PrepareDungeonFight(DungeonFightConfiguration dungeonFightConfiguration)
@@ -63,11 +63,12 @@ namespace FrostfallSaga.Dungeon
             _gameStateManager.SavePreFightData(
                 HeroTeam.Instance.GetAliveHeroesEntityConfig(),
                 GetDungeonFightEnemies(dungeonFightConfiguration),
-                EFightOrigin.DUNGEON
+                EFightOrigin.DUNGEON,
+                null
             );
         }
 
-        private KeyValuePair<string, EntityConfigurationSO>[] GetDungeonFightEnemies(
+        private static KeyValuePair<string, EntityConfigurationSO>[] GetDungeonFightEnemies(
             DungeonFightConfiguration dungeonFightConfiguration)
         {
             // Randomize the number of optional enemies

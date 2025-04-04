@@ -24,9 +24,9 @@ namespace FrostfallSaga.Procedural
             Randomizer.InitState(_seed);
         }
 
-        public float GetNoiseValue(int x, int z)
+        public float GetNoiseValue(int x, int y)
         {
-            return _perlinNoiseGenerator.ComputeNoiseValue(x, z);
+            return _perlinNoiseGenerator.ComputeNoiseValue(x, y);
         }
     }
 }

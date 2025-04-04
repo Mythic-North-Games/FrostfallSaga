@@ -16,6 +16,7 @@ MonoBehaviour:
   <Description>k__BackingField: Basic wooden sword for any beginner adventurer
   <IconSprite>k__BackingField: {fileID: 21300000, guid: c76bf23a91b91f547963ba85711ce108, type: 3}
   <SlotTag>k__BackingField: 4
+  <LootChance>k__BackingField: 0
   <AttackTargeter>k__BackingField:
     <OriginCellRange>k__BackingField: 1
     <CellsSequence>k__BackingField:
@@ -31,8 +32,12 @@ MonoBehaviour:
   <UseActionPointsCost>k__BackingField: 1
   <MinPhysicalDamages>k__BackingField: 1
   <MaxPhysicalDamages>k__BackingField: 10
-  <MinMagicalDamages>k__BackingField: []
-  <MaxMagicalDamages>k__BackingField: []
+  <MinMagicalDamages>k__BackingField:
+  - element: 0
+    value: 2
+  <MaxMagicalDamages>k__BackingField:
+  - element: 0
+    value: 0
   <FightersStrengths>k__BackingField: []
   SpecialEffects: []
   <AttackAnimation>k__BackingField: {fileID: 0}
