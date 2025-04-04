@@ -78,6 +78,7 @@ namespace FrostfallSaga.Core.Fight
         [field: SerializeField] public string ReceiveDamageAnimationName { get; private set; }
         [field: SerializeField] public string ReduceStatAnimationName { get; private set; }
         [field: SerializeField] public string IncreaseStatAnimationName { get; private set; }
+        [field: SerializeField] public string ConsumableUseAnimationName { get; private set; }
 
         #endregion
 

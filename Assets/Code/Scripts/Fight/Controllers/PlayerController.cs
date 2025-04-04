@@ -9,6 +9,8 @@ using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using UnityEngine;
+using FrostfallSaga.Fight.FightItems;
+using FrostfallSaga.Core.InventorySystem;
 
 namespace FrostfallSaga.Fight.Controllers
 {
@@ -45,6 +47,7 @@ namespace FrostfallSaga.Fight.Controllers
             _cellActionableHighlightMaterial = cellActionableHighlightMaterial;
             _cellInaccessibleHighlightMaterial = cellInaccessibleHighlightMaterial;
 
+            BindUIEvents();
             _fightManager.onFightEnded += OnFightEnded;
         }
 
@@ -81,7 +84,6 @@ namespace FrostfallSaga.Fight.Controllers
 
             BindPossessedFighterEventsForTurn(fighterToPlay);
             BindFightersMouseEvents(_fightManager.FighterTeams.Keys.ToList());
-            BindUIEventsForTurn();
             BindCellMouseEventsForTurn(_fightManager.FightGrid);
         }
 
@@ -211,7 +213,6 @@ namespace FrostfallSaga.Fight.Controllers
         {
             UnbindFighterEventsForTurn();
             UnbindCellMouseEvents(_fightManager.FightGrid);
-            UnbindUIEventsForTurn();
             UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
         }
 
@@ -222,7 +223,6 @@ namespace FrostfallSaga.Fight.Controllers
             if (_fighterThatDied != _possessedFighter) return;
             UnbindFighterEventsForTurn();
             UnbindCellMouseEvents(_fightManager.FightGrid);
-            UnbindUIEventsForTurn();
             UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
         }
 
@@ -254,7 +254,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             if (_fighterIsActing)
             {
-                Debug.Log("Fighter " + _possessedFighter.name + " is doing something else. Wait for it to finish.");
+                Debug.Log($"Fighter {_possessedFighter.name} is doing something else. Wait for it to finish.");
                 return;
             }
 
@@ -266,8 +266,7 @@ namespace FrostfallSaga.Fight.Controllers
 
             if (_possessedFighter.Weapon.UseActionPointsCost > _possessedFighter.GetActionPoints())
             {
-                Debug.Log("Fighter " + _possessedFighter.name +
-                          " does not have enough action points to execute its direct attack.");
+                Debug.Log($"Fighter {_possessedFighter.name} does not have enough action points to execute its direct attack.");
                 return;
             }
 
@@ -307,7 +306,7 @@ namespace FrostfallSaga.Fight.Controllers
             }
             catch (TargeterUnresolvableException)
             {
-                Debug.Log("Fighter " + _possessedFighter.name + " can't use its direct attack from cell " +
+                Debug.Log($"Fighter {_possessedFighter.name} can't use its direct attack from cell " +
                           _possessedFighter.cell.name);
             }
         }
@@ -335,7 +334,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             if (_fighterIsActing)
             {
-                Debug.Log("Fighter " + _possessedFighter.name + " is doing something else. Wait for it to finish.");
+                Debug.Log($"Fighter {_possessedFighter.name} is doing something else. Wait for it to finish.");
                 return;
             }
 
@@ -347,15 +346,13 @@ namespace FrostfallSaga.Fight.Controllers
 
             if (clickedAbility.ActionPointsCost > _possessedFighter.GetActionPoints())
             {
-                Debug.Log("Fighter " + _possessedFighter.name +
-                          " does not have enough action points to execute the ability");
+                Debug.Log($"Fighter {_possessedFighter.name} does not have enough action points to execute the ability");
                 return;
             }
 
             if (clickedAbility.GodFavorsPointsCost > _possessedFighter.GetGodFavorsPoints())
             {
-                Debug.Log("Fighter " + _possessedFighter.name +
-                          " does not have enough god favors points to execute the ability");
+                Debug.Log($"Fighter {_possessedFighter.name} does not have enough god favors points to execute the ability");
                 return;
             }
 
@@ -399,7 +396,8 @@ namespace FrostfallSaga.Fight.Controllers
             catch (TargeterUnresolvableException)
             {
                 Debug.Log(
-                    $"Fighter {_possessedFighter.name} can't use its active ability from cell {_possessedFighter.cell.name}");
+                    $"Fighter {_possessedFighter.name} can't use its active ability from cell {_possessedFighter.cell.name}"
+                );
             }
         }
 
@@ -422,13 +420,44 @@ namespace FrostfallSaga.Fight.Controllers
 
         #endregion
 
+        #region Consumable use handling
+
+        private void OnConsumableClicked(InventorySlot consumableSlot)
+        {
+            if (_fighterIsActing)
+            {
+                Debug.Log($"Fighter {_possessedFighter.name} is doing something else. Wait for it to finish.");
+                return;
+            }
+
+            if (_possessedFighter.GetActionPoints() < (consumableSlot.Item as ConsumableSO).ActionPointsCost)
+            {
+                Debug.Log($"Fighter {_possessedFighter.name} does not have enough action points to use the consumable.");
+                return;
+            }
+
+            if (_fighterIsTargetingForActiveAbility) StopTargetingActiveActiveAbility();
+            if (_fighterIsTargetingForDirectAttack) StopTargetingForDirectAttack();
+
+            _fighterIsActing = true;
+            _possessedFighter.UseConsumable(consumableSlot);
+            onFighterActionStarted?.Invoke(_possessedFighter);
+        }
+
+        private void OnFighterConsumableUseEnded(Fighter _possessedFighter, InventorySlot _consumableSlotUsed)
+        {
+            EndFighterAction();
+        }
+
+        #endregion
+
         #region End turn handling
 
         private void OnEndTurnClicked()
         {
             if (_fighterIsActing)
             {
-                Debug.Log("Fighter " + _possessedFighter.name + " is doing something else. Wait for it to finish.");
+                Debug.Log($"Fighter {_possessedFighter.name} is doing something else. Wait for it to finish.");
                 return;
             }
 
@@ -443,7 +472,6 @@ namespace FrostfallSaga.Fight.Controllers
         {
             UnbindFighterEventsForTurn();
             UnbindCellMouseEvents(_fightManager.FightGrid);
-            UnbindUIEventsForTurn();
             UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
             onFighterTurnEnded?.Invoke(_possessedFighter);
         }
@@ -510,22 +538,14 @@ namespace FrostfallSaga.Fight.Controllers
 
         #region UI events binding
 
-        private void BindUIEventsForTurn()
+        private void BindUIEvents()
         {
             if (_actionPanel == null) Debug.LogError("Player controller has no action panel to work with.");
 
             _actionPanel.onDirectAttackClicked += OnDirectAttackClicked;
             _actionPanel.onActiveAbilityClicked += OnActiveAbilityClicked;
+            _actionPanel.onConsumableClicked += OnConsumableClicked;
             _actionPanel.onEndTurnClicked += OnEndTurnClicked;
-        }
-
-        private void UnbindUIEventsForTurn()
-        {
-            if (_actionPanel == null) Debug.LogError("Player controller has no action panel to work with.");
-
-            _actionPanel.onDirectAttackClicked -= OnDirectAttackClicked;
-            _actionPanel.onActiveAbilityClicked -= OnActiveAbilityClicked;
-            _actionPanel.onEndTurnClicked -= OnEndTurnClicked;
         }
 
         #endregion
@@ -537,6 +557,7 @@ namespace FrostfallSaga.Fight.Controllers
             _possessedFighter.onFighterMoved += OnFighterMoved;
             _possessedFighter.onDirectAttackEnded += OnFighterDirectAttackEnded;
             _possessedFighter.onActiveAbilityEnded += OnFighterActiveAbilityEnded;
+            _possessedFighter.onConsumableUseEnded += OnFighterConsumableUseEnded;
             _possessedFighter.onFighterDied += OnPossessedFighterDied;
         }
 

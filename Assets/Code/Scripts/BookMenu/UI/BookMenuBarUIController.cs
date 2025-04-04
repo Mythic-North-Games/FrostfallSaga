@@ -1,6 +1,6 @@
 using System;
+using FrostfallSaga.Core.UI;
 using UnityEngine.UIElements;
-using FrostfallSaga.Utils.UI;
 
 namespace FrostfallSaga.BookMenu.UI
 {

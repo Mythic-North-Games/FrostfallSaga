@@ -29,6 +29,9 @@
 # Visual Studio cache directory
 .vs/
 
+# Rider IDE
+.idea/
+
 # Gradle cache directory
 .gradle/
 
@@ -86,3 +89,5 @@ node_modules/
 # Assets Package import
 Assets/**/PolygonVikings/
 Assets/**/PolygonParticleFX/
+
+.idea/

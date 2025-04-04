@@ -53,12 +53,12 @@ PrefabInstance:
       value: FightCell
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 5788510601483087246, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6338246483437390999, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
-      insertIndex: -1
+      insertIndex: 5
       addedObject: {fileID: 4921966089629716804}
   m_SourcePrefab: {fileID: 100100000, guid: dc171ecc1bcc05149ab910c7d1dcf235, type: 3}
 --- !u!1 &7220246373277604772 stripped

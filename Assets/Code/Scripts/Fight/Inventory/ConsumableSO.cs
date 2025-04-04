@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight.Fighters;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightItems
@@ -10,7 +11,15 @@ namespace FrostfallSaga.Fight.FightItems
     {
         [SerializeReference] public List<AEffect> Effects;
 
-        public override List<string> GetSpecialEffectsUIData()
+        public void Use(Fighter receiver)
+        {
+            foreach (AEffect effect in Effects)
+            {
+                effect.ApplyEffect(receiver, false);
+            }
+        }
+
+        public override List<string> GetEffectsUIData()
         {
             List<string> specialEffectsUIData = new();
             foreach (AEffect effect in Effects)

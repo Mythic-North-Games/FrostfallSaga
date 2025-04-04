@@ -1,3 +1,4 @@
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Kingdom.InterestPoints;
 using FrostfallSaga.Utils.UI;
 using UnityEngine;

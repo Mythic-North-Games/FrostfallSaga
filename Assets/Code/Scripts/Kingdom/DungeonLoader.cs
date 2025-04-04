@@ -1,3 +1,4 @@
+using FrostfallSaga.Audio;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Dungeons;
 using FrostfallSaga.Core.GameState;
@@ -17,20 +18,19 @@ namespace FrostfallSaga.Kingdom
 
         private void Awake()
         {
-            if (enterDungeonPanelController == null)
+            if (!enterDungeonPanelController)
             {
                 Debug.LogError(
                     "No EnterDungeonPanelController assigned to DungeonLoader. Won't be able to load dungeon scene correctly.");
                 return;
             }
 
-            if (kingdomManager == null) kingdomManager = FindObjectOfType<KingdomManager>();
-            if (kingdomManager == null)
+            kingdomManager ??= FindObjectOfType<KingdomManager>();
+            if (!kingdomManager)
             {
                 Debug.LogError("No KingdomManager found in scene. Won't be able to save kingdom state.");
                 return;
             }
-
             enterDungeonPanelController.onDungeonEnterClicked += OnDungeonEnterClicked;
         }
 
@@ -40,12 +40,14 @@ namespace FrostfallSaga.Kingdom
         {
             Debug.Log($"Saving kingdom state before loading dungeon scene for {dungeonBuildingConfiguration.Name}.");
             kingdomManager.SaveKingdomState();
-
+            
             Debug.Log($"Saving dungeon load data for {dungeonBuildingConfiguration.Name}.");
             GameStateManager.Instance.InitDungeonState(dungeonBuildingConfiguration.DungeonConfiguration);
+            
+            AudioManager.Instance.PlayUISound(dungeonBuildingConfiguration.EnterDungeonSound);
 
             Debug.Log("Launching dungeon scene...");
-            SceneTransitioner.Instance.FadeInToScene(EScenesName.DUNGEON.ToSceneString());
+            SceneTransitioner.FadeInToScene(EScenesName.DUNGEON.ToSceneString());
         }
     }
 }

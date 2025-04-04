@@ -45,7 +45,7 @@ namespace FrostfallSaga.Kingdom
             GameStateManager.Instance.SaveCityLoadData(cityBuildingConfiguration.InCityConfiguration);
 
             Debug.Log("Launching city scene...");
-            SceneTransitioner.Instance.FadeInToScene(EScenesName.CITY.ToSceneString());
+            SceneTransitioner.FadeInToScene(EScenesName.CITY.ToSceneString());
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FrostfallSaga.Audio;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.FightCells;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace FrostfallSaga.Fight.Fighters
             if (_controlledFighter.Weapon.AttackAnimation == null)
             {
                 Debug.LogWarning($"No animation attached to direct attack for fighter {_controlledFighter.name}");
+                _controlledFighter.Weapon.PlayUseSoundFXIfAny(_controlledFighter);
                 targetedCells
                     .Where(cell => cell.HasFighter()).ToList()
                     .ForEach(cell =>

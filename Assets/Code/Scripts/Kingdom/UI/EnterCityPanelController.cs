@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Cities;
-using FrostfallSaga.Utils.UI;
+using FrostfallSaga.Core.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 

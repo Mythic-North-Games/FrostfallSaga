@@ -8,7 +8,10 @@ using FrostfallSaga.Core.GameState.City;
 using FrostfallSaga.Core.GameState.Dungeon;
 using FrostfallSaga.Core.GameState.Fight;
 using FrostfallSaga.Core.GameState.Kingdom;
+using FrostfallSaga.Grid;
+using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Utils;
+using JetBrains.Annotations;
 
 namespace FrostfallSaga.Core.GameState
 {
@@ -73,18 +76,21 @@ namespace FrostfallSaga.Core.GameState
         public void SavePreFightData(
             EntityConfigurationSO[] alliesEntityConf,
             KeyValuePair<string, EntityConfigurationSO>[] enemiesEntityConf,
-            EFightOrigin fightOrigin
-        )
+            EFightOrigin fightOrigin,
+            [CanBeNull] Dictionary<HexDirection, Cell> hexDirectionCell)
         {
             _preFightData.alliesEntityConf = alliesEntityConf;
             _preFightData.enemiesEntityConf = enemiesEntityConf;
             _preFightData.fightOrigin = fightOrigin;
+            if (hexDirectionCell != null)
+                _preFightData.HexDirectionCells = hexDirectionCell;
         }
 
         public void CleanPreFightData()
         {
             _preFightData.alliesEntityConf = null;
             _preFightData.enemiesEntityConf = null;
+            _preFightData.HexDirectionCells = null;
         }
 
         public PostFightData GetPostFightData()

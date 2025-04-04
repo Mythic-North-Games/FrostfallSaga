@@ -63,7 +63,8 @@ namespace FrostfallSaga.Fight.Fighters
         ////////////////
         // Animations //
         ////////////////
-        [SerializeField] [Header("Animations")]
+        [SerializeField]
+        [Header("Animations")]
         private string _receiveDamageAnimationName;
 
         [SerializeField] private string _healSelfAnimationName;
@@ -98,6 +99,12 @@ namespace FrostfallSaga.Fight.Fighters
 
         // <Fighter that is going to attack>
         public Action<Fighter> onDirectAttackStarted;
+
+        // <Fighter that used a consumable, the consumable used>
+        public Action<Fighter, InventorySlot> onConsumableUseStarted;
+
+        // <Fighter that used a consumable, the consumable used>
+        public Action<Fighter, InventorySlot> onConsumableUseEnded;
 
         // <Fighter that died>
         public Action<Fighter> onFighterDied;
@@ -207,7 +214,7 @@ namespace FrostfallSaga.Fight.Fighters
 
             // Check if the fighter has enough move points to move
             if (!goUntilAllMovePointsUsed && pathLongerThanMovePoints)
-                throw new ArgumentOutOfRangeException("Fighter " + name + " does not have enough move points to move.");
+                throw new ArgumentOutOfRangeException($"Fighter {name} does not have enough move points to move.");
 
             // If the path is longer than the move points, we shrink it to the move points
             if (goUntilAllMovePointsUsed && pathLongerThanMovePoints)
@@ -229,12 +236,13 @@ namespace FrostfallSaga.Fight.Fighters
                 throw new ArgumentException("A direct attack can't be used without one or more target cells");
 
             if (Weapon.UseActionPointsCost > _stats.actionPoints)
-                throw new InvalidOperationException("Fighter " + name +
-                                                    " does not have enough actions points to use its direct attack.");
+                throw new InvalidOperationException(
+                    $"Fighter {name} does not have enough actions points to use its direct attack."
+                );
 
             // Trigger the direct attack
-            onDirectAttackStarted?.Invoke(this);
             _stats.actionPoints -= Weapon.UseActionPointsCost;
+            onDirectAttackStarted?.Invoke(this);
             DirectAttackManager.onDirectAttackEnded += OnDirectAttackEnded;
             DirectAttackManager.DirectAttack(targetedCells.ToList());
         }
@@ -254,21 +262,37 @@ namespace FrostfallSaga.Fight.Fighters
 
             if (_stats.actionPoints < activeAbility.ActionPointsCost)
                 throw new InvalidOperationException(
-                    "Fighter : " + name + " does not have enough action points to use its ability "
-                    + activeAbility.Name
+                    $"Fighter : {name} does not have enough action points to use its ability {activeAbility.Name}"
                 );
 
             if (_godFavorsPoints < activeAbility.GodFavorsPointsCost)
                 throw new InvalidOperationException(
-                    "Fighter : " + name + " does not have enough god favors points to use its ability "
-                    + activeAbility.Name
+                    $"Fighter : {name} does not have enough god favors points to use its ability {activeAbility.Name}"
                 );
 
             // Trigger the ability
             _stats.actionPoints -= activeAbility.ActionPointsCost;
-            onActiveAbilityStarted?.Invoke(this, activeAbility);
             activeAbility.OnActiveAbilityEnded += OnActiveAbilityEnded;
+            onActiveAbilityStarted?.Invoke(this, activeAbility);
             activeAbility.Trigger(targetedCells, this);
+        }
+
+        public void UseConsumable(InventorySlot consumableSlot)
+        {
+            ConsumableSO consumable = consumableSlot.Item as ConsumableSO;
+
+            // Check if consumable can be used
+            if (_stats.actionPoints < consumable.ActionPointsCost)
+                throw new InvalidOperationException(
+                    $"Fighter : {name} does not have enough action points to use its consumable {consumable.Name}"
+                );
+            
+            // Use consumable
+            _stats.actionPoints -= consumable.ActionPointsCost;
+            consumableSlot.RemoveItem();
+            onConsumableUseStarted?.Invoke(this, consumableSlot);
+            consumable.Use(this);
+            onConsumableUseEnded?.Invoke(this, consumableSlot);
         }
 
         /// <summary>

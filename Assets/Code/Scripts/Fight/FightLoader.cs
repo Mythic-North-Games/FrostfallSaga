@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FrostfallSaga.Audio;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Fight.Fighters;
 using UnityEngine;
@@ -8,8 +9,7 @@ namespace FrostfallSaga.Fight
 {
     public class FightLoader : MonoBehaviour
     {
-        [SerializeField] private FightHexGrid fightHexGrid;
-
+        [SerializeField] private FightHexGrid hexGrid;
         [SerializeField] private EntityConfigurationSO[] devAlliesConfs;
         [SerializeField] private EntityConfigurationSO[] devEnemiesConfs;
         private FightersGenerator _fighterGenerator;
@@ -19,7 +19,7 @@ namespace FrostfallSaga.Fight
 
         private void Awake()
         {
-            if (fightHexGrid == null) fightHexGrid = FindObjectOfType<FightHexGrid>();
+            hexGrid ??= FindObjectOfType<FightHexGrid>();
             _fighterGenerator = new FightersGenerator(devAlliesConfs, devEnemiesConfs);
         }
 
@@ -27,19 +27,14 @@ namespace FrostfallSaga.Fight
 
         private void Start()
         {
-            Debug.Log("Generating FightHexGrid...");
-            GenerateGrid();
-            Debug.Log("FightHexGrid Generated !");
+            Debug.Log("Generating Fight Grid...");
+            hexGrid.GenerateGrid();
+            Debug.Log("Fight Grid Generated !");
             Debug.Log("Generating Fighters...");
             KeyValuePair<Fighter[], Fighter[]> fighters = GenerateFighters();
             Debug.Log("Fighters Generated !");
+            AudioManager.Instance.PlayUISound(UISounds.FightBegin);
             OnFightLoaded?.Invoke(fighters.Key, fighters.Value);
-        }
-
-        private void GenerateGrid()
-        {
-            fightHexGrid.ClearCells();
-            fightHexGrid.GenerateGrid();
         }
 
         private KeyValuePair<Fighter[], Fighter[]> GenerateFighters()

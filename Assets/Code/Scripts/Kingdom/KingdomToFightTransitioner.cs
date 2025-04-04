@@ -18,9 +18,9 @@ namespace FrostfallSaga.Kingdom
     public class KingdomToFightTransitioner : MonoBehaviour
     {
         [SerializeField] private KingdomManager kingdomManager;
-        [SerializeField] private SceneTransitioner sceneTransitioner;
         [SerializeField] private float readyToFightAnimationDuration = 2f;
         [SerializeField] private float delayBeforeLoadingSceneAfterReadyAnimation = 10f;
+        [SerializeField] private bool isPrintAnalysis;
         private Action _onEncounterAnimationEnded;
 
         #region Setup and tear down
@@ -28,17 +28,9 @@ namespace FrostfallSaga.Kingdom
         private void Awake()
         {
             kingdomManager = kingdomManager != null ? kingdomManager : FindObjectOfType<KingdomManager>();
-            if (kingdomManager == null)
+            if (!kingdomManager)
             {
                 Debug.LogError("No KingdomManager found. Can't transition to fight scene.");
-                return;
-            }
-            
-            sceneTransitioner ??= FindObjectOfType<SceneTransitioner>();
-
-            if (!sceneTransitioner)
-            {
-                Debug.LogError("No SceneTransitioner found. Can't transition to fight scene.");
                 return;
             }
 
@@ -103,7 +95,7 @@ namespace FrostfallSaga.Kingdom
         {
             yield return new WaitForSeconds(delayBeforeLoadingSceneAfterReadyAnimation);
             Debug.Log("Transitioning to fight");
-            sceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
+            SceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
         }
 
         private void PrepareAndSavePreFightData(EntitiesGroup enemiesGroup)
@@ -117,19 +109,15 @@ namespace FrostfallSaga.Kingdom
                     enemyGroupEntity.EntityConfiguration);
             }
 
+            Dictionary<HexDirection, Cell> analyze =
+                CellAnalysis.AnalyzeAtCell(enemiesGroup.cell, kingdomManager.KingdomGrid, isPrintAnalysis);
+
             GameStateManager.Instance.SavePreFightData(
                 HeroTeam.Instance.GetAliveHeroesEntityConfig(),
                 enemiesFighterConfigs,
-                EFightOrigin.KINGDOM
+                EFightOrigin.KINGDOM,
+                analyze
             );
-            GenerateFightMap(enemiesGroup.cell);
-        }
-
-        private void GenerateFightMap(KingdomCell targetCell)
-        {
-            CellAnalysis.AnalyzeAtCell(targetCell, kingdomManager.KingdomGrid);
-            //CellAnalysis.PrintAnalysisWithPercentages();
-            //TODO
         }
     }
 }
