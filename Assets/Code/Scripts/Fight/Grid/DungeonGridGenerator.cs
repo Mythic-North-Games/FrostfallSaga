@@ -16,7 +16,7 @@ namespace FrostfallSaga.Dungeon
     {
         private BiomeTypeSO _biomeType;
         private readonly BiomeTypeSO _defaultBiomeType;
-        private readonly PerlinTerrainManager _perlinTerrainManager;
+        private PerlinTerrainManager _perlinTerrainManager;
 
         public DungeonGridGenerator(FightCell hexPrefab, int gridWidth, int gridHeight,
             Transform parentGrid, float noiseScale, int seed, BiomeTypeSO defaultBiome)
@@ -92,6 +92,7 @@ namespace FrostfallSaga.Dungeon
 
         private void GenerateHighByFromPerlinNoise(Dictionary<Vector2Int, Cell> grid)
         {
+            _perlinTerrainManager = new PerlinTerrainManager(NoiseScale, Randomizer.GetRandomIntBetween(000_000_000, 999_999_999));
             ECellHeight[] heights = (ECellHeight[])Enum.GetValues(typeof(ECellHeight));
             float segmentSize = 1f / heights.Length;
             foreach (KeyValuePair<Vector2Int, Cell> cell in grid)
@@ -116,8 +117,8 @@ namespace FrostfallSaga.Dungeon
                    $"- GridHeight: {GridHeight}\n" +
                    $"- Available Biomes: {(AvailableBiomes is { Length: > 0 } ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +
                    $"- ParentGrid: {ParentGrid?.name ?? "None"}\n" +
-                   $"- NoiseScale: {(NoiseScale.HasValue ? NoiseScale.Value.ToString("F2") : "None")}\n" +
-                   $"- Seed: {Seed?.ToString() ?? "None"}\n";
+                   $"- NoiseScale: {NoiseScale}\n" +
+                   $"- Seed: {Seed}\n";
         }
     }
 }

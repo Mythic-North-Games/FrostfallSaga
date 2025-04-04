@@ -85,8 +85,8 @@ namespace FrostfallSaga.Grid
                    $"- GridHeight: {GridHeight}\n" +
                    $"- Available Biomes: {(AvailableBiomes != null && AvailableBiomes.Length > 0 ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +
                    $"- ParentGrid: {ParentGrid?.name ?? "None"}\n" +
-                   $"- NoiseScale: {(NoiseScale.HasValue ? NoiseScale.Value.ToString() : "None")}\n" +
-                   $"- Seed: {Seed?.ToString() ?? "None"}";
+                   $"- NoiseScale: {NoiseScale}\n" +
+                   $"- Seed: {Seed}";
         }
     }
 }
