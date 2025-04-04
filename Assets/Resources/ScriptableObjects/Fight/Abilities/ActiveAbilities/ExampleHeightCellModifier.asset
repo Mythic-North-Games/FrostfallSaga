@@ -15,7 +15,7 @@ MonoBehaviour:
   <Name>k__BackingField: Example height cell modifier
   <Description>k__BackingField: 
   <IconSprite>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  Effects: []
+  <UnlockPoints>k__BackingField: 0
   <Targeter>k__BackingField:
     <OriginCellRange>k__BackingField: 5
     <CellsSequence>k__BackingField:
@@ -32,6 +32,7 @@ MonoBehaviour:
   <GodFavorsPointsCost>k__BackingField: 0
   <Dodgable>k__BackingField: 0
   <Masterstrokable>k__BackingField: 0
+  Effects: []
   MasterstrokeEffects: []
   CellAlterations:
   - rid: 3629974199755079682
@@ -42,10 +43,10 @@ MonoBehaviour:
     - rid: 3629974199755079682
       type: {class: SetHeightAlteration, ns: FrostfallSaga.Fight.FightCells.FightCellAlterations, asm: FrostfallSaga.Fight}
       data:
+        <Name>k__BackingField: 
+        <Description>k__BackingField: Set the height of the cell to <b>HIGH</b>
+        <Icon>k__BackingField: {fileID: 0}
         <IsPermanent>k__BackingField: 1
         <Duration>k__BackingField: 0
-        <Name>k__BackingField: 
-        <Description>k__BackingField: 
-        <Icon>k__BackingField: {fileID: 0}
         <TargetHeight>k__BackingField: 1
         <CellAlterationDuration>k__BackingField: 1.5

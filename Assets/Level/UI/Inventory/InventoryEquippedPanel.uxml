@@ -11,7 +11,7 @@
             <ui:VisualElement name="FighterLeftEquipmentContainer" style="height: 100%; width: 15%; align-items: center; justify-content: center;">
                 <ui:Instance template="ItemSlotContainer" name="EquippedWeaponSlotContainer" class="equippedItemSlotContainerRootDefault" />
             </ui:VisualElement>
-            <ui:VisualElement name="Fighter3DModelContainer" style="height: 100%; width: 70%;" />
+            <ui:VisualElement name="Fighter3DModelContainer" style="height: 100%; width: 70%; background-image: url(&quot;project://database/Assets/Level/UI/Inventory/InventoryFighterIdle.renderTexture?fileID=8400000&amp;guid=5240420daea4705c693fd9160f916b9b&amp;type=2#InventoryFighterIdle&quot;);" />
             <ui:VisualElement name="FighterRightEquipmentContainer" style="height: 100%; width: 15%; justify-content: space-around;">
                 <ui:Instance template="ItemSlotContainer" name="EquippedHelmetRuneSlotContainer" class="equippedItemSlotContainerRootDefault" />
                 <ui:Instance template="ItemSlotContainer" name="EquippedChestplateRuneSlotContainer" class="equippedItemSlotContainerRootDefault" />

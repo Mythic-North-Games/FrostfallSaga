@@ -1,7 +1,7 @@
 using System;
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
-using FrostfallSaga.Utils.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 

@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="ItemSlotContainer" src="project://database/Assets/Level/UI/Inventory/ItemSlotContainer.uxml?fileID=9197481963319205126&amp;guid=bd8931e65b6471ad7a09ed3fbed39560&amp;type=3#ItemSlotContainer" />
-    <ui:Template name="ItemDetailsContent" src="project://database/Assets/Level/UI/Inventory/ItemDetailsContent.uxml?fileID=9197481963319205126&amp;guid=d2fae06a24f71f8069b8eeeb52a3d792&amp;type=3#ItemDetailsContent" />
+    <ui:Template name="ObjectDetailsContainer" src="project://database/Assets/Level/UI/Components/ObjectDetailsContainer.uxml?fileID=9197481963319205126&amp;guid=36ee31e1c1c7c35419475df703acc0b5&amp;type=3#ObjectDetailsContainer" />
     <Style src="project://database/Assets/Level/UI/Inventory/inventory.uss?fileID=7433441132597879392&amp;guid=d49bf6daebebedc64ac592304a2a63e5&amp;type=3#inventory" />
     <ui:VisualElement name="InventoryBagPanelContainer" style="width: 100%; height: 100%; padding-top: 1%; padding-right: 1%; padding-bottom: 1%; padding-left: 1%;">
         <ui:VisualElement name="BagHeader" style="width: 100%; height: 5%; align-items: flex-start; justify-content: center;">
@@ -48,19 +48,6 @@
             <ui:Instance template="ItemSlotContainer" name="ItemSlotContainerRoot" class="itemSlotContainerRootDefault" />
             <ui:Instance template="ItemSlotContainer" name="ItemSlotContainerRoot" class="itemSlotContainerRootDefault" />
         </ui:VisualElement>
-        <ui:VisualElement name="ItemDetailsContainer" class="itemDetailsContainerRootDefault" style="flex-direction: row;">
-            <ui:VisualElement name="ItemDetailsLeftContainer" style="width: 25%;">
-                <ui:VisualElement name="ItemIconContainer" style="width: 100%; height: 50%; margin-top: 25%; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Backgrounds/fadedCircleBackground.png?fileID=2800000&amp;guid=bdd35670b3e5cc541a7d4be14cc1e577&amp;type=3#fadedCircleBackground&quot;); -unity-background-scale-mode: scale-to-fit;">
-                    <ui:VisualElement name="ItemIcon" style="width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Resources/UI/Icons/physicalDamageIcon.png?fileID=2800000&amp;guid=c76bf23a91b91f547963ba85711ce108&amp;type=3#physicalDamageIcon&quot;); -unity-background-scale-mode: scale-to-fit;" />
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="ItemDetailsRightContainer" style="flex-grow: 1; margin-right: 2%;">
-                <ui:VisualElement name="ItemDetailsHeader" style="height: auto; max-height: 40%; border-left-color: rgb(25, 25, 25); border-right-color: rgb(25, 25, 25); border-top-color: rgb(25, 25, 25); border-bottom-color: rgb(25, 25, 25); border-bottom-width: 4px;">
-                    <ui:Label tabindex="-1" text="Common sword" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemNameLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 1%; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 40px; -unity-text-align: middle-left;" />
-                    <ui:Label tabindex="-1" text="A good sword for any beginner adventurer. Lorem ispum dolor sit amet" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemDescriptionLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 26px; -unity-text-align: middle-left; white-space: normal;" />
-                </ui:VisualElement>
-                <ui:Instance template="ItemDetailsContent" name="ItemDetailsContentRoot" style="flex-grow: 1;" />
-            </ui:VisualElement>
-        </ui:VisualElement>
+        <ui:Instance template="ObjectDetailsContainer" name="ItemDetailsContainer" class="itemDetailsContainerRootDefault" />
     </ui:VisualElement>
 </ui:UXML>

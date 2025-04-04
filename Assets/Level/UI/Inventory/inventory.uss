@@ -43,12 +43,6 @@
     height: 30%;
 }
 
-.statContainerRootDefault {
-    height: 25%;
-    flex-direction: row;
-    align-items: center;
-}
-
 .specialEffectLabelDefault {
     margin-top: 0;
     margin-right: 0;

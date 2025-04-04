@@ -1,12 +1,11 @@
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
-using FrostfallSaga.Utils.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
-using FrostfallSaga.Core.UI;
 
 namespace FrostfallSaga.Fight.UI
 {
