@@ -52,7 +52,7 @@ namespace FrostfallSaga.EditModeTests
             grid.Height = gridHeight != 5 ? gridHeight : grid.Height;
             grid.AvailableBiomes = new[] { DefaultBiomeTest };
             grid.Initialize();
-            grid.GenerateGrid();
+            grid.GenerateGridForTests();
             foreach (Cell cell in grid.Cells.Values) cell.SetTerrain(AccessibleTerrain);
             return grid;
         }

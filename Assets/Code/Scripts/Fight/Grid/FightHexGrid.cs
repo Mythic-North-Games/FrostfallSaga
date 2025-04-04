@@ -61,5 +61,27 @@ namespace FrostfallSaga.Fight
         }
 
         #endregion
+
+#if UNITY_EDITOR
+
+        public void GenerateGridForTests()
+        {
+            ClearCells();
+            Seed = Randomizer.GetRandomIntBetween(000_000_000, 999_999_999);
+            _fightGridGenerator = new FightGridGenerator(
+                _hexFightPrefab,
+                Width,
+                Height,
+                AvailableBiomes,
+                transform,
+                NoiseScale,
+                Seed,
+                defaultBiomeType,
+                new()
+            );
+            Cells = _fightGridGenerator.GenerateGrid();
+        }
+
+#endif
     }
 }
