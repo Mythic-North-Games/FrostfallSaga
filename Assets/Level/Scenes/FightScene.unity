@@ -233,9 +233,6 @@ Transform:
   - {fileID: 2012426616}
   - {fileID: 1678739251}
   - {fileID: 1069003389}
-  - {fileID: 1656478351}
-  - {fileID: 1541036564}
-  - {fileID: 999864227}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &681031797
@@ -409,7 +406,6 @@ GameObject:
   m_Component:
   - component: {fileID: 793609183}
   - component: {fileID: 793609182}
-  - component: {fileID: 793609179}
   m_Layer: 5
   m_Name: FightEndUI
   m_TagString: Untagged
@@ -417,20 +413,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &793609179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 793609178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd7547c7a0de1b844a1c274da276dd7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiDoc: {fileID: 793609182}
-  _fightManager: {fileID: 1678739252}
 --- !u!114 &793609182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -808,50 +790,6 @@ MonoBehaviour:
   <MaxTranslationSpeed>k__BackingField: 30
   <MinY>k__BackingField: 2
   <MaxY>k__BackingField: 10
---- !u!1 &999864226
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 999864227}
-  - component: {fileID: 999864228}
-  m_Layer: 0
-  m_Name: SceneTransitioner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &999864227
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999864226}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 607521707}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &999864228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999864226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d5783d58c021a54eb199e11d39fca13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1069003388
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,7 +801,7 @@ GameObject:
   - component: {fileID: 1069003389}
   - component: {fileID: 1069003390}
   m_Layer: 0
-  m_Name: FightRewardController
+  m_Name: FightEndingManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -893,10 +831,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1069003388}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acaa3c0a83547f2d493a011b6bd88d95, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a459e16c408d6143b1708f9c6d5f26c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _fightManager: {fileID: 1678739252}
+  _fightEndMenuUIDocument: {fileID: 793609182}
+  _fighterStateContainerTemplate: {fileID: 9197481963319205126, guid: 2315259c78f5cb26a82297c02e9c83ce, type: 3}
+  _itemRewardContainerTemplate: {fileID: 9197481963319205126, guid: 29d858b9d0555dc3081d42492e454377, type: 3}
+  _statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
+  _itemRewardStatsColor: {r: 0.88235295, g: 0.88235295, b: 0.88235295, a: 1}
+  _fightWonText: Enemies defeated
+  _fightLostText: You have been defeated
 --- !u!1 &1242875529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,52 +1050,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2015873281}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1541036563
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1541036564}
-  - component: {fileID: 1541036565}
-  m_Layer: 0
-  m_Name: FightToNextSceneTransitioner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1541036564
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1541036563}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 607521707}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1541036565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1541036563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfb0e5a37acdc104a9a2c026c99ab8b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fightEndMenuController: {fileID: 793609179}
-  sceneTransitioner: {fileID: 999864228}
 --- !u!1 &1597044135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,51 +1168,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &1656478350
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1656478351}
-  - component: {fileID: 1656478352}
-  m_Layer: 0
-  m_Name: PostFightDataGenerator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1656478351
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1656478350}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 607521707}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1656478352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1656478350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e185b68e429e744ba86bbe4870fef93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fightManager: {fileID: 1678739252}
 --- !u!1 &1678739250
 GameObject:
   m_ObjectHideFlags: 0
