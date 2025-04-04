@@ -1,9 +1,9 @@
-using UnityEditor;
-using UnityEditorInternal;
-using UnityEngine;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Utils.Editor;
+using UnityEditor;
+using UnityEditorInternal;
+using UnityEngine;
 
 namespace FrostfallSaga.FFSEditor.Fight
 {
@@ -15,7 +15,7 @@ namespace FrostfallSaga.FFSEditor.Fight
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             // Reset expandedHeight for fresh computation
-            expandedHeight = EditorGUIUtility.singleLineHeight;  // Start with foldout height
+            expandedHeight = EditorGUIUtility.singleLineHeight; // Start with foldout height
             EditorGUI.BeginProperty(position, label, property);
 
             // Draw the foldout
@@ -112,7 +112,8 @@ namespace FrostfallSaga.FFSEditor.Fight
         {
             // Check if the property is an array to handle height accordingly
             float propertyHeight = EditorGUI.GetPropertyHeight(property, true);
-            EditorGUI.PropertyField(new Rect(fieldRect.x, fieldRect.y, fieldRect.width, propertyHeight), property, true);
+            EditorGUI.PropertyField(new Rect(fieldRect.x, fieldRect.y, fieldRect.width, propertyHeight), property,
+                true);
 
             // Increment expandedHeight by the full height of the property (including arrays' full height)
             expandedHeight += propertyHeight + EditorGUIUtility.standardVerticalSpacing;

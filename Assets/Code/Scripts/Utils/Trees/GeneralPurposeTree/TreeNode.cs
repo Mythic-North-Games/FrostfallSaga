@@ -6,18 +6,18 @@ namespace FrostfallSaga.Utils.Trees
     [Serializable]
     public class TreeNode<T>
     {
-        private T _data;
         private List<TreeNode<T>> _children = new();
+        private T _data;
         private TreeNode<T> _parent;
 
         public TreeNode(T data)
         {
             _data = data;
-            _children = new List<TreeNode<T>>(); 
+            _children = new List<TreeNode<T>>();
         }
 
         /// <summary>
-        /// Adds a child to the tree node.
+        ///     Adds a child to the tree node.
         /// </summary>
         /// <param name="child">The child to add.</param>
         public void AddChild(TreeNode<T> child)
@@ -27,7 +27,7 @@ namespace FrostfallSaga.Utils.Trees
         }
 
         /// <summary>
-        /// Removes a child from the tree node. If not in direct children, it will search in the children's children.
+        ///     Removes a child from the tree node. If not in direct children, it will search in the children's children.
         /// </summary>
         /// <param name="child">The child to remove.</param>
         /// <returns>True if the child was removed, false otherwise.</returns>
@@ -40,12 +40,8 @@ namespace FrostfallSaga.Utils.Trees
             }
 
             foreach (TreeNode<T> node in _children)
-            {
                 if (node.RemoveChild(child))
-                {
                     return true;
-                }
-            }
 
             return false;
         }
@@ -82,18 +78,12 @@ namespace FrostfallSaga.Utils.Trees
 
         public static TreeNode<T> FindChild(TreeNode<T> root, T data)
         {
-            if (root.GetData().Equals(data))
-            {
-                return root;
-            }
+            if (root.GetData().Equals(data)) return root;
 
             foreach (TreeNode<T> child in root.GetChildren())
             {
                 TreeNode<T> found = FindChild(child, data);
-                if (found != null)
-                {
-                    return found;
-                }
+                if (found != null) return found;
             }
 
             return null;

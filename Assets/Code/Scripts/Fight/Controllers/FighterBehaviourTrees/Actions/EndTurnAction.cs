@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using FrostfallSaga.Utils.Trees.BehaviourTree;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Utils.Trees.BehaviourTree;
 
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 {
     /// <summary>
-    /// Set "TurnEnded" in shared context data to true to indicate that fighter finished his turn.
+    ///     Set "TurnEnded" in shared context data to true to indicate that fighter finished his turn.
     /// </summary>
     public class EndTurnAction : FBTNode
     {
@@ -21,7 +21,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
         }
 
         /// <summary>
-        /// Set "TurnEnded" in shared context data to true to indicate that fighter finished his turn.
+        ///     Set "TurnEnded" in shared context data to true to indicate that fighter finished his turn.
         /// </summary>
         /// <returns>Always SUCCESS</returns>
         public override NodeState Evaluate()

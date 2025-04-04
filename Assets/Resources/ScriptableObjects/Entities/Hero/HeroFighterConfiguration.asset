@@ -20,8 +20,11 @@ MonoBehaviour:
   <ActiveAbilitiesCapacity>k__BackingField: 0
   <AvailablePassiveAbilities>k__BackingField: []
   <PassiveAbilitiesCapacity>k__BackingField: 0
+  <AvailableItems>k__BackingField: []
+  <MinStycasLoot>k__BackingField: 0
+  <MaxStycasLoot>k__BackingField: 0
   <MaxHealth>k__BackingField: 60
-  <MaxActionPoints>k__BackingField: 3
+  <MaxActionPoints>k__BackingField: 12
   <MaxMovePoints>k__BackingField: 3
   <Strength>k__BackingField: 3
   <Dexterity>k__BackingField: 3
@@ -60,8 +63,10 @@ MonoBehaviour:
   <ReceiveDamageAnimationName>k__BackingField: 
   <ReduceStatAnimationName>k__BackingField: 
   <IncreaseStatAnimationName>k__BackingField: 
+  <ConsumableUseAnimationName>k__BackingField: 
   <EquipedActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+  - {fileID: 11400000, guid: 5f043d044d913ad4682a195b63aa9106, type: 2}
   <EquipedPassiveAbilities>k__BackingField: []
   <Inventory>k__BackingField:
     <WeaponSlot>k__BackingField:
@@ -73,14 +78,10 @@ MonoBehaviour:
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
     <ChestplateSlot>k__BackingField:
-      <Item>k__BackingField: {fileID: 0}
-      <ItemCount>k__BackingField: 0
+      <Item>k__BackingField: {fileID: 11400000, guid: e7c210a3cfd435375856a52f09d3fda3, type: 2}
+      <ItemCount>k__BackingField: 1
       <MaxItemCount>k__BackingField: 1
-    <GlovesSlot>k__BackingField:
-      <Item>k__BackingField: {fileID: 0}
-      <ItemCount>k__BackingField: 0
-      <MaxItemCount>k__BackingField: 1
-    <LeggingsSlot>k__BackingField:
+    <GauntletsSlot>k__BackingField:
       <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
@@ -89,8 +90,17 @@ MonoBehaviour:
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
     <BagSlots>k__BackingField:
-    - <Item>k__BackingField: {fileID: 0}
-      <ItemCount>k__BackingField: 0
+    - <Item>k__BackingField: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
+      <ItemCount>k__BackingField: 2
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
+      <ItemCount>k__BackingField: 2
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
+      <ItemCount>k__BackingField: 2
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
+      <ItemCount>k__BackingField: 2
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
@@ -160,5 +170,49 @@ MonoBehaviour:
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    <ConsumablesQuickAccessSlots>k__BackingField:
+    - <Item>k__BackingField: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
+      <ItemCount>k__BackingField: 2
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
+      <ItemCount>k__BackingField: 2
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
+      <ItemCount>k__BackingField: 2
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
+      <ItemCount>k__BackingField: 2
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
+      <ItemCount>k__BackingField: 2
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
+      <ItemCount>k__BackingField: 2
       <MaxItemCount>k__BackingField: 99
   <Health>k__BackingField: 60
+  <UnlockedAbilities>k__BackingField: []

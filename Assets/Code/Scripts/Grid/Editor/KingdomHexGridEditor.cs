@@ -1,4 +1,3 @@
-using FrostfallSaga.Grid;
 using FrostfallSaga.Kingdom;
 using UnityEditor;
 using UnityEngine;
@@ -13,13 +12,14 @@ namespace FrostfallSaga.FFSEditor.Grid
             KingdomHexGrid hexGrid = (KingdomHexGrid)target;
 
             DrawDefaultInspector();
-            
+
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Debug buttons", EditorStyles.boldLabel);
-            hexGrid.Initialize();
 
             if (GUILayout.Button("Generate Hex Mesh"))
             {
+                hexGrid.ClearCells();
+                hexGrid.Initialize();
                 hexGrid.GenerateGrid();
             }
 

@@ -1,31 +1,22 @@
-using UnityEngine;
-using UnityEngine.UIElements;
+using FrostfallSaga.Core.Dialogues;
 using UnityEditor;
 using UnityEditor.UIElements;
-using FrostfallSaga.Core.Dialogues;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.FFSEditor.DialogueSystem
 {
     public class DialogueEditorWindow : EditorWindow
     {
-        private DialogueGraphView _graphView;
         private DialogueSO _currentDialogue;
         private ObjectField _dialogueField;
+        private DialogueGraphView _graphView;
         private Editor _inspectorPanel;
-
-        [MenuItem("Window/CustomTools/Dialogue Editor")]
-        public static void OpenWindow()
-        {
-            DialogueEditorWindow window = GetWindow<DialogueEditorWindow>();
-            window.titleContent = new GUIContent("Dialogue Editor");
-            window.minSize = new Vector2(1000, 600);
-            window.Show();
-        }
 
         private void CreateGUI()
         {
             // Root Layout: Horizontal Split
-            var root = rootVisualElement;
+            VisualElement root = rootVisualElement;
             root.style.flexDirection = FlexDirection.Row;
 
             // Left Side: Graph View
@@ -36,7 +27,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             root.Add(_graphView);
 
             // Right Side: Vertical Controls & Inspector
-            var rightPanel = new VisualElement
+            VisualElement rightPanel = new()
             {
                 style =
                 {
@@ -49,7 +40,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             root.Add(rightPanel);
 
             // === TOP: Dialogue Controls ===
-            var controlPanel = new VisualElement
+            VisualElement controlPanel = new()
             {
                 style =
                 {
@@ -60,7 +51,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             rightPanel.Add(controlPanel);
 
             // Create New Dialogue Button
-            var newButton = new Button(CreateNewDialogue)
+            Button newButton = new(CreateNewDialogue)
             {
                 text = "Create New Dialogue"
             };
@@ -79,13 +70,14 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
                     return;
                 }
+
                 _currentDialogue = evt.newValue as DialogueSO;
                 LoadDialogue(_currentDialogue);
             });
             controlPanel.Add(_dialogueField);
 
             // === MIDDLE: Separator ===
-            var separator = new VisualElement
+            VisualElement separator = new()
             {
                 style =
                 {
@@ -100,12 +92,18 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             // === BOTTOM: Inspector Panel ===
             IMGUIContainer inspectorContainer = new(() =>
             {
-                if (_inspectorPanel != null)
-                {
-                    _inspectorPanel.OnInspectorGUI();
-                }
+                if (_inspectorPanel != null) _inspectorPanel.OnInspectorGUI();
             });
             rightPanel.Add(inspectorContainer);
+        }
+
+        [MenuItem("Window/CustomTools/Dialogue Editor")]
+        public static void OpenWindow()
+        {
+            DialogueEditorWindow window = GetWindow<DialogueEditorWindow>();
+            window.titleContent = new GUIContent("Dialogue Editor");
+            window.minSize = new Vector2(1000, 600);
+            window.Show();
         }
 
         private void CreateNewDialogue()
@@ -119,7 +117,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
             if (string.IsNullOrEmpty(path)) return;
 
-            DialogueSO newDialogue = ScriptableObject.CreateInstance<DialogueSO>();
+            DialogueSO newDialogue = CreateInstance<DialogueSO>();
             AssetDatabase.CreateAsset(newDialogue, path);
             AssetDatabase.SaveAssets();
 
@@ -140,9 +138,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             if (dialogue == null) return;
             _inspectorPanel = Editor.CreateEditor(dialogue);
             if (_inspectorPanel is DialogueSOEditor dialogueInspector)
-            {
                 dialogueInspector.onDialogueChanged += () => _graphView.PopulateFromDialogue(dialogue);
-            }
             rootVisualElement.MarkDirtyRepaint();
         }
     }

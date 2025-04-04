@@ -1,26 +1,26 @@
-using UnityEditor;
-using UnityEditorInternal;
-using FrostfallSaga.Utils.Editor;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.FightCells.FightCellAlterations;
+using FrostfallSaga.Utils.Editor;
+using UnityEditor;
+using UnityEditorInternal;
 
 namespace FrostfallSaga.FFSEditor.Fight
 {
     [CustomEditor(typeof(ActiveAbilitySO))]
     public class ActiveAbilitySOEditor : Editor
     {
-        private readonly static string EFFECTS_PROPERTY_NAME = "Effects";
-        private SerializedProperty effectsProperty;
-        private ReorderableList effectsList;
+        private static readonly string EFFECTS_PROPERTY_NAME = "Effects";
 
-        private readonly static string MASTERSTOKE_EFFECTS_PROPERTY_NAME = "MasterstrokeEffects";
-        private SerializedProperty masterstrokeEffectsProperty;
-        private ReorderableList masterstrokeEffectsList;
+        private static readonly string MASTERSTOKE_EFFECTS_PROPERTY_NAME = "MasterstrokeEffects";
 
-        private readonly static string CELL_ALTERATIONS_PROPERTY_NAME = "CellAlterations";
-        private SerializedProperty cellAlterationsProperty;
+        private static readonly string CELL_ALTERATIONS_PROPERTY_NAME = "CellAlterations";
         private ReorderableList cellAlterationsList;
+        private SerializedProperty cellAlterationsProperty;
+        private ReorderableList effectsList;
+        private SerializedProperty effectsProperty;
+        private ReorderableList masterstrokeEffectsList;
+        private SerializedProperty masterstrokeEffectsProperty;
 
         private void OnEnable()
         {
@@ -28,10 +28,13 @@ namespace FrostfallSaga.FFSEditor.Fight
             effectsList = AbstractListEditorBuilder.BuildAbstractList<AEffect>(serializedObject, effectsProperty);
 
             masterstrokeEffectsProperty = serializedObject.FindProperty(MASTERSTOKE_EFFECTS_PROPERTY_NAME);
-            masterstrokeEffectsList = AbstractListEditorBuilder.BuildAbstractList<AEffect>(serializedObject, masterstrokeEffectsProperty);
+            masterstrokeEffectsList =
+                AbstractListEditorBuilder.BuildAbstractList<AEffect>(serializedObject, masterstrokeEffectsProperty);
 
             cellAlterationsProperty = serializedObject.FindProperty(CELL_ALTERATIONS_PROPERTY_NAME);
-            cellAlterationsList = AbstractListEditorBuilder.BuildAbstractList<AFightCellAlteration>(serializedObject, cellAlterationsProperty);
+            cellAlterationsList =
+                AbstractListEditorBuilder.BuildAbstractList<AFightCellAlteration>(serializedObject,
+                    cellAlterationsProperty);
         }
 
         public override void OnInspectorGUI()

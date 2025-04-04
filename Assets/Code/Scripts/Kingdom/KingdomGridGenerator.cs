@@ -2,20 +2,21 @@ using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom;
-using FrostfallSaga.Kingdom.InterestPoints;
 using FrostfallSaga.Procedural;
-using FrostfallSaga.Utils;
 using UnityEngine;
+
+// ReSharper disable All
 
 namespace FrostfallSaga.Grid
 {
     public class KingdomGridGenerator : ABaseGridGenerator
     {
-        private VoronoiBiomeManager _voronoiBiomeManager;
-        private PerlinTerrainManager _perlinTerrainManager;
+        private readonly PerlinTerrainManager _perlinTerrainManager;
+        private readonly VoronoiBiomeManager _voronoiBiomeManager;
 
-        public KingdomGridGenerator(KingdomCell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes, Transform parentGrid, float noiseScale, int seed, GameObject[] interestPoints)
-            : base(hexPrefab, gridWidth, gridHeight, availableBiomes, parentGrid, noiseScale, seed, interestPoints)
+        public KingdomGridGenerator(KingdomCell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes,
+            Transform parentGrid, float noiseScale, int seed)
+            : base(hexPrefab, gridWidth, gridHeight, availableBiomes, parentGrid, noiseScale, seed)
         {
             _perlinTerrainManager = new PerlinTerrainManager(noiseScale, seed);
             _voronoiBiomeManager = new VoronoiBiomeManager(gridWidth, gridHeight, availableBiomes.Length, seed);
@@ -38,6 +39,7 @@ namespace FrostfallSaga.Grid
                     gridCells[new Vector2Int(x, y)] = cell;
                 }
             }
+
             return gridCells;
         }
 
@@ -51,7 +53,7 @@ namespace FrostfallSaga.Grid
             cell.HighlightController.ResetToDefaultMaterial();
         }
 
-        private TerrainTypeSO GetTerrainTypeFromPerlinValue(float perlinValue, BiomeTypeSO selectedBiome)
+        private static TerrainTypeSO GetTerrainTypeFromPerlinValue(float perlinValue, BiomeTypeSO selectedBiome)
         {
             TerrainTypeSO[] availableTerrains = selectedBiome.TerrainTypeSO;
 
@@ -71,48 +73,20 @@ namespace FrostfallSaga.Grid
                     return availableTerrains[i];
                 }
             }
+
             return availableTerrains[terrainCount - 1];
         }
 
-        public void SetupInterestPoints(Dictionary<Vector2Int, Cell> cells)
-        {
-            Debug.Log("Setup Interest Points...");
-            List<KingdomCell> kingdomCells = new List<KingdomCell>();
-            foreach (KingdomCell item in cells.Values)
-            {
-                if (item.IsFree())
-                {
-                    kingdomCells.Add(item);
-                }
-            }
-
-            if (kingdomCells.Count < InterestPoints.Length)
-            {
-                Debug.LogWarning(string.Format("Not enough Free cells for InterestPoints number :\n[KingdomCells = {0}]\n[InterestPoints = {1}]", kingdomCells.Count, InterestPoints.Length));
-                return;
-            }
-
-            foreach (GameObject point in InterestPoints)
-            {
-                KingdomCell cell = Randomizer.GetRandomElementFromArray(kingdomCells.ToArray());
-                InterestPoint interestPoint = point.GetComponent<InterestPoint>();
-                cell.SetOccupier(interestPoint);
-                Object.Instantiate(interestPoint.InterestPointConfiguration.InterestPointPrefab, new Vector3(cell.Coordinates.x, cell.Coordinates.y), Quaternion.identity, cell.transform);
-                kingdomCells.Remove(cell);
-            }
-
-        }
         public override string ToString()
         {
-            return $"BaseGridGenerator:\n" +
-                    $"- HexPrefab: {HexPrefab.name}\n" +
-                    $"- GridWidth: {GridWidth}\n" +
-                    $"- GridHeight: {GridHeight}\n" +
-                    $"- Available Biomes: {(AvailableBiomes != null && AvailableBiomes.Length > 0 ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +
-                    $"- ParentGrid: {ParentGrid?.name ?? "None"}\n" +
-                    $"- NoiseScale: {(NoiseScale.HasValue ? NoiseScale.Value.ToString() : "None")}\n" +
-                    $"- Seed: {Seed?.ToString() ?? "None"}";
+            return "BaseGridGenerator:\n" +
+                   $"- HexPrefab: {HexPrefab.name}\n" +
+                   $"- GridWidth: {GridWidth}\n" +
+                   $"- GridHeight: {GridHeight}\n" +
+                   $"- Available Biomes: {(AvailableBiomes != null && AvailableBiomes.Length > 0 ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +
+                   $"- ParentGrid: {ParentGrid?.name ?? "None"}\n" +
+                   $"- NoiseScale: {(NoiseScale.HasValue ? NoiseScale.Value.ToString() : "None")}\n" +
+                   $"- Seed: {Seed?.ToString() ?? "None"}";
         }
-
     }
 }

@@ -12,18 +12,13 @@ namespace FrostfallSaga.Utils
             Type type = target.GetType();
             FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
-            foreach (var field in fields)
+            foreach (FieldInfo field in fields)
             {
-                var requiredAttr = field.GetCustomAttributes(typeof(RequiredAttribute), false).FirstOrDefault();
+                object requiredAttr = field.GetCustomAttributes(typeof(RequiredAttribute), false).FirstOrDefault();
 
-                if (requiredAttr != null)
-                {
-                    var value = field.GetValue(target);
-                    if (value == null)
-                    {
-                        Debug.LogError($"Required field '{field.Name}' is not set in {type.Name}.");
-                    }
-                }
+                if (requiredAttr == null) continue;
+                object value = field.GetValue(target);
+                if (value == null) Debug.LogError($"Required field '{field.Name}' is not set in {type.Name}.");
             }
         }
     }

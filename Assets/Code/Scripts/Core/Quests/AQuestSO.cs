@@ -9,6 +9,7 @@ namespace FrostfallSaga.Core.Quests
         [field: SerializeField] public string Description { get; protected set; }
         [field: SerializeField] public string OriginLocation { get; protected set; }
         [field: SerializeField] public EQuestType Type { get; protected set; }
+        [field: SerializeField] public RewardConfiguration RewardConfiguration { get; protected set; }
         [field: SerializeField] public bool IsCompleted { get; protected set; }
 
         public Action<AQuestSO> onQuestCompleted;
@@ -17,7 +18,12 @@ namespace FrostfallSaga.Core.Quests
 
         protected void CompleteQuest()
         {
+            // Mark the quest as completed
             IsCompleted = true;
+
+            // Reward the hero team
+            HeroTeam.HeroTeam.Instance.CollectReward(RewardConfiguration);
+            
             onQuestCompleted?.Invoke(this);
         }
     }

@@ -1,24 +1,24 @@
-using UnityEngine;
+using System.Collections.Generic;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Trees;
-using System.Collections.Generic;
+using UnityEngine;
 
 namespace FrostfallSaga.Core.Quests
 {
     [CreateAssetMenu(fileName = "StepsQuest", menuName = "ScriptableObjects/Quests/StepsQuest", order = 0)]
-    public class StepsQuestSO: AQuestSO
+    public class StepsQuestSO : AQuestSO
     {
-
-        [field: SerializeField, Tooltip("Possible endings depending on last quest step decisive action.")]
+        [field: SerializeField]
+        [field: Tooltip("Possible endings depending on last quest step decisive action.")]
         public SElementToValue<int[], QuestEnding>[] PossibleQuestEndings { get; private set; }
 
         [field: SerializeField] public TreeNode<QuestStep> Steps { get; private set; }
 
-        public QuestEnding ChosenQuestEnding { get; private set; } = null;
+        public QuestEnding ChosenQuestEnding { get; private set; }
 
 
         /// <summary>
-        /// Start listening to the events that will update the action completion.
+        ///     Start listening to the events that will update the action completion.
         /// </summary>
         /// <param name="currentSceneManager">The specific manager of the scene the action is related to.</param>
         public override void Initialize(MonoBehaviour currentSceneManager)
@@ -59,42 +59,36 @@ namespace FrostfallSaga.Core.Quests
             // If no completed step path, the quest is not completed yet. Initialize the next step.
             if (lastCompletedStepPath.Length == 0)
             {
-                InitializeQuestSteps(TreeNode<QuestStep>.FindChild(Steps, completedStep), completedStep.CurrentSceneManager);
+                InitializeQuestSteps(TreeNode<QuestStep>.FindChild(Steps, completedStep),
+                    completedStep.CurrentSceneManager);
                 return;
             }
 
             // Otherwise, the quest is completed. Set the chosen quest ending and complete the quest.
-            ChosenQuestEnding = SElementToValue<int[], QuestEnding>.GetDictionaryFromArray(PossibleQuestEndings)[lastCompletedStepPath];
+            ChosenQuestEnding =
+                SElementToValue<int[], QuestEnding>.GetDictionaryFromArray(PossibleQuestEndings)[lastCompletedStepPath];
             CompleteQuest();
         }
 
-        private int[] GetLastCompletedStepPath(TreeNode<QuestStep> questStep, TreeNode<QuestStep> parent = null, List<int> lastCompletedStepPath = null)
+        private int[] GetLastCompletedStepPath(TreeNode<QuestStep> questStep, TreeNode<QuestStep> parent = null,
+            List<int> lastCompletedStepPath = null)
         {
-            if (!questStep.GetData().IsCompleted())
-            {
-                return new int[0];
-            }
+            if (!questStep.GetData().IsCompleted()) return new int[0];
 
             lastCompletedStepPath ??= new List<int>();
             lastCompletedStepPath.Add(parent == null ? 0 : parent.GetChildren().IndexOf(questStep));
 
-            if (questStep.GetChildren().Count == 0)
-            {
-                return lastCompletedStepPath.ToArray();
-            }
+            if (questStep.GetChildren().Count == 0) return lastCompletedStepPath.ToArray();
 
             TreeNode<QuestStep> nextCompletedStep = questStep.GetChildren().Find(
                 childStep => childStep.GetData().IsCompleted()
             );
-            if (nextCompletedStep == null)
-            {
-                return new int[0];
-            }
+            if (nextCompletedStep == null) return new int[0];
 
             return GetLastCompletedStepPath(nextCompletedStep, questStep, lastCompletedStepPath);
         }
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
 
         public void SetSteps(TreeNode<QuestStep> newSteps)
         {
@@ -106,6 +100,6 @@ namespace FrostfallSaga.Core.Quests
             PossibleQuestEndings = newPossibleQuestEndings;
         }
 
-        #endif
+#endif
     }
 }

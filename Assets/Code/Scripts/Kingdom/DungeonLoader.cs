@@ -1,51 +1,50 @@
-using UnityEngine;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Dungeons;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Kingdom.UI;
 using FrostfallSaga.Utils.Scenes;
+using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
 {
     public class DungeonLoader : MonoBehaviour
     {
-        [SerializeField] private KingdomManager _kingdomManager;
-        [SerializeField] private EnterDungeonPanelController _enterDungeonPanelController;
-
-        private void OnDungeonEnterClicked(DungeonBuildingConfigurationSO dungeonBuildingConfiguration)
-        {
-            Debug.Log($"Saving kingdom state before loading dungeon scene for {dungeonBuildingConfiguration.Name}.");
-            _kingdomManager.SaveKingdomState();
-
-            Debug.Log($"Saving dungeon load data for {dungeonBuildingConfiguration.Name}.");
-            GameStateManager.Instance.InitDungeonState(dungeonBuildingConfiguration.DungeonConfiguration);
-
-            Debug.Log($"Launching dungeon scene...");
-            SceneTransitioner.Instance.FadeInToScene(EScenesName.DUNGEON.ToSceneString());
-        }
+        [SerializeField] private KingdomManager kingdomManager;
+        [SerializeField] private EnterDungeonPanelController enterDungeonPanelController;
 
 
         #region Setup
+
         private void Awake()
         {
-            if (_enterDungeonPanelController == null)
+            if (!enterDungeonPanelController)
             {
-                Debug.LogError("No EnterDungeonPanelController assigned to DungeonLoader. Won't be able to load dungeon scene correctly.");
+                Debug.LogError(
+                    "No EnterDungeonPanelController assigned to DungeonLoader. Won't be able to load dungeon scene correctly.");
                 return;
             }
 
-            if (_kingdomManager == null)
-            {
-                _kingdomManager = FindObjectOfType<KingdomManager>();
-            }
-            if (_kingdomManager == null)
+            kingdomManager ??= FindObjectOfType<KingdomManager>();
+            if (!kingdomManager)
             {
                 Debug.LogError("No KingdomManager found in scene. Won't be able to save kingdom state.");
                 return;
             }
-
-            _enterDungeonPanelController.onDungeonEnterClicked += OnDungeonEnterClicked;
+            enterDungeonPanelController.onDungeonEnterClicked += OnDungeonEnterClicked;
         }
+
         #endregion
+
+        private void OnDungeonEnterClicked(DungeonBuildingConfigurationSO dungeonBuildingConfiguration)
+        {
+            Debug.Log($"Saving kingdom state before loading dungeon scene for {dungeonBuildingConfiguration.Name}.");
+            kingdomManager.SaveKingdomState();
+            
+            Debug.Log($"Saving dungeon load data for {dungeonBuildingConfiguration.Name}.");
+            GameStateManager.Instance.InitDungeonState(dungeonBuildingConfiguration.DungeonConfiguration);
+            
+            Debug.Log("Launching dungeon scene...");
+            SceneTransitioner.FadeInToScene(EScenesName.DUNGEON.ToSceneString());
+        }
     }
 }

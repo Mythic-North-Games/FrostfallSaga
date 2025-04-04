@@ -3,7 +3,7 @@ using UnityEngine;
 namespace FrostfallSaga.Core.Fight
 {
     /// <summary>
-    /// Abilities common fields.
+    ///     Abilities common fields.
     /// </summary>
     public abstract class ABaseAbility : ScriptableObject
     {

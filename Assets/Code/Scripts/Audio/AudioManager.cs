@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FrostfallSaga.Audio
@@ -7,12 +6,13 @@ namespace FrostfallSaga.Audio
     public class AudioManager : MonoBehaviour
     {
         /// <summary>
-        /// Instance a singleton of the AudioManager in the scene
+        ///     Instance a singleton of the AudioManager in the scene
         /// </summary>
         public static AudioManager instance;
+
         [SerializeField] private UIAudioClipsConfig uiAudioClipsConfig;
         [SerializeField] private AudioSource audioSourceObject;
-        private UIAudioClipSelector uIAudioClipSelector;
+        private UIAudioClipSelector _uIAudioClipSelector;
         private AudioSource _currentFXAudioSource;
         private Coroutine _fadeOutCoroutine;
 
@@ -22,7 +22,7 @@ namespace FrostfallSaga.Audio
             {
                 instance = this;
             }
-            uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
+            _uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
 
             // Créer une source audio persistante
             _currentFXAudioSource = Instantiate(audioSourceObject, transform);
@@ -31,10 +31,10 @@ namespace FrostfallSaga.Audio
         }
 
         /// <summary>
-        /// Create an audioSource gameObject in the scene and play the audioClip, then delete the gameObject
-        /// <paramref name="audioClip"/> The audio clip to play
-        /// <paramref name="spawnTransform"/> The transform to spawn the audioSource gameObject
-        /// <paramref name="audioVolume"/> The volume of the audio clip
+        ///     Create an audioSource gameObject in the scene and play the audioClip, then delete the gameObject
+        ///     <paramref name="audioClip" /> The audio clip to play
+        ///     <paramref name="spawnTransform" /> The transform to spawn the audioSource gameObject
+        ///     <paramref name="audioVolume" /> The volume of the audio clip
         /// </summary>
         public void PlaySoundEffectClip(AudioClip audioClip, Transform spawnTransform, float audioVolume)
         {
@@ -47,17 +47,16 @@ namespace FrostfallSaga.Audio
         }
 
         /// <summary>
-        /// Play a UI sound effect by using the UISounds enum
-        /// <paramref name="sound"/> The sound to play
+        ///     Play a UI sound effect by using the UISounds enum
+        ///     <paramref name="sound" /> The sound to play
         /// </summary>
         public void PlayUISound(UISounds sound)
         {
-            AudioClip audioClip = uIAudioClipSelector.SelectAudioClip(sound);
-            if(audioClip != null){
+            AudioClip audioClip = _uIAudioClipSelector.SelectAudioClip(sound);
+            if (audioClip != null)
                 PlaySoundEffectClip(audioClip, transform, 1f);
-            } else {
-                Debug.LogError("Audio clip " + sound +" not found");
-            }
+            else
+                Debug.LogError("Audio clip " + sound + " not found");
         }
 
         /// <summary>
@@ -69,7 +68,7 @@ namespace FrostfallSaga.Audio
         public void PlayFXSound(AudioClip sound, Transform spawnTransform, float volume, float durationFadeOut)
         {
             if (sound == null)
-            return;
+                return;
 
             // Arrêter le fade-out en cours si il y en a un
             if (_fadeOutCoroutine != null)
@@ -100,19 +99,19 @@ namespace FrostfallSaga.Audio
         // Coroutine pour effectuer un fade-out progressif et ensuite détruire l'AudioSource
         private IEnumerator FadeOutAndDestroy(AudioSource audioSource, float fadeDuration)
         {
-        float startVolume = audioSource.volume;
-        float timer = 0f;
+            float startVolume = audioSource.volume;
+            float timer = 0f;
 
-        while (timer < fadeDuration)
-        {
-            timer += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(startVolume, 0f, timer / fadeDuration);
-            yield return null;
+            while (timer < fadeDuration)
+            {
+                timer += Time.deltaTime;
+                audioSource.volume = Mathf.Lerp(startVolume, 0f, timer / fadeDuration);
+                yield return null;
+            }
+
+            audioSource.Stop();
+            Destroy(audioSource.gameObject);
         }
-
-        audioSource.Stop();
-        Destroy(audioSource.gameObject);
-    }
 
 
 
@@ -121,35 +120,35 @@ namespace FrostfallSaga.Audio
         // A UTILISER POUR LA MUSIQUE
         //public void PlayMusicSound(FXSounds sound, Transform spawnTransform, float audioVolume, float duration)
         //{
-            //AudioClip audioClip = fXAudioClipSelector.SelectAudioClip(sound);
-            //if (audioClip != null)
-            //{
-                //float clipLength = audioClip.length;
-                //float destroyTime = Mathf.Max(clipLength, duration); // On garde l'objet au moins le temps défini
+        //AudioClip audioClip = fXAudioClipSelector.SelectAudioClip(sound);
+        //if (audioClip != null)
+        //{
+        //float clipLength = audioClip.length;
+        //float destroyTime = Mathf.Max(clipLength, duration); // On garde l'objet au moins le temps défini
 
-                // Créer une source audio
-                //AudioSource audioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
-                //audioSource.clip = audioClip;
-                //audioSource.volume = audioVolume;
+        // Créer une source audio
+        //AudioSource audioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
+        //audioSource.clip = audioClip;
+        //audioSource.volume = audioVolume;
 
-                // Activez la lecture en boucle si la durée souhaitée est plus longue que la durée du clip
-                //if (duration > audioClip.length)
-                //{
-                //    audioSource.loop = true;
-                //}
+        // Activez la lecture en boucle si la durée souhaitée est plus longue que la durée du clip
+        //if (duration > audioClip.length)
+        //{
+        //    audioSource.loop = true;
+        //}
 
-                // Jouez le son
-                //audioSource.Play();
+        // Jouez le son
+        //audioSource.Play();
 
-                // Démarrer une coroutine pour arrêter le son après la durée spécifiée
-                //StartCoroutine(StopSoundAfterDuration(audioSource, duration));
-                
-                //Destroy(audioSource.gameObject, destroyTime);
-            //}
-            //else
-            //{
-                //Debug.LogError("Audio clip " + sound + " not found");
-            //}
+        // Démarrer une coroutine pour arrêter le son après la durée spécifiée
+        //StartCoroutine(StopSoundAfterDuration(audioSource, duration));
+
+        //Destroy(audioSource.gameObject, destroyTime);
+        //}
+        //else
+        //{
+        //Debug.LogError("Audio clip " + sound + " not found");
+        //}
         //}
 
         private IEnumerator StopSoundAfterDuration(AudioSource audioSource, float duration)
@@ -159,17 +158,11 @@ namespace FrostfallSaga.Audio
             Destroy(audioSource.gameObject); // Détruire l'objet audio
         }
 
-
-        #if UNITY_EDITOR
-
-
-        public void InitializeAudioClipSelectorFromTests(UIAudioClipsConfig uIAudioClipsConfig) 
+#if UNITY_EDITOR
+        public void InitializeAudioClipSelectorFromTests(UIAudioClipsConfig uIAudioClipsConfig)
         {
-            uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
-
+            _uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
         }
-        
-        
-        #endif
+#endif
     }
 }

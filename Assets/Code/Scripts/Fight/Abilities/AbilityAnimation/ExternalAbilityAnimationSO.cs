@@ -1,5 +1,5 @@
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Fighters;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
@@ -15,15 +15,16 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
         [SerializeReference] public AExternalAbilityAnimationExecutor Executor;
 
         /// <summary>
-        /// Executes the external ability animation as configured.
+        ///     Executes the external ability animation as configured.
         /// </summary>
         public override void Execute(Fighter fighterThatWillExecute, FightCell[] abilityTargetCells)
         {
             Executor.onFighterTouched += OnFighterTouched;
             Executor.onCellTouched += OnCellTouched;
             Executor.onAnimationEnded += OnExecutorAnimationEnded;
-
+            AbilityCameraFollow cameraFollow = FindObjectOfType<AbilityCameraFollow>();
             Executor.Execute(fighterThatWillExecute, abilityTargetCells, ProjectilePrefab);
+            cameraFollow.FollowAbility(abilityTargetCells[abilityTargetCells.Length-1].transform);
         }
 
         protected override void OnExecutorAnimationEnded(Fighter initiator)
@@ -32,6 +33,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
             Executor.onCellTouched -= OnCellTouched;
             Executor.onAnimationEnded -= OnExecutorAnimationEnded;
             base.OnExecutorAnimationEnded(initiator);
+            FindObjectOfType<AbilityCameraFollow>().StopFollowing();
         }
     }
 }

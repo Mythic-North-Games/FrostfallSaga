@@ -1,19 +1,19 @@
 using System;
 using System.Linq;
-using UnityEngine;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Effects
 {
     /// <summary>
-    /// Effect that tries to remove the configured status from the target fighter.
+    ///     Effect that tries to remove the configured status from the target fighter.
     /// </summary>
     [Serializable]
     public class RemoveStatusesEffect : AEffect
     {
-        [SerializeField, Tooltip("Type of status the effect can remove from a fighter.")]
+        [SerializeField] [Tooltip("Type of status the effect can remove from a fighter.")]
         public EStatusType[] RemovableStatusTypes = { };
 
         public override void ApplyEffect(
@@ -26,19 +26,15 @@ namespace FrostfallSaga.Fight.Effects
             // Remove all the status with the configured types
             AStatus[] currentReceiverStatuses = receiver.StatusesManager.GetStatuses().Keys.ToArray();
             foreach (AStatus status in currentReceiverStatuses)
-            {
                 if (RemovableStatusTypes.Contains(status.StatusType))
                 {
                     receiver.RemoveStatus(status);
-                    Debug.Log($"Status {status.Name} removed from {receiver.name}.");
+                    Debug.Log($"Status {status.StatusType} removed from {receiver.name}.");
                 }
-            }
 
             // Increase god favors points if enabled
             if (adjustGodFavorsPoints && initiator != null)
-            {
                 initiator.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.HEAL);
-            }
         }
 
         public override void RestoreEffect(Fighter receiver)
@@ -54,6 +50,12 @@ namespace FrostfallSaga.Fight.Effects
         public override int GetPotentialEffectHeal(Fighter _initiator, Fighter _receiver, bool _canMasterstroke)
         {
             return 0;
+        }
+
+        public override string GetUIEffectDescription()
+        {
+            string statusTypes = string.Join(", ", RemovableStatusTypes.Select(statusType => statusType.ToUIString()));
+            return $"Removes {statusTypes} status from target.";
         }
     }
 }

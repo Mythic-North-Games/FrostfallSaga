@@ -1,11 +1,11 @@
-using UnityEngine;
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
     /// <summary>
-    /// Only used to test ability animations in ability animation test scene.
+    ///     Only used to test ability animations in ability animation test scene.
     /// </summary>
     public class TestAbilityAnimationLauncher : MonoBehaviour
     {

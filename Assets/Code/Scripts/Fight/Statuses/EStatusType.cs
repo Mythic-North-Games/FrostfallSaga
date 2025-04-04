@@ -8,7 +8,7 @@ namespace FrostfallSaga.Fight.Statuses
         BLEED,
         PARALYSIS,
         WEAKNESS,
-        STRENGTH,
+        STRENGTH
     }
 
     public static class EStatusTypeMethods
@@ -22,7 +22,20 @@ namespace FrostfallSaga.Fight.Statuses
                 EStatusType.PARALYSIS => false,
                 EStatusType.WEAKNESS => false,
                 EStatusType.STRENGTH => true,
-                _ => throw new InvalidOperationException("Unknown status type."),
+                _ => throw new InvalidOperationException("Unknown status type.")
+            };
+        }
+
+        public static string ToUIString(this EStatusType statusType)
+        {
+            return statusType switch
+            {
+                EStatusType.SLOWNESS => "<b>Slowness</b>",
+                EStatusType.BLEED => "<b>Bleed</b>",
+                EStatusType.PARALYSIS => "<b>Paralysis</b>",
+                EStatusType.WEAKNESS => "<b>Weakness</b>",
+                EStatusType.STRENGTH => "<b>Strength</b>",
+                _ => throw new InvalidOperationException("Unknown status type.")
             };
         }
     }

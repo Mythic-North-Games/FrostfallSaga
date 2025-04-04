@@ -1,14 +1,14 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
-using FrostfallSaga.Grid;
+using System.Linq;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Grid;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightConditions
 {
     /// <summary>
-    /// Check if the fighter is inside one of the terrains.
+    ///     Check if the fighter is inside one of the terrains.
     /// </summary>
     [Serializable]
     public class InTerrainsCondition : AFighterCondition

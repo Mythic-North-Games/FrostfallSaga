@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using UnityEngine;
-using FrostfallSaga.InventorySystem;
+using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightItems
 {
@@ -9,5 +10,23 @@ namespace FrostfallSaga.Fight.FightItems
     public class ConsumableSO : AConsumable
     {
         [SerializeReference] public List<AEffect> Effects;
+
+        public void Use(Fighter receiver)
+        {
+            foreach (AEffect effect in Effects)
+            {
+                effect.ApplyEffect(receiver, false);
+            }
+        }
+
+        public override List<string> GetEffectsUIData()
+        {
+            List<string> specialEffectsUIData = new();
+            foreach (AEffect effect in Effects)
+            {
+                specialEffectsUIData.Add(effect.GetUIEffectDescription());
+            }
+            return specialEffectsUIData;
+        }
     }
 }

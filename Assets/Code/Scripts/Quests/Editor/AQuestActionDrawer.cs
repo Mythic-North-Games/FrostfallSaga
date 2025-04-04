@@ -1,6 +1,6 @@
-using UnityEditor;
 using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Utils.Editor;
+using UnityEditor;
 
 namespace FrostfallSaga.FFSEditor.GameObjectVisuals
 {

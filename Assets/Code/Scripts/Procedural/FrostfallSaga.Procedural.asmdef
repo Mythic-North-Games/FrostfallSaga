@@ -1,16 +1,16 @@
 {
-    "name": "FrostfallSaga.Procedural",
-    "rootNamespace": "FrostfallSaga.Procedural",
-    "references": [
-        "FrostfallSaga.Utils"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "FrostfallSaga.Procedural",
+  "rootNamespace": "FrostfallSaga.Procedural",
+  "references": [
+    "FrostfallSaga.Utils"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

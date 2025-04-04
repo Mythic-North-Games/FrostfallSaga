@@ -2,11 +2,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using FrostfallSaga.Audio;
 
-
 namespace FrostfallSaga.Utils.UI
 {
     /// <summary>
-    /// Base class that can be inherited from to help control UI.
+    ///     Base class that can be inherited from to help control UI.
     /// </summary>
     public class BaseUIController : MonoBehaviour
     {

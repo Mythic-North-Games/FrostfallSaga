@@ -1,37 +1,29 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
-using UnityEditor.UIElements;
-using UnityEditor.Experimental.GraphView;
+using System.Linq;
 using FrostfallSaga.Core.Dialogues;
-using FrostfallSaga.Utils.Trees;
 using FrostfallSaga.Core.Quests;
+using FrostfallSaga.Utils.Trees;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.UIElements;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.FFSEditor.DialogueSystem
 {
     public class DialogueNode : Node
     {
-        public Action<DialogueNode> onAnswerAdded;
         public Action<DialogueNode> OnAddLineContinuation;
-        public Action<DialogueNode> onNodeRemoved;
-        public Action onNodeModified;
-
-        public TreeNode<DialogueLine> TreeNode { get; private set; }
-        public DialogueLine Data => TreeNode.GetData();
-        public int Depth { get; private set; }
-        public Port InputPort { get; private set; }
-        public Port OutputPort { get; private set; }
-        public DialogueNode ParentNode { get; private set; }
-        public List<DialogueNode> ChildrenNodes { get; private set; } = new List<DialogueNode>();
+        public Action<DialogueNode> OnAnswerAdded;
+        public Action OnNodeModified;
+        public Action<DialogueNode> OnNodeRemoved;
 
         private Button _addAnswerButton;
         private Button _addContinuationButton;
         private VisualElement _answersContainer;
-        private TextField _titleField;
+        private Toggle _isRightToggle;
         private TextField _richTextField;
         private ObjectField _speakerField;
-        private Toggle _isRightToggle;
+        private TextField _titleField;
         private ObjectField _questField;
 
         public DialogueNode(TreeNode<DialogueLine> treeNode, int depth, DialogueNode parentNode)
@@ -48,6 +40,14 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             RefreshNode();
         }
 
+        public TreeNode<DialogueLine> TreeNode { get; }
+        public DialogueLine Data => TreeNode.GetData();
+        public int Depth { get; private set; }
+        public Port InputPort { get; private set; }
+        public Port OutputPort { get; private set; }
+        public DialogueNode ParentNode { get; private set; }
+        public List<DialogueNode> ChildrenNodes { get; } = new();
+
         public void AddChild(DialogueNode childNode)
         {
             ChildrenNodes.Add(childNode);
@@ -60,18 +60,20 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
         private void SetupPorts()
         {
-            InputPort = InstantiatePort(Orientation.Vertical, Direction.Input, Port.Capacity.Single, typeof(DialogueNode));
+            InputPort = InstantiatePort(Orientation.Vertical, Direction.Input, Port.Capacity.Single,
+                typeof(DialogueNode));
             InputPort.portName = "Input";
             inputContainer.Add(InputPort);
 
-            OutputPort = InstantiatePort(Orientation.Vertical, Direction.Output, Port.Capacity.Multi, typeof(DialogueNode));
+            OutputPort = InstantiatePort(Orientation.Vertical, Direction.Output, Port.Capacity.Multi,
+                typeof(DialogueNode));
             OutputPort.portName = "Output";
             outputContainer.Add(OutputPort);
         }
 
         private void SetupUI()
         {
-            var container = new VisualElement();
+            VisualElement container = new();
             container.style.flexDirection = FlexDirection.Column;
             container.style.paddingBottom = 5;
 
@@ -83,7 +85,8 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             _richTextField.RegisterValueChangedCallback(evt => UpdateRichText(evt.newValue));
             container.Add(_richTextField);
 
-            _speakerField = new ObjectField("Speaker") { objectType = typeof(DialogueParticipantSO), value = Data.Speaker };
+            _speakerField = new ObjectField("Speaker")
+                { objectType = typeof(DialogueParticipantSO), value = Data.Speaker };
             _speakerField.RegisterValueChangedCallback(evt => UpdateSpeaker(evt.newValue as DialogueParticipantSO));
             container.Add(_speakerField);
 
@@ -99,13 +102,14 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             _answersContainer.style.marginTop = 5;
             container.Add(_answersContainer);
 
-            _addAnswerButton = new Button(() => onAnswerAdded?.Invoke(this)) { text = "Add Answer" };
-            _addContinuationButton = new Button(() => OnAddLineContinuation?.Invoke(this)) { text = "Add Line Continuation" };
+            _addAnswerButton = new Button(() => OnAnswerAdded?.Invoke(this)) { text = "Add Answer" };
+            _addContinuationButton = new Button(() => OnAddLineContinuation?.Invoke(this))
+                { text = "Add Line Continuation" };
 
             container.Add(_addAnswerButton);
             container.Add(_addContinuationButton);
 
-            var removeButton = new Button(() => onNodeRemoved?.Invoke(this)) { text = "Remove Node" };
+            Button removeButton = new(() => OnNodeRemoved?.Invoke(this)) { text = "Remove Node" };
             removeButton.style.marginTop = 5;
             container.Add(removeButton);
 
@@ -116,31 +120,31 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         {
             Data.SetTitle(newTitle);
             title = newTitle;
-            onNodeModified?.Invoke();
+            OnNodeModified?.Invoke();
         }
 
         private void UpdateRichText(string newText)
         {
             Data.SetRichText(newText);
-            onNodeModified?.Invoke();
+            OnNodeModified?.Invoke();
         }
 
         private void UpdateSpeaker(DialogueParticipantSO newSpeaker)
         {
             Data.SetSpeaker(newSpeaker);
-            onNodeModified?.Invoke();
+            OnNodeModified?.Invoke();
         }
 
         private void UpdateIsRight(bool newIsRight)
         {
             Data.SetIsRight(newIsRight);
-            onNodeModified?.Invoke();
+            OnNodeModified?.Invoke();
         }
 
         private void UpdateQuest(AQuestSO newQuest)
         {
             Data.SetQuest(newQuest);
-            onNodeModified?.Invoke();
+            OnNodeModified?.Invoke();
         }
 
         public void RefreshNode()
@@ -148,17 +152,17 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             _answersContainer.Clear();
 
             if (Data.Answers != null)
-            {
                 foreach (string answer in Data.Answers)
                 {
                     TextField answerField = new("Answer") { value = answer };
                     answerField.RegisterValueChangedCallback(evt => UpdateAnswer(answer, evt.newValue));
                     _answersContainer.Add(answerField);
                 }
-            }
 
-            _addAnswerButton.SetEnabled(TreeNode.GetChildren().Count == 0 || (Data.Answers != null && Data.Answers.Length > 0));
-            _addContinuationButton.SetEnabled((Data.Answers == null || Data.Answers.Length == 0) && TreeNode.GetChildren().Count == 0);
+            _addAnswerButton.SetEnabled(TreeNode.GetChildren().Count == 0 ||
+                                        (Data.Answers != null && Data.Answers.Length > 0));
+            _addContinuationButton.SetEnabled((Data.Answers == null || Data.Answers.Length == 0) &&
+                                              TreeNode.GetChildren().Count == 0);
         }
 
         private void UpdateAnswer(string oldAnswer, string newAnswer)
@@ -169,7 +173,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             {
                 answers[index] = newAnswer;
                 Data.SetAnswers(answers.ToArray());
-                onNodeModified?.Invoke();
+                OnNodeModified?.Invoke();
             }
         }
     }
