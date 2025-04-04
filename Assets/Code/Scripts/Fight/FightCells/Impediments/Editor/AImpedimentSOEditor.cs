@@ -1,17 +1,17 @@
+using FrostfallSaga.Fight.FightCells.Impediments;
 using UnityEditor;
 using UnityEngine;
-using FrostfallSaga.Fight.FightCells.Impediments;
 
 namespace FrostfallSaga.FFSEditor.Fight
 {
     [CustomEditor(typeof(AImpedimentSO), true)]
     public class AImpedimentSOEditor : Editor
     {
-        private readonly static string SPAWN_CONTROLLER_PROPERTY_NAME = "SpawnController";
-        private SerializedProperty spawnControllerProperty;
+        private static readonly string SPAWN_CONTROLLER_PROPERTY_NAME = "SpawnController";
 
-        private readonly static string DESTROY_CONTROLLER_PROPERTY_NAME = "DestroyController";
+        private static readonly string DESTROY_CONTROLLER_PROPERTY_NAME = "DestroyController";
         private SerializedProperty destroyControllerProperty;
+        private SerializedProperty spawnControllerProperty;
 
         private void OnEnable()
         {

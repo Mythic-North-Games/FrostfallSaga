@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Grid;
 
 namespace FrostfallSaga.Fight.FightConditions
 {
     /// <summary>
-    /// Check if the fighter is dead.
+    ///     Check if the fighter is dead.
     /// </summary>
     [Serializable]
     public class IsDeadCondition : AFighterCondition
     {
-        public override bool CheckCondition(Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        public override bool CheckCondition(Fighter fighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
         {
             return fighter.GetHealth() <= 0;
         }

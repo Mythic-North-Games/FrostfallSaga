@@ -9,21 +9,61 @@ namespace FrostfallSaga.Utils.Camera
     {
         [SerializeField] private CinemachineVirtualCamera _camera;
 
-        [field: SerializeField, Header("Zoom"), Tooltip("To activate or deactivate zoom.")] public bool AllowZoom { get; private set; } = true;
-        [field: SerializeField, Tooltip("Min FOV possible for zoom.")] public float MinFOV { get; private set; } = 20.0f;
-        [field: SerializeField, Tooltip("Max FOV possible for zoom.")] public float MaxFOV { get; private set; } = 120.0f;
-        [field: SerializeField, Tooltip("Base FOV.")] public float BaseFOV { get; private set; } = 75.0f;
-        [field: SerializeField, Tooltip("Multiplier added to the scroll delta.")] public float ZoomMultiplier { get; private set; } = 5.0f;
+        [field: SerializeField]
+        [field: Header("Zoom")]
+        [field: Tooltip("To activate or deactivate zoom.")]
+        public bool AllowZoom { get; private set; } = true;
 
-        [field: SerializeField, Header("Translation"), Tooltip("To activate or deactivate translation.")] public bool AllowTranslation { get; private set; } = true;
-        [field: SerializeField, Tooltip("The invisible target that the camera will follow.")] public Transform MouseFollowTarget;
-        [field: SerializeField, Tooltip("Offset to keep camera away from edges.")] public Vector2 MouseTargetOffset { get; private set; } = new(0.1f, 0.1f);
-        [field: SerializeField, Tooltip("The maximum translation speed for the follow target.")] public float MaxTranslationSpeed { get; private set; } = 30f;
+        [field: SerializeField]
+        [field: Tooltip("Min FOV possible for zoom.")]
+        public float MinFOV { get; private set; } = 20.0f;
 
-        [field: SerializeField, Tooltip("Min Y position for the follow target (zoomed in).")] public float MinY { get; private set; } = 2f;
-        [field: SerializeField, Tooltip("Max Y position for the follow target (zoomed out).")] public float MaxY { get; private set; } = 10f;
+        [field: SerializeField]
+        [field: Tooltip("Max FOV possible for zoom.")]
+        public float MaxFOV { get; private set; } = 120.0f;
+
+        [field: SerializeField]
+        [field: Tooltip("Base FOV.")]
+        public float BaseFOV { get; private set; } = 75.0f;
+
+        [field: SerializeField]
+        [field: Tooltip("Multiplier added to the scroll delta.")]
+        public float ZoomMultiplier { get; private set; } = 5.0f;
+
+        [field: SerializeField]
+        [field: Header("Translation")]
+        [field: Tooltip("To activate or deactivate translation.")]
+        public bool AllowTranslation { get; private set; } = true;
+
+        [field: SerializeField] [field: Tooltip("The invisible target that the camera will follow.")]
+        public Transform MouseFollowTarget;
+
+        [field: SerializeField]
+        [field: Tooltip("Offset to keep camera away from edges.")]
+        public Vector2 MouseTargetOffset { get; private set; } = new(0.1f, 0.1f);
+
+        [field: SerializeField]
+        [field: Tooltip("The maximum translation speed for the follow target.")]
+        public float MaxTranslationSpeed { get; private set; } = 30f;
+
+        [field: SerializeField]
+        [field: Tooltip("Min Y position for the follow target (zoomed in).")]
+        public float MinY { get; private set; } = 2f;
+
+        [field: SerializeField]
+        [field: Tooltip("Max Y position for the follow target (zoomed out).")]
+        public float MaxY { get; private set; } = 10f;
 
         private Transform _initialTarget;
+
+        #region Setup & teardown
+
+        private void Awake()
+        {
+            if (_camera == null) Debug.LogError("No camera to control");
+        }
+
+        #endregion
 
         private void Start()
         {
@@ -32,17 +72,15 @@ namespace FrostfallSaga.Utils.Camera
 
         private void Update()
         {
-            if (AllowZoom)
-            {
-                SetFOV(_camera.m_Lens.FieldOfView - Input.mouseScrollDelta.y * ZoomMultiplier);
-            }
+            if (AllowZoom) SetFOV(_camera.m_Lens.FieldOfView - Input.mouseScrollDelta.y * ZoomMultiplier);
             if (AllowTranslation)
             {
                 if (Input.GetMouseButtonUp((int)MouseButton.MiddleMouse))
                 {
                     _camera.Follow = _initialTarget;
                 }
-                else if (Input.GetMouseButtonDown((int)MouseButton.RightMouse) && _camera.Follow != null && _camera.Follow != MouseFollowTarget)
+                else if (Input.GetMouseButtonDown((int)MouseButton.RightMouse) && _camera.Follow != null &&
+                         _camera.Follow != MouseFollowTarget)
                 {
                     _initialTarget = _camera.Follow;
                     MouseFollowTarget.position = _camera.transform.position = _initialTarget.position;
@@ -93,26 +131,11 @@ namespace FrostfallSaga.Utils.Camera
 
                 // Clamp the magnitude of the direction vector to the maximum speed
                 if (direction.magnitude > MaxTranslationSpeed * Time.deltaTime)
-                {
                     direction = MaxTranslationSpeed * Time.deltaTime * direction.normalized;
-                }
 
                 // Smoothly move the follow target to the mouse position, clamped by max speed
                 MouseFollowTarget.position += direction;
             }
         }
-
-        #region Setup & teardown
-
-        private void Awake()
-        {
-            if (_camera == null)
-            {
-                Debug.LogError("No camera to control");
-                return;
-            }
-        }
-
-        #endregion
     }
 }

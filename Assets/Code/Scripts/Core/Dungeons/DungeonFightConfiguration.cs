@@ -1,11 +1,11 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Core.Entities;
+using UnityEngine;
 
 namespace FrostfallSaga.Core.Dungeons
 {
     /// <summary>
-    /// Configuration for a dungeon fight.
+    ///     Configuration for a dungeon fight.
     /// </summary>
     [Serializable]
     public class DungeonFightConfiguration

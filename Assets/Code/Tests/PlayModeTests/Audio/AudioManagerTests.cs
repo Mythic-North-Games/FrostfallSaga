@@ -1,15 +1,16 @@
 using System.Collections;
+using System.Reflection;
+using FrostfallSaga.Audio;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using FrostfallSaga.Audio;
 
 namespace FrostfallSaga.PlayModeTests
 {
     public class AudioManagerTests
     {
-        private AudioManager audioManager;
         private AudioListener audioListener;
+        private AudioManager audioManager;
         private AudioSource dummyAudioSource;
         private UIAudioClipsConfig uIAudioClipsConfig;
 
@@ -19,7 +20,8 @@ namespace FrostfallSaga.PlayModeTests
             audioManager = new GameObject("AudioManager").AddComponent<AudioManager>();
             audioListener = new GameObject("AudioListener").AddComponent<AudioListener>();
             dummyAudioSource = new GameObject("DummyAudioSource").AddComponent<AudioSource>();
-            audioManager.GetType().GetField("audioSourceObject", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(audioManager, dummyAudioSource);
+            audioManager.GetType().GetField("audioSourceObject", BindingFlags.NonPublic | BindingFlags.Instance)
+                .SetValue(audioManager, dummyAudioSource);
 
             uIAudioClipsConfig = ScriptableObject.CreateInstance<UIAudioClipsConfig>();
             uIAudioClipsConfig.fightBeginSound = AudioClip.Create("FightBegin", 44100, 1, 44100, false);
@@ -27,7 +29,8 @@ namespace FrostfallSaga.PlayModeTests
             uIAudioClipsConfig.buttonHoverSound = AudioClip.Create("ButtonHover", 44100, 1, 44100, false);
             uIAudioClipsConfig.fightWonSound = AudioClip.Create("FightWon", 44100, 1, 44100, false);
             uIAudioClipsConfig.fightLostSound = AudioClip.Create("FightLost", 44100, 1, 44100, false);
-            audioManager.GetType().GetField("uiAudioClipsConfig", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(audioManager, uIAudioClipsConfig);
+            audioManager.GetType().GetField("uiAudioClipsConfig", BindingFlags.NonPublic | BindingFlags.Instance)
+                .SetValue(audioManager, uIAudioClipsConfig);
             audioManager.InitializeAudioClipSelectorFromTests(uIAudioClipsConfig);
         }
 
@@ -38,13 +41,13 @@ namespace FrostfallSaga.PlayModeTests
             Object.Destroy(audioListener.gameObject);
             Object.Destroy(dummyAudioSource.gameObject);
             Object.Destroy(uIAudioClipsConfig);
-            AudioManager.instance = null;
+            AudioManager.Instance = null;
         }
 
         [Test]
         public void AudioManager_Instance_IsNotNull()
         {
-            Assert.IsNotNull(AudioManager.instance);
+            Assert.IsNotNull(AudioManager.Instance);
         }
 
         [UnityTest]
@@ -57,7 +60,8 @@ namespace FrostfallSaga.PlayModeTests
 
             audioManager.PlaySoundEffectClip(testClip, testTransform, volume);
             audioSources = Object.FindObjectsOfType<AudioSource>();
-            Assert.AreEqual(2, audioSources.Length); //The dummyAudioSource prefab and the audioSOurceObject created by the function
+            Assert.AreEqual(2,
+                audioSources.Length); //The dummyAudioSource prefab and the audioSOurceObject created by the function
 
             yield return new WaitForSeconds(testClip.length + 0.1f);
 

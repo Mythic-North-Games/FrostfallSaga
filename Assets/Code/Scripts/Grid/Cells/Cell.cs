@@ -6,24 +6,39 @@ using UnityEngine;
 namespace FrostfallSaga.Grid.Cells
 {
     /// <summary>
-    /// Represents a cell on an HexGrid.
+    ///     Represents a cell on an HexGrid.
     /// </summary>
     public class Cell : MonoBehaviour
     {
-        [field: SerializeField, Header("Coordinates"), Tooltip("Contain coordinates")] public Vector2Int Coordinates { get; private set; }
-        [property: SerializeField]
-        public Vector2Int AxialCoordinates
-        {
-            get { return HexMetrics.OffsetToAxial(Coordinates); }
-        }
+        [field: SerializeField]
+        [field: Header("Coordinates")]
+        [field: Tooltip("Contain coordinates")]
+        public Vector2Int Coordinates { get; set; }
+
         [field: SerializeField] public float WorldHeightPerUnit { get; private set; } = 0.8f;
-        [field: SerializeField, Header("Cell characteristics"), Tooltip("Contain cell characteristics")] public TerrainTypeSO TerrainType { get; private set; }
-        [field: SerializeField, Tooltip("Biome type")] public BiomeTypeSO BiomeType { get; private set; }
+
+        [field: SerializeField]
+        [field: Header("Cell characteristics")]
+        [field: Tooltip("Contain cell characteristics")]
+        public TerrainTypeSO TerrainType { get; private set; }
+
+        [field: SerializeField]
+        [field: Tooltip("Biome type")]
+        public BiomeTypeSO BiomeType { get; private set; }
+
         [field: SerializeField] public ECellHeight Height { get; private set; }
         [field: SerializeField] public float UpdateHeightDuration { get; private set; }
-        [field: SerializeField, Header("Controllers"), Tooltip("Contain all controllers")] public MaterialHighlightable HighlightController { get; private set; }
+
+        [field: SerializeField]
+        [field: Header("Controllers")]
+        [field: Tooltip("Contain all controllers")]
+        public MaterialHighlightable HighlightController { get; private set; }
+
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
         private AHexGrid _parentGrid;
+        private bool? _overrideAccessibility; 
+
+        public Vector2Int AxialCoordinates => HexMetrics.OffsetToAxial(Coordinates);
 
         private void Awake()
         {
@@ -38,12 +53,14 @@ namespace FrostfallSaga.Grid.Cells
         }
 
         /// <summary>
-        /// Setup the cell with the given property. The cell should already be attached to a spawned GameObject.
-        /// ⚠️ This method should only be called when you want to instanciate a cell in the first place.
+        ///     Setup the cell with the given property. The cell should already be attached to a spawned GameObject.
+        ///     ⚠️ This method should only be called when you want to instanciate a cell in the first place.
         /// </summary>
         /// <param name="coordinates">The cell coordinates on the grid.</param>
         /// <param name="cellHeight">The cell height.</param>
         /// <param name="hexSize">The size of a cell inside the grid.</param>
+        /// <param name="terrainType">The type of terrain</param>
+        /// <param name="biomeType">The type of biome</param>
         public void Setup(
             Vector2Int coordinates,
             ECellHeight cellHeight,
@@ -52,7 +69,6 @@ namespace FrostfallSaga.Grid.Cells
             BiomeTypeSO biomeType
         )
         {
-
             Coordinates = coordinates;
             Height = cellHeight;
             TerrainType = terrainType;
@@ -62,27 +78,29 @@ namespace FrostfallSaga.Grid.Cells
             SetCellMouseEventsControllerFromGameObjectTree();
 
             HighlightController = GetComponentInChildren<MaterialHighlightable>();
-            if (HighlightController != null)
-            {
+            if (HighlightController)
                 HighlightController.transform.localScale = Vector3.one * hexSize / 2.68f;
-            }
             else
-            {
                 Debug.LogError("Cell " + name + " has no visual to be set up. Please add a cell visual as a child.");
-            }
         }
 
         /// <summary>
-        /// Returns if the cell is accessible, regardless of the possible cell occupants.
+        ///     Returns if the cell is accessible, regardless of the possible cell occupants.
         /// </summary>
         /// <returns>True if the terrain is accessible and if there are no obstacles, false otherwise</returns>
         public virtual bool IsTerrainAccessible()
         {
-            return TerrainType.IsAccessible;
+            return _overrideAccessibility ?? TerrainType.IsAccessible;
+        }
+        
+        public void ForceAccessibility(bool value)
+        {
+            _overrideAccessibility = value;
         }
 
+
         /// <summary>
-        /// Returns if the cell is free to be occupied.
+        ///     Returns if the cell is free to be occupied.
         /// </summary>
         /// <returns>True if the cell is accessible and contains no occupants.</returns>
         public virtual bool IsFree()
@@ -91,7 +109,7 @@ namespace FrostfallSaga.Grid.Cells
         }
 
         /// <summary>
-        /// Updates the cell height and y position in the world.
+        ///     Updates the cell height and y position in the world.
         /// </summary>
         /// <param name="newCellHeight">The new cell height.</param>
         public void UpdateHeight(ECellHeight newCellHeight, float cellAlterationDuration)
@@ -103,22 +121,35 @@ namespace FrostfallSaga.Grid.Cells
         public void SetTerrain(TerrainTypeSO terrainType)
         {
             TerrainType = terrainType;
-            Renderer renderer = GetComponentInChildren<Renderer>();
-            if (renderer != null && TerrainType != null && TerrainType.CellMaterial != null)
+
+            GameObject[] visualsToUse = IsTerrainAccessible()
+                ? TerrainType.VisualsWhenAccessible
+                : TerrainType.VisualsWhenBlocked;
+
+            if (visualsToUse is { Length: > 0 })
             {
-                if (TerrainType.VisualsTerrain != null && TerrainType.VisualsTerrain.Length != 0)
-                {
-                    GameObject visualTerrain = Randomizer.GetRandomElementFromArray(TerrainType.VisualsTerrain);
-                    GameObject newVisualTerrain = Instantiate<GameObject>(visualTerrain, transform.position, Randomizer.GetRandomRotationY(transform.rotation), transform);
-                    newVisualTerrain.name = "Visual" + name;
-                    LayerUtils.SetLayerRecursively(newVisualTerrain, 2);
-                }
+                GameObject visual = Randomizer.GetRandomElementFromArray(visualsToUse);
+                GameObject newVisual = Instantiate(
+                    visual,
+                    transform.position,
+                    Randomizer.GetRandomRotationY(transform.rotation),
+                    transform
+                );
+                newVisual.name = "Visual" + name;
+                LayerUtils.SetLayerRecursively(newVisual, 2);
+            }
+
+            Renderer renderer = GetComponentInChildren<Renderer>();
+            if (renderer && TerrainType?.CellMaterial != null)
+            {
+                renderer.sharedMaterial = TerrainType.CellMaterial;
             }
             else
             {
-                Debug.LogError("Cell " + name + " doesn't have a renderer or a valid material.");
+                Debug.LogError($"Cell {name} is missing a renderer or a valid CellMaterial.");
             }
         }
+
 
         public Vector3 GetCenter()
         {
@@ -134,7 +165,9 @@ namespace FrostfallSaga.Grid.Cells
 
         private void SetPositionForCellHeight(ECellHeight cellHeight, float duration)
         {
-            if (duration == 0)
+            const float epsilon = 0.0001f;
+    
+            if (Mathf.Abs(duration) < epsilon)
             {
                 transform.position = new Vector3(transform.position.x, (float)cellHeight, transform.position.z);
             }
@@ -160,31 +193,24 @@ namespace FrostfallSaga.Grid.Cells
 
             transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
         }
+
         private void SetParentGridFromGameObjectTree()
         {
             _parentGrid ??= GetComponentInParent<AHexGrid>();
-            if (_parentGrid == null)
-            {
-                Debug.LogError("Cell " + name + " doesn't have parent Grid.");
-            }
+            if (!_parentGrid) Debug.LogError("Cell " + name + " doesn't have parent Grid.");
         }
 
         private void SetCellVisualFromGameObjectTree()
         {
             HighlightController ??= GetComponentInChildren<MaterialHighlightable>();
-            if (HighlightController == null)
-            {
-                Debug.LogError("Cell " + name + " doesn't have a cell visual as child.");
-            }
+            if (!HighlightController) Debug.LogError("Cell " + name + " doesn't have a cell visual as child.");
         }
 
         private void SetCellMouseEventsControllerFromGameObjectTree()
         {
             CellMouseEventsController ??= GetComponentInChildren<CellMouseEventsController>();
-            if (CellMouseEventsController == null)
-            {
+            if (!CellMouseEventsController)
                 Debug.LogError("Cell " + name + " doesn't have a cell mouse controller as child.");
-            }
         }
 
         public static Vector2Int GetHexDirection(Cell initiatorCell, Cell targetCell)
@@ -193,15 +219,10 @@ namespace FrostfallSaga.Grid.Cells
             Vector2Int targetAxial = targetCell.AxialCoordinates;
             return targetAxial - initiatorAxial;
         }
-
-        public void SetParentGridForTests(AHexGrid grid)
-        {
-            _parentGrid = grid;
-        }
-
+        
         public override string ToString()
         {
-            return $"Cell: \n" +
+            return "Cell: \n" +
                    $"- Coordinates: {Coordinates}\n" +
                    $"- AxialCoordinates: {AxialCoordinates}\n" +
                    $"- WorldHeightPerUnit: {WorldHeightPerUnit}\n" +

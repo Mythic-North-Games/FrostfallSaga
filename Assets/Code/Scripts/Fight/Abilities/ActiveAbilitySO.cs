@@ -1,26 +1,35 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using FrostfallSaga.Core.Fight;
-using FrostfallSaga.Fight.Targeters;
-using FrostfallSaga.Fight.Effects;
-using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.FightCells.FightCellAlterations;
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Abilities.AbilityAnimation;
+using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.FightCells;
-
+using FrostfallSaga.Fight.FightCells.FightCellAlterations;
+using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Targeters;
+using FrostfallSaga.Utils.UI;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities
 {
     /// <summary>
-    /// Reperesents an active ability that can be used during a fight.
+    ///     Reperesents an active ability that can be used during a fight.
     /// </summary>
     [CreateAssetMenu(fileName = "ActiveAbility", menuName = "ScriptableObjects/Fight/Abilities/ActiveAbility", order = 0)]
     public class ActiveAbilitySO : ABaseAbility
     {
         [field: SerializeField] public Targeter Targeter { get; private set; }
-        [field: SerializeField, Range(0, 99)] public int ActionPointsCost { get; private set; }
-        [field: SerializeField, Range(0, 99)] public int GodFavorsPointsCost { get; private set; }
+
+        [field: SerializeField]
+        [field: Range(0, 99)]
+        public int ActionPointsCost { get; private set; }
+
+        [field: SerializeField]
+        [field: Range(0, 99)]
+        public int GodFavorsPointsCost { get; private set; }
+
         [field: SerializeField] public bool Dodgable { get; private set; }
         [field: SerializeField] public bool Masterstrokable { get; private set; }
         [SerializeReference] public AEffect[] Effects;
@@ -28,10 +37,15 @@ namespace FrostfallSaga.Fight.Abilities
         [SerializeReference] public AFightCellAlteration[] CellAlterations = { };
         [field: SerializeField] public AAbilityAnimationSO Animation { get; private set; }
 
-        public Action<ActiveAbilitySO> onActiveAbilityEnded;
-
         private Fighter _currentInitiator;
 
+        public Action<ActiveAbilitySO> OnActiveAbilityEnded;
+
+        /// <summary>
+        /// Trigger the ability on the targeted cells.
+        /// </summary>
+        /// <param name="targetedCells">The cells that are targeted by the ability.</param>
+        /// <param name="initiator">The fighter that initiated the ability.</param>
         public void Trigger(FightCell[] targetedCells, Fighter initiator)
         {
             if (Animation == null)
@@ -45,7 +59,7 @@ namespace FrostfallSaga.Fight.Abilities
                             ApplyAlterationsToCell(cell);
                         }
                     );
-                onActiveAbilityEnded?.Invoke(this);
+                OnActiveAbilityEnded?.Invoke(this);
             }
             else
             {
@@ -57,10 +71,29 @@ namespace FrostfallSaga.Fight.Abilities
             }
         }
 
+        /// <summary>
+        /// Compute the potential damages that the ability can do to the target.
+        /// </summary>
+        /// <param name="initiator">The initiator of the ability.</param>
+        /// <param name="target">The target that will receive the ability effects.</param>
+        /// <returns>The potential damages that the ability can do in this configuration to the target.</returns>
         public int GetDamagesPotential(Fighter initiator, Fighter target)
         {
             return Effects.Sum(
                 effect => effect.GetPotentialEffectDamages(initiator, target, Masterstrokable)
+            );
+        }
+
+        /// <summary>
+        /// Compute the potential heal that the ability can do to the target.
+        /// </summary>
+        /// <param name="initiator">The initiator of the ability.</param>
+        /// <param name="target">The target that will receive the ability effects.</param>
+        /// <returns>The potential heal that the ability can do in this configuration to the target.</returns>
+        public int GetHealPotential(Fighter initiator, Fighter target)
+        {
+            return Effects.Sum(
+                effect => effect.GetPotentialEffectHeal(initiator, target, Masterstrokable)
             );
         }
 
@@ -81,7 +114,7 @@ namespace FrostfallSaga.Fight.Abilities
             Animation.onFighterTouched -= OnActiveAbilityTouchedFighter;
             Animation.onCellTouched -= OnActiveAbilityTouchedCell;
             Animation.onAnimationEnded -= OnActiveAbilityAnimationEnded;
-            onActiveAbilityEnded?.Invoke(this);
+            OnActiveAbilityEnded?.Invoke(this);
         }
 
         private void ApplyAbilityToFighter(Fighter receiver, Fighter initiator)
@@ -97,36 +130,60 @@ namespace FrostfallSaga.Fight.Abilities
             foreach (AEffect effect in Effects)
             {
                 effect.ApplyEffect(
-                    receiver: receiver,
-                    isMasterstroke: isMasterstroke,
-                    initiator: initiator,
-                    adjustGodFavorsPoints: true
+                    receiver,
+                    isMasterstroke,
+                    initiator
                 );
+                if (receiver.IsDead()) break;
             }
 
-            if (isMasterstroke)
+            if (isMasterstroke && !receiver.IsDead())
             {
                 Debug.Log($"{initiator.name} masterstrokes the ability {Name}");
                 foreach (AEffect effect in MasterstrokeEffects)
-                {
                     effect.ApplyEffect(
-                        receiver: receiver,
-                        isMasterstroke: false,  // Masterstroke effects can't be masterstroked
-                        initiator: initiator,
-                        adjustGodFavorsPoints: false
+                        receiver,
+                        false, // Masterstroke effects can't be masterstroked
+                        initiator,
+                        false
                     );
-                }
             }
         }
 
         private void ApplyAlterationsToCell(FightCell cell)
         {
-            foreach (AFightCellAlteration alteration in CellAlterations)
-            {
-                alteration.Apply(cell);
-            }
+            foreach (AFightCellAlteration alteration in CellAlterations) alteration.Apply(cell);
         }
-    }
 
-    #endregion
+        #endregion
+
+        #region For the UI
+
+        public Dictionary<Sprite, string> GetStatsUIData()
+        {
+            UIIconsProvider iconsProvider = UIIconsProvider.Instance;
+            return new()
+            {
+                { iconsProvider.GetIcon(UIIcons.ACTION_POINTS_COST.GetIconResourceName()), ActionPointsCost.ToString() },
+                { iconsProvider.GetIcon(UIIcons.PHYSICAL_RESISTANCE.GetIconResourceName()), Targeter.OriginCellRange.ToString() }
+            };
+        }
+
+        public List<string> GetEffectsUIData()
+        {
+            return Effects
+                .Select(effect => effect.GetUIEffectDescription())
+                .Concat(CellAlterations.Select(alteration => alteration.Description))
+                .ToList();
+        }
+
+        public List<string> GetMasterstrokeEffectsUIData()
+        {
+            return MasterstrokeEffects
+                .Select(effect => effect.GetUIEffectDescription())
+                .ToList();
+        }
+
+        #endregion
+    }
 }

@@ -4,6 +4,5 @@ namespace FrostfallSaga.Grid.Cells
 {
     public class CellMouseEventsController : BaseMouseEventsController<Cell>
     {
-
     }
 }

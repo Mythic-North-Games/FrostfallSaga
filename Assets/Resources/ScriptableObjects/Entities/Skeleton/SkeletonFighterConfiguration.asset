@@ -12,18 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50862a0fc6cf7d64c9f705ea8e91f54b, type: 3}
   m_Name: SkeletonFighterConfiguration
   m_EditorClassIdentifier: 
-  <FighterPrefab>k__BackingField: {fileID: 2920049516156015753, guid: 5f48713191363598c8702ca1cfb325f1, type: 3}
+  <FighterPrefab>k__BackingField: {fileID: 2920049516156015753, guid: 50f517861ac6c6546b6825a6766adf4f, type: 3}
   <FighterClass>k__BackingField: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
-  <PersonalityTrait>k__BackingField: {fileID: 11400000, guid: 770ae372dc3abe843a19020cabaa49fb, type: 2}
+  <PersonalityTrait>k__BackingField: {fileID: 11400000, guid: fb35749618274e019a3ffb157934cc4f, type: 2}
   <AvailableActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-  <ActiveAbilitiesCapacity>k__BackingField: 1
+  - {fileID: 11400000, guid: 436fd3c6fdddb5b05a6357cf2d05e708, type: 2}
+  <ActiveAbilitiesCapacity>k__BackingField: 2
   <AvailablePassiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
   <PassiveAbilitiesCapacity>k__BackingField: 1
+  <AvailableItems>k__BackingField:
+  - element: {fileID: 11400000, guid: 57da2480a19997f6da45abf7f0877db4, type: 2}
+    value:
+      element: 1
+      value: 3
+  - element: {fileID: 11400000, guid: f9f8d3f2ae1c570718ab3063f1c07830, type: 2}
+    value:
+      element: 0.5
+      value: 1
+  - element: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
+    value:
+      element: 1
+      value: 1
+  <MinStycasLoot>k__BackingField: 5
+  <MaxStycasLoot>k__BackingField: 20
   <MaxHealth>k__BackingField: 70
   <MaxActionPoints>k__BackingField: 3
-  <MaxMovePoints>k__BackingField: 3
+  <MaxMovePoints>k__BackingField: 5
   <Strength>k__BackingField: 4
   <Dexterity>k__BackingField: 2
   <Tenacity>k__BackingField: 0
@@ -61,3 +77,4 @@ MonoBehaviour:
   <ReceiveDamageAnimationName>k__BackingField: 
   <ReduceStatAnimationName>k__BackingField: 
   <IncreaseStatAnimationName>k__BackingField: 
+  <ConsumableUseAnimationName>k__BackingField: 

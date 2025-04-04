@@ -1,5 +1,6 @@
 using FrostfallSaga.Fight.Fighters;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
 {
@@ -17,7 +18,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
         [TearDown]
         public void TearDown()
         {
-            UnityEngine.Object.DestroyImmediate(fighter.gameObject);
+            Object.DestroyImmediate(fighter.gameObject);
             fighter = null;
         }
 

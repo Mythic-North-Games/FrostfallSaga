@@ -9,6 +9,7 @@
         "FrostfallSaga.GameObjectVisuals",
         "FrostfallSaga.InventorySystem",
         "FrostfallSaga.Utils",
+        "FrostfallSaga.Audio",
         "FrostfallSaga.Procedural"
     ],
     "includePlatforms": [],

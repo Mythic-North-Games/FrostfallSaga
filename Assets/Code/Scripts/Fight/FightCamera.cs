@@ -5,45 +5,39 @@ using UnityEngine;
 namespace FrostfallSaga.Fight
 {
     /// <summary>
-    /// Camera used during fight to follow to currently playing fighter.
+    ///     Camera used during fight to follow to currently playing fighter.
     /// </summary>
     public class FightCamera : MonoBehaviour
     {
-        [SerializeField] CinemachineVirtualCamera _camera;
-        [SerializeField] FightManager _fightManager;
+        [SerializeField] private CinemachineVirtualCamera _camera;
+        [SerializeField] private FightManager fightManager;
 
         private void OnEnable()
         {
-            if (_camera == null)
-            {
-                _camera = GetComponent<CinemachineVirtualCamera>();
-            }
+            if (_camera == null) _camera = GetComponent<CinemachineVirtualCamera>();
             if (_camera == null)
             {
                 Debug.LogError("Fight camera does not find a cinemachine virtual camera to work with.");
                 return;
             }
 
-            if (_fightManager == null)
-            {
-                _fightManager = FindAnyObjectByType<FightManager>();
-            }
-            if (_fightManager == null)
+            if (fightManager == null) fightManager = FindAnyObjectByType<FightManager>();
+            if (fightManager == null)
             {
                 Debug.LogError("Fight camera does not find a fight manager to work with.");
                 return;
             }
 
-            _fightManager.onFighterTurnBegan += OnFighterTurnBegan;
-            _fightManager.onFightEnded += OnFightEnded;
+            fightManager.onFighterTurnBegan += OnFighterTurnBegan;
+            fightManager.onFightEnded += OnFightEnded;
         }
 
-        private void OnFighterTurnBegan(Fighter fighter, bool _isAlly)
+        private void OnFighterTurnBegan(Fighter fighter, bool isAlly)
         {
             _camera.Follow = fighter.CameraAnchor;
         }
 
-        private void OnFightEnded(Fighter[] _allies, Fighter[] _enemies)
+        private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
         {
             _camera.enabled = false;
         }

@@ -1,76 +1,73 @@
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 using FrostfallSaga.Core.Fight;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Effects;
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightConditions;
+using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities
 {
     /// <summary>
-    /// Represents a passive ability that can be applied from a fighter to possibly all the fighters during a fight.
-    /// You set a list of conditions. If all the conditions are met, the passive ability is applied to the given list of targets.
-    /// If no conditions are set, the passive ability will be applied to the targets automatically when the fight begins.
+    ///     Represents a passive ability that can be applied from a fighter to possibly all the fighters during a fight.
+    ///     You set a list of conditions. If all the conditions are met, the passive ability is applied to the given list of
+    ///     targets.
+    ///     If no conditions are set, the passive ability will be applied to the targets automatically when the fight begins.
     /// </summary>
     [CreateAssetMenu(fileName = "PassiveAbility", menuName = "ScriptableObjects/Fight/Abilities/PassiveAbility", order = 0)]
     public class PassiveAbilitySO : ABaseAbility
     {
-        [field: SerializeField] public AEffect[] Effects { get; private set; }
+        [SerializeReference] public AEffect[] Effects;
 
-        [
-            SerializeReference,
-            Header("Passive ability specific configuration"),
-            Tooltip("The conditions that need to be met for the passive ability to be applied.")
-        ]
+        [SerializeReference]
+        [Header("Passive ability specific configuration")]
+        [Tooltip("The conditions that need to be met for the passive ability to be applied.")]
         public AFighterCondition[] ActivationConditions;
 
-        [field: SerializeField, Tooltip("To whom the effects should be applied.")] public ETarget[] Targets { get; private set; }
+        [field: SerializeField]
+        [field: Tooltip("To whom the effects should be applied.")]
+        public ETarget[] Targets { get; private set; }
 
-        [
-            field: SerializeField,
-            Tooltip("The effects will be applied at every round if conditions are met.")
-        ]
+        [field: SerializeField]
+        [field: Tooltip("The effects will be applied at every round if conditions are met.")]
         public bool IsRecurring { get; private set; }
 
-        [
-            field: SerializeField,
-            Tooltip("The effects will last for the entire fight if conditions are met once.")
-        ]
+        [field: SerializeField]
+        [field: Tooltip("The effects will last for the entire fight if conditions are met once.")]
         public bool LastsForFight { get; private set; }
 
         public FighterBuffVisualsController VisualsController;
 
         /// <summary>
-        /// Applies the passive ability to the given fighter. Effects application, visuals, sounds and events are handled here.
+        ///     Applies the passive ability to the given fighter. Effects application, visuals, sounds and events are handled here.
         /// </summary>
         /// <param name="initiator">The fighter that will receive the passive ability.</param>
         public void Apply(Fighter initiator, Dictionary<Fighter, bool> fighterTeams)
         {
             if (Targets.Length == 0)
             {
-                Debug.LogError($"No targets are set for the passive ability {Name}. The passive ability can't be applied.");
+                Debug.LogError(
+                    $"No targets are set for the passive ability {Name}. The passive ability can't be applied.");
                 return;
             }
+
             if (Effects.Length == 0)
             {
-                Debug.LogError($"No effects are set for the passive ability {Name}. The passive ability can't be applied.");
+                Debug.LogError(
+                    $"No effects are set for the passive ability {Name}. The passive ability can't be applied.");
                 return;
             }
 
             Fighter[] targets = GetTargets(initiator, fighterTeams);
             foreach (Fighter target in targets)
-            {
                 Effects.ToList().ForEach(
                     effect => effect.ApplyEffect(
-                        receiver: target,
-                        isMasterstroke: false,
-                        initiator: initiator,
-                        adjustGodFavorsPoints: false
+                        target,
+                        false,
+                        initiator,
+                        false
                     )
                 );
-            }
 
             if (VisualsController == null)
             {
@@ -79,10 +76,7 @@ namespace FrostfallSaga.Fight.Abilities
             }
 
             VisualsController.ShowApplicationVisuals(initiator);
-            if (!VisualsController.IsShowingRecurringVisuals)
-            {
-                VisualsController.ShowRecurringVisuals(initiator);
-            }
+            if (!VisualsController.IsShowingRecurringVisuals) VisualsController.ShowRecurringVisuals(initiator);
 
             initiator.onPassiveAbilityApplied?.Invoke(initiator, this);
         }
@@ -90,27 +84,19 @@ namespace FrostfallSaga.Fight.Abilities
         public void Remove(Fighter initiator, Dictionary<Fighter, bool> fighterTeams)
         {
             Fighter[] targets = GetTargets(initiator, fighterTeams);
-            foreach (Fighter target in targets)
-            {
-                Effects.ToList().ForEach(effect => effect.RestoreEffect(target));
-            }
+            foreach (Fighter target in targets) Effects.ToList().ForEach(effect => effect.RestoreEffect(target));
 
-            if (VisualsController == null)
-            {
-                return;
-            }
+            if (VisualsController == null) return;
 
             VisualsController.HideRecurringVisuals();
 
             initiator.onPassiveAbilityRemoved?.Invoke(initiator, this);
         }
 
-        public bool CheckConditions(Fighter fighter, AHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
+        public bool CheckConditions(Fighter fighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
         {
-            return (
-                ActivationConditions.Length == 0 ||
-                ActivationConditions.All(condition => condition.CheckCondition(fighter, fightGrid, fighterTeams))
-            );
+            return ActivationConditions.Length == 0 ||
+                   ActivationConditions.All(condition => condition.CheckCondition(fighter, fightGrid, fighterTeams));
         }
 
         private Fighter[] GetTargets(Fighter initiator, Dictionary<Fighter, bool> fighterTeams)
@@ -118,7 +104,6 @@ namespace FrostfallSaga.Fight.Abilities
             List<Fighter> targets = new();
 
             foreach (ETarget target in Targets)
-            {
                 switch (target)
                 {
                     case ETarget.SELF:
@@ -127,21 +112,18 @@ namespace FrostfallSaga.Fight.Abilities
                     case ETarget.ALLIES:
                         targets.AddRange(
                             fighterTeams
-                            .Where(fighterTeam => fighterTeam.Value == fighterTeams[initiator])
-                            .Select(pair => pair.Key)
+                                .Where(fighterTeam => fighterTeam.Value == fighterTeams[initiator])
+                                .Select(pair => pair.Key)
                         );
                         break;
-                    case ETarget.OPONENTS:
+                    case ETarget.OPONNENTS:
                         targets.AddRange(
                             fighterTeams
                                 .Where(fighterTeam => fighterTeam.Value != fighterTeams[initiator])
                                 .Select(pair => pair.Key)
                         );
                         break;
-                    default:
-                        break;
                 }
-            }
 
             return targets.ToArray();
         }

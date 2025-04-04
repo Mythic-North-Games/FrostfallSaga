@@ -1,22 +1,17 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Fight.Fighters;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Statuses
 {
     [Serializable]
     public class WeaknessStatus : AStatus
     {
-        private static readonly string NAME = "Weakness";
-        private static readonly string DESCRIPTION = "The fighter's strength is reduced.";
-
         [field: SerializeField] public int StrengthReduction { get; private set; }
 
         public WeaknessStatus()
         {
             StatusType = EStatusType.WEAKNESS;
-            Name = NAME;
-            Description = DESCRIPTION;
         }
 
         public WeaknessStatus(
@@ -28,7 +23,7 @@ namespace FrostfallSaga.Fight.Statuses
             FighterBuffVisualsController visualsController,
             int strengthReduction
         )
-            : base(EStatusType.WEAKNESS, NAME, DESCRIPTION, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+            : base(EStatusType.WEAKNESS, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
         {
             StrengthReduction = strengthReduction;
         }
@@ -36,7 +31,8 @@ namespace FrostfallSaga.Fight.Statuses
         protected override void DoApplyStatus(Fighter fighter)
         {
             fighter.UpdateMutableStat(EFighterMutableStat.Strength, -StrengthReduction);
-            Debug.Log($"{fighter.name}'s strength is reduced by {StrengthReduction} == > Strength : {fighter.GetStrength()}.");
+            Debug.Log(
+                $"{fighter.name}'s strength is reduced by {StrengthReduction} == > Strength : {fighter.GetStrength()}.");
         }
 
         protected override void DoRemoveStatus(Fighter fighter)
@@ -44,10 +40,20 @@ namespace FrostfallSaga.Fight.Statuses
             fighter.UpdateMutableStat(
                 EFighterMutableStat.Strength,
                 StrengthReduction,
-                triggerAnimation: false,
-                triggerEvent: false
+                false,
+                false
             );
             Debug.Log($"{fighter.name}'s strength is back to normal !");
+        }
+
+        public override int GetPotentialDamages()
+        {
+            return 0;
+        }
+
+        public override int GetPotentialHeal()
+        {
+            return 0;
         }
     }
 }

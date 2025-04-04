@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6658341164734776728}
   - component: {fileID: 315477563236345463}
   - component: {fileID: 7719245428907193690}
-  - component: {fileID: 8872818535934664429}
   - component: {fileID: 7697893219395721440}
+  - component: {fileID: 8974352966118176967}
   m_Layer: 3
   m_Name: Cell
   m_TagString: Cell
@@ -136,7 +136,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &8872818535934664429
+--- !u!114 &7697893219395721440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6338246483437390999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb2fc893cf276b4c93f210a14678fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8974352966118176967
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,15 +162,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <InitialMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
   <CurrentDefaultMaterial>k__BackingField: {fileID: 2100000, guid: e23276bd7635c7f4e9738e2e5c178429, type: 2}
---- !u!114 &7697893219395721440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6338246483437390999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebb2fc893cf276b4c93f210a14678fad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

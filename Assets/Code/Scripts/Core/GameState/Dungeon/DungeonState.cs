@@ -14,7 +14,7 @@ namespace FrostfallSaga.Core.GameState.Dungeon
             CurrentDungeonFightIndex = 0;
             AlliesWonLastFight = true;
         }
-        
+
         public bool IsDungeonCompleted()
         {
             return CurrentDungeonFightIndex == DungeonConfiguration.PreBossFightConfigurations.Length + 1;

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace FrostfallSaga.Kingdom.InterestPoints
 {
     /// <summary>
-    /// Represents an interest point placed on a cell in the kingdom grid.
+    ///     Represents an interest point placed on a cell in the kingdom grid.
     /// </summary>
     public class InterestPoint : KingdomCellOccupier
     {

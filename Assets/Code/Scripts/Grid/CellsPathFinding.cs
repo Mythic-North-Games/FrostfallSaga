@@ -1,17 +1,18 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Utils;
+using UnityEngine;
 
 namespace FrostfallSaga.Grid
 {
     /// <summary>
-    /// Expose methods for pathfinding between Cell in an HexGrid.
+    ///     Expose methods for pathfinding between Cell in an HexGrid.
     /// </summary>
     public static class CellsPathFinding
     {
         /// <summary>
-        /// Returns the shorter path between the given two cells that are inside the given grid.
+        ///     Returns the shorter path between the given two cells that are inside the given grid.
         /// </summary>
         /// <param name="hexGrid">The grid that contains at least the two cells.</param>
         /// <param name="startCell">One of the two cell to find the shorter path between.</param>
@@ -31,7 +32,7 @@ namespace FrostfallSaga.Grid
             bool checkLastCell = true
         )
         {
-            Cell[] mandatoryCells = checkLastCell ? new Cell[0] : new Cell[] { endCell };
+            Cell[] mandatoryCells = checkLastCell ? Array.Empty<Cell>() : new[] { endCell };
 
             PriorityQueue<Cell> frontier = new();
             frontier.Enqueue(startCell, 0);
@@ -46,20 +47,17 @@ namespace FrostfallSaga.Grid
             {
                 Cell currentCell = frontier.Dequeue();
 
-                if (currentCell == endCell)
-                {
-                    break;
-                }
+                if (currentCell == endCell) break;
 
                 foreach (Cell neighbor in CellsNeighbors.GetNeighbors(
-                        hexGrid,
-                        currentCell,
-                        includeInaccessibleNeighbors,
-                        includeHeightInaccessibleNeighbors,
-                        includeOccupiedNeighbors,
-                        mandatoryCells
-                    )
-                )
+                             hexGrid,
+                             currentCell,
+                             includeInaccessibleNeighbors,
+                             includeHeightInaccessibleNeighbors,
+                             includeOccupiedNeighbors,
+                             mandatoryCells
+                         )
+                        )
                 {
                     float newCost = costSoFar[currentCell] + GetCost(currentCell, neighbor);
                     if (!costSoFar.ContainsKey(neighbor) || newCost < costSoFar[neighbor])
@@ -78,7 +76,7 @@ namespace FrostfallSaga.Grid
             }
             catch (KeyNotFoundException)
             {
-                return new Cell[0];
+                return Array.Empty<Cell>();
             }
         }
 
@@ -102,6 +100,7 @@ namespace FrostfallSaga.Grid
                 path.Add(current);
                 current = cameFrom[current];
             }
+
             path.Reverse();
             return path.ToArray();
         }

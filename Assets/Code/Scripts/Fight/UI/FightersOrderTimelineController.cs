@@ -1,119 +1,137 @@
-using System.Linq;
-using System.Collections.Generic;
+using System;
+using FrostfallSaga.Core.UI;
+using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.Statuses;
 using UnityEngine;
 using UnityEngine.UIElements;
-using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Utils.UI;
 
 namespace FrostfallSaga.Fight.UI
 {
     public class FightersOrderTimelineController : BaseUIController
     {
-        private static readonly string TIMELINE_UI_NAME = "TimelinePanel";
-        private static readonly string CHARACTER_CONTAINER_UI_NAME = "TimelineCharacterContainer";
-        private static readonly string CHARACTER_BACKGROUND_UI_NAME = "TimelineCharacterBackground";
+        #region UXML UI Names & Classes
+        private static readonly string TIMELINE_ROOT_UI_NAME = "TimelinePanelRoot";
+        private static readonly string TIMELINE_PANEL_UI_NAME = "TimelinePanel";
+        private static readonly string TIMELINE_CONTENT_CONTAINER_UI_NAME = "TimelineContentContainer";
+        private static readonly string FIGHTER_RESISTANCE_PANEL_UI_NAME = "FighterResistancesPanel";
+        private static readonly string STATUS_DETAILS_PANEL_UI_NAME = "StatusDetailsPanel";
 
+        private static readonly string TIMELINE_CHARACTER_CONTAINER_ROOT_CLASSNAME = "timelineCharacterContainerRoot";
+        #endregion
+
+        public Action<Fighter> onFighterHovered;
+        public Action<Fighter> onFighterUnhovered;
+
+        [SerializeField] private VisualTreeAsset _characterContainerTemplate;
+        [SerializeField] private VisualTreeAsset _statContainerTemplate;
+        [SerializeField] private VisualTreeAsset _statusIconContainerTemplate;
         [SerializeField] private FightManager _fightManager;
-        [SerializeField] private FighterDetailsPanelController _fighterDetailsPanelController;
-        [SerializeField] private Vector2Int _fighterDetailsOffset = new(-20, -50);
 
-        private void OnFightersTurnOrderUpdated(Fighter[] fighters)
-        {
-            VisualElement[] characterContainers = GetCharacterContainers();
-
-            int containerIndex = 0;
-            while (containerIndex < characterContainers.Length)
-            {
-                VisualElement characterContainer = characterContainers[containerIndex];
-                RemoveAllVisualElementChildren(characterContainer); // Clean before updating
-                if (containerIndex < fighters.Length)
-                {
-                    SetupCharacterContainerForFighter(characterContainer, fighters[containerIndex]);
-                }
-                else
-                {
-                    characterContainer.style.display = DisplayStyle.None;
-                }
-                containerIndex++;
-            }
-        }
-
-        private void RemoveAllVisualElementChildren(VisualElement visualElement)
-        {
-            visualElement.Children().ToList().ForEach(child => visualElement.Remove(child));
-        }
-
-        private void SetupCharacterContainerForFighter(VisualElement characterContainer, Fighter fighter)
-        {
-            VisualElement characterBackground = new()
-            {
-                name = $"{CHARACTER_BACKGROUND_UI_NAME}{characterContainer.name[^1]}"
-            };
-            characterBackground.style.backgroundImage = new(fighter.Icon);
-            characterBackground.style.width = new(new Length(90, LengthUnit.Percent));
-            characterBackground.style.height = new(new Length(90, LengthUnit.Percent));
-            characterBackground.style.marginLeft = new(new Length(5, LengthUnit.Percent));
-            characterBackground.style.marginTop = new(new Length(5, LengthUnit.Percent));
-            characterBackground.RegisterCallback<MouseOverEvent>(evt =>
-                {
-                    Vector2Int timelinePosition = new(
-                        (int)_uiDoc.rootVisualElement.Q(TIMELINE_UI_NAME).worldBound.x,
-                        (int)_uiDoc.rootVisualElement.Q(TIMELINE_UI_NAME).worldBound.y
-                    );
-                    Vector2Int panelSize = _fighterDetailsPanelController.GetPanelSize();
-                    Vector2Int displayPosition = new(
-                        timelinePosition.x - panelSize.x + _fighterDetailsOffset.x,
-                        timelinePosition.y + _fighterDetailsOffset.y
-                    );
-                    _fighterDetailsPanelController.Display(fighter, displayPosition);
-                }
-            );
-            characterBackground.RegisterCallback<MouseOutEvent>(
-                evt => _fighterDetailsPanelController.Hide()
-            );
-            characterContainer.Add(characterBackground);
-        }
-
-        private VisualElement[] GetCharacterContainers()
-        {
-            List<VisualElement> characterContainers = new();
-
-            int availableCharacterContainersCount = _uiDoc.rootVisualElement.Q(TIMELINE_UI_NAME).childCount - 1;
-            for (int containerIndex = 0; containerIndex < availableCharacterContainersCount; containerIndex++)
-            {
-                characterContainers.Add(_uiDoc.rootVisualElement.Q($"{CHARACTER_CONTAINER_UI_NAME}{containerIndex}"));
-            }
-
-            return characterContainers.ToArray();
-        }
+        private VisualElement _timelineContentContainer;
+        private FighterResistancesPanelController _resistancesPanelController;
+        private StatusDetailsPanelUIController _statusesDetailsPanelController;
 
         #region Setup & tear down
 
         private void Awake()
         {
-            if (_uiDoc == null)
-            {
-                _uiDoc = GetComponent<UIDocument>();
-            }
+            if (_uiDoc == null) _uiDoc = GetComponent<UIDocument>();
             if (_uiDoc == null)
             {
                 Debug.LogError("No UI Document to work with.");
                 return;
             }
 
-            if (_fightManager == null)
-            {
-                _fightManager = FindObjectOfType<FightManager>();
-            }
+            if (_fightManager == null) _fightManager = FindObjectOfType<FightManager>();
             if (_fightManager == null)
             {
                 Debug.LogError("No FightManager to work with. UI can't be updated dynamically.");
                 return;
             }
 
+            if (_characterContainerTemplate == null)
+            {
+                Debug.LogError("No character container template to work with. UI can't be updated dynamically.");
+                return;
+            }
+
+            VisualElement timelineRoot = _uiDoc.rootVisualElement.Q<VisualElement>(TIMELINE_ROOT_UI_NAME);
+
+            ScrollView timelinePanel = timelineRoot.Q<ScrollView>(TIMELINE_PANEL_UI_NAME);
+            timelinePanel.contentContainer.StretchToParentSize();
+            timelinePanel.contentContainer.style.minHeight = new StyleLength(new Length(100, LengthUnit.Percent));
+            _timelineContentContainer = timelineRoot.Q<VisualElement>(TIMELINE_CONTENT_CONTAINER_UI_NAME);
+
+            _resistancesPanelController = new(
+                timelineRoot.Q<VisualElement>(FIGHTER_RESISTANCE_PANEL_UI_NAME),
+                _statContainerTemplate
+            );
+            _resistancesPanelController.Hide();
+
+            _statusesDetailsPanelController = new(timelineRoot.Q<VisualElement>(STATUS_DETAILS_PANEL_UI_NAME));
+            _statusesDetailsPanelController.Hide();
+
             _fightManager.onFightersTurnOrderUpdated += OnFightersTurnOrderUpdated;
+            _fightManager.onFightEnded += (_, _) => _timelineContentContainer.RemoveFromHierarchy();
         }
 
         #endregion
+
+        private void OnFightersTurnOrderUpdated(Fighter[] fighters)
+        {
+            // Clear the previous content
+            _timelineContentContainer.Clear();
+
+            // Compute the new height for the character containers
+            float timelineCharacterContainerHeight = GetTimelineCharacterContainerHeight(fighters.Length);
+
+            // Instantiate the new character containers for each fighter
+            foreach (Fighter fighter in fighters)
+            {
+                // Configure the character container
+                VisualElement characterContainerRoot = _characterContainerTemplate.Instantiate();
+                characterContainerRoot.AddToClassList(TIMELINE_CHARACTER_CONTAINER_ROOT_CLASSNAME);
+
+                TimelineCharacterUIController characterUIController = new(
+                    characterContainerRoot, fighter, _statusIconContainerTemplate
+                );
+                characterUIController.onFighterHovered += OnFighterHovered;
+                characterUIController.onFighterUnhovered += OnFighterUnhovered;
+                characterUIController.onStatusIconHovered += OnStatusIconHovered;
+                characterUIController.onStatusIconUnhovered += OnStatusIconUnhovered;
+
+                // Add the character container to the timeline content container
+                _timelineContentContainer.Add(characterContainerRoot);
+            }
+        }
+
+        private void OnFighterHovered(TimelineCharacterUIController hoveredCharacter)
+        {
+            _resistancesPanelController.Display(hoveredCharacter);
+            onFighterHovered?.Invoke(hoveredCharacter.Fighter);
+        }
+        
+        private void OnFighterUnhovered(TimelineCharacterUIController unhoveredCharacter)
+        {
+            _resistancesPanelController.Hide();
+            onFighterUnhovered?.Invoke(unhoveredCharacter.Fighter);
+        }
+
+        private void OnStatusIconHovered(TimelineCharacterUIController character, AStatus status, int lastingDuration)
+        {
+            _statusesDetailsPanelController.Root.style.top = character.Root.worldBound.y - character.Root.worldBound.height + 20;
+            _statusesDetailsPanelController.Display(status, lastingDuration);
+        }
+
+        private void OnStatusIconUnhovered(TimelineCharacterUIController character, AStatus status, int lastingDuration)
+        {
+            _statusesDetailsPanelController.Hide();
+        }
+
+        private float GetTimelineCharacterContainerHeight(int characterContainerCount)
+        {
+            if (characterContainerCount == 0) return 0; // Avoid division by zero
+            return (314.31f / characterContainerCount) - 2.08f; // INFO: Formula to compute the height of the character containers
+        }
     }
 }

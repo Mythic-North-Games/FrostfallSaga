@@ -8,8 +8,7 @@ namespace FrostfallSaga.Fight.FightConditions
         GREATER,
         GREATER_OR_EQUAL,
         LESS,
-        LESS_OR_EQUAL,
-
+        LESS_OR_EQUAL
     }
 
     public static class EStatConditionTypeMethods
@@ -23,7 +22,7 @@ namespace FrostfallSaga.Fight.FightConditions
                 EStatConditionType.GREATER_OR_EQUAL => value1 >= value2,
                 EStatConditionType.LESS => value1 < value2,
                 EStatConditionType.LESS_OR_EQUAL => value1 <= value2,
-                _ => throw new InvalidOperationException("Unknown EStatConditionType"),
+                _ => throw new InvalidOperationException("Unknown EStatConditionType")
             };
         }
 
@@ -36,7 +35,7 @@ namespace FrostfallSaga.Fight.FightConditions
                 EStatConditionType.GREATER_OR_EQUAL => "greater or equal to",
                 EStatConditionType.LESS => "less than",
                 EStatConditionType.LESS_OR_EQUAL => "less or equal to",
-                _ => throw new InvalidOperationException("Unknown EStatConditionType"),
+                _ => throw new InvalidOperationException("Unknown EStatConditionType")
             };
         }
     }

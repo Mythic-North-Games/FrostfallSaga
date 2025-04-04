@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace FrostfallSaga.Utils
@@ -5,23 +6,12 @@ namespace FrostfallSaga.Utils
     public class MonoBehaviourPersistingSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T _instance;
-        private static readonly object _instanceLock = new object();
-        private static bool _quitting = false;
+        private static readonly object _instanceLock = new();
+        private static bool _quitting;
 
         // Optional flags
         protected static bool AutoInitializeOnSceneLoad = false;
         protected static bool PersistAcrossScenes = true;
-
-
-        // This method runs automatically when any scene is loaded
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        private static void InitializeOnSceneLoad()
-        {
-            if (AutoInitializeOnSceneLoad)
-            {
-                var _ = Instance; // Trigger instance creation
-            }
-        }
 
         public static T Instance
         {
@@ -29,20 +19,18 @@ namespace FrostfallSaga.Utils
             {
                 lock (_instanceLock)
                 {
-                    if (_instance == null && !_quitting)
+                    if (!_instance && !_quitting)
                     {
                         _instance = FindObjectOfType<T>();
-                        if (_instance == null)
+                        if (!_instance)
                         {
-                            GameObject go = new GameObject(typeof(T).ToString());
+                            GameObject go = new(typeof(T).ToString());
                             _instance = go.AddComponent<T>();
 
-                            if (PersistAcrossScenes)
-                            {
-                                DontDestroyOnLoad(_instance.gameObject);
-                            }
+                            if (PersistAcrossScenes) DontDestroyOnLoad(_instance.gameObject);
                         }
                     }
+
                     return _instance;
                 }
             }
@@ -50,15 +38,16 @@ namespace FrostfallSaga.Utils
 
         protected virtual void Awake()
         {
-            if (_instance == null)
+            if (!_instance)
             {
                 _instance = GetComponent<T>();
             }
             else if (_instance.GetInstanceID() != GetInstanceID())
             {
                 Destroy(gameObject);
-                throw new System.Exception($"Instance of {GetType().FullName} already exists, removing {ToString()}");
+                throw new Exception($"Instance of {GetType().FullName} already exists, removing {ToString()}");
             }
+
             Init();
         }
 
@@ -67,6 +56,19 @@ namespace FrostfallSaga.Utils
             _quitting = true;
         }
 
-        protected virtual void Init() { }
+
+        // This method runs automatically when any scene is loaded
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void InitializeOnSceneLoad()
+        {
+            if (AutoInitializeOnSceneLoad)
+            {
+                T _ = Instance; // Trigger instance creation
+            }
+        }
+
+        protected virtual void Init()
+        {
+        }
     }
 }

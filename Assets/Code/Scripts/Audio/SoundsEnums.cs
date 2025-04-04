@@ -1,4 +1,5 @@
-public enum UISounds{
+public enum UISounds
+{
     FightBegin,
     ButtonClick,
     ButtonHover,

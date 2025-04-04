@@ -1,42 +1,37 @@
 using System;
 using System.Collections;
-using UnityEngine;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
+using UnityEngine;
 
 namespace FrostfallSaga.EntitiesVisual
 {
     public class EntityVisualMovementController : MonoBehaviour
     {
-        [field: SerializeField] public EntityVisualAnimationController EntityVisualAnimationController { get; private set; }
+        [field: SerializeField]
+        public EntityVisualAnimationController EntityVisualAnimationController { get; private set; }
+
         [field: SerializeField] public float RunSpeed { get; private set; } = 1f;
         [field: SerializeField] public float JumpSpeed { get; private set; } = 1.5f;
         [field: SerializeField] public float RotationSpeed { get; private set; } = 6f;
-        public Action onRotationEnded;
-        public Action<Cell> onMoveEnded;
 
         [SerializeField] private GameObject _parentToMove;
+        public Action<Cell> onMoveEnded;
+        public Action onRotationEnded;
 
         private void Start()
         {
             EntityVisualAnimationController = GetComponent<EntityVisualAnimationController>();
-            if (_parentToMove == null)
-            {
-                _parentToMove = gameObject;
-            }
+            if (_parentToMove == null) _parentToMove = gameObject;
         }
 
         public void Move(Cell currentCell, Cell newTargetCell, bool isLastMove)
         {
             bool movementIsJump = CellsNeighbors.GetHeightDifference(currentCell, newTargetCell) != 0;
             if (movementIsJump)
-            {
                 EntityVisualAnimationController.PlayAnimationState("Jump");
-            }
             else
-            {
                 EntityVisualAnimationController.PlayAnimationState("Run");
-            }
 
             MoveTowardsCell(currentCell, newTargetCell, movementIsJump, isLastMove);
             RotateTowardsCell(newTargetCell);
@@ -75,13 +70,8 @@ namespace FrostfallSaga.EntitiesVisual
             float heightDifference = CellsNeighbors.GetHeightDifference(currentCell, targetCell);
             float jumpHeight = Mathf.Max(heightDifference, 1f);
             if (targetCell.Height > currentCell.Height)
-            {
                 jumpHeight += 1.5f;
-            }
-            else if (targetCell.Height < currentCell.Height)
-            {
-                jumpHeight += 1f;
-            }
+            else if (targetCell.Height < currentCell.Height) jumpHeight += 1f;
 
             Vector3 startPosition = _parentToMove.transform.position;
             Vector3 endPosition = targetCell.GetCenter();
@@ -106,10 +96,7 @@ namespace FrostfallSaga.EntitiesVisual
 
             _parentToMove.transform.position = endPosition;
 
-            if (isLastMove)
-            {
-                EntityVisualAnimationController.RestoreDefaultAnimation();
-            }
+            if (isLastMove) EntityVisualAnimationController.RestoreDefaultAnimation();
             onMoveEnded?.Invoke(targetCell);
         }
 

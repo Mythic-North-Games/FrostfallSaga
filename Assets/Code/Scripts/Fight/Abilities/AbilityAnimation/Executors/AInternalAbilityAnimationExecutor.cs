@@ -1,24 +1,23 @@
 using System;
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 {
     /// <summary>
-    /// Base class for all internal abilities animation executors.
-    /// Exposes a onFighterTouched and onAnimationEnded events that will be triggered after the call of the Execute method.
+    ///     Base class for all internal abilities animation executors.
+    ///     Exposes a onFighterTouched and onAnimationEnded events that will be triggered after the call of the Execute method.
     /// </summary>
     [Serializable]
     public abstract class AInternalAbilityAnimationExecutor
     {
-        public Action<Fighter> onFighterTouched;
-        public Action<FightCell> onCellTouched;
-        public Action<Fighter> onAnimationEnded;
-
         protected Fighter _fighterThatExecutes;
+        public Action<Fighter> onAnimationEnded;
+        public Action<FightCell> onCellTouched;
+        public Action<Fighter> onFighterTouched;
 
         /// <summary>
-        /// Executes the given animation as defined by the executor.
+        ///     Executes the given animation as defined by the executor.
         /// </summary>
         /// <param name="fighterThatWillExecute">The fighter that will execute the animation.</param>
         /// <param name="abilityTargetCells">The cells the ability targets.</param>
@@ -40,10 +39,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 
         protected void OnFighterEnteredCollider(Fighter fighter)
         {
-            if (fighter != _fighterThatExecutes)
-            {
-                onFighterTouched?.Invoke(fighter);
-            }
+            if (fighter != _fighterThatExecutes) onFighterTouched?.Invoke(fighter);
         }
     }
 }

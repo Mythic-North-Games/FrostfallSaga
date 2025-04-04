@@ -1,18 +1,22 @@
 using System;
+using System.Collections.Generic;
+using FrostfallSaga.Core.InventorySystem;
 using UnityEngine;
-using FrostfallSaga.InventorySystem;
+
 
 namespace FrostfallSaga.Core.Fight
 {
-    [CreateAssetMenu(fileName = "PersistedFighterConfiguration", menuName = "ScriptableObjects/Entities/PersistedFighterConfiguration", order = 0)]
+    [CreateAssetMenu(fileName = "PersistedFighterConfiguration",
+        menuName = "ScriptableObjects/Entities/PersistedFighterConfiguration", order = 0)]
     public class PersistedFighterConfigurationSO : FighterConfigurationSO
     {
         [field: SerializeField] public ABaseAbility[] EquipedActiveAbilities { get; private set; }
         [field: SerializeField] public ABaseAbility[] EquipedPassiveAbilities { get; private set; }
         [field: SerializeField] public Inventory Inventory { get; private set; }
         [field: SerializeField] public int Health { get; private set; }
+        [field: SerializeField] public List<ABaseAbility> UnlockedAbilities { get; private set; }
 
-        public PersistedFighterConfigurationSO() : base()
+        public PersistedFighterConfigurationSO()
         {
             EquipedActiveAbilities = Array.Empty<ABaseAbility>();
             EquipedPassiveAbilities = Array.Empty<ABaseAbility>();

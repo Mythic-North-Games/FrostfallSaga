@@ -7,9 +7,9 @@ namespace FrostfallSaga.Procedural
     [Serializable]
     public class VoronoiGenerator
     {
-        private List<Vector2> _sites;
-        private int _gridWidth;
         private int _gridHeight;
+        private int _gridWidth;
+        private List<Vector2> _sites;
 
         public VoronoiGenerator(List<Vector2> sites, int width, int height)
         {
@@ -32,8 +32,8 @@ namespace FrostfallSaga.Procedural
                     closestSiteIndex = i;
                 }
             }
+
             return closestSiteIndex;
         }
     }
 }
-

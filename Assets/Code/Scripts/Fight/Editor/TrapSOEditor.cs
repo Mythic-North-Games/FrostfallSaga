@@ -1,17 +1,17 @@
-using UnityEditor;
-using UnityEditorInternal;
-using FrostfallSaga.Utils.Editor;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.FightCells.Impediments;
+using FrostfallSaga.Utils.Editor;
+using UnityEditor;
+using UnityEditorInternal;
 
 namespace FrostfallSaga.FFSEditor.Fight
 {
     [CustomEditor(typeof(TrapSO))]
     public class TrapSOEditor : Editor
     {
-        private readonly static string EFFECTS_PROPERTY_NAME = "Effects";
-        private SerializedProperty effectsProperty;
+        private static readonly string EFFECTS_PROPERTY_NAME = "Effects";
         private ReorderableList effectsList;
+        private SerializedProperty effectsProperty;
 
         private void OnEnable()
         {
@@ -20,7 +20,7 @@ namespace FrostfallSaga.FFSEditor.Fight
         }
 
         public override void OnInspectorGUI()
-        {            
+        {
             serializedObject.Update();
 
             DrawPropertiesExcluding(serializedObject, EFFECTS_PROPERTY_NAME);

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace FrostfallSaga.EntitiesVisual
 {
     /// <summary>
-    /// Controls the animation of the visible entity.
+    ///     Controls the animation of the visible entity.
     /// </summary>
     public class EntityVisualAnimationController : MonoBehaviour
     {
@@ -26,7 +26,8 @@ namespace FrostfallSaga.EntitiesVisual
             }
             catch (Exception)
             {
-                Debug.LogError("Default animation state: " + DefaultAnimationState + " does not exists on animator of entity " + name);
+                Debug.LogError("Default animation state: " + DefaultAnimationState +
+                               " does not exists on animator of entity " + name);
             }
         }
 
@@ -39,7 +40,8 @@ namespace FrostfallSaga.EntitiesVisual
             }
             catch (Exception)
             {
-                Debug.LogError("Default animation state: " + newState + " does not exists on animator of entity " + name);
+                Debug.LogError(
+                    "Default animation state: " + newState + " does not exists on animator of entity " + name);
             }
         }
 
@@ -52,7 +54,8 @@ namespace FrostfallSaga.EntitiesVisual
             }
             catch (Exception)
             {
-                Debug.LogError("Default animation state: " + DefaultAnimationState + " does not exists on animator of entity " + name);
+                Debug.LogError("Default animation state: " + DefaultAnimationState +
+                               " does not exists on animator of entity " + name);
             }
         }
     }

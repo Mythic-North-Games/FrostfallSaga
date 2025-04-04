@@ -1,4 +1,3 @@
-using UnityEngine;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
 
@@ -9,9 +8,9 @@ namespace FrostfallSaga.Core.HeroTeam
         public EntityConfigurationSO EntityConfiguration { get; private set; }
         public PersistedFighterConfigurationSO PersistedFighterConfiguration { get; private set; }
 
-        public Hero(string entityConfigurationSOPath)
+        public Hero(EntityConfigurationSO entityConfiguration)
         {
-            EntityConfiguration = Resources.Load<EntityConfigurationSO>(entityConfigurationSOPath);
+            EntityConfiguration = entityConfiguration;
             PersistedFighterConfiguration = (PersistedFighterConfigurationSO)EntityConfiguration.FighterConfiguration;
         }
 

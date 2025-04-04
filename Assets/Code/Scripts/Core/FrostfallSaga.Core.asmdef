@@ -3,7 +3,8 @@
     "rootNamespace": "FrostfallSaga.Core",
     "references": [
         "FrostfallSaga.Utils",
-        "FrostfallSaga.InventorySystem"
+        "FrostfallSaga.Grid",
+        "FrostfallSaga.Audio"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

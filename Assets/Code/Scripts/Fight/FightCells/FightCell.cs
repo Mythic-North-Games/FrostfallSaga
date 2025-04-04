@@ -9,23 +9,28 @@ using UnityEngine;
 namespace FrostfallSaga.Fight.FightCells
 {
     /// <summary>
-    /// A cell that can contain a fighter, an impediment and have applied multiple alterations.
+    ///     A cell that can contain a fighter, an impediment and have applied multiple alterations.
     /// </summary>
     public class FightCell : Cell
     {
-        [field: SerializeField, Header("Fight related"), Tooltip("The optional fighter occupying the cell.")]
+        [field: SerializeField]
+        [field: Header("Fight related")]
+        [field: Tooltip("The optional fighter occupying the cell.")]
         public Fighter Fighter { get; private set; }
 
-        [field: SerializeField, Tooltip("The current obstacle or trap")] public AImpedimentSO Impediment { get; private set; }
-        private GameObject _currentImpedimentGameObject;
+        [field: SerializeField]
+        [field: Tooltip("The current obstacle or trap")]
+        public AImpedimentSO Impediment { get; private set; }
 
-        public FightCellAlterationsManager AlterationsManager { get; private set; }
+        private GameObject _currentImpedimentGameObject;
         public Action onTrapTriggered;
 
         public FightCell()
         {
-            AlterationsManager = new(this);
+            AlterationsManager = new FightCellAlterationsManager(this);
         }
+
+        public FightCellAlterationsManager AlterationsManager { get; }
 
         public void SetFighter(Fighter fighter)
         {
@@ -39,8 +44,9 @@ namespace FrostfallSaga.Fight.FightCells
         }
 
         /// <summary>
-        /// Trigger the trap if there is one on the cell, if a fighter is present and the trigger time is the same as the one given.
-        /// Listen to the onTrapTriggered event to know when the trap has been triggered (animation done...).
+        ///     Trigger the trap if there is one on the cell, if a fighter is present and the trigger time is the same as the one
+        ///     given.
+        ///     Listen to the onTrapTriggered event to know when the trap has been triggered (animation done...).
         /// </summary>
         /// <param name="triggerTime">The trap trigger time.</param>
         public void TriggerTrapIfAny(ETrapTriggerTime triggerTime)
@@ -57,16 +63,14 @@ namespace FrostfallSaga.Fight.FightCells
         }
 
         /// <summary>
-        /// Update the alterations on the cell.
-        /// If a temporary alteration is over, it will be removed.
-        /// If a trap triggering on stay is present and a fighter occupies the cell, the trap will be triggered.
+        ///     Update the alterations on the cell.
+        ///     If a temporary alteration is over, it will be removed.
+        ///     If a trap triggering on stay is present and a fighter occupies the cell, the trap will be triggered.
         /// </summary>
         public void UpdateAlterations()
         {
             if (Impediment is TrapSO trap && HasFighter() && trap.TriggerTimes.Contains(ETrapTriggerTime.OnStay))
-            {
                 trap.Trigger(Fighter);
-            }
             AlterationsManager.UpdateAlterations();
         }
 
@@ -108,7 +112,7 @@ namespace FrostfallSaga.Fight.FightCells
         public override string ToString()
         {
             return base.ToString() + "\n" +
-                   $"FightCell:\n" +
+                   "FightCell:\n" +
                    $"- Fighter: {(Fighter != null ? Fighter.name : "None")}\n" +
                    $"- Impediment: {(Impediment != null ? Impediment.name : "None")}\n" +
                    $"- HasObstacle: {HasObstacle()}\n" +

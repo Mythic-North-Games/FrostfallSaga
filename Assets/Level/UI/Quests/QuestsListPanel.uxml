@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="ListQuestItem" src="project://database/Assets/Level/UI/Quests/ListQuestItem.uxml?fileID=9197481963319205126&amp;guid=1b0add5b72ea4c93baa4fa470aaf9b98&amp;type=3#ListQuestItem" />
+    <Style src="project://database/Assets/Level/UI/Quests/quests.uss?fileID=7433441132597879392&amp;guid=b826a21f7b38516eb91dbfd688398aff&amp;type=3#quests" />
+    <ui:VisualElement name="QuestsListContainer" style="width: 100%; height: 100%;">
+        <ui:VisualElement name="FilterBar" style="flex-direction: row; align-items: center; justify-content: space-around; width: 80%; height: 10%; border-bottom-width: 2.5px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); margin-left: 10%;">
+            <ui:Button text="Secondary" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SecondaryFilterButton" class="questsFilterButton" />
+            <ui:Button text="Missions" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MissionsFilterButton" class="questsFilterButton" />
+        </ui:VisualElement>
+        <ui:ScrollView name="QuestItemsList" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="max-height: 90%; margin-top: 3%; min-height: 90%;">
+            <ui:Instance template="ListQuestItem" name="ListQuestItem" class="listQuestItemDefault" />
+            <ui:Instance template="ListQuestItem" name="ListQuestItem" class="listQuestItemDefault" />
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>

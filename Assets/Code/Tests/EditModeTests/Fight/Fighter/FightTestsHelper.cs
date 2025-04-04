@@ -1,21 +1,20 @@
-using UnityEngine;
+using System;
 using FrostfallSaga.Core.Entities;
-using FrostfallSaga.Grid;
-using FrostfallSaga.InventorySystem;
+using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.FightItems;
 using FrostfallSaga.Fight.Abilities;
-using System;
-using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Fight;
+using UnityEngine;
 
 namespace FrostfallSaga.EditModeTests.FightTests
 {
     public static class FightTestsHelper
     {
-        private static readonly string TEST_ENTITY_CONF_RESOURCE_PATH = "EditModeTests/ScriptableObjects/TestEntityConfiguration";
+        private static readonly string TEST_ENTITY_CONF_RESOURCE_PATH =
+            "EditModeTests/ScriptableObjects/TestEntityConfiguration";
 
         public static Fighter CreateFighter()
         {
@@ -31,13 +30,15 @@ namespace FrostfallSaga.EditModeTests.FightTests
             fighterEntitiesVisualGameObject.transform.SetParent(fighterGameObject.transform);
             fighterEntitiesVisualGameObject.AddComponent<EntityVisualAnimationController>();
             fighterEntitiesVisualGameObject.AddComponent<EntityVisualMovementController>();
-            EntityVisualMovementController movementController = fighterEntitiesVisualGameObject.GetComponent<EntityVisualMovementController>();
+            EntityVisualMovementController movementController =
+                fighterEntitiesVisualGameObject.GetComponent<EntityVisualMovementController>();
             movementController.SetParentToMoveForTests(fighterGameObject);
 
             return fighter;
         }
 
-        private static void SetupFighterFromNonPersistingConfiguration(Fighter fighter, EntityConfigurationSO entityConfiguration)
+        private static void SetupFighterFromNonPersistingConfiguration(Fighter fighter,
+            EntityConfigurationSO entityConfiguration)
         {
             Inventory testInventory = new();
             testInventory.WeaponSlot.AddItem(Resources.Load<WeaponSO>("EditModeTests/ScriptableObjects/TestWeapon"));
@@ -54,10 +55,9 @@ namespace FrostfallSaga.EditModeTests.FightTests
             fighter.Setup(
                 entityConfiguration,
                 entityConfiguration.FighterConfiguration,
-                equippedActiveAbilities: activeAbilities,
-                equippedPassiveAbilities: passiveAbilities,
-                inventory: testInventory,
-                sessionId: null
+                activeAbilities,
+                passiveAbilities,
+                testInventory
             );
         }
 

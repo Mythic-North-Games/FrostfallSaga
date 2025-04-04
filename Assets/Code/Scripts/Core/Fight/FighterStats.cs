@@ -16,27 +16,29 @@ namespace FrostfallSaga.Core.Fight
         public int dexterity;
         public int tenacity;
         public int physicalResistance;
-        public Dictionary<EMagicalElement, int> magicalResistances = new();
-        public Dictionary<EMagicalElement, int> magicalStrengths = new();
         public float dodgeChance;
         public float masterstrokeChance;
         public int initiative;
+        public Dictionary<EMagicalElement, int> magicalResistances = new();
+        public Dictionary<EMagicalElement, int> magicalStrengths = new();
 
-        public void AddMagicalResistances(Dictionary<EMagicalElement, int> magicalResistancesToAdd) {
-            foreach (KeyValuePair<EMagicalElement, int> additionnalMagicalResistance in magicalResistancesToAdd) {
+        public void AddMagicalResistances(Dictionary<EMagicalElement, int> magicalResistancesToAdd)
+        {
+            foreach (KeyValuePair<EMagicalElement, int> additionnalMagicalResistance in magicalResistancesToAdd)
+            {
                 EMagicalElement magicalElement = additionnalMagicalResistance.Key;
-                if (magicalResistances.ContainsKey(magicalElement)) {
+                if (magicalResistances.ContainsKey(magicalElement))
                     magicalResistances[magicalElement] += additionnalMagicalResistance.Value;
-                }
             }
         }
 
-        public void AddMagicalStrengths(Dictionary<EMagicalElement, int> magicalStrengthsToAdd) {
-            foreach (KeyValuePair<EMagicalElement, int> additionnalMagicalStrength in magicalStrengthsToAdd) {
+        public void AddMagicalStrengths(Dictionary<EMagicalElement, int> magicalStrengthsToAdd)
+        {
+            foreach (KeyValuePair<EMagicalElement, int> additionnalMagicalStrength in magicalStrengthsToAdd)
+            {
                 EMagicalElement magicalElement = additionnalMagicalStrength.Key;
-                if (magicalStrengths.ContainsKey(magicalElement)) {
+                if (magicalStrengths.ContainsKey(magicalElement))
                     magicalStrengths[magicalElement] += additionnalMagicalStrength.Value;
-                }
             }
         }
     }

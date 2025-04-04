@@ -1,17 +1,18 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
-using FrostfallSaga.Fight.FightCells;
+using System.Linq;
+using FrostfallSaga.Audio;
 using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight.FightCells;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Fighters
 {
     public class DirectAttackManager
     {
-        public Action onDirectAttackEnded;
         private readonly Fighter _controlledFighter;
-        private List<Fighter> _touchedFighters = new List<Fighter>();
+        private readonly List<Fighter> _touchedFighters = new();
+        public Action onDirectAttackEnded;
 
         public DirectAttackManager(Fighter fighter)
         {
@@ -24,6 +25,7 @@ namespace FrostfallSaga.Fight.Fighters
             if (_controlledFighter.Weapon.AttackAnimation == null)
             {
                 Debug.LogWarning($"No animation attached to direct attack for fighter {_controlledFighter.name}");
+                _controlledFighter.Weapon.PlayUseSoundFXIfAny(_controlledFighter.GetWeaponCollider().transform);
                 targetedCells
                     .Where(cell => cell.HasFighter()).ToList()
                     .ForEach(cell =>
@@ -33,6 +35,7 @@ namespace FrostfallSaga.Fight.Fighters
                                 cell.Fighter.onActionDodged?.Invoke(cell.Fighter);
                                 return;
                             }
+
                             ApplyEffectsOnFighter(
                                 _controlledFighter.Weapon.GetWeaponEffects(cell.Fighter.Race),
                                 cell.Fighter,
@@ -52,10 +55,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         private void OnDirectAttackTouchedFighter(Fighter touchedFighter)
         {
-            if (_touchedFighters.Contains(touchedFighter))
-            {
-                return;
-            }
+            if (_touchedFighters.Contains(touchedFighter)) return;
             _touchedFighters.Add(touchedFighter);
 
             if (touchedFighter.TryDodge())
@@ -63,6 +63,7 @@ namespace FrostfallSaga.Fight.Fighters
                 touchedFighter.onActionDodged?.Invoke(touchedFighter);
                 return;
             }
+
             ApplyEffectsOnFighter(
                 _controlledFighter.Weapon.GetWeaponEffects(touchedFighter.Race),
                 touchedFighter,
@@ -79,7 +80,7 @@ namespace FrostfallSaga.Fight.Fighters
         }
 
         /// <summary>
-        /// Apply a list of effects to the targeted fighter.
+        ///     Apply a list of effects to the targeted fighter.
         /// </summary>
         /// <param name="effectsToApply">The effects to apply.</param>
         /// <param name="target">The fighter to apply the effects to.</param>
@@ -92,10 +93,9 @@ namespace FrostfallSaga.Fight.Fighters
         {
             effectsToApply.ToList().ForEach(
                 effect => effect.ApplyEffect(
-                    receiver: target,
-                    isMasterstroke: isMasterstroke,
-                    initiator: _controlledFighter,
-                    adjustGodFavorsPoints: true
+                    target,
+                    isMasterstroke,
+                    _controlledFighter
                 )
             );
         }

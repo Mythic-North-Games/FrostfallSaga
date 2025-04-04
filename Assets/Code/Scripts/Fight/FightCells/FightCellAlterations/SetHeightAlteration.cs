@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Grid.Cells;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 {
@@ -10,12 +10,13 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
     /// </summary>
     public class SetHeightAlteration : AFightCellAlteration
     {
-        [field: SerializeField, Header("Height alteration definition")]
+        [field: SerializeField]
+        [field: Header("Height alteration definition")]
         public ECellHeight TargetHeight { get; private set; }
 
-        private ECellHeight _previousHeight;
-
         [field: SerializeField] public float CellAlterationDuration { get; protected set; }
+
+        private ECellHeight _previousHeight;
 
         public SetHeightAlteration(
             string name,

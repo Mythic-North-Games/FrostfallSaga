@@ -15,6 +15,9 @@ MonoBehaviour:
   <ProjectilePrefab>k__BackingField: {fileID: 1435735026039513003, guid: b9833b7cd81df9c4c84090c19e05c49c, type: 3}
   Executor:
     rid: 3629974059018879021
+  <ProjectileTriggerSoundFX>k__BackingField: {fileID: 8300000, guid: 37e4dee389ccec743a8a77721e1f2ce7, type: 3}
+  <ProjectileTriggerSoundVolume>k__BackingField: 1
+  <ProjectileTriggerSoundFadeOutDuration>k__BackingField: 0.7
   references:
     version: 2
     RefIds:
