@@ -436,7 +436,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 55
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1093,8 +1093,8 @@ MonoBehaviour:
   <HeroGroup>k__BackingField: {fileID: 0}
   <InterestPoints>k__BackingField: []
   <EnemiesGroups>k__BackingField: []
-  enemiesGroupSpawner: {fileID: 106982315}
-  kingdomLoader: {fileID: 483864513}
+  enemiesGroupSpawner: {fileID: 0}
+  kingdomLoader: {fileID: 0}
 --- !u!1 &1074157365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1390,7 +1390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kingdomManager: {fileID: 899991118}
   readyToFightAnimationDuration: 2
-  delayBeforeLoadingSceneAfterReadyAnimation: 1
+  delayBeforeLoadingSceneAfterReadyAnimation: 10
   isPrintAnalysis: 0
 --- !u!1 &1449699357
 GameObject:
@@ -1694,7 +1694,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 55
+    FieldOfView: 75
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
