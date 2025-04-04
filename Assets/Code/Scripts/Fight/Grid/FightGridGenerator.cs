@@ -27,6 +27,15 @@ namespace FrostfallSaga.Grid
             _defaultBiomeType = defaultBiomeType;
         }
 
+        public FightGridGenerator(FightCell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes,
+            Transform parentGrid, float noiseScale, int seed, BiomeTypeSO defaultBiomeType, Dictionary<HexDirection, Cell> hexDirectionCells)
+            : base(hexPrefab, gridWidth, gridHeight, availableBiomes, parentGrid, noiseScale, seed)
+        {
+            _perlinTerrainManager = new PerlinTerrainManager(noiseScale, seed);
+            _hexDirectionCells = hexDirectionCells;
+            _defaultBiomeType = defaultBiomeType;
+        }
+
         public override Dictionary<Vector2Int, Cell> GenerateGrid()
         {
             Dictionary<Vector2Int, Cell> gridCells = new();
