@@ -7,7 +7,8 @@ namespace FrostfallSaga.Fight.Statuses
     [Serializable]
     public abstract class AStatus
     {
-        [field: SerializeField, Header("For the UI")] public Sprite Icon { get; protected set; }
+        [field: SerializeField, Header("For the UI")]
+        public Sprite Icon { get; protected set; }
 
         [field: SerializeField]
         [field: Header("Status parameters")]
@@ -23,11 +24,11 @@ namespace FrostfallSaga.Fight.Statuses
 
         [field: SerializeField] public FighterBuffVisualsController VisualsController { get; protected set; }
 
-        public AStatus()
+        protected AStatus()
         {
         }
 
-        public AStatus(
+        protected AStatus(
             EStatusType statusType,
             bool isPermanent,
             int duration,
@@ -106,9 +107,11 @@ namespace FrostfallSaga.Fight.Statuses
         /// <returns>The string to display in the UI for the status.</returns>
         public string GetUIString(int lastingDuration)
         {
-            return $"{StatusType.ToUIString()} applied " + 
-            (IsPermanent ? "<b>permanently</b>" : $"for {Duration} turns. <b>{lastingDuration}</b> turns left.") +
-            (IsRecurring ? $"\nStatus effect applied at the <b>{TriggerTime.ToUIString()}</b>." : "");
+            return $"{StatusType.ToUIString()} applied " +
+                   (IsPermanent
+                       ? "<b>permanently</b>"
+                       : $"for {Duration} turns. <b>{lastingDuration}</b> turns left.") +
+                   (IsRecurring ? $"\nStatus effect applied at the <b>{TriggerTime.ToUIString()}</b>." : "");
         }
 
 #if UNITY_EDITOR

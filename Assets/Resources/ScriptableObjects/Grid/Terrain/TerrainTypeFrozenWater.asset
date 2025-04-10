@@ -19,7 +19,7 @@ MonoBehaviour:
   <MovePoint>k__BackingField: -1
   <RangePoint>k__BackingField: 0
   <InitiativePoint>k__BackingField: 0
-  <IsAccessible>k__BackingField: 1
+  <DefaultAccessible>k__BackingField: 1
   <CellMaterial>k__BackingField: {fileID: 2100000, guid: 3afc42c262e7fe4438a61bb4f3fb4632, type: 2}
   <VisualsWhenAccessible>k__BackingField:
   - {fileID: 598771669309824393, guid: 9998be6008133c749a3bfdd63214c172, type: 3}
@@ -31,4 +31,4 @@ MonoBehaviour:
   - {fileID: 598771669309824393, guid: 83cdc99af4c8d2c4d85cbe9ed18d4f86, type: 3}
   - {fileID: 598771669309824393, guid: 80c645358f0cf6b4abb3618276f2d379, type: 3}
   - {fileID: 598771669309824393, guid: b39f3fc0f0e63e34c9a668d50b5a5eeb, type: 3}
-  <AccessibilityChanceOverride>k__BackingField: 0.8
+  <AccessibilityChanceOverride>k__BackingField: 1

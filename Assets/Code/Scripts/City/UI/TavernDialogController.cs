@@ -8,19 +8,11 @@ namespace FrostfallSaga.City.UI
 {
     public class TavernDialogController
     {
-        #region UXML Names and classes
-        private static readonly string WELCOME_LABEL_UI_NAME = "WelcomeLabel";
-        private static readonly string REST_QUESTION_UI_NAME = "QuestionLabel";
-        private static readonly string REST_BUTTON_UI_NAME = "RestButton";
-        private static readonly string EXIT_BUTTON_UI_NAME = "ExitButton";
-        private static readonly string TAVERN_DIALOG_HIDDEN_CLASSNAME = "tavernDialogHidden";
-        #endregion
+        private readonly VisualElement _dialogRoot;
+        private TavernConfiguration _tavernConfiguration;
 
         public Action OnExitClicked;
         public Action OnRestButtonClicked;
-
-        private readonly VisualElement _dialogRoot;
-        private TavernConfiguration _tavernConfiguration;
 
         public TavernDialogController(VisualElement tavernDialogRoot)
         {
@@ -40,6 +32,7 @@ namespace FrostfallSaga.City.UI
                 _dialogRoot.Q<Button>(REST_BUTTON_UI_NAME).SetEnabled(false);
                 return;
             }
+
             _dialogRoot.Q<Button>(REST_BUTTON_UI_NAME).SetEnabled(true);
             _dialogRoot.Q<Button>(REST_BUTTON_UI_NAME).clicked += RestButtonClicked;
         }
@@ -77,5 +70,15 @@ namespace FrostfallSaga.City.UI
         {
             OnExitClicked?.Invoke();
         }
+
+        #region UXML Names and classes
+
+        private static readonly string WELCOME_LABEL_UI_NAME = "WelcomeLabel";
+        private static readonly string REST_QUESTION_UI_NAME = "QuestionLabel";
+        private static readonly string REST_BUTTON_UI_NAME = "RestButton";
+        private static readonly string EXIT_BUTTON_UI_NAME = "ExitButton";
+        private static readonly string TAVERN_DIALOG_HIDDEN_CLASSNAME = "tavernDialogHidden";
+
+        #endregion
     }
 }

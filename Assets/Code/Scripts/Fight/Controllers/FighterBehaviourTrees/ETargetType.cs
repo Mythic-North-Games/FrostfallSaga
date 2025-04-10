@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using FrostfallSaga.Grid;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Grid;
 using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
@@ -17,8 +17,8 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
         RANDOM
     }
 
-    public static class ETargetTypeMethods {
-
+    public static class ETargetTypeMethods
+    {
         /// <summary>
         /// Get the prefered target in the given list depending on the target type.
         /// </summary>
@@ -28,12 +28,12 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
         /// <param name="possibleTargets">The possible targets that can be chosen.</param>
         /// <returns></returns>
         public static Fighter GetPreferedTargetInList(
-            this ETargetType targetType, 
+            this ETargetType targetType,
             Fighter possessedFighter,
             FightHexGrid fightGrid,
             List<Fighter> possibleTargets
-
-        ) {
+        )
+        {
             return targetType switch
             {
                 ETargetType.RANDOM => Randomizer.GetRandomElementFromArray(possibleTargets.ToArray()),

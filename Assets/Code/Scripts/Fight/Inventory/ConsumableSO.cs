@@ -26,6 +26,7 @@ namespace FrostfallSaga.Fight.FightItems
             {
                 specialEffectsUIData.Add(effect.GetUIEffectDescription());
             }
+
             return specialEffectsUIData;
         }
     }

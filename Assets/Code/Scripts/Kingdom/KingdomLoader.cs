@@ -53,7 +53,7 @@ namespace FrostfallSaga.Kingdom
             {
                 Debug.Log("First scene launch. No kingdom to load.");
                 FirstSpawnHeroGroup();
-                InterestPointBuilder.Instance.FirstBuildInterestPoints(kingdomHexGrid, interestPointConfigs);
+                InterestPointBuilder.FirstBuildInterestPoints(kingdomHexGrid, interestPointConfigs);
                 OnKingdomLoaded?.Invoke();
                 return;
             }
@@ -98,7 +98,7 @@ namespace FrostfallSaga.Kingdom
                     EntitiesGroupBuilder.Instance.BuildEntitiesGroup(enemiesGroupData, kingdomHexGrid));
 
             foreach (InterestPointData interestPointData in kingdomState.interestPointsData)
-                InterestPointBuilder.Instance.BuildInterestPoint(interestPointData, kingdomHexGrid);
+                InterestPointBuilder.BuildInterestPoint(interestPointData, kingdomHexGrid);
         }
 
         #endregion

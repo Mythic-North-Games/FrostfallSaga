@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using FrostfallSaga.Utils.Trees.BehaviourTree;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightCells;
+using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Grid;
+using FrostfallSaga.Utils.Trees.BehaviourTree;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 {

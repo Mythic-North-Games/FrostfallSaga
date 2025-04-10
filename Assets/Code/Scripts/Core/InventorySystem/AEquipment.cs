@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using FrostfallSaga.Core.Fight;
 using UnityEngine;
 
 namespace FrostfallSaga.Core.InventorySystem

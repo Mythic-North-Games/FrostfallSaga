@@ -12,19 +12,18 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 {
     public class DialogueNode : Node
     {
-        public Action<DialogueNode> OnAddLineContinuation;
-        public Action<DialogueNode> OnAnswerAdded;
-        public Action OnNodeModified;
-        public Action<DialogueNode> OnNodeRemoved;
-
         private Button _addAnswerButton;
         private Button _addContinuationButton;
         private VisualElement _answersContainer;
         private Toggle _isRightToggle;
+        private ObjectField _questField;
         private TextField _richTextField;
         private ObjectField _speakerField;
         private TextField _titleField;
-        private ObjectField _questField;
+        public Action<DialogueNode> OnAddLineContinuation;
+        public Action<DialogueNode> OnAnswerAdded;
+        public Action OnNodeModified;
+        public Action<DialogueNode> OnNodeRemoved;
 
         public DialogueNode(TreeNode<DialogueLine> treeNode, int depth, DialogueNode parentNode)
         {

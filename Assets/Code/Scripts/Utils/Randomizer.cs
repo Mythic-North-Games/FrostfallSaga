@@ -24,7 +24,7 @@ namespace FrostfallSaga.Utils
         {
             return array[_randomizer.Next(0, array.Length)];
         }
-        
+
         public static T GetRandomElementFromList<T>(List<T> list)
         {
             if (list == null || list.Count == 0)

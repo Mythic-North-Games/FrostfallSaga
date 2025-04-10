@@ -4,12 +4,27 @@ namespace FrostfallSaga.InventorySystem.UI
 {
     public class InventoryHeroRenderTextureSceneController : MonoBehaviour
     {
-        [SerializeField] private Transform _sceneRoot;
-        [SerializeField] private Transform _heroModelContainer;
-        
+        private Transform _sceneRoot;
+        private Transform _heroModelContainer;
+
+        #region Setup
+
+        private void Awake()
+        {
+            _sceneRoot ??= gameObject.transform;
+            
+            _heroModelContainer ??= _sceneRoot.Find("HeroModelContainer");
+            if (!_heroModelContainer)
+            {
+                Debug.LogError("Hero model container is not assigned.");
+            }
+        }
+
+        #endregion
+
         private void Start()
         {
-            SetSceneActive(false);  // Only activate the scene when inventory is open
+            SetSceneActive(false); // Only activate the scene when inventory is open
         }
 
         /// <summary>
@@ -18,7 +33,7 @@ namespace FrostfallSaga.InventorySystem.UI
         /// <param name="heroModelPrefab">The prefab of the hero model to be instantiated.</param>
         public void SetupHeroModel(GameObject heroModelPrefab)
         {
-            if (_heroModelContainer == null)
+            if (!_heroModelContainer)
             {
                 Debug.LogError("Hero model container is not assigned.");
                 return;
@@ -47,22 +62,5 @@ namespace FrostfallSaga.InventorySystem.UI
                 Destroy(child.gameObject);
             }
         }
-
-        #region Setup
-        private void Awake()
-        {
-            if (_sceneRoot == null)
-            {
-                Debug.LogError("Scene root is not assigned.");
-                return;
-            }
-
-            if (_heroModelContainer == null)
-            {
-                Debug.LogError("Hero model container is not assigned.");
-                return;
-            }
-        }
-        #endregion
     }
 }

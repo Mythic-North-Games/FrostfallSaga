@@ -11,25 +11,17 @@ namespace FrostfallSaga.Fight.UI
 {
     public class ConsumablesUIController
     {
-        #region UXML Element names and classes
-        private static readonly string CONSUMABLES_SLOTS_CONTAINER_UI_NAME = "ConsumableSlotsContainer";
-        private static readonly string EXPAND_CONSUMABLES_BUTTON_UI_NAME = "ExpandConsumablesButton";
-        private static readonly string EXTRA_CONSUMABLES_SLOTS_CONTAINER_UI_NAME = "ExtraConsumablesSlotsContainer";
+        private readonly List<InventorySlot> _consumablesFromBagInQuickAccess = new();
+        private readonly List<ItemSlotContainerUIController> _consumableSlotControllers = new();
+        private readonly VisualTreeAsset _consumableSlotTemplate;
+        private readonly Button _expandConsumablesButton;
+        private readonly VisualElement _extraConsumablesSlotsContainer;
 
-        private static readonly string EXTRA_CONSUMABLES_SLOTS_CONTAINER_HIDDEN_CLASSNAME = "extraConsumablesSlotsContainerHidden";
-        private static readonly string EXTRA_CONSUMABLES_SLOT_ROOT_CLASSNAME = "extraConsumableSlotRoot";
-        #endregion
-
-        public Action<InventorySlot> onConsumableUsed;
+        private readonly VisualElement _root;
         public Action<InventorySlot> onConsumableLongHovered;
         public Action<InventorySlot> onConsumableLongUnhovered;
 
-        private readonly VisualElement _root;
-        private readonly VisualTreeAsset _consumableSlotTemplate;
-        private readonly VisualElement _extraConsumablesSlotsContainer;
-        private readonly Button _expandConsumablesButton;
-        private readonly List<ItemSlotContainerUIController> _consumableSlotControllers = new();
-        private readonly List<InventorySlot> _consumablesFromBagInQuickAccess = new();
+        public Action<InventorySlot> onConsumableUsed;
 
         public ConsumablesUIController(VisualElement root, VisualTreeAsset consumableSlotTemplate)
         {
@@ -46,7 +38,8 @@ namespace FrostfallSaga.Fight.UI
             _expandConsumablesButton.RegisterCallback<ClickEvent>(OnExpandConsumablesButtonClicked);
 
             // Setup quick access consumable slots
-            foreach (VisualElement consumableSlot in _root.Q<VisualElement>(CONSUMABLES_SLOTS_CONTAINER_UI_NAME).Children())
+            foreach (VisualElement consumableSlot in _root.Q<VisualElement>(CONSUMABLES_SLOTS_CONTAINER_UI_NAME)
+                         .Children())
             {
                 _consumableSlotControllers.Add(new(consumableSlot.Children().First()));
             }
@@ -95,10 +88,12 @@ namespace FrostfallSaga.Fight.UI
 
                 // Setup consumable slot long hover events
                 LongHoverEventController<VisualElement> longHoverEventController = new(consumableSlotController.Root);
-                longHoverEventController.onElementLongHovered += (_) => {
+                longHoverEventController.onElementLongHovered += (_) =>
+                {
                     onConsumableLongHovered?.Invoke(consumableSlotToSet);
                 };
-                longHoverEventController.onElementLongUnhovered += (_) => {
+                longHoverEventController.onElementLongUnhovered += (_) =>
+                {
                     onConsumableLongUnhovered?.Invoke(consumableSlotToSet);
                 };
             }
@@ -138,10 +133,12 @@ namespace FrostfallSaga.Fight.UI
 
                 // Setup extra consumable slot long hover events
                 LongHoverEventController<VisualElement> longHoverEventController = new(extraConsumableSlotRoot);
-                longHoverEventController.onElementLongHovered += (_) => {
+                longHoverEventController.onElementLongHovered += (_) =>
+                {
                     onConsumableLongHovered?.Invoke(consumableSlot);
                 };
-                longHoverEventController.onElementLongUnhovered += (_) => {
+                longHoverEventController.onElementLongUnhovered += (_) =>
+                {
                     onConsumableLongUnhovered?.Invoke(consumableSlot);
                 };
 
@@ -151,7 +148,7 @@ namespace FrostfallSaga.Fight.UI
 
         private void OnConsumableSlotClicked(InventorySlot clickedConsumableSlot)
         {
-            if (clickedConsumableSlot.Item is ConsumableSO)   // Should always be true
+            if (clickedConsumableSlot.Item is ConsumableSO) // Should always be true
             {
                 onConsumableUsed?.Invoke(clickedConsumableSlot);
             }
@@ -161,5 +158,18 @@ namespace FrostfallSaga.Fight.UI
         {
             _extraConsumablesSlotsContainer.ToggleInClassList(EXTRA_CONSUMABLES_SLOTS_CONTAINER_HIDDEN_CLASSNAME);
         }
+
+        #region UXML Element names and classes
+
+        private static readonly string CONSUMABLES_SLOTS_CONTAINER_UI_NAME = "ConsumableSlotsContainer";
+        private static readonly string EXPAND_CONSUMABLES_BUTTON_UI_NAME = "ExpandConsumablesButton";
+        private static readonly string EXTRA_CONSUMABLES_SLOTS_CONTAINER_UI_NAME = "ExtraConsumablesSlotsContainer";
+
+        private static readonly string EXTRA_CONSUMABLES_SLOTS_CONTAINER_HIDDEN_CLASSNAME =
+            "extraConsumablesSlotsContainerHidden";
+
+        private static readonly string EXTRA_CONSUMABLES_SLOT_ROOT_CLASSNAME = "extraConsumableSlotRoot";
+
+        #endregion
     }
 }

@@ -14,39 +14,25 @@ namespace FrostfallSaga.Fight.UI.FightEndMenu
     /// </summary>
     public class FightEndMenuController
     {
-        #region UXML Names and classes
-        private static readonly string RESULT_LABEL_UI_NAME = "ResultLabel";
-        private static readonly string ALLIES_STATE_CONTAINER_UI_NAME = "AlliesStateContainer";
-        private static readonly string ENEMIES_STATE_CONTAINER_UI_NAME = "EnemiesStateContainer";
-        private static readonly string STYCAS_REWARD_LAEBL_UI_NAME = "StycasRewardLabel";
-        private static readonly string ITEMS_REWARD_CONTAINER_UI_NAME = "ItemsRewardContainer";
-        private static readonly string CONTINUE_BUTTON_UI_NAME = "ContinueButton";
-        private static readonly string OBJECT_DETAILS_PANEL_CONTAINER_UI_NAME = "ObjectDetailsPanelContainer";
-
-        private static readonly string FIGHTER_STATE_CONTAINER_ROOT_CLASSNAME = "fighterStateRoot";
-        private static readonly string ITEM_REWARD_CONTAINER_ROOT_CLASSNAME = "itemRewardContainerRoot";
-        private static readonly string OBJECT_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME = "objectDetailsPanelContainerHidden";
-        private static readonly string OBJECT_DETAILS_EFFECT_LINE_CLASSNAME = "itemRewardDetailsEffectLine";
-        #endregion
-
-        public Action onContinueClicked;
-
-        private readonly VisualTreeAsset _fighterStateContainerTemplate;
-        private readonly VisualTreeAsset _itemRewardContainerTemplate;
-        private readonly string _fightWonText;
-        private readonly string _fightLostText;
-
-        private readonly VisualElement _root;
-        private readonly Label _resultLabel;
         private readonly VisualElement _alliesStateContainer;
         private readonly VisualElement _enemiesStateContainer;
-        private readonly Label _stycasRewardLabel;
-        private readonly VisualElement _itemsRewardContainer;
-        private readonly VisualElement _objectDetailsPanelContainer;
+
+        private readonly VisualTreeAsset _fighterStateContainerTemplate;
+        private readonly string _fightLostText;
+        private readonly string _fightWonText;
+        private readonly VisualTreeAsset _itemRewardContainerTemplate;
+        private readonly Dictionary<VisualElement, ItemSO> _itemRewardContainerToItem = new();
 
         private readonly float _itemRewardLongHoverDuration;
+        private readonly VisualElement _itemsRewardContainer;
+        private readonly VisualElement _objectDetailsPanelContainer;
         private readonly ObjectDetailsUIController _objectDetailsPanelController;
-        private readonly Dictionary<VisualElement, ItemSO> _itemRewardContainerToItem = new();
+        private readonly Label _resultLabel;
+
+        private readonly VisualElement _root;
+        private readonly Label _stycasRewardLabel;
+
+        public Action onContinueClicked;
 
         public FightEndMenuController(
             VisualElement root,
@@ -160,7 +146,8 @@ namespace FrostfallSaga.Fight.UI.FightEndMenu
 
                 // Setup long hover event 
                 _itemRewardContainerToItem[itemRewardContainer] = itemCount.Key;
-                LongHoverEventController<VisualElement> itemRewardLongHoverController = new(itemRewardContainer, _itemRewardLongHoverDuration);
+                LongHoverEventController<VisualElement> itemRewardLongHoverController =
+                    new(itemRewardContainer, _itemRewardLongHoverDuration);
                 itemRewardLongHoverController.onElementLongHovered += OnItemRewardContainerLongHovered;
                 itemRewardLongHoverController.onElementLongUnhovered += OnItemRewardContainerLongUnhovered;
 
@@ -200,24 +187,44 @@ namespace FrostfallSaga.Fight.UI.FightEndMenu
             _objectDetailsPanelContainer.AddToClassList(OBJECT_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME);
         }
 
-        private Dictionary<Sprite, string> GetItemStats(ItemSO item)
+        private static Dictionary<Sprite, string> GetItemStats(ItemSO item)
         {
             if (item is AEquipment equipment) return equipment.GetStatsUIData();
             else return null;
         }
 
-        private List<string> GetItemEffects(ItemSO item)
+        private static List<string> GetItemEffects(ItemSO item)
         {
             if (item is AEquipment equipment) return equipment.GetSpecialEffectsUIData();
             else if (item is AConsumable consumable) return consumable.GetEffectsUIData();
             else return null;
         }
 
-        private string GetItemEffectsTitle(ItemSO item)
+        private static string GetItemEffectsTitle(ItemSO item)
         {
             if (item is AEquipment) return "Special effects";
             else if (item is AConsumable) return "Effects";
             else return null;
         }
+
+        #region UXML Names and classes
+
+        private static readonly string RESULT_LABEL_UI_NAME = "ResultLabel";
+        private static readonly string ALLIES_STATE_CONTAINER_UI_NAME = "AlliesStateContainer";
+        private static readonly string ENEMIES_STATE_CONTAINER_UI_NAME = "EnemiesStateContainer";
+        private static readonly string STYCAS_REWARD_LAEBL_UI_NAME = "StycasRewardLabel";
+        private static readonly string ITEMS_REWARD_CONTAINER_UI_NAME = "ItemsRewardContainer";
+        private static readonly string CONTINUE_BUTTON_UI_NAME = "ContinueButton";
+        private static readonly string OBJECT_DETAILS_PANEL_CONTAINER_UI_NAME = "ObjectDetailsPanelContainer";
+
+        private static readonly string FIGHTER_STATE_CONTAINER_ROOT_CLASSNAME = "fighterStateRoot";
+        private static readonly string ITEM_REWARD_CONTAINER_ROOT_CLASSNAME = "itemRewardContainerRoot";
+
+        private static readonly string OBJECT_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME =
+            "objectDetailsPanelContainerHidden";
+
+        private static readonly string OBJECT_DETAILS_EFFECT_LINE_CLASSNAME = "itemRewardDetailsEffectLine";
+
+        #endregion
     }
 }

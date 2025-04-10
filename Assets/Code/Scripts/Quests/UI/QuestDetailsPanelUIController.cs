@@ -1,24 +1,11 @@
-using UnityEngine.UIElements;
 using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Utils.Trees;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Quests.UI
 {
     public static class QuestDetailsPanelUIController
     {
-        #region UI Elements Names & Classes
-        private static readonly string QUEST_DETAILS_PANEL_CONTAINER_UI_NAME = "QuestDetailsPanelContainer";
-        private static readonly string QUEST_TITLE_UI_NAME = "Title";
-        private static readonly string QUEST_ORIGIN_LOCATION_UI_NAME = "OriginLocation";
-        private static readonly string QUEST_DESCRIPTION_UI_NAME = "Description";
-        private static readonly string QUEST_COMPLETED_ICON_UI_NAME = "QuestCompletedIcon";
-        private static readonly string QUEST_ACTIONS_CONTAINER_UI_NAME = "QuestActionsContainer";
-        private static readonly string QUEST_STEPS_CONTAINER_UI_NAME = "QuestStepsContainer";
-
-        private static readonly string QUEST_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME = "questDetailsPanelContainerHidden";
-        private static readonly string QUEST_STEPS_CONTAINER_HIDDEN_CLASSNAME = "questStepsContainerHidden";
-        #endregion
-
         /// <summary>
         /// Display the details of the given quest in the given panel.
         /// </summary>
@@ -64,8 +51,10 @@ namespace FrostfallSaga.Quests.UI
             questDetailsPanelRoot.Q<VisualElement>(
                 QUEST_DETAILS_PANEL_CONTAINER_UI_NAME
             ).AddToClassList(QUEST_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME);
-            questDetailsPanelRoot.Q<VisualElement>(QUEST_ACTIONS_CONTAINER_UI_NAME).AddToClassList(QUEST_STEPS_CONTAINER_HIDDEN_CLASSNAME);
-            questDetailsPanelRoot.Q<VisualElement>(QUEST_STEPS_CONTAINER_UI_NAME).AddToClassList(QUEST_STEPS_CONTAINER_HIDDEN_CLASSNAME);
+            questDetailsPanelRoot.Q<VisualElement>(QUEST_ACTIONS_CONTAINER_UI_NAME)
+                .AddToClassList(QUEST_STEPS_CONTAINER_HIDDEN_CLASSNAME);
+            questDetailsPanelRoot.Q<VisualElement>(QUEST_STEPS_CONTAINER_UI_NAME)
+                .AddToClassList(QUEST_STEPS_CONTAINER_HIDDEN_CLASSNAME);
         }
 
         private static void SetupQuestHeader(VisualElement questDetailsPanelRoot, AQuestSO quest)
@@ -142,5 +131,22 @@ namespace FrostfallSaga.Quests.UI
                 BuildQuestStepContainers(questStepsContainer, questStepTemplate, actionInstructionTemplate, nextStep);
             }
         }
+
+        #region UI Elements Names & Classes
+
+        private static readonly string QUEST_DETAILS_PANEL_CONTAINER_UI_NAME = "QuestDetailsPanelContainer";
+        private static readonly string QUEST_TITLE_UI_NAME = "Title";
+        private static readonly string QUEST_ORIGIN_LOCATION_UI_NAME = "OriginLocation";
+        private static readonly string QUEST_DESCRIPTION_UI_NAME = "Description";
+        private static readonly string QUEST_COMPLETED_ICON_UI_NAME = "QuestCompletedIcon";
+        private static readonly string QUEST_ACTIONS_CONTAINER_UI_NAME = "QuestActionsContainer";
+        private static readonly string QUEST_STEPS_CONTAINER_UI_NAME = "QuestStepsContainer";
+
+        private static readonly string QUEST_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME =
+            "questDetailsPanelContainerHidden";
+
+        private static readonly string QUEST_STEPS_CONTAINER_HIDDEN_CLASSNAME = "questStepsContainerHidden";
+
+        #endregion
     }
 }

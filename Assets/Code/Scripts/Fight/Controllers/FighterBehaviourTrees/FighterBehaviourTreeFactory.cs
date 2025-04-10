@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees;
+using FrostfallSaga.Fight.Fighters;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
 {

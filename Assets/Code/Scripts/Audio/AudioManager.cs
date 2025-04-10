@@ -12,8 +12,8 @@ namespace FrostfallSaga.Audio
 
         [SerializeField] private UIAudioClipsConfig uiAudioClipsConfig;
         [SerializeField] private AudioSource audioSourceObject;
-        private UIAudioClipSelector _uIAudioClipSelector;
         private AudioSource _currentFXAudioSource;
+        private UIAudioClipSelector _uIAudioClipSelector;
 
         private void Awake()
         {
@@ -103,7 +103,7 @@ namespace FrostfallSaga.Audio
             Destroy(audioSource.gameObject, clipLength);
         }
 
-        private IEnumerator FadeOutAndDestroyAudioSource(AudioSource audioSource, float fadeDuration)
+        private static IEnumerator FadeOutAndDestroyAudioSource(AudioSource audioSource, float fadeDuration)
         {
             float startVolume = audioSource.volume;
             float timer = 0f;

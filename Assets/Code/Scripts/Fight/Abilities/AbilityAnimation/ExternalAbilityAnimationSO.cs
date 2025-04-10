@@ -16,9 +16,13 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
         [SerializeReference] public AExternalAbilityAnimationExecutor Executor;
 
         [field: Header("Projectile trigger sound")]
-        [field: SerializeField] public AudioClip ProjectileTriggerSoundFX { get; private set; }
+        [field: SerializeField]
+        public AudioClip ProjectileTriggerSoundFX { get; private set; }
+
         [field: SerializeField, Range(0f, 1f)] public float ProjectileTriggerSoundVolume { get; private set; } = 1f;
-        [field: SerializeField, Range(0f, 3f)] public float ProjectileTriggerSoundFadeOutDuration { get; private set; } = 0.7f;
+
+        [field: SerializeField, Range(0f, 3f)]
+        public float ProjectileTriggerSoundFadeOutDuration { get; private set; } = 0.7f;
 
         /// <summary>
         ///     Executes the external ability animation as configured.

@@ -56,7 +56,7 @@ namespace FrostfallSaga.Kingdom
 
             // Extracting data from points of interest
             InterestPointData[] interestPointsData = InterestPoints
-                .Select(point => InterestPointBuilder.Instance.ExtractInterestPointData(point))
+                .Select(point => InterestPointBuilder.ExtractInterestPointData(point))
                 .ToArray();
 
             // Save into GameStateManager

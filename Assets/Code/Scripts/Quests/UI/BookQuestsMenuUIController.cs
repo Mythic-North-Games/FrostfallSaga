@@ -1,38 +1,76 @@
-using UnityEngine;
-using UnityEngine.UIElements;
 using FrostfallSaga.Core.BookMenu;
 using FrostfallSaga.Core.Quests;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Quests.UI
 {
     public class BookQuestsMenuUIController : ABookMenuUIController
     {
-        [SerializeField] private VisualTreeAsset _questsListTemplate;
-        [SerializeField] private VisualTreeAsset _listQuestItemTemplate;
-        [SerializeField] private VisualTreeAsset _questDetailsTemplate;
-        [SerializeField] private VisualTreeAsset _questStepTemplate;
-        [SerializeField] private VisualTreeAsset _actionInstructionTemplate;
-        [SerializeField] private AQuestSO[] _devQuests;
+        [SerializeField] private VisualTreeAsset questsListTemplate;
+        [SerializeField] private VisualTreeAsset listQuestItemTemplate;
+        [SerializeField] private VisualTreeAsset questDetailsTemplate;
+        [SerializeField] private VisualTreeAsset questStepTemplate;
+        [SerializeField] private VisualTreeAsset actionInstructionTemplate;
+        [SerializeField] private AQuestSO[] devQuests;
+        private VisualElement _questDetailsPanelRoot;
 
         private QuestsListMenuUIController _questsListMenuUIController;
-        private VisualElement _questDetailsPanelRoot;
         private AQuestSO[] _questsToShow;
+
+        #region Setup
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            if (questsListTemplate == null)
+            {
+                Debug.LogError("QuestsListTemplate is not set in the inspector.");
+                return;
+            }
+
+            if (listQuestItemTemplate == null)
+            {
+                Debug.LogError("ListQuestItemTemplate is not set in the inspector.");
+                return;
+            }
+
+            if (questDetailsTemplate == null)
+            {
+                Debug.LogError("QuestDetailsTemplate is not set in the inspector.");
+                return;
+            }
+
+            if (questStepTemplate == null)
+            {
+                Debug.LogError("QuestStepTemplate is not set in the inspector.");
+                return;
+            }
+
+            if (actionInstructionTemplate == null)
+            {
+                Debug.LogError("ActionInstructionTemplate is not set in the inspector.");
+            }
+        }
+
+        #endregion
 
         public override void SetupMenu()
         {
             SetQuestsToShow();
 
-            VisualElement questsListMenuRoot = _questsListTemplate.Instantiate();
+            VisualElement questsListMenuRoot = questsListTemplate.Instantiate();
             questsListMenuRoot.StretchToParentSize();
             _questsListMenuUIController = new QuestsListMenuUIController(
                 questsListMenuRoot,
-                _listQuestItemTemplate,
+                listQuestItemTemplate,
                 _questsToShow
             );
             _questsListMenuUIController.onQuestSelected += OnQuestSelected;
             _questsListMenuUIController.onQuestsFilterChanged += OnQuestsFilterChanged;
 
-            _questDetailsPanelRoot = _questDetailsTemplate.Instantiate();
+            _questDetailsPanelRoot = questDetailsTemplate.Instantiate();
             _questDetailsPanelRoot.StretchToParentSize();
             QuestDetailsPanelUIController.ResetQuestDetailsPanel(_questDetailsPanelRoot);
 
@@ -51,8 +89,8 @@ namespace FrostfallSaga.Quests.UI
         {
             QuestDetailsPanelUIController.DisplayQuestDetails(
                 _questDetailsPanelRoot,
-                _questStepTemplate,
-                _actionInstructionTemplate,
+                questStepTemplate,
+                actionInstructionTemplate,
                 selectedQuest
             );
         }
@@ -65,55 +103,20 @@ namespace FrostfallSaga.Quests.UI
         private void SetQuestsToShow()
         {
             // Add dev quests to the hero team quests singleton if defined
-            if (_devQuests != null && _devQuests.Length > 0)
+            if (devQuests != null && devQuests.Length > 0)
             {
-                foreach (AQuestSO devQuest in _devQuests)
+                foreach (AQuestSO devQuest in devQuests)
                 {
                     if (!HeroTeamQuests.Instance.Quests.Contains(devQuest))
                     {
                         HeroTeamQuests.Instance.AddQuest(devQuest);
                     }
                 }
+
                 _questsToShow = HeroTeamQuests.Instance.Quests.ToArray();
             }
+
             _questsToShow = HeroTeamQuests.Instance.Quests.ToArray();
         }
-
-        #region Setup
-        protected override void Awake()
-        {
-            base.Awake();
-
-            if (_questsListTemplate == null)
-            {
-                Debug.LogError("QuestsListTemplate is not set in the inspector.");
-                return;
-            }
-
-            if (_listQuestItemTemplate == null)
-            {
-                Debug.LogError("ListQuestItemTemplate is not set in the inspector.");
-                return;
-            }
-
-            if (_questDetailsTemplate == null)
-            {
-                Debug.LogError("QuestDetailsTemplate is not set in the inspector.");
-                return;
-            }
-
-            if (_questStepTemplate == null)
-            {
-                Debug.LogError("QuestStepTemplate is not set in the inspector.");
-                return;
-            }
-
-            if (_actionInstructionTemplate == null)
-            {
-                Debug.LogError("ActionInstructionTemplate is not set in the inspector.");
-                return;
-            }
-        }
-        #endregion
     }
 }

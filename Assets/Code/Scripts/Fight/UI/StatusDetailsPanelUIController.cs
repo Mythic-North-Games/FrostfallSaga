@@ -5,14 +5,6 @@ namespace FrostfallSaga.Fight.UI
 {
     public class StatusDetailsPanelUIController
     {
-        #region UXML Element names and classes
-        private static readonly string STATUS_DETAILS_LABEL_UI_NAME = "StatusDetailsLabel";
-
-        private static readonly string STATUS_DETAILS_PANEL_HIDDEN_CLASSNAME = "statusDetailsPanelHidden";
-        #endregion
-
-        public VisualElement Root { get; private set; }
-
         private Label _statusDetailsLabel;
 
         public StatusDetailsPanelUIController(VisualElement root)
@@ -20,6 +12,8 @@ namespace FrostfallSaga.Fight.UI
             Root = root;
             _statusDetailsLabel = Root.Q<Label>(STATUS_DETAILS_LABEL_UI_NAME);
         }
+
+        public VisualElement Root { get; private set; }
 
         public void Display(AStatus status, int lastingDuration)
         {
@@ -31,5 +25,13 @@ namespace FrostfallSaga.Fight.UI
         {
             Root.AddToClassList(STATUS_DETAILS_PANEL_HIDDEN_CLASSNAME);
         }
+
+        #region UXML Element names and classes
+
+        private static readonly string STATUS_DETAILS_LABEL_UI_NAME = "StatusDetailsLabel";
+
+        private static readonly string STATUS_DETAILS_PANEL_HIDDEN_CLASSNAME = "statusDetailsPanelHidden";
+
+        #endregion
     }
 }

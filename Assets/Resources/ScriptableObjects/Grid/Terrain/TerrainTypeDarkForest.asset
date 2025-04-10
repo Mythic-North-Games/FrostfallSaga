@@ -18,7 +18,7 @@ MonoBehaviour:
   <MovePoint>k__BackingField: 0
   <RangePoint>k__BackingField: 0
   <InitiativePoint>k__BackingField: -1
-  <IsAccessible>k__BackingField: 1
+  <DefaultAccessible>k__BackingField: 1
   <CellMaterial>k__BackingField: {fileID: 2100000, guid: 249af61232f20414ca3eb7fb6299c738, type: 2}
   <VisualsWhenAccessible>k__BackingField:
   - {fileID: 598771669309824393, guid: a740c78d0319b87438f25d7ff3f0f1ca, type: 3}

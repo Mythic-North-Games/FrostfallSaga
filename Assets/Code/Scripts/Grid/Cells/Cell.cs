@@ -8,7 +8,7 @@ namespace FrostfallSaga.Grid.Cells
     /// <summary>
     ///     Represents a cell on an HexGrid.
     /// </summary>
-    public class Cell : MonoBehaviour
+    public abstract class Cell : MonoBehaviour
     {
         [field: SerializeField]
         [field: Header("Coordinates")]
@@ -23,6 +23,10 @@ namespace FrostfallSaga.Grid.Cells
         public TerrainTypeSO TerrainType { get; private set; }
 
         [field: SerializeField]
+        [field: Tooltip("Accessibility of the cell")]
+        public bool IsAccessibleTerrain { get; private set; }
+
+        [field: SerializeField]
         [field: Tooltip("Biome type")]
         public BiomeTypeSO BiomeType { get; private set; }
 
@@ -35,9 +39,8 @@ namespace FrostfallSaga.Grid.Cells
         public MaterialHighlightable HighlightController { get; private set; }
 
         [field: SerializeField] public CellMouseEventsController CellMouseEventsController { get; private set; }
-        private AHexGrid _parentGrid;
-        private bool? _overrideAccessibility; 
 
+        private AHexGrid _parentGrid;
         public Vector2Int AxialCoordinates => HexMetrics.OffsetToAxial(Coordinates);
 
         private void Awake()
@@ -84,28 +87,13 @@ namespace FrostfallSaga.Grid.Cells
                 Debug.LogError("Cell " + name + " has no visual to be set up. Please add a cell visual as a child.");
         }
 
-        /// <summary>
-        ///     Returns if the cell is accessible, regardless of the possible cell occupants.
-        /// </summary>
-        /// <returns>True if the terrain is accessible and if there are no obstacles, false otherwise</returns>
-        public virtual bool IsTerrainAccessible()
-        {
-            return _overrideAccessibility ?? TerrainType.IsAccessible;
-        }
+        public abstract bool IsTerrainAccessible();
         
-        public void ForceAccessibility(bool value)
-        {
-            _overrideAccessibility = value;
-        }
+        public abstract bool IsFree();
 
-
-        /// <summary>
-        ///     Returns if the cell is free to be occupied.
-        /// </summary>
-        /// <returns>True if the cell is accessible and contains no occupants.</returns>
-        public virtual bool IsFree()
+        public void SetTerrainAccessibility(bool value)
         {
-            return TerrainType.IsAccessible;
+            IsAccessibleTerrain = value;
         }
 
         /// <summary>
@@ -122,7 +110,7 @@ namespace FrostfallSaga.Grid.Cells
         {
             TerrainType = terrainType;
 
-            GameObject[] visualsToUse = IsTerrainAccessible()
+            GameObject[] visualsToUse = IsAccessibleTerrain
                 ? TerrainType.VisualsWhenAccessible
                 : TerrainType.VisualsWhenBlocked;
 
@@ -140,7 +128,7 @@ namespace FrostfallSaga.Grid.Cells
             }
 
             Renderer renderer = GetComponentInChildren<Renderer>();
-            if (renderer && TerrainType?.CellMaterial != null)
+            if (renderer && TerrainType?.CellMaterial)
             {
                 renderer.sharedMaterial = TerrainType.CellMaterial;
             }
@@ -166,7 +154,7 @@ namespace FrostfallSaga.Grid.Cells
         private void SetPositionForCellHeight(ECellHeight cellHeight, float duration)
         {
             const float epsilon = 0.0001f;
-    
+
             if (Mathf.Abs(duration) < epsilon)
             {
                 transform.position = new Vector3(transform.position.x, (float)cellHeight, transform.position.z);
@@ -219,7 +207,7 @@ namespace FrostfallSaga.Grid.Cells
             Vector2Int targetAxial = targetCell.AxialCoordinates;
             return targetAxial - initiatorAxial;
         }
-        
+
         public override string ToString()
         {
             return "Cell: \n" +

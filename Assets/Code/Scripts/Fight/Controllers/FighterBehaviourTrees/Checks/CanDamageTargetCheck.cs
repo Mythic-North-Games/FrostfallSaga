@@ -30,7 +30,8 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
             List<Fighter> damagableTargets = GetDamagableFighters();
             if (damagableTargets.Count == 0) return NodeState.FAILURE;
 
-            Fighter preferredTarget = _targetType.GetPreferedTargetInList(_possessedFighter, _fightGrid, damagableTargets);
+            Fighter preferredTarget =
+                _targetType.GetPreferedTargetInList(_possessedFighter, _fightGrid, damagableTargets);
             SetSharedData(TARGET_SHARED_DATA_KEY, preferredTarget);
             return NodeState.SUCCESS;
         }
