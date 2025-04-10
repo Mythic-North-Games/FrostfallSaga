@@ -32,7 +32,7 @@ namespace FrostfallSaga.Grid
             bool checkLastCell = true
         )
         {
-            Cell[] mandatoryCells = checkLastCell ? Array.Empty<Cell>() : new[] { endCell }; // FIXME
+            Cell[] mandatoryCells = checkLastCell ? Array.Empty<Cell>() : new[] { endCell };
 
             PriorityQueue<Cell> frontier = new();
             frontier.Enqueue(startCell, 0);
