@@ -51,13 +51,17 @@ namespace FrostfallSaga.Fight.FightItems
             );
         }
 
-        public void PlayUseSoundFXIfAny(Transform weaponTransform)
+        public void PlayUseSoundFXIfAny(Fighter initator)
         {
-            if (!WeaponUseSoundFX) return;
+            if (WeaponUseSoundFX == null) return;
+
+            Transform audioSourceTransform = initator.GetWeaponCollider() != null
+                ? initator.GetWeaponCollider().transform
+                : initator.transform;
             AudioManager.Instance.PlayFXSound(
                 WeaponUseSoundFX,
-                weaponTransform,
-                1f,
+                audioSourceTransform,
+                1f, 
                 0.5f
             );
         }

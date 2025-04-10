@@ -24,7 +24,7 @@ namespace FrostfallSaga.Fight.Fighters
             if (!_controlledFighter.Weapon.AttackAnimation)
             {
                 Debug.LogWarning($"No animation attached to direct attack for fighter {_controlledFighter.name}");
-                _controlledFighter.Weapon.PlayUseSoundFXIfAny(_controlledFighter.GetWeaponCollider().transform);
+                _controlledFighter.Weapon.PlayUseSoundFXIfAny(_controlledFighter);
                 targetedCells
                     .Where(cell => cell.HasFighter()).ToList()
                     .ForEach(cell =>
