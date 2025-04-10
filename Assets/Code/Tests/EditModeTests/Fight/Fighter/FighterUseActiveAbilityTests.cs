@@ -31,7 +31,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             Debug.Log(attacker.ToString());
             FightTestsHelper.SetupFighterPositionOnGrid(grid, attacker, new Vector2Int(0, 0));
 
-            fireDamages = ((MagicalDamageEffect)attacker.ActiveAbilities[0].Effects[0]).MagicalDamageAmount;
+            fireDamages = ((MagicalDamageEffect)attacker.ActiveAbilities[0].effects[0]).MagicalDamageAmount;
         }
 
         [TearDown]
@@ -55,7 +55,7 @@ namespace FrostfallSaga.EditModeTests.FightTests.FighterTests
             receiver.SetStatsForTests();
             FightTestsHelper.SetupFighterPositionOnGrid(grid, receiver, new Vector2Int(0, 1));
             ActiveAbilitySO activeAbilityToUse = attacker.ActiveAbilities[0];
-            MagicalDamageEffect magicalDamageEffect = (MagicalDamageEffect)activeAbilityToUse.Effects[0];
+            MagicalDamageEffect magicalDamageEffect = (MagicalDamageEffect)activeAbilityToUse.effects[0];
 
             int expectedActionPoints = attacker.GetStatsForTests().actionPoints - activeAbilityToUse.ActionPointsCost;
             int expectedReceiverHealth = receiver.GetStatsForTests().health -

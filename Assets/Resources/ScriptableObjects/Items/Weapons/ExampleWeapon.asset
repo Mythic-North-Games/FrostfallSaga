@@ -40,7 +40,8 @@ MonoBehaviour:
     value: 0
   <FightersStrengths>k__BackingField: []
   SpecialEffects: []
-  <AttackAnimation>k__BackingField: {fileID: 0}
+  <AttackAnimation>k__BackingField: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
+  <WeaponUseSoundFX>k__BackingField: {fileID: 8300000, guid: 3c0943e18a9f20d41b474d88ab8d911e, type: 3}
   references:
     version: 2
     RefIds: []

@@ -4,20 +4,17 @@ namespace FrostfallSaga.InventorySystem.UI
 {
     public class InventoryHeroRenderTextureSceneController : MonoBehaviour
     {
-        [SerializeField] private Transform sceneRoot;
-        [SerializeField] private Transform heroModelContainer;
+        private Transform _sceneRoot;
+        private Transform _heroModelContainer;
 
         #region Setup
 
         private void Awake()
         {
-            if (!sceneRoot)
-            {
-                Debug.LogError("Scene root is not assigned.");
-                return;
-            }
-
-            if (!heroModelContainer)
+            _sceneRoot ??= gameObject.transform;
+            
+            _heroModelContainer ??= _sceneRoot.Find("HeroModelContainer");
+            if (!_heroModelContainer)
             {
                 Debug.LogError("Hero model container is not assigned.");
             }
@@ -36,7 +33,7 @@ namespace FrostfallSaga.InventorySystem.UI
         /// <param name="heroModelPrefab">The prefab of the hero model to be instantiated.</param>
         public void SetupHeroModel(GameObject heroModelPrefab)
         {
-            if (!heroModelContainer)
+            if (!_heroModelContainer)
             {
                 Debug.LogError("Hero model container is not assigned.");
                 return;
@@ -46,7 +43,7 @@ namespace FrostfallSaga.InventorySystem.UI
             CleanupHeroModel();
 
             // Instantiate the new hero model under the container
-            Instantiate(heroModelPrefab, heroModelContainer);
+            Instantiate(heroModelPrefab, _heroModelContainer);
 
             // Activate the scene
             SetSceneActive(true);
@@ -54,13 +51,13 @@ namespace FrostfallSaga.InventorySystem.UI
 
         public void SetSceneActive(bool isActive)
         {
-            sceneRoot.gameObject.SetActive(isActive);
+            _sceneRoot.gameObject.SetActive(isActive);
             if (!isActive) CleanupHeroModel();
         }
 
         private void CleanupHeroModel()
         {
-            foreach (Transform child in heroModelContainer)
+            foreach (Transform child in _heroModelContainer)
             {
                 Destroy(child.gameObject);
             }

@@ -12,12 +12,12 @@ namespace FrostfallSaga.InventorySystem.UI
 {
     public class BookInventoryMenuUIController : ABookMenuUIController
     {
-        [SerializeField] private InventoryHeroRenderTextureSceneController _heroRenderTextureSceneController;
-        [SerializeField] private VisualTreeAsset _equippedPanelTemplate;
-        [SerializeField] private VisualTreeAsset _bagPanelTemplate;
-        [SerializeField] private VisualTreeAsset _statContainerTemplate;
-        [SerializeField] private Color _statValueColor = new(0.2f, 0.2f, 0.2f, 1f);
-        [SerializeField] private EntityConfigurationSO _devHero;
+        [SerializeField] private InventoryHeroRenderTextureSceneController heroRenderTextureSceneController;
+        [SerializeField] private VisualTreeAsset equippedPanelTemplate;
+        [SerializeField] private VisualTreeAsset bagPanelTemplate;
+        [SerializeField] private VisualTreeAsset statContainerTemplate;
+        [SerializeField] private Color statValueColor = new(0.2f, 0.2f, 0.2f, 1f);
+        [SerializeField] private EntityConfigurationSO devHero;
         private InventoryBagPanelUIController _bagPanelUIController;
 
         private EntityConfigurationSO _currentHeroEntityConf;
@@ -31,25 +31,25 @@ namespace FrostfallSaga.InventorySystem.UI
         {
             base.Awake();
 
-            if (!_heroRenderTextureSceneController)
+            if (!heroRenderTextureSceneController)
             {
                 Debug.LogError("Hero Render Texture Scene Controller is not set in the inspector.");
                 return;
             }
 
-            if (!_equippedPanelTemplate)
+            if (!equippedPanelTemplate)
             {
                 Debug.LogError("Equipped Panel Template is not set in the inspector.");
                 return;
             }
 
-            if (!_bagPanelTemplate)
+            if (!bagPanelTemplate)
             {
                 Debug.LogError("Bag Panel Template is not set in the inspector.");
                 return;
             }
 
-            if (!_statContainerTemplate)
+            if (!statContainerTemplate)
             {
                 Debug.LogError("Item Details Stat Container Template is not set in the inspector.");
             }
@@ -62,19 +62,19 @@ namespace FrostfallSaga.InventorySystem.UI
             // Get the first hero in the team to display its inventory
             List<Hero> heroes = HeroTeam.Instance.Heroes;
             _currentHeroEntityConf = HeroTeam.Instance.Heroes[0].EntityConfiguration;
-            if (_devHero != null)
+            if (devHero)
             {
-                _currentHeroEntityConf = _devHero;
+                _currentHeroEntityConf = devHero;
             }
 
             _currentHeroInventory =
                 ((PersistedFighterConfigurationSO)_currentHeroEntityConf.FighterConfiguration).Inventory;
 
             // Setup equipped panel (left page)
-            VisualElement equippedPanelRoot = _equippedPanelTemplate.Instantiate();
+            VisualElement equippedPanelRoot = equippedPanelTemplate.Instantiate();
             equippedPanelRoot.StretchToParentSize();
             _equippedPanelUIController =
-                new InventoryEquippedPanelUIController(equippedPanelRoot, _heroRenderTextureSceneController);
+                new InventoryEquippedPanelUIController(equippedPanelRoot, heroRenderTextureSceneController);
             _equippedPanelUIController.onItemSlotSelected += OnItemSlotSelected;
             _equippedPanelUIController.onItemSlotUnequipClicked += OnItemSlotUnequipClicked;
             _equippedPanelUIController.SetHero(_currentHeroEntityConf);
@@ -85,10 +85,10 @@ namespace FrostfallSaga.InventorySystem.UI
             _heroChooserUIController.OnHeroChosen += OnHeroChosen;
 
             // Setup bag panel (right page)
-            VisualElement bagPanelRoot = _bagPanelTemplate.Instantiate();
+            VisualElement bagPanelRoot = bagPanelTemplate.Instantiate();
             bagPanelRoot.StretchToParentSize();
             _bagPanelUIController =
-                new InventoryBagPanelUIController(bagPanelRoot, _statContainerTemplate, _statValueColor);
+                new InventoryBagPanelUIController(bagPanelRoot, statContainerTemplate, statValueColor);
             _bagPanelUIController.onItemSlotSelected += OnItemSlotSelected;
             _bagPanelUIController.onItemSlotEquipClicked += OnItemSlotEquipClicked;
             _bagPanelUIController.SetInventory(_currentHeroInventory);
@@ -100,14 +100,14 @@ namespace FrostfallSaga.InventorySystem.UI
         public override void ClearMenu()
         {
             base.ClearMenu();
-            _heroRenderTextureSceneController.SetSceneActive(false);
+            heroRenderTextureSceneController.SetSceneActive(false);
             _equippedPanelUIController = null;
             _bagPanelUIController = null;
         }
 
         private void OnItemSlotSelected(InventorySlot selectedItemSlot)
         {
-            if (selectedItemSlot.Item == null)
+            if (!selectedItemSlot.Item)
             {
                 _bagPanelUIController.HideItemDetails();
             }
@@ -120,7 +120,7 @@ namespace FrostfallSaga.InventorySystem.UI
         private void OnItemSlotEquipClicked(InventorySlot selectedItemSlot)
         {
             // If item is not equippable, do nothing
-            if (selectedItemSlot.Item == null || !selectedItemSlot.Item.IsEquippable())
+            if (!selectedItemSlot.Item || !selectedItemSlot.Item.IsEquippable())
             {
                 return;
             }
@@ -146,7 +146,7 @@ namespace FrostfallSaga.InventorySystem.UI
         private void OnItemSlotUnequipClicked(InventorySlot selectedItemSlot)
         {
             // If item is not equippable, do nothing
-            if (selectedItemSlot.Item == null || !selectedItemSlot.Item.IsEquippable())
+            if (!selectedItemSlot.Item || !selectedItemSlot.Item.IsEquippable())
             {
                 return;
             }

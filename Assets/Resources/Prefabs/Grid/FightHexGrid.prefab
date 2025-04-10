@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6002406047936911078
+--- !u!1001 &6115908701896166119
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -58,20 +58,20 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5394681164775873498, guid: 3be7973bb46ad214d995adfc136b8c4c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2124646453989874991}
+      addedObject: {fileID: 3836396025498947227}
   m_SourcePrefab: {fileID: 100100000, guid: 3be7973bb46ad214d995adfc136b8c4c, type: 3}
---- !u!1 &1842277432839327036 stripped
+--- !u!1 &2179130205896511805 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5394681164775873498, guid: 3be7973bb46ad214d995adfc136b8c4c, type: 3}
-  m_PrefabInstance: {fileID: 6002406047936911078}
+  m_PrefabInstance: {fileID: 6115908701896166119}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2124646453989874991
+--- !u!114 &3836396025498947227
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1842277432839327036}
+  m_GameObject: {fileID: 2179130205896511805}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6557c83ab7a18dd49bdb9f3d2f933746, type: 3}
@@ -80,7 +80,7 @@ MonoBehaviour:
   <Width>k__BackingField: 10
   <Height>k__BackingField: 10
   <HexSize>k__BackingField: 2
-  <AvailableBiomes>k__BackingField:
-  - {fileID: 11400000, guid: 62807aa1d0cd21844b1e3eef85934555, type: 2}
+  <AvailableBiomes>k__BackingField: []
   <NoiseScale>k__BackingField: 0.2
   <Seed>k__BackingField: 0
+  defaultBiomeType: {fileID: 11400000, guid: 62807aa1d0cd21844b1e3eef85934555, type: 2}
