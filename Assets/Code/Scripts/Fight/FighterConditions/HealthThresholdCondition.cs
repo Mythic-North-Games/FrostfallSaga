@@ -15,7 +15,8 @@ namespace FrostfallSaga.Fight.FightConditions
         [SerializeField] public int Threshold;
         [SerializeField] public bool UsePercentage;
 
-        public override bool CheckCondition(Fighter fighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        public override bool CheckCondition(Fighter fighter, FightHexGrid fightGrid,
+            Dictionary<Fighter, bool> fightersTeams)
         {
             int finalThreshold = Threshold;
             if (UsePercentage) finalThreshold = (int)(fighter.GetMaxHealth() * Threshold / 100f);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
@@ -11,8 +12,8 @@ namespace FrostfallSaga.Kingdom
     public class EntitiesGroupsMovementController
     {
         private readonly Dictionary<EntitiesGroup, MovePath> _currentPathPerEnemiesGroup = new();
-        private readonly KingdomHexGrid _kingdomGrid;
         private readonly EntitiesGroup _heroGroup;
+        private readonly KingdomHexGrid _kingdomGrid;
 
         private MovePath _currentHeroGroupMovePath;
         private EntitiesGroup[] _enemiesGroupsToMove;
@@ -121,11 +122,7 @@ namespace FrostfallSaga.Kingdom
 
         private EntitiesGroup GetEnemiesGroupThatWillCollide(Cell targetCell)
         {
-            foreach (EntitiesGroup EntitiesGroup in _enemiesGroupsToMove)
-                if (EntitiesGroup.cell == targetCell)
-                    return EntitiesGroup;
-
-            return null;
+            return _enemiesGroupsToMove.FirstOrDefault(entitiesGroup => entitiesGroup.cell == targetCell);
         }
 
         private void EndMovementProcess()

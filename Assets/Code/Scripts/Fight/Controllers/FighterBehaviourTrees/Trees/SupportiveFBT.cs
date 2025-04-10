@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using FrostfallSaga.Utils.Trees.BehaviourTree;
-using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks;
+using FrostfallSaga.Fight.Effects;
+using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Utils.Trees.BehaviourTree;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
 {
@@ -91,7 +91,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Trees
                         _fightGrid,
                         _fighterTeams,
                         new() { ETarget.SELF },
-                        ETargetType.RANDOM  // Irrelevant because there is only one target
+                        ETargetType.RANDOM // Irrelevant because there is only one target
                     ),
                     new HealDefinedTargetAction(
                         _possessedFighter,

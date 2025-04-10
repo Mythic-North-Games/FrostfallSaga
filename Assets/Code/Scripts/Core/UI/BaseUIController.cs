@@ -15,8 +15,7 @@ namespace FrostfallSaga.Core.UI
             if (_uiDoc == null)
             {
                 Debug.LogError("UI Document is not set in the inspector.");
-                return;
-            }            
+            }
         }
     }
 }

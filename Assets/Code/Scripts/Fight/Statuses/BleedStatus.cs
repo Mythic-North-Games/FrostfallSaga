@@ -23,7 +23,8 @@ namespace FrostfallSaga.Fight.Statuses
             FighterBuffVisualsController visualsController,
             int bleedingDamage
         )
-            : base(EStatusType.BLEED, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+            : base(EStatusType.BLEED, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime,
+                visualsController)
         {
             BleedingDamage = bleedingDamage;
         }
@@ -42,8 +43,10 @@ namespace FrostfallSaga.Fight.Statuses
 
         public override int GetPotentialDamages()
         {
-            if (IsPermanent) return BleedingDamage * 3;  // INFO: We multiply by three to get the "average" damage over the duration.
-            return BleedingDamage * Duration / 2;   // INFO: We divide by two to get the "average" damage over the duration.
+            if (IsPermanent)
+                return BleedingDamage * 3; // INFO: We multiply by three to get the "average" damage over the duration.
+            return
+                BleedingDamage * Duration / 2; // INFO: We divide by two to get the "average" damage over the duration.
         }
 
         public override int GetPotentialHeal()

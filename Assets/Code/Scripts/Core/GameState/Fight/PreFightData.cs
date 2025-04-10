@@ -13,7 +13,6 @@ namespace FrostfallSaga.Core.GameState.Fight
         public EntityConfigurationSO[] alliesEntityConf;
         public EFightOrigin fightOrigin;
         public KeyValuePair<string, EntityConfigurationSO>[] enemiesEntityConf;
-        [CanBeNull] public Dictionary<HexDirection, Cell> HexDirectionCells = new ();
-
+        [CanBeNull] public Dictionary<HexDirection, Cell> HexDirectionCells = new();
     }
 }

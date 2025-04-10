@@ -19,7 +19,8 @@ namespace FrostfallSaga.Fight.Statuses
             bool isRecurring,
             EStatusTriggerTime triggerTime,
             FighterBuffVisualsController visualsController
-        ) : base(EStatusType.PARALYSIS, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+        ) : base(EStatusType.PARALYSIS, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime,
+            visualsController)
         {
         }
 

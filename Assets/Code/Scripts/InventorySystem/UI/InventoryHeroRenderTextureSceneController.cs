@@ -4,12 +4,30 @@ namespace FrostfallSaga.InventorySystem.UI
 {
     public class InventoryHeroRenderTextureSceneController : MonoBehaviour
     {
-        [SerializeField] private Transform _sceneRoot;
-        [SerializeField] private Transform _heroModelContainer;
-        
+        [SerializeField] private Transform sceneRoot;
+        [SerializeField] private Transform heroModelContainer;
+
+        #region Setup
+
+        private void Awake()
+        {
+            if (!sceneRoot)
+            {
+                Debug.LogError("Scene root is not assigned.");
+                return;
+            }
+
+            if (!heroModelContainer)
+            {
+                Debug.LogError("Hero model container is not assigned.");
+            }
+        }
+
+        #endregion
+
         private void Start()
         {
-            SetSceneActive(false);  // Only activate the scene when inventory is open
+            SetSceneActive(false); // Only activate the scene when inventory is open
         }
 
         /// <summary>
@@ -18,7 +36,7 @@ namespace FrostfallSaga.InventorySystem.UI
         /// <param name="heroModelPrefab">The prefab of the hero model to be instantiated.</param>
         public void SetupHeroModel(GameObject heroModelPrefab)
         {
-            if (_heroModelContainer == null)
+            if (!heroModelContainer)
             {
                 Debug.LogError("Hero model container is not assigned.");
                 return;
@@ -28,7 +46,7 @@ namespace FrostfallSaga.InventorySystem.UI
             CleanupHeroModel();
 
             // Instantiate the new hero model under the container
-            Instantiate(heroModelPrefab, _heroModelContainer);
+            Instantiate(heroModelPrefab, heroModelContainer);
 
             // Activate the scene
             SetSceneActive(true);
@@ -36,33 +54,16 @@ namespace FrostfallSaga.InventorySystem.UI
 
         public void SetSceneActive(bool isActive)
         {
-            _sceneRoot.gameObject.SetActive(isActive);
+            sceneRoot.gameObject.SetActive(isActive);
             if (!isActive) CleanupHeroModel();
         }
 
         private void CleanupHeroModel()
         {
-            foreach (Transform child in _heroModelContainer)
+            foreach (Transform child in heroModelContainer)
             {
                 Destroy(child.gameObject);
             }
         }
-
-        #region Setup
-        private void Awake()
-        {
-            if (_sceneRoot == null)
-            {
-                Debug.LogError("Scene root is not assigned.");
-                return;
-            }
-
-            if (_heroModelContainer == null)
-            {
-                Debug.LogError("Hero model container is not assigned.");
-                return;
-            }
-        }
-        #endregion
     }
 }

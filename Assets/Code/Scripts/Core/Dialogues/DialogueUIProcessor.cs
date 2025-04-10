@@ -68,6 +68,7 @@ namespace FrostfallSaga.Core.Dialogues
                 {
                     HeroTeamQuests.Instance.AddQuest(_currentDialogueLine.GetData().Quest);
                 }
+
                 StartCoroutine(HideRootContainerAndEndDialogue());
                 return;
             }

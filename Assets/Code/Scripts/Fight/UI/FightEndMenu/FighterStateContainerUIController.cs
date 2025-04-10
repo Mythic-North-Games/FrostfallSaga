@@ -9,12 +9,6 @@ namespace FrostfallSaga.Fight.UI.FightEndMenu
     /// </summary>
     public static class FighterStateContainerUIController
     {
-        #region UXML Names and classes
-        private static readonly string FIGHTER_ICON_UI_NAME = "FighterIcon";
-        private static readonly string HEALTH_PROGRESS_ROOT_UI_NAME = "HealthProgress";
-        private static readonly string DEAD_ICON_CONTAINER_UI_NAME = "DeadIconContainer";
-        #endregion
-
         public static void Setup(Fighter fighter, VisualElement root)
         {
             root.Q<VisualElement>(FIGHTER_ICON_UI_NAME).style.backgroundImage = new(fighter.DiamondIcon);
@@ -27,5 +21,13 @@ namespace FrostfallSaga.Fight.UI.FightEndMenu
                 displayValueLabel: false
             );
         }
+
+        #region UXML Names and classes
+
+        private static readonly string FIGHTER_ICON_UI_NAME = "FighterIcon";
+        private static readonly string HEALTH_PROGRESS_ROOT_UI_NAME = "HealthProgress";
+        private static readonly string DEAD_ICON_CONTAINER_UI_NAME = "DeadIconContainer";
+
+        #endregion
     }
 }

@@ -10,9 +10,9 @@ using Object = UnityEngine.Object;
 
 namespace FrostfallSaga.EditModeTests.Kingdom
 {
-	public class EntitiesGroupsMovementControllerTests
-	{
-		private KingdomHexGrid grid;
+    public class EntitiesGroupsMovementControllerTests
+    {
+        private KingdomHexGrid grid;
 
         [SetUp]
         public void Setup()
@@ -148,7 +148,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
                 AssertPathForMultipleEntitiesGroup(grid, pathPerEntitiesGroup);
         }
 
-        private void AssertPathForMultipleEntitiesGroup(AHexGrid grid,
+        private static void AssertPathForMultipleEntitiesGroup(AHexGrid grid,
             Dictionary<EntitiesGroup, KingdomCell[]> pathPerEntitiesGroup)
         {
             foreach (KeyValuePair<EntitiesGroup, KingdomCell[]> item in pathPerEntitiesGroup)

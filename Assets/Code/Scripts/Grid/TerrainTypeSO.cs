@@ -38,8 +38,8 @@ namespace FrostfallSaga.Grid
 
         [field: SerializeField]
         [field: Header("Cells Stats")]
-        [field: Tooltip("Define if the cell is accessible or not")]
-        public bool IsAccessible { get; private set; }
+        [field: Tooltip("Define the default accessibility of the cell")]
+        public bool DefaultAccessible { get; private set; }
 
         [field: SerializeField]
         [field: Header("Cell visual")]
@@ -49,11 +49,11 @@ namespace FrostfallSaga.Grid
         [field: SerializeField]
         [field: Tooltip("List of different prefab for visual over the cell when is accessible")]
         public GameObject[] VisualsWhenAccessible { get; private set; }
-        
+
         [field: SerializeField]
         [field: Tooltip("List of different prefab for visual over the cell when not accessible")]
         public GameObject[] VisualsWhenBlocked { get; private set; }
-        
+
         [field: SerializeField]
         [field: Range(0f, 1f)]
         [field: Tooltip("For fight map only. Chance that a cell using this terrain is accessible.")]

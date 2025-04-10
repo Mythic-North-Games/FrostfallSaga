@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
@@ -10,24 +9,14 @@ namespace FrostfallSaga.Fight.UI
 {
     public class TimelineCharacterUIController
     {
-        #region UXML UI Names & Classes
-        private static readonly string CHARACTER_ICON_CONTAINER_UI_NAME = "TimelineCharacterContainer";
-        private static readonly string CHARACTER_ICON_UI_NAME = "TimelineCharacterIcon";
-        private static readonly string STATUSES_CONTAINER_UI_NAME = "TimelineCharacterStatusesContainer";
+        private readonly VisualElement _characterIconContainer;
 
-        private static readonly string STATUS_ICON_CONTAINER_ROOT_CLASSNAME = "statusIconContainerRoot";
-        #endregion
+        private readonly VisualTreeAsset _statusIconContainerTemplate;
 
         public Action<TimelineCharacterUIController> onFighterHovered;
         public Action<TimelineCharacterUIController> onFighterUnhovered;
         public Action<TimelineCharacterUIController, AStatus, int> onStatusIconHovered;
         public Action<TimelineCharacterUIController, AStatus, int> onStatusIconUnhovered;
-
-        public VisualElement Root { get; private set; }
-        public Fighter Fighter { get; private set; }
-
-        private readonly VisualTreeAsset _statusIconContainerTemplate;
-        private readonly VisualElement _characterIconContainer;
 
         public TimelineCharacterUIController(
             VisualElement root,
@@ -61,6 +50,9 @@ namespace FrostfallSaga.Fight.UI
             characterIcon.RegisterCallback<MouseEnterEvent>(_ => onFighterHovered?.Invoke(this));
             characterIcon.RegisterCallback<MouseLeaveEvent>(_ => onFighterUnhovered?.Invoke(this));
         }
+
+        public VisualElement Root { get; private set; }
+        public Fighter Fighter { get; private set; }
 
         private void UpdateHealth()
         {
@@ -107,5 +99,15 @@ namespace FrostfallSaga.Fight.UI
                 statusesContainer.Add(statusIconContainerRoot);
             }
         }
+
+        #region UXML UI Names & Classes
+
+        private static readonly string CHARACTER_ICON_CONTAINER_UI_NAME = "TimelineCharacterContainer";
+        private static readonly string CHARACTER_ICON_UI_NAME = "TimelineCharacterIcon";
+        private static readonly string STATUSES_CONTAINER_UI_NAME = "TimelineCharacterStatusesContainer";
+
+        private static readonly string STATUS_ICON_CONTAINER_ROOT_CLASSNAME = "statusIconContainerRoot";
+
+        #endregion
     }
 }

@@ -9,31 +9,22 @@ namespace FrostfallSaga.Fight.UI
 {
     public class TeamMatesPanelController
     {
-        #region UXML Names & classes
-        private static readonly string PLAYING_FIGHTER_PROGRESS_ROOT_UI_NAME = "PlayingFighterProgress";
-        private static readonly string MATE_1_PROGRESS_ROOT_UI_NAME = "Mate1Progress";
-        private static readonly string MATE_2_PROGRESS_ROOT_UI_NAME = "Mate2Progress";
-        private static readonly string FIGHTER_ICON_CONTAINER_UI_NAME = "FighterIcon";
-        private static readonly string HEALTH_PROGRESS_ROOT_UI_NAME = "HealthProgress";
-        private static readonly string MOVEMENT_POINTS_PROGRESS_ROOT_UI_NAME = "MovementPointsProgress";
-        private static readonly string ACTION_POINTS_PROGRESS_ROOT_UI_NAME = "ActionPointsProgress";
-        #endregion
-
-        private readonly VisualElement _playingFighterIcon;
-        private readonly VisualElement _mate1Icon;
-        private readonly VisualElement _mate2Icon;
-        private readonly VisualElement _playingFighterHealthProgressRoot;
-        private readonly VisualElement _mate1HealthProgressRoot;
-        private readonly VisualElement _mate2HealthProgressRoot;
-        private readonly VisualElement _movementPointsProgressRoot;
+        private readonly Color _actionPointsProgressColor;
         private readonly VisualElement _actionPointsProgressRoot;
+        private readonly VisualElement _mate1HealthProgressRoot;
+        private readonly VisualElement _mate1Icon;
+        private readonly VisualElement _mate2HealthProgressRoot;
+        private readonly VisualElement _mate2Icon;
 
         private readonly Color _movementPointsProgressColor;
-        private readonly Color _actionPointsProgressColor;
+        private readonly VisualElement _movementPointsProgressRoot;
+        private readonly VisualElement _playingFighterHealthProgressRoot;
 
-        private Fighter _playingFighter;
+        private readonly VisualElement _playingFighterIcon;
         private Fighter _mate1;
         private Fighter _mate2;
+
+        private Fighter _playingFighter;
 
         public TeamMatesPanelController(
             VisualElement root,
@@ -43,7 +34,8 @@ namespace FrostfallSaga.Fight.UI
         {
             VisualElement playingFighterProgressRoot = root.Q<VisualElement>(PLAYING_FIGHTER_PROGRESS_ROOT_UI_NAME);
             _playingFighterIcon = playingFighterProgressRoot.Q<VisualElement>(FIGHTER_ICON_CONTAINER_UI_NAME);
-            _playingFighterHealthProgressRoot = playingFighterProgressRoot.Q<VisualElement>(HEALTH_PROGRESS_ROOT_UI_NAME);
+            _playingFighterHealthProgressRoot =
+                playingFighterProgressRoot.Q<VisualElement>(HEALTH_PROGRESS_ROOT_UI_NAME);
 
             VisualElement mate1ProgressRoot = root.Q<VisualElement>(MATE_1_PROGRESS_ROOT_UI_NAME);
             _mate1Icon = mate1ProgressRoot.Q<VisualElement>(FIGHTER_ICON_CONTAINER_UI_NAME);
@@ -173,7 +165,20 @@ namespace FrostfallSaga.Fight.UI
             UpdateActionPointsProgress(playingFighter);
         }
 
+        #region UXML Names & classes
+
+        private static readonly string PLAYING_FIGHTER_PROGRESS_ROOT_UI_NAME = "PlayingFighterProgress";
+        private static readonly string MATE_1_PROGRESS_ROOT_UI_NAME = "Mate1Progress";
+        private static readonly string MATE_2_PROGRESS_ROOT_UI_NAME = "Mate2Progress";
+        private static readonly string FIGHTER_ICON_CONTAINER_UI_NAME = "FighterIcon";
+        private static readonly string HEALTH_PROGRESS_ROOT_UI_NAME = "HealthProgress";
+        private static readonly string MOVEMENT_POINTS_PROGRESS_ROOT_UI_NAME = "MovementPointsProgress";
+        private static readonly string ACTION_POINTS_PROGRESS_ROOT_UI_NAME = "ActionPointsProgress";
+
+        #endregion
+
         #region Fighter events registration
+
         private void RegisterFighterEvents()
         {
             _playingFighter.onDamageReceived += OnPlayingFighterHealthChanged;
@@ -198,6 +203,7 @@ namespace FrostfallSaga.Fight.UI
                 _mate1.onDamageReceived += OnMateFighterHealthChanged;
                 _mate1.onHealReceived += OnMateFighterHealthChanged;
             }
+
             if (_mate2 != null)
             {
                 _mate2.onDamageReceived += OnMateFighterHealthChanged;
@@ -229,12 +235,14 @@ namespace FrostfallSaga.Fight.UI
                 _mate1.onDamageReceived -= OnMateFighterHealthChanged;
                 _mate1.onHealReceived -= OnMateFighterHealthChanged;
             }
+
             if (_mate2 != null)
             {
                 _mate2.onDamageReceived -= OnMateFighterHealthChanged;
                 _mate2.onHealReceived -= OnMateFighterHealthChanged;
             }
         }
+
         #endregion
     }
 }

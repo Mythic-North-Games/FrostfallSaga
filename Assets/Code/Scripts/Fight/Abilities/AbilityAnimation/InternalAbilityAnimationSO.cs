@@ -21,7 +21,9 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
         [SerializeReference] public AInternalAbilityAnimationExecutor Executor;
 
         [field: Header("Trigger sound")]
-        [field: SerializeField] public AudioClip TriggerSoundFX { get; private set; }
+        [field: SerializeField]
+        public AudioClip TriggerSoundFX { get; private set; }
+
         [field: SerializeField, Range(0f, 1f)] public float TriggerSoundVolume { get; private set; } = 1f;
         [field: SerializeField, Range(0f, 3f)] public float TriggerSoundFadeOutDuration { get; private set; } = 0.7f;
 
@@ -36,9 +38,9 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
 
             FighterCollider fighterWeaponCollider = fighterThatWillExecute.GetWeaponCollider();
             Executor.Execute(
-                fighterThatWillExecute, 
-                abilityTargetCells, 
-                AnimationStateName, 
+                fighterThatWillExecute,
+                abilityTargetCells,
+                AnimationStateName,
                 AnimationDuration,
                 fighterWeaponCollider
             );

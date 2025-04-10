@@ -6,14 +6,14 @@ namespace FrostfallSaga.Utils.UI
 {
     public class LongHoverEventController<T> where T : VisualElement
     {
-        public Action<T> onElementLongHovered;
-        public Action<T> onElementLongUnhovered;
+        private readonly float _hoverDuration;
 
         private readonly T _targetElement;
-        private readonly float _hoverDuration;
-        private bool _isHovering;
-        private float _hoverStartTime;
         private IVisualElementScheduledItem _hoverCheckItem;
+        private float _hoverStartTime;
+        private bool _isHovering;
+        public Action<T> onElementLongHovered;
+        public Action<T> onElementLongUnhovered;
 
         public LongHoverEventController(T element, float duration = 1f)
         {
@@ -48,5 +48,4 @@ namespace FrostfallSaga.Utils.UI
             }
         }
     }
-
 }

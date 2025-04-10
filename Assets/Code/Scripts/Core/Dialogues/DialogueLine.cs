@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using FrostfallSaga.Core.Quests;
+using UnityEngine;
 
 namespace FrostfallSaga.Core.Dialogues
 {

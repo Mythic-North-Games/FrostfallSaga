@@ -32,13 +32,14 @@ namespace FrostfallSaga.Fight.FightItems
         {
             Dictionary<Sprite, string> magicalResistancesUIData = new();
 
-            Dictionary<EMagicalElement, int> magicalResistances = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
-                MagicalResistances
-            );
+            Dictionary<EMagicalElement, int> magicalResistances =
+                SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
+                    MagicalResistances
+                );
             foreach (EMagicalElement magicalElement in magicalResistances.Keys)
             {
                 magicalResistancesUIData.Add(
-                    UIIconsProvider.Instance.GetIcon(magicalElement.GetIconResourceName()), 
+                    UIIconsProvider.Instance.GetIcon(magicalElement.GetIconResourceName()),
                     magicalResistances[magicalElement].ToString()
                 );
             }
@@ -50,9 +51,10 @@ namespace FrostfallSaga.Fight.FightItems
         {
             List<string> specialEffectsUIData = new();
 
-            Dictionary<EEntityRace, float> fightersStrengths = SElementToValue<EEntityRace, float>.GetDictionaryFromArray(
-                FightersStrengths
-            );
+            Dictionary<EEntityRace, float> fightersStrengths =
+                SElementToValue<EEntityRace, float>.GetDictionaryFromArray(
+                    FightersStrengths
+                );
             foreach (EEntityRace entityRace in fightersStrengths.Keys)
             {
                 string sign = fightersStrengths[entityRace] > 0 ? "+" : "-";

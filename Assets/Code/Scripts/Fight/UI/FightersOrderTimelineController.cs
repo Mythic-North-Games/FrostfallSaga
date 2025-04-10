@@ -9,27 +9,17 @@ namespace FrostfallSaga.Fight.UI
 {
     public class FightersOrderTimelineController : BaseUIController
     {
-        #region UXML UI Names & Classes
-        private static readonly string TIMELINE_ROOT_UI_NAME = "TimelinePanelRoot";
-        private static readonly string TIMELINE_PANEL_UI_NAME = "TimelinePanel";
-        private static readonly string TIMELINE_CONTENT_CONTAINER_UI_NAME = "TimelineContentContainer";
-        private static readonly string FIGHTER_RESISTANCE_PANEL_UI_NAME = "FighterResistancesPanel";
-        private static readonly string STATUS_DETAILS_PANEL_UI_NAME = "StatusDetailsPanel";
+        [SerializeField] private VisualTreeAsset characterContainerTemplate;
+        [SerializeField] private VisualTreeAsset statContainerTemplate;
+        [SerializeField] private VisualTreeAsset statusIconContainerTemplate;
+        [SerializeField] private FightManager fightManager;
+        private FighterResistancesPanelController _resistancesPanelController;
+        private StatusDetailsPanelUIController _statusesDetailsPanelController;
 
-        private static readonly string TIMELINE_CHARACTER_CONTAINER_ROOT_CLASSNAME = "timelineCharacterContainerRoot";
-        #endregion
+        private VisualElement _timelineContentContainer;
 
         public Action<Fighter> onFighterHovered;
         public Action<Fighter> onFighterUnhovered;
-
-        [SerializeField] private VisualTreeAsset _characterContainerTemplate;
-        [SerializeField] private VisualTreeAsset _statContainerTemplate;
-        [SerializeField] private VisualTreeAsset _statusIconContainerTemplate;
-        [SerializeField] private FightManager _fightManager;
-
-        private VisualElement _timelineContentContainer;
-        private FighterResistancesPanelController _resistancesPanelController;
-        private StatusDetailsPanelUIController _statusesDetailsPanelController;
 
         #region Setup & tear down
 
@@ -42,14 +32,14 @@ namespace FrostfallSaga.Fight.UI
                 return;
             }
 
-            if (_fightManager == null) _fightManager = FindObjectOfType<FightManager>();
-            if (_fightManager == null)
+            if (fightManager == null) fightManager = FindObjectOfType<FightManager>();
+            if (fightManager == null)
             {
                 Debug.LogError("No FightManager to work with. UI can't be updated dynamically.");
                 return;
             }
 
-            if (_characterContainerTemplate == null)
+            if (characterContainerTemplate == null)
             {
                 Debug.LogError("No character container template to work with. UI can't be updated dynamically.");
                 return;
@@ -64,15 +54,15 @@ namespace FrostfallSaga.Fight.UI
 
             _resistancesPanelController = new(
                 timelineRoot.Q<VisualElement>(FIGHTER_RESISTANCE_PANEL_UI_NAME),
-                _statContainerTemplate
+                statContainerTemplate
             );
             _resistancesPanelController.Hide();
 
             _statusesDetailsPanelController = new(timelineRoot.Q<VisualElement>(STATUS_DETAILS_PANEL_UI_NAME));
             _statusesDetailsPanelController.Hide();
 
-            _fightManager.onFightersTurnOrderUpdated += OnFightersTurnOrderUpdated;
-            _fightManager.onFightEnded += (_, _) => _timelineContentContainer.RemoveFromHierarchy();
+            fightManager.onFightersTurnOrderUpdated += OnFightersTurnOrderUpdated;
+            fightManager.onFightEnded += (_, _) => _timelineContentContainer.RemoveFromHierarchy();
         }
 
         #endregion
@@ -89,11 +79,11 @@ namespace FrostfallSaga.Fight.UI
             foreach (Fighter fighter in fighters)
             {
                 // Configure the character container
-                VisualElement characterContainerRoot = _characterContainerTemplate.Instantiate();
+                VisualElement characterContainerRoot = characterContainerTemplate.Instantiate();
                 characterContainerRoot.AddToClassList(TIMELINE_CHARACTER_CONTAINER_ROOT_CLASSNAME);
 
                 TimelineCharacterUIController characterUIController = new(
-                    characterContainerRoot, fighter, _statusIconContainerTemplate
+                    characterContainerRoot, fighter, statusIconContainerTemplate
                 );
                 characterUIController.onFighterHovered += OnFighterHovered;
                 characterUIController.onFighterUnhovered += OnFighterUnhovered;
@@ -110,7 +100,7 @@ namespace FrostfallSaga.Fight.UI
             _resistancesPanelController.Display(hoveredCharacter);
             onFighterHovered?.Invoke(hoveredCharacter.Fighter);
         }
-        
+
         private void OnFighterUnhovered(TimelineCharacterUIController unhoveredCharacter)
         {
             _resistancesPanelController.Hide();
@@ -119,7 +109,8 @@ namespace FrostfallSaga.Fight.UI
 
         private void OnStatusIconHovered(TimelineCharacterUIController character, AStatus status, int lastingDuration)
         {
-            _statusesDetailsPanelController.Root.style.top = character.Root.worldBound.y - character.Root.worldBound.height + 20;
+            _statusesDetailsPanelController.Root.style.top =
+                character.Root.worldBound.y - character.Root.worldBound.height + 20;
             _statusesDetailsPanelController.Display(status, lastingDuration);
         }
 
@@ -128,10 +119,24 @@ namespace FrostfallSaga.Fight.UI
             _statusesDetailsPanelController.Hide();
         }
 
-        private float GetTimelineCharacterContainerHeight(int characterContainerCount)
+        private static float GetTimelineCharacterContainerHeight(int characterContainerCount)
         {
             if (characterContainerCount == 0) return 0; // Avoid division by zero
-            return (314.31f / characterContainerCount) - 2.08f; // INFO: Formula to compute the height of the character containers
+            return
+                (314.31f / characterContainerCount) -
+                2.08f; // INFO: Formula to compute the height of the character containers
         }
+
+        #region UXML UI Names & Classes
+
+        private static readonly string TIMELINE_ROOT_UI_NAME = "TimelinePanelRoot";
+        private static readonly string TIMELINE_PANEL_UI_NAME = "TimelinePanel";
+        private static readonly string TIMELINE_CONTENT_CONTAINER_UI_NAME = "TimelineContentContainer";
+        private static readonly string FIGHTER_RESISTANCE_PANEL_UI_NAME = "FighterResistancesPanel";
+        private static readonly string STATUS_DETAILS_PANEL_UI_NAME = "StatusDetailsPanel";
+
+        private static readonly string TIMELINE_CHARACTER_CONTAINER_ROOT_CLASSNAME = "timelineCharacterContainerRoot";
+
+        #endregion
     }
 }

@@ -7,31 +7,19 @@ namespace FrostfallSaga.InventorySystem.UI
 {
     public class ObjectDetailsUIController
     {
-        #region UI Elements Names & Classes
-        private static readonly string ICON_UI_NAME = "Icon";
-        private static readonly string NAME_LABEL_UI_NAME = "NameLabel";
-        private static readonly string DESCRIPTION_LABEL_UI_NAME = "DescriptionLabel";
-        private static readonly string STATS_CONTAINER_UI_NAME = "StatsContainer";
-        private static readonly string PRIMARY_EFFECTS_LIST_TITLE_UI_NAME = "EffectsTitle";
-        private static readonly string PRIMARY_EFFECTS_LIST_CONTAINER_UI_NAME = "EffectsList";
-        private static readonly string SECONDARY_EFFECTS_LIST_TITLE_UI_NAME = "SecondaryEffectsTitle";
-        private static readonly string SECONDARY_EFFECTS_LIST_CONTAINER_UI_NAME = "SecondaryEffectsList";
-
-        private static readonly string STAT_CONTAINER_ROOT_CLASSNAME = "objectStatContainerRoot";
-        #endregion
-
-        private readonly VisualElement _root;
+        private readonly Label _descriptionLabel;
+        private readonly string _effectLineClassname;
         private readonly VisualElement _icon;
         private readonly Label _nameLabel;
-        private readonly Label _descriptionLabel;
-        private readonly VisualElement _statsContainer;
-        private readonly Label _primaryEffectsTitleLabel;
         private readonly VisualElement _primaryEffectsListContainer;
-        private readonly Label _secondaryEffectsTitleLabel;
+        private readonly Label _primaryEffectsTitleLabel;
+
+        private readonly VisualElement _root;
         private readonly VisualElement _secondaryEffectsListContainer;
+        private readonly Label _secondaryEffectsTitleLabel;
 
         private readonly VisualTreeAsset _statContainerTemplate;
-        private readonly string _effectLineClassname;
+        private readonly VisualElement _statsContainer;
         private readonly Color _statValueColor;
 
         public ObjectDetailsUIController(
@@ -83,14 +71,16 @@ namespace FrostfallSaga.InventorySystem.UI
             if (primaryEffects != null && primaryEffects.Count > 0)
             {
                 _primaryEffectsTitleLabel.parent.style.display = DisplayStyle.Flex;
-                SetupEffectsList(_primaryEffectsTitleLabel, _primaryEffectsListContainer, primaryEffectsTitle, primaryEffects);
+                SetupEffectsList(_primaryEffectsTitleLabel, _primaryEffectsListContainer, primaryEffectsTitle,
+                    primaryEffects);
             }
             else _primaryEffectsTitleLabel.parent.style.display = DisplayStyle.None;
 
             if (secondaryEffects != null && secondaryEffects.Count > 0)
             {
                 _secondaryEffectsTitleLabel.parent.style.display = DisplayStyle.Flex;
-                SetupEffectsList(_secondaryEffectsTitleLabel, _secondaryEffectsListContainer, secondaryEffectsTitle, secondaryEffects);
+                SetupEffectsList(_secondaryEffectsTitleLabel, _secondaryEffectsListContainer, secondaryEffectsTitle,
+                    secondaryEffects);
             }
             else _secondaryEffectsTitleLabel.parent.style.display = DisplayStyle.None;
         }
@@ -122,7 +112,8 @@ namespace FrostfallSaga.InventorySystem.UI
             }
         }
 
-        private void SetupEffectsList(Label titleLabel, VisualElement effectsDescriptionContainer, string effectsListTitle, List<string> effectsDescription)
+        private void SetupEffectsList(Label titleLabel, VisualElement effectsDescriptionContainer,
+            string effectsListTitle, List<string> effectsDescription)
         {
             titleLabel.text = $"<u>{effectsListTitle}</u>";
             effectsDescriptionContainer.Clear();
@@ -134,5 +125,20 @@ namespace FrostfallSaga.InventorySystem.UI
                 effectsDescriptionContainer.Add(effectLabel);
             });
         }
+
+        #region UI Elements Names & Classes
+
+        private static readonly string ICON_UI_NAME = "Icon";
+        private static readonly string NAME_LABEL_UI_NAME = "NameLabel";
+        private static readonly string DESCRIPTION_LABEL_UI_NAME = "DescriptionLabel";
+        private static readonly string STATS_CONTAINER_UI_NAME = "StatsContainer";
+        private static readonly string PRIMARY_EFFECTS_LIST_TITLE_UI_NAME = "EffectsTitle";
+        private static readonly string PRIMARY_EFFECTS_LIST_CONTAINER_UI_NAME = "EffectsList";
+        private static readonly string SECONDARY_EFFECTS_LIST_TITLE_UI_NAME = "SecondaryEffectsTitle";
+        private static readonly string SECONDARY_EFFECTS_LIST_CONTAINER_UI_NAME = "SecondaryEffectsList";
+
+        private static readonly string STAT_CONTAINER_ROOT_CLASSNAME = "objectStatContainerRoot";
+
+        #endregion
     }
 }

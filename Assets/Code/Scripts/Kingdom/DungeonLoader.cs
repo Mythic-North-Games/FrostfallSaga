@@ -31,6 +31,7 @@ namespace FrostfallSaga.Kingdom
                 Debug.LogError("No KingdomManager found in scene. Won't be able to save kingdom state.");
                 return;
             }
+
             enterDungeonPanelController.onDungeonEnterClicked += OnDungeonEnterClicked;
         }
 
@@ -40,10 +41,10 @@ namespace FrostfallSaga.Kingdom
         {
             Debug.Log($"Saving kingdom state before loading dungeon scene for {dungeonBuildingConfiguration.Name}.");
             kingdomManager.SaveKingdomState();
-            
+
             Debug.Log($"Saving dungeon load data for {dungeonBuildingConfiguration.Name}.");
             GameStateManager.Instance.InitDungeonState(dungeonBuildingConfiguration.DungeonConfiguration);
-            
+
             AudioManager.Instance.PlayUISound(dungeonBuildingConfiguration.EnterDungeonSound);
 
             Debug.Log("Launching dungeon scene...");

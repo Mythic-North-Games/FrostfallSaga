@@ -44,6 +44,7 @@ namespace FrostfallSaga.Grid
 
                     HexDirection section = DetermineSection(x, y, centerCoords);
                     TerrainTypeSO selectedTerrain = terrainByDirection[section];
+                    cell.SetTerrainAccessibility(selectedTerrain.DefaultAccessible);
                     BiomeTypeSO selectedBiome = AvailableBiomes
                         .FirstOrDefault(b => b.TerrainTypeSO.Contains(selectedTerrain));
 
@@ -60,9 +61,10 @@ namespace FrostfallSaga.Grid
         private static void SetupCell(Cell cell, int x, int y, BiomeTypeSO selectedBiome, float hexSize,
             TerrainTypeSO selectedTerrain)
         {
-            float chance = selectedTerrain.IsAccessible ? 1f : selectedTerrain.AccessibilityChanceOverride;
-            bool isAccessible = Randomizer.GetBooleanOnChance(chance);
-            cell.ForceAccessibility(isAccessible);
+            bool isAccessible = !selectedTerrain.DefaultAccessible
+                ? Randomizer.GetBooleanOnChance(selectedTerrain.AccessibilityChanceOverride)
+                : selectedTerrain.DefaultAccessible;
+            cell.SetTerrainAccessibility(isAccessible);
             cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, hexSize, selectedTerrain, selectedBiome);
             cell.HighlightController.SetupInitialMaterial(selectedTerrain.CellMaterial);
             cell.HighlightController.UpdateCurrentDefaultMaterial(selectedTerrain.CellMaterial);
@@ -150,7 +152,7 @@ namespace FrostfallSaga.Grid
                 if (terrainByDirection.TryGetValue(dir, out TerrainTypeSO terrain))
                 {
                     terrainMap +=
-                        $"  • {dir}: {terrain.TypeName} (Accessible: {terrain.IsAccessible}, Chance: {terrain.AccessibilityChanceOverride:P0})\n";
+                        $"  • {dir}: {terrain.TypeName} (Accessible: {terrain.DefaultAccessible}, Chance: {terrain.AccessibilityChanceOverride:P0})\n";
                 }
                 else
                 {

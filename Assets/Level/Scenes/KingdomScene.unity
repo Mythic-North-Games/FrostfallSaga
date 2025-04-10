@@ -800,15 +800,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <Seed>k__BackingField
-      value: 0
+      value: 131537280
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <Width>k__BackingField
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <Height>k__BackingField
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <InterestPoints>k__BackingField.Array.size
@@ -829,7 +829,7 @@ PrefabInstance:
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <AvailableBiomes>k__BackingField.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 62807aa1d0cd21844b1e3eef85934555, type: 2}
+      objectReference: {fileID: 11400000, guid: 9083c3a2086937d4db46edaace4ef140, type: 2}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <AvailableBiomes>k__BackingField.Array.data[1]
       value: 
@@ -837,7 +837,7 @@ PrefabInstance:
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <AvailableBiomes>k__BackingField.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 9083c3a2086937d4db46edaace4ef140, type: 2}
+      objectReference: {fileID: 11400000, guid: c1be75798dd72dc489589625aa9553b0, type: 2}
     - target: {fileID: 7303458109779293058, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: m_Name
       value: KingdomHexGrid
@@ -1390,7 +1390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kingdomManager: {fileID: 899991118}
   readyToFightAnimationDuration: 2
-  delayBeforeLoadingSceneAfterReadyAnimation: 10
+  delayBeforeLoadingSceneAfterReadyAnimation: 1
   isPrintAnalysis: 0
 --- !u!1 &1449699357
 GameObject:

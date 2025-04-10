@@ -14,7 +14,8 @@ namespace FrostfallSaga.Fight.Abilities
     ///     targets.
     ///     If no conditions are set, the passive ability will be applied to the targets automatically when the fight begins.
     /// </summary>
-    [CreateAssetMenu(fileName = "PassiveAbility", menuName = "ScriptableObjects/Fight/Abilities/PassiveAbility", order = 0)]
+    [CreateAssetMenu(fileName = "PassiveAbility", menuName = "ScriptableObjects/Fight/Abilities/PassiveAbility",
+        order = 0)]
     public class PassiveAbilitySO : ABaseAbility
     {
         [SerializeReference] public AEffect[] Effects;

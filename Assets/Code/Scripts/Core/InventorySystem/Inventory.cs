@@ -24,7 +24,9 @@ namespace FrostfallSaga.Core.InventorySystem
         /////////////////
         /// Bag slots ///
         /////////////////
-        [field: SerializeField] public InventorySlot[] BagSlots { get; protected set; }
+        [field: SerializeField]
+        public InventorySlot[] BagSlots { get; protected set; }
+
         [field: SerializeField] public InventorySlot[] ConsumablesQuickAccessSlots { get; protected set; }
 
         ////////////////////////
@@ -44,7 +46,8 @@ namespace FrostfallSaga.Core.InventorySystem
             for (int i = 0; i < BagSlots.Length; i++) BagSlots[i] = new InventorySlot();
 
             ConsumablesQuickAccessSlots = new InventorySlot[6];
-            for (int i = 0; i < ConsumablesQuickAccessSlots.Length; i++) ConsumablesQuickAccessSlots[i] = new InventorySlot();
+            for (int i = 0; i < ConsumablesQuickAccessSlots.Length; i++)
+                ConsumablesQuickAccessSlots[i] = new InventorySlot();
         }
 
         #region Getters
@@ -152,6 +155,7 @@ namespace FrostfallSaga.Core.InventorySystem
             {
                 allItems.Add(WeaponSlot.Item);
             }
+
             return allItems.ToArray();
         }
 
@@ -174,27 +178,16 @@ namespace FrostfallSaga.Core.InventorySystem
                 bagSlotWithItem?.RemoveItem();
             }
 
-            Tuple<ItemSO, int> replacedItem = null;
-            switch (item.SlotTag)
+            Tuple<ItemSO, int> replacedItem = item.SlotTag switch
             {
-                case EItemSlotTag.WEAPON:
-                    replacedItem = WeaponSlot.ReplaceItem(item, 1);
-                    break;
-                case EItemSlotTag.HEAD:
-                    replacedItem = HelmetSlot.ReplaceItem(item, 1);
-                    break;
-                case EItemSlotTag.CHEST:
-                    replacedItem = ChestplateSlot.ReplaceItem(item, 1);
-                    break;
-                case EItemSlotTag.HANDS:
-                    replacedItem = GauntletsSlot.ReplaceItem(item, 1);
-                    break;
-                case EItemSlotTag.FEET:
-                    replacedItem = BootsSlot.ReplaceItem(item, 1);
-                    break;
-                case EItemSlotTag.BAG:
-                    throw new InventoryException("Cannot equip bag items");
-            }
+                EItemSlotTag.WEAPON => WeaponSlot.ReplaceItem(item, 1),
+                EItemSlotTag.HEAD => HelmetSlot.ReplaceItem(item, 1),
+                EItemSlotTag.CHEST => ChestplateSlot.ReplaceItem(item, 1),
+                EItemSlotTag.HANDS => GauntletsSlot.ReplaceItem(item, 1),
+                EItemSlotTag.FEET => BootsSlot.ReplaceItem(item, 1),
+                EItemSlotTag.BAG => throw new InventoryException("Cannot equip bag items"),
+                _ => null
+            };
 
             // Then add the replaced item that was equipped in the bag if there is one
             if (replacedItem != null)
@@ -234,6 +227,7 @@ namespace FrostfallSaga.Core.InventorySystem
             {
                 AddItemToBag(itemSlot.Item);
             }
+
             itemSlot.RemoveAllItems();
             OnInventoryUpdated?.Invoke(this);
         }
@@ -255,13 +249,8 @@ namespace FrostfallSaga.Core.InventorySystem
 
             // Otherwise, add item to the first empty slot
             InventorySlot emptySlot = GetFirstEmptyBagSlot();
-            if (emptySlot != null)
-            {
-                emptySlot.AddItem(item);
-                return;
-            }
-
-            throw new InventoryException("No more space in the bag");
+            if (emptySlot == null) throw new InventoryException("No more space in the bag");
+            emptySlot.AddItem(item);
         }
 
         /// <summary>
@@ -279,6 +268,7 @@ namespace FrostfallSaga.Core.InventorySystem
                 {
                     existingSlotForItem.AddItem(consumableSlot.Item);
                 }
+
                 OnInventoryUpdated?.Invoke(this);
                 return;
             }
@@ -324,13 +314,10 @@ namespace FrostfallSaga.Core.InventorySystem
 
             // Otherwise, add the consumable to the first empty slot if there is one
             InventorySlot emptyQuickAccessSlot = GetFirstEmptyConsumablesQuickAccessSlot();
-            if (emptyQuickAccessSlot != null)
-            {
-                emptyQuickAccessSlot.AddItem(consumable);
-                return true;
-            }
+            if (emptyQuickAccessSlot == null) return false;
+            emptyQuickAccessSlot.AddItem(consumable);
+            return true;
 
-            return false;
         }
 
         /// <summary>
@@ -345,41 +332,24 @@ namespace FrostfallSaga.Core.InventorySystem
             {
                 return true;
             }
+
             InventorySlot emptySlot = GetFirstEmptyBagSlot();
             return emptySlot != null;
         }
 
         private InventorySlot GetEquipmentSlotWithItem(ItemSO item)
         {
-            foreach (InventorySlot slot in GetEquipmentSlots())
-            {
-                if (slot.Item == item)
-                {
-                    return slot;
-                }
-            }
-            return null;
+            return GetEquipmentSlots().FirstOrDefault(slot => slot.Item == item);
         }
 
         private InventorySlot GetBagSlotWithItem(ItemSO item)
         {
-            foreach (InventorySlot slot in BagSlots)
-                if (slot.Item == item)
-                    return slot;
-
-            return null;
+            return BagSlots.FirstOrDefault(slot => slot.Item == item);
         }
 
         private InventorySlot GetQuickAccessSlotWithItem(ItemSO item)
         {
-            foreach (InventorySlot slot in ConsumablesQuickAccessSlots)
-            {
-                if (slot.Item == item)
-                {
-                    return slot;
-                }
-            }
-            return null;
+            return ConsumablesQuickAccessSlots.FirstOrDefault(slot => slot.Item == item);
         }
 
         private InventorySlot GetFirstEmptyBagSlot()

@@ -1,12 +1,12 @@
-using UnityEngine;
-using UnityEngine.UIElements;
+using System.Collections.Generic;
 using FrostfallSaga.Core.BookMenu;
-using FrostfallSaga.Core.InventorySystem;
-using FrostfallSaga.Core.HeroTeam;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
+using FrostfallSaga.Core.HeroTeam;
+using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Core.UI;
-using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.InventorySystem.UI
 {
@@ -18,12 +18,44 @@ namespace FrostfallSaga.InventorySystem.UI
         [SerializeField] private VisualTreeAsset _statContainerTemplate;
         [SerializeField] private Color _statValueColor = new(0.2f, 0.2f, 0.2f, 1f);
         [SerializeField] private EntityConfigurationSO _devHero;
+        private InventoryBagPanelUIController _bagPanelUIController;
 
         private EntityConfigurationSO _currentHeroEntityConf;
         private Inventory _currentHeroInventory;
         private InventoryEquippedPanelUIController _equippedPanelUIController;
-        private InventoryBagPanelUIController _bagPanelUIController;
         private HeroChooserUIController _heroChooserUIController;
+
+        #region Setup
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            if (!_heroRenderTextureSceneController)
+            {
+                Debug.LogError("Hero Render Texture Scene Controller is not set in the inspector.");
+                return;
+            }
+
+            if (!_equippedPanelTemplate)
+            {
+                Debug.LogError("Equipped Panel Template is not set in the inspector.");
+                return;
+            }
+
+            if (!_bagPanelTemplate)
+            {
+                Debug.LogError("Bag Panel Template is not set in the inspector.");
+                return;
+            }
+
+            if (!_statContainerTemplate)
+            {
+                Debug.LogError("Item Details Stat Container Template is not set in the inspector.");
+            }
+        }
+
+        #endregion
 
         public override void SetupMenu()
         {
@@ -34,12 +66,15 @@ namespace FrostfallSaga.InventorySystem.UI
             {
                 _currentHeroEntityConf = _devHero;
             }
-            _currentHeroInventory = ((PersistedFighterConfigurationSO)_currentHeroEntityConf.FighterConfiguration).Inventory;
+
+            _currentHeroInventory =
+                ((PersistedFighterConfigurationSO)_currentHeroEntityConf.FighterConfiguration).Inventory;
 
             // Setup equipped panel (left page)
             VisualElement equippedPanelRoot = _equippedPanelTemplate.Instantiate();
             equippedPanelRoot.StretchToParentSize();
-            _equippedPanelUIController = new InventoryEquippedPanelUIController(equippedPanelRoot, _heroRenderTextureSceneController);
+            _equippedPanelUIController =
+                new InventoryEquippedPanelUIController(equippedPanelRoot, _heroRenderTextureSceneController);
             _equippedPanelUIController.onItemSlotSelected += OnItemSlotSelected;
             _equippedPanelUIController.onItemSlotUnequipClicked += OnItemSlotUnequipClicked;
             _equippedPanelUIController.SetHero(_currentHeroEntityConf);
@@ -47,12 +82,13 @@ namespace FrostfallSaga.InventorySystem.UI
             // Setup hero chooser (left page)
             _heroChooserUIController = new HeroChooserUIController(equippedPanelRoot);
             _heroChooserUIController.SetHeroes(heroes);
-            _heroChooserUIController.onHeroChosen += OnHeroChosen;
+            _heroChooserUIController.OnHeroChosen += OnHeroChosen;
 
             // Setup bag panel (right page)
             VisualElement bagPanelRoot = _bagPanelTemplate.Instantiate();
             bagPanelRoot.StretchToParentSize();
-            _bagPanelUIController = new InventoryBagPanelUIController(bagPanelRoot, _statContainerTemplate, _statValueColor);
+            _bagPanelUIController =
+                new InventoryBagPanelUIController(bagPanelRoot, _statContainerTemplate, _statValueColor);
             _bagPanelUIController.onItemSlotSelected += OnItemSlotSelected;
             _bagPanelUIController.onItemSlotEquipClicked += OnItemSlotEquipClicked;
             _bagPanelUIController.SetInventory(_currentHeroInventory);
@@ -89,7 +125,8 @@ namespace FrostfallSaga.InventorySystem.UI
                 return;
             }
 
-            _bagPanelUIController.DisplayItemDetails(selectedItemSlot.Item); // Needs to be before equip because equipping will clear the item slot
+            _bagPanelUIController.DisplayItemDetails(selectedItemSlot
+                .Item); // Needs to be before equip because equipping will clear the item slot
 
             // Equip the item depending on its type
             if (selectedItemSlot.Item is AArmor or AWeapon)
@@ -100,7 +137,7 @@ namespace FrostfallSaga.InventorySystem.UI
             {
                 _currentHeroInventory.AddConsumableSlotToQuickAccess(selectedItemSlot);
             }
-            
+
             // Update the UI
             _equippedPanelUIController.SetHero(_currentHeroEntityConf);
             _bagPanelUIController.SetInventory(_currentHeroInventory);
@@ -114,7 +151,8 @@ namespace FrostfallSaga.InventorySystem.UI
                 return;
             }
 
-            _bagPanelUIController.DisplayItemDetails(selectedItemSlot.Item); // Needs to be before equip because unequipping will clear the item slot
+            _bagPanelUIController.DisplayItemDetails(selectedItemSlot
+                .Item); // Needs to be before equip because unequipping will clear the item slot
             _currentHeroInventory.UnequipItem(selectedItemSlot);
             _equippedPanelUIController.SetHero(_currentHeroEntityConf);
             _bagPanelUIController.SetInventory(_currentHeroInventory);
@@ -129,41 +167,11 @@ namespace FrostfallSaga.InventorySystem.UI
             }
 
             _currentHeroEntityConf = chosenHero.EntityConfiguration;
-            _currentHeroInventory = ((PersistedFighterConfigurationSO)_currentHeroEntityConf.FighterConfiguration).Inventory;
+            _currentHeroInventory =
+                ((PersistedFighterConfigurationSO)_currentHeroEntityConf.FighterConfiguration).Inventory;
             _equippedPanelUIController.SetHero(_currentHeroEntityConf);
             _bagPanelUIController.SetInventory(_currentHeroInventory);
             _bagPanelUIController.HideItemDetails();
         }
-
-        #region Setup
-        protected override void Awake()
-        {
-            base.Awake();
-
-            if (_heroRenderTextureSceneController == null)
-            {
-                Debug.LogError("Hero Render Texture Scene Controller is not set in the inspector.");
-                return;
-            }
-
-            if (_equippedPanelTemplate == null)
-            {
-                Debug.LogError("Equipped Panel Template is not set in the inspector.");
-                return;
-            }
-
-            if (_bagPanelTemplate == null)
-            {
-                Debug.LogError("Bag Panel Template is not set in the inspector.");
-                return;
-            }
-
-            if (_statContainerTemplate == null)
-            {
-                Debug.LogError("Item Details Stat Container Template is not set in the inspector.");
-                return;
-            }
-        }
-        #endregion
     }
 }

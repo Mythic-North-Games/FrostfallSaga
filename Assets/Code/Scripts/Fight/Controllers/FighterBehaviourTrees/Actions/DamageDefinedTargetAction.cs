@@ -62,7 +62,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
                             ability => ability.GetDamagesPotential(_possessedFighter, target)
                         ).FirstOrDefault();
                         useActiveAbility = (
-                            preferedAbility != null && 
+                            preferedAbility != null &&
                             preferedAbility.GetDamagesPotential(_possessedFighter, target) >
                             _possessedFighter.Weapon.GetPotentialsDamagesOnTarget(_possessedFighter, target)
                         ) || !canUseDirectAttack;
@@ -70,7 +70,9 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 
                     case EAbilityUsagePreference.MINIMIZE_COST:
                         preferedAbility = useableAbilities.OrderBy(ability => ability.ActionPointsCost).First();
-                        useActiveAbility = preferedAbility.ActionPointsCost < _possessedFighter.Weapon.UseActionPointsCost || !canUseDirectAttack;
+                        useActiveAbility =
+                            preferedAbility.ActionPointsCost < _possessedFighter.Weapon.UseActionPointsCost ||
+                            !canUseDirectAttack;
                         break;
                 }
             }

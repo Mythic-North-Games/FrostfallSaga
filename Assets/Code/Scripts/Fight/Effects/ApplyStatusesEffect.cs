@@ -14,7 +14,7 @@ namespace FrostfallSaga.Fight.Effects
     public class ApplyStatusesEffect : AEffect
     {
         [SerializeReference] [Tooltip("The status to apply.")]
-        public AStatus[] StatusesToApply = { };
+        public AStatus[] statusesToApply = { };
 
         public override void ApplyEffect(
             Fighter receiver,
@@ -27,7 +27,7 @@ namespace FrostfallSaga.Fight.Effects
             bool atLeastOneDebuff = false;
 
             // Apply the statuses
-            foreach (AStatus status in StatusesToApply)
+            foreach (AStatus status in statusesToApply)
             {
                 receiver.ApplyStatus(status);
                 Debug.Log($"Status {status.StatusType} applied to {receiver.name}.");
@@ -43,7 +43,7 @@ namespace FrostfallSaga.Fight.Effects
             }
 
             // Increase god favors points if enabled
-            if (!adjustGodFavorsPoints || initiator != null) return;
+            if (!adjustGodFavorsPoints || initiator) return;
             if (atLeastOneBuff) initiator.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.BUFF);
             if (atLeastOneDebuff) initiator.TryIncreaseGodFavorsPointsForAction(EGodFavorsAction.DEBUFF);
         }
@@ -53,38 +53,41 @@ namespace FrostfallSaga.Fight.Effects
             // Remove all the status with the configured types
             AStatus[] currentReceiverStatuses = receiver.StatusesManager.GetStatuses().Keys.ToArray();
             foreach (AStatus status in currentReceiverStatuses)
-                if (StatusesToApply.ToList().Contains(status))
+                if (statusesToApply.ToList().Contains(status))
                 {
                     receiver.StatusesManager.RemoveStatus(status);
                     Debug.Log($"Status {status.StatusType} removed from {receiver.name}.");
                 }
         }
 
-        public override int GetPotentialEffectDamages(Fighter _initiator, Fighter _receiver, bool _canMasterstroke)
+        public override int GetPotentialEffectDamages(Fighter initiator, Fighter receiver, bool canMasterstroke)
         {
             int totalPotentialDamage = 0;
-            foreach (AStatus status in StatusesToApply)
+            foreach (AStatus status in statusesToApply)
             {
                 if (status.StatusType.IsBuff()) continue;
                 totalPotentialDamage += status.GetPotentialDamages();
             }
+
             return totalPotentialDamage;
         }
 
-        public override int GetPotentialEffectHeal(Fighter _initiator, Fighter _receiver, bool _canMasterstroke)
+        public override int GetPotentialEffectHeal(Fighter initiator, Fighter receiver, bool canMasterstroke)
         {
             int totalPotentialHeal = 0;
-            foreach (AStatus status in StatusesToApply)
+            foreach (AStatus status in statusesToApply)
             {
                 if (!status.StatusType.IsBuff()) continue;
                 totalPotentialHeal += status.GetPotentialHeal();
             }
+
             return totalPotentialHeal;
         }
 
         public override string GetUIEffectDescription()
         {
-            string statusesListString = string.Join(", ", StatusesToApply.Select(status => status.StatusType.ToUIString()));
+            string statusesListString =
+                string.Join(", ", statusesToApply.Select(status => status.StatusType.ToUIString()));
             return $"Applies {statusesListString} to target.";
         }
     }

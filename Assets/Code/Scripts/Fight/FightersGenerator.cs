@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.GameState;
@@ -12,12 +11,12 @@ using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.FightItems;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight
 {
     public class FightersGenerator
     {
-
         [SerializeField] private EntityConfigurationSO[] _devAlliesConfs;
         [SerializeField] private EntityConfigurationSO[] _devEnemiesConfs;
 
@@ -42,11 +41,12 @@ namespace FrostfallSaga.Fight
             {
                 alliesFighterConf.ToList().ForEach(allyFighterConf =>
                 {
-                    PersistedFighterConfigurationSO fighterConfiguration = allyFighterConf.FighterConfiguration as PersistedFighterConfigurationSO;
+                    PersistedFighterConfigurationSO fighterConfiguration =
+                        allyFighterConf.FighterConfiguration as PersistedFighterConfigurationSO;
                     fighterConfiguration.SetHealth(fighterConfiguration.MaxHealth);
                 });
             }
-            
+
             KeyValuePair<string, EntityConfigurationSO>[] enemiesFighterConf =
                 preFightData.enemiesEntityConf != null && preFightData.enemiesEntityConf.Length > 0
                     ? preFightData.enemiesEntityConf
@@ -92,11 +92,9 @@ namespace FrostfallSaga.Fight
             return fighter;
         }
 
-        private Fighter SetupEnemyFighter(
-            Fighter enemyFighterToSetup,
+        private void SetupEnemyFighter(Fighter enemyFighterToSetup,
             EntityConfigurationSO entityConfiguration,
-            string sessionId
-        )
+            string sessionId)
         {
             FighterConfigurationSO fighterConfiguration = entityConfiguration.FighterConfiguration;
             enemyFighterToSetup.Setup(
@@ -107,14 +105,11 @@ namespace FrostfallSaga.Fight
                 inventory: GenerateEnemyFightInventory(fighterConfiguration),
                 sessionId: sessionId
             );
-            return enemyFighterToSetup;
         }
 
-        private Fighter SetupAllyFighter(
-            Fighter allyFighterToSetup,
+        private static void SetupAllyFighter(Fighter allyFighterToSetup,
             EntityConfigurationSO entityConfiguration,
-            string sessionId
-        )
+            string sessionId)
         {
             PersistedFighterConfigurationSO fighterConfiguration =
                 entityConfiguration.FighterConfiguration as PersistedFighterConfigurationSO;
@@ -135,16 +130,16 @@ namespace FrostfallSaga.Fight
                 fighterConfiguration.Inventory,
                 sessionId
             );
-            return allyFighterToSetup;
         }
 
-        private Inventory GenerateEnemyFightInventory(FighterConfigurationSO fighterConfiguration)
+        private static Inventory GenerateEnemyFightInventory(FighterConfigurationSO fighterConfiguration)
         {
             Inventory inventory = new();
 
             // Get the start items for the enemy inventory
             ItemSO[] startItems = ComputeEnemyInventoryStartItems(
-                SElementToValue<ItemSO, SElementToValue<float, int>>.GetDictionaryFromArray(fighterConfiguration.AvailableItems)
+                SElementToValue<ItemSO, SElementToValue<float, int>>.GetDictionaryFromArray(fighterConfiguration
+                    .AvailableItems)
             );
             foreach (ItemSO item in startItems)
             {
@@ -156,6 +151,7 @@ namespace FrostfallSaga.Fight
                 Debug.LogWarning("Enemy inventory is missing a weapon. Default weapon will be equipped.");
                 inventory.EquipEquipment(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath));
             }
+
             return inventory;
         }
 
@@ -164,7 +160,7 @@ namespace FrostfallSaga.Fight
         /// </summary>
         /// <param name="availableItems">The available items and their apparition chances.</param>
         /// <returns>The computed enemy start items.</returns>
-        private ItemSO[] ComputeEnemyInventoryStartItems(Dictionary<ItemSO, SElementToValue<float, int>> availableItems)
+        private static ItemSO[] ComputeEnemyInventoryStartItems(Dictionary<ItemSO, SElementToValue<float, int>> availableItems)
         {
             List<ItemSO> items = new();
             foreach (KeyValuePair<ItemSO, SElementToValue<float, int>> item in availableItems)
@@ -181,10 +177,11 @@ namespace FrostfallSaga.Fight
                     }
                 }
             }
+
             return items.ToArray();
         }
 
-        private ActiveAbilitySO[] ChooseEnemyActiveAbilities(FighterConfigurationSO fighterConfiguration)
+        private static ActiveAbilitySO[] ChooseEnemyActiveAbilities(FighterConfigurationSO fighterConfiguration)
         {
             ActiveAbilitySO[] availableActiveAbilities = Array.ConvertAll(
                 fighterConfiguration.AvailableActiveAbilities.ToArray(),
@@ -196,7 +193,7 @@ namespace FrostfallSaga.Fight
             );
         }
 
-        private PassiveAbilitySO[] ChooseEnemyPassiveAbilities(FighterConfigurationSO fighterConfiguration)
+        private static PassiveAbilitySO[] ChooseEnemyPassiveAbilities(FighterConfigurationSO fighterConfiguration)
         {
             PassiveAbilitySO[] availablePassiveAbilities = Array.ConvertAll(
                 fighterConfiguration.AvailablePassiveAbilities.ToArray(),
@@ -208,7 +205,7 @@ namespace FrostfallSaga.Fight
             );
         }
 
-        private KeyValuePair<string, EntityConfigurationSO>[] BuildDevFighterConfMapping(
+        private static KeyValuePair<string, EntityConfigurationSO>[] BuildDevFighterConfMapping(
             EntityConfigurationSO[] devEntityConfs)
         {
             return devEntityConfs.Select(
