@@ -1,0 +1,11 @@
+.unlockable {
+    background-image: url("project://database/Assets/Level/UI/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2346436936791262179&guid=a9eb48faa1a8632489e0e1223803914c&type=3#console.infoicon");
+}
+
+.unlock {
+    background-image: resource('UI/Icons/completed');
+}
+
+.lock {
+    background-image: url("project://database/Assets/Level/UI/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=8228938214290033325&guid=a9eb48faa1a8632489e0e1223803914c&type=3#console.erroricon");
+}

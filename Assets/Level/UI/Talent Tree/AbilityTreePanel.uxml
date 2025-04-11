@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="SkillContainer" src="project://database/Assets/Level/UI/Talent%20Tree/AbilityContainer.uxml?fileID=9197481963319205126&amp;guid=e3dad8705411bae438316b90ec6ccc8e&amp;type=3#AbilityContainer" />
+    <ui:VisualElement name="AbilityTreeContainer" style="flex-grow: 1; background-color: rgba(56, 56, 56, 0); align-items: auto; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Backgrounds/Talent%20tree/norseVikingPaperBackground.jpg?fileID=2800000&amp;guid=2c51253e9f97ecf24907cdee23bd4b2e&amp;type=3#norseVikingPaperBackground&quot;); -unity-background-scale-mode: stretch-to-fill; height: 100%; width: 100%; align-self: auto; justify-content: center;">
+        <ui:Instance template="SkillContainer" name="SkillContainer" style="position: absolute; top: 109px; left: 435px; width: 110px; bottom: 863px; height: 110px;" />
+        <ui:Instance template="SkillContainer" name="SkillContainer" style="position: absolute; top: 336px; left: 59px; height: 110px; width: 110px;" />
+        <ui:Instance template="SkillContainer" name="SkillContainer" style="position: absolute; top: 266px; left: 291px; height: 110px; width: 110px;" />
+        <ui:Instance template="SkillContainer" name="SkillContainer" style="position: absolute; top: 267px; left: 575px; height: 110px; width: 110px;" />
+        <ui:Instance template="SkillContainer" name="SkillContainer" style="position: absolute; top: 330px; left: 787px; height: 110px; width: 110px;" />
+        <ui:Instance template="SkillContainer" name="SkillContainer" style="position: absolute; top: 504px; left: 140px; height: 110px; width: 110px;" />
+        <ui:Instance template="SkillContainer" name="SkillContainer" style="position: absolute; top: 425px; left: 427px; height: 110px; width: 110px;" />
+        <ui:Instance template="SkillContainer" name="SkillContainer" style="position: absolute; top: 489px; left: 688px; height: 110px; width: 110px;" />
+        <ui:Instance template="SkillContainer" name="SkillContainer" style="position: absolute; top: 693px; left: 65px; height: 110px; width: 110px;" />
+        <ui:Instance template="SkillContainer" name="SkillContainer" style="position: absolute; top: 659px; left: 290px; height: 110px; width: 110px;" />
+        <ui:Instance template="SkillContainer" name="SkillContainer" style="position: absolute; top: 664px; left: 550px; height: 110px; width: 110px;" />
+        <ui:Instance template="SkillContainer" name="SkillContainer" style="position: absolute; top: 694px; left: 798px; height: 110px; width: 110px;" />
+        <ui:Instance template="SkillContainer" name="SkillContainer" style="position: absolute; top: 870px; left: 646px; height: 162px; width: 170px;" />
+        <ui:Instance template="SkillContainer" name="SkillContainer" style="position: absolute; top: 870px; left: 153px; height: 162px; width: 170px;" />
+    </ui:VisualElement>
+    <ui:VisualElement tabindex="0" focusable="false" style="flex-grow: 1; position: absolute; width: 972px; height: 3px; top: 647px; left: -8px; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Backgrounds/fadedBlackSquareBackground.png?fileID=2800000&amp;guid=bc4a83db463c6254e9042aec6229f409&amp;type=3#fadedBlackSquareBackground&quot;); -unity-background-image-tint-color: rgb(56, 56, 56); background-color: rgba(0, 0, 0, 0); -unity-text-align: middle-left; -unity-background-scale-mode: scale-and-crop; flex-direction: column;" />
+    <ui:VisualElement tabindex="0" focusable="false" style="flex-grow: 1; position: absolute; width: 972px; height: 3px; top: 836px; left: -2px; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Backgrounds/fadedBlackSquareBackground.png?fileID=2800000&amp;guid=bc4a83db463c6254e9042aec6229f409&amp;type=3#fadedBlackSquareBackground&quot;); -unity-background-image-tint-color: rgb(56, 56, 56); background-color: rgba(0, 0, 0, 0); -unity-text-align: middle-left; -unity-background-scale-mode: scale-and-crop; flex-direction: column;" />
+</ui:UXML>
