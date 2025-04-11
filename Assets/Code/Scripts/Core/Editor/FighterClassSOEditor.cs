@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using FrostfallSaga.Core.Fight;
-using FrostfallSaga.Utils; 
+using FrostfallSaga.Utils.Trees; 
 
 namespace FrostfallSaga.Core
 {

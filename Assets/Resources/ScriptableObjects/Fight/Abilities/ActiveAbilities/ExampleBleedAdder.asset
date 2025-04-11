@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: 
   <Description>k__BackingField: 
-  <IconSprite>k__BackingField: {fileID: 0}
+  <IconSprite>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
   <UnlockPoints>k__BackingField: 0
   <Targeter>k__BackingField:
     <OriginCellRange>k__BackingField: 4
@@ -32,32 +32,10 @@ MonoBehaviour:
   <GodFavorsPointsCost>k__BackingField: 0
   <Dodgable>k__BackingField: 1
   <Masterstrokable>k__BackingField: 0
-  Effects:
-  - rid: 7528321518192033793
-  MasterstrokeEffects: []
-  CellAlterations: []
+  effects: []
+  masterstrokeEffects: []
+  cellAlterations: []
   <Animation>k__BackingField: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
-  <AbilitySoundFX>k__BackingField: {fileID: 8300000, guid: 59ea31caf97182d439f6e06cfb477925, type: 3}
-  <SoundVolume>k__BackingField: 1
   references:
     version: 2
-    RefIds:
-    - rid: 7528321518192033793
-      type: {class: ApplyStatusesEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
-      data:
-        StatusesToApply:
-        - rid: 7528321518192033794
-    - rid: 7528321518192033794
-      type: {class: BleedStatus, ns: FrostfallSaga.Fight.Statuses, asm: FrostfallSaga.Fight}
-      data:
-        <Name>k__BackingField: Bleed
-        <Description>k__BackingField: The fighter's health is reduced.
-        <Icon>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
-        <StatusType>k__BackingField: 1
-        <IsPermanent>k__BackingField: 0
-        <Duration>k__BackingField: 4
-        <TriggerOnFirstApply>k__BackingField: 1
-        <IsRecurring>k__BackingField: 1
-        <TriggerTime>k__BackingField: 1
-        <VisualsController>k__BackingField: {fileID: 0}
-        <BleedingDamage>k__BackingField: 5
+    RefIds: []

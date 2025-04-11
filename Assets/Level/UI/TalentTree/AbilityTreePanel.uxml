@@ -1,0 +1,30 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="SkillContainer" src="project://database/Assets/Level/UI/TalentTree/AbilityContainer.uxml?fileID=9197481963319205126&amp;guid=e3dad8705411bae438316b90ec6ccc8e&amp;type=3#AbilityContainer" />
+    <Style src="project://database/Assets/Level/UI/TalentTree/AbilityTree.uss?fileID=7433441132597879392&amp;guid=72f2c2d8da35a2f449989e428d32f411&amp;type=3#AbilityTree" />
+    <ui:VisualElement name="AbilityTreeContainer" style="height: 100%; width: 100%;">
+        <ui:VisualElement name="AbilityRow" style="position: absolute; width: 80%; flex-direction: row; align-items: center; justify-content: center; left: 10%; top: 5%; height: 10%;">
+            <ui:Instance template="SkillContainer" name="AbilityContainer0" style="height: 100%; width: 14%;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="AbilityRow1" style="position: absolute; width: 80%; flex-direction: row; align-items: center; justify-content: space-around; left: 10%; top: 22%; height: 10%;">
+            <ui:Instance template="SkillContainer" name="AbilityContainer1" style="height: 100%; width: 14%;" />
+            <ui:Instance template="SkillContainer" name="AbilityContainer2" style="height: 100%; width: 14%;" />
+            <ui:Instance template="SkillContainer" name="AbilityContainer3" style="height: 100%; width: 14%;" />
+            <ui:Instance template="SkillContainer" name="AbilityContainer4" style="height: 100%; width: 14%;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="AbilityRow2" style="position: absolute; width: 80%; flex-direction: row; align-items: center; justify-content: space-around; left: 10%; top: 39%; height: 10%;">
+            <ui:Instance template="SkillContainer" name="AbilityContainer5" style="height: 100%; width: 14%;" />
+            <ui:Instance template="SkillContainer" name="AbilityContainer6" style="height: 100%; width: 14%;" />
+            <ui:Instance template="SkillContainer" name="AbilityContainer7" style="height: 100%; width: 14%;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="AbilityRow3" style="position: absolute; width: 80%; flex-direction: row; align-items: center; justify-content: space-around; left: 10%; top: 56%; height: 10%;">
+            <ui:Instance template="SkillContainer" name="AbilityContainer8" style="height: 100%; width: 14%;" />
+            <ui:Instance template="SkillContainer" name="AbilityContainer9" style="height: 100%; width: 14%;" />
+            <ui:Instance template="SkillContainer" name="AbilityContainer10" style="height: 100%; width: 14%;" />
+            <ui:Instance template="SkillContainer" name="AbilityContainer11" style="height: 100%; width: 14%;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="AbilityRow4" style="position: absolute; width: 80%; flex-direction: row; align-items: center; justify-content: space-around; left: 10%; top: 73%; height: 15%;">
+            <ui:Instance template="SkillContainer" name="AbilityContainer12" style="height: 100%; width: 21%;" />
+            <ui:Instance template="SkillContainer" name="AbilityContainer13" style="height: 100%; width: 21%;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

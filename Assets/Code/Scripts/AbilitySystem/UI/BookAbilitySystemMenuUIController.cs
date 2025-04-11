@@ -20,9 +20,9 @@ namespace FrostfallSaga.AbilitySystem.UI
             // Setup ability tree panel
             VisualElement abilityTreePanelRoot = _abilityTreePanelTemplate.Instantiate();
             abilityTreePanelRoot.StretchToParentSize();
-            //_abilityTreeController = new AbilityTreeUIController(abilityTreePanelRoot);
+            _abilityTreeController = new AbilityTreeUIController(abilityTreePanelRoot);
 
-            //SetFighter(HeroTeam.Instance.Heroes[0].PersistedFighterConfiguration);
+            SetFighter(HeroTeam.Instance.Heroes[0].PersistedFighterConfiguration);
 
             _leftPageContainer.Add(abilityTreePanelRoot);
         }
@@ -37,9 +37,8 @@ namespace FrostfallSaga.AbilitySystem.UI
                 return;
             }
 
-            // Met � jour la visualisation et l�arbre
             // _abilityVisualizerController.SetFighter(_currentFighter);
-            //_abilityTreeController.UpdatePanel(_currentFighter);
+            _abilityTreeController.UpdatePanel(_currentFighter);
         }
     }
 }
