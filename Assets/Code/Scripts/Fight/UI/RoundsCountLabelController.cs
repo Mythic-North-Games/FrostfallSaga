@@ -1,5 +1,5 @@
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Utils.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 

@@ -23,7 +23,7 @@ namespace FrostfallSaga.Core.Quests
 
             // Reward the hero team
             HeroTeam.HeroTeam.Instance.CollectReward(RewardConfiguration);
-            
+
             onQuestCompleted?.Invoke(this);
         }
     }

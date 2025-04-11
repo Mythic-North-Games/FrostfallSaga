@@ -12,7 +12,9 @@ namespace FrostfallSaga.Fight.FightConditions
     [Serializable]
     public abstract class AFighterCondition
     {
-        public abstract bool CheckCondition(Fighter fighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams);
+        public abstract bool CheckCondition(Fighter fighter, FightHexGrid fightGrid,
+            Dictionary<Fighter, bool> fightersTeams);
+
         public abstract string GetName();
         public abstract string GetDescription();
     }

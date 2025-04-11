@@ -11,7 +11,8 @@ namespace FrostfallSaga.Fight.FightConditions
     [Serializable]
     public class AllAlliesDeadCondition : AFighterCondition
     {
-        public override bool CheckCondition(Fighter fighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams)
+        public override bool CheckCondition(Fighter fighter, FightHexGrid fightGrid,
+            Dictionary<Fighter, bool> fightersTeams)
         {
             bool fighterTeam = fightersTeams[fighter];
             return fightersTeams.All(f => f.Key.GetHealth() <= 0 || f.Value != fighterTeam);

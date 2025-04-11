@@ -1,23 +1,15 @@
 using System.Collections;
+using FrostfallSaga.Core.BookMenu;
+using FrostfallSaga.Core.UI;
+using FrostfallSaga.InventorySystem.UI;
+using FrostfallSaga.Quests.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
-using FrostfallSaga.Core.BookMenu;
-using FrostfallSaga.Utils.UI;
-using FrostfallSaga.Quests.UI;
-using FrostfallSaga.InventorySystem.UI;
 
 namespace FrostfallSaga.BookMenu.UI
 {
     public class BookMenuUIManager : BaseUIController
     {
-        #region UI Elements Names & Classes
-        private static readonly string BOOK_MENU_CONTAINER_UI_NAME = "BookMenuContainer";
-        private static readonly string BOOK_MENU_ROOT_UI_NAME = "BookRoot";
-
-        private static readonly string BOOK_MENU_CONTAINER_HIDDEN_CLASSNAME = "bookMenuContainerHidden";
-        private static readonly string BOOK_MENU_ROOT_HIDDEN_CLASSNAME = "bookRootHidden";
-        #endregion
-
         [SerializeField] private BookMenuBarUIController _bookMenuBarController;
         [SerializeField] private BookQuestsMenuUIController _questsMenuController;
         [SerializeField] private BookInventoryMenuUIController _inventoryMenuController;
@@ -55,7 +47,18 @@ namespace FrostfallSaga.BookMenu.UI
             _currentMenuController.ClearMenu();
         }
 
+        #region UI Elements Names & Classes
+
+        private static readonly string BOOK_MENU_CONTAINER_UI_NAME = "BookMenuContainer";
+        private static readonly string BOOK_MENU_ROOT_UI_NAME = "BookRoot";
+
+        private static readonly string BOOK_MENU_CONTAINER_HIDDEN_CLASSNAME = "bookMenuContainerHidden";
+        private static readonly string BOOK_MENU_ROOT_HIDDEN_CLASSNAME = "bookRootHidden";
+
+        #endregion
+
         #region Setup
+
         private void Awake()
         {
             if (_bookMenuBarController == null)
@@ -83,7 +86,7 @@ namespace FrostfallSaga.BookMenu.UI
 
             SetupBookMenuBarEvents();
             _bookMenuContainer.RegisterCallback<ClickEvent>(
-                clickEvent => 
+                clickEvent =>
                 {
                     // To prevent hiding the book menu if click comes from children.
                     if (clickEvent.target == _bookMenuContainer)
@@ -99,6 +102,7 @@ namespace FrostfallSaga.BookMenu.UI
             _bookMenuBarController.onQuestsMenuClicked += OnQuestsMenuClicked;
             _bookMenuBarController.onInventoryMenuClicked += OnInventoryMenuClicked;
         }
+
         #endregion
     }
 }

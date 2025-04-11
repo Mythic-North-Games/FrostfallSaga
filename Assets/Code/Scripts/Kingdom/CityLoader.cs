@@ -1,3 +1,4 @@
+using System.Collections;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Core.GameState;
@@ -9,29 +10,29 @@ namespace FrostfallSaga.Kingdom
 {
     public class CityLoader : MonoBehaviour
     {
-        [SerializeField] private KingdomManager kingdomManager;
-        [SerializeField] private EnterCityPanelController enterCityPanelController;
-
+        [SerializeField] private KingdomManager _kingdomManager;
+        [SerializeField] private EnterCityPanelController _enterCityPanelController;
+        [SerializeField] private float _delayBeforeLoadingCityScene = 0.6f;
 
         #region Setup
 
         private void Awake()
         {
-            if (enterCityPanelController == null)
+            if (_enterCityPanelController == null)
             {
                 Debug.LogError(
                     "No enter EnterCityPanelController assigned to CityLoader. Won't be able to load city scene correctly.");
                 return;
             }
 
-            if (kingdomManager == null) kingdomManager = FindObjectOfType<KingdomManager>();
-            if (kingdomManager == null)
+            if (_kingdomManager == null) _kingdomManager = FindObjectOfType<KingdomManager>();
+            if (_kingdomManager == null)
             {
                 Debug.LogError("No KingdomManager found in scene. Won't be able to save kingdom state.");
                 return;
             }
 
-            enterCityPanelController.onCityEnterClicked += OnCityEnterClicked;
+            _enterCityPanelController.onCityEnterClicked += OnCityEnterClicked;
         }
 
         #endregion
@@ -39,13 +40,19 @@ namespace FrostfallSaga.Kingdom
         private void OnCityEnterClicked(CityBuildingConfigurationSO cityBuildingConfiguration)
         {
             Debug.Log($"Saving kingdom state before loading city scene for {cityBuildingConfiguration.Name}.");
-            kingdomManager.SaveKingdomState();
+            _kingdomManager.SaveKingdomState();
 
             Debug.Log($"Saving city load data for {cityBuildingConfiguration.Name}.");
             GameStateManager.Instance.SaveCityLoadData(cityBuildingConfiguration.InCityConfiguration);
 
             Debug.Log("Launching city scene...");
-            SceneTransitioner.FadeInToScene(EScenesName.CITY.ToSceneString());
+            StartCoroutine(WaitAndLaunchCityScene());
+        }
+
+        private IEnumerator WaitAndLaunchCityScene()
+        {
+            yield return new WaitForSeconds(_delayBeforeLoadingCityScene);
+            SceneTransitioner.TransitionToScene(EScenesName.CITY.ToSceneString());
         }
     }
 }

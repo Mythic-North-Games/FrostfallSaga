@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using FrostfallSaga.Core.Quests;
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Utils.Trees;
-using FrostfallSaga.Utils.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -68,6 +68,7 @@ namespace FrostfallSaga.Core.Dialogues
                 {
                     HeroTeamQuests.Instance.AddQuest(_currentDialogueLine.GetData().Quest);
                 }
+
                 StartCoroutine(HideRootContainerAndEndDialogue());
                 return;
             }

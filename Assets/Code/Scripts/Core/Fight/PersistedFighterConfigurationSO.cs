@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using FrostfallSaga.Core.InventorySystem;
 using UnityEngine;
 
-
 namespace FrostfallSaga.Core.Fight
 {
     [CreateAssetMenu(fileName = "PersistedFighterConfiguration",

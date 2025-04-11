@@ -4,7 +4,7 @@ using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Core.Cities.CitySituations;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.Quests;
-using FrostfallSaga.Utils.UI;
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Utils.Scenes;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -73,6 +73,7 @@ namespace FrostfallSaga.City.UI
         {
             HeroTeamQuests.Instance.InitializeQuests(this);
             SetupMainMenu();
+            SceneTransitioner.FadeInCurrentScene();
         }
 
         private void SetupMainMenu()
@@ -133,7 +134,7 @@ namespace FrostfallSaga.City.UI
 
         private static void OnExitButtonClicked()
         {
-            SceneTransitioner.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
+            SceneTransitioner.TransitionToScene(EScenesName.KINGDOM.ToSceneString());
         }
 
         #endregion

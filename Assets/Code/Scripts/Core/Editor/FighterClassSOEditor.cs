@@ -5,7 +5,8 @@ using System;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Utils; 
 
-namespace FrostfallSaga.Core {
+namespace FrostfallSaga.Core
+{
     [CustomEditor(typeof(FighterClassSO))]
     public class FighterClassSOEditor : Editor {
         private FighterClassSO _fighterClassSO;
@@ -13,13 +14,15 @@ namespace FrostfallSaga.Core {
         private readonly Dictionary<GraphNode<ABaseAbility>, bool> _nodeFoldouts = new Dictionary<GraphNode<ABaseAbility>, bool>();
         private GraphNode<ABaseAbility> _nodeToRemove = null;
 
-        private void OnEnable() {
+        private void OnEnable()
+        {
             if (target == null)
                 return;
             _fighterClassSO = (FighterClassSO)target;
         }   
 
-        public override void OnInspectorGUI() {
+        public override void OnInspectorGUI()
+        {
             DrawDefaultInspector();
 
             EditorGUILayout.Space();
@@ -44,13 +47,14 @@ namespace FrostfallSaga.Core {
                 GUI.changed = true; 
             }
 
-            if (GUI.changed) {
+            if (GUI.changed)
+            {
                 EditorUtility.SetDirty(target);
             }
         }
 
         /// <summary>
-        /// Affiche récursivement le graphe d'abilities en utilisant GraphNode.
+        /// Affiche rï¿½cursivement le graphe d'abilities en utilisant GraphNode.
         /// </summary>
         /// <param name="node">Le node courant.</param>
         private void DrawGraph(GraphNode<ABaseAbility> node) {
@@ -70,6 +74,7 @@ namespace FrostfallSaga.Core {
                     _nodeToRemove = node;
                 }
             }
+
             EditorGUILayout.EndHorizontal();
 
             if (_nodeFoldouts[node]) {
@@ -93,6 +98,7 @@ namespace FrostfallSaga.Core {
                     newChild.Parents.Add(node);
                     node.Children.Add(newChild);
                 }
+
                 EditorGUILayout.EndHorizontal();
             }
 
@@ -103,7 +109,7 @@ namespace FrostfallSaga.Core {
         /// <summary>
         /// Supprime le node en le retirant des listes d'enfants de chacun de ses parents.
         /// </summary>
-        /// <param name="node">Le node à supprimer.</param>
+        /// <param name="node">Le node ï¿½ supprimer.</param>
         private void RemoveNode(GraphNode<ABaseAbility> node) {
             if (node == null)
                 return;

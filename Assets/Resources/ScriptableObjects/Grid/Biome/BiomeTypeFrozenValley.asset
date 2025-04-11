@@ -16,8 +16,7 @@ MonoBehaviour:
   <TypeDescription>k__BackingField: Similar to the valley biome, but all cells are
     snow-covered. Courtyards and water points are covered in ice.
   <TerrainTypeSO>k__BackingField:
-  - {fileID: 11400000, guid: a4de3e2fda2cc7f439a4b72534773e45, type: 2}
   - {fileID: 11400000, guid: 6a52f54e947592042819abe9daa12580, type: 2}
   - {fileID: 11400000, guid: 4e3eb1ddb4d3e3140b0ddc44a91b7f42, type: 2}
+  - {fileID: 11400000, guid: a4de3e2fda2cc7f439a4b72534773e45, type: 2}
   - {fileID: 11400000, guid: 71154e6d5c4d2f747a762437383b347e, type: 2}
-  <BiomeMaterial>k__BackingField: {fileID: 0}

@@ -11,6 +11,7 @@ using FrostfallSaga.Fight.Abilities.AbilityAnimation;
 using FrostfallSaga.Utils;
 using UnityEngine;
 using FrostfallSaga.Utils.UI;
+using FrostfallSaga.Audio;
 
 namespace FrostfallSaga.Fight.FightItems
 {
@@ -27,8 +28,10 @@ namespace FrostfallSaga.Fight.FightItems
         [field: SerializeField]
         public SElementToValue<EEntityRace, float>[] FightersStrengths { get; private set; } = { };
 
-        [SerializeReference] public List<AEffect> SpecialEffects;
+        [SerializeReference] public List<AEffect> specialEffects;
         [field: SerializeField] public AAbilityAnimationSO AttackAnimation { get; private set; }
+
+        [field: SerializeField] public AudioClip WeaponUseSoundFX { get; private set; }
 
         public AEffect[] GetWeaponEffects(EEntityRace targetEntityID, bool atMax = false)
         {
@@ -37,7 +40,7 @@ namespace FrostfallSaga.Fight.FightItems
                 GetPhysicalDamagesEffect(targetEntityID, atMax)
             };
             effects.AddRange(GetMagicalDamagesEffect(targetEntityID));
-            effects.AddRange(SpecialEffects);
+            effects.AddRange(specialEffects);
             return effects.ToArray();
         }
 
@@ -45,6 +48,21 @@ namespace FrostfallSaga.Fight.FightItems
         {
             return GetWeaponEffects(target.Race).ToList().Sum(
                 effect => effect.GetPotentialEffectDamages(holder, target, true)
+            );
+        }
+
+        public void PlayUseSoundFXIfAny(Fighter initator)
+        {
+            if (WeaponUseSoundFX == null) return;
+
+            Transform audioSourceTransform = initator.GetWeaponCollider() != null
+                ? initator.GetWeaponCollider().transform
+                : initator.transform;
+            AudioManager.Instance.PlayFXSound(
+                WeaponUseSoundFX,
+                audioSourceTransform,
+                1f, 
+                0.5f
             );
         }
 
@@ -146,6 +164,7 @@ namespace FrostfallSaga.Fight.FightItems
 
         #endregion
 
+        #region For the UI
         public override Dictionary<Sprite, string> GetStatsUIData()
         {
             UIIconsProvider iconsProvider = UIIconsProvider.Instance;
@@ -188,7 +207,7 @@ namespace FrostfallSaga.Fight.FightItems
         public override List<string> GetSpecialEffectsUIData()
         {
             List<string> specialEffectsUIData = new();
-            SpecialEffects.ForEach(effect => specialEffectsUIData.Add(effect.GetUIEffectDescription()));
+            specialEffects.ForEach(effect => specialEffectsUIData.Add(effect.GetUIEffectDescription()));
 
             Dictionary<EEntityRace, float> fightersStrengths = SElementToValue<EEntityRace, float>.GetDictionaryFromArray(
                 FightersStrengths
@@ -202,5 +221,6 @@ namespace FrostfallSaga.Fight.FightItems
 
             return specialEffectsUIData;
         }
+        #endregion
     }
 }

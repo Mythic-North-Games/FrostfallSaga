@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FrostfallSaga.Core.InventorySystem;
+using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Fight.FightItems;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Fight.UI;
-using FrostfallSaga.Fight.FightCells;
-using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using UnityEngine;
-using FrostfallSaga.Fight.FightItems;
-using FrostfallSaga.Core.InventorySystem;
 
 namespace FrostfallSaga.Fight.Controllers
 {
@@ -31,6 +31,7 @@ namespace FrostfallSaga.Fight.Controllers
         private bool _fighterIsTargetingForDirectAttack;
         private FightManager _fightManager;
         private Fighter _possessedFighter;
+        private bool _mousLeftButtonHold;
 
         public void Setup(
             FightManager fightManager,
@@ -107,7 +108,7 @@ namespace FrostfallSaga.Fight.Controllers
         {
             FightCell hoveredFightCell = (FightCell)hoveredCell;
 
-            if (_fighterIsActing) return;
+            if (_fighterIsActing || _mousLeftButtonHold ) return;
 
             if (
                 _fighterIsTargetingForDirectAttack &&
@@ -128,7 +129,7 @@ namespace FrostfallSaga.Fight.Controllers
                     _fightManager.FightGrid,
                     _possessedFighter.cell,
                     _fightManager.FighterTeams,
-                    _currentActiveAbility.CellAlterations
+                    _currentActiveAbility.cellAlterations
                 ).Contains(hoveredFightCell)
             )
             {
@@ -198,6 +199,16 @@ namespace FrostfallSaga.Fight.Controllers
             onFighterActionEnded?.Invoke(_possessedFighter);
         }
 
+        private void OnLongClickHold (Cell cell)
+        {
+             _mousLeftButtonHold = true;
+        }
+
+        private void OnLongClick (Cell cell)
+        {
+            _mousLeftButtonHold = false;
+        }
+
         private void OnFightEnded(Fighter[] _allies, Fighter[] _enemies)
         {
             UnbindFighterEventsForTurn();
@@ -213,6 +224,20 @@ namespace FrostfallSaga.Fight.Controllers
             UnbindFighterEventsForTurn();
             UnbindCellMouseEvents(_fightManager.FightGrid);
             UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
+        }
+
+        #endregion
+
+        #region UI events binding
+
+        private void BindUIEvents()
+        {
+            if (_actionPanel == null) Debug.LogError("Player controller has no action panel to work with.");
+
+            _actionPanel.onDirectAttackClicked += OnDirectAttackClicked;
+            _actionPanel.onActiveAbilityClicked += OnActiveAbilityClicked;
+            _actionPanel.onConsumableClicked += OnConsumableClicked;
+            _actionPanel.onEndTurnClicked += OnEndTurnClicked;
         }
 
         #endregion
@@ -255,7 +280,8 @@ namespace FrostfallSaga.Fight.Controllers
 
             if (_possessedFighter.Weapon.UseActionPointsCost > _possessedFighter.GetActionPoints())
             {
-                Debug.Log($"Fighter {_possessedFighter.name} does not have enough action points to execute its direct attack.");
+                Debug.Log(
+                    $"Fighter {_possessedFighter.name} does not have enough action points to execute its direct attack.");
                 return;
             }
 
@@ -335,13 +361,15 @@ namespace FrostfallSaga.Fight.Controllers
 
             if (clickedAbility.ActionPointsCost > _possessedFighter.GetActionPoints())
             {
-                Debug.Log($"Fighter {_possessedFighter.name} does not have enough action points to execute the ability");
+                Debug.Log(
+                    $"Fighter {_possessedFighter.name} does not have enough action points to execute the ability");
                 return;
             }
 
             if (clickedAbility.GodFavorsPointsCost > _possessedFighter.GetGodFavorsPoints())
             {
-                Debug.Log($"Fighter {_possessedFighter.name} does not have enough god favors points to execute the ability");
+                Debug.Log(
+                    $"Fighter {_possessedFighter.name} does not have enough god favors points to execute the ability");
                 return;
             }
 
@@ -354,7 +382,7 @@ namespace FrostfallSaga.Fight.Controllers
                     _fightManager.FightGrid,
                     _possessedFighter.cell,
                     _fightManager.FighterTeams,
-                    _currentActiveAbility.CellAlterations
+                    _currentActiveAbility.cellAlterations
                 );
             cellsAvailableForTargeting.ToList().ForEach(
                 cell => cell.HighlightController.UpdateCurrentDefaultMaterial(_cellHighlightMaterial)
@@ -374,7 +402,7 @@ namespace FrostfallSaga.Fight.Controllers
                     _possessedFighter.cell,
                     clickedCell,
                     _fightManager.FighterTeams,
-                    _currentActiveAbility.CellAlterations
+                    _currentActiveAbility.cellAlterations
                 );
                 StopTargetingActiveActiveAbility();
                 ResetTargeterCellsMaterial(_currentActiveAbility.Targeter, clickedCell);
@@ -403,7 +431,7 @@ namespace FrostfallSaga.Fight.Controllers
                 _fightManager.FightGrid,
                 _possessedFighter.cell,
                 _fightManager.FighterTeams,
-                _currentActiveAbility.CellAlterations
+                _currentActiveAbility.cellAlterations
             ).ToList().ForEach(cell => cell.HighlightController.ResetToInitialMaterial());
         }
 
@@ -421,7 +449,8 @@ namespace FrostfallSaga.Fight.Controllers
 
             if (_possessedFighter.GetActionPoints() < (consumableSlot.Item as ConsumableSO).ActionPointsCost)
             {
-                Debug.Log($"Fighter {_possessedFighter.name} does not have enough action points to use the consumable.");
+                Debug.Log(
+                    $"Fighter {_possessedFighter.name} does not have enough action points to use the consumable.");
                 return;
             }
 
@@ -525,20 +554,6 @@ namespace FrostfallSaga.Fight.Controllers
 
         #endregion
 
-        #region UI events binding
-
-        private void BindUIEvents()
-        {
-            if (_actionPanel == null) Debug.LogError("Player controller has no action panel to work with.");
-
-            _actionPanel.onDirectAttackClicked += OnDirectAttackClicked;
-            _actionPanel.onActiveAbilityClicked += OnActiveAbilityClicked;
-            _actionPanel.onConsumableClicked += OnConsumableClicked;
-            _actionPanel.onEndTurnClicked += OnEndTurnClicked;
-        }
-
-        #endregion
-
         #region Possessed fighter events binding
 
         private void BindPossessedFighterEventsForTurn(Fighter _possessedFighter)
@@ -569,6 +584,8 @@ namespace FrostfallSaga.Fight.Controllers
                 cell.CellMouseEventsController.OnElementHover += OnCellHovered;
                 cell.CellMouseEventsController.OnElementUnhover += OnCellUnhovered;
                 cell.CellMouseEventsController.OnLeftMouseUp += OnCellClicked;
+                cell.CellMouseEventsController.OnLongClickHold += OnLongClickHold;
+                cell.CellMouseEventsController.OnLongClick += OnLongClick;
             }
         }
 
@@ -579,6 +596,8 @@ namespace FrostfallSaga.Fight.Controllers
                 cell.CellMouseEventsController.OnElementHover -= OnCellHovered;
                 cell.CellMouseEventsController.OnElementUnhover -= OnCellUnhovered;
                 cell.CellMouseEventsController.OnLeftMouseUp -= OnCellClicked;
+                cell.CellMouseEventsController.OnLongClickHold -= OnLongClickHold;
+                cell.CellMouseEventsController.OnLongClick -= OnLongClick;
             }
         }
 

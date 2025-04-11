@@ -23,9 +23,14 @@ namespace FrostfallSaga.Kingdom
             return Occupier;
         }
 
+        public override bool IsTerrainAccessible()
+        {
+            return IsAccessibleTerrain;
+        }
+
         public override bool IsFree()
         {
-            return IsTerrainAccessible() && !HasOccupier();
+            return IsAccessibleTerrain && !HasOccupier();
         }
 
         public override string ToString()

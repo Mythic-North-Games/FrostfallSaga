@@ -17,7 +17,8 @@ namespace FrostfallSaga.Fight.Abilities
     /// <summary>
     ///     Reperesents an active ability that can be used during a fight.
     /// </summary>
-    [CreateAssetMenu(fileName = "ActiveAbility", menuName = "ScriptableObjects/Fight/Abilities/ActiveAbility", order = 0)]
+    [CreateAssetMenu(fileName = "ActiveAbility", menuName = "ScriptableObjects/Fight/Abilities/ActiveAbility",
+        order = 0)]
     public class ActiveAbilitySO : ABaseAbility
     {
         [field: SerializeField] public Targeter Targeter { get; private set; }
@@ -32,9 +33,9 @@ namespace FrostfallSaga.Fight.Abilities
 
         [field: SerializeField] public bool Dodgable { get; private set; }
         [field: SerializeField] public bool Masterstrokable { get; private set; }
-        [SerializeReference] public AEffect[] Effects;
-        [SerializeReference] public AEffect[] MasterstrokeEffects = { };
-        [SerializeReference] public AFightCellAlteration[] CellAlterations = { };
+        [SerializeReference] public AEffect[] effects;
+        [SerializeReference] public AEffect[] masterstrokeEffects = { };
+        [SerializeReference] public AFightCellAlteration[] cellAlterations = { };
         [field: SerializeField] public AAbilityAnimationSO Animation { get; private set; }
 
         private Fighter _currentInitiator;
@@ -48,10 +49,11 @@ namespace FrostfallSaga.Fight.Abilities
         /// <param name="initiator">The fighter that initiated the ability.</param>
         public void Trigger(FightCell[] targetedCells, Fighter initiator)
         {
-            if (Animation == null)
+            if (!Animation)
             {
                 Debug.LogWarning($"No animation attached to active ability {Name}.");
-                targetedCells.ToList()
+                List<FightCell> list = targetedCells.ToList();
+                list
                     .Where(cell => cell.HasFighter()).ToList()
                     .ForEach(cell =>
                         {
@@ -79,7 +81,7 @@ namespace FrostfallSaga.Fight.Abilities
         /// <returns>The potential damages that the ability can do in this configuration to the target.</returns>
         public int GetDamagesPotential(Fighter initiator, Fighter target)
         {
-            return Effects.Sum(
+            return effects.Sum(
                 effect => effect.GetPotentialEffectDamages(initiator, target, Masterstrokable)
             );
         }
@@ -92,7 +94,7 @@ namespace FrostfallSaga.Fight.Abilities
         /// <returns>The potential heal that the ability can do in this configuration to the target.</returns>
         public int GetHealPotential(Fighter initiator, Fighter target)
         {
-            return Effects.Sum(
+            return effects.Sum(
                 effect => effect.GetPotentialEffectHeal(initiator, target, Masterstrokable)
             );
         }
@@ -127,7 +129,7 @@ namespace FrostfallSaga.Fight.Abilities
             }
 
             bool isMasterstroke = Masterstrokable && initiator.TryMasterstroke();
-            foreach (AEffect effect in Effects)
+            foreach (AEffect effect in effects)
             {
                 effect.ApplyEffect(
                     receiver,
@@ -140,7 +142,7 @@ namespace FrostfallSaga.Fight.Abilities
             if (isMasterstroke && !receiver.IsDead())
             {
                 Debug.Log($"{initiator.name} masterstrokes the ability {Name}");
-                foreach (AEffect effect in MasterstrokeEffects)
+                foreach (AEffect effect in masterstrokeEffects)
                     effect.ApplyEffect(
                         receiver,
                         false, // Masterstroke effects can't be masterstroked
@@ -152,7 +154,7 @@ namespace FrostfallSaga.Fight.Abilities
 
         private void ApplyAlterationsToCell(FightCell cell)
         {
-            foreach (AFightCellAlteration alteration in CellAlterations) alteration.Apply(cell);
+            foreach (AFightCellAlteration alteration in cellAlterations) alteration.Apply(cell);
         }
 
         #endregion
@@ -164,22 +166,27 @@ namespace FrostfallSaga.Fight.Abilities
             UIIconsProvider iconsProvider = UIIconsProvider.Instance;
             return new()
             {
-                { iconsProvider.GetIcon(UIIcons.ACTION_POINTS_COST.GetIconResourceName()), ActionPointsCost.ToString() },
-                { iconsProvider.GetIcon(UIIcons.PHYSICAL_RESISTANCE.GetIconResourceName()), Targeter.OriginCellRange.ToString() }
+                {
+                    iconsProvider.GetIcon(UIIcons.ACTION_POINTS_COST.GetIconResourceName()), ActionPointsCost.ToString()
+                },
+                {
+                    iconsProvider.GetIcon(UIIcons.PHYSICAL_RESISTANCE.GetIconResourceName()),
+                    Targeter.OriginCellRange.ToString()
+                }
             };
         }
 
         public List<string> GetEffectsUIData()
         {
-            return Effects
+            return effects
                 .Select(effect => effect.GetUIEffectDescription())
-                .Concat(CellAlterations.Select(alteration => alteration.Description))
+                .Concat(cellAlterations.Select(alteration => alteration.Description))
                 .ToList();
         }
 
         public List<string> GetMasterstrokeEffectsUIData()
         {
-            return MasterstrokeEffects
+            return masterstrokeEffects
                 .Select(effect => effect.GetUIEffectDescription())
                 .ToList();
         }

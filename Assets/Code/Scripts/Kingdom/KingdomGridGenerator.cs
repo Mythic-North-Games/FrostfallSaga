@@ -3,6 +3,7 @@ using System.Linq;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom;
 using FrostfallSaga.Procedural;
+using FrostfallSaga.Utils;
 using UnityEngine;
 
 // ReSharper disable All
@@ -47,6 +48,10 @@ namespace FrostfallSaga.Grid
         {
             float perlinValue = _perlinTerrainManager.GetNoiseValue(x, y);
             TerrainTypeSO selectedTerrain = GetTerrainTypeFromPerlinValue(perlinValue, selectedBiome);
+            bool isAccessible = selectedTerrain.DefaultAccessible
+                ? Randomizer.GetBooleanOnChance(selectedTerrain.AccessibilityChanceOverride)
+                : selectedTerrain.DefaultAccessible;
+            cell.SetTerrainAccessibility(isAccessible);
             cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, hexSize, selectedTerrain, selectedBiome);
             cell.HighlightController.SetupInitialMaterial(selectedTerrain.CellMaterial);
             cell.HighlightController.UpdateCurrentDefaultMaterial(selectedTerrain.CellMaterial);
@@ -85,8 +90,8 @@ namespace FrostfallSaga.Grid
                    $"- GridHeight: {GridHeight}\n" +
                    $"- Available Biomes: {(AvailableBiomes != null && AvailableBiomes.Length > 0 ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +
                    $"- ParentGrid: {ParentGrid?.name ?? "None"}\n" +
-                   $"- NoiseScale: {(NoiseScale.HasValue ? NoiseScale.Value.ToString() : "None")}\n" +
-                   $"- Seed: {Seed?.ToString() ?? "None"}";
+                   $"- NoiseScale: {NoiseScale}\n" +
+                   $"- Seed: {Seed}";
         }
     }
 }

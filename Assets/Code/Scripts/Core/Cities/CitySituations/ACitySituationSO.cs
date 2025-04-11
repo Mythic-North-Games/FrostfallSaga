@@ -1,5 +1,5 @@
-using UnityEngine;
 using FrostfallSaga.Core.Quests;
+using UnityEngine;
 
 namespace FrostfallSaga.Core.Cities.CitySituations
 {

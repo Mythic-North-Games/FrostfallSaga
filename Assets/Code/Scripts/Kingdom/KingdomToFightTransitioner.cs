@@ -18,7 +18,6 @@ namespace FrostfallSaga.Kingdom
     public class KingdomToFightTransitioner : MonoBehaviour
     {
         [SerializeField] private KingdomManager kingdomManager;
-        [SerializeField] private SceneTransitioner sceneTransitioner;
         [SerializeField] private float readyToFightAnimationDuration = 2f;
         [SerializeField] private float delayBeforeLoadingSceneAfterReadyAnimation = 10f;
         [SerializeField] private bool isPrintAnalysis;
@@ -32,14 +31,6 @@ namespace FrostfallSaga.Kingdom
             if (!kingdomManager)
             {
                 Debug.LogError("No KingdomManager found. Can't transition to fight scene.");
-                return;
-            }
-
-            sceneTransitioner ??= FindObjectOfType<SceneTransitioner>();
-
-            if (!sceneTransitioner)
-            {
-                Debug.LogError("No SceneTransitioner found. Can't transition to fight scene.");
                 return;
             }
 
@@ -104,7 +95,7 @@ namespace FrostfallSaga.Kingdom
         {
             yield return new WaitForSeconds(delayBeforeLoadingSceneAfterReadyAnimation);
             Debug.Log("Transitioning to fight");
-            SceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
+            SceneTransitioner.TransitionToScene(EScenesName.FIGHT.ToSceneString());
         }
 
         private void PrepareAndSavePreFightData(EntitiesGroup enemiesGroup)

@@ -15,7 +15,7 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
         [SerializeReference] [Header("Visuals controllers")]
         public AGameObjectSpawnController SpawnController = new ImmediateGameObjectSpawn();
 
-        [SerializeReference] public AGameObjectDestroyController DestroyController = new ImmediateGameObjectDestroy();
+        [SerializeReference] public AGameObjectDestroyController destroyController = new ImmediateGameObjectDestroy();
 
         [field: SerializeField]
         [field: Header("For the UI")]

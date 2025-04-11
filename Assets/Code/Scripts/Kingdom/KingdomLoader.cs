@@ -12,6 +12,7 @@ using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.InterestPoints;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
+using FrostfallSaga.Utils.Scenes;
 using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
@@ -46,6 +47,7 @@ namespace FrostfallSaga.Kingdom
 
         private void Start()
         {
+            SceneTransitioner.FadeInCurrentScene();
             kingdomHexGrid.ClearCells();
             Debug.Log("Generating Kingdom Grid...");
             kingdomHexGrid.GenerateGrid();
@@ -53,7 +55,7 @@ namespace FrostfallSaga.Kingdom
             {
                 Debug.Log("First scene launch. No kingdom to load.");
                 FirstSpawnHeroGroup();
-                InterestPointBuilder.Instance.FirstBuildInterestPoints(kingdomHexGrid, interestPointConfigs);
+                InterestPointBuilder.FirstBuildInterestPoints(kingdomHexGrid, interestPointConfigs);
                 OnKingdomLoaded?.Invoke();
                 return;
             }
@@ -98,7 +100,7 @@ namespace FrostfallSaga.Kingdom
                     EntitiesGroupBuilder.Instance.BuildEntitiesGroup(enemiesGroupData, kingdomHexGrid));
 
             foreach (InterestPointData interestPointData in kingdomState.interestPointsData)
-                InterestPointBuilder.Instance.BuildInterestPoint(interestPointData, kingdomHexGrid);
+                InterestPointBuilder.BuildInterestPoint(interestPointData, kingdomHexGrid);
         }
 
         #endregion

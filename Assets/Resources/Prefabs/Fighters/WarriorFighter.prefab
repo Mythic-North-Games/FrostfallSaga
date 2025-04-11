@@ -43,6 +43,10 @@ PrefabInstance:
       propertyPath: _parentToMove
       value: 
       objectReference: {fileID: 2920049516156015753}
+    - target: {fileID: -750095940487499108, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
+      propertyPath: _parentToMove
+      value: 
+      objectReference: {fileID: 2920049516156015753}
     - target: {fileID: 7229199734263576984, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
       propertyPath: m_Name
       value: WarriorFighter
@@ -112,20 +116,9 @@ PrefabInstance:
       insertIndex: 8
       addedObject: {fileID: 2606586245611480665}
   m_SourcePrefab: {fileID: 100100000, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
---- !u!114 &1129141084745967146 stripped
+--- !u!114 &2786380324111642071 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -4359804814130803909, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
-  m_PrefabInstance: {fileID: 5536436094295813393}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2920049516156015753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 395e31fe06f423c429c6df683a903ced, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1145525449891322002 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4841622593194046851, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
+  m_CorrespondingSourceObject: {fileID: -1549685295469248314, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
   m_PrefabInstance: {fileID: 5536436094295813393}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2920049516156015753}
@@ -156,11 +149,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17581d7163014c47bedd331c3ac3861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <AnimationController>k__BackingField: {fileID: 1145525449891322002}
-  <MovementController>k__BackingField: {fileID: 1129141084745967146}
+  <EntitySessionId>k__BackingField: 
+  <AnimationController>k__BackingField: {fileID: 2786380324111642071}
+  <MovementController>k__BackingField: {fileID: 4125931660738862989}
   <FighterMouseEventsController>k__BackingField: {fileID: 9121339937089846296}
   <CameraAnchor>k__BackingField: {fileID: 418671907733613392}
-  <EntityID>k__BackingField: 0
+  <FighterConfiguration>k__BackingField: {fileID: 11400000, guid: be2a59e2c4ba3c543bde83ebbd0b85f3, type: 2}
+  <Race>k__BackingField: 0
   _stats:
     health: 0
     maxHealth: 0
@@ -192,7 +187,7 @@ MonoBehaviour:
   _godFavorsPoints: 0
   <FighterClass>k__BackingField: {fileID: 0}
   <PersonalityTrait>k__BackingField: {fileID: 0}
-  _inventory:
+  <Inventory>k__BackingField:
     <WeaponSlot>k__BackingField:
       <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
@@ -205,11 +200,7 @@ MonoBehaviour:
       <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
-    <GlovesSlot>k__BackingField:
-      <Item>k__BackingField: {fileID: 0}
-      <ItemCount>k__BackingField: 0
-      <MaxItemCount>k__BackingField: 1
-    <LeggingsSlot>k__BackingField:
+    <GauntletsSlot>k__BackingField:
       <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
@@ -290,11 +281,31 @@ MonoBehaviour:
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
+    <ConsumablesQuickAccessSlots>k__BackingField:
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
   <Weapon>k__BackingField: {fileID: 0}
-  <DirectAttackAnimation>k__BackingField: {fileID: 0}
   <ActiveAbilities>k__BackingField: []
   <PassiveAbilities>k__BackingField: []
   <IsParalyzed>k__BackingField: 0
+  <MinStycasLoot>k__BackingField: 0
+  <MaxStycasLoot>k__BackingField: 0
   cell: {fileID: 0}
   _receiveDamageAnimationName: 
   _healSelfAnimationName: 
@@ -303,7 +314,6 @@ MonoBehaviour:
   <FighterName>k__BackingField: 
   <Icon>k__BackingField: {fileID: 0}
   <DiamondIcon>k__BackingField: {fileID: 0}
-  <EntitySessionId>k__BackingField: 
 --- !u!114 &9121339937089846296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,3 +349,14 @@ CapsuleCollider:
   m_Height: 2.150951
   m_Direction: 1
   m_Center: {x: -0.00963223, y: 0.92133975, z: 0}
+--- !u!114 &4125931660738862989 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -750095940487499108, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
+  m_PrefabInstance: {fileID: 5536436094295813393}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2920049516156015753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 395e31fe06f423c429c6df683a903ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -13,6 +13,18 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
     {
         private ECellHeight _previousHeight;
 
+        public RandomHeightAlteration() : base(
+            "Random height",
+            "Sets the height of the cell to a random value.",
+            null,
+            false,
+            0,
+            true,
+            true
+        )
+        {
+        }
+
         public RandomHeightAlteration(
             string name,
             string description,

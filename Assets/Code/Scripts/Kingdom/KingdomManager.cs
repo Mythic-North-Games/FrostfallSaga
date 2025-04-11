@@ -29,6 +29,7 @@ namespace FrostfallSaga.Kingdom
         [SerializeField] private KingdomLoader kingdomLoader;
         private MovePath _currentHeroGroupMovePath;
         private bool _entitiesAreMoving;
+        private bool _mousLeftButtonHold;
 
         private EntitiesGroupsMovementController _entitiesGroupsMovementController;
 
@@ -55,7 +56,7 @@ namespace FrostfallSaga.Kingdom
 
             // Extracting data from points of interest
             InterestPointData[] interestPointsData = InterestPoints
-                .Select(point => InterestPointBuilder.Instance.ExtractInterestPointData(point))
+                .Select(point => InterestPointBuilder.ExtractInterestPointData(point))
                 .ToArray();
 
             // Save into GameStateManager
@@ -123,7 +124,7 @@ namespace FrostfallSaga.Kingdom
 
         private void OnCellHovered(Cell hoveredCell)
         {
-            if (_entitiesAreMoving) // To prevent the player from spaming movements
+            if (_entitiesAreMoving || _mousLeftButtonHold) // To prevent the player from spaming movements
                 return;
 
             Cell[] shorterPathToHoveredCell = CellsPathFinding.GetShorterPath(
@@ -134,6 +135,16 @@ namespace FrostfallSaga.Kingdom
             );
             _currentHeroGroupMovePath = new MovePath(shorterPathToHoveredCell);
             HighlightShorterPathCells();
+        }
+
+        private void OnLongClickHold (Cell cell)
+        {
+            _mousLeftButtonHold = true;
+        }
+
+        private void OnLongClick (Cell cell)
+        {
+            _mousLeftButtonHold = false;
         }
 
         private void OnKingdomCellOccupierHovered(KingdomCellOccupier hoveredOccupier)
@@ -235,6 +246,8 @@ namespace FrostfallSaga.Kingdom
                 cell.CellMouseEventsController.OnElementHover += OnCellHovered;
                 cell.CellMouseEventsController.OnElementUnhover += OnCellUnhovered;
                 cell.CellMouseEventsController.OnLeftMouseUp += OnCellClicked;
+                cell.CellMouseEventsController.OnLongClickHold += OnLongClickHold;
+                cell.CellMouseEventsController.OnLongClick += OnLongClick;
             }
         }
 

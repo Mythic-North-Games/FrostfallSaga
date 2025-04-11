@@ -21,9 +21,10 @@ namespace FrostfallSaga.Fight.Fighters
         public void DirectAttack(List<FightCell> targetedCells)
         {
             // Trigger the direct attack (with or without animation)
-            if (_controlledFighter.Weapon.AttackAnimation == null)
+            if (!_controlledFighter.Weapon.AttackAnimation)
             {
                 Debug.LogWarning($"No animation attached to direct attack for fighter {_controlledFighter.name}");
+                _controlledFighter.Weapon.PlayUseSoundFXIfAny(_controlledFighter);
                 targetedCells
                     .Where(cell => cell.HasFighter()).ToList()
                     .ForEach(cell =>

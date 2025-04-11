@@ -5,11 +5,6 @@ namespace FrostfallSaga.Core.UI
 {
     public static class ProgressBarUIController
     {
-        #region UXML UI Names & Classes
-        private static readonly string PROGRESS_BAR_FILL_UI_NAME = "ProgressBarFill";
-        private static readonly string PROGRESS_BAR_LABEL_UI_NAME = "ProgressBarLabel";
-        #endregion
-
         public static void SetupProgressBar(
             VisualElement root,
             float value,
@@ -33,7 +28,7 @@ namespace FrostfallSaga.Core.UI
                 progressBarValueLabel.text = "";
             }
 
-            float progress = (float)value / maxValue * 100;
+            float progress = value / maxValue * 100;
             if (invertProgress)
             {
                 progress = 100 - progress;
@@ -59,5 +54,12 @@ namespace FrostfallSaga.Core.UI
                 root.Q<VisualElement>(PROGRESS_BAR_FILL_UI_NAME).style.backgroundColor = customColor;
             }
         }
+
+        #region UXML UI Names & Classes
+
+        private static readonly string PROGRESS_BAR_FILL_UI_NAME = "ProgressBarFill";
+        private static readonly string PROGRESS_BAR_LABEL_UI_NAME = "ProgressBarLabel";
+
+        #endregion
     }
 }

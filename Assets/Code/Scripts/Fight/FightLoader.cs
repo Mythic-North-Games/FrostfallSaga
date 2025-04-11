@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using FrostfallSaga.Audio;
 using FrostfallSaga.Core.Entities;
-using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Utils.Scenes;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight
@@ -33,6 +34,8 @@ namespace FrostfallSaga.Fight
             Debug.Log("Generating Fighters...");
             KeyValuePair<Fighter[], Fighter[]> fighters = GenerateFighters();
             Debug.Log("Fighters Generated !");
+            SceneTransitioner.FadeInCurrentScene();
+            AudioManager.Instance.PlayUISound(UISounds.FightBegin);
             OnFightLoaded?.Invoke(fighters.Key, fighters.Value);
         }
 

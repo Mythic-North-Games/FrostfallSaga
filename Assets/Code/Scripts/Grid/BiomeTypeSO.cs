@@ -19,10 +19,5 @@ namespace FrostfallSaga.Grid
         [field: Header("Terrains")]
         [field: Tooltip("Type of Terrain that can be contain in this biome")]
         public TerrainTypeSO[] TerrainTypeSO { get; private set; }
-
-        [field: SerializeField]
-        [field: Header("Biome visual")]
-        [field: Tooltip("Define the biome's color")]
-        public Material BiomeMaterial { get; private set; }
     }
 }
