@@ -17,7 +17,7 @@ namespace FrostfallSaga.EditModeTests.Kingdom
         [SetUp]
         public void Setup()
         {
-            grid = CommonTestsHelper.CreatePlainGridForTest(10, 10);
+            grid = CommonTestsHelper.CreateEmptyGridForTest(10, 10);
         }
 
         [TearDown]

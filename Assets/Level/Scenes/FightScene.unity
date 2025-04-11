@@ -168,12 +168,20 @@ PrefabInstance:
       value: FIghtHexGrid
       objectReference: {fileID: 0}
     - target: {fileID: 3836396025498947227, guid: 6ffbec30350952f499de66cae939e928, type: 3}
+      propertyPath: defaultBiomeType
+      value: 
+      objectReference: {fileID: 11400000, guid: 9083c3a2086937d4db46edaace4ef140, type: 2}
+    - target: {fileID: 3836396025498947227, guid: 6ffbec30350952f499de66cae939e928, type: 3}
       propertyPath: <Width>k__BackingField
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3836396025498947227, guid: 6ffbec30350952f499de66cae939e928, type: 3}
       propertyPath: <Height>k__BackingField
-      value: 5
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836396025498947227, guid: 6ffbec30350952f499de66cae939e928, type: 3}
+      propertyPath: <NoiseScale>k__BackingField
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7423635820620192851, guid: 6ffbec30350952f499de66cae939e928, type: 3}
       propertyPath: m_LocalPosition.x
@@ -236,6 +244,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6557c83ab7a18dd49bdb9f3d2f933746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &469185889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 469185891}
+  - component: {fileID: 469185890}
+  m_Layer: 0
+  m_Name: FrostfallSaga.Core.GameState.GameStateManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &469185890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469185889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f3113053354c8f38172d85dd5e6298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &469185891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469185889}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &607521706
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +518,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3688164458630694458, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
   m_PrefabInstance: {fileID: 732898559}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &732898561 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2491415837340818565, guid: 7e18d7a24894f4af8a4710fbd52e6c56, type: 3}
+  m_PrefabInstance: {fileID: 732898559}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8466bc70d09df84f493e5e15759cb9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &793609178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,10 +1114,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1392665154}
-  heroRenderTextureSceneController: {fileID: 0}
-  equippedPanelTemplate: {fileID: 0}
-  bagPanelTemplate: {fileID: 0}
-  statContainerTemplate: {fileID: 0}
+  heroRenderTextureSceneController: {fileID: 732898561}
+  equippedPanelTemplate: {fileID: 9197481963319205126, guid: 85cc35556c3486bfdb3589f4f7f9de63, type: 3}
+  bagPanelTemplate: {fileID: 9197481963319205126, guid: 620d5dbc289500c3bbae70a2ddaf0182, type: 3}
+  statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
   statValueColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   devHero: {fileID: 0}
 --- !u!114 &1392665152
@@ -1070,11 +1133,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1392665154}
-  questsListTemplate: {fileID: 0}
-  listQuestItemTemplate: {fileID: 0}
-  questDetailsTemplate: {fileID: 0}
-  questStepTemplate: {fileID: 0}
-  actionInstructionTemplate: {fileID: 0}
+  questsListTemplate: {fileID: 9197481963319205126, guid: 44f5d685324fc5f08afba5dcde2ee82b, type: 3}
+  listQuestItemTemplate: {fileID: 9197481963319205126, guid: 1b0add5b72ea4c93baa4fa470aaf9b98, type: 3}
+  questDetailsTemplate: {fileID: 9197481963319205126, guid: b123ec5ba851f1362b9e5b0a92e90d7e, type: 3}
+  questStepTemplate: {fileID: 9197481963319205126, guid: 74be39bbe00f23ca480296fb4699af3f, type: 3}
+  actionInstructionTemplate: {fileID: 9197481963319205126, guid: 8c05b7c3f827d9ac18bfa213c03059dd, type: 3}
   devQuests: []
 --- !u!114 &1392665153
 MonoBehaviour:
@@ -1505,13 +1568,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d35a478368f4274d8b13489ab237cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virtualCamera: {fileID: 0}
+  virtualCamera: {fileID: 1850674453}
   <AllowZoom>k__BackingField: 1
   <MinFOV>k__BackingField: 20
   <MaxFOV>k__BackingField: 120
   <BaseFOV>k__BackingField: 75
   <ZoomMultiplier>k__BackingField: 5
-  mouseFollowTarget: {fileID: 0}
+  mouseFollowTarget: {fileID: 2086321100}
   <MouseTargetOffset>k__BackingField: {x: 0.1, y: 0.1}
   <MaxTranslationSpeed>k__BackingField: 30
   <MinY>k__BackingField: 2
@@ -1897,3 +1960,4 @@ SceneRoots:
   - {fileID: 1334114583}
   - {fileID: 1683268109}
   - {fileID: 2015873281}
+  - {fileID: 469185891}
