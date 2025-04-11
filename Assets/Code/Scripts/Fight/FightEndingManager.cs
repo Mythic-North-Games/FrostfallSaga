@@ -116,7 +116,7 @@ namespace FrostfallSaga.Fight
             EScenesName sceneToTransitionTo = _gameStateManager.GetCurrentFightOrigin().ToEScenesName();
             _gameStateManager.CleanPreFightData();
             Debug.Log($"Transitioning to {sceneToTransitionTo}...");
-            SceneTransitioner.FadeInToScene(sceneToTransitionTo.ToSceneString());
+            SceneTransitioner.TransitionToScene(sceneToTransitionTo.ToSceneString());
         }
 
         private static bool AlliesHaveWon(Fighter[] allies)

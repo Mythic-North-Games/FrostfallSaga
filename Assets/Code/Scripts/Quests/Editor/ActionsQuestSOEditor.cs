@@ -8,7 +8,7 @@ namespace FrostfallSaga.FFSEditor.Quests
     [CustomEditor(typeof(ActionsQuestSO))]
     public class ActionsQuestSOEditor : Editor
     {
-        private static readonly string ACTIONS_PROPERTY_NAME = "Actions";
+        private static readonly string ACTIONS_PROPERTY_NAME = "actions";
         private ReorderableList actionsList;
         private SerializedProperty actionsProperty;
 

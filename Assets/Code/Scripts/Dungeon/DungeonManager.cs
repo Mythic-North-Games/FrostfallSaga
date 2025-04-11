@@ -38,7 +38,7 @@ namespace FrostfallSaga.Dungeon
                 );
                 dungeonState.DungeonConfiguration.CompleteDungeon();
                 _gameStateManager.CleanDungeonState();
-                SceneTransitioner.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
+                SceneTransitioner.BrutalSceneTransition(EScenesName.KINGDOM.ToSceneString());
                 return;
             }
 
@@ -55,7 +55,7 @@ namespace FrostfallSaga.Dungeon
             }
 
             Debug.Log("Dungeon fight prepared. Launching fight scene...");
-            SceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
+            SceneTransitioner.BrutalSceneTransition(EScenesName.FIGHT.ToSceneString());
         }
 
         private void PrepareDungeonFight(DungeonFightConfiguration dungeonFightConfiguration)

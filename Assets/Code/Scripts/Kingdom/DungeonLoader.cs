@@ -1,3 +1,4 @@
+using System.Collections;
 using FrostfallSaga.Audio;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Dungeons;
@@ -12,7 +13,7 @@ namespace FrostfallSaga.Kingdom
     {
         [SerializeField] private KingdomManager kingdomManager;
         [SerializeField] private EnterDungeonPanelController enterDungeonPanelController;
-
+        [SerializeField] private float _delayBeforeLoadingCityScene = 0.6f;
 
         #region Setup
 
@@ -48,7 +49,13 @@ namespace FrostfallSaga.Kingdom
             AudioManager.Instance.PlayUISound(dungeonBuildingConfiguration.EnterDungeonSound);
 
             Debug.Log("Launching dungeon scene...");
-            SceneTransitioner.FadeInToScene(EScenesName.DUNGEON.ToSceneString());
+            StartCoroutine(WaitAndLaunchCityScene());
+        }
+
+        private IEnumerator WaitAndLaunchCityScene()
+        {
+            yield return new WaitForSeconds(_delayBeforeLoadingCityScene);
+            SceneTransitioner.TransitionToScene(EScenesName.DUNGEON.ToSceneString());
         }
     }
 }

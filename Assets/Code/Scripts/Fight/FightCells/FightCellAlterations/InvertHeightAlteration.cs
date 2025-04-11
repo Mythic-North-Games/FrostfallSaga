@@ -12,6 +12,18 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
     {
         private ECellHeight _previousHeight;
 
+        public InvertHeightAlteration() : base(
+            "Invert height",
+            "Inverts the height of the cell.",
+            null,
+            false,
+            0,
+            true,
+            true
+        )
+        {
+        }
+
         public InvertHeightAlteration(
             string name,
             string description,
