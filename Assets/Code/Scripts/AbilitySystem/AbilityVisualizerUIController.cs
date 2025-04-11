@@ -5,13 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-<<<<<<< Updated upstream:Assets/Code/Scripts/AbilitySystem/UI/AbilityVisualizerUIController.cs
-namespace FrostfallSaga.AbilitySystem.UI
-{
-    public class AbilityVisualizerUIController
-    {
-      
-=======
 namespace FrostfallSaga {
     public class AbilityVisualizerUIController {
         #region UI Element Names
@@ -92,6 +85,5 @@ namespace FrostfallSaga {
             // TODO: Implement the unlock function for the tree ability.
             Debug.Log("Unlock button clicked. TODO: implement unlock logic.");
         }
->>>>>>> Stashed changes:Assets/Code/Scripts/AbilitySystem/AbilityVisualizerUIController.cs
     }
 }
