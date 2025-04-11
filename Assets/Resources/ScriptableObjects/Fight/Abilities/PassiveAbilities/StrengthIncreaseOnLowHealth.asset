@@ -15,26 +15,27 @@ MonoBehaviour:
   <Name>k__BackingField: Strength increase on low health
   <Description>k__BackingField: 
   <IconSprite>k__BackingField: {fileID: 0}
-  Effects:
-  - rid: 3629974269133586435
-  ActivationConditions:
-  - rid: 3629974269133586436
+  <UnlockPoints>k__BackingField: 0
+  effects:
+  - rid: 6053962956990054414
+  activationConditions:
+  - rid: 6053962956990054415
   <Targets>k__BackingField: 00000000
   <IsRecurring>k__BackingField: 0
   <LastsForFight>k__BackingField: 0
-  VisualsController: {fileID: 0}
+  visualsController: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 3629974269133586435
+    - rid: 6053962956990054414
       type: {class: UpdateMutableStatEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
         StatToUpdate: 3
         Amount: 10
         UsePercentage: 1
-    - rid: 3629974269133586436
+    - rid: 6053962956990054415
       type: {class: HealthThresholdCondition, ns: FrostfallSaga.Fight.FightConditions, asm: FrostfallSaga.Fight}
       data:
         StatConditionType: 4
-        Threshold: 50
+        Threshold: 20
         UsePercentage: 1
