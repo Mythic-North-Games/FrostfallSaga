@@ -17,9 +17,9 @@ MonoBehaviour:
   <IconSprite>k__BackingField: {fileID: 0}
   <UnlockPoints>k__BackingField: 0
   effects:
-  - rid: 6053962956990054414
+  - rid: 6053962962311839752
   activationConditions:
-  - rid: 6053962956990054415
+  - rid: 6053962962311839753
   <Targets>k__BackingField: 00000000
   <IsRecurring>k__BackingField: 0
   <LastsForFight>k__BackingField: 0
@@ -27,15 +27,15 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 6053962956990054414
+    - rid: 6053962962311839752
       type: {class: UpdateMutableStatEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
         StatToUpdate: 3
-        Amount: 10
+        Amount: 20
         UsePercentage: 1
-    - rid: 6053962956990054415
+    - rid: 6053962962311839753
       type: {class: HealthThresholdCondition, ns: FrostfallSaga.Fight.FightConditions, asm: FrostfallSaga.Fight}
       data:
         StatConditionType: 4
-        Threshold: 20
+        Threshold: 30
         UsePercentage: 1
