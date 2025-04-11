@@ -74,7 +74,7 @@ namespace FrostfallSaga.Quests.UI
             VisualElement questActionsContainer = questDetailsPanel.Q<VisualElement>(QUEST_ACTIONS_CONTAINER_UI_NAME);
             questActionsContainer.Clear();
 
-            foreach (AQuestAction action in actionsQuest.Actions)
+            foreach (AQuestAction action in actionsQuest.actions)
             {
                 VisualElement actionInstruction = QuestActionInstructionUIController.BuildActionInstruction(
                     actionInstructionTemplate, action

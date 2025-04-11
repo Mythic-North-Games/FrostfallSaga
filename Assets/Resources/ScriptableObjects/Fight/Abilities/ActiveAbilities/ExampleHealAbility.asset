@@ -32,17 +32,15 @@ MonoBehaviour:
   <GodFavorsPointsCost>k__BackingField: 0
   <Dodgable>k__BackingField: 0
   <Masterstrokable>k__BackingField: 1
-  Effects:
-  - rid: 7528321518192033792
-  MasterstrokeEffects: []
-  CellAlterations: []
+  effects:
+  - rid: 6053962956990054410
+  masterstrokeEffects: []
+  cellAlterations: []
   <Animation>k__BackingField: {fileID: 11400000, guid: 540580c7cdf924744b8ebf2a26ea0aab, type: 2}
-  <AbilitySoundFX>k__BackingField: {fileID: 8300000, guid: 1633eae6c94a39841b67c17c4d9f79b2, type: 3}
-  <SoundVolume>k__BackingField: 1
   references:
     version: 2
     RefIds:
-    - rid: 7528321518192033792
+    - rid: 6053962956990054410
       type: {class: HealEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
-        HealAmount: 20
+        HealAmount: 25

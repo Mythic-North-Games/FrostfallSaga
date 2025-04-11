@@ -16,6 +16,18 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         private FightCell _currentlyModifiedCell;
 
+        public AddImpedimentAlteration() : base(
+            "Add impediment",
+            "Adds an impediment to the cell.", 
+            null, 
+            false, 
+            0, 
+            false, 
+            false
+        )
+        {
+        }
+
         public AddImpedimentAlteration(
             string name,
             string description,
@@ -50,17 +62,17 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 
         public override void Remove(FightCell fightCell)
         {
-            Impediment.DestroyController.onDestroyEnded += OnImpedimentGameObjectDestroyed;
+            Impediment.destroyController.onDestroyEnded += OnImpedimentGameObjectDestroyed;
 
             _currentlyModifiedCell = fightCell;
-            Impediment.DestroyController.DestroyGameObject(fightCell.GetImpedimentGameObject());
+            Impediment.destroyController.DestroyGameObject(fightCell.GetImpedimentGameObject());
         }
 
         private void OnImpedimentGameObjectDestroyed()
         {
             _currentlyModifiedCell.SetImpediment(null, null);
             _currentlyModifiedCell = null;
-            Impediment.DestroyController.onDestroyEnded -= OnImpedimentGameObjectDestroyed;
+            Impediment.destroyController.onDestroyEnded -= OnImpedimentGameObjectDestroyed;
             onAlterationRemoved?.Invoke(_currentlyModifiedCell, this);
         }
 

@@ -6,7 +6,7 @@ namespace FrostfallSaga.Core.Quests
     [CreateAssetMenu(fileName = "ActionsQuest", menuName = "ScriptableObjects/Quests/ActionsQuest", order = 0)]
     public class ActionsQuestSO : AQuestSO
     {
-        [SerializeReference] public AQuestAction[] Actions;
+        [SerializeReference] public AQuestAction[] actions;
 
         [field: SerializeField]
         [field: Tooltip("If the actions should be done in order or not.")]
@@ -20,7 +20,7 @@ namespace FrostfallSaga.Core.Quests
         /// <param name="sceneManager">The specific manager of the scene the action is related to.</param>
         public override void Initialize(MonoBehaviour sceneManager)
         {
-            foreach (AQuestAction action in Actions)
+            foreach (AQuestAction action in actions)
                 if (!action.IsCompleted)
                 {
                     action.Initialize(sceneManager);
@@ -32,7 +32,7 @@ namespace FrostfallSaga.Core.Quests
 
         private void OnActionCompleted(AQuestAction action)
         {
-            if (Actions.All(action => action.IsCompleted)) CompleteQuest();
+            if (actions.All(action => action.IsCompleted)) CompleteQuest();
         }
     }
 }

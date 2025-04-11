@@ -95,7 +95,7 @@ namespace FrostfallSaga.Kingdom
         {
             yield return new WaitForSeconds(delayBeforeLoadingSceneAfterReadyAnimation);
             Debug.Log("Transitioning to fight");
-            SceneTransitioner.FadeInToScene(EScenesName.FIGHT.ToSceneString());
+            SceneTransitioner.TransitionToScene(EScenesName.FIGHT.ToSceneString());
         }
 
         private void PrepareAndSavePreFightData(EntitiesGroup enemiesGroup)

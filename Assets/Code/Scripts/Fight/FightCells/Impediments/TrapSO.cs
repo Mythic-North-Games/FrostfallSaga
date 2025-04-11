@@ -17,13 +17,13 @@ namespace FrostfallSaga.Fight.FightCells.Impediments
         [field: Header("Trap definition")]
         public ETrapTriggerTime[] TriggerTimes { get; private set; }
 
-        [SerializeReference] public AEffect[] Effects = { };
+        [SerializeReference] public AEffect[] effects = { };
 
         public Action onTrapTriggered;
 
         public void Trigger(Fighter receiver)
         {
-            foreach (AEffect effect in Effects)
+            foreach (AEffect effect in effects)
                 effect.ApplyEffect(
                     receiver,
                     false

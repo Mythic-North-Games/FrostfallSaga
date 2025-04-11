@@ -9,7 +9,7 @@ namespace FrostfallSaga.FFSEditor.Fight
     [CustomEditor(typeof(TrapSO))]
     public class TrapSOEditor : Editor
     {
-        private static readonly string EFFECTS_PROPERTY_NAME = "Effects";
+        private static readonly string EFFECTS_PROPERTY_NAME = "effects";
         private ReorderableList effectsList;
         private SerializedProperty effectsProperty;
 

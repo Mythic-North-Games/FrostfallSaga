@@ -12,6 +12,7 @@ using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.InterestPoints;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
+using FrostfallSaga.Utils.Scenes;
 using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
@@ -46,6 +47,7 @@ namespace FrostfallSaga.Kingdom
 
         private void Start()
         {
+            SceneTransitioner.FadeInCurrentScene();
             kingdomHexGrid.ClearCells();
             Debug.Log("Generating Kingdom Grid...");
             kingdomHexGrid.GenerateGrid();
