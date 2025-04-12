@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Heal example
   <Description>k__BackingField: heal
-  <IconSprite>k__BackingField: {fileID: 21300000, guid: b346b2a2df1d290438be3287b6419408, type: 3}
+  <IconSprite>k__BackingField: {fileID: 21300000, guid: 1c65da544d518d940a57b202f90f74a1, type: 3}
   <UnlockPoints>k__BackingField: 0
   <Targeter>k__BackingField:
     <OriginCellRange>k__BackingField: 4
