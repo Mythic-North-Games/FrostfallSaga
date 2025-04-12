@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FighterPrefab>k__BackingField: {fileID: 2920049516156015753, guid: 5f1dab0e72fc4b080a019f723145dadf, type: 3}
   <FighterClass>k__BackingField: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
-  <PersonalityTrait>k__BackingField: {fileID: 0}
+  <PersonalityTrait>k__BackingField: {fileID: 11400000, guid: 770ae372dc3abe843a19020cabaa49fb, type: 2}
   <AvailableActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
   <ActiveAbilitiesCapacity>k__BackingField: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
   <IncreaseStatAnimationName>k__BackingField: 
   <ConsumableUseAnimationName>k__BackingField: 
   <EquipedActiveAbilities>k__BackingField:
-  - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+  - {fileID: 11400000, guid: b22ba3c2797bc25439231a90f23620ab, type: 2}
   - {fileID: 11400000, guid: 5f043d044d913ad4682a195b63aa9106, type: 2}
   <EquipedPassiveAbilities>k__BackingField: []
   <Inventory>k__BackingField:

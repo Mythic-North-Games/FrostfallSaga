@@ -11,5 +11,6 @@ namespace FrostfallSaga.Core.Fight
         [field: SerializeField] public string Description { get; protected set; }
         [field: SerializeField] public Sprite IconSprite { get; protected set; }
         [field: SerializeField, Range(0, 99)] public int UnlockPoints { get; protected set; }
+        [field: SerializeField] public string AbilitytriggerAnimationName { get; protected set; }
     }
 }
