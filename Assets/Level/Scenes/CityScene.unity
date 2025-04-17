@@ -1148,6 +1148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiAudioClipsConfig: {fileID: 0}
   audioSourceObject: {fileID: 4094540750882597515, guid: 55fc8c5428cc982aa9f10837f51f70e0, type: 3}
+  musicAudioClipsConfig: {fileID: 11400000, guid: bfbaf9f82d12a994e8af63264796d018, type: 2}
+  defaultFadeDuration: 1.5
 --- !u!4 &2109054032
 Transform:
   m_ObjectHideFlags: 0

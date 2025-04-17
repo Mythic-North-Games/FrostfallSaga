@@ -34,6 +34,7 @@ namespace FrostfallSaga.Fight
             KeyValuePair<Fighter[], Fighter[]> fighters = GenerateFighters();
             Debug.Log("Fighters Generated !");
             AudioManager.Instance.PlayUISound(UISounds.FightBegin);
+            AudioManager.Instance.PlayMusicSound(MusicSounds.Fight, 1.0f);
             OnFightLoaded?.Invoke(fighters.Key, fighters.Value);
         }
 
