@@ -2,14 +2,14 @@
 
 namespace FrostfallSaga.Grid.Cells
 {
-    public class CellAccessibilityController
+    public class CellTerrainAccessibilityController
     {
         private readonly TerrainTypeSO _terrainType;
         private bool? _accessibilityOverride;
         public bool IsAccessible => _accessibilityOverride ?? _terrainType.DefaultAccessible;
 
 
-        public CellAccessibilityController(TerrainTypeSO terrainType)
+        public CellTerrainAccessibilityController(TerrainTypeSO terrainType)
         {
             _terrainType = terrainType;
         }

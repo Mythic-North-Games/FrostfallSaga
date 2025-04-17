@@ -43,10 +43,10 @@ namespace FrostfallSaga.Grid.Cells
 
         private AHexGrid _parentGrid;
         private CellVisualController _cellVisualController;
-        private CellAccessibilityController _cellAccessibilityController;
+        private CellTerrainAccessibilityController _cellTerrainAccessibilityController;
         private CellPositionController _cellPositionController;
 
-        public bool IsAccessible => _cellAccessibilityController?.IsAccessible ?? false;
+        public bool IsAccessible => _cellTerrainAccessibilityController?.IsAccessible ?? false;
         public Vector2Int AxialCoordinates => HexMetrics.OffsetToAxial(Coordinates);
 
 
@@ -81,7 +81,7 @@ namespace FrostfallSaga.Grid.Cells
             TerrainType = terrainType;
             BiomeType = biomeType;
             
-            _cellAccessibilityController = new CellAccessibilityController(terrainType);
+            _cellTerrainAccessibilityController = new CellTerrainAccessibilityController(terrainType);
             _cellVisualController = new CellVisualController(transform);
             _cellPositionController = new CellPositionController(
                 transform,
@@ -99,8 +99,8 @@ namespace FrostfallSaga.Grid.Cells
         // ACCESSIBILITY        
         public void GenerateRandomAccessibility(EAccessibilityGenerationMode mode)
         {
-            _cellAccessibilityController ??= new CellAccessibilityController(TerrainType);
-            _cellAccessibilityController.GenerateRandomAccessibility(mode);
+            _cellTerrainAccessibilityController ??= new CellTerrainAccessibilityController(TerrainType);
+            _cellTerrainAccessibilityController.GenerateRandomAccessibility(mode);
         }
 
         public void SetTerrain(TerrainTypeSO terrainType)
