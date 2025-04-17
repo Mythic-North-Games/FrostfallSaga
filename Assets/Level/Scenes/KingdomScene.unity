@@ -437,7 +437,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 120
+  field of view: 30
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -801,7 +801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <Seed>k__BackingField
-      value: 131537280
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <Width>k__BackingField
@@ -817,7 +817,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <AvailableBiomes>k__BackingField.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5964242852333568676, guid: c0693078e08ccfc41ac4bcdb5d6dec5b, type: 3}
       propertyPath: <InterestPoints>k__BackingField.Array.data[0]
@@ -1715,7 +1715,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 120
+    FieldOfView: 30
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -1761,14 +1761,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d35a478368f4274d8b13489ab237cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 2047304806}
+  virtualCamera: {fileID: 2047304806}
   <AllowZoom>k__BackingField: 1
   <MinFOV>k__BackingField: 20
   <MaxFOV>k__BackingField: 120
   <BaseFOV>k__BackingField: 75
   <ZoomMultiplier>k__BackingField: 5
-  <AllowTranslation>k__BackingField: 1
-  MouseFollowTarget: {fileID: 1554826829}
+  mouseFollowTarget: {fileID: 1554826829}
   <MouseTargetOffset>k__BackingField: {x: 0.1, y: 0.1}
   <MaxTranslationSpeed>k__BackingField: 30
   <MinY>k__BackingField: 2

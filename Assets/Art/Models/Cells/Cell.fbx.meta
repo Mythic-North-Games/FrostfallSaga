@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 8aaf0a3f3237af6408cd90e485a85978
+guid: f9e4eabc80746214ca157be94b0c31be
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Default_Cell
+    second: {fileID: 2100000, guid: a6d81c79d00d8af9bb13abe3bcbdc304, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -52,7 +57,7 @@ ModelImporter:
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
-    bakeAxisConversion: 0
+    bakeAxisConversion: 1
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
@@ -67,7 +72,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
