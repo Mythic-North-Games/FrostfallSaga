@@ -7,9 +7,9 @@ namespace FrostfallSaga.FFSEditor.Fight
     [CustomEditor(typeof(AImpedimentSO), true)]
     public class AImpedimentSOEditor : Editor
     {
-        private static readonly string SPAWN_CONTROLLER_PROPERTY_NAME = "SpawnController";
+        private static readonly string SPAWN_CONTROLLER_PROPERTY_NAME = "spawnController";
 
-        private static readonly string DESTROY_CONTROLLER_PROPERTY_NAME = "DestroyController";
+        private static readonly string DESTROY_CONTROLLER_PROPERTY_NAME = "destroyController";
         private SerializedProperty destroyControllerProperty;
         private SerializedProperty spawnControllerProperty;
 

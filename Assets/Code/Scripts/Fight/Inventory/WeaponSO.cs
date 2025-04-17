@@ -28,7 +28,7 @@ namespace FrostfallSaga.Fight.FightItems
         [field: SerializeField]
         public SElementToValue<EEntityRace, float>[] FightersStrengths { get; private set; } = { };
 
-        [SerializeReference] public List<AEffect> SpecialEffects;
+        [SerializeReference] public List<AEffect> specialEffects;
         [field: SerializeField] public AAbilityAnimationSO AttackAnimation { get; private set; }
 
         [field: SerializeField] public AudioClip WeaponUseSoundFX { get; private set; }
@@ -40,7 +40,7 @@ namespace FrostfallSaga.Fight.FightItems
                 GetPhysicalDamagesEffect(targetEntityID, atMax)
             };
             effects.AddRange(GetMagicalDamagesEffect(targetEntityID));
-            effects.AddRange(SpecialEffects);
+            effects.AddRange(specialEffects);
             return effects.ToArray();
         }
 
@@ -207,7 +207,7 @@ namespace FrostfallSaga.Fight.FightItems
         public override List<string> GetSpecialEffectsUIData()
         {
             List<string> specialEffectsUIData = new();
-            SpecialEffects.ForEach(effect => specialEffectsUIData.Add(effect.GetUIEffectDescription()));
+            specialEffects.ForEach(effect => specialEffectsUIData.Add(effect.GetUIEffectDescription()));
 
             Dictionary<EEntityRace, float> fightersStrengths = SElementToValue<EEntityRace, float>.GetDictionaryFromArray(
                 FightersStrengths

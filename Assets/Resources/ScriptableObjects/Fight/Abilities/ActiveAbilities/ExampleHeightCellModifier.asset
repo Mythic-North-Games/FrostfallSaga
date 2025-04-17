@@ -32,21 +32,20 @@ MonoBehaviour:
   <GodFavorsPointsCost>k__BackingField: 0
   <Dodgable>k__BackingField: 0
   <Masterstrokable>k__BackingField: 0
-  Effects: []
-  MasterstrokeEffects: []
-  CellAlterations:
-  - rid: 3629974199755079682
+  effects: []
+  masterstrokeEffects: []
+  cellAlterations:
+  - rid: 6053962956990054409
   <Animation>k__BackingField: {fileID: 11400000, guid: 508ffba12f5416243a12eb040fa53586, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 3629974199755079682
+    - rid: 6053962956990054409
       type: {class: SetHeightAlteration, ns: FrostfallSaga.Fight.FightCells.FightCellAlterations, asm: FrostfallSaga.Fight}
       data:
-        <Name>k__BackingField: 
-        <Description>k__BackingField: Set the height of the cell to <b>HIGH</b>
+        <Name>k__BackingField: Set height
+        <Description>k__BackingField: Sets the height of the cell to a specific value.
         <Icon>k__BackingField: {fileID: 0}
-        <IsPermanent>k__BackingField: 1
-        <Duration>k__BackingField: 0
+        <IsPermanent>k__BackingField: 0
+        <Duration>k__BackingField: 2
         <TargetHeight>k__BackingField: 1
-        <CellAlterationDuration>k__BackingField: 1.5

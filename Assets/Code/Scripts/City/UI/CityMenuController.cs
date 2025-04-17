@@ -73,6 +73,7 @@ namespace FrostfallSaga.City.UI
         {
             HeroTeamQuests.Instance.InitializeQuests(this);
             SetupMainMenu();
+            SceneTransitioner.FadeInCurrentScene();
         }
 
         private void SetupMainMenu()
@@ -133,7 +134,7 @@ namespace FrostfallSaga.City.UI
 
         private static void OnExitButtonClicked()
         {
-            SceneTransitioner.FadeInToScene(EScenesName.KINGDOM.ToSceneString());
+            SceneTransitioner.TransitionToScene(EScenesName.KINGDOM.ToSceneString());
         }
 
         #endregion

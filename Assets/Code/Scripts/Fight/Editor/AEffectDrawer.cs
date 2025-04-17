@@ -45,7 +45,7 @@ namespace FrostfallSaga.FFSEditor.Fight
                 {
                     BuildAndDrawReorderableList<AStatus>(
                         new Rect(position.x, currentY, position.width, EditorGUIUtility.singleLineHeight),
-                        property.FindPropertyRelative("StatusesToApply")
+                        property.FindPropertyRelative("statusesToApply")
                     );
                 }
                 else if (property.managedReferenceValue is RemoveStatusesEffect)

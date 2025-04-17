@@ -9,7 +9,7 @@ namespace FrostfallSaga.FFSEditor.Fight
     [CustomEditor(typeof(WeaponSO))]
     public class WeaponSOEditor : Editor
     {
-        private static readonly string EFFECTS_PROPERTY_NAME = "SpecialEffects";
+        private static readonly string EFFECTS_PROPERTY_NAME = "secialEffects";
         private ReorderableList effectsList;
         private SerializedProperty effectsProperty;
 

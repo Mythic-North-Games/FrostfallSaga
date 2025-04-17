@@ -10,9 +10,9 @@ namespace FrostfallSaga.FFSEditor.Fight
     [CustomEditor(typeof(PassiveAbilitySO))]
     public class PassiveAbilitySOEditor : Editor
     {
-        private static readonly string EFFECTS_PROPERTY_NAME = "Effects";
+        private static readonly string EFFECTS_PROPERTY_NAME = "effects";
 
-        private static readonly string CONDITIONS_PROPERTY_NAME = "ActivationConditions";
+        private static readonly string CONDITIONS_PROPERTY_NAME = "activationConditions";
         private ReorderableList conditionsList;
         private SerializedProperty conditionsProperty;
         private ReorderableList effectsList;

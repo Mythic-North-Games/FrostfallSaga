@@ -176,7 +176,6 @@ namespace FrostfallSaga.Utils.Camera
             }
         }
 
-
         private void OnDestroy()
         {
             if (mouseFollowTarget == null || _initialTarget == null) return;
