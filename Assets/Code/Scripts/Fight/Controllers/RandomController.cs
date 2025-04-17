@@ -112,6 +112,7 @@ namespace FrostfallSaga.Fight.Controllers
         }
 
         #region Movement handling
+
         private void MakeFighterMove(Fighter fighter, FightHexGrid fightGrid)
         {
             Debug.Log($"Fighter {fighter.name} is randomly moving.");
@@ -126,7 +127,7 @@ namespace FrostfallSaga.Fight.Controllers
             _possessedFighter.StartCoroutine(DoNextAction());
         }
 
-        private FightCell[] GetRandomMovePath(Fighter fighterThatWillMove, FightHexGrid fightGrid)
+        private static FightCell[] GetRandomMovePath(Fighter fighterThatWillMove, FightHexGrid fightGrid)
         {
             List<FightCell> randomMovePath = new();
             int numberOfCellsInPath = Randomizer.GetRandomIntBetween(1, fighterThatWillMove.GetMovePoints());
@@ -157,6 +158,7 @@ namespace FrostfallSaga.Fight.Controllers
         #endregion
 
         #region Direct attack handling
+
         private void MakeFighterDirectAttack(Fighter fighter, FightHexGrid fightGrid)
         {
             try
@@ -186,6 +188,7 @@ namespace FrostfallSaga.Fight.Controllers
         #endregion
 
         #region Active ability handling
+
         private void MakeFighterUseActiveAbility(Fighter fighter, FightHexGrid fightGrid)
         {
             ActiveAbilitySO activeAbilityToUse = GetRandomUsableActiveAbility(fighter, fightGrid);

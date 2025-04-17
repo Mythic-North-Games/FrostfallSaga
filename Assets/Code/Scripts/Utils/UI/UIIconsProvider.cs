@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
 namespace FrostfallSaga.Utils.UI
 {
     /// <summary>
@@ -34,6 +33,7 @@ namespace FrostfallSaga.Utils.UI
             {
                 return _preloadedIcons.Find(icon => icon.name == iconName);
             }
+
             return Resources.Load<Sprite>($"{ICONS_ROOT_RESOURCES_PATH}{iconName}{ICONS_SUFFIX}");
         }
     }

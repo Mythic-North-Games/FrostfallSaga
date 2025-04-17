@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using FrostfallSaga.Utils.Trees.BehaviourTree;
+﻿using System.Collections.Generic;
 using FrostfallSaga.Fight.Effects;
-using FrostfallSaga.Utils;
 using FrostfallSaga.Fight.Fighters;
-using System.Collections.Generic;
+using FrostfallSaga.Utils;
+using FrostfallSaga.Utils.Trees.BehaviourTree;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 {
@@ -29,6 +29,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
                 Debug.LogError("A target has to be defined before using the IsDefinedTargetCloseForEffectCheck.");
                 return NodeState.FAILURE;
             }
+
             return CanReachTargetWithEffect(target) ? NodeState.SUCCESS : NodeState.FAILURE;
         }
 

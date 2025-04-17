@@ -1,6 +1,5 @@
-
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Controllers.FighterBehaviourTrees;
+using FrostfallSaga.Fight.Fighters;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight.Controllers

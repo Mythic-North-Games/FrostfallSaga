@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Utils;
+using UnityEngine;
 
 namespace FrostfallSaga.Core.HeroTeam
 {
     public class HeroTeam : MonoBehaviourPersistingSingleton<HeroTeam>
     {
         private const string HERO_TEAM_CONFIGURATION_RESOURCE_PATH = "ScriptableObjects/Entities/HeroTeamConfiguration";
+        private HeroTeamConfigurationSO _heroTeamConfiguration;
 
         /// <summary>
         ///     Automatically initialize the singleton on scene load.
@@ -22,7 +23,6 @@ namespace FrostfallSaga.Core.HeroTeam
 
         public List<Hero> Heroes { get; private set; }
         public int Stycas => _heroTeamConfiguration.Stycas;
-        private HeroTeamConfigurationSO _heroTeamConfiguration;
 
         protected override void Init()
         {
@@ -32,6 +32,7 @@ namespace FrostfallSaga.Core.HeroTeam
                 Debug.LogError("HeroTeamConfigurationSO not found at path: " + HERO_TEAM_CONFIGURATION_RESOURCE_PATH);
                 return;
             }
+
             Heroes = new List<Hero>
             {
                 new(_heroTeamConfiguration.HeroEntityConfiguration),
@@ -69,7 +70,8 @@ namespace FrostfallSaga.Core.HeroTeam
         /// Withdraw stycas from the team. Clamped to 0.
         /// </summary>
         /// <param name="amount">The amount of stycas to withdraw. Clamped to 0.</param>
-        public void WithdrawStycas(int amount) => _heroTeamConfiguration.Stycas = Math.Clamp(Stycas - amount, 0, int.MaxValue);
+        public void WithdrawStycas(int amount) =>
+            _heroTeamConfiguration.Stycas = Math.Clamp(Stycas - amount, 0, int.MaxValue);
 
         /// <summary>
         /// Distribute the items to the heroes of the team.
@@ -85,6 +87,7 @@ namespace FrostfallSaga.Core.HeroTeam
                     Debug.Log("No free inventory slot found for looted item");
                     break;
                 }
+
                 freeInventory.AddItemToBag(lootedItem);
             }
         }
@@ -99,7 +102,7 @@ namespace FrostfallSaga.Core.HeroTeam
             DistributeItems(rewardConfiguration.GenerateItemsReward());
         }
 
-        private Inventory GetFirstFreeInventoryForItem(List<Hero> heroes, ItemSO item)
+        private static Inventory GetFirstFreeInventoryForItem(List<Hero> heroes, ItemSO item)
         {
             return heroes
                 .Select(hero => hero.PersistedFighterConfiguration.Inventory)

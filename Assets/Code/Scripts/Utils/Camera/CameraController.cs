@@ -182,7 +182,7 @@ namespace FrostfallSaga.Utils.Camera
     
         private void OnDestroy()
         {
-            if (MouseFollowTarget != null)
+            if (MouseFollowTarget != null && _initialTarget != null)
             {
                 MouseFollowTarget.position = _initialTarget.position;
                 _camera.Follow = _initialTarget;

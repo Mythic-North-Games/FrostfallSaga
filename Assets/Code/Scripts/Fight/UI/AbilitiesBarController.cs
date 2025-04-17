@@ -13,21 +13,16 @@ namespace FrostfallSaga.Fight.UI
     /// </summary>
     public class AbilitiesBarController
     {
-        #region UXML UI Names & Classes
-        private static readonly string DIRECT_ATTACK_BUTTON_UI_NAME = "DirectAttackButton";
-        private static readonly string ABILITY_BUTTON_BASE_UI_NAME = "AbilityButton";
-        private static readonly string ABILITIES_ICON_UI_NAME = "Icon";
-        #endregion
+        private readonly Dictionary<Button, ActiveAbilitySO> _abilitiesButtons = new();
 
-        public Action onDirectAttackClicked;
-        public Action onDirectAttackLongHovered;
-        public Action onDirectAttackLongUnhovered;
+        private readonly Button _directAttackButton;
         public Action<ActiveAbilitySO> onAbilityClicked;
         public Action<ActiveAbilitySO> onAbilityLongHovered;
         public Action<ActiveAbilitySO> onAbilityLongUnhovered;
 
-        private readonly Button _directAttackButton;
-        private readonly Dictionary<Button, ActiveAbilitySO> _abilitiesButtons = new();
+        public Action onDirectAttackClicked;
+        public Action onDirectAttackLongHovered;
+        public Action onDirectAttackLongUnhovered;
 
         public AbilitiesBarController(VisualElement abilitiesBarRoot)
         {
@@ -128,5 +123,13 @@ namespace FrostfallSaga.Fight.UI
                 onAbilityLongUnhovered?.Invoke(ability);
             }
         }
+
+        #region UXML UI Names & Classes
+
+        private static readonly string DIRECT_ATTACK_BUTTON_UI_NAME = "DirectAttackButton";
+        private static readonly string ABILITY_BUTTON_BASE_UI_NAME = "AbilityButton";
+        private static readonly string ABILITIES_ICON_UI_NAME = "Icon";
+
+        #endregion
     }
 }

@@ -1,7 +1,6 @@
 using FrostfallSaga.Grid;
 using UnityEngine;
 
-
 namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
 {
     /// <summary>
@@ -10,6 +9,18 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
     public class SetTerrainAlteration : AFightCellAlteration
     {
         private TerrainTypeSO _previousTerrainType;
+
+        public SetTerrainAlteration() : base(
+            "Set terrain",
+            "Sets the terrain of the cell.",
+            null,
+            false,
+            0,
+            true,
+            true
+        )
+        {
+        }
 
         public SetTerrainAlteration(
             string name,

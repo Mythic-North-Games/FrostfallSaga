@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Utils;
+using UnityEngine;
 
 namespace FrostfallSaga.Core
 {
@@ -11,7 +11,9 @@ namespace FrostfallSaga.Core
     {
         [field: SerializeField] public int MinStycas { get; private set; }
         [field: SerializeField] public int MaxStycas { get; private set; }
-        [field: SerializeField] public SElementToValue<ItemSO, SElementToValue<float, int>>[] PossibleItems { get; private set; }
+
+        [field: SerializeField]
+        public SElementToValue<ItemSO, SElementToValue<float, int>>[] PossibleItems { get; private set; }
 
         /// <summary>
         /// Generate a random amount of stycas between MinStycas and MaxStycas
@@ -27,7 +29,7 @@ namespace FrostfallSaga.Core
         {
             List<ItemSO> rewardedItems = new();
 
-            Dictionary<ItemSO, SElementToValue<float, int>> possibleItems = 
+            Dictionary<ItemSO, SElementToValue<float, int>> possibleItems =
                 SElementToValue<ItemSO, SElementToValue<float, int>>.GetDictionaryFromArray(PossibleItems);
             foreach (KeyValuePair<ItemSO, SElementToValue<float, int>> item in possibleItems)
             {
@@ -43,6 +45,7 @@ namespace FrostfallSaga.Core
                     }
                 }
             }
+
             return rewardedItems.ToArray();
         }
     }

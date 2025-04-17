@@ -1,41 +1,19 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Core.UI;
-using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Abilities;
+using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
+using FrostfallSaga.InventorySystem.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
-using FrostfallSaga.Core.InventorySystem;
-using FrostfallSaga.InventorySystem.UI;
 
 namespace FrostfallSaga.Fight.UI
 {
     public class FighterActionPanelController : BaseUIController
     {
-        #region UXML Element names and classes
-        private static readonly string ACTION_PANEL_ROOT_UI_NAME = "ActionPanelRoot";
-        private static readonly string TEAM_MATES_PANEL_ROOT_UI_NAME = "TeamInfosPanel";
-        private static readonly string STATUSES_CONTAINER_UI_NAME = "StatusesContainer";
-        private static readonly string DETAILS_PANELS_CONTAINER_UI_NAME = "DetailsPanelsContainer";
-        private static readonly string STATUS_DETAILS_PANEL_UI_NAME = "StatusDetailsPanel";
-        private static readonly string OBJECT_DETAILS_PANEL_CONTAINER_UI_NAME = "ObjectDetailsPanelContainer";
-        private static readonly string ABILITIES_CONTAINER_UI_NAME = "AbilitiesContainer";
-        private static readonly string CONSUMABLES_BAR_UI_NAME = "ConsumablesBar";
-        private static readonly string END_TURN_BUTTON_UI_NAME = "EndTurnButton";
-
-        private static readonly string ACTION_PANEL_HIDDEN_CLASSNAME = "actionPanelRootHidden";
-        private static readonly string OBJECT_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME = "objectDetailsPanelContainerHidden";
-        private static readonly string OBJECT_DETAILS_EFFECT_LINE_CLASSNAME = "objectDetailsEffectLine";
-        private static readonly string STATUS_ICON_CONTAINER_ROOT_CLASSNAME = "bottomPanelStatusIconContainer";
-        #endregion
-
-        public Action onDirectAttackClicked;
-        public Action<ActiveAbilitySO> onActiveAbilityClicked;
-        public Action<InventorySlot> onConsumableClicked;
-        public Action onEndTurnClicked;
-
         [SerializeField] private FightManager _fightManager;
         [SerializeField] private VisualTreeAsset _statusIconContainerTemplate;
         [SerializeField] private VisualTreeAsset _statContainerTemplate;
@@ -44,18 +22,23 @@ namespace FrostfallSaga.Fight.UI
         [SerializeField] private Color _actionPointsProgressColor;
         [SerializeField] private Color _statValueColor = new(0.8f, 0.8f, 0.8f);
         [SerializeField] private float _statusDetailsPanelXOffset = 4f;
+        private AbilitiesBarController _abilitiesBarController;
 
         private VisualElement _actionPanelRoot;
-        private VisualElement _statusesContainer;
+        private ConsumablesUIController _consumablesUIController;
         private VisualElement _detailsPanelsContainer;
         private VisualElement _objectDetailsPanelContainer;
-        private StatusDetailsPanelUIController _statusDetailsPanelController;
         private ObjectDetailsUIController _objectDetailsPanelController;
-        private TeamMatesPanelController _teamMatesPanelController;
-        private AbilitiesBarController _abilitiesBarController;
-        private ConsumablesUIController _consumablesUIController;
 
         private Fighter _playingFighter;
+        private StatusDetailsPanelUIController _statusDetailsPanelController;
+        private VisualElement _statusesContainer;
+        private TeamMatesPanelController _teamMatesPanelController;
+        public Action<ActiveAbilitySO> onActiveAbilityClicked;
+        public Action<InventorySlot> onConsumableClicked;
+
+        public Action onDirectAttackClicked;
+        public Action onEndTurnClicked;
 
         private void Awake()
         {
@@ -77,7 +60,8 @@ namespace FrostfallSaga.Fight.UI
             );
             _statusDetailsPanelController.Hide();
 
-            _objectDetailsPanelContainer = _uiDoc.rootVisualElement.Q<VisualElement>(OBJECT_DETAILS_PANEL_CONTAINER_UI_NAME);
+            _objectDetailsPanelContainer =
+                _uiDoc.rootVisualElement.Q<VisualElement>(OBJECT_DETAILS_PANEL_CONTAINER_UI_NAME);
             _objectDetailsPanelController = new ObjectDetailsUIController(
                 _objectDetailsPanelContainer,
                 _statContainerTemplate,
@@ -108,7 +92,8 @@ namespace FrostfallSaga.Fight.UI
             _abilitiesBarController.onAbilityLongHovered += OnAbilityButtonLongHovered;
             _abilitiesBarController.onAbilityLongUnhovered += (_) => HideObjectDetailsPanel();
 
-            _consumablesUIController.onConsumableUsed += (consumableSlot) => onConsumableClicked?.Invoke(consumableSlot);
+            _consumablesUIController.onConsumableUsed +=
+                (consumableSlot) => onConsumableClicked?.Invoke(consumableSlot);
             _consumablesUIController.onConsumableLongHovered += OnConsumableLongHovered;
             _consumablesUIController.onConsumableLongUnhovered += (_) => HideObjectDetailsPanel();
 
@@ -246,9 +231,8 @@ namespace FrostfallSaga.Fight.UI
 
         private void OnConsumableLongHovered(InventorySlot consumableSlot)
         {
-            if (consumableSlot.Item == null || consumableSlot.Item is not AConsumable) return;
+            if (consumableSlot.Item is not AConsumable consumable) return;
 
-            AConsumable consumable = (AConsumable)consumableSlot.Item;
             _objectDetailsPanelContainer.RemoveFromClassList(OBJECT_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME);
             _objectDetailsPanelController.Setup(
                 icon: consumable.IconSprite,
@@ -260,16 +244,17 @@ namespace FrostfallSaga.Fight.UI
             );
         }
 
-        private void OnPlayingFighterStatusesChanged(Fighter playingFighter, AStatus _status)
+        private void OnPlayingFighterStatusesChanged(Fighter playingFighter, AStatus status)
         {
             if (playingFighter.GetStatuses().Count == 0)
             {
-                _detailsPanelsContainer.style.bottom = new Length(70, LengthUnit.Percent); 
+                _detailsPanelsContainer.style.bottom = new Length(70, LengthUnit.Percent);
             }
             else
             {
                 _detailsPanelsContainer.style.bottom = new Length(100, LengthUnit.Percent);
             }
+
             UpdateStatuses(playingFighter);
         }
 
@@ -303,7 +288,30 @@ namespace FrostfallSaga.Fight.UI
             _abilitiesBarController.UpdateAbilities(playingFighter);
         }
 
+        #region UXML Element names and classes
+
+        private static readonly string ACTION_PANEL_ROOT_UI_NAME = "ActionPanelRoot";
+        private static readonly string TEAM_MATES_PANEL_ROOT_UI_NAME = "TeamInfosPanel";
+        private static readonly string STATUSES_CONTAINER_UI_NAME = "StatusesContainer";
+        private static readonly string DETAILS_PANELS_CONTAINER_UI_NAME = "DetailsPanelsContainer";
+        private static readonly string STATUS_DETAILS_PANEL_UI_NAME = "StatusDetailsPanel";
+        private static readonly string OBJECT_DETAILS_PANEL_CONTAINER_UI_NAME = "ObjectDetailsPanelContainer";
+        private static readonly string ABILITIES_CONTAINER_UI_NAME = "AbilitiesContainer";
+        private static readonly string CONSUMABLES_BAR_UI_NAME = "ConsumablesBar";
+        private static readonly string END_TURN_BUTTON_UI_NAME = "EndTurnButton";
+
+        private static readonly string ACTION_PANEL_HIDDEN_CLASSNAME = "actionPanelRootHidden";
+
+        private static readonly string OBJECT_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME =
+            "objectDetailsPanelContainerHidden";
+
+        private static readonly string OBJECT_DETAILS_EFFECT_LINE_CLASSNAME = "objectDetailsEffectLine";
+        private static readonly string STATUS_ICON_CONTAINER_ROOT_CLASSNAME = "bottomPanelStatusIconContainer";
+
+        #endregion
+
         #region Playing fighter events registration
+
         private void RegisterPlayingFighterEvents(Fighter playingFighter)
         {
             playingFighter.onStatusApplied += OnPlayingFighterStatusesChanged;
@@ -335,6 +343,7 @@ namespace FrostfallSaga.Fight.UI
             playingFighter.onPassiveAbilityApplied -= OnPlayingFighterPassiveAbilitiesChanged;
             playingFighter.onPassiveAbilityRemoved -= OnPlayingFighterPassiveAbilitiesChanged;
         }
+
         #endregion
     }
 }

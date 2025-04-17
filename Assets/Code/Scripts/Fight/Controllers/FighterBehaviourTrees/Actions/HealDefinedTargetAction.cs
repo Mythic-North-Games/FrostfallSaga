@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Trees.BehaviourTree;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 {
@@ -61,7 +61,8 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
             SetSharedData(FBTNode.ACTION_RUNNING_SHARED_DATA_KEY, true);
 
             // Do the action
-            _possessedFighter.onActiveAbilityEnded += (fighter, usedAbility) => OnPossessedFighterFinishedHealing(fighter);
+            _possessedFighter.onActiveAbilityEnded +=
+                (fighter, usedAbility) => OnPossessedFighterFinishedHealing(fighter);
             _possessedFighter.UseActiveAbility(
                 preferedAbility,
                 targetCells

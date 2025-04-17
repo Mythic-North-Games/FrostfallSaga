@@ -110,7 +110,7 @@ namespace FrostfallSaga.Audio
             Destroy(audioSource.gameObject, clipLength);
         }
 
-        private IEnumerator FadeOutAndDestroyAudioSource(AudioSource audioSource, float fadeDuration)
+        private static IEnumerator FadeOutAndDestroyAudioSource(AudioSource audioSource, float fadeDuration)
         {
             float startVolume = audioSource.volume;
             float timer = 0f;

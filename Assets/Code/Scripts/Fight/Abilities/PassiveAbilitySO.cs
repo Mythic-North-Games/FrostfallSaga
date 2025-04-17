@@ -14,15 +14,16 @@ namespace FrostfallSaga.Fight.Abilities
     ///     targets.
     ///     If no conditions are set, the passive ability will be applied to the targets automatically when the fight begins.
     /// </summary>
-    [CreateAssetMenu(fileName = "PassiveAbility", menuName = "ScriptableObjects/Fight/Abilities/PassiveAbility", order = 0)]
+    [CreateAssetMenu(fileName = "PassiveAbility", menuName = "ScriptableObjects/Fight/Abilities/PassiveAbility",
+        order = 0)]
     public class PassiveAbilitySO : ABaseAbility
     {
-        [SerializeReference] public AEffect[] Effects;
+        [SerializeReference] public AEffect[] effects;
 
         [SerializeReference]
         [Header("Passive ability specific configuration")]
         [Tooltip("The conditions that need to be met for the passive ability to be applied.")]
-        public AFighterCondition[] ActivationConditions;
+        public AFighterCondition[] activationConditions;
 
         [field: SerializeField]
         [field: Tooltip("To whom the effects should be applied.")]
@@ -36,7 +37,7 @@ namespace FrostfallSaga.Fight.Abilities
         [field: Tooltip("The effects will last for the entire fight if conditions are met once.")]
         public bool LastsForFight { get; private set; }
 
-        public FighterBuffVisualsController VisualsController;
+        public FighterBuffVisualsController visualsController;
 
         /// <summary>
         ///     Applies the passive ability to the given fighter. Effects application, visuals, sounds and events are handled here.
@@ -51,7 +52,7 @@ namespace FrostfallSaga.Fight.Abilities
                 return;
             }
 
-            if (Effects.Length == 0)
+            if (effects.Length == 0)
             {
                 Debug.LogError(
                     $"No effects are set for the passive ability {Name}. The passive ability can't be applied.");
@@ -60,7 +61,7 @@ namespace FrostfallSaga.Fight.Abilities
 
             Fighter[] targets = GetTargets(initiator, fighterTeams);
             foreach (Fighter target in targets)
-                Effects.ToList().ForEach(
+                effects.ToList().ForEach(
                     effect => effect.ApplyEffect(
                         target,
                         false,
@@ -69,14 +70,14 @@ namespace FrostfallSaga.Fight.Abilities
                     )
                 );
 
-            if (VisualsController == null)
+            if (visualsController == null)
             {
                 Debug.LogWarning("VisualsController is not set. No visuals will be shown for the passive ability.");
                 return;
             }
 
-            VisualsController.ShowApplicationVisuals(initiator);
-            if (!VisualsController.IsShowingRecurringVisuals) VisualsController.ShowRecurringVisuals(initiator);
+            visualsController.ShowApplicationVisuals(initiator);
+            if (!visualsController.IsShowingRecurringVisuals) visualsController.ShowRecurringVisuals(initiator);
 
             initiator.onPassiveAbilityApplied?.Invoke(initiator, this);
         }
@@ -84,19 +85,19 @@ namespace FrostfallSaga.Fight.Abilities
         public void Remove(Fighter initiator, Dictionary<Fighter, bool> fighterTeams)
         {
             Fighter[] targets = GetTargets(initiator, fighterTeams);
-            foreach (Fighter target in targets) Effects.ToList().ForEach(effect => effect.RestoreEffect(target));
+            foreach (Fighter target in targets) effects.ToList().ForEach(effect => effect.RestoreEffect(target));
 
-            if (VisualsController == null) return;
+            if (visualsController == null) return;
 
-            VisualsController.HideRecurringVisuals();
+            visualsController.HideRecurringVisuals();
 
             initiator.onPassiveAbilityRemoved?.Invoke(initiator, this);
         }
 
         public bool CheckConditions(Fighter fighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
         {
-            return ActivationConditions.Length == 0 ||
-                   ActivationConditions.All(condition => condition.CheckCondition(fighter, fightGrid, fighterTeams));
+            return activationConditions.Length == 0 ||
+                   activationConditions.All(condition => condition.CheckCondition(fighter, fightGrid, fighterTeams));
         }
 
         private Fighter[] GetTargets(Fighter initiator, Dictionary<Fighter, bool> fighterTeams)

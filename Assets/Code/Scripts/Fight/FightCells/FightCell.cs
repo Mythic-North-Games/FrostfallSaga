@@ -79,34 +79,34 @@ namespace FrostfallSaga.Fight.FightCells
             return AlterationsManager.GetAlterations();
         }
 
-        public bool HasFighter()
-        {
-            return Fighter != null;
-        }
-
-        public bool HasObstacle()
-        {
-            return Impediment != null && Impediment is ObstacleSO;
-        }
-
-        public bool HasTrap()
-        {
-            return Impediment != null && Impediment is TrapSO;
-        }
-
         public override bool IsTerrainAccessible()
         {
-            return base.IsTerrainAccessible() && !HasObstacle();
-        }
-
-        public override bool IsFree()
-        {
-            return IsTerrainAccessible() && !HasFighter();
+            return IsAccessibleTerrain && !HasObstacle();
         }
 
         public GameObject GetImpedimentGameObject()
         {
             return _currentImpedimentGameObject;
+        }
+
+        public override bool IsFree()
+        {
+            return IsAccessibleTerrain && !HasFighter() && !HasObstacle();
+        }
+        
+        public bool HasFighter()
+        {
+            return Fighter;
+        }
+
+        private bool HasObstacle()
+        {
+            return Impediment is ObstacleSO;
+        }
+
+        private bool HasTrap()
+        {
+            return Impediment is TrapSO;
         }
 
         public override string ToString()

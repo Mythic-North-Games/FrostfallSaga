@@ -1,6 +1,6 @@
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
@@ -11,25 +11,61 @@ namespace FrostfallSaga.Fight.UI
 {
     public class FighterInfosBarController : BaseUIController
     {
-        #region UXML UI Names & Classes
-        private static readonly string INFOS_BAR_CONTAINER_UI_NAME = "FighterInfosBarContainer";
-        private static readonly string FIGHTER_NAME_LABEL_UI_NAME = "FighterNameLabel";
-        private static readonly string LIFE_BAR_UI_NAME = "LifeBar";
-        private static readonly string STATUSES_BAR_UI_NAME = "StatusesBar";
-
-        private static readonly string INFOS_BAR_CONTAINER_HIDDEN_CLASSNAME = "fighterInfoBarContainerHidden";
-        private static readonly string INFOS_BAR_STATUS_CONTAINER_ROOT_CLASSNAME = "fighterInfoBarStatusIconContainerRoot";
-        #endregion
-
-        [SerializeField] private VisualTreeAsset _statusContainerTemplate;
-        [SerializeField] private FightManager _fightManager;
-        [SerializeField] private FightLoader _fightLoader;
-        [SerializeField] private FightersOrderTimelineController _timelineController;
-        [SerializeField] private float _displayDurationOnAction = 2f;
+        [SerializeField] private VisualTreeAsset statusContainerTemplate;
+        [SerializeField] private FightManager fightManager;
+        [SerializeField] private FightLoader fightLoader;
+        [SerializeField] private FightersOrderTimelineController timelineController;
+        [SerializeField] private float displayDurationOnAction = 2f;
+        private Label _fighterNameLabel;
 
         private VisualElement _infosBarContainer;
-        private Label _fighterNameLabel;
         private VisualElement _statusesBar;
+
+        #region Setup
+
+        private void Awake()
+        {
+            _uiDoc ??= GetComponent<UIDocument>();
+            if (!_uiDoc)
+            {
+                Debug.LogError("No UI Document to work with.");
+                return;
+            }
+
+            fightManager ??= FindObjectOfType<FightManager>();
+            if (!fightManager)
+            {
+                Debug.LogError("No FightManager to work with. UI can't be updated dynamically.");
+                return;
+            }
+
+            fightLoader ??= FindObjectOfType<FightLoader>();
+            if (!fightLoader)
+            {
+                Debug.LogError("No FightLoader to work with. UI can't be updated dynamically.");
+                return;
+            }
+
+            timelineController ??= FindObjectOfType<FightersOrderTimelineController>();
+            if (!timelineController)
+            {
+                Debug.LogError("No FightersOrderTimelineController to work with. UI can't be updated dynamically.");
+                return;
+            }
+
+            if (!statusContainerTemplate)
+            {
+                Debug.LogError("No status container template to work with.");
+                return;
+            }
+
+            fightManager.onFightEnded += OnFightEnded;
+            fightLoader.OnFightLoaded += OnFightLoaded;
+            timelineController.onFighterHovered += OnFighterHovered;
+            timelineController.onFighterUnhovered += OnFighterUnhovered;
+        }
+
+        #endregion
 
         private void Start()
         {
@@ -54,7 +90,7 @@ namespace FrostfallSaga.Fight.UI
         {
             SetupBar(fighter);
             Display();
-            yield return new WaitForSeconds(_displayDurationOnAction);
+            yield return new WaitForSeconds(displayDurationOnAction);
             Hide();
         }
 
@@ -72,8 +108,8 @@ namespace FrostfallSaga.Fight.UI
 
             // Setup statuses
             UpdateStatuses(fighter);
-            fighter.onStatusApplied += (fighter, _appliedStatus) => UpdateStatuses(fighter);
-            fighter.onStatusRemoved += (fighter, _removedStatus) => UpdateStatuses(fighter);
+            fighter.onStatusApplied += (targetFighter, _appliedStatus) => UpdateStatuses(targetFighter);
+            fighter.onStatusRemoved += (targetFighter, _removedStatus) => UpdateStatuses(targetFighter);
         }
 
         private void UpdateStatuses(Fighter fighter)
@@ -81,7 +117,7 @@ namespace FrostfallSaga.Fight.UI
             _statusesBar.Clear();
             foreach (KeyValuePair<AStatus, (bool isActive, int duration)> status in fighter.GetStatuses())
             {
-                VisualElement statusIconContainerRoot = _statusContainerTemplate.Instantiate();
+                VisualElement statusIconContainerRoot = statusContainerTemplate.Instantiate();
                 statusIconContainerRoot.AddToClassList(INFOS_BAR_STATUS_CONTAINER_ROOT_CLASSNAME);
                 StatusContainerUIController.SetupStatusContainer(statusIconContainerRoot, status.Key);
                 _statusesBar.Add(statusIconContainerRoot);
@@ -100,70 +136,35 @@ namespace FrostfallSaga.Fight.UI
 
         private void OnFightLoaded(Fighter[] allies, Fighter[] enemies)
         {
-            allies
-                .ToList()
+            List<Fighter> list = allies.ToList();
+            list
                 .Concat(enemies)
                 .ToList()
                 .ForEach(fighter =>
                 {
                     fighter.FighterMouseEventsController.OnElementHover += OnFighterHovered;
                     fighter.FighterMouseEventsController.OnElementUnhover += OnFighterUnhovered;
-                    fighter.onDamageReceived += (fighter, _, _) => StartCoroutine(DisplayForSeconds(fighter));
-                    fighter.onHealReceived += (fighter, _, _) => StartCoroutine(DisplayForSeconds(fighter));
-                    fighter.onStatusApplied += (fighter, _) => StartCoroutine(DisplayForSeconds(fighter));
-                    fighter.onStatusRemoved += (fighter, _) => StartCoroutine(DisplayForSeconds(fighter));
-                    fighter.onFighterDied += (fighter) => StartCoroutine(DisplayForSeconds(fighter));
+                    fighter.onDamageReceived += (targetFighter, _, _) => StartCoroutine(DisplayForSeconds(targetFighter));
+                    fighter.onHealReceived += (targetFighter, _, _) => StartCoroutine(DisplayForSeconds(targetFighter));
+                    fighter.onStatusApplied += (targetFighter, _) => StartCoroutine(DisplayForSeconds(targetFighter));
+                    fighter.onStatusRemoved += (targetFighter, _) => StartCoroutine(DisplayForSeconds(targetFighter));
+                    fighter.onFighterDied += (targetFighter) => StartCoroutine(DisplayForSeconds(targetFighter));
                 });
         }
 
-        private void OnFightEnded(Fighter[] _allies, Fighter[] _enemies)
+        private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
         {
             _infosBarContainer.RemoveFromHierarchy();
         }
 
-        #region Setup
+        #region UXML UI Names & Classes
 
-        private void Awake()
-        {
-            if (_uiDoc == null) _uiDoc = GetComponent<UIDocument>();
-            if (_uiDoc == null)
-            {
-                Debug.LogError("No UI Document to work with.");
-                return;
-            }
-
-            if (_fightManager == null) _fightManager = FindObjectOfType<FightManager>();
-            if (_fightManager == null)
-            {
-                Debug.LogError("No FightManager to work with. UI can't be updated dynamically.");
-                return;
-            }
-
-            if (_fightLoader == null) _fightLoader = FindObjectOfType<FightLoader>();
-            if (_fightLoader == null)
-            {
-                Debug.LogError("No FightLoader to work with. UI can't be updated dynamically.");
-                return;
-            }
-
-            if (_timelineController == null) _timelineController = FindObjectOfType<FightersOrderTimelineController>();
-            if (_timelineController == null)
-            {
-                Debug.LogError("No FightersOrderTimelineController to work with. UI can't be updated dynamically.");
-                return;
-            }
-
-            if (_statusContainerTemplate == null)
-            {
-                Debug.LogError("No status container template to work with.");
-                return;
-            }
-
-            _fightManager.onFightEnded += OnFightEnded;
-            _fightLoader.OnFightLoaded += OnFightLoaded;
-            _timelineController.onFighterHovered += OnFighterHovered;
-            _timelineController.onFighterUnhovered += OnFighterUnhovered;
-        }
+        private const string INFOS_BAR_CONTAINER_UI_NAME = "FighterInfosBarContainer";
+        private const string FIGHTER_NAME_LABEL_UI_NAME = "FighterNameLabel";
+        private const string LIFE_BAR_UI_NAME = "LifeBar";
+        private const string STATUSES_BAR_UI_NAME = "StatusesBar";
+        private const string INFOS_BAR_CONTAINER_HIDDEN_CLASSNAME = "fighterInfoBarContainerHidden";
+        private const string INFOS_BAR_STATUS_CONTAINER_ROOT_CLASSNAME = "fighterInfoBarStatusIconContainerRoot";
 
         #endregion
     }

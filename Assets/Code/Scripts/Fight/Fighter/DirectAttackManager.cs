@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FrostfallSaga.Audio;
 using FrostfallSaga.Fight.Effects;
 using FrostfallSaga.Fight.FightCells;
 using UnityEngine;
@@ -22,7 +21,7 @@ namespace FrostfallSaga.Fight.Fighters
         public void DirectAttack(List<FightCell> targetedCells)
         {
             // Trigger the direct attack (with or without animation)
-            if (_controlledFighter.Weapon.AttackAnimation == null)
+            if (!_controlledFighter.Weapon.AttackAnimation)
             {
                 Debug.LogWarning($"No animation attached to direct attack for fighter {_controlledFighter.name}");
                 _controlledFighter.Weapon.PlayUseSoundFXIfAny(_controlledFighter);

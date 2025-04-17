@@ -4,8 +4,6 @@ using System.Linq;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.InventorySystem;
-using FrostfallSaga.Grid;
-using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Effects;
@@ -15,6 +13,8 @@ using FrostfallSaga.Fight.FightCells.Impediments;
 using FrostfallSaga.Fight.FightItems;
 using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Fight.Targeters;
+using FrostfallSaga.Grid;
+using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Utils;
 using UnityEngine;
 
@@ -63,8 +63,7 @@ namespace FrostfallSaga.Fight.Fighters
         ////////////////
         // Animations //
         ////////////////
-        [SerializeField]
-        [Header("Animations")]
+        [SerializeField] [Header("Animations")]
         private string _receiveDamageAnimationName;
 
         [SerializeField] private string _healSelfAnimationName;
@@ -91,6 +90,12 @@ namespace FrostfallSaga.Fight.Fighters
         // <Fighter that used an active ability>
         public Action<Fighter, ActiveAbilitySO> onActiveAbilityStarted;
 
+        // <Fighter that used a consumable, the consumable used>
+        public Action<Fighter, InventorySlot> onConsumableUseEnded;
+
+        // <Fighter that used a consumable, the consumable used>
+        public Action<Fighter, InventorySlot> onConsumableUseStarted;
+
         // <Fighter that received damages, the damages taken, if masterstroke>
         public Action<Fighter, int, bool> onDamageReceived;
 
@@ -99,12 +104,6 @@ namespace FrostfallSaga.Fight.Fighters
 
         // <Fighter that is going to attack>
         public Action<Fighter> onDirectAttackStarted;
-
-        // <Fighter that used a consumable, the consumable used>
-        public Action<Fighter, InventorySlot> onConsumableUseStarted;
-
-        // <Fighter that used a consumable, the consumable used>
-        public Action<Fighter, InventorySlot> onConsumableUseEnded;
 
         // <Fighter that died>
         public Action<Fighter> onFighterDied;
@@ -286,7 +285,7 @@ namespace FrostfallSaga.Fight.Fighters
                 throw new InvalidOperationException(
                     $"Fighter : {name} does not have enough action points to use its consumable {consumable.Name}"
                 );
-            
+
             // Use consumable
             _stats.actionPoints -= consumable.ActionPointsCost;
             consumableSlot.RemoveItem();
@@ -702,7 +701,8 @@ namespace FrostfallSaga.Fight.Fighters
         /// <param name="fightersTeams">The teams of the fighters in the fight.</param>
         /// <param name="target">The optional target to check if the direct attack can be used on.</param>
         /// <returns>True if he has enough actions points and if the direct attack targeter can be resolved around him.</returns>
-        public bool CanDirectAttack(FightHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams, Fighter target = null)
+        public bool CanDirectAttack(FightHexGrid fightGrid, Dictionary<Fighter, bool> fightersTeams,
+            Fighter target = null)
         {
             return Weapon.UseActionPointsCost <= _stats.actionPoints && (
                 (
@@ -740,6 +740,7 @@ namespace FrostfallSaga.Fight.Fighters
                         {
                             return mandatoryEffectTypes.Any(effectType => AbilityHasEffect(activeAbility, effectType));
                         }
+
                         return true;
                     }
 
@@ -792,12 +793,12 @@ namespace FrostfallSaga.Fight.Fighters
                                fightGrid,
                                cell,
                                fightersTeams,
-                               activeAbility.CellAlterations
+                               activeAbility.cellAlterations
                            ) &&
                            target == null
                        ) ||
                        CanUseTargeterOnFighter(activeAbility.Targeter, target, fightGrid, fightersTeams,
-                           activeAbility.CellAlterations)
+                           activeAbility.cellAlterations)
                    );
         }
 
@@ -865,7 +866,7 @@ namespace FrostfallSaga.Fight.Fighters
 
         private bool AbilityHasEffect(ActiveAbilitySO activeAbility, Type effectType)
         {
-            return activeAbility.Effects.Any(abilityEffect => abilityEffect.GetType() == effectType);
+            return activeAbility.effects.Any(abilityEffect => abilityEffect.GetType() == effectType);
         }
 
         private int GetArmorPhysicalResistance()

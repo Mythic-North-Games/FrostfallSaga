@@ -10,11 +10,11 @@ namespace FrostfallSaga.FFSEditor.Fight
     [CustomEditor(typeof(ActiveAbilitySO))]
     public class ActiveAbilitySOEditor : Editor
     {
-        private static readonly string EFFECTS_PROPERTY_NAME = "Effects";
+        private static readonly string EFFECTS_PROPERTY_NAME = "effects";
 
-        private static readonly string MASTERSTOKE_EFFECTS_PROPERTY_NAME = "MasterstrokeEffects";
+        private static readonly string MASTERSTOKE_EFFECTS_PROPERTY_NAME = "masterstrokeEffects";
 
-        private static readonly string CELL_ALTERATIONS_PROPERTY_NAME = "CellAlterations";
+        private static readonly string CELL_ALTERATIONS_PROPERTY_NAME = "cellAlterations";
         private ReorderableList cellAlterationsList;
         private SerializedProperty cellAlterationsProperty;
         private ReorderableList effectsList;

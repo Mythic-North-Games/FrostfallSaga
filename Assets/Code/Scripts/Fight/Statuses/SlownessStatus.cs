@@ -23,7 +23,8 @@ namespace FrostfallSaga.Fight.Statuses
             FighterBuffVisualsController visualsController,
             int initiativeReduction
         )
-            : base(EStatusType.SLOWNESS, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+            : base(EStatusType.SLOWNESS, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime,
+                visualsController)
         {
             InitiativeReduction = initiativeReduction;
         }

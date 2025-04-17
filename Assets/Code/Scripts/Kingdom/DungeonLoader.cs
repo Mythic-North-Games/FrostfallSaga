@@ -1,3 +1,4 @@
+using System.Collections;
 using FrostfallSaga.Audio;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Dungeons;
@@ -12,7 +13,7 @@ namespace FrostfallSaga.Kingdom
     {
         [SerializeField] private KingdomManager kingdomManager;
         [SerializeField] private EnterDungeonPanelController enterDungeonPanelController;
-
+        [SerializeField] private float _delayBeforeLoadingCityScene = 0.6f;
 
         #region Setup
 
@@ -31,6 +32,7 @@ namespace FrostfallSaga.Kingdom
                 Debug.LogError("No KingdomManager found in scene. Won't be able to save kingdom state.");
                 return;
             }
+
             enterDungeonPanelController.onDungeonEnterClicked += OnDungeonEnterClicked;
         }
 
@@ -40,14 +42,20 @@ namespace FrostfallSaga.Kingdom
         {
             Debug.Log($"Saving kingdom state before loading dungeon scene for {dungeonBuildingConfiguration.Name}.");
             kingdomManager.SaveKingdomState();
-            
+
             Debug.Log($"Saving dungeon load data for {dungeonBuildingConfiguration.Name}.");
             GameStateManager.Instance.InitDungeonState(dungeonBuildingConfiguration.DungeonConfiguration);
-            
+
             AudioManager.Instance.PlayUISound(dungeonBuildingConfiguration.EnterDungeonSound);
 
             Debug.Log("Launching dungeon scene...");
-            SceneTransitioner.FadeInToScene(EScenesName.DUNGEON.ToSceneString());
+            StartCoroutine(WaitAndLaunchCityScene());
+        }
+
+        private IEnumerator WaitAndLaunchCityScene()
+        {
+            yield return new WaitForSeconds(_delayBeforeLoadingCityScene);
+            SceneTransitioner.TransitionToScene(EScenesName.DUNGEON.ToSceneString());
         }
     }
 }

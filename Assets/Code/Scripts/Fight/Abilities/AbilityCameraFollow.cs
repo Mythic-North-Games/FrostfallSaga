@@ -1,5 +1,5 @@
-using UnityEngine;
 using Cinemachine;
+using UnityEngine;
 
 namespace FrostfallSaga.Fight.Abilities
 {
@@ -12,7 +12,7 @@ namespace FrostfallSaga.Fight.Abilities
             if (cinemachineCam == null)
                 cinemachineCam = GetComponent<CinemachineVirtualCamera>();
 
-            cinemachineCam.Priority = 5;  
+            cinemachineCam.Priority = 5;
         }
 
         public void FollowAbility(Transform ability)

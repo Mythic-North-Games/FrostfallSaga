@@ -23,7 +23,8 @@ namespace FrostfallSaga.Fight.Statuses
             FighterBuffVisualsController visualsController,
             int strengthReduction
         )
-            : base(EStatusType.WEAKNESS, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime, visualsController)
+            : base(EStatusType.WEAKNESS, isPermanent, duration, triggerOnFirstApply, isRecurring, triggerTime,
+                visualsController)
         {
             StrengthReduction = strengthReduction;
         }

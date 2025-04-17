@@ -1,26 +1,19 @@
 using System;
-using UnityEngine.UIElements;
-using FrostfallSaga.Core.InventorySystem;
 using System.Linq;
+using FrostfallSaga.Core.InventorySystem;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Core.UI
 {
     public class ItemSlotContainerUIController
     {
-        #region UI Elements Names & Classes
-        private static readonly string ITEM_ICON_UI_NAME = "ItemSlot";
-        private static readonly string ITEM_SLOT_COUNT_CONTAINER_UI_NAME = "ItemSlotCountContainer";
-        private static readonly string ITEM_COUNT_LABEL_UI_NAME = "ItemSlotCount";
-        #endregion
-
-        public Action<InventorySlot> onItemSelected;
+        private readonly Label _itemCountLabel;
+        private readonly VisualElement _itemCountLabelContainer;
+        private readonly VisualElement _itemIcon;
+        private InventorySlot _currentItemSlot;
         public Action<InventorySlot> onItemEquipToggled;
 
-        public VisualElement Root { get; private set; }
-        private readonly VisualElement _itemIcon;
-        private readonly VisualElement _itemCountLabelContainer;
-        private readonly Label _itemCountLabel;
-        private InventorySlot _currentItemSlot;
+        public Action<InventorySlot> onItemSelected;
 
         public ItemSlotContainerUIController(VisualElement root)
         {
@@ -30,6 +23,8 @@ namespace FrostfallSaga.Core.UI
             _itemCountLabelContainer = Root.Q<VisualElement>(ITEM_SLOT_COUNT_CONTAINER_UI_NAME);
             _itemCountLabel = root.Q<Label>(ITEM_COUNT_LABEL_UI_NAME);
         }
+
+        public VisualElement Root { get; private set; }
 
         /// <summary>
         /// Set the item slot to display in the UI.
@@ -55,7 +50,8 @@ namespace FrostfallSaga.Core.UI
         {
             Root.SetEnabled(enabled);
             Root.pickingMode = enabled ? PickingMode.Position : PickingMode.Ignore;
-            Root.Children().ToList().ForEach(child => child.pickingMode = enabled ? PickingMode.Position : PickingMode.Ignore);
+            Root.Children().ToList()
+                .ForEach(child => child.pickingMode = enabled ? PickingMode.Position : PickingMode.Ignore);
         }
 
         private void OnItemSelected(MouseUpEvent clickEvent)
@@ -64,5 +60,13 @@ namespace FrostfallSaga.Core.UI
             if (clickEvent.button == 0) onItemSelected?.Invoke(_currentItemSlot);
             else if (clickEvent.button == 1) onItemEquipToggled?.Invoke(_currentItemSlot);
         }
+
+        #region UI Elements Names & Classes
+
+        private static readonly string ITEM_ICON_UI_NAME = "ItemSlot";
+        private static readonly string ITEM_SLOT_COUNT_CONTAINER_UI_NAME = "ItemSlotCountContainer";
+        private static readonly string ITEM_COUNT_LABEL_UI_NAME = "ItemSlotCount";
+
+        #endregion
     }
 }

@@ -14,9 +14,19 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
         [field: Header("Height alteration definition")]
         public ECellHeight TargetHeight { get; private set; }
 
-        [field: SerializeField] public float CellAlterationDuration { get; protected set; }
-
         private ECellHeight _previousHeight;
+
+        public SetHeightAlteration() : base(
+            "Set height",
+            "Sets the height of the cell to a specific value.",
+            null,
+            false,
+            0,
+            true,
+            true
+        )
+        {
+        }
 
         public SetHeightAlteration(
             string name,
@@ -26,19 +36,18 @@ namespace FrostfallSaga.Fight.FightCells.FightCellAlterations
             int duration
         ) : base(name, description, icon, isPermanent, duration, true, true)
         {
-            CellAlterationDuration = duration;
         }
 
         public override void Apply(FightCell cell)
         {
             _previousHeight = cell.Height;
-            cell.UpdateHeight(TargetHeight, CellAlterationDuration);
+            cell.UpdateHeight(TargetHeight, Duration);
             onAlterationApplied?.Invoke(cell, this);
         }
 
         public override void Remove(FightCell cell)
         {
-            cell.UpdateHeight(_previousHeight, CellAlterationDuration);
+            cell.UpdateHeight(_previousHeight, Duration);
             onAlterationRemoved?.Invoke(cell, this);
         }
     }

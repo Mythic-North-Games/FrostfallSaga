@@ -92,9 +92,13 @@ namespace FrostfallSaga.Grid
 
         private static Cell[] ReconstructPath(Dictionary<Cell, Cell> cameFrom, Cell start, Cell end)
         {
+            if (!end.IsTerrainAccessible())
+            {
+                return Array.Empty<Cell>();
+            }
             List<Cell> path = new();
             Cell current = end;
-
+            
             while (current != start)
             {
                 path.Add(current);

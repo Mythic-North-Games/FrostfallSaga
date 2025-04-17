@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using FrostfallSaga.Utils;
+﻿using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Trees;
-using FrostfallSaga.Core.Dialogues;
+using UnityEngine;
 
 namespace FrostfallSaga.Core.Fight
 {
@@ -29,7 +28,8 @@ namespace FrostfallSaga.Core.Fight
         [field: SerializeField] public ClassGodSO God { get; private set; }
         [field: SerializeField] public TreeNode<ABaseAbility> AbilitiesTreeModel { get; private set; }
 
-        public void SetRoot(TreeNode<ABaseAbility> root) {
+        public void SetRoot(TreeNode<ABaseAbility> root)
+        {
             AbilitiesTreeModel = root;
         }
     }

@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Utils.Trees.BehaviourTree;
 
@@ -16,7 +16,7 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
             Dictionary<Fighter, bool> fighterTeams,
             List<ETarget> possibleTargets,
             ETargetType targetType
-            ) : base(possessedFighter, fightGrid, fighterTeams)
+        ) : base(possessedFighter, fightGrid, fighterTeams)
         {
             _possibleTargets = possibleTargets;
             _targetType = targetType;
@@ -30,7 +30,8 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
                 return NodeState.FAILURE;
             }
 
-            Fighter preferredTarget = _targetType.GetPreferedTargetInList(_possessedFighter, _fightGrid, healableTargets);
+            Fighter preferredTarget =
+                _targetType.GetPreferedTargetInList(_possessedFighter, _fightGrid, healableTargets);
             SetSharedData(TARGET_SHARED_DATA_KEY, preferredTarget);
             return NodeState.SUCCESS;
         }

@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace FrostfallSaga.Core.HeroTeam
 {
-    
-    [CreateAssetMenu(fileName = "HeroTeamConfiguration", menuName = "ScriptableObjects/Entities/HeroTeamConfigurationSO", order = 0)]
+    [CreateAssetMenu(fileName = "HeroTeamConfiguration",
+        menuName = "ScriptableObjects/Entities/HeroTeamConfigurationSO", order = 0)]
     public class HeroTeamConfigurationSO : ScriptableObject
     {
         [field: SerializeField] public EntityConfigurationSO HeroEntityConfiguration { get; private set; }

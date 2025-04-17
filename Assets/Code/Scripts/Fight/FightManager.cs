@@ -8,7 +8,6 @@ using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
 using FrostfallSaga.Fight.UI;
-using FrostfallSaga.Audio;
 using FrostfallSaga.Grid.Cells;
 using UnityEngine;
 
@@ -54,7 +53,7 @@ namespace FrostfallSaga.Fight
         }
 
         private void OnFightLoaded(Fighter[] allies, Fighter[] enemies)
-        {   
+        {
             // Init
             _playingFighter = null;
             _allies = new List<Fighter>(allies);
@@ -280,8 +279,7 @@ namespace FrostfallSaga.Fight
             {
                 Vector2Int coord = new(x, startY);
                 if (grid.Cells.TryGetValue(coord, out Cell cell) &&
-                    cell is FightCell fightCell &&
-                    fightCell.IsTerrainAccessible() &&
+                    cell is FightCell fightCell && fightCell.IsTerrainAccessible() &&
                     fightCell.IsFree())
                 {
                     cells.Add(fightCell);

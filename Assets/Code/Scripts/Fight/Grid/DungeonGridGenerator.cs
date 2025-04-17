@@ -14,8 +14,8 @@ namespace FrostfallSaga.Dungeon
 {
     public class DungeonGridGenerator : ABaseGridGenerator
     {
-        private BiomeTypeSO _biomeType;
         private readonly BiomeTypeSO _defaultBiomeType;
+        private BiomeTypeSO _biomeType;
         private PerlinTerrainManager _perlinTerrainManager;
 
         public DungeonGridGenerator(FightCell hexPrefab, int gridWidth, int gridHeight,
@@ -63,9 +63,9 @@ namespace FrostfallSaga.Dungeon
         private static void SetupCell(Cell cell, int x, int y, BiomeTypeSO selectedBiome, float hexSize,
             TerrainTypeSO selectedTerrain)
         {
-            float chance = selectedTerrain.IsAccessible ? 1f : selectedTerrain.AccessibilityChanceOverride;
+            float chance = selectedTerrain.DefaultAccessible ? 1f : selectedTerrain.AccessibilityChanceOverride;
             bool isAccessible = Randomizer.GetBooleanOnChance(chance);
-            cell.ForceAccessibility(isAccessible);
+            cell.SetTerrainAccessibility(isAccessible);
             cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, hexSize, selectedTerrain, selectedBiome);
             cell.HighlightController.SetupInitialMaterial(selectedTerrain.CellMaterial);
             cell.HighlightController.UpdateCurrentDefaultMaterial(selectedTerrain.CellMaterial);
@@ -92,7 +92,8 @@ namespace FrostfallSaga.Dungeon
 
         private void GenerateHighByFromPerlinNoise(Dictionary<Vector2Int, Cell> grid)
         {
-            _perlinTerrainManager = new PerlinTerrainManager(NoiseScale, Randomizer.GetRandomIntBetween(000_000_000, 999_999_999));
+            _perlinTerrainManager =
+                new PerlinTerrainManager(NoiseScale, Randomizer.GetRandomIntBetween(000_000_000, 999_999_999));
             ECellHeight[] heights = (ECellHeight[])Enum.GetValues(typeof(ECellHeight));
             float segmentSize = 1f / heights.Length;
             foreach (KeyValuePair<Vector2Int, Cell> cell in grid)

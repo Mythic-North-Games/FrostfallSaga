@@ -12,12 +12,12 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees
     {
         public static readonly string ACTION_RUNNING_SHARED_DATA_KEY = "ActionRunning";
         public static readonly string TARGET_SHARED_DATA_KEY = "Target";
+        protected Dictionary<Fighter, bool> _fighterTeams;
+        protected FightHexGrid _fightGrid;
 
         protected Fighter _possessedFighter;
-        protected FightHexGrid _fightGrid;
-        protected Dictionary<Fighter, bool> _fighterTeams;
 
-        public FBTNode(Fighter possessedFighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
+        protected FBTNode(Fighter possessedFighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams)
         {
             _possessedFighter = possessedFighter;
             _fightGrid = fightGrid;

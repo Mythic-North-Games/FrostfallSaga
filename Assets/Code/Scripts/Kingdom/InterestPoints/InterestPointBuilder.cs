@@ -17,7 +17,7 @@ namespace FrostfallSaga.Kingdom.InterestPoints
         /// <summary>
         ///     Construit un InterestPoint à partir des données sauvegardées
         /// </summary>
-        public InterestPoint BuildInterestPoint(InterestPointData interestPointData, KingdomHexGrid grid)
+        public static InterestPoint BuildInterestPoint(InterestPointData interestPointData, KingdomHexGrid grid)
         {
             Vector2Int coordinates = new(interestPointData.cellX, interestPointData.cellY);
             Cell cell = grid.GetCellAtCoordinates(coordinates);
@@ -33,7 +33,8 @@ namespace FrostfallSaga.Kingdom.InterestPoints
         /// <summary>
         ///     Génère les InterestPoints initiaux
         /// </summary>
-        public void FirstBuildInterestPoints(KingdomHexGrid kingdomHexGrid, List<AInterestPointConfigurationSO> interestPoints)
+        public static void FirstBuildInterestPoints(KingdomHexGrid kingdomHexGrid,
+            List<AInterestPointConfigurationSO> interestPoints)
         {
             Debug.Log("Generating Interest Points...");
 
@@ -55,7 +56,7 @@ namespace FrostfallSaga.Kingdom.InterestPoints
         /// <summary>
         ///     Crée une instance d'un InterestPoint sur une cellule
         /// </summary>
-        private InterestPoint InstantiateInterestPoint(AInterestPointConfigurationSO conf, KingdomCell cell)
+        private static InterestPoint InstantiateInterestPoint(AInterestPointConfigurationSO conf, KingdomCell cell)
         {
             GameObject instantiateGameObject = Instantiate(conf.InterestPointPrefab);
             InterestPoint instantiateInterestPoint = instantiateGameObject.GetComponent<InterestPoint>();
@@ -71,7 +72,7 @@ namespace FrostfallSaga.Kingdom.InterestPoints
         /// <summary>
         ///     Extrait les données d'un InterestPoint pour sauvegarde
         /// </summary>
-        public InterestPointData ExtractInterestPointData(InterestPoint interestPoint)
+        public static InterestPointData ExtractInterestPointData(InterestPoint interestPoint)
         {
             return new InterestPointData(
                 interestPoint.InterestPointConfiguration,

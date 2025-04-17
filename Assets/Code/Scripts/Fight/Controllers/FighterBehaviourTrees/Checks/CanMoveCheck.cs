@@ -9,7 +9,8 @@ namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
     /// </summary>
     public class CanMoveCheck : FBTNode
     {
-        public CanMoveCheck(Fighter possessedFighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams) : base(possessedFighter, fightGrid, fighterTeams)
+        public CanMoveCheck(Fighter possessedFighter, FightHexGrid fightGrid, Dictionary<Fighter, bool> fighterTeams) :
+            base(possessedFighter, fightGrid, fighterTeams)
         {
         }
 

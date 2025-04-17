@@ -1,8 +1,8 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using FrostfallSaga.Core.InventorySystem;
+using System.Linq;
 using FrostfallSaga.Core.HeroTeam;
+using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Core.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -11,23 +11,16 @@ namespace FrostfallSaga.InventorySystem.UI
 {
     public class InventoryBagPanelUIController
     {
-        #region UI Elements Names & Classes
-        private static readonly string BAG_SLOTS_CONTAINER_LABEL_UI_NAME = "BagSlotsContainer";
-        private static readonly string ITEM_DETAILS_CONTAINER_ROOT_UI_NAME = "ItemDetailsContainer";
-        private static readonly string STYCAS_COUNT_LABEL_UI_NAME = "StycasCountLabel";
-
-        private static readonly string ITEM_EFFECT_LINE_CLASSNAME = "effectLine";
-        #endregion
-
-        public Action<InventorySlot> onItemSlotSelected;
-        public Action<InventorySlot> onItemSlotEquipClicked;
-
-        private readonly VisualElement _root;
-        private readonly Dictionary<VisualElement, ItemSlotContainerUIController> _itemSlotContainers = new();
         private readonly VisualElement _itemDetailsContainerRoot;
         private readonly ObjectDetailsUIController _itemDetailsController;
+        private readonly Dictionary<VisualElement, ItemSlotContainerUIController> _itemSlotContainers = new();
+
+        private readonly VisualElement _root;
 
         private Inventory _currentInventory;
+        public Action<InventorySlot> onItemSlotEquipClicked;
+
+        public Action<InventorySlot> onItemSlotSelected;
 
         public InventoryBagPanelUIController(
             VisualElement root,
@@ -94,7 +87,7 @@ namespace FrostfallSaga.InventorySystem.UI
             }
         }
 
-        private Dictionary<Sprite, string> GetItemStats(ItemSO item)
+        private static Dictionary<Sprite, string> GetItemStats(ItemSO item)
         {
             if (item is AEquipment equipment)
             {
@@ -102,14 +95,28 @@ namespace FrostfallSaga.InventorySystem.UI
                     .Concat(equipment.GetMagicalStatsUIData())
                     .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
             }
+
             return new Dictionary<Sprite, string>();
         }
 
-        private List<string> GetItemEffects(ItemSO item)
+        private static List<string> GetItemEffects(ItemSO item)
         {
-            if (item is AEquipment equipment) return equipment.GetSpecialEffectsUIData();
-            if (item is AConsumable consumable) return consumable.GetEffectsUIData();
-            return new List<string>();
+            return item switch
+            {
+                AEquipment equipment => equipment.GetSpecialEffectsUIData(),
+                AConsumable consumable => consumable.GetEffectsUIData(),
+                _ => new List<string>()
+            };
         }
+
+        #region UI Elements Names & Classes
+
+        private static readonly string BAG_SLOTS_CONTAINER_LABEL_UI_NAME = "BagSlotsContainer";
+        private static readonly string ITEM_DETAILS_CONTAINER_ROOT_UI_NAME = "ItemDetailsContainer";
+        private static readonly string STYCAS_COUNT_LABEL_UI_NAME = "StycasCountLabel";
+
+        private static readonly string ITEM_EFFECT_LINE_CLASSNAME = "effectLine";
+
+        #endregion
     }
 }
