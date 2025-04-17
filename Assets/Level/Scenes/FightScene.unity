@@ -1721,10 +1721,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
-  characterContainerTemplate: {fileID: 0}
-  statContainerTemplate: {fileID: 0}
-  statusIconContainerTemplate: {fileID: 0}
-  fightManager: {fileID: 0}
+  characterContainerTemplate: {fileID: 9197481963319205126, guid: 0748e2c7616b69c7c9a8edf950346285, type: 3}
+  statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
+  statusIconContainerTemplate: {fileID: 9197481963319205126, guid: e65bb5637e2f1d1eb92a395ee8971e67, type: 3}
+  fightManager: {fileID: 1678739252}
 --- !u!114 &1952024167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1766,9 +1766,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
   statusContainerTemplate: {fileID: 0}
-  fightManager: {fileID: 0}
-  fightLoader: {fileID: 0}
-  timelineController: {fileID: 0}
+  fightManager: {fileID: 1678739252}
+  fightLoader: {fileID: 2012426617}
+  timelineController: {fileID: 1952024165}
   displayDurationOnAction: 2
 --- !u!114 &1952024169
 MonoBehaviour:
@@ -1783,7 +1783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
-  fightManager: {fileID: 0}
+  fightManager: {fileID: 1678739252}
 --- !u!1 &1963673181
 GameObject:
   m_ObjectHideFlags: 0

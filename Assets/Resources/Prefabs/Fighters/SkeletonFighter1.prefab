@@ -195,6 +195,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8901038719363039294, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7229199734263738306, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
@@ -416,6 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f089ba37bd1d324b8e8d897c0121fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clickThreshold: 0.4
 --- !u!136 &2606586245611480665
 CapsuleCollider:
   m_ObjectHideFlags: 0

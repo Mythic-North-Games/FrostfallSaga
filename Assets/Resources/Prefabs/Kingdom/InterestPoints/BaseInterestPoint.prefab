@@ -153,7 +153,7 @@ MonoBehaviour:
   cell: {fileID: 0}
   <MouseEventsController>k__BackingField: {fileID: 9155010897982803068}
   <NamePanelAnchor>k__BackingField: {fileID: 4321929382229055619}
-  <InterestPointConfiguration>k__BackingField: {fileID: 0}
+  <InterestPointConfiguration>k__BackingField: {fileID: 11400000, guid: 4762792f3dfda5a23abdd8c64aab5bf1, type: 2}
 --- !u!114 &9155010897982803068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ace8faf1d304e61bcf08f8c90de0e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clickThreshold: 0.4
 --- !u!1 &4321929382229055619
 GameObject:
   m_ObjectHideFlags: 0

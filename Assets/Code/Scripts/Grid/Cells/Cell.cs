@@ -91,7 +91,7 @@ namespace FrostfallSaga.Grid.Cells
             );
             
             if (HighlightController)
-                HighlightController.transform.localScale = Vector3.one * cellSize / 2.68f;
+                HighlightController.transform.localScale = Vector3.one * cellSize / 2.70f;
             else
                 Debug.LogError("Cell " + name + " has no visual to be set up. Please add a cell visual as a child.");
         }
