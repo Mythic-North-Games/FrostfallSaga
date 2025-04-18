@@ -14,11 +14,11 @@ namespace FrostfallSaga.Audio
         [SerializeField] private AudioSource audioSourceObject;
         [SerializeField] public MusicAudioClipsConfig musicAudioClipsConfig;
         [SerializeField, Range(0f, 3f)] private float defaultFadeDuration = 1.5f;
-        private UIAudioClipSelector _uIAudioClipSelector; 
+        private UIAudioClipSelector _uIAudioClipSelector;
         private MusicAudioClipSelector _musicAudioClipSelector;
         private AudioSource _currentFXAudioSource;
         private AudioSource _currentMusicAudioSource;
-       
+
 
 
         private void Awake()
@@ -127,41 +127,7 @@ namespace FrostfallSaga.Audio
         }
 
 
-        // A UTILISER POUR LA MUSIQUE
-        //public void PlayMusicSound(AudioSource sound, Transform spawnTransform, float audioVolume, float duration)
-        //{
-            //AudioClip audioClip = fXAudioClipSelector.SelectAudioClip(sound);
-            //if (audioClip != null)
-            //{
-            //float clipLength = audioClip.length;
-            //float destroyTime = Mathf.Max(clipLength, duration); // On garde l'objet au moins le temps défini
-
-            // Créer une source audio
-           // AudioSource audioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
-            //audioSource.clip = audioClip;
-           // audioSource.volume = audioVolume;
-
-            // Activez la lecture en boucle si la durée souhaitée est plus longue que la durée du clip
-            //if (duration > audioClip.length)
-            //{
-            //    audioSource.loop = true;
-            //}
-
-            // Jouez le son
-            //audioSource.Play();
-
-            // Démarrer une coroutine pour arrêter le son après la durée spécifiée
-            //StartCoroutine(StopSoundAfterDuration(audioSource, duration));
-
-            //Destroy(audioSource.gameObject, destroyTime);
-            //}
-            //else
-            //{
-            //Debug.LogError("Audio clip " + sound + " not found");
-            //}
-        //}
-
-                /// <summary>
+        /// <summary>
         /// Play a Music sound effect by using the FXSounds enum.
         /// </summary>
         /// <param name="sound">The sound to play</param>
@@ -175,14 +141,9 @@ namespace FrostfallSaga.Audio
         {
             Debug.Log($"PlayMusicSound called for {soundName}");
 
-            if (_musicAudioClipSelector == null)
-            {
-                _musicAudioClipSelector = new MusicAudioClipSelector(musicAudioClipsConfig);
-            }
-
             AudioClip sound = _musicAudioClipSelector.SelectAudioClip(soundName);
 
-                if (sound == null)
+            if (sound == null)
             {
                 Debug.LogWarning($"No music clip found for: {soundName}");
                 return;
@@ -198,14 +159,13 @@ namespace FrostfallSaga.Audio
             AudioSource newAudioSource = Instantiate(audioSourceObject);
             newAudioSource.clip = sound;
             newAudioSource.volume = volume;
-            newAudioSource.loop = loop;            
+            newAudioSource.loop = loop;
             newAudioSource.Play();
-            
+
             _currentMusicAudioSource = newAudioSource;
 
             // If not looping, destroy after the clip ends
-            if (!loop)
-                Destroy(newAudioSource.gameObject, sound.length);
+            if (!loop) Destroy(newAudioSource.gameObject, sound.length);
         }
 
 #if UNITY_EDITOR
