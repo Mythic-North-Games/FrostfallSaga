@@ -1780,7 +1780,7 @@ MonoBehaviour:
   _uiDoc: {fileID: 1952024162}
   _effectsUIPanel: {fileID: 9197481963319205126, guid: a703f84178f43ab4b9656507bc067c78, type: 3}
   _displayDuration: 1.5
-  _displayMarginFromFighter: {x: 30, y: 50}
+  _displayMarginFromFighter: {x: 1, y: 1, z: 0}
   _damageStyleClass: damageLabel
   _healStyleClass: healLabel
   _dodgeStyleClass: dodgeLabel
