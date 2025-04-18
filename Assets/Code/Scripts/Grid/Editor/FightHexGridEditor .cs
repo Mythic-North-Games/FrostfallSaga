@@ -18,8 +18,11 @@ namespace FrostfallSaga.FFSEditor.Grid
             hexGrid.Initialize();
 
             if (GUILayout.Button("Generate Hex Mesh"))
+            {
+                if (hexGrid && hexGrid.Cells.Count > 0)
+                    hexGrid.ClearCells();
                 hexGrid.GenerateGrid();
-
+            }
             else if (GUILayout.Button("Clear Hex Mesh"))
                 hexGrid.ClearCells();
 

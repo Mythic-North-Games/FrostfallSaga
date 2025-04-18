@@ -23,7 +23,7 @@ namespace FrostfallSaga.Kingdom
         /// </summary>
         public List<KingdomCell> GetFreeCells()
         {
-            return Cells.Values.OfType<KingdomCell>().Where(cell => cell.IsFree() && cell.IsAccessibleTerrain).ToList();
+            return Cells.Values.OfType<KingdomCell>().Where(cell => cell.IsFree() && cell.IsAccessible).ToList();
         }
 
         #region Setup & tear down

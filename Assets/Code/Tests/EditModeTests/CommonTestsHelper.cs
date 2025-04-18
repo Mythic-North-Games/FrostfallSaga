@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FrostfallSaga.Fight;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Grid;
@@ -24,22 +25,33 @@ namespace FrostfallSaga.EditModeTests
 
         public static readonly TerrainTypeSO InaccessibleTerrain =
             Resources.Load<TerrainTypeSO>("EditModeTests/ScriptableObjects/TestTerrainTypeInaccessible");
-
-        /// <summary>
-        ///     Create a grid using the GridFactory for testing purposes.
-        /// </summary>
-        public static KingdomHexGrid CreatePlainGridForTest(int gridWidth = 5, int gridHeight = 5)
+        
+        
+        public static KingdomHexGrid CreateEmptyGridForTest(int width = 5, int height = 5)
         {
             GameObject gameObject = Object.Instantiate(HexGridKingdomPrefabTest);
             KingdomHexGrid grid = gameObject.GetComponent<KingdomHexGrid>();
-            grid.Width = gridWidth != 5 ? gridWidth : grid.Width;
-            grid.Height = gridHeight != 5 ? gridHeight : grid.Height;
+            grid.Width = width;
+            grid.Height = height;
             grid.AvailableBiomes = new[] { DefaultBiomeTest };
             grid.Initialize();
-            grid.GenerateGrid();
-            foreach (Cell cell in grid.Cells.Values) cell.SetTerrain(AccessibleTerrain);
+
+            grid.Cells = new Dictionary<Vector2Int, Cell>();
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Vector2Int coord = new(x, y);
+                    KingdomCell cell = (KingdomCell)CreateCellForTest(coord);
+                    cell.transform.SetParent(grid.transform);
+                    grid.Cells[coord] = cell;
+                }
+            }
+
             return grid;
         }
+
 
         /// <summary>
         ///     Create a grid using the GridFactory for testing purposes.

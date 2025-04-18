@@ -12,7 +12,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [SetUp]
         public void Setup()
         {
-            grid = CommonTestsHelper.CreatePlainGridForTest();
+            grid = CommonTestsHelper.CreateEmptyGridForTest();
         }
 
         [TearDown]

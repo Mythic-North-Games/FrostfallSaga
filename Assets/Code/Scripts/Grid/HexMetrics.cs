@@ -38,7 +38,7 @@ namespace FrostfallSaga.Grid
         {
             Vector3 centerPosition;
             centerPosition.x = (x + z * 0.5f - z / 2) * (InnerRadius(hexSize) * 2f);
-            centerPosition.y = 0f;
+            centerPosition.y = -1.2f;
             centerPosition.z = z * (OuterRadius(hexSize) * 1.5f);
 
             return centerPosition;
