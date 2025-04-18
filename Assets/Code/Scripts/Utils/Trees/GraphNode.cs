@@ -9,7 +9,7 @@ namespace FrostfallSaga.Utils.Trees
     {
         public T Data;
         [NonSerialized] public List<GraphNode<T>> Parents = new();
-        [SerializeReference] public List<GraphNode<T>> Children = new();
+        public List<GraphNode<T>> Children = new();
 
         public static GraphNode<T> FindInGraph(GraphNode<T> root, T data)
         {
