@@ -18,4 +18,4 @@ MonoBehaviour:
   <IsDone>k__BackingField: 0
   <OnStartQuest>k__BackingField: {fileID: 0}
   <OnEndQuest>k__BackingField: {fileID: 0}
-  <Dialogue>k__BackingField: {fileID: 11400000, guid: e9f2cb4c1ad4fe5ae9a28e15e4242760, type: 2}
+  <Dialogue>k__BackingField: {fileID: 11400000, guid: 7b136a0f235178ec98650c7cb75e4938, type: 2}

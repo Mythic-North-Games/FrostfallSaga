@@ -112,7 +112,7 @@ namespace FrostfallSaga.Quests.UI
             TreeNode<QuestStep> step
         )
         {
-            QuestStep currentStep = step.GetData();
+            QuestStep currentStep = step.Data;
 
             // Show the step
             VisualElement questStepContainer = QuestStepContainerUIController.BuildQuestStepContainer(
@@ -127,7 +127,7 @@ namespace FrostfallSaga.Quests.UI
             if (currentStep.IsCompleted() && step.HasChildren())
             {
                 int nextStepIndex = currentStep.Actions.ChosenDecisiveActionIndex;
-                TreeNode<QuestStep> nextStep = step.GetChildren()[nextStepIndex];
+                TreeNode<QuestStep> nextStep = step.Children[nextStepIndex];
                 BuildQuestStepContainers(questStepsContainer, questStepTemplate, actionInstructionTemplate, nextStep);
             }
         }

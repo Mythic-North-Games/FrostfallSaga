@@ -64,9 +64,9 @@ namespace FrostfallSaga.Core.Dialogues
             if (!_currentDialogueLine.HasChildren())
             {
                 // Add the quest if there is one
-                if (_currentDialogueLine.GetData().Quest != null)
+                if (_currentDialogueLine.Data.Quest != null)
                 {
-                    HeroTeamQuests.Instance.AddQuest(_currentDialogueLine.GetData().Quest);
+                    HeroTeamQuests.Instance.AddQuest(_currentDialogueLine.Data.Quest);
                 }
 
                 StartCoroutine(HideRootContainerAndEndDialogue());
@@ -74,10 +74,10 @@ namespace FrostfallSaga.Core.Dialogues
             }
 
             // If children and answers, wait for answer click
-            if (_currentDialogueLine.GetData().Answers.Length > 0) return;
+            if (_currentDialogueLine.Data.Answers.Length > 0) return;
 
             // If children and no answers, display next dialogue line
-            StartCoroutine(LoadNextDialogueLine(_currentDialogueLine.GetChildren()[0]));
+            StartCoroutine(LoadNextDialogueLine(_currentDialogueLine.Children[0]));
         }
 
         private void OnAnswerClicked(ClickEvent clickEvent)
@@ -89,7 +89,7 @@ namespace FrostfallSaga.Core.Dialogues
             int answerIndex = _answersContainer.IndexOf(clickedAnswer.parent);
 
             // Get the next dialogue line based on the answer index
-            StartCoroutine(LoadNextDialogueLine(_currentDialogueLine.GetChildren()[answerIndex]));
+            StartCoroutine(LoadNextDialogueLine(_currentDialogueLine.Children[answerIndex]));
         }
 
         #region Static UI template references
@@ -128,24 +128,24 @@ namespace FrostfallSaga.Core.Dialogues
         private IEnumerator LoadNextDialogueLine(TreeNode<DialogueLine> nextDialogueLine)
         {
             // Add the quest if there is one
-            if (_currentDialogueLine != null && _currentDialogueLine.GetData().Quest != null)
+            if (_currentDialogueLine != null && _currentDialogueLine.Data.Quest != null)
             {
-                HeroTeamQuests.Instance.AddQuest(_currentDialogueLine.GetData().Quest);
+                HeroTeamQuests.Instance.AddQuest(_currentDialogueLine.Data.Quest);
             }
 
             _previousDialogueLine = _currentDialogueLine;
             if (_previousDialogueLine != null &&
-                nextDialogueLine.GetData().Speaker != _previousDialogueLine.GetData().Speaker)
+                nextDialogueLine.Data.Speaker != _previousDialogueLine.Data.Speaker)
             {
                 HideDialogueLineContainer();
                 yield return new WaitForSeconds(_timeBetweenDialogueLines);
             }
 
             _currentDialogueLine = nextDialogueLine;
-            SetupDialogueLine(_currentDialogueLine.GetData());
+            SetupDialogueLine(_currentDialogueLine.Data);
             DisplayDialogueLineContainer();
             yield return new WaitForSeconds(_timeBeforeAnswersDisplay);
-            if (_currentDialogueLine.GetData().Answers != null && _currentDialogueLine.GetData().Answers.Length > 0)
+            if (_currentDialogueLine.Data.Answers != null && _currentDialogueLine.Data.Answers.Length > 0)
                 StartCoroutine(DisplayAnswers());
         }
 
@@ -227,7 +227,7 @@ namespace FrostfallSaga.Core.Dialogues
         private void HideDialogueLineContainer()
         {
             _dialogueLineContainer.AddToClassList(DIALOGUE_LINE_CONTAINER_HIDDEN_CLASSNAME);
-            if (_currentDialogueLine != null && _currentDialogueLine.GetData().Answers.Length > 0)
+            if (_currentDialogueLine != null && _currentDialogueLine.Data.Answers.Length > 0)
                 StartCoroutine(HideAnswers());
         }
 

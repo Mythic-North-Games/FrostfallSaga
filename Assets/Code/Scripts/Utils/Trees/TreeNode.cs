@@ -1,19 +1,25 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace FrostfallSaga.Utils.Trees
 {
     [Serializable]
     public class TreeNode<T>
     {
-        private List<TreeNode<T>> _children = new();
-        private T _data;
-        private TreeNode<T> _parent;
+        public List<TreeNode<T>> Children = new();
+        [SerializeReference] public T Data;
+        [NonSerialized] public TreeNode<T> Parent;
+
+        public TreeNode()
+        {
+            Children = new List<TreeNode<T>>();
+        }
 
         public TreeNode(T data)
         {
-            _data = data;
-            _children = new List<TreeNode<T>>();
+            Data = data;
+            Children = new List<TreeNode<T>>();
         }
 
         /// <summary>
@@ -22,8 +28,8 @@ namespace FrostfallSaga.Utils.Trees
         /// <param name="child">The child to add.</param>
         public void AddChild(TreeNode<T> child)
         {
-            _children.Add(child);
-            child._parent = this;
+            Children.Add(child);
+            child.Parent = this;
         }
 
         /// <summary>
@@ -33,54 +39,29 @@ namespace FrostfallSaga.Utils.Trees
         /// <returns>True if the child was removed, false otherwise.</returns>
         public bool RemoveChild(TreeNode<T> child)
         {
-            if (_children.Contains(child))
+            if (Children.Contains(child))
             {
-                _children.Remove(child);
+                Children.Remove(child);
                 return true;
             }
 
-            foreach (TreeNode<T> node in _children)
+            foreach (TreeNode<T> node in Children)
                 if (node.RemoveChild(child))
                     return true;
 
             return false;
         }
 
-        public T GetData()
-        {
-            return _data;
-        }
-
-        public void SetData(T data)
-        {
-            _data = data;
-        }
-
-        public List<TreeNode<T>> GetChildren()
-        {
-            return _children;
-        }
-
-        public void SetChildren(List<TreeNode<T>> children)
-        {
-            _children = children;
-        }
-
         public bool HasChildren()
         {
-            return _children.Count > 0;
-        }
-
-        public TreeNode<T> GetParent()
-        {
-            return _parent;
+            return Children.Count > 0;
         }
 
         public static TreeNode<T> FindChild(TreeNode<T> root, T data)
         {
-            if (root.GetData().Equals(data)) return root;
+            if (root.Data.Equals(data)) return root;
 
-            foreach (TreeNode<T> child in root.GetChildren())
+            foreach (TreeNode<T> child in root.Children)
             {
                 TreeNode<T> found = FindChild(child, data);
                 if (found != null) return found;

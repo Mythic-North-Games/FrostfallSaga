@@ -16,9 +16,9 @@ namespace FrostfallSaga.Core.Dialogues
 
         public void PrintContent()
         {
-            Debug.Log($"{DialogueTreeRoot.GetData().Title}");
-            foreach (TreeNode<DialogueLine> child in DialogueTreeRoot.GetChildren())
-                Debug.Log($"{child.GetData().Title}");
+            Debug.Log($"{DialogueTreeRoot.Data.Title}");
+            foreach (TreeNode<DialogueLine> child in DialogueTreeRoot.Children)
+                Debug.Log($"{child.Data.Title}");
         }
     }
 }
