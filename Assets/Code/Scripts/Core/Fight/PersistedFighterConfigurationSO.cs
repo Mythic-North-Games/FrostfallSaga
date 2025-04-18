@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FrostfallSaga.Core.InventorySystem;
+using FrostfallSaga.Utils.Trees;
 using UnityEngine;
 
 namespace FrostfallSaga.Core.Fight
@@ -9,16 +11,19 @@ namespace FrostfallSaga.Core.Fight
         menuName = "ScriptableObjects/Entities/PersistedFighterConfiguration", order = 0)]
     public class PersistedFighterConfigurationSO : FighterConfigurationSO
     {
-        [field: SerializeField] public ABaseAbility[] EquipedActiveAbilities { get; private set; }
-        [field: SerializeField] public ABaseAbility[] EquipedPassiveAbilities { get; private set; }
+        [field: SerializeField] public List<AActiveAbility> EquippedActiveAbilities { get; private set; }
+        [field: SerializeField] public List<APassiveAbility> EquippedPassiveAbilities { get; private set; }
+        [field: SerializeField] public int AbilityPoints { get; private set; }
         [field: SerializeField] public Inventory Inventory { get; private set; }
         [field: SerializeField] public int Health { get; private set; }
-        [field: SerializeField] public List<ABaseAbility> UnlockedAbilities { get; private set; }
+
+        public new int ActiveAbilitiesCapacity = 5;
+        public new int PassiveAbilitiesCapacity = 0;
 
         public PersistedFighterConfigurationSO()
         {
-            EquipedActiveAbilities = Array.Empty<ABaseAbility>();
-            EquipedPassiveAbilities = Array.Empty<ABaseAbility>();
+            EquippedActiveAbilities = new();
+            EquippedPassiveAbilities = new();
             Health = 0;
         }
 
@@ -44,6 +49,106 @@ namespace FrostfallSaga.Core.Fight
             {
                 Health = amount;
             }
+        }
+
+        public EAbilityState GetAbilityState(ABaseAbility ability)
+        {
+            // If already in unlocked abilities, return unlocked state
+            if (UnlockedActiveAbilities.Contains(ability) || UnlockedPassiveAbilities.Contains(ability))
+            {
+                return EAbilityState.Unlocked;
+            }
+
+            // Otherwise, check if all parents are unlocked
+            GraphNode<ABaseAbility> node = GraphNode<ABaseAbility>.FindInGraph(FighterClass.AbilitiesGraphModel, ability);
+            if (node == null)
+            {
+                Debug.LogError($"Ability {ability.Name} not found in graph.");
+                return EAbilityState.Locked;
+            }
+
+            // If all parents are unlocked, return unlockable state
+            if (node.Parents.All(
+                parent => UnlockedActiveAbilities.Contains(parent.Data) || UnlockedPassiveAbilities.Contains(parent.Data)
+            ))
+            {
+                return EAbilityState.Unlockable;
+            }
+
+            // If not all parents are unlocked, return locked state
+            return EAbilityState.Locked;
+        }
+
+        public void EquipAbility(ABaseAbility ability)
+        {
+            if (ability is AActiveAbility activeAbility)
+            {
+                if (EquippedActiveAbilities.Contains(activeAbility))
+                {
+                    Debug.Log($"Ability {activeAbility.Name} is already equipped.");
+                    return;
+                }
+
+                if (EquippedActiveAbilities.Count >= ActiveAbilitiesCapacity)
+                {
+                    Debug.Log($"Cannot equip more than {ActiveAbilitiesCapacity} active abilities.");
+                    return;
+                }
+
+                EquippedActiveAbilities.Add(activeAbility);
+            }
+            else if (ability is APassiveAbility passiveAbility)
+            {
+                if (EquippedPassiveAbilities.Contains(passiveAbility))
+                {
+                    Debug.Log($"Ability {passiveAbility.Name} is already equipped.");
+                    return;
+                }
+
+                if (EquippedPassiveAbilities.Count >= PassiveAbilitiesCapacity)
+                {
+                    Debug.Log($"Cannot equip more than {PassiveAbilitiesCapacity} passive abilities.");
+                    return;
+                }
+
+                EquippedPassiveAbilities.Add(passiveAbility);
+            }
+        }
+
+        public bool UnequipAbility(ABaseAbility ability)
+        {
+            if (ability is AActiveAbility activeAbility)
+            {
+                return EquippedActiveAbilities.Remove(activeAbility);
+            }
+            else if (ability is APassiveAbility passiveAbility)
+            {
+                return EquippedPassiveAbilities.Remove(passiveAbility);
+            }
+            else
+            {
+                Debug.LogError($"Ability {ability.Name} is not an active or passive ability.");
+                return false;
+            }
+        }
+
+        public void UnlockAbility(ABaseAbility ability)
+        {
+            if (GetAbilityState(ability) != EAbilityState.Unlockable)
+            {
+                Debug.LogError($"Ability {ability.Name} is not unlockable.");
+                return;
+            }
+
+            if (AbilityPoints < ability.UnlockPoints)
+            {
+                Debug.LogError($"Not enough ability points to unlock {ability.Name}. Required: {ability.UnlockPoints}, Available: {AbilityPoints}");
+                return;
+            }
+
+            if (ability is AActiveAbility activeAbility) UnlockedActiveAbilities.Add(activeAbility);
+            else if (ability is APassiveAbility passiveAbility) UnlockedPassiveAbilities.Add(passiveAbility);
+            AbilityPoints -= ability.UnlockPoints;
         }
     }
 }

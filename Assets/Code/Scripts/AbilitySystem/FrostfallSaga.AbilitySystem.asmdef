@@ -1,0 +1,17 @@
+{
+	"name": "FrostfallSaga.AbilitySystem",
+	"rootNamespace": "FrostfallSaga.AbilitySystem",
+	"references": [
+        "FrostfallSaga.Core",
+		"FrostfallSaga.Utils"
+	],
+	"includePlatforms": [],
+	"excludePlatforms": [],
+	"allowUnsafeCode": false,
+	"overrideReferences": false,
+	"precompiledReferences": [],
+	"autoReferenced": true,
+	"defineConstraints": [],
+	"versionDefines": [],
+	"noEngineReferences": false
+}

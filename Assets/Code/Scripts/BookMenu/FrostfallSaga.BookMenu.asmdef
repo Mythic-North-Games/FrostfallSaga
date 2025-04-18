@@ -5,7 +5,8 @@
         "FrostfallSaga.Core",
         "FrostfallSaga.Utils",
         "FrostfallSaga.Quests",
-        "FrostfallSaga.InventorySystem"
+        "FrostfallSaga.InventorySystem",
+        "FrostfallSaga.AbilitySystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
