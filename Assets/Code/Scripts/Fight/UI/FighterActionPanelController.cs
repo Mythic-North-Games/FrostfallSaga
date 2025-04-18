@@ -218,7 +218,7 @@ namespace FrostfallSaga.Fight.UI
         {
             _objectDetailsPanelContainer.RemoveFromClassList(OBJECT_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME);
             _objectDetailsPanelController.Setup(
-                icon: longHoveredAbility.IconSprite,
+                icon: longHoveredAbility.Icon,
                 name: longHoveredAbility.Name,
                 description: longHoveredAbility.Description,
                 stats: longHoveredAbility.GetStatsUIData(),

@@ -10,6 +10,7 @@
     -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
     font-size: 150%;
     color: rgb(25, 25, 25);
+    white-space: normal;
 }
 
 .objectStatContainerRoot {

@@ -16,7 +16,7 @@ namespace FrostfallSaga.Fight.Abilities
     /// </summary>
     [CreateAssetMenu(fileName = "PassiveAbility", menuName = "ScriptableObjects/Fight/Abilities/PassiveAbility",
         order = 0)]
-    public class PassiveAbilitySO : ABaseAbility
+    public class PassiveAbilitySO : APassiveAbility
     {
         [SerializeReference] public AEffect[] effects;
 
@@ -128,5 +128,22 @@ namespace FrostfallSaga.Fight.Abilities
 
             return targets.ToArray();
         }
+
+        #region For the UI
+        public override Dictionary<Sprite, string> GetStatsUIData()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override List<string> GetEffectsUIData()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override List<string> GetMasterstrokeEffectsUIData()
+        {
+            throw new System.NotImplementedException();
+        }
+        #endregion
     }
 }
