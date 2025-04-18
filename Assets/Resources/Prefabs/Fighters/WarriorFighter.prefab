@@ -43,6 +43,10 @@ PrefabInstance:
       propertyPath: _parentToMove
       value: 
       objectReference: {fileID: 2920049516156015753}
+    - target: {fileID: -2203263797737145466, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -750095940487499108, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
       propertyPath: _parentToMove
       value: 
@@ -326,6 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f089ba37bd1d324b8e8d897c0121fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clickThreshold: 0.4
 --- !u!136 &2606586245611480665
 CapsuleCollider:
   m_ObjectHideFlags: 0

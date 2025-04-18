@@ -17,6 +17,7 @@ MonoBehaviour:
   <PersonalityTrait>k__BackingField: {fileID: 0}
   <UnlockedActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+  - {fileID: 11400000, guid: b22ba3c2797bc25439231a90f23620ab, type: 2}
   <ActiveAbilitiesCapacity>k__BackingField: 5
   <UnlockedPassiveAbilities>k__BackingField: []
   <PassiveAbilitiesCapacity>k__BackingField: 0
@@ -64,9 +65,11 @@ MonoBehaviour:
   <ReduceStatAnimationName>k__BackingField: 
   <IncreaseStatAnimationName>k__BackingField: 
   <ConsumableUseAnimationName>k__BackingField: 
-  <EquippedActiveAbilities>k__BackingField: []
+  <EquippedActiveAbilities>k__BackingField:
+  - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
+  - {fileID: 11400000, guid: b22ba3c2797bc25439231a90f23620ab, type: 2}
   <EquippedPassiveAbilities>k__BackingField: []
-  <AbilityPoints>k__BackingField: 3
+  <AbilityPoints>k__BackingField: 1
   <Inventory>k__BackingField:
     <WeaponSlot>k__BackingField:
       <Item>k__BackingField: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
@@ -213,4 +216,6 @@ MonoBehaviour:
     - <Item>k__BackingField: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
       <ItemCount>k__BackingField: 2
       <MaxItemCount>k__BackingField: 99
-  <Health>k__BackingField: 60
+  <Health>k__BackingField: 20
+  ActiveAbilitiesCapacity: 5
+  PassiveAbilitiesCapacity: 0
