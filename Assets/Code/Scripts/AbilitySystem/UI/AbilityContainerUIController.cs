@@ -1,4 +1,3 @@
-using System;
 using FrostfallSaga.Core.Fight;
 using UnityEngine.UIElements;
 
@@ -15,10 +14,11 @@ namespace FrostfallSaga.AbilitySystem.UI
         private static readonly string ICE_LOCK_VISIBLE_CLASSNAME = "iceLockVisible";
         private static readonly string ICE_LOCK_HIDDEN_CLASSNAME = "iceLockHidden";
         #endregion
+        
+        public ABaseAbility CurrentAbility { get; private set; }
 
         private readonly VisualElement _abilityIcon;
         private readonly VisualElement _iceLock;
-        private ABaseAbility _ability;
         private EAbilityState _abilityState;
 
         public AbilityContainerUIController(VisualElement root)
@@ -29,14 +29,14 @@ namespace FrostfallSaga.AbilitySystem.UI
 
         public void SetAbility(ABaseAbility ability, EAbilityState abilityState)
         {
-            _ability = ability;
+            CurrentAbility = ability;
             _abilityState = abilityState;
             UpdateUI();
         }
 
         public void SetDefautState()
         {
-            _ability = null;
+            CurrentAbility = null;
             _abilityState = EAbilityState.Locked;
 
             _abilityIcon.style.backgroundImage = null;
@@ -49,7 +49,7 @@ namespace FrostfallSaga.AbilitySystem.UI
 
         private void UpdateUI()
         {
-            _abilityIcon.style.backgroundImage = new(_ability.IconSprite);
+            _abilityIcon.style.backgroundImage = new(CurrentAbility.Icon);
             _abilityIcon.ClearClassList();
             bool iconLocked = _abilityState == EAbilityState.Locked || _abilityState == EAbilityState.Unlockable;
             _abilityIcon.AddToClassList(iconLocked ? ABILITY_ICON_LOCKED_CLASSNAME : ABILITY_ICON_UNLOCKED_CLASSNAME);

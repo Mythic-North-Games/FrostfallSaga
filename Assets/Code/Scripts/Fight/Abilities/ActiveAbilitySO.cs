@@ -19,7 +19,7 @@ namespace FrostfallSaga.Fight.Abilities
     /// </summary>
     [CreateAssetMenu(fileName = "ActiveAbility", menuName = "ScriptableObjects/Fight/Abilities/ActiveAbility",
         order = 0)]
-    public class ActiveAbilitySO : ABaseAbility
+    public class ActiveAbilitySO : AActiveAbility
     {
         [field: SerializeField] public Targeter Targeter { get; private set; }
 
@@ -161,7 +161,7 @@ namespace FrostfallSaga.Fight.Abilities
 
         #region For the UI
 
-        public Dictionary<Sprite, string> GetStatsUIData()
+        public override Dictionary<Sprite, string> GetStatsUIData()
         {
             UIIconsProvider iconsProvider = UIIconsProvider.Instance;
             return new()
@@ -176,7 +176,7 @@ namespace FrostfallSaga.Fight.Abilities
             };
         }
 
-        public List<string> GetEffectsUIData()
+        public override List<string> GetEffectsUIData()
         {
             return effects
                 .Select(effect => effect.GetUIEffectDescription())
@@ -184,7 +184,7 @@ namespace FrostfallSaga.Fight.Abilities
                 .ToList();
         }
 
-        public List<string> GetMasterstrokeEffectsUIData()
+        public override List<string> GetMasterstrokeEffectsUIData()
         {
             return masterstrokeEffects
                 .Select(effect => effect.GetUIEffectDescription())

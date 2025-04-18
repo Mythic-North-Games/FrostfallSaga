@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: HeroFighterConfiguration
   m_EditorClassIdentifier: 
   <FighterPrefab>k__BackingField: {fileID: 2920049516156015753, guid: 5f1dab0e72fc4b080a019f723145dadf, type: 3}
-  <FighterClass>k__BackingField: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
+  <FighterClass>k__BackingField: {fileID: 11400000, guid: 0a98b7f5e6fdf2cd18ccc734f252e5c7, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 0}
-  <AvailableActiveAbilities>k__BackingField:
+  <UnlockedActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-  <ActiveAbilitiesCapacity>k__BackingField: 0
-  <AvailablePassiveAbilities>k__BackingField: []
+  <ActiveAbilitiesCapacity>k__BackingField: 5
+  <UnlockedPassiveAbilities>k__BackingField: []
   <PassiveAbilitiesCapacity>k__BackingField: 0
   <AvailableItems>k__BackingField: []
   <MinStycasLoot>k__BackingField: 0
@@ -64,10 +64,9 @@ MonoBehaviour:
   <ReduceStatAnimationName>k__BackingField: 
   <IncreaseStatAnimationName>k__BackingField: 
   <ConsumableUseAnimationName>k__BackingField: 
-  <EquipedActiveAbilities>k__BackingField:
-  - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-  - {fileID: 11400000, guid: 5f043d044d913ad4682a195b63aa9106, type: 2}
-  <EquipedPassiveAbilities>k__BackingField: []
+  <EquippedActiveAbilities>k__BackingField: []
+  <EquippedPassiveAbilities>k__BackingField: []
+  <AbilityPoints>k__BackingField: 3
   <Inventory>k__BackingField:
     <WeaponSlot>k__BackingField:
       <Item>k__BackingField: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
@@ -102,9 +101,9 @@ MonoBehaviour:
     - <Item>k__BackingField: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
       <ItemCount>k__BackingField: 2
       <MaxItemCount>k__BackingField: 99
-    - <Item>k__BackingField: {fileID: 0}
-      <ItemCount>k__BackingField: 0
-      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 11400000, guid: f9f8d3f2ae1c570718ab3063f1c07830, type: 2}
+      <ItemCount>k__BackingField: 1
+      <MaxItemCount>k__BackingField: 1
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
@@ -215,4 +214,3 @@ MonoBehaviour:
       <ItemCount>k__BackingField: 2
       <MaxItemCount>k__BackingField: 99
   <Health>k__BackingField: 60
-  <UnlockedAbilities>k__BackingField: []

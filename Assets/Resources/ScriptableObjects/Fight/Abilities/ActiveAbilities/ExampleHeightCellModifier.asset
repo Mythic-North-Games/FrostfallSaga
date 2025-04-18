@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Example height cell modifier
   <Description>k__BackingField: 
-  <IconSprite>k__BackingField: {fileID: 21300000, guid: 25afa91d08dce2c41a09ab3b2efd0e7e, type: 3}
-  <UnlockPoints>k__BackingField: 0
+  <Icon>k__BackingField: {fileID: 21300000, guid: 25afa91d08dce2c41a09ab3b2efd0e7e, type: 3}
+  <UnlockPoints>k__BackingField: 2
   <Targeter>k__BackingField:
     <OriginCellRange>k__BackingField: 5
     <CellsSequence>k__BackingField:

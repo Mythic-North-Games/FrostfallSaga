@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92309899b8b9f04ea20210cad65d66f, type: 3}
   m_Name: ExampleBleedAdder
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <IconSprite>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
-  <UnlockPoints>k__BackingField: 0
+  <Name>k__BackingField: Bleed adder
+  <Description>k__BackingField: Inflicts bleeding status to the target.
+  <Icon>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
+  <UnlockPoints>k__BackingField: 1
   <Targeter>k__BackingField:
     <OriginCellRange>k__BackingField: 4
     <CellsSequence>k__BackingField:
@@ -28,14 +28,32 @@ MonoBehaviour:
     <StopedAtXthHigherHeightDifference>k__BackingField: 0
     <StopedAtXthLowerHeightDifference>k__BackingField: 0
     <StopedAtXthEncounteredFighters>k__BackingField: 0
-  <ActionPointsCost>k__BackingField: 0
+  <ActionPointsCost>k__BackingField: 2
   <GodFavorsPointsCost>k__BackingField: 0
   <Dodgable>k__BackingField: 1
   <Masterstrokable>k__BackingField: 0
-  effects: []
+  effects:
+  - rid: 6053963100737241088
   masterstrokeEffects: []
   cellAlterations: []
   <Animation>k__BackingField: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6053963100737241088
+      type: {class: ApplyStatusesEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
+      data:
+        statusesToApply:
+        - rid: 6053963100737241089
+    - rid: 6053963100737241089
+      type: {class: BleedStatus, ns: FrostfallSaga.Fight.Statuses, asm: FrostfallSaga.Fight}
+      data:
+        <Icon>k__BackingField: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+        <StatusType>k__BackingField: 1
+        <IsPermanent>k__BackingField: 0
+        <Duration>k__BackingField: 4
+        <TriggerOnFirstApply>k__BackingField: 1
+        <IsRecurring>k__BackingField: 1
+        <TriggerTime>k__BackingField: 1
+        <VisualsController>k__BackingField: {fileID: 0}
+        <BleedingDamage>k__BackingField: 5

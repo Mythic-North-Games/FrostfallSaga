@@ -1,3 +1,5 @@
+using System;
+
 namespace FrostfallSaga.Core.Fight
 {
     public enum EAbilityState
@@ -5,5 +7,19 @@ namespace FrostfallSaga.Core.Fight
         Locked,
         Unlockable,
         Unlocked
+    }
+
+    public static class EAbilityStateMethods
+    {
+        public static string GetUIString(this EAbilityState state)
+        {
+            return state switch
+            {
+                EAbilityState.Locked => "Dormant",
+                EAbilityState.Unlockable => "Awaken",
+                EAbilityState.Unlocked => "Awoken",
+                _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
+            };
+        }
     }
 }

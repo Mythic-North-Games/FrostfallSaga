@@ -1,5 +1,6 @@
-using System;
+using System.Linq;
 using FrostfallSaga.Core.Entities;
+using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.EntitiesVisual;
 using FrostfallSaga.Fight;
@@ -37,24 +38,17 @@ namespace FrostfallSaga.EditModeTests.FightTests
             return fighter;
         }
 
-        private static void SetupFighterFromNonPersistingConfiguration(Fighter fighter,
-            EntityConfigurationSO entityConfiguration)
+        private static void SetupFighterFromNonPersistingConfiguration(Fighter fighter, EntityConfigurationSO entityConf)
         {
             Inventory testInventory = new();
             testInventory.WeaponSlot.AddItem(Resources.Load<WeaponSO>("EditModeTests/ScriptableObjects/TestWeapon"));
 
-            ActiveAbilitySO[] activeAbilities = Array.ConvertAll(
-                entityConfiguration.FighterConfiguration.AvailableActiveAbilities,
-                activeAbility => activeAbility as ActiveAbilitySO
-            );
-            PassiveAbilitySO[] passiveAbilities = Array.ConvertAll(
-                entityConfiguration.FighterConfiguration.AvailablePassiveAbilities,
-                passiveAbility => passiveAbility as PassiveAbilitySO
-            );
-
+            FighterConfigurationSO fighterConf = entityConf.FighterConfiguration;
+            ActiveAbilitySO[] activeAbilities = fighterConf.UnlockedActiveAbilities.Select(ability => ability as ActiveAbilitySO).ToArray();
+            PassiveAbilitySO[] passiveAbilities = fighterConf.UnlockedPassiveAbilities.Select(ability => ability as PassiveAbilitySO).ToArray();
             fighter.Setup(
-                entityConfiguration,
-                entityConfiguration.FighterConfiguration,
+                entityConf,
+                fighterConf,
                 activeAbilities,
                 passiveAbilities,
                 testInventory

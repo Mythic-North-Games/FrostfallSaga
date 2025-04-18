@@ -68,7 +68,7 @@ namespace FrostfallSaga.Fight.UI
                 // Set ability icon
                 if (i < fighter.ActiveAbilities.Length)
                 {
-                    abilityIcon.style.backgroundImage = new(fighter.ActiveAbilities[i].IconSprite);
+                    abilityIcon.style.backgroundImage = new(fighter.ActiveAbilities[i].Icon);
                 }
                 else
                 {
