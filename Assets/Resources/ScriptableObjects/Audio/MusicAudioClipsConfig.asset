@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6318a51526d6646b98e0865165e63d, type: 3}
   m_Name: MusicAudioClipsConfig
   m_EditorClassIdentifier: 
-  tittleScreenMusic: {fileID: 8300000, guid: 9182a041bc8c93747983664e65009b87, type: 3}
-  kingdomMusic: {fileID: 8300000, guid: 5f193dd6196cda149b13896ee57f082f, type: 3}
-  fightMusic: {fileID: 8300000, guid: 518ac935a40fc02478ad68193dc32a3f, type: 3}
+  titleScreenMusic: {fileID: 8300000, guid: 9182a041bc8c93747983664e65009b87, type: 3}
+  kingdomMusic: {fileID: 8300000, guid: 518ac935a40fc02478ad68193dc32a3f, type: 3}
+  fightMusic: {fileID: 8300000, guid: 5f193dd6196cda149b13896ee57f082f, type: 3}

@@ -9,7 +9,7 @@ public enum UISounds
 
 public enum MusicSounds
 {
-    TittleScreen,
+    TitleScreen,
     Kingdom,
     Fight
 }

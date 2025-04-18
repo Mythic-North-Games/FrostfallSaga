@@ -81,7 +81,7 @@ namespace FrostfallSaga.Fight.FightCells
 
         public override bool IsTerrainAccessible()
         {
-            return IsAccessibleTerrain && !HasObstacle();
+            return IsAccessible && !HasObstacle();
         }
 
         public GameObject GetImpedimentGameObject()
@@ -91,7 +91,7 @@ namespace FrostfallSaga.Fight.FightCells
 
         public override bool IsFree()
         {
-            return IsAccessibleTerrain && !HasFighter() && !HasObstacle();
+            return IsAccessible && !HasFighter() && !HasObstacle();
         }
         
         public bool HasFighter()

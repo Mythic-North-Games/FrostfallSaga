@@ -21,8 +21,8 @@ namespace FrostfallSaga.Audio
 
             switch (soundName)
             {
-                case MusicSounds.TittleScreen:
-                    return _musicAudioClipsConfig.tittleScreenMusic;
+                case MusicSounds.TitleScreen:
+                    return _musicAudioClipsConfig.titleScreenMusic;
                 case MusicSounds.Kingdom:
                     return _musicAudioClipsConfig.kingdomMusic;
                 case MusicSounds.Fight:
