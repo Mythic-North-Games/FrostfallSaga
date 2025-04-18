@@ -25,8 +25,8 @@ namespace FrostfallSaga.EditModeTests
 
         public static readonly TerrainTypeSO InaccessibleTerrain =
             Resources.Load<TerrainTypeSO>("EditModeTests/ScriptableObjects/TestTerrainTypeInaccessible");
-        
-        
+
+
         public static KingdomHexGrid CreateEmptyGridForTest(int width = 5, int height = 5)
         {
             GameObject gameObject = Object.Instantiate(HexGridKingdomPrefabTest);
@@ -43,9 +43,7 @@ namespace FrostfallSaga.EditModeTests
                 for (int x = 0; x < width; x++)
                 {
                     Vector2Int coord = new(x, y);
-                    KingdomCell cell = (KingdomCell)CreateCellForTest(coord);
-                    cell.transform.SetParent(grid.transform);
-                    grid.Cells[coord] = cell;
+                    CreateCellForTest(coord, grid);
                 }
             }
 
@@ -74,6 +72,7 @@ namespace FrostfallSaga.EditModeTests
         /// </summary>
         public static Cell CreateCellForTest(
             Vector2Int coordinates,
+            AHexGrid parentGrid,
             bool fightCell = false,
             ECellHeight height = ECellHeight.LOW,
             float hexGridSize = 2f
@@ -93,7 +92,12 @@ namespace FrostfallSaga.EditModeTests
             cellVisualGameObject.AddComponent<MaterialHighlightable>();
 
             Cell newCell = cellGameObject.GetComponent<Cell>();
+            newCell.transform.SetParent(parentGrid.transform);
+
+            newCell.Initialize();
             newCell.Setup(coordinates, height, hexGridSize, AccessibleTerrain, DefaultBiomeTest);
+
+            parentGrid.Cells[coordinates] = newCell;
 
             return newCell;
         }
