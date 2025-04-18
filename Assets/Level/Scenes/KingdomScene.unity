@@ -1544,6 +1544,7 @@ GameObject:
   - component: {fileID: 1660349216}
   - component: {fileID: 1660349215}
   - component: {fileID: 1660349214}
+  - component: {fileID: 1660349219}
   m_Layer: 0
   m_Name: BookMenu
   m_TagString: Untagged
@@ -1568,7 +1569,7 @@ MonoBehaviour:
   equippedPanelTemplate: {fileID: 9197481963319205126, guid: 85cc35556c3486bfdb3589f4f7f9de63, type: 3}
   bagPanelTemplate: {fileID: 9197481963319205126, guid: 620d5dbc289500c3bbae70a2ddaf0182, type: 3}
   statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
-  statValueColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  statValueColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   devHero: {fileID: 0}
 --- !u!114 &1660349215
 MonoBehaviour:
@@ -1605,6 +1606,7 @@ MonoBehaviour:
   _bookMenuBarController: {fileID: 1074157366}
   _questsMenuController: {fileID: 1660349215}
   _inventoryMenuController: {fileID: 1660349214}
+  _abilitySystemMenuController: {fileID: 1660349219}
 --- !u!114 &1660349217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1636,6 +1638,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 411216151}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1660349219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660349213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2802a2ca7c44c6c4ea290103e11643f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDoc: {fileID: 1660349217}
+  _abilityTreePanelTemplate: {fileID: 9197481963319205126, guid: 776fa79309bb2f14aa3612dcf74d3005, type: 3}
+  _abilityDetailsPanelTemplate: {fileID: 9197481963319205126, guid: 58c7dae3889adba679a1fa8140b85474, type: 3}
+  _statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
+  _statValueColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
 --- !u!1 &1920815083
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,6 +1791,9 @@ MonoBehaviour:
   <MaxTranslationSpeed>k__BackingField: 30
   <MinY>k__BackingField: 2
   <MaxY>k__BackingField: 10
+  grabCursor: {fileID: 0}
+  mouseCursor: {fileID: 0}
+  rotationSpeed: 10
 --- !u!1001 &2710895280625742663
 PrefabInstance:
   m_ObjectHideFlags: 0

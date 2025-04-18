@@ -13,14 +13,13 @@ MonoBehaviour:
   m_Name: SkeletonFighterConfiguration
   m_EditorClassIdentifier: 
   <FighterPrefab>k__BackingField: {fileID: 2920049516156015753, guid: 50f517861ac6c6546b6825a6766adf4f, type: 3}
-  <FighterClass>k__BackingField: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
+  <FighterClass>k__BackingField: {fileID: 11400000, guid: 0a98b7f5e6fdf2cd18ccc734f252e5c7, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 11400000, guid: fb35749618274e019a3ffb157934cc4f, type: 2}
-  <AvailableActiveAbilities>k__BackingField:
+  <UnlockedActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
   - {fileID: 11400000, guid: 436fd3c6fdddb5b05a6357cf2d05e708, type: 2}
   <ActiveAbilitiesCapacity>k__BackingField: 2
-  <AvailablePassiveAbilities>k__BackingField:
-  - {fileID: 11400000, guid: 3fc4f79860f8f4644b2a34806de9cbc8, type: 2}
+  <UnlockedPassiveAbilities>k__BackingField: []
   <PassiveAbilitiesCapacity>k__BackingField: 1
   <AvailableItems>k__BackingField:
   - element: {fileID: 11400000, guid: 57da2480a19997f6da45abf7f0877db4, type: 2}

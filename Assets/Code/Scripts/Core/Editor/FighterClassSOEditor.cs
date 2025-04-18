@@ -1,25 +1,22 @@
-using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Utils.Trees;
-using UnityEditor;
-using UnityEngine;
 
 namespace FrostfallSaga.Core
 {
     [CustomEditor(typeof(FighterClassSO))]
     public class FighterClassSOEditor : Editor
     {
-        private readonly Dictionary<TreeNode<ABaseAbility>, bool> _nodeFoldouts = new();
         private FighterClassSO _fighterClassSO;
-        private TreeNode<ABaseAbility> _nodeToRemove = null;
-        private bool _showTree = true;
-        public Action onDialogueChanged;
+        private bool _showGraph = true;
+        private readonly Dictionary<GraphNode<ABaseAbility>, bool> _nodeFoldouts = new();
+        private GraphNode<ABaseAbility> _nodeToRemove;
 
         private void OnEnable()
         {
-            if (target == null)
-                return;
+            if (target == null) return;
             _fighterClassSO = (FighterClassSO)target;
         }
 
@@ -28,94 +25,78 @@ namespace FrostfallSaga.Core
             DrawDefaultInspector();
 
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Ability Tree Editor", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Ability Graph Editor", EditorStyles.boldLabel);
 
-            if (_fighterClassSO.AbilitiesTreeModel == null)
+            if (_fighterClassSO.AbilitiesGraphModel == null)
             {
                 if (GUILayout.Button("Create Root Node"))
                 {
-                    _fighterClassSO.SetRoot(new TreeNode<ABaseAbility>(null));
+                    _fighterClassSO.SetGraphRoot(new GraphNode<ABaseAbility> { Data = null });
                 }
             }
             else
             {
-                _showTree = EditorGUILayout.Foldout(_showTree, "Ability Tree");
-
-                if (_showTree)
+                _showGraph = EditorGUILayout.Foldout(_showGraph, "Ability Graph");
+                if (_showGraph)
                 {
                     EditorGUI.indentLevel++;
-                    DrawTree(_fighterClassSO.AbilitiesTreeModel, null);
+                    DrawGraph(_fighterClassSO.AbilitiesGraphModel);
                     EditorGUI.indentLevel--;
                 }
             }
 
-            // Suppression du n�ud s�lectionn�
             if (_nodeToRemove != null)
             {
                 RemoveNode(_nodeToRemove);
                 _nodeToRemove = null;
-                GUI.changed = true; // Force la mise � jour de l'UI
-            }
-
-            if (GUI.changed)
-            {
-                EditorUtility.SetDirty(target);
             }
         }
 
-        private void DrawTree(TreeNode<ABaseAbility> node, TreeNode<ABaseAbility> parent)
+        private void DrawGraph(GraphNode<ABaseAbility> node)
         {
             if (node == null)
                 return;
 
-            var data = node.GetData();
-            _nodeFoldouts.TryAdd(node, true);
+            string label = (node.Data == null) ? "Untitled Node" : node.Data.Name;
+            bool isRoot = node.Parents == null || node.Parents.Count == 0;
 
-            // D�but du bloc pour le n�ud
+            if (!_nodeFoldouts.ContainsKey(node)) _nodeFoldouts[node] = true;
+
             EditorGUILayout.BeginVertical("box");
             EditorGUILayout.BeginHorizontal();
-
-            _nodeFoldouts[node] = EditorGUILayout.Foldout(
-                _nodeFoldouts[node],
-                data == null ? "Untitled Node" : data.Name,
-                true
-            );
-
-            if (parent != null && GUILayout.Button("Remove", GUILayout.MaxWidth(70)))
+            _nodeFoldouts[node] = EditorGUILayout.Foldout(_nodeFoldouts[node], label, true);
+            if (!isRoot)
             {
-                _nodeToRemove = node;
+                if (GUILayout.Button("Remove", GUILayout.MaxWidth(70)))
+                {
+                    _nodeToRemove = node;                
+                }
             }
 
             EditorGUILayout.EndHorizontal();
 
-            // Si le n�ud est ouvert
-            if (_nodeFoldouts[node])
+            if (_nodeFoldouts.ContainsKey(node) && _nodeFoldouts[node])
             {
-                // S�lection de l'Ability
-                ABaseAbility newAbility = (ABaseAbility)EditorGUILayout.ObjectField(
-                    "Ability", data, typeof(ABaseAbility), false
-                );
-                if (newAbility != data)
+                ABaseAbility newAbility = (ABaseAbility)EditorGUILayout.ObjectField("Ability", node.Data, typeof(ABaseAbility), false);
+                if (newAbility != node.Data)
                 {
-                    node.SetData(newAbility);
+                    node.Data = newAbility;
                     EditorUtility.SetDirty(_fighterClassSO);
                 }
 
-                // Affichage des enfants
                 EditorGUILayout.Space();
-                foreach (TreeNode<ABaseAbility> child in new List<TreeNode<ABaseAbility>>(node.GetChildren()))
+                foreach (var child in node.Children)
                 {
                     EditorGUI.indentLevel++;
-                    DrawTree(child, node);
+                    DrawGraph(child);
                     EditorGUI.indentLevel--;
                 }
 
-                // ?? Bouton "Add Ability" **� l'int�rieur** du n�ud
                 EditorGUILayout.BeginHorizontal();
-                GUILayout.Space(20 * EditorGUI.indentLevel); // Indentation correcte
+                GUILayout.Space(20 * EditorGUI.indentLevel);
                 if (GUILayout.Button("+ Add Ability", GUILayout.MaxWidth(150)))
                 {
-                    node.GetChildren().Add(new TreeNode<ABaseAbility>(null));
+                    AddNode(node);
                 }
 
                 EditorGUILayout.EndHorizontal();
@@ -125,27 +106,27 @@ namespace FrostfallSaga.Core
             EditorGUILayout.Space();
         }
 
-        private void RemoveNode(TreeNode<ABaseAbility> node)
+        private void AddNode(GraphNode<ABaseAbility> parent)
         {
-            Queue<TreeNode<ABaseAbility>> queue = new();
-            queue.Enqueue(_fighterClassSO.AbilitiesTreeModel);
+            if (parent == null) return;
 
-            while (queue.Count > 0)
+            GraphNode<ABaseAbility> newNode = new() { Data = null };
+            parent.Children.Add(newNode);
+            newNode.Parents.Add(parent);
+            _nodeFoldouts[newNode] = true;
+            EditorUtility.SetDirty(_fighterClassSO);
+        }
+
+        private void RemoveNode(GraphNode<ABaseAbility> node)
+        {
+            if (node == null) return;
+
+            foreach (GraphNode<ABaseAbility> parent in node.Parents)
             {
-                TreeNode<ABaseAbility> current = queue.Dequeue();
-
-                if (current.GetChildren().Contains(node))
-                {
-                    current.GetChildren().Remove(node);
-                    _nodeFoldouts.Remove(node); // Nettoyage du dictionnaire
-                    return;
-                }
-
-                foreach (var child in current.GetChildren())
-                {
-                    queue.Enqueue(child);
-                }
+                if (parent.Children.Contains(node)) parent.Children.Remove(node);
             }
+            _nodeFoldouts.Remove(node);
+            EditorUtility.SetDirty(_fighterClassSO);
         }
     }
 }

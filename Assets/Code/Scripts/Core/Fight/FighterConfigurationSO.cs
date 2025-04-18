@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Utils;
 using UnityEngine;
@@ -12,9 +13,9 @@ namespace FrostfallSaga.Core.Fight
         [field: SerializeField] public GameObject FighterPrefab { get; private set; }
         [field: SerializeField] public FighterClassSO FighterClass { get; private set; }
         [field: SerializeField] public APersonalityTrait PersonalityTrait { get; private set; }
-        [field: SerializeField] public ABaseAbility[] AvailableActiveAbilities { get; private set; }
+        [field: SerializeField] public List<AActiveAbility> UnlockedActiveAbilities { get; private set; }
         [field: SerializeField] public int ActiveAbilitiesCapacity { get; private set; }
-        [field: SerializeField] public ABaseAbility[] AvailablePassiveAbilities { get; private set; }
+        [field: SerializeField] public List<APassiveAbility> UnlockedPassiveAbilities { get; private set; }
         [field: SerializeField] public int PassiveAbilitiesCapacity { get; private set; }
 
         [field: SerializeField]
@@ -29,9 +30,9 @@ namespace FrostfallSaga.Core.Fight
             FighterPrefab = null;
             FighterClass = null;
             PersonalityTrait = null;
-            AvailableActiveAbilities = Array.Empty<ABaseAbility>();
+            UnlockedActiveAbilities = new();
             ActiveAbilitiesCapacity = 0;
-            AvailablePassiveAbilities = Array.Empty<ABaseAbility>();
+            UnlockedPassiveAbilities = new();
             PassiveAbilitiesCapacity = 0;
             MaxHealth = 0;
             MaxActionPoints = 0;
