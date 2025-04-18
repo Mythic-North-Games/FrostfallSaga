@@ -1183,8 +1183,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a337116156b60604b92b6cfc653c9566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiAudioClipsConfig: {fileID: 11400000, guid: aef339ccaf3b4d5418f6a13c4eb33e47, type: 2}
-  audioSourceObject: {fileID: 4094540750882597515, guid: b034ff1c05b1ef24fb9925f182960e04, type: 3}
+  uiAudioClipsConfig: {fileID: 0}
+  audioSourceObject: {fileID: 4094540750882597515, guid: 55fc8c5428cc982aa9f10837f51f70e0, type: 3}
+  musicAudioClipsConfig: {fileID: 11400000, guid: bfbaf9f82d12a994e8af63264796d018, type: 2}
+  defaultFadeDuration: 1.5
 --- !u!4 &2109054032
 Transform:
   m_ObjectHideFlags: 0

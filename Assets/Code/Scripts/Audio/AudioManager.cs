@@ -12,8 +12,14 @@ namespace FrostfallSaga.Audio
 
         [SerializeField] private UIAudioClipsConfig uiAudioClipsConfig;
         [SerializeField] private AudioSource audioSourceObject;
-        private AudioSource _currentFXAudioSource;
+        [SerializeField] public MusicAudioClipsConfig musicAudioClipsConfig;
+        [SerializeField, Range(0f, 3f)] private float defaultFadeDuration = 1.5f;
         private UIAudioClipSelector _uIAudioClipSelector;
+        private MusicAudioClipSelector _musicAudioClipSelector;
+        private AudioSource _currentFXAudioSource;
+        private AudioSource _currentMusicAudioSource;
+
+
 
         private void Awake()
         {
@@ -23,6 +29,7 @@ namespace FrostfallSaga.Audio
             }
 
             _uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
+            _musicAudioClipSelector = new MusicAudioClipSelector(musicAudioClipsConfig);
         }
 
         /// <summary>
@@ -63,7 +70,7 @@ namespace FrostfallSaga.Audio
         {
             if (sound == null)
             {
-                Debug.LogWarning("Tried to play a null sound clip.");
+                Debug.LogWarning("Tried to play a null FX sound clip.");
                 return;
             }
 
@@ -120,45 +127,53 @@ namespace FrostfallSaga.Audio
         }
 
 
-        // A UTILISER POUR LA MUSIQUE
-        //public void PlayMusicSound(FXSounds sound, Transform spawnTransform, float audioVolume, float duration)
-        //{
-        //AudioClip audioClip = fXAudioClipSelector.SelectAudioClip(sound);
-        //if (audioClip != null)
-        //{
-        //float clipLength = audioClip.length;
-        //float destroyTime = Mathf.Max(clipLength, duration); // On garde l'objet au moins le temps défini
+        /// <summary>
+        /// Play a Music sound effect by using the FXSounds enum.
+        /// </summary>
+        /// <param name="sound">The sound to play</param>
+        /// <param name="volume">The volume of the audio clip</param>
+        /// <param name="loop">Whether the sound should loop or not</param>
+        public void PlayMusicSound(
+            MusicSounds soundName,
+            float volume,
+            bool loop = true
+        )
+        {
+            Debug.Log($"PlayMusicSound called for {soundName}");
 
-        // Créer une source audio
-        //AudioSource audioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
-        //audioSource.clip = audioClip;
-        //audioSource.volume = audioVolume;
+            AudioClip sound = _musicAudioClipSelector.SelectAudioClip(soundName);
 
-        // Activez la lecture en boucle si la durée souhaitée est plus longue que la durée du clip
-        //if (duration > audioClip.length)
-        //{
-        //    audioSource.loop = true;
-        //}
+            if (sound == null)
+            {
+                Debug.LogWarning($"No music clip found for: {soundName}");
+                return;
+            }
 
-        // Jouez le son
-        //audioSource.Play();
+            // Fade out current music
+            if (_currentMusicAudioSource != null)
+            {
+                StartCoroutine(FadeOutAndDestroyAudioSource(_currentMusicAudioSource, defaultFadeDuration));
+            }
 
-        // Démarrer une coroutine pour arrêter le son après la durée spécifiée
-        //StartCoroutine(StopSoundAfterDuration(audioSource, duration));
+            // Create and configure a new AudioSource for music
+            AudioSource newAudioSource = Instantiate(audioSourceObject);
+            newAudioSource.clip = sound;
+            newAudioSource.volume = volume;
+            newAudioSource.loop = loop;
+            newAudioSource.Play();
 
-        //Destroy(audioSource.gameObject, destroyTime);
-        //}
-        //else
-        //{
-        //Debug.LogError("Audio clip " + sound + " not found");
-        //}
-        //}
+            _currentMusicAudioSource = newAudioSource;
+
+            // If not looping, destroy after the clip ends
+            if (!loop) Destroy(newAudioSource.gameObject, sound.length);
+        }
 
 #if UNITY_EDITOR
         public void InitializeAudioClipSelectorFromTests(UIAudioClipsConfig uIAudioClipsConfig)
         {
             _uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
         }
+
 #endif
     }
 }

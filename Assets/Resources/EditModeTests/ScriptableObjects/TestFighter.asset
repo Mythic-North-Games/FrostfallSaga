@@ -15,11 +15,14 @@ MonoBehaviour:
   <FighterPrefab>k__BackingField: {fileID: 0}
   <FighterClass>k__BackingField: {fileID: 11400000, guid: 9b0974f28b354c34ea64a6bd06d679f7, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 0}
-  <AvailableActiveAbilities>k__BackingField:
+  <UnlockedActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: 96b49d2c6e60f09488401b8474900905, type: 2}
   <ActiveAbilitiesCapacity>k__BackingField: 1
-  <AvailablePassiveAbilities>k__BackingField: []
+  <UnlockedPassiveAbilities>k__BackingField: []
   <PassiveAbilitiesCapacity>k__BackingField: 0
+  <AvailableItems>k__BackingField: []
+  <MinStycasLoot>k__BackingField: 0
+  <MaxStycasLoot>k__BackingField: 0
   <MaxHealth>k__BackingField: 100
   <MaxActionPoints>k__BackingField: 5
   <MaxMovePoints>k__BackingField: 5
@@ -60,3 +63,4 @@ MonoBehaviour:
   <ReceiveDamageAnimationName>k__BackingField: 
   <ReduceStatAnimationName>k__BackingField: 
   <IncreaseStatAnimationName>k__BackingField: 
+  <ConsumableUseAnimationName>k__BackingField: 

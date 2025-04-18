@@ -36,6 +36,7 @@ namespace FrostfallSaga.Fight
             Debug.Log("Fighters Generated !");
             SceneTransitioner.FadeInCurrentScene();
             AudioManager.Instance.PlayUISound(UISounds.FightBegin);
+            AudioManager.Instance.PlayMusicSound(MusicSounds.Fight, 1.0f);
             OnFightLoaded?.Invoke(fighters.Key, fighters.Value);
         }
 

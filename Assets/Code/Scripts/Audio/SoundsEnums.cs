@@ -6,3 +6,10 @@ public enum UISounds
     FightWon,
     FightLost
 }
+
+public enum MusicSounds
+{
+    TitleScreen,
+    Kingdom,
+    Fight
+}

@@ -12,6 +12,7 @@ using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.InterestPoints;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
+using FrostfallSaga.Audio;
 using FrostfallSaga.Utils.Scenes;
 using UnityEngine;
 
@@ -46,7 +47,8 @@ namespace FrostfallSaga.Kingdom
         #endregion
 
         private void Start()
-        {
+        {   
+            AudioManager.Instance.PlayMusicSound(MusicSounds.Kingdom, 1.0f);
             SceneTransitioner.FadeInCurrentScene();
             kingdomHexGrid.ClearCells();
             Debug.Log("Generating Kingdom Grid...");
