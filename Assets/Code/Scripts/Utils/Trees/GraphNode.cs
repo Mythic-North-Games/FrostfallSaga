@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace FrostfallSaga.Utils.Trees
 {
@@ -7,8 +8,8 @@ namespace FrostfallSaga.Utils.Trees
     public class GraphNode<T>
     {
         public T Data;
-        public List<GraphNode<T>> Parents = new();
-        public List<GraphNode<T>> Children = new();
+        [NonSerialized] public List<GraphNode<T>> Parents = new();
+        [SerializeReference] public List<GraphNode<T>> Children = new();
 
         public static GraphNode<T> FindInGraph(GraphNode<T> root, T data)
         {

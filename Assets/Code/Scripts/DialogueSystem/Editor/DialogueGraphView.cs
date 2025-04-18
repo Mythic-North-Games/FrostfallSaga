@@ -36,7 +36,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             _currentDialogue = dialogue;
             ClearGraph();
 
-            if (dialogue.DialogueTreeRoot == null || dialogue.DialogueTreeRoot.GetData() == null)
+            if (dialogue.DialogueTreeRoot == null || dialogue.DialogueTreeRoot.Data == null)
             {
                 DialogueLine rootData = new("Start", "Begin conversation...", null, false);
                 dialogue.SetRoot(new TreeNode<DialogueLine>(rootData));
@@ -50,7 +50,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         private DialogueNode CreateGraphNodeTree(TreeNode<DialogueLine> treeNode, int depth, DialogueNode parentNode)
         {
             DialogueNode graphNode = CreateDialogueNode(treeNode, depth, parentNode);
-            foreach (TreeNode<DialogueLine> child in treeNode.GetChildren())
+            foreach (TreeNode<DialogueLine> child in treeNode.Children)
                 CreateGraphNodeTree(child, depth + 1, graphNode);
 
             return graphNode;
@@ -97,8 +97,8 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             DialogueLine newLine = new("New Answer", "Enter text...", null, false);
             TreeNode<DialogueLine> newTreeNode = new(newLine);
             parentNode.TreeNode.AddChild(newTreeNode);
-            parentNode.TreeNode.GetData().SetAnswers(
-                parentNode.TreeNode.GetChildren().Select(child => child.GetData().Title).ToArray()
+            parentNode.TreeNode.Data.SetAnswers(
+                parentNode.TreeNode.Children.Select(child => child.Data.Title).ToArray()
             );
             AutoSave();
 
@@ -120,12 +120,12 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         private void HandleNodeRemoved(DialogueNode nodeToRemove)
         {
             DialogueNode parentNode = nodeToRemove.ParentNode;
-            TreeNode<DialogueLine> parentTreeNode = nodeToRemove.TreeNode.GetParent();
+            TreeNode<DialogueLine> parentTreeNode = nodeToRemove.TreeNode.Parent;
             if (parentTreeNode == null) return;
 
-            int index = parentTreeNode.GetChildren().IndexOf(nodeToRemove.TreeNode);
+            int index = parentTreeNode.Children.IndexOf(nodeToRemove.TreeNode);
             parentTreeNode.RemoveChild(nodeToRemove.TreeNode);
-            DialogueLine parentData = parentTreeNode.GetData();
+            DialogueLine parentData = parentTreeNode.Data;
             if (parentData.Answers != null && parentData.Answers.Length > 0 && index < parentData.Answers.Length)
             {
                 List<string> answersList = new(parentData.Answers);

@@ -16,9 +16,26 @@ MonoBehaviour:
   <Description>k__BackingField: 
   <OriginLocation>k__BackingField: 
   <Type>k__BackingField: 0
+  <RewardConfiguration>k__BackingField:
+    <MinStycas>k__BackingField: 0
+    <MaxStycas>k__BackingField: 0
+    <PossibleItems>k__BackingField: []
   <IsCompleted>k__BackingField: 0
   <PossibleQuestEndings>k__BackingField:
   - element: 00000000
     value:
       <ConclusionText>k__BackingField: 
       <EndingIllustration>k__BackingField: {fileID: 0}
+  <Steps>k__BackingField:
+    Children: []
+    Data:
+      rid: 6053963118975909898
+  references:
+    version: 2
+    RefIds:
+    - rid: 6053963118975909898
+      type: {class: QuestStep, ns: FrostfallSaga.Core.Quests, asm: FrostfallSaga.Core}
+      data:
+        <Title>k__BackingField: First step
+        <Description>k__BackingField: Lorem ipsum dolor sit amet
+        <Actions>k__BackingField: {fileID: 0}
