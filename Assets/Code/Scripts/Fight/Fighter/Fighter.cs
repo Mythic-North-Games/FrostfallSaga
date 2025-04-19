@@ -97,7 +97,7 @@ namespace FrostfallSaga.Fight.Fighters
         public Action<Fighter, InventorySlot> onConsumableUseStarted;
 
         // <Fighter that received damages, the damages taken, if masterstroke>
-        public Action<Fighter, int, bool> onDamageReceived;
+        public Action<Fighter, int, bool, EMagicalElement?> onDamageReceived;
 
         // <Fighter that attacked>
         public Action<Fighter> onDirectAttackEnded;
@@ -312,7 +312,7 @@ namespace FrostfallSaga.Fight.Fighters
             DecreaseHealth(inflictedPhysicalDamageAmount);
 
             // Trigger damage received event
-            onDamageReceived?.Invoke(this, inflictedPhysicalDamageAmount, isMasterstroke);
+            onDamageReceived?.Invoke(this, inflictedPhysicalDamageAmount, isMasterstroke, null);
             Debug.Log($"{name} + received {inflictedPhysicalDamageAmount} physical damages");
         }
 
@@ -341,7 +341,7 @@ namespace FrostfallSaga.Fight.Fighters
             DecreaseHealth(inflictedMagicalDamageAmount);
 
             // Trigger damage received event
-            onDamageReceived?.Invoke(this, inflictedMagicalDamageAmount, isMasterstroke);
+            onDamageReceived?.Invoke(this, inflictedMagicalDamageAmount, isMasterstroke, magicalElement);
             Debug.Log($"{name} + received {inflictedMagicalDamageAmount} {magicalElement} magical damages");
         }
 
@@ -366,7 +366,7 @@ namespace FrostfallSaga.Fight.Fighters
         {
             PlayAnimationIfAny(_receiveDamageAnimationName);
             DecreaseHealth(damages);
-            onDamageReceived?.Invoke(this, damages, isMasterstroke);
+            onDamageReceived?.Invoke(this, damages, isMasterstroke, null);
             Debug.Log($"{name} + received {damages} raw damages.");
         }
 
