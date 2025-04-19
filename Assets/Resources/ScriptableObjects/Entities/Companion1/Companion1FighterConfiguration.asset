@@ -23,7 +23,7 @@ MonoBehaviour:
   <AvailableItems>k__BackingField: []
   <MinStycasLoot>k__BackingField: 0
   <MaxStycasLoot>k__BackingField: 0
-  <MaxHealth>k__BackingField: 60
+  <MaxHealth>k__BackingField: 500
   <MaxActionPoints>k__BackingField: 3
   <MaxMovePoints>k__BackingField: 3
   <Strength>k__BackingField: 3
@@ -214,6 +214,6 @@ MonoBehaviour:
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
-  <Health>k__BackingField: 60
+  <Health>k__BackingField: 483
   ActiveAbilitiesCapacity: 5
   PassiveAbilitiesCapacity: 0

@@ -1779,8 +1779,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
   _effectsUIPanel: {fileID: 9197481963319205126, guid: a703f84178f43ab4b9656507bc067c78, type: 3}
-  _displayDuration: 1.5
+  _displayDuration: 3
   _displayMarginFromFighter: {x: 1, y: 1, z: 0}
+  _yElevation: 1
   _damageStyleClass: damageLabel
   _healStyleClass: healLabel
   _dodgeStyleClass: dodgeLabel
@@ -1809,7 +1810,7 @@ MonoBehaviour:
   fightManager: {fileID: 1678739252}
   fightLoader: {fileID: 2012426617}
   timelineController: {fileID: 1952024165}
-  displayDurationOnAction: 2
+  displayDurationOnAction: 3
 --- !u!114 &1952024169
 MonoBehaviour:
   m_ObjectHideFlags: 0

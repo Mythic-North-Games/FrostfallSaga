@@ -37,9 +37,9 @@ MonoBehaviour:
     value: 2
   <MaxMagicalDamages>k__BackingField:
   - element: 0
-    value: 0
+    value: 10
   <FightersStrengths>k__BackingField: []
-  SpecialEffects: []
+  specialEffects: []
   <AttackAnimation>k__BackingField: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
   <WeaponUseSoundFX>k__BackingField: {fileID: 8300000, guid: 3c0943e18a9f20d41b474d88ab8d911e, type: 3}
   references:

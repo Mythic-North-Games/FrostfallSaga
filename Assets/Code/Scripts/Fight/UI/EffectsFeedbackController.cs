@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Utils;
@@ -20,13 +21,13 @@ namespace FrostfallSaga.Fight.UI
         [Header("UI options")]
         private VisualTreeAsset _effectsUIPanel;
 
-        [SerializeField] private float _displayDuration = 2f;
+        [SerializeField] private float _displayDuration = 4f;
         [SerializeField] private Vector3 _displayMarginFromFighter = new(0.5f, 1f);
+        [SerializeField] private float _yElevation = 2f;
         [SerializeField] private string _damageStyleClass;
         [SerializeField] private string _healStyleClass;
         [SerializeField] private string _dodgeStyleClass;
         [SerializeField] private string _masterstrokeStyleClass;
-        [SerializeField] private SElementToValue<EFighterMutableStat, Texture2D>[] _statIcons;
 
         [SerializeField]
         [Header("Needed components")]
@@ -58,12 +59,17 @@ namespace FrostfallSaga.Fight.UI
             }
         }
 
-        private void OnFighterReceivedDamages(Fighter receiver, int damageAmount, bool isMasterstroke)
+        private void OnFighterReceivedDamages(
+            Fighter receiver,
+            int damageAmount,
+            bool isMasterstroke,
+            EMagicalElement? magicalElement
+        )
         {
             VisualElement effectsPanel = SpawnEffectPanelForFighter(receiver);
             if (isMasterstroke)
             {
-                effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).text = $"Critical! {damageAmount}";
+                effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).text = $"{damageAmount}!";
                 effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).AddToClassList(_masterstrokeStyleClass);
             }
             else
@@ -72,6 +78,11 @@ namespace FrostfallSaga.Fight.UI
             }
 
             effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).AddToClassList(_damageStyleClass);
+
+            if (magicalElement != null)
+            {
+                effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).style.color = magicalElement.Value.GetUIColor();
+            }
 
             _fighterEffectsPanel[receiver].ForEach(panel => StartCoroutine(DisplayWaitAndRemove(receiver, panel)));
         }
@@ -82,7 +93,7 @@ namespace FrostfallSaga.Fight.UI
             VisualElement effectsPanel = SpawnEffectPanelForFighter(receiver);
             if (isMasterstroke)
             {
-                effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).text = $"Critical! +{healAmount}";
+                effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).text = $"+{healAmount}!";
                 effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).AddToClassList(_masterstrokeStyleClass);
             }
             else
@@ -98,15 +109,40 @@ namespace FrostfallSaga.Fight.UI
         private void OnFighterDodged(Fighter dodger)
         {
             VisualElement effectsPanel = SpawnEffectPanelForFighter(dodger);
-            effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).text = "Dodged!";
+            effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).text = "Dodged";
             effectsPanel.Q<Label>(EFFECT_LABEL_UI_NAME).AddToClassList(_dodgeStyleClass);
             StartCoroutine(DisplayWaitAndRemove(dodger, effectsPanel));
         }
 
         private IEnumerator DisplayWaitAndRemove(Fighter holder, VisualElement effectsPanel)
         {
+            GameObject anchor = _panelsAnchors[effectsPanel];
+
+            // Starting position
+            Vector3 startPos = anchor.transform.localPosition;
+
+            // Random target offset (in local space)
+            Vector3 offset = new(
+                Random.Range(-2f, 2f),
+                Random.Range(0.5f, 1.2f),
+                0f
+            );
+            Vector3 targetPos = startPos + offset;
+
+            float time = 0f;
+
             DisplayPanel(effectsPanel);
-            yield return new WaitForSeconds(_displayDuration);
+
+            // Animate position over display duration
+            while (time < _displayDuration && anchor != null)
+            {
+                time += Time.deltaTime;
+                float t = time / _displayDuration;
+                anchor.transform.localPosition = Vector3.Lerp(startPos, targetPos, Easings.EaseOutQuad(t));
+                yield return null;
+            }
+
+            // Clean up
             HidePanel(effectsPanel);
             Destroy(_positioners[effectsPanel]);
             Destroy(_panelsAnchors[effectsPanel]);
@@ -167,7 +203,7 @@ namespace FrostfallSaga.Fight.UI
             {
                 float randomX = Random.Range(-_displayMarginFromFighter.x, _displayMarginFromFighter.x);
                 float randomY = Random.Range(-_displayMarginFromFighter.y, _displayMarginFromFighter.y);
-                newPos = new Vector3(randomX, randomY + 1f, 0f);
+                newPos = new Vector3(randomX, randomY + _yElevation, 0f);
 
                 isValid = true; // assume it's valid unless overlap found
 

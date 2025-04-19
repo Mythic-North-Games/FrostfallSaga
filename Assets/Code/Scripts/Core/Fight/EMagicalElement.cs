@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace FrostfallSaga.Core.Fight
 {
@@ -38,6 +39,20 @@ namespace FrostfallSaga.Core.Fight
                 EMagicalElement.EARTH => "earth",
                 EMagicalElement.LIGHT => "light",
                 EMagicalElement.DARKNESS => "darkness",
+                _ => throw new InvalidOperationException("Unknown magical element."),
+            };
+        }
+
+        public static Color GetUIColor(this EMagicalElement magicalElement)
+        {
+            return magicalElement switch
+            {
+                EMagicalElement.FIRE => new Color(202f, 103f, 2f, 255f) / 255f,
+                EMagicalElement.ICE => new Color(173f, 232f, 244f, 255f) / 255f,
+                EMagicalElement.LIGHTNING => new Color(76f, 201f, 240f, 255f) / 255f,
+                EMagicalElement.EARTH => new Color(111f, 69f, 24f, 255f) / 255f,
+                EMagicalElement.LIGHT => new Color(248f, 249f, 250f, 255f) / 255f,
+                EMagicalElement.DARKNESS => new Color(60f, 9f, 108f, 255f) / 255f,
                 _ => throw new InvalidOperationException("Unknown magical element."),
             };
         }
