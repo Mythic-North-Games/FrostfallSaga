@@ -14,5 +14,6 @@ namespace FrostfallSaga.Core.Entities
         [field: SerializeField] public GameObject InventoryVisualPrefab { get; private set; }
         [field: SerializeField] public FighterConfigurationSO FighterConfiguration { get; private set; }
         [field: SerializeField] public EEntityRace Race { get; private set; }
+        [field: SerializeField, Range(90f, 360f)] public float KingdomDetectionRange { get; private set; } = 90f;
     }
 }

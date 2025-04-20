@@ -43,5 +43,5 @@ MonoBehaviour:
     - rid: 6053962956990054400
       type: {class: MagicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
-        MagicalDamageAmount: 3
+        MagicalDamageAmount: 60
         MagicalElement: 3

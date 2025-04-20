@@ -84,7 +84,11 @@ namespace FrostfallSaga.Fight
 
         private void HandleFightEnding(Fighter[] allies, Fighter[] enemies)
         {
-            // First, generate and save post-fight data
+            // Stop the fight music
+            AudioManager audioManager = AudioManager.Instance;
+            audioManager.StopCurrentMusic();
+
+            // Generate and save post-fight data
             GenerateAndSavePostFightData(allies, enemies);
 
             // Check if allies have won
@@ -108,8 +112,8 @@ namespace FrostfallSaga.Fight
             _fightEndMenuController.Setup(allies, enemies, alliesWon, stycasReward, itemsReward);
             _fightEndMenuController.SetVisible(true);
 
-            UIAudioClips uiAudioClips = AudioManager.Instance.UIAudioClips;
-            AudioManager.Instance.PlayUISound(alliesWon ? uiAudioClips.FightWon : uiAudioClips.FightLost);
+            // Play the appropriate sound based on the fight outcome
+            audioManager.PlayUISound(alliesWon ? audioManager.UIAudioClips.FightWon : audioManager.UIAudioClips.FightLost);
         }
 
         private void OnPlayerContinues()

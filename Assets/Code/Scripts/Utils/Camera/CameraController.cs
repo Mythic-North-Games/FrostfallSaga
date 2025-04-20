@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace FrostfallSaga.Utils.Camera
 {
@@ -42,6 +44,29 @@ namespace FrostfallSaga.Utils.Camera
         private void Start()
         {
             SetFOV(BaseFOV);
+        }
+
+        public void ZoomIn(float zoomAmount, float zoomDuration)
+        {
+            // Do the zoom in using corountine
+            StartCoroutine(ZoomCoroutine(zoomAmount, zoomDuration));
+        }
+
+        private IEnumerator ZoomCoroutine(float zoomAmount, float zoomDuration)
+        {
+            float startFOV = virtualCamera.m_Lens.FieldOfView;
+            float targetFOV = Mathf.Clamp(startFOV - zoomAmount, MinFOV, MaxFOV);
+            float elapsedTime = 0f;
+
+            while (elapsedTime < zoomDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsedTime / zoomDuration);
+                SetFOV(Mathf.Lerp(startFOV, targetFOV, Easing.OutQuad(t)));
+                yield return null;
+            }
+
+            SetFOV(targetFOV);
         }
 
         private void Update()

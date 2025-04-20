@@ -4,11 +4,11 @@ using System.Linq;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Camera;
 using FrostfallSaga.Utils.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace FrostfallSaga.Fight.UI
 {
@@ -138,7 +138,7 @@ namespace FrostfallSaga.Fight.UI
             {
                 time += Time.deltaTime;
                 float t = time / _displayDuration;
-                anchor.transform.localPosition = Vector3.Lerp(startPos, targetPos, Easings.EaseOutQuad(t));
+                anchor.transform.localPosition = Vector3.Lerp(startPos, targetPos, Easing.OutQuad(t));
                 yield return null;
             }
 

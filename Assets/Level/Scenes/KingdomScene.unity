@@ -1362,10 +1362,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e823463cf38a754a8520874f3d6c08d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kingdomManager: {fileID: 899991118}
-  readyToFightAnimationDuration: 2
-  delayBeforeLoadingSceneAfterReadyAnimation: 1
-  isPrintAnalysis: 0
+  _kingdomManager: {fileID: 899991118}
+  _cameraController: {fileID: 2047304808}
+  _readyToFightAnimationDuration: 2
+  _cameraZoomAmount: 25
+  _cameraZoomDuration: 0.5
+  _isPrintAnalysis: 0
 --- !u!1 &1449699357
 GameObject:
   m_ObjectHideFlags: 3
