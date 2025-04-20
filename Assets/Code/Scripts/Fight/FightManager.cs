@@ -227,7 +227,7 @@ namespace FrostfallSaga.Fight
             _randomController.Setup(this);
             _randomController.onFighterTurnEnded += OnFighterTurnEnded;
             _randomController.onFighterActionEnded += OnFighterActionEnded;
-            _fightLoader.OnFightLoaded += OnFightLoaded;
+            _fightLoader.onFightLoaded += OnFightLoaded;
         }
 
         #endregion

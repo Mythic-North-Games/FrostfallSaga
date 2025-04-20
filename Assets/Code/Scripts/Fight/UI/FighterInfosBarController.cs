@@ -60,7 +60,7 @@ namespace FrostfallSaga.Fight.UI
             }
 
             fightManager.onFightEnded += OnFightEnded;
-            fightLoader.OnFightLoaded += OnFightLoaded;
+            fightLoader.onFightLoaded += OnFightLoaded;
             timelineController.onFighterHovered += OnFighterHovered;
             timelineController.onFighterUnhovered += OnFighterUnhovered;
         }

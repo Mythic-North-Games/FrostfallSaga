@@ -209,7 +209,7 @@ namespace FrostfallSaga.Kingdom
             }
 
             enemiesGroupSpawner.OnEntitiesGroupSpawned += OnEnemiesGroupSpawned;
-            kingdomLoader.OnKingdomLoaded += OnKingdomLoaded;
+            kingdomLoader.onKingdomLoaded += OnKingdomLoaded;
 
             HeroTeamQuests.Instance.InitializeQuests(this);
         }

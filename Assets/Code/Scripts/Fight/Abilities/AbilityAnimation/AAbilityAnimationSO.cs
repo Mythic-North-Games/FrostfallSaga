@@ -11,17 +11,19 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
         public Action<FightCell> onCellTouched;
         public Action<Fighter> onFighterTouched;
 
+        protected AbilityCameraFollow _cameraFollow;
+
         /// <summary>
         ///     Executes the ability animation as configured.
         /// </summary>
         public abstract void Execute(Fighter fighterThatWillExecute, FightCell[] abilityTargetCells);
 
-        protected void OnFighterTouched(Fighter touchedFighter)
+        protected virtual void OnFighterTouched(Fighter touchedFighter)
         {
             onFighterTouched?.Invoke(touchedFighter);
         }
 
-        protected void OnCellTouched(FightCell touchedCell)
+        protected virtual void OnCellTouched(FightCell touchedCell)
         {
             onCellTouched?.Invoke(touchedCell);
         }
@@ -29,6 +31,15 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
         protected virtual void OnExecutorAnimationEnded(Fighter initiator)
         {
             onAnimationEnded?.Invoke(initiator);
+        }
+
+        protected void FindFollowCamera()
+        {
+            _cameraFollow = FindObjectOfType<AbilityCameraFollow>();
+            if (_cameraFollow == null)
+            {
+                Debug.LogError("AbilityCameraFollow not found in the scene.");
+            }
         }
     }
 }

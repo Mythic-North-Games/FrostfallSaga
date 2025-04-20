@@ -58,12 +58,7 @@ namespace FrostfallSaga.Fight.FightItems
             Transform audioSourceTransform = initator.GetWeaponCollider() != null
                 ? initator.GetWeaponCollider().transform
                 : initator.transform;
-            AudioManager.Instance.PlayFXSound(
-                WeaponUseSoundFX,
-                audioSourceTransform,
-                1f, 
-                0.5f
-            );
+            AudioManager.Instance.PlayFXSound(WeaponUseSoundFX, audioSourceTransform);
         }
 
         #region Physical damages computation

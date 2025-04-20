@@ -43,7 +43,7 @@ namespace FrostfallSaga.Fight.UI
 
         private void Awake()
         {
-            _fightLoader.OnFightLoaded += OnFightLoaded;
+            _fightLoader.onFightLoaded += OnFightLoaded;
         }
 
         #endregion

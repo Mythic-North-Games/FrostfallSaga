@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FrostfallSaga.Audio;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.GameState;
@@ -93,8 +94,9 @@ namespace FrostfallSaga.Kingdom
 
         private IEnumerator StartFightScene()
         {
+            AudioManager audioManager = AudioManager.Instance;
+            audioManager.PlayMusicSound(audioManager.MusicAudioClips.Fight);
             yield return new WaitForSeconds(delayBeforeLoadingSceneAfterReadyAnimation);
-            Debug.Log("Transitioning to fight");
             SceneTransitioner.TransitionToScene(EScenesName.FIGHT.ToSceneString());
         }
 

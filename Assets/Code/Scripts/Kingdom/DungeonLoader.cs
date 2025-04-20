@@ -49,10 +49,10 @@ namespace FrostfallSaga.Kingdom
             AudioManager.Instance.PlayUISound(dungeonBuildingConfiguration.EnterDungeonSound);
 
             Debug.Log("Launching dungeon scene...");
-            StartCoroutine(WaitAndLaunchCityScene());
+            StartCoroutine(WaitAndLaunchDungeonScene());
         }
 
-        private IEnumerator WaitAndLaunchCityScene()
+        private IEnumerator WaitAndLaunchDungeonScene()
         {
             yield return new WaitForSeconds(_delayBeforeLoadingCityScene);
             SceneTransitioner.TransitionToScene(EScenesName.DUNGEON.ToSceneString());

@@ -26,7 +26,7 @@ namespace FrostfallSaga.Kingdom.UI
                 return;
             }
 
-            _kingdomLoader.OnKingdomLoaded += OnKingdomLoaded;
+            _kingdomLoader.onKingdomLoaded += OnKingdomLoaded;
         }
 
         private void OnKingdomLoaded()

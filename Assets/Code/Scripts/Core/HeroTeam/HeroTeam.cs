@@ -14,7 +14,7 @@ namespace FrostfallSaga.Core.HeroTeam
         private HeroTeamConfigurationSO _heroTeamConfiguration;
 
         /// <summary>
-        ///     Automatically initialize the singleton on scene load.
+        /// Automatically initialize the singleton on scene load.
         /// </summary>
         static HeroTeam()
         {

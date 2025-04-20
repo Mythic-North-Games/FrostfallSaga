@@ -13,7 +13,7 @@
 }
 
 .effectLabelDefault {
-    font-size: 250%;
+    font-size: 200%;
     -unity-text-align: middle-left;
     color: rgb(125, 125, 125);
     -unity-text-outline-color: rgb(0, 0, 0);
@@ -21,7 +21,7 @@
 }
 
 .damageLabel {
-    font-size: 250%;
+    font-size: 200%;
     -unity-text-align: middle-left;
     color: rgb(160, 40, 40);
     -unity-text-outline-color: rgb(0, 0, 0);
@@ -29,7 +29,7 @@
 }
 
 .healLabel {
-    font-size: 250%;
+    font-size: 200%;
     -unity-text-align: middle-left;
     color: rgb(40, 173, 108);
     -unity-text-outline-color: rgb(0, 0, 0);
@@ -38,13 +38,13 @@
 
 .dodgeLabel {
     color: rgb(100, 100, 100);
-    font-size: 250%;
+    font-size: 200%;
     -unity-text-outline-width: 0.5px;
     -unity-text-outline-color: rgb(0, 0, 0);
 }
 
 .masterstrokeLabel {
-    font-size: 300%;
+    font-size: 250%;
     -unity-text-outline-width: 0.75px;
     -unity-text-outline-color: rgb(0, 0, 0);
 }

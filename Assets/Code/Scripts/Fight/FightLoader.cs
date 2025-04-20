@@ -14,7 +14,7 @@ namespace FrostfallSaga.Fight
         [SerializeField] private EntityConfigurationSO[] devAlliesConfs;
         [SerializeField] private EntityConfigurationSO[] devEnemiesConfs;
         private FightersGenerator _fighterGenerator;
-        public Action<Fighter[], Fighter[]> OnFightLoaded;
+        public Action<Fighter[], Fighter[]> onFightLoaded;
 
         #region Setup & tear down
 
@@ -35,9 +35,10 @@ namespace FrostfallSaga.Fight
             KeyValuePair<Fighter[], Fighter[]> fighters = GenerateFighters();
             Debug.Log("Fighters Generated !");
             SceneTransitioner.FadeInCurrentScene();
-            AudioManager.Instance.PlayUISound(UISounds.FightBegin);
-            AudioManager.Instance.PlayMusicSound(MusicSounds.Fight, 1.0f);
-            OnFightLoaded?.Invoke(fighters.Key, fighters.Value);
+
+            AudioManager audioManager = AudioManager.Instance;
+            audioManager.PlayMusicSound(audioManager.MusicAudioClips.Fight);
+            onFightLoaded?.Invoke(fighters.Key, fighters.Value);
         }
 
         private KeyValuePair<Fighter[], Fighter[]> GenerateFighters()

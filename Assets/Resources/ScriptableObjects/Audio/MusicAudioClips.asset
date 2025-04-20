@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b6318a51526d6646b98e0865165e63d, type: 3}
-  m_Name: MusicAudioClipsConfig
+  m_Name: MusicAudioClips
   m_EditorClassIdentifier: 
-  titleScreenMusic: {fileID: 8300000, guid: 9182a041bc8c93747983664e65009b87, type: 3}
-  kingdomMusic: {fileID: 8300000, guid: 518ac935a40fc02478ad68193dc32a3f, type: 3}
-  fightMusic: {fileID: 8300000, guid: 5f193dd6196cda149b13896ee57f082f, type: 3}
+  <TitleScreen>k__BackingField: {fileID: 8300000, guid: 9182a041bc8c93747983664e65009b87, type: 3}
+  <Kingdom>k__BackingField: {fileID: 8300000, guid: 89120c8f6f946a5499f677d01339ec1b, type: 3}
+  <Fight>k__BackingField: {fileID: 8300000, guid: 1633eae6c94a39841b67c17c4d9f79b2, type: 3}

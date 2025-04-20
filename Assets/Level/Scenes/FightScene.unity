@@ -336,11 +336,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1242875532}
-  - {fileID: 1755685227}
+  - {fileID: 305904032}
   - {fileID: 2012426616}
   - {fileID: 1678739251}
   - {fileID: 1069003389}
-  - {fileID: 305904032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &681031797
@@ -1425,54 +1424,6 @@ Transform:
   - {fileID: 416455249}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1755685226
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1755685227}
-  - component: {fileID: 1755685228}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1755685227
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755685226}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 607521707}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1755685228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755685226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a337116156b60604b92b6cfc653c9566, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiAudioClipsConfig: {fileID: 11400000, guid: aef339ccaf3b4d5418f6a13c4eb33e47, type: 2}
-  audioSourceObject: {fileID: 4094540750882597515, guid: b034ff1c05b1ef24fb9925f182960e04, type: 3}
-  musicAudioClipsConfig: {fileID: 11400000, guid: bfbaf9f82d12a994e8af63264796d018, type: 2}
-  defaultFadeDuration: 1.5
 --- !u!1 &1814713791
 GameObject:
   m_ObjectHideFlags: 3
@@ -1786,11 +1737,6 @@ MonoBehaviour:
   _healStyleClass: healLabel
   _dodgeStyleClass: dodgeLabel
   _masterstrokeStyleClass: masterstrokeLabel
-  _statIcons:
-  - element: 0
-    value: {fileID: 2800000, guid: aef5c149668f63047b20fcb07fdfbe15, type: 3}
-  - element: 3
-    value: {fileID: 2800000, guid: e6b98d28e1ca0cf4c9abac72040c1e0e, type: 3}
   _fightLoader: {fileID: 2012426617}
   _fightCameraController: {fileID: 985944595}
 --- !u!114 &1952024168
@@ -1997,7 +1943,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 278980177}
-  - {fileID: 607521707}
   - {fileID: 1334114583}
+  - {fileID: 607521707}
   - {fileID: 1683268109}
   - {fileID: 2015873281}

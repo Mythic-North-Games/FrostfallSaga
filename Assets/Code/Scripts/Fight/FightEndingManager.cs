@@ -107,7 +107,9 @@ namespace FrostfallSaga.Fight
             // Configure and display the fight end menu
             _fightEndMenuController.Setup(allies, enemies, alliesWon, stycasReward, itemsReward);
             _fightEndMenuController.SetVisible(true);
-            AudioManager.Instance.PlayUISound(alliesWon ? UISounds.FightWon : UISounds.FightLost);
+
+            UIAudioClips uiAudioClips = AudioManager.Instance.UIAudioClips;
+            AudioManager.Instance.PlayUISound(alliesWon ? uiAudioClips.FightWon : uiAudioClips.FightLost);
         }
 
         private void OnPlayerContinues()

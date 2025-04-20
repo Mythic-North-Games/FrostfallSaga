@@ -26,12 +26,12 @@ namespace FrostfallSaga.Audio
 
         private void OnButtonClick(ClickEvent evt)
         {
-            AudioManager.Instance.PlayUISound(UISounds.ButtonClick);
+            AudioManager.Instance.PlayUISound(AudioManager.Instance.UIAudioClips.ButtonClick);
         }
 
         private void OnButtonHover(MouseEnterEvent evt)
         {
-            AudioManager.Instance.PlayUISound(UISounds.ButtonHover);
+            AudioManager.Instance.PlayUISound(AudioManager.Instance.UIAudioClips.ButtonHover);
         }
     }
 }
