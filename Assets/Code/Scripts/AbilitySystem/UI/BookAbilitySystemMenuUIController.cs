@@ -52,7 +52,7 @@ namespace FrostfallSaga.AbilitySystem.UI
             // Setup hero chooser 
             _heroChooserUIController = new HeroChooserUIController(abilityTreePanelRoot);
             _heroChooserUIController.SetHeroes(heroes);
-            _heroChooserUIController.OnHeroChosen += OnHeroChosen;
+            _heroChooserUIController.onHeroChosen += OnHeroChosen;
 
             _leftPageContainer.Add(abilityTreePanelRoot);
             _rightPageContainer.Add(abilityDetailsPanelRoot);

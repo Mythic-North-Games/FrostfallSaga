@@ -371,9 +371,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 445625828}
-  devCityConfiguration: {fileID: 0}
-  situationsController: {fileID: 445625831}
-  situationsButtonTemplate: {fileID: 9197481963319205126, guid: 130f3a2de60defc1fa58720b7fdaeb92, type: 3}
+  _devCityConfiguration: {fileID: 0}
+  _heroTeamHUDUIController: {fileID: 1567106034}
+  _situationsController: {fileID: 445625831}
+  _situationsButtonTemplate: {fileID: 9197481963319205126, guid: 130f3a2de60defc1fa58720b7fdaeb92, type: 3}
 --- !u!114 &445625828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -854,6 +855,79 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1791236485}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1567106032
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1741750887}
+    m_Modifications:
+    - target: {fileID: 5198892927511876588, guid: ba19ccb3cf2562c519909d27f73a3a67, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198892927511876588, guid: ba19ccb3cf2562c519909d27f73a3a67, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198892927511876588, guid: ba19ccb3cf2562c519909d27f73a3a67, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198892927511876588, guid: ba19ccb3cf2562c519909d27f73a3a67, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198892927511876588, guid: ba19ccb3cf2562c519909d27f73a3a67, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198892927511876588, guid: ba19ccb3cf2562c519909d27f73a3a67, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198892927511876588, guid: ba19ccb3cf2562c519909d27f73a3a67, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198892927511876588, guid: ba19ccb3cf2562c519909d27f73a3a67, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198892927511876588, guid: ba19ccb3cf2562c519909d27f73a3a67, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5198892927511876588, guid: ba19ccb3cf2562c519909d27f73a3a67, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5641965424680798790, guid: ba19ccb3cf2562c519909d27f73a3a67, type: 3}
+      propertyPath: m_Name
+      value: HeroTeamHUD
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ba19ccb3cf2562c519909d27f73a3a67, type: 3}
+--- !u!4 &1567106033 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5198892927511876588, guid: ba19ccb3cf2562c519909d27f73a3a67, type: 3}
+  m_PrefabInstance: {fileID: 1567106032}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1567106034 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1555420302151215723, guid: ba19ccb3cf2562c519909d27f73a3a67, type: 3}
+  m_PrefabInstance: {fileID: 1567106032}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b28b0ba53cba49fe8b31ba8831c98b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1597044135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1003,6 +1077,7 @@ Transform:
   m_Children:
   - {fileID: 445625826}
   - {fileID: 2136151434}
+  - {fileID: 1567106033}
   - {fileID: 937649053}
   - {fileID: 378565560}
   - {fileID: 689427799}

@@ -1,0 +1,28 @@
+.fighterDiamondProgress {
+    width: 33%;
+    height: 57%;
+}
+
+.heroLeft {
+    width: 30%;
+    height: 90%;
+    position: absolute;
+    left: 0;
+    top: -16%;
+}
+
+.heroMiddle {
+    width: 30%;
+    height: 90%;
+    position: absolute;
+    left: 16.25%;
+    top: 38%;
+}
+
+.heroRight {
+    width: 30%;
+    height: 90%;
+    position: absolute;
+    top: -16%;
+    left: 32%;
+}

@@ -56,7 +56,7 @@ MonoBehaviour:
     value: 0
   - element: 5
     value: 0
-  <DodgeChance>k__BackingField: 1
+  <DodgeChance>k__BackingField: 0
   <MasterstrokeChance>k__BackingField: 0
   <Initiative>k__BackingField: 5
   <HealSelfAnimationName>k__BackingField: 
