@@ -11,8 +11,8 @@ namespace FrostfallSaga.City.UI
         private readonly VisualElement _dialogRoot;
         private TavernConfiguration _tavernConfiguration;
 
-        public Action OnExitClicked;
-        public Action OnRestButtonClicked;
+        public Action onExitClicked;
+        public Action onRestButtonClicked;
 
         public TavernDialogController(VisualElement tavernDialogRoot)
         {
@@ -63,12 +63,12 @@ namespace FrostfallSaga.City.UI
             heroTeam.FullHealTeam();
 
             Debug.Log("Team fully healed.");
-            OnRestButtonClicked?.Invoke();
+            onRestButtonClicked?.Invoke();
         }
 
         public void OnExitButtonClicked()
         {
-            OnExitClicked?.Invoke();
+            onExitClicked?.Invoke();
         }
 
         #region UXML Names and classes

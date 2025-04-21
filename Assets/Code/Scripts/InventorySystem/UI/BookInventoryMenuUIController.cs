@@ -82,7 +82,7 @@ namespace FrostfallSaga.InventorySystem.UI
             // Setup hero chooser (left page)
             _heroChooserUIController = new HeroChooserUIController(equippedPanelRoot);
             _heroChooserUIController.SetHeroes(heroes);
-            _heroChooserUIController.OnHeroChosen += OnHeroChosen;
+            _heroChooserUIController.onHeroChosen += OnHeroChosen;
 
             // Setup bag panel (right page)
             VisualElement bagPanelRoot = bagPanelTemplate.Instantiate();

@@ -22,15 +22,16 @@ namespace FrostfallSaga.City.UI
         private static readonly string TAVERN_DIALOG_ROOT_UI_NAME = "TavernDialog";
         private static readonly string SITUATIONS_MENU_ROOT_UI_NAME = "CitySituationsMenu";
 
-        [SerializeField] private InCityConfigurationSO devCityConfiguration;
-        [SerializeField] private SituationsController situationsController;
-        [SerializeField] private VisualTreeAsset situationsButtonTemplate;
+        [SerializeField] private InCityConfigurationSO _devCityConfiguration;
+        [SerializeField] private HeroTeamHUDUIController _heroTeamHUDUIController;
+        [SerializeField] private SituationsController _situationsController;
+        [SerializeField] private VisualTreeAsset _situationsButtonTemplate;
         private InCityConfigurationSO _cityConfiguration;
         private LeftContainerController _leftContainerController;
         private CitySituationsMenuController _situationsMenuController;
         private TavernDialogController _tavernDialogController;
 
-        public Action<ACitySituationSO> OnCitySituationClicked;
+        public Action<ACitySituationSO> onCitySituationClicked;
 
         #region Class setup
 
@@ -38,7 +39,7 @@ namespace FrostfallSaga.City.UI
         {
             // Get city configuration to load
             InCityConfigurationSO gameStateConf = GameStateManager.Instance.GetCityConfigurationToLoad();
-            _cityConfiguration = gameStateConf != null ? gameStateConf : devCityConfiguration;
+            _cityConfiguration = gameStateConf != null ? gameStateConf : _devCityConfiguration;
 
             // Setup main menu
             _leftContainerController =
@@ -47,22 +48,30 @@ namespace FrostfallSaga.City.UI
             // Setup tavern dialog
             _tavernDialogController =
                 new TavernDialogController(_uiDoc.rootVisualElement.Q<VisualElement>(TAVERN_DIALOG_ROOT_UI_NAME));
-            _tavernDialogController.OnRestButtonClicked += OnTavernDialogRestButtonClicked;
-            _tavernDialogController.OnExitClicked += OnTavernDialogExitButtonClicked;
+            _tavernDialogController.onRestButtonClicked += OnTavernDialogRestButtonClicked;
+            _tavernDialogController.onExitClicked += OnTavernDialogExitButtonClicked;
 
             // Setup city situations
             _situationsMenuController = GetComponent<CitySituationsMenuController>();
-            _situationsMenuController.OnCitySituationClicked += OnSituationButtonClicked;
-            _situationsMenuController.OnReturnClicked += OnSituationsMenuReturnClicked;
+            _situationsMenuController.onCitySituationClicked += OnSituationButtonClicked;
+            _situationsMenuController.onReturnClicked += OnSituationsMenuReturnClicked;
+
+            // Setup hero team HUD
+            _heroTeamHUDUIController ??= FindObjectOfType<HeroTeamHUDUIController>();
+            if (_heroTeamHUDUIController == null)
+            {
+                Debug.LogError("HeroTeamHUDUIController is not present in the scene.");
+                return;
+            }
 
             // Setup situations controller
-            if (situationsController == null)
+            if (_situationsController == null)
             {
                 Debug.LogError("SituationsController is not assigned in CityMenuController.");
                 return;
             }
 
-            situationsController.onSituationResolved += OnSituationResolved;
+            _situationsController.onSituationResolved += OnSituationResolved;
         }
 
         #endregion
@@ -92,7 +101,7 @@ namespace FrostfallSaga.City.UI
             // City situations menu setup
             _situationsMenuController.Init(
                 _uiDoc.rootVisualElement.Q<VisualElement>(SITUATIONS_MENU_ROOT_UI_NAME),
-                situationsButtonTemplate
+                _situationsButtonTemplate
             );
             _situationsMenuController.SetupSituationsMenu(_cityConfiguration.CitySituations);
         }
@@ -109,6 +118,7 @@ namespace FrostfallSaga.City.UI
 
         private void OnTavernDialogRestButtonClicked()
         {
+            _heroTeamHUDUIController.UpdateHeroContainers();
             _tavernDialogController.Hide();
             _leftContainerController.Display();
         }
@@ -144,7 +154,7 @@ namespace FrostfallSaga.City.UI
         private void OnSituationButtonClicked(ACitySituationSO citySituation)
         {
             _situationsMenuController.Hide();
-            OnCitySituationClicked?.Invoke(citySituation);
+            onCitySituationClicked?.Invoke(citySituation);
         }
 
         private void OnSituationResolved(ACitySituationSO citySituation)
