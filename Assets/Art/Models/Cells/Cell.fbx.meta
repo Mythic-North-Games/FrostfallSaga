@@ -7,8 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: M_Default_Cell
-    second: {fileID: 2100000, guid: a6d81c79d00d8af9bb13abe3bcbdc304, type: 2}
+      name: M_Cell_Bevel
+    second: {fileID: 2100000, guid: bc1008a7dd739a048874c20e84b55d79, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Cell_Sides
+    second: {fileID: 2100000, guid: b1f5dc9c36ba5e1418ef800dc94d3a02, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Cell_Top
+    second: {fileID: 2100000, guid: cb70848f1e0c03443b3f8eac13b638e7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -46,10 +56,10 @@ ModelImporter:
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importPhysicalCameras: 1
-    importVisibility: 0
+    importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0

@@ -51,9 +51,6 @@ namespace FrostfallSaga.Grid
             cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, hexSize, selectedTerrain, selectedBiome);
             cell.GenerateRandomAccessibility(EAccessibilityGenerationMode.FLIP_IF_ACCESSIBLE);
             cell.SetTerrain(selectedTerrain);
-            cell.HighlightController.SetupInitialMaterial(selectedTerrain.CellMaterial);
-            cell.HighlightController.UpdateCurrentDefaultMaterial(selectedTerrain.CellMaterial);
-            cell.HighlightController.ResetToDefaultMaterial();
         }
 
         private static TerrainTypeSO GetTerrainTypeFromPerlinValue(float perlinValue, BiomeTypeSO selectedBiome)

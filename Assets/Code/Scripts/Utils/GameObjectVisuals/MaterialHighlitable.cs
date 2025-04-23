@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace FrostfallSaga.Utils.GameObjectVisuals
@@ -10,6 +11,15 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
     {
         [field: SerializeField] public Material InitialMaterial { get; private set; }
         [field: SerializeField] public Material CurrentDefaultMaterial { get; private set; }
+        [field: SerializeField] public MeshRenderer TargetRenderer { get; private set; }
+
+        private void Awake()
+        {
+            if (!TargetRenderer)
+            {
+                Debug.LogError($"{nameof(TargetRenderer)} is not set");
+            }
+        }
 
         /// <summary>
         ///     Meant to be used only once during set up, sets the initial material of the element.
@@ -18,6 +28,7 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
         public void SetupInitialMaterial(Material initialMaterial)
         {
             InitialMaterial = initialMaterial;
+            TargetRenderer.sharedMaterial = initialMaterial;
         }
 
         /// <summary>
@@ -36,7 +47,8 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
         /// <param name="highlightMaterial">The material to set.</param>
         public void Highlight(Material highlightMaterial)
         {
-            GetComponent<MeshRenderer>().material = highlightMaterial;
+            if (TargetRenderer)
+                TargetRenderer.material = highlightMaterial;
         }
 
         /// <summary>
@@ -44,7 +56,8 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
         /// </summary>
         public void ResetToDefaultMaterial()
         {
-            GetComponent<MeshRenderer>().material = CurrentDefaultMaterial;
+            if (TargetRenderer)
+                TargetRenderer.material = CurrentDefaultMaterial;
         }
 
         /// <summary>
@@ -52,7 +65,8 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
         /// </summary>
         public void ResetToInitialMaterial()
         {
-            GetComponent<MeshRenderer>().material = InitialMaterial;
+            if (TargetRenderer)
+                TargetRenderer.material = InitialMaterial;
             CurrentDefaultMaterial = InitialMaterial;
         }
     }

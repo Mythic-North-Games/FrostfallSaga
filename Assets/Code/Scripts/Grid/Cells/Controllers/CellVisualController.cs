@@ -1,4 +1,5 @@
 ﻿using FrostfallSaga.Utils;
+using FrostfallSaga.Utils.GameObjectVisuals;
 using UnityEngine;
 
 namespace FrostfallSaga.Grid.Cells
@@ -6,15 +7,16 @@ namespace FrostfallSaga.Grid.Cells
     public class CellVisualController
     {
         private readonly Transform _parentTransform;
-        private readonly Renderer _renderer;
+        private readonly MaterialHighlightable _highlightable;
+
 
         public CellVisualController(Transform parentTransform)
         {
             _parentTransform = parentTransform;
-            _renderer = parentTransform.GetComponent<Renderer>();
+            _highlightable = _parentTransform.GetComponentInChildren<MaterialHighlightable>();
         }
         
-        public void ApplyViusals(TerrainTypeSO terrainType, bool isAccessible)
+        public void ApplyVisuals(TerrainTypeSO terrainType, bool isAccessible)
         {
             if (!terrainType)
             {
@@ -26,9 +28,11 @@ namespace FrostfallSaga.Grid.Cells
             if (visuals is { Length: > 0 })
             {
                 GameObject visualPrefab = Randomizer.GetRandomElementFromArray(visuals);
+                Vector3 position = _parentTransform.position;
+                position.y += 0.12f;
                 GameObject visualInstance = Object.Instantiate(
                     visualPrefab,
-                    _parentTransform.position,
+                    position,
                     Randomizer.GetRandomRotationY(_parentTransform.rotation),
                     _parentTransform
                 );
@@ -36,8 +40,9 @@ namespace FrostfallSaga.Grid.Cells
                 LayerUtils.SetLayerRecursively(visualInstance, 2);
             }
 
-            if (_renderer && terrainType.CellMaterial)
-                _renderer.sharedMaterial = terrainType.CellMaterial;
+            Material[] mats = _parentTransform.gameObject.GetComponent<MeshRenderer>().sharedMaterials;
+            mats[1] = terrainType.CellMaterial;
+            _parentTransform.gameObject.GetComponent<MeshRenderer>().sharedMaterials = mats;
         }
     }
 }
