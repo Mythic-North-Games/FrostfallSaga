@@ -10,6 +10,10 @@ namespace FrostfallSaga.Core.UI
         PHYSICAL_RESISTANCE,
         RANGE,
         ACTION_POINTS_COST,
+        BLEED,
+        PARALYSIS,
+        WEAKNESS,
+        SLOWNESS
     }
 
     public static class UIIconsMethods
@@ -18,10 +22,14 @@ namespace FrostfallSaga.Core.UI
         {
             return icon switch
             {
-                UIIcons.PHYSICAL_DAMAGE => "physicalDamage",
-                UIIcons.PHYSICAL_RESISTANCE => "physicalResistance",
-                UIIcons.RANGE => "diamondOutline",
-                UIIcons.ACTION_POINTS_COST => "actionPointsCost",
+                UIIcons.PHYSICAL_DAMAGE => "swordBrandish",
+                UIIcons.PHYSICAL_RESISTANCE => "vikingShield",
+                UIIcons.RANGE => "range",
+                UIIcons.ACTION_POINTS_COST => "energy",
+                UIIcons.BLEED => "bleed",
+                UIIcons.PARALYSIS => "bleed",
+                UIIcons.WEAKNESS => "bleed",
+                UIIcons.SLOWNESS => "bleed",
                 _ => string.Empty
             };
         }

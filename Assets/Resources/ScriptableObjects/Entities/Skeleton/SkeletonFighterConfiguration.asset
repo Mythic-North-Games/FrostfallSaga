@@ -30,10 +30,6 @@ MonoBehaviour:
     value:
       element: 0.5
       value: 1
-  - element: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
-    value:
-      element: 1
-      value: 1
   <MinStycasLoot>k__BackingField: 5
   <MaxStycasLoot>k__BackingField: 20
   <MaxHealth>k__BackingField: 70

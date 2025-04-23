@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Healt remedy
   <Description>k__BackingField: Heals a fighter
-  <IconSprite>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
+  <IconSprite>k__BackingField: {fileID: 21300000, guid: e73a67ce9573f1f4295f4d290ccb5335, type: 3}
   <SlotTag>k__BackingField: 5
+  <LootChance>k__BackingField: 0
+  <ActionPointsCost>k__BackingField: 0
   Effects:
   - rid: 2054917512881504256
   references:

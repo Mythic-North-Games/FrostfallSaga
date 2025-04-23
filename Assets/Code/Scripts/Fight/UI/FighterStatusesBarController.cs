@@ -30,7 +30,7 @@ namespace FrostfallSaga.Fight.UI
                 if (i > maxStatusesContainers) break;
                 VisualElement statusContainer = _root.Q<VisualElement>($"{STATUS_CONTAINER_UI_NAME}{i}");
                 statusContainer.style.backgroundImage =
-                    new StyleBackground(currentFighterStatuses.ElementAt(i).Key.Icon);
+                    new StyleBackground(currentFighterStatuses.ElementAt(i).Key.GetIcon());
             }
 
             for (int i = currentFighterStatuses.Count; i < maxStatusesContainers; i++)

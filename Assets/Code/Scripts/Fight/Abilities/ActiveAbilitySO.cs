@@ -170,8 +170,7 @@ namespace FrostfallSaga.Fight.Abilities
                     iconsProvider.GetIcon(UIIcons.ACTION_POINTS_COST.GetIconResourceName()), ActionPointsCost.ToString()
                 },
                 {
-                    iconsProvider.GetIcon(UIIcons.PHYSICAL_RESISTANCE.GetIconResourceName()),
-                    Targeter.OriginCellRange.ToString()
+                    iconsProvider.GetIcon(UIIcons.RANGE.GetIconResourceName()), Targeter.OriginCellRange.ToString()
                 }
             };
         }

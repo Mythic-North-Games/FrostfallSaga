@@ -16,6 +16,7 @@ namespace FrostfallSaga.AbilitySystem.UI
         [SerializeField] private VisualTreeAsset _abilityDetailsPanelTemplate;
         [SerializeField] private VisualTreeAsset _statContainerTemplate;
         [SerializeField] private Color _statValueColor = new(9.8f, 9.8f, 9.8f, 1f);
+        [SerializeField] private Color _statIconTintColor;
 
         private AbilityDetailsPanelUIController _abilityDetailsPanelController;
         private AbilityTreeUIController _abilityTreeController;
@@ -44,7 +45,8 @@ namespace FrostfallSaga.AbilitySystem.UI
                 abilityDetailsPanelRoot,
                 _statContainerTemplate,
                 EFFECT_LINE_CLASSNAME,
-                _statValueColor
+                _statValueColor,
+                _statIconTintColor
             );
             _abilityDetailsPanelController.UpdatePanel(null, EAbilityState.Locked, -1);
             _abilityDetailsPanelController.onUnlockButtonClicked += OnUnlockAbilityButtonClicked;

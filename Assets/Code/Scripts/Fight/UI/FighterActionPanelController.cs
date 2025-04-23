@@ -21,6 +21,7 @@ namespace FrostfallSaga.Fight.UI
         [SerializeField] private Color _movementPointsProgressColor;
         [SerializeField] private Color _actionPointsProgressColor;
         [SerializeField] private Color _statValueColor = new(0.8f, 0.8f, 0.8f);
+        [SerializeField] private Color _statIconColor;
         [SerializeField] private float _statusDetailsPanelXOffset = 4f;
         private AbilitiesBarController _abilitiesBarController;
 
@@ -66,7 +67,8 @@ namespace FrostfallSaga.Fight.UI
                 _objectDetailsPanelContainer,
                 _statContainerTemplate,
                 OBJECT_DETAILS_EFFECT_LINE_CLASSNAME,
-                _statValueColor
+                _statValueColor,
+                _statIconColor
             );
             _objectDetailsPanelContainer.AddToClassList(OBJECT_DETAILS_PANEL_CONTAINER_HIDDEN_CLASSNAME);
 

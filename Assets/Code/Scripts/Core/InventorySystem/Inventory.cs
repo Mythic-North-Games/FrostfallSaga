@@ -8,7 +8,7 @@ namespace FrostfallSaga.Core.InventorySystem
     [Serializable]
     public class Inventory
     {
-        public static readonly string DefaultWeaponResourcePath = "ScriptableObjects/Items/ExampleWeapon";
+        public static readonly string DefaultWeaponResourcePath = "ScriptableObjects/Items/Weapons/ExampleWeapon";
 
         ///////////////////////
         /// Equipment slots ///

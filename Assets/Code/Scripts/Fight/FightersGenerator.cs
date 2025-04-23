@@ -148,7 +148,7 @@ namespace FrostfallSaga.Fight
             if (inventory.WeaponSlot.IsEmpty())
             {
                 Debug.LogWarning("Enemy inventory is missing a weapon. Default weapon will be equipped.");
-                inventory.EquipEquipment(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath));
+                inventory.EquipEquipment(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath), isFromBag: false);
             }
 
             return inventory;

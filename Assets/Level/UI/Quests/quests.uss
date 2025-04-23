@@ -11,13 +11,17 @@
     padding-left: 5%;
     background-color: rgba(25, 25, 25, 0.78);
     font-size: 30px;
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 0;
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
     color: rgb(225, 225, 225);
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out-cubic;
+    border-left-color: rgb(25, 25, 25);
+    border-right-color: rgb(25, 25, 25);
+    border-top-color: rgb(25, 25, 25);
+    border-bottom-color: rgb(25, 25, 25);
 }
 
 .questsFilterButton:hover {
@@ -40,10 +44,10 @@
     color: rgb(225, 225, 225);
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out-cubic;
-    border-left-color: rgb(255, 148, 78);
-    border-right-color: rgb(255, 148, 78);
-    border-top-color: rgb(255, 148, 78);
-    border-bottom-color: rgb(255, 148, 78);
+    border-left-color: rgb(225, 225, 225);
+    border-right-color: rgb(225, 225, 225);
+    border-top-color: rgb(225, 225, 225);
+    border-bottom-color: rgb(225, 225, 225);
 }
 
 .questsFilterButtonActive {
@@ -66,57 +70,71 @@
     color: rgb(225, 225, 225);
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out-cubic;
-    border-left-color: rgb(255, 148, 78);
-    border-right-color: rgb(255, 148, 78);
-    border-top-color: rgb(255, 148, 78);
-    border-bottom-color: rgb(255, 148, 78);
+    border-left-color: rgb(225, 225, 225);
+    border-right-color: rgb(225, 225, 225);
+    border-top-color: rgb(225, 225, 225);
+    border-bottom-color: rgb(225, 225, 225);
 }
 
 .listQuestItemDefault {
-    width: 80%;
-    margin-left: 10%;
+    width: 90%;
+    margin-left: 5%;
     margin-bottom: 4%;
     transition-duration: 0.1s;
     transition-timing-function: ease-in-out-cubic;
     min-height: 8%;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-left-color: rgb(25, 25, 25);
+    border-right-color: rgb(25, 25, 25);
+    border-top-color: rgb(25, 25, 25);
+    border-bottom-color: rgb(25, 25, 25);
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
 }
 
 .listQuestItemDefault:hover {
-    width: 80%;
-    margin-left: 10%;
+    width: 90%;
+    margin-left: 5%;
     margin-bottom: 4%;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out-cubic;
     min-height: 8%;
-    border-left-color: rgb(255, 148, 78);
-    border-right-color: rgb(255, 148, 78);
-    border-top-color: rgb(255, 148, 78);
-    border-bottom-color: rgb(255, 148, 78);
-    border-top-width: 3px;
-    border-right-width: 3px;
-    border-bottom-width: 3px;
-    border-left-width: 3px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-left-color: rgb(225, 225, 225);
+    border-right-color: rgb(225, 225, 225);
+    border-top-color: rgb(225, 225, 225);
+    border-bottom-color: rgb(225, 225, 225);
 }
 
 .listQuestItemActive {
-    width: 80%;
-    margin-left: 10%;
+    width: 90%;
+    margin-left: 5%;
     margin-bottom: 4%;
     min-height: 8%;
-    border-left-color: rgb(255, 148, 78);
-    border-right-color: rgb(255, 148, 78);
-    border-top-color: rgb(255, 148, 78);
-    border-bottom-color: rgb(255, 148, 78);
-    border-top-width: 3px;
-    border-right-width: 3px;
-    border-bottom-width: 3px;
-    border-left-width: 3px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-left-color: rgb(225, 225, 225);
+    border-right-color: rgb(225, 225, 225);
+    border-top-color: rgb(225, 225, 225);
+    border-bottom-color: rgb(225, 225, 225);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
 }
 
 .actionInstructionContainer {
@@ -196,34 +214,34 @@
 
 .instructionCompletionIconCompleted {
     height: 110%;
-    background-image: url("project://database/Assets/Art/UI/UIKit/Icons/diamond-filled.png?fileID=2800000&guid=bc55247ed0b09700d852c754633a35d4&type=3#diamond-filled");
+    background-image: url("project://database/Assets/Resources/UI/Icons/diamondFilledIcon.png?fileID=2800000&guid=bc55247ed0b09700d852c754633a35d4&type=3#diamondFilledIcon");
     width: 10%;
     -unity-background-scale-mode: scale-to-fit;
 }
 
 .instructionCompletionIconUnfinished {
     height: 110%;
-    background-image: url("project://database/Assets/Art/UI/UIKit/Icons/diamond-outline.png?fileID=2800000&guid=a5b4a48bd3e13a079ad0754d64e4dc40&type=3#diamond-outline");
+    background-image: url("project://database/Assets/Resources/UI/Icons/diamondOutlineIcon.png?fileID=2800000&guid=a5b4a48bd3e13a079ad0754d64e4dc40&type=3#diamondOutlineIcon");
     width: 10%;
     -unity-background-scale-mode: scale-to-fit;
 }
 
 .questTypeIconDefault {
-    background-image: url("project://database/Assets/Art/UI/UIKit/Backgrounds/fadedWhiteCircleBackground.png?fileID=2800000&guid=e317b3f3bbbe0444fb034ff574616f3f&type=3#fadedWhiteCircleBackground");
+    background-image: url("project://database/Assets/Art/UI/Backgrounds/fadedWhiteCircleBackground.png?fileID=2800000&guid=e317b3f3bbbe0444fb034ff574616f3f&type=3#fadedWhiteCircleBackground");
     width: 10%;
     height: 85%;
     -unity-background-scale-mode: scale-to-fit;
 }
 
 .questTypeIconMission {
-    background-image: url("project://database/Assets/Art/UI/UIKit/Icons/mission-icon.png?fileID=2800000&guid=853bf8772aedec1cc9dc366695287d66&type=3#mission-icon");
+    background-image: url("project://database/Assets/Resources/UI/Icons/missionIcon.png?fileID=2800000&guid=853bf8772aedec1cc9dc366695287d66&type=3#missionIcon");
     width: 10%;
     height: 85%;
     -unity-background-scale-mode: scale-to-fit;
 }
 
 .questTypeIconSecondary {
-    background-image: url("project://database/Assets/Art/UI/UIKit/Icons/quest-icon.png?fileID=2800000&guid=8a8e8cc6d50144bd48b2133a1b0be297&type=3#quest-icon");
+    background-image: url('project://database/Assets/Art/UI/UIKit/Icons/quest-icon.png?fileID=2800000&guid=8a8e8cc6d50144bd48b2133a1b0be297&type=3#quest-icon');
     width: 10%;
     height: 85%;
     -unity-background-scale-mode: scale-to-fit;

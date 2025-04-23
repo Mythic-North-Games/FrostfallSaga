@@ -25,6 +25,7 @@ namespace FrostfallSaga.Fight
         [SerializeField] private VisualTreeAsset _itemRewardContainerTemplate;
         [SerializeField] private VisualTreeAsset _statContainerTemplate;
         [SerializeField] private Color _itemRewardStatsColor = new(0.8f, 0.8f, 0.8f, 1f);
+        [SerializeField] private Color _itemRewardStatIconColor;
         [SerializeField] private float _itemRewardLongHoverDuration = 0.5f;
         [SerializeField] private string _fightWonText = "Enemies defeated";
         [SerializeField] private string _fightLostText = "You have been defeated";
@@ -68,6 +69,7 @@ namespace FrostfallSaga.Fight
                 _itemRewardContainerTemplate,
                 _statContainerTemplate,
                 _itemRewardStatsColor,
+                _itemRewardStatIconColor,
                 _itemRewardLongHoverDuration,
                 _fightWonText,
                 _fightLostText

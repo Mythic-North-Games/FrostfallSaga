@@ -57,7 +57,7 @@ MonoBehaviour:
         <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
         <IsRight>k__BackingField: 1
         <Answers>k__BackingField: []
-        <Quest>k__BackingField: {fileID: 0}
+        <Quest>k__BackingField: {fileID: 11400000, guid: f572c0de53101d97ebadf6b1b9e6e337, type: 2}
     - rid: 6053963118975909895
       type: {class: DialogueLine, ns: FrostfallSaga.Core.Dialogues, asm: FrostfallSaga.Core}
       data:

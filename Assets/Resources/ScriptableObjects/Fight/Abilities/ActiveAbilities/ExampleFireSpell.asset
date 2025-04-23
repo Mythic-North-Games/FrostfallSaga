@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92309899b8b9f04ea20210cad65d66f, type: 3}
   m_Name: ExampleFireSpell
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: ExampleFireSpell
-  <Description>k__BackingField: Apply fire on cell
-  <Icon>k__BackingField: {fileID: 21300000, guid: 63a7459c7f7b7f24289d4c72b8eb8a6e, type: 3}
+  <Name>k__BackingField: Fire ball
+  <Description>k__BackingField: Invoke a fire ball coming from the sky to destroy
+    your target.
+  <Icon>k__BackingField: {fileID: 21300000, guid: 09e1953081f187bc3ae86892f4668bbc, type: 3}
   <UnlockPoints>k__BackingField: 1
   <Targeter>k__BackingField:
     <OriginCellRange>k__BackingField: 12
@@ -43,5 +44,5 @@ MonoBehaviour:
     - rid: 6053962956990054400
       type: {class: MagicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
-        MagicalDamageAmount: 400
+        MagicalDamageAmount: 20
         MagicalElement: 3

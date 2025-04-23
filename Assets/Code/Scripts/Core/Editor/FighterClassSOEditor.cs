@@ -65,12 +65,9 @@ namespace FrostfallSaga.Core
             EditorGUILayout.BeginVertical("box");
             EditorGUILayout.BeginHorizontal();
             _nodeFoldouts[node] = EditorGUILayout.Foldout(_nodeFoldouts[node], label, true);
-            if (!isRoot)
+            if (GUILayout.Button("Remove", GUILayout.MaxWidth(70)))
             {
-                if (GUILayout.Button("Remove", GUILayout.MaxWidth(70)))
-                {
-                    _nodeToRemove = node;                
-                }
+                _nodeToRemove = node;                
             }
 
             EditorGUILayout.EndHorizontal();

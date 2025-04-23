@@ -35,7 +35,8 @@ namespace FrostfallSaga.AbilitySystem.UI
             VisualElement root,
             VisualTreeAsset statContainerTemplate,
             string effectLineClassname,
-            Color statValueColor
+            Color statValueColor,
+            Color statIconTitlColor
         )
         {
             _root = root;
@@ -50,7 +51,8 @@ namespace FrostfallSaga.AbilitySystem.UI
                 abilityDetailsContainer,
                 statContainerTemplate,
                 effectLineClassname,
-                statValueColor
+                statValueColor,
+                statIconTitlColor
             );
 
             _currentAbility = null;

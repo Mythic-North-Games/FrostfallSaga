@@ -30,7 +30,7 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    background-image: resource('UI/Icons/physicalResistanceIcon');
+    background-image: resource('UI/Icons/crossedChainsIcon');
     top: 0;
     left: 0;
 }
@@ -47,7 +47,7 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    background-image: resource('UI/Icons/settingsIcon');
+    background-image: resource('UI/Icons/crossedChainsIcon');
     top: 0;
     left: 0;
     display: none;
@@ -259,7 +259,7 @@
 
 .abilityPointsIconDefault {
     flex-grow: 1;
-    background-image: resource('UI/Icons/iceIcon');
+    background-image: resource('UI/Icons/awakeningCrystalIcon');
     -unity-background-scale-mode: scale-to-fit;
 }
 
