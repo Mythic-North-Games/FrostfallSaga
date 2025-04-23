@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a15f145b1f77b84e8d80cc59eb16fcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InitialMaterial>k__BackingField: {fileID: 2100000, guid: 1317001a5366be047821b25e2a15c957, type: 2}
-  <CurrentDefaultMaterial>k__BackingField: {fileID: 2100000, guid: 1317001a5366be047821b25e2a15c957, type: 2}
+  <InitialMaterial>k__BackingField: {fileID: 2100000, guid: 111f15f91a85ee54685179fffa74a0bd, type: 2}
+  <CurrentDefaultMaterial>k__BackingField: {fileID: 2100000, guid: 111f15f91a85ee54685179fffa74a0bd, type: 2}
   <TargetRenderer>k__BackingField: {fileID: 8328917832942457847}
 --- !u!1001 &5200257328455621283
 PrefabInstance:

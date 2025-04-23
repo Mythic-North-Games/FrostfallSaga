@@ -7,13 +7,10 @@ namespace FrostfallSaga.Grid.Cells
     public class CellVisualController
     {
         private readonly Transform _parentTransform;
-        private readonly MaterialHighlightable _highlightable;
-
 
         public CellVisualController(Transform parentTransform)
         {
             _parentTransform = parentTransform;
-            _highlightable = _parentTransform.GetComponentInChildren<MaterialHighlightable>();
         }
         
         public void ApplyVisuals(TerrainTypeSO terrainType, bool isAccessible)

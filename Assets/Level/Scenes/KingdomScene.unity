@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: d230357c492cb7e4e86a95cf5eec38dd, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -296,8 +296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf0e441dff967b529e3572e0a5aa94f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _kingdomManager: {fileID: 0}
-  _enterCityPanelController: {fileID: 0}
+  _kingdomManager: {fileID: 899991118}
+  _enterCityPanelController: {fileID: 791242499}
   _delayBeforeLoadingCityScene: 0.6
 --- !u!1 &161755160
 GameObject:

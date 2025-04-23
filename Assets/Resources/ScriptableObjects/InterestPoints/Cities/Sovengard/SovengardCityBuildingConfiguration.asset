@@ -17,5 +17,5 @@ MonoBehaviour:
     amet Lorem ipsum dolor site amet Lorem ipsum dolor site amet Lorem ipsum dolor
     site amet Lorem ipsum dolor site amet
   <InterestPointPrefab>k__BackingField: {fileID: 6646132619998617562, guid: 1bae81d9ee487648593aa1e4799a9785, type: 3}
-  <CityPreview>k__BackingField: {fileID: 21300000, guid: c3a157f9e73a14755a121403c6676395, type: 3}
+  <CityPreview>k__BackingField: {fileID: 21300000, guid: 15d3d1ecdb355ab43901eb55beab693a, type: 3}
   <InCityConfiguration>k__BackingField: {fileID: 11400000, guid: da725d013726748eb8d0de034b579136, type: 2}

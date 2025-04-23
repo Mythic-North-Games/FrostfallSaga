@@ -52,10 +52,10 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _emmisionStrength: 1
-    - _opacity: 0.5
-    - _pulseSpeed: 2
+    - _emmisionStrength: 0.9
+    - _opacity: 0
+    - _pulseSpeed: 0.2
     m_Colors:
-    - _baseColor: {r: 0, g: 0, b: 0, a: 0.19607843}
-    - _baseColorEmission: {r: 1, g: 1, b: 1, a: 0}
+    - _baseColor: {r: 1, g: 1, b: 1, a: 0.19607843}
+    - _baseColorEmission: {r: 0.7729619, g: 0.8490566, b: 0.8430491, a: 0}
   m_BuildTextureStacks: []

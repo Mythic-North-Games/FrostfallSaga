@@ -21,14 +21,9 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
             }
         }
 
-        /// <summary>
-        ///     Meant to be used only once during set up, sets the initial material of the element.
-        /// </summary>
-        /// <param name="initialMaterial">The initial material of the element that should not change after.</param>
-        public void SetupInitialMaterial(Material initialMaterial)
+        public void SetInitialMaterial(Material material)
         {
-            InitialMaterial = initialMaterial;
-            TargetRenderer.sharedMaterial = initialMaterial;
+            InitialMaterial = material;
         }
 
         /// <summary>

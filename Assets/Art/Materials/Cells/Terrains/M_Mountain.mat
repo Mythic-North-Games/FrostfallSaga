@@ -8,19 +8,17 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Mountain
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 857791be4879354428dc25e9bde3508b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-  - _SPECULAR_SETUP
-  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
+  stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -70,6 +68,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2D:
+        m_Texture: {fileID: 2800000, guid: 9facc3b9f2e1d194b8f636e816c81f75, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -104,6 +106,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.144
@@ -115,10 +118,13 @@ Material:
     - _WorkflowMode: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.4188679, g: 0.4188679, b: 0.4188679, a: 1}
+    - _BaseColor: {r: 0.6603774, g: 0.6411956, b: 0.6323425, a: 1}
     - _Color: {r: 0.41886786, g: 0.41886786, b: 0.41886786, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Remap: {r: 0, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 1}
+    - _TextureTiling: {r: 8, g: 8, b: 0, a: 0}
+    - _UVOffset: {r: 1, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7325845900691389836
 MonoBehaviour:
