@@ -7,6 +7,7 @@ TagManager:
   - Cell
   - CellVisual
   - EntitiyVisual
+  - HighlightCell
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - FighterInteractable
   - EntityVisual
   - Building
-  - 
+  - HighlightCell
   - 
   - 
   - 
