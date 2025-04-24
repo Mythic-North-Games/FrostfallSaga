@@ -14,7 +14,7 @@ namespace FrostfallSaga.Core.HeroTeam
         private HeroTeamConfigurationSO _heroTeamConfiguration;
 
         /// <summary>
-        ///     Automatically initialize the singleton on scene load.
+        /// Automatically initialize the singleton on scene load.
         /// </summary>
         static HeroTeam()
         {
@@ -36,7 +36,6 @@ namespace FrostfallSaga.Core.HeroTeam
             Heroes = new List<Hero>
             {
                 new(_heroTeamConfiguration.HeroEntityConfiguration),
-                new(_heroTeamConfiguration.Companion1EntityConfiguration),
                 new(_heroTeamConfiguration.Companion2EntityConfiguration)
             };
             FullHealTeam(); // * For now, we fully heal the team on initialization.

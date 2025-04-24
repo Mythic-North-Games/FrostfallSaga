@@ -60,7 +60,7 @@ namespace FrostfallSaga.Fight.UI
             }
 
             fightManager.onFightEnded += OnFightEnded;
-            fightLoader.OnFightLoaded += OnFightLoaded;
+            fightLoader.onFightLoaded += OnFightLoaded;
             timelineController.onFighterHovered += OnFighterHovered;
             timelineController.onFighterUnhovered += OnFighterUnhovered;
         }
@@ -144,7 +144,7 @@ namespace FrostfallSaga.Fight.UI
                 {
                     fighter.FighterMouseEventsController.OnElementHover += OnFighterHovered;
                     fighter.FighterMouseEventsController.OnElementUnhover += OnFighterUnhovered;
-                    fighter.onDamageReceived += (targetFighter, _, _) => StartCoroutine(DisplayForSeconds(targetFighter));
+                    fighter.onDamageReceived += (targetFighter, _, _, _) => StartCoroutine(DisplayForSeconds(targetFighter));
                     fighter.onHealReceived += (targetFighter, _, _) => StartCoroutine(DisplayForSeconds(targetFighter));
                     fighter.onStatusApplied += (targetFighter, _) => StartCoroutine(DisplayForSeconds(targetFighter));
                     fighter.onStatusRemoved += (targetFighter, _) => StartCoroutine(DisplayForSeconds(targetFighter));

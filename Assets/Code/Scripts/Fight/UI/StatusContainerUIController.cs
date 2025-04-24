@@ -13,7 +13,7 @@ namespace FrostfallSaga.Fight.UI
 
         public static void SetupStatusContainer(VisualElement root, AStatus status)
         {
-            root.Q<VisualElement>(STATUS_ICON_UI_NAME).style.backgroundImage = new(status.Icon);
+            root.Q<VisualElement>(STATUS_ICON_UI_NAME).style.backgroundImage = new(status.GetIcon());
         }
     }
 }

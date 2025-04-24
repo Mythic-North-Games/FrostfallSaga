@@ -1,3 +1,4 @@
+using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.Fighters;
@@ -117,12 +118,37 @@ namespace FrostfallSaga.Fight.UI
             );
         }
 
-        private void OnPlayingFighterHealthChanged(Fighter playingFighter, int _value, bool _isMasterstroke)
+        private void OnPlayingFighterReceivedDamage(
+            Fighter playingFighter,
+            int _value,
+            bool _isMasterstroke,
+            EMagicalElement? _magicalElement
+        )
         {
             UpdateLifeProgress(_playingFighter, _playingFighterHealthProgressRoot, true);
         }
 
-        private void OnMateFighterHealthChanged(Fighter mateFighter, int _value, bool _isMasterstroke)
+        private void OnPlayingFighterHealed(
+            Fighter playingFighter,
+            int _value,
+            bool _isMasterstroke
+        )
+        {
+            UpdateLifeProgress(_playingFighter, _playingFighterHealthProgressRoot, true);
+        }
+
+        private void OnMateFighterReceivedDamage(
+            Fighter mateFighter,
+            int _value,
+            bool _isMasterstroke,
+            EMagicalElement? _magicalElement
+        )
+        {
+            if (mateFighter == _mate1) UpdateLifeProgress(_mate1, _mate1HealthProgressRoot, false);
+            else if (mateFighter == _mate2) UpdateLifeProgress(_mate2, _mate2HealthProgressRoot, false);
+        }
+
+        private void OnMateFighterHealed(Fighter mateFighter, int _value, bool _isMasterstroke)
         {
             if (mateFighter == _mate1) UpdateLifeProgress(_mate1, _mate1HealthProgressRoot, false);
             else if (mateFighter == _mate2) UpdateLifeProgress(_mate2, _mate2HealthProgressRoot, false);
@@ -181,8 +207,8 @@ namespace FrostfallSaga.Fight.UI
 
         private void RegisterFighterEvents()
         {
-            _playingFighter.onDamageReceived += OnPlayingFighterHealthChanged;
-            _playingFighter.onHealReceived += OnPlayingFighterHealthChanged;
+            _playingFighter.onDamageReceived += OnPlayingFighterReceivedDamage;
+            _playingFighter.onHealReceived += OnPlayingFighterHealed;
 
             _playingFighter.onActiveAbilityStarted += OnPlayingFighterActiveAbilityStarted;
             _playingFighter.onDirectAttackStarted += OnPlayingFighterDirectAttackStarted;
@@ -200,21 +226,21 @@ namespace FrostfallSaga.Fight.UI
             // Register mate fighter events
             if (_mate1 != null)
             {
-                _mate1.onDamageReceived += OnMateFighterHealthChanged;
-                _mate1.onHealReceived += OnMateFighterHealthChanged;
+                _mate1.onDamageReceived += OnMateFighterReceivedDamage;
+                _mate1.onHealReceived += OnMateFighterHealed;
             }
 
             if (_mate2 != null)
             {
-                _mate2.onDamageReceived += OnMateFighterHealthChanged;
-                _mate2.onHealReceived += OnMateFighterHealthChanged;
+                _mate2.onDamageReceived += OnMateFighterReceivedDamage;
+                _mate2.onHealReceived += OnMateFighterHealed;
             }
         }
 
         private void UnregisterFightersEvents()
         {
-            _playingFighter.onDamageReceived -= OnPlayingFighterHealthChanged;
-            _playingFighter.onHealReceived -= OnPlayingFighterHealthChanged;
+            _playingFighter.onDamageReceived -= OnPlayingFighterReceivedDamage;
+            _playingFighter.onHealReceived -= OnPlayingFighterHealed;
 
             _playingFighter.onActiveAbilityStarted -= OnPlayingFighterActiveAbilityStarted;
             _playingFighter.onDirectAttackStarted -= OnPlayingFighterDirectAttackStarted;
@@ -232,14 +258,14 @@ namespace FrostfallSaga.Fight.UI
             // Unregister mate fighter events
             if (_mate1 != null)
             {
-                _mate1.onDamageReceived -= OnMateFighterHealthChanged;
-                _mate1.onHealReceived -= OnMateFighterHealthChanged;
+                _mate1.onDamageReceived -= OnMateFighterReceivedDamage;
+                _mate1.onHealReceived -= OnMateFighterHealed;
             }
 
             if (_mate2 != null)
             {
-                _mate2.onDamageReceived -= OnMateFighterHealthChanged;
-                _mate2.onHealReceived -= OnMateFighterHealthChanged;
+                _mate2.onDamageReceived -= OnMateFighterReceivedDamage;
+                _mate2.onHealReceived -= OnMateFighterHealed;
             }
         }
 

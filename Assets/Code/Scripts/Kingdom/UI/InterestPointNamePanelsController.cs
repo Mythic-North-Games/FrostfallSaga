@@ -26,7 +26,7 @@ namespace FrostfallSaga.Kingdom.UI
                 return;
             }
 
-            _kingdomLoader.OnKingdomLoaded += OnKingdomLoaded;
+            _kingdomLoader.onKingdomLoaded += OnKingdomLoaded;
         }
 
         private void OnKingdomLoaded()
@@ -37,13 +37,17 @@ namespace FrostfallSaga.Kingdom.UI
 
         private void SetupInterestPointNamePanel(InterestPoint interestPoint)
         {
-            TemplateContainer interestPointNamePanel = InterestPointNamePanelTemplate.Instantiate();
+            VisualElement interestPointNamePanel = InterestPointNamePanelTemplate.Instantiate();
             interestPointNamePanel.Q<Label>(INTEREST_POINT_LABEL_UI_NAME).text =
                 interestPoint.InterestPointConfiguration.Name;
 
             WorldUIPositioner interestPointNamePositioner = gameObject.AddComponent<WorldUIPositioner>();
-            interestPointNamePositioner.Setup(_uiDoc, interestPointNamePanel, interestPoint.NamePanelAnchor.transform,
-                offset: DisplayOffset);
+            interestPointNamePositioner.Setup(
+                uiDocToDisplayOn: _uiDoc,
+                uiToDisplay: interestPointNamePanel,
+                anchorTransform: interestPoint.NamePanelAnchor.transform,
+                offset: DisplayOffset
+            );
 
             _uiDoc.rootVisualElement.Add(interestPointNamePanel);
         }

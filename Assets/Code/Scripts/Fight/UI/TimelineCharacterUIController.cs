@@ -34,7 +34,7 @@ namespace FrostfallSaga.Fight.UI
             // Setup character icon life progress
             _characterIconContainer = Root.Q<VisualElement>(CHARACTER_ICON_CONTAINER_UI_NAME);
             UpdateHealth();
-            Fighter.onDamageReceived += (_, _, _) => UpdateHealth();
+            Fighter.onDamageReceived += (_, _, _, _) => UpdateHealth();
             Fighter.onHealReceived += (_, _, _) => UpdateHealth();
 
             // Setup character icon

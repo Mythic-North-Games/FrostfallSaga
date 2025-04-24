@@ -16,8 +16,8 @@
                 <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainerRoot" />
                 <ui:Instance template="SituationTemplate" name="SituationTemplate" class="situationButtonContainerRoot" />
             </ui:ScrollView>
-            <ui:Button text="Return" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ReturnButton" class="mainMenuButtonDefault" style="width: 80%;" />
+            <ui:Button text="Return" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ReturnButton" class="situationsReturnButton" />
         </ui:VisualElement>
-        <ui:VisualElement name="SituationIllustration" class="situationIllustrationDefault"/>
+        <ui:VisualElement name="SituationIllustration" class="situationIllustrationDefault" />
     </ui:VisualElement>
 </ui:UXML>

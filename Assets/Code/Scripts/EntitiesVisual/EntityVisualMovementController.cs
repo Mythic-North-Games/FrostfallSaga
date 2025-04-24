@@ -57,6 +57,13 @@ namespace FrostfallSaga.EntitiesVisual
             _parentToMove = newParentToMove;
         }
 
+        public bool CanSeeTarget(Transform target, float viewRangeInDegrees)
+        {
+            Vector3 directionToTarget = target.position - _parentToMove.transform.position;
+            float angle = Vector3.Angle(_parentToMove.transform.forward, directionToTarget);
+            return angle <= viewRangeInDegrees / 2f;
+        }
+
         private void MoveTowardsCell(Cell currentCell, Cell targetCell, bool isJump, bool isLastMove)
         {
             StartCoroutine(SmoothMove(currentCell, targetCell, isJump, isLastMove));

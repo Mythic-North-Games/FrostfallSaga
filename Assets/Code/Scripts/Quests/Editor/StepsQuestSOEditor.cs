@@ -39,13 +39,13 @@ namespace FrostfallSaga.FFSEditor.Quests
                 SyncPossibleQuestEndings();
             }
 
-            if (node.GetData() == null)
+            if (node.Data == null)
             {
-                node.SetData(new QuestStep("First step", "Lorem ipsum dolor sit amet", null));
+                node.Data = new QuestStep("First step", "Lorem ipsum dolor sit amet", null);
                 SyncPossibleQuestEndings();
             }
 
-            QuestStep data = node.GetData();
+            QuestStep data = node.Data;
             EditorGUI.indentLevel = indentLevel;
 
             EditorGUILayout.BeginVertical("box");
@@ -67,18 +67,18 @@ namespace FrostfallSaga.FFSEditor.Quests
                 SyncPossibleQuestEndings();
             }
 
-            if (node.GetChildren() == null) return;
+            if (node.Children == null) return;
 
-            for (int i = 0; i < node.GetChildren().Count; i++)
+            for (int i = 0; i < node.Children.Count; i++)
             {
                 List<int> childPath = new(currentPath) { i };
-                DrawQuestStepTree(node.GetChildren()[i], indentLevel + 1, childPath);
+                DrawQuestStepTree(node.Children[i], indentLevel + 1, childPath);
             }
 
-            if (GUILayout.Button("Remove Step"))
+            if (indentLevel > 0 && GUILayout.Button("Remove Step"))
             {
                 Undo.RecordObject(quest, "Remove Step");
-                node.GetParent().RemoveChild(node);
+                node.Parent.RemoveChild(node);
                 EditorUtility.SetDirty(quest);
 
                 // Sync possible endings
@@ -106,24 +106,24 @@ namespace FrostfallSaga.FFSEditor.Quests
         private void GeneratePossibleEndings(TreeNode<QuestStep> node, List<int> currentPath,
             List<SElementToValue<int[], QuestEnding>> endingsList)
         {
-            if (node.GetChildren() == null)
+            if (node.Children == null)
             {
                 endingsList.Add(new SElementToValue<int[], QuestEnding>(currentPath.ToArray(), null));
                 return;
             }
 
             // If it's a leaf node, add the current path to the list
-            if (node.GetChildren().Count == 0)
+            if (node.Children.Count == 0)
             {
                 endingsList.Add(new SElementToValue<int[], QuestEnding>(currentPath.ToArray(), null));
                 return;
             }
 
             // Otherwise, recursively process children
-            for (int i = 0; i < node.GetChildren().Count; i++)
+            for (int i = 0; i < node.Children.Count; i++)
             {
                 List<int> childPath = new(currentPath) { i };
-                GeneratePossibleEndings(node.GetChildren()[i], childPath, endingsList);
+                GeneratePossibleEndings(node.Children[i], childPath, endingsList);
             }
         }
     }

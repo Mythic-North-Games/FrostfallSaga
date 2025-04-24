@@ -21,18 +21,21 @@ namespace FrostfallSaga.InventorySystem.UI
         private readonly VisualTreeAsset _statContainerTemplate;
         private readonly VisualElement _statsContainer;
         private readonly Color _statValueColor;
+        private readonly Color _statIconTintColor;
 
         public ObjectDetailsUIController(
             VisualElement root,
             VisualTreeAsset statContainerTemplate,
             string effectLineClassname,
-            Color statValueColor = default
+            Color statValueColor = default,
+            Color statIconTintColor = default
         )
         {
             _root = root;
             _statContainerTemplate = statContainerTemplate;
             _effectLineClassname = effectLineClassname;
             _statValueColor = statValueColor;
+            _statIconTintColor = statIconTintColor;
 
             _icon = _root.Q<VisualElement>(ICON_UI_NAME);
             _nameLabel = _root.Q<Label>(NAME_LABEL_UI_NAME);
@@ -106,7 +109,8 @@ namespace FrostfallSaga.InventorySystem.UI
                     icon: stat.Key,
                     statValue: stat.Value,
                     statValueColor: _statValueColor,
-                    justifyContent: Justify.FlexStart
+                    justifyContent: Justify.FlexStart,
+                    iconTintColor: _statIconTintColor
                 );
                 _statsContainer.Add(statContainerRoot);
             }

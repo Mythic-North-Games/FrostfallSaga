@@ -31,21 +31,27 @@
                 <ui:VisualElement name="AbilitiesContainer" style="height: 62.5%; width: 100%; flex-direction: row; justify-content: flex-start; align-items: center;">
                     <ui:Button parse-escape-sequences="false" display-tooltip-when-elided="false" name="DirectAttackButton" class="abilitiesButton">
                         <ui:VisualElement name="Icon" class="buttonContentIcon" />
+                        <ui:VisualElement name="IconHover" class="abilityIconHover" />
                     </ui:Button>
                     <ui:Button name="AbilityButton0" class="abilitiesButton">
                         <ui:VisualElement name="Icon" class="buttonContentIcon" />
+                        <ui:VisualElement name="IconHover" class="abilityIconHover" />
                     </ui:Button>
                     <ui:Button name="AbilityButton1" class="abilitiesButton">
                         <ui:VisualElement name="Icon" class="buttonContentIcon" />
+                        <ui:VisualElement name="IconHover" class="abilityIconHover" />
                     </ui:Button>
                     <ui:Button name="AbilityButton2" class="abilitiesButton">
                         <ui:VisualElement name="Icon" class="buttonContentIcon" />
+                        <ui:VisualElement name="IconHover" class="abilityIconHover" />
                     </ui:Button>
                     <ui:Button name="AbilityButton3" class="abilitiesButton">
                         <ui:VisualElement name="Icon" class="buttonContentIcon" />
+                        <ui:VisualElement name="IconHover" class="abilityIconHover" />
                     </ui:Button>
                     <ui:Button name="AbilityButton4" class="abilitiesButton">
                         <ui:VisualElement name="Icon" class="buttonContentIcon" />
+                        <ui:VisualElement name="IconHover" class="abilityIconHover" />
                     </ui:Button>
                 </ui:VisualElement>
             </ui:VisualElement>

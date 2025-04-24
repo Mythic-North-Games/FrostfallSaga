@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FrostfallSaga.Audio;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.GameState;
@@ -11,90 +12,99 @@ using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils.Scenes;
+using FrostfallSaga.Utils.Camera;
 using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
 {
     public class KingdomToFightTransitioner : MonoBehaviour
     {
-        [SerializeField] private KingdomManager kingdomManager;
-        [SerializeField] private float readyToFightAnimationDuration = 2f;
-        [SerializeField] private float delayBeforeLoadingSceneAfterReadyAnimation = 10f;
-        [SerializeField] private bool isPrintAnalysis;
-        private Action _onEncounterAnimationEnded;
+        [SerializeField] private KingdomManager _kingdomManager;
+        [SerializeField] private CameraController _cameraController;
+        [SerializeField] private float _readyToFightAnimationDuration = 2f;
+        [SerializeField] private float _cameraZoomAmount = 10f;
+        [SerializeField] private float _cameraZoomDuration = 0.5f;
+        [SerializeField] private bool _isPrintAnalysis;
 
         #region Setup and tear down
 
         private void Awake()
         {
-            kingdomManager = kingdomManager != null ? kingdomManager : FindObjectOfType<KingdomManager>();
-            if (!kingdomManager)
+            _kingdomManager = _kingdomManager != null ? _kingdomManager : FindObjectOfType<KingdomManager>();
+            if (!_kingdomManager)
             {
                 Debug.LogError("No KingdomManager found. Can't transition to fight scene.");
                 return;
             }
 
-            kingdomManager.OnEnemiesGroupEncountered += OnEnemiesGroupEncountered;
-            _onEncounterAnimationEnded += OnEncounterAnimationEnded;
+            _cameraController = _cameraController != null ? _cameraController : FindObjectOfType<CameraController>();
+            if (!_cameraController)
+            {
+                Debug.LogError("No CameraController found. Can't transition to fight scene.");
+                return;
+            }
+
+            _kingdomManager.OnEnemiesGroupEncountered += OnEnemiesGroupEncountered;
         }
 
         #endregion
 
         /// <summary>
-        ///     Start the encounter animation before saving the kingdom state and launching the fight scene.
+        /// Start the encounter animation before saving the kingdom state and launching the fight scene.
         /// </summary>
         /// <param name="enemiesGroup">The encountered enemies group.</param>
         /// <param name="heroGroupInitiating">True if the hero group is initiating the fight, false otherwise.</param>
         private void OnEnemiesGroupEncountered(EntitiesGroup enemiesGroup, bool heroGroupInitiating)
         {
             PrepareAndSavePreFightData(enemiesGroup);
-            StartCoroutine(StartEncounterAnimation(enemiesGroup, heroGroupInitiating));
+            StartCoroutine(PlayEncounterAnimationAndLaunchFightScene(enemiesGroup, heroGroupInitiating));
         }
 
         /// <summary>
-        ///     Once the group has moved, some other animation can be done, but for now, end it and start the fight.
+        /// Plays a ready to fight animation then make the initiating group move to the targeted group.
         /// </summary>
-        private void OnInitiatorGroupMoved(EntitiesGroup groupThatMoved, Cell destinationCell)
+        private IEnumerator PlayEncounterAnimationAndLaunchFightScene(
+            EntitiesGroup enemiesGroup,
+            bool heroGroupInitiating
+        )
         {
-            groupThatMoved.OnEntityGroupMoved -= OnInitiatorGroupMoved;
-            _onEncounterAnimationEnded?.Invoke();
-        }
-
-        /// <summary>
-        ///     Plays a ready to fight animation then make the initiating group move to the targeted group.
-        /// </summary>
-        private IEnumerator StartEncounterAnimation(EntitiesGroup enemiesGroup, bool heroGroupInitiating)
-        {
-            EntitiesGroup heroGroup = kingdomManager.HeroGroup;
-            Entity heroEntity = heroGroup.GetDisplayedEntity();
-            Entity enemyEntity = enemiesGroup.GetDisplayedEntity();
-
-            // Make groups rotate to watch each other
-            heroEntity.MovementController.RotateTowardsCell(enemiesGroup.cell);
-            enemyEntity.MovementController.RotateTowardsCell(heroGroup.cell);
-
-            // Play ready to fight animation for a while
-            heroEntity.AnimationController.PlayAnimationState("ReadyToFight");
-            enemyEntity.AnimationController.PlayAnimationState("ReadyToFight");
-            yield return new WaitForSeconds(readyToFightAnimationDuration);
-
-            // Make initiator group go to the cell of its enemy
+            EntitiesGroup heroGroup = _kingdomManager.HeroGroup;
             EntitiesGroup initiatorGroup = heroGroupInitiating ? heroGroup : enemiesGroup;
             EntitiesGroup attackedGroup = heroGroupInitiating ? enemiesGroup : heroGroup;
-            initiatorGroup.OnEntityGroupMoved += OnInitiatorGroupMoved;
-            initiatorGroup.MoveToCell(attackedGroup.cell, true);
-        }
+            Entity initiatorEntity = initiatorGroup.GetDisplayedEntity();
+            Entity attackedEntity = attackedGroup.GetDisplayedEntity();
 
-        private void OnEncounterAnimationEnded()
-        {
-            kingdomManager.SaveKingdomState();
-            StartCoroutine(StartFightScene());
-        }
+            // Make initiator group rotate towards the enemy group
+            initiatorEntity.MovementController.RotateTowardsCell(enemiesGroup.cell);
+            initiatorEntity.AnimationController.PlayAnimationState("ReadyToFight");
 
-        private IEnumerator StartFightScene()
-        {
-            yield return new WaitForSeconds(delayBeforeLoadingSceneAfterReadyAnimation);
-            Debug.Log("Transitioning to fight");
+            // Make enemy group rotate towards the initiator group only if enemyEntity can see the initiator group
+            if (attackedEntity.CanSeeTarget(initiatorEntity.transform))
+            {
+                attackedEntity.MovementController.RotateTowardsCell(heroGroup.cell);
+                attackedEntity.AnimationController.PlayAnimationState("ReadyToFight");
+            }
+            yield return new WaitForSeconds(_readyToFightAnimationDuration);
+
+            // Make camera zoom in on the initiator group
+            _cameraController.ZoomIn(_cameraZoomAmount, _cameraZoomDuration);
+
+            // Make initiator group go to the cell of its enemy
+            initiatorEntity.MovementController.Move(
+                initiatorGroup.cell,
+                attackedGroup.cell,
+                true
+            );
+            attackedGroup.cell.SetOccupier(initiatorGroup);
+
+            // Save the current kingdom state
+            _kingdomManager.SaveKingdomState();
+
+            // Start playing the fight scene music
+            AudioManager audioManager = AudioManager.Instance;
+            audioManager.PlayMusicSound(audioManager.MusicAudioClips.Fight);
+
+            // Transition to the fight scene
             SceneTransitioner.TransitionToScene(EScenesName.FIGHT.ToSceneString());
         }
 
@@ -109,8 +119,11 @@ namespace FrostfallSaga.Kingdom
                     enemyGroupEntity.EntityConfiguration);
             }
 
-            Dictionary<HexDirection, Cell> analyze =
-                CellAnalysis.AnalyzeAtCell(enemiesGroup.cell, kingdomManager.KingdomGrid, isPrintAnalysis);
+            Dictionary<HexDirection, Cell> analyze = CellAnalysis.AnalyzeAtCell(
+                enemiesGroup.cell,
+                _kingdomManager.KingdomGrid,
+                _isPrintAnalysis
+            );
 
             GameStateManager.Instance.SavePreFightData(
                 HeroTeam.Instance.GetAliveHeroesEntityConfig(),

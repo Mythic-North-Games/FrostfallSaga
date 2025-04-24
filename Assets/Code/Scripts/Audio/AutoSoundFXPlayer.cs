@@ -5,13 +5,11 @@ namespace FrostfallSaga.Audio
     public class AutoFXSoundPlayer : MonoBehaviour
     {
         [SerializeField] private AudioClip soundFX;
-        [SerializeField] private float volume = 1f;
-        [SerializeField] private float fadeOutDuration = 1f;
-        [SerializeField] private bool loop = false;
+        [SerializeField] private bool enableLooping = false;
 
         private void Start()
         {
-            AudioManager.Instance.PlayFXSound(soundFX, transform, volume, fadeOutDuration, loop);
+            AudioManager.Instance.PlayFXSound(soundFX, transform, enableLooping);
         }
     }
 }

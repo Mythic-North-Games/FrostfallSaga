@@ -17,6 +17,7 @@ namespace FrostfallSaga.InventorySystem.UI
         [SerializeField] private VisualTreeAsset bagPanelTemplate;
         [SerializeField] private VisualTreeAsset statContainerTemplate;
         [SerializeField] private Color statValueColor = new(0.2f, 0.2f, 0.2f, 1f);
+        [SerializeField] private Color statIconColor;
         [SerializeField] private EntityConfigurationSO devHero;
         private InventoryBagPanelUIController _bagPanelUIController;
 
@@ -82,13 +83,13 @@ namespace FrostfallSaga.InventorySystem.UI
             // Setup hero chooser (left page)
             _heroChooserUIController = new HeroChooserUIController(equippedPanelRoot);
             _heroChooserUIController.SetHeroes(heroes);
-            _heroChooserUIController.OnHeroChosen += OnHeroChosen;
+            _heroChooserUIController.onHeroChosen += OnHeroChosen;
 
             // Setup bag panel (right page)
             VisualElement bagPanelRoot = bagPanelTemplate.Instantiate();
             bagPanelRoot.StretchToParentSize();
             _bagPanelUIController =
-                new InventoryBagPanelUIController(bagPanelRoot, statContainerTemplate, statValueColor);
+                new InventoryBagPanelUIController(bagPanelRoot, statContainerTemplate, statValueColor, statIconColor);
             _bagPanelUIController.onItemSlotSelected += OnItemSlotSelected;
             _bagPanelUIController.onItemSlotEquipClicked += OnItemSlotEquipClicked;
             _bagPanelUIController.SetInventory(_currentHeroInventory);

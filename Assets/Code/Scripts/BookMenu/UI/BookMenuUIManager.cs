@@ -1,8 +1,9 @@
 using System.Collections;
 using FrostfallSaga.Core.BookMenu;
 using FrostfallSaga.Core.UI;
-using FrostfallSaga.InventorySystem.UI;
 using FrostfallSaga.Quests.UI;
+using FrostfallSaga.InventorySystem.UI;
+using FrostfallSaga.AbilitySystem.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,6 +14,7 @@ namespace FrostfallSaga.BookMenu.UI
         [SerializeField] private BookMenuBarUIController _bookMenuBarController;
         [SerializeField] private BookQuestsMenuUIController _questsMenuController;
         [SerializeField] private BookInventoryMenuUIController _inventoryMenuController;
+        [SerializeField] private BookAbilitySystemMenuUIController _abilitySystemMenuController;
 
         private VisualElement _bookMenuContainer;
         private VisualElement _bookMenuRoot;
@@ -29,6 +31,13 @@ namespace FrostfallSaga.BookMenu.UI
         {
             _currentMenuController = _inventoryMenuController;
             _inventoryMenuController.SetupMenu();
+            StartCoroutine(ShowBookMenu());
+        }
+
+        private void OnAbilitySystemMenuClicked()
+        {
+            _currentMenuController = _abilitySystemMenuController;
+            _abilitySystemMenuController.SetupMenu();
             StartCoroutine(ShowBookMenu());
         }
 
@@ -78,6 +87,11 @@ namespace FrostfallSaga.BookMenu.UI
                 Debug.LogError("InventoryMenuController is not set in the inspector.");
                 return;
             }
+            if (_abilitySystemMenuController == null)
+            {
+                Debug.LogError("AbilityMenuController is not set in the inspector.");
+                return;
+            }
 
             _bookMenuContainer = _uiDoc.rootVisualElement.Q<VisualElement>(BOOK_MENU_CONTAINER_UI_NAME);
             _bookMenuContainer.AddToClassList(BOOK_MENU_CONTAINER_HIDDEN_CLASSNAME);
@@ -101,6 +115,7 @@ namespace FrostfallSaga.BookMenu.UI
         {
             _bookMenuBarController.onQuestsMenuClicked += OnQuestsMenuClicked;
             _bookMenuBarController.onInventoryMenuClicked += OnInventoryMenuClicked;
+            _bookMenuBarController.onAbilitySystemMenuClicked += OnAbilitySystemMenuClicked;
         }
 
         #endregion

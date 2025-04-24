@@ -13,29 +13,21 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
     public class InternalAbilityAnimationSO : AAbilityAnimationSO
     {
         [field: SerializeField] public string AnimationStateName { get; private set; }
-
-        [field: SerializeField]
-        [field: Range(0f, 99f)]
-        public float AnimationDuration { get; private set; }
-
+        [field: SerializeField, Range(0f, 99f)] public float AnimationDuration { get; private set; }
         [SerializeReference] public AInternalAbilityAnimationExecutor Executor;
-
-        [field: Header("Trigger sound")]
-        [field: SerializeField]
-        public AudioClip TriggerSoundFX { get; private set; }
-
-        [field: SerializeField, Range(0f, 1f)] public float TriggerSoundVolume { get; private set; } = 1f;
-        [field: SerializeField, Range(0f, 3f)] public float TriggerSoundFadeOutDuration { get; private set; } = 0.7f;
+        [field: SerializeField] public AudioClip TriggerSoundFX { get; private set; }
 
         /// <summary>
         ///     Executes the internal ability animation as configured.
         /// </summary>
         public override void Execute(Fighter fighterThatWillExecute, FightCell[] abilityTargetCells)
         {
+            // Registering events
             Executor.onFighterTouched += OnFighterTouched;
             Executor.onCellTouched += OnCellTouched;
             Executor.onAnimationEnded += OnExecutorAnimationEnded;
 
+            // Executing the animation
             FighterCollider fighterWeaponCollider = fighterThatWillExecute.GetWeaponCollider();
             Executor.Execute(
                 fighterThatWillExecute,
@@ -44,12 +36,14 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
                 AnimationDuration,
                 fighterWeaponCollider
             );
-            AudioManager.Instance.PlayFXSound(
-                TriggerSoundFX,
-                fighterThatWillExecute.transform,
-                TriggerSoundVolume,
-                TriggerSoundFadeOutDuration
-            );
+
+            // Setting up the camera
+            FindFollowCamera();
+            _cameraFollow.FollowAbility(abilityTargetCells[^1].transform);
+
+            // Play trigger the sound effect if any
+            if (TriggerSoundFX == null) return;
+            AudioManager.Instance.PlayFXSound(TriggerSoundFX, fighterThatWillExecute.transform);
         }
 
         protected override void OnExecutorAnimationEnded(Fighter initiator)
@@ -57,6 +51,7 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
             Executor.onFighterTouched -= OnFighterTouched;
             Executor.onCellTouched -= OnCellTouched;
             Executor.onAnimationEnded -= OnExecutorAnimationEnded;
+            _cameraFollow.StopFollowing();
             base.OnExecutorAnimationEnded(initiator);
         }
     }

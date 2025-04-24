@@ -47,7 +47,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroupsSpawner
                 return;
             }
 
-            kingdomLoader.OnKingdomLoaded += OnKingdomLoaded;
+            kingdomLoader.onKingdomLoaded += OnKingdomLoaded;
         }
 
         #endregion

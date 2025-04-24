@@ -91,6 +91,7 @@
     padding-right: 1%;
     padding-bottom: 1%;
     padding-left: 1%;
+    height: 15%;
 }
 
 .objectDetailsPanelContainerHidden {
@@ -118,6 +119,6 @@
 
 .itemRewardDetailsEffectLine {
     -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 140%;
+    font-size: 150%;
     color: rgb(225, 225, 225);
 }

@@ -25,6 +25,7 @@ namespace FrostfallSaga.Fight
         [SerializeField] private VisualTreeAsset _itemRewardContainerTemplate;
         [SerializeField] private VisualTreeAsset _statContainerTemplate;
         [SerializeField] private Color _itemRewardStatsColor = new(0.8f, 0.8f, 0.8f, 1f);
+        [SerializeField] private Color _itemRewardStatIconColor;
         [SerializeField] private float _itemRewardLongHoverDuration = 0.5f;
         [SerializeField] private string _fightWonText = "Enemies defeated";
         [SerializeField] private string _fightLostText = "You have been defeated";
@@ -68,6 +69,7 @@ namespace FrostfallSaga.Fight
                 _itemRewardContainerTemplate,
                 _statContainerTemplate,
                 _itemRewardStatsColor,
+                _itemRewardStatIconColor,
                 _itemRewardLongHoverDuration,
                 _fightWonText,
                 _fightLostText
@@ -84,7 +86,11 @@ namespace FrostfallSaga.Fight
 
         private void HandleFightEnding(Fighter[] allies, Fighter[] enemies)
         {
-            // First, generate and save post-fight data
+            // Stop the fight music
+            AudioManager audioManager = AudioManager.Instance;
+            audioManager.StopCurrentMusic();
+
+            // Generate and save post-fight data
             GenerateAndSavePostFightData(allies, enemies);
 
             // Check if allies have won
@@ -107,7 +113,9 @@ namespace FrostfallSaga.Fight
             // Configure and display the fight end menu
             _fightEndMenuController.Setup(allies, enemies, alliesWon, stycasReward, itemsReward);
             _fightEndMenuController.SetVisible(true);
-            AudioManager.Instance.PlayUISound(alliesWon ? UISounds.FightWon : UISounds.FightLost);
+
+            // Play the appropriate sound based on the fight outcome
+            audioManager.PlayUISound(alliesWon ? audioManager.UIAudioClips.FightWon : audioManager.UIAudioClips.FightLost);
         }
 
         private void OnPlayerContinues()

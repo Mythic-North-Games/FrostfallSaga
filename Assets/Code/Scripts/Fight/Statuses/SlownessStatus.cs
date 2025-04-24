@@ -1,5 +1,7 @@
 using System;
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Utils.UI;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight.Statuses
@@ -54,6 +56,11 @@ namespace FrostfallSaga.Fight.Statuses
         public override int GetPotentialHeal()
         {
             return 0;
+        }
+
+        public override Sprite GetIcon()
+        {
+            return UIIconsProvider.Instance.GetIcon(UIIcons.SLOWNESS.GetIconResourceName());
         }
     }
 }

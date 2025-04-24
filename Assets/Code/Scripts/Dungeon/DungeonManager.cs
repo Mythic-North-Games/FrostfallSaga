@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.Dungeons;
@@ -15,6 +16,7 @@ namespace FrostfallSaga.Dungeon
 {
     public class DungeonManager : MonoBehaviour
     {
+        public Action onDungeonCompleted;
         private GameStateManager _gameStateManager;
 
         private void Awake()
@@ -33,6 +35,8 @@ namespace FrostfallSaga.Dungeon
 
             if (!dungeonState.AlliesWonLastFight || dungeonState.IsDungeonCompleted())
             {
+                if(dungeonState.IsDungeonCompleted()) onDungeonCompleted?.Invoke();
+
                 Debug.Log(
                     "Dungeon completed or allies lost last fight. Cleaning dungeon state and transitioning to kingdom..."
                 );

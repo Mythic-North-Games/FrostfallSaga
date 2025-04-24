@@ -68,6 +68,7 @@ namespace FrostfallSaga.Fight.Fighters
                 touchedFighter,
                 _controlledFighter.TryMasterstroke()
             );
+            _controlledFighter.Weapon.PlayUseSoundFXIfAny(_controlledFighter);
         }
 
         private void OnDirectAttackAnimationEnded(Fighter initiator)

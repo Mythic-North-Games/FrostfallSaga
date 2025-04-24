@@ -12,6 +12,7 @@ using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.InterestPoints;
 using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
+using FrostfallSaga.Audio;
 using FrostfallSaga.Utils.Scenes;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ namespace FrostfallSaga.Kingdom
         private GameStateManager _gameStateManager;
         private HeroTeam _heroTeam;
         private EntitiesGroup _respawnedHeroGroup;
-        public Action OnKingdomLoaded;
+        public Action onKingdomLoaded;
 
         #region Setup & tear down
 
@@ -46,17 +47,21 @@ namespace FrostfallSaga.Kingdom
         #endregion
 
         private void Start()
-        {
+        {   
             SceneTransitioner.FadeInCurrentScene();
             kingdomHexGrid.ClearCells();
             Debug.Log("Generating Kingdom Grid...");
             kingdomHexGrid.GenerateGrid();
+
+            AudioManager audioManager = AudioManager.Instance;
+            audioManager.PlayMusicSound(audioManager.MusicAudioClips.Kingdom);
+
             if (_gameStateManager.IsFirstSceneLaunch())
             {
                 Debug.Log("First scene launch. No kingdom to load.");
                 FirstSpawnHeroGroup();
                 InterestPointBuilder.FirstBuildInterestPoints(kingdomHexGrid, interestPointConfigs);
-                OnKingdomLoaded?.Invoke();
+                onKingdomLoaded?.Invoke();
                 return;
             }
 
@@ -68,14 +73,14 @@ namespace FrostfallSaga.Kingdom
             if (!_gameStateManager.HasFightJustOccured())
             {
                 Debug.Log("No fight recorded.");
-                OnKingdomLoaded?.Invoke();
+                onKingdomLoaded?.Invoke();
                 return; // For now, the kingdom loader only needs to behave after a fight.
             }
 
             AdjustKingdomAfterFight();
             _gameStateManager.CleanPostFightData();
             Debug.Log("Kingdom loaded.");
-            OnKingdomLoaded?.Invoke();
+            onKingdomLoaded?.Invoke();
         }
 
         #region Last kingdom state restoration
