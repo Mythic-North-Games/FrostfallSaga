@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Core.Entities;
@@ -273,8 +274,27 @@ namespace FrostfallSaga.Fight.Fighters
             _stats.actionPoints -= activeAbility.ActionPointsCost;
             activeAbility.OnActiveAbilityEnded += OnActiveAbilityEnded;
             onActiveAbilityStarted?.Invoke(this, activeAbility);
+            StartCoroutine(PlayAndTriggerAbilityCoroutine(activeAbility, targetedCells));
+        } 
+        
+        private IEnumerator PlayAndTriggerAbilityCoroutine(ActiveAbilitySO activeAbility, FightCell[] targetedCells) 
+        {
+            PlayAnimationIfAny(activeAbility.Animation.TriggerAnimationName);
+            float animationDuration = 0f;
+
+            foreach (var clip in AnimationController._animator.runtimeAnimatorController.animationClips)
+            {
+                if (clip.name == activeAbility.Animation.TriggerAnimationName)
+                {
+                    animationDuration = clip.length;
+                    break;
+                }
+            }
+
+            Debug.LogWarning($"Aucune animation trouvée pour le nom {activeAbility.Animation.TriggerAnimationName}");
+            yield return new WaitForSeconds(animationDuration);
             activeAbility.Trigger(targetedCells, this);
-        }
+            }
 
         public void UseConsumable(InventorySlot consumableSlot)
         {

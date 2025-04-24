@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92309899b8b9f04ea20210cad65d66f, type: 3}
   m_Name: ExampleFireSpell
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Fire ball
-  <Description>k__BackingField: Invoke a fire ball coming from the sky to destroy
-    your target.
-  <Icon>k__BackingField: {fileID: 21300000, guid: 09e1953081f187bc3ae86892f4668bbc, type: 3}
-  <UnlockPoints>k__BackingField: 1
+  <Name>k__BackingField: ExampleFireSpell
+  <Description>k__BackingField: Apply fire on cell
+  <IconSprite>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
+  <UnlockPoints>k__BackingField: 0
+  <AbilitytriggerAnimationName>k__BackingField: FireBallTriggerAnimation
   <Targeter>k__BackingField:
     <OriginCellRange>k__BackingField: 12
     <CellsSequence>k__BackingField:
