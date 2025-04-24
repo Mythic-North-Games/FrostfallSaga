@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: HeroDialogueParticipant
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Hero
-  <Icon>k__BackingField: {fileID: 21300000, guid: 650560cad05210a4396e7d04c5ad61aa, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 362042da36cb9a81c9677f3b7068c188, type: 3}

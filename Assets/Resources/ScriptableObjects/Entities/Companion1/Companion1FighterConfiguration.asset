@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Companion1FighterConfiguration
   m_EditorClassIdentifier: 
   <FighterPrefab>k__BackingField: {fileID: 2920049516156015753, guid: 5f1dab0e72fc4b080a019f723145dadf, type: 3}
-  <FighterClass>k__BackingField: {fileID: 11400000, guid: 0a98b7f5e6fdf2cd18ccc734f252e5c7, type: 2}
+  <FighterClass>k__BackingField: {fileID: 11400000, guid: 8d3cfbd8265f5e54cb7a7563a0ae8f1b, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 0}
   <UnlockedActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
@@ -214,6 +214,6 @@ MonoBehaviour:
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
-  <Health>k__BackingField: 483
+  <Health>k__BackingField: 500
   ActiveAbilitiesCapacity: 5
   PassiveAbilitiesCapacity: 0
