@@ -48,14 +48,9 @@ namespace FrostfallSaga.Grid
         {
             float perlinValue = _perlinTerrainManager.GetNoiseValue(x, y);
             TerrainTypeSO selectedTerrain = GetTerrainTypeFromPerlinValue(perlinValue, selectedBiome);
-            bool isAccessible = selectedTerrain.DefaultAccessible
-                ? Randomizer.GetBooleanOnChance(selectedTerrain.AccessibilityChanceOverride)
-                : selectedTerrain.DefaultAccessible;
-            cell.SetTerrainAccessibility(isAccessible);
             cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, hexSize, selectedTerrain, selectedBiome);
-            cell.HighlightController.SetupInitialMaterial(selectedTerrain.CellMaterial);
-            cell.HighlightController.UpdateCurrentDefaultMaterial(selectedTerrain.CellMaterial);
-            cell.HighlightController.ResetToDefaultMaterial();
+            cell.GenerateRandomAccessibility(EAccessibilityGenerationMode.FLIP_IF_ACCESSIBLE);
+            cell.SetTerrain(selectedTerrain);
         }
 
         private static TerrainTypeSO GetTerrainTypeFromPerlinValue(float perlinValue, BiomeTypeSO selectedBiome)

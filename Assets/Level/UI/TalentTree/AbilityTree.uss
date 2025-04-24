@@ -1,0 +1,279 @@
+.abilityIconLocked {
+    height: 100%;
+    width: 100%;
+    background-image: resource('UI/Icons/dodgeChanceIcon');
+    -unity-background-scale-mode: scale-to-fit;
+    visibility: visible;
+    overflow: visible;
+    opacity: 0.4;
+}
+
+.abilityIconUnlocked {
+    height: 100%;
+    width: 100%;
+    background-image: resource('UI/Icons/dodgeChanceIcon');
+    -unity-background-scale-mode: scale-to-fit;
+    visibility: visible;
+    overflow: visible;
+    opacity: 1;
+}
+
+.iceLockVisible {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    background-image: resource('UI/Icons/crossedChainsIcon');
+    top: 0;
+    left: 0;
+}
+
+.iceLockHidden {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    background-image: resource('UI/Icons/crossedChainsIcon');
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.equippedAbility {
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out-cubic;
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    background-image: none;
+    background-color: rgba(25, 25, 25, 0.78);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-left-color: rgb(225, 225, 225);
+    border-right-color: rgb(225, 225, 225);
+    border-top-color: rgb(225, 225, 225);
+    border-bottom-color: rgb(225, 225, 225);
+    width: 15.5%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    height: 100%;
+}
+
+.abilityIconHover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(225, 225, 225, 0);
+}
+
+.abilityIconHover:hover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(225, 225, 225, 0.35);
+}
+
+.unlockButton {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 225%;
+    -unity-font-style: normal;
+    width: 80%;
+    height: 47.5%;
+    align-self: center;
+    color: rgb(225, 225, 225);
+    border-left-color: rgb(225, 225, 225);
+    border-right-color: rgb(225, 225, 225);
+    border-top-color: rgb(225, 225, 225);
+    border-bottom-color: rgb(225, 225, 225);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+    background-color: rgba(25, 25, 25, 0.78);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    -unity-text-align: middle-center;
+}
+
+.unlockButton:hover {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 225%;
+    -unity-font-style: normal;
+    width: 80%;
+    height: 47.5%;
+    align-self: center;
+    color: rgb(225, 225, 225);
+    border-left-color: rgb(225, 225, 225);
+    border-right-color: rgb(225, 225, 225);
+    border-top-color: rgb(225, 225, 225);
+    border-bottom-color: rgb(225, 225, 225);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+    background-color: rgba(125, 125, 125, 0.78);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    -unity-text-align: middle-center;
+}
+
+.unlockButtonLocked {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 225%;
+    -unity-font-style: normal;
+    width: 80%;
+    height: 47.5%;
+    align-self: center;
+    color: rgb(225, 225, 225);
+    border-left-color: rgb(225, 225, 225);
+    border-right-color: rgb(225, 225, 225);
+    border-top-color: rgb(225, 225, 225);
+    border-bottom-color: rgb(225, 225, 225);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+    background-color: rgba(25, 25, 25, 0.78);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    -unity-text-align: middle-center;
+    opacity: 0.5;
+}
+
+.unlockButtonLocked:hover {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 225%;
+    -unity-font-style: normal;
+    width: 80%;
+    height: 47.5%;
+    align-self: center;
+    color: rgb(225, 225, 225);
+    border-left-color: rgb(225, 225, 225);
+    border-right-color: rgb(225, 225, 225);
+    border-top-color: rgb(225, 225, 225);
+    border-bottom-color: rgb(225, 225, 225);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+    background-color: rgba(25, 25, 25, 0.78);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    -unity-text-align: middle-center;
+    opacity: 0.5;
+}
+
+.abilityPointsLabelDefault {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    font-size: 230%;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+}
+
+.abilityPointsLabelLocked {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    font-size: 230%;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    color: rgb(157, 44, 44);
+}
+
+.abilityPointsIconDefault {
+    flex-grow: 1;
+    background-image: resource('UI/Icons/awakeningCrystalIcon');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.effectLine {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 150%;
+    color: rgb(25, 25, 25);
+    white-space: normal;
+}

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92309899b8b9f04ea20210cad65d66f, type: 3}
   m_Name: ExampleTrapAdder
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Example trap adder
-  <Description>k__BackingField: 
-  <IconSprite>k__BackingField: {fileID: 21300000, guid: a14e6ee680df42f4c99bf69bc3d6b9ca, type: 3}
-  Effects: []
+  <Name>k__BackingField: Spikes trap
+  <Description>k__BackingField: Add a spike trap to the target cell. Inflict physical
+    damages to any fighter walking on it.
+  <Icon>k__BackingField: {fileID: 21300000, guid: 86b43f25fc5d057a5af986e88228b181, type: 3}
+  <UnlockPoints>k__BackingField: 0
   <Targeter>k__BackingField:
     <OriginCellRange>k__BackingField: 5
     <CellsSequence>k__BackingField:
@@ -32,19 +33,20 @@ MonoBehaviour:
   <GodFavorsPointsCost>k__BackingField: 0
   <Dodgable>k__BackingField: 0
   <Masterstrokable>k__BackingField: 0
-  MasterstrokeEffects: []
-  CellAlterations:
-  - rid: 3629974199755079683
+  effects: []
+  masterstrokeEffects: []
+  cellAlterations:
+  - rid: 6053963237283332104
   <Animation>k__BackingField: {fileID: 11400000, guid: 508ffba12f5416243a12eb040fa53586, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 3629974199755079683
+    - rid: 6053963237283332104
       type: {class: AddImpedimentAlteration, ns: FrostfallSaga.Fight.FightCells.FightCellAlterations, asm: FrostfallSaga.Fight}
       data:
-        <IsPermanent>k__BackingField: 0
-        <Duration>k__BackingField: 4
-        <Name>k__BackingField: 
-        <Description>k__BackingField: 
+        <Name>k__BackingField: Add impediment
+        <Description>k__BackingField: Adds an impediment to the cell.
         <Icon>k__BackingField: {fileID: 0}
+        <IsPermanent>k__BackingField: 0
+        <Duration>k__BackingField: 5
         <Impediment>k__BackingField: {fileID: 11400000, guid: 28a39012139327f4baa536e50cfa4610, type: 2}

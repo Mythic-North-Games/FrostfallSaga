@@ -107,27 +107,26 @@ namespace FrostfallSaga.Fight
             );
         }
 
-        private static void SetupAllyFighter(Fighter allyFighterToSetup,
-            EntityConfigurationSO entityConfiguration,
-            string sessionId)
+        private static void SetupAllyFighter(
+            Fighter allyFighterToSetup,
+            EntityConfigurationSO entityConf,
+            string sessionId
+        )
         {
-            PersistedFighterConfigurationSO fighterConfiguration =
-                entityConfiguration.FighterConfiguration as PersistedFighterConfigurationSO;
-            ActiveAbilitySO[] activeAbilities = Array.ConvertAll(
-                fighterConfiguration.EquipedActiveAbilities,
-                activeAbility => activeAbility as ActiveAbilitySO
-            );
-            PassiveAbilitySO[] passiveAbilities = Array.ConvertAll(
-                fighterConfiguration.EquipedPassiveAbilities,
-                passiveAbility => passiveAbility as PassiveAbilitySO
-            );
+            PersistedFighterConfigurationSO fighterConf = entityConf.FighterConfiguration as PersistedFighterConfigurationSO;
+            ActiveAbilitySO[] activeAbilities = fighterConf.EquippedActiveAbilities
+                .Select(activeAbility => activeAbility as ActiveAbilitySO)
+                .ToArray();
+            PassiveAbilitySO[] passiveAbilities = fighterConf.EquippedPassiveAbilities
+                .Select(passiveAbility => passiveAbility as PassiveAbilitySO)
+                .ToArray();
 
             allyFighterToSetup.Setup(
-                entityConfiguration,
-                fighterConfiguration,
-                activeAbilities,
-                passiveAbilities,
-                fighterConfiguration.Inventory,
+                entityConfiguration: entityConf,
+                fighterConfiguration: fighterConf,
+                equippedActiveAbilities: activeAbilities,
+                equippedPassiveAbilities: passiveAbilities,
+                inventory: fighterConf.Inventory,
                 sessionId
             );
         }
@@ -149,7 +148,7 @@ namespace FrostfallSaga.Fight
             if (inventory.WeaponSlot.IsEmpty())
             {
                 Debug.LogWarning("Enemy inventory is missing a weapon. Default weapon will be equipped.");
-                inventory.EquipEquipment(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath));
+                inventory.EquipEquipment(Resources.Load<WeaponSO>(Inventory.DefaultWeaponResourcePath), isFromBag: false);
             }
 
             return inventory;
@@ -184,9 +183,11 @@ namespace FrostfallSaga.Fight
         private static ActiveAbilitySO[] ChooseEnemyActiveAbilities(FighterConfigurationSO fighterConfiguration)
         {
             ActiveAbilitySO[] availableActiveAbilities = Array.ConvertAll(
-                fighterConfiguration.AvailableActiveAbilities.ToArray(),
+                fighterConfiguration.UnlockedActiveAbilities.ToArray(),
                 activeAbility => activeAbility as ActiveAbilitySO
             );
+            if (availableActiveAbilities.Length == 0) return Array.Empty<ActiveAbilitySO>();
+
             return Randomizer.GetRandomUniqueElementsFromArray(
                 availableActiveAbilities,
                 fighterConfiguration.ActiveAbilitiesCapacity
@@ -196,9 +197,11 @@ namespace FrostfallSaga.Fight
         private static PassiveAbilitySO[] ChooseEnemyPassiveAbilities(FighterConfigurationSO fighterConfiguration)
         {
             PassiveAbilitySO[] availablePassiveAbilities = Array.ConvertAll(
-                fighterConfiguration.AvailablePassiveAbilities.ToArray(),
+                fighterConfiguration.UnlockedPassiveAbilities.ToArray(),
                 passiveAbility => passiveAbility as PassiveAbilitySO
             );
+            if (availablePassiveAbilities.Length == 0) return Array.Empty<PassiveAbilitySO>();
+
             return Randomizer.GetRandomUniqueElementsFromArray(
                 availablePassiveAbilities,
                 fighterConfiguration.PassiveAbilitiesCapacity

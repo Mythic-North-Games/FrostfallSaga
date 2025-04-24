@@ -23,7 +23,7 @@ namespace FrostfallSaga.City
                 return;
             }
 
-            _cityMenuController.OnCitySituationClicked += OnCitySituationClicked;
+            _cityMenuController.onCitySituationClicked += OnCitySituationClicked;
         }
 
         private void OnCitySituationClicked(ACitySituationSO citySituation)

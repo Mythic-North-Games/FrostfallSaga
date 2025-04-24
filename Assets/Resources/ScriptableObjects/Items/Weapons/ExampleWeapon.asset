@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4286825fcdd3ad64d81ab979b1e3b83e, type: 3}
   m_Name: ExampleWeapon
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Wooden sword
-  <Description>k__BackingField: Basic wooden sword for any beginner adventurer
-  <IconSprite>k__BackingField: {fileID: 21300000, guid: c76bf23a91b91f547963ba85711ce108, type: 3}
+  <Name>k__BackingField: Iron axe
+  <Description>k__BackingField: Basic iron axe, good for any beginner adventurer
+  <IconSprite>k__BackingField: {fileID: 21300000, guid: afc31317a00029b59b5827c276718dec, type: 3}
   <SlotTag>k__BackingField: 4
   <LootChance>k__BackingField: 0
   <AttackTargeter>k__BackingField:
@@ -30,18 +30,31 @@ MonoBehaviour:
     <StopedAtXthLowerHeightDifference>k__BackingField: 0
     <StopedAtXthEncounteredFighters>k__BackingField: 0
   <UseActionPointsCost>k__BackingField: 1
-  <MinPhysicalDamages>k__BackingField: 1
+  <MinPhysicalDamages>k__BackingField: 5
   <MaxPhysicalDamages>k__BackingField: 10
-  <MinMagicalDamages>k__BackingField:
-  - element: 0
-    value: 2
-  <MaxMagicalDamages>k__BackingField:
-  - element: 0
-    value: 0
+  <MinMagicalDamages>k__BackingField: []
+  <MaxMagicalDamages>k__BackingField: []
   <FightersStrengths>k__BackingField: []
-  SpecialEffects: []
+  specialEffects:
+  - rid: 6053963237283332122
   <AttackAnimation>k__BackingField: {fileID: 11400000, guid: a44f20bfff5320740bb23fe1b97bf418, type: 2}
   <WeaponUseSoundFX>k__BackingField: {fileID: 8300000, guid: 3c0943e18a9f20d41b474d88ab8d911e, type: 3}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6053963237283332122
+      type: {class: ApplyStatusesEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
+      data:
+        statusesToApply:
+        - rid: 6053963237283332123
+    - rid: 6053963237283332123
+      type: {class: BleedStatus, ns: FrostfallSaga.Fight.Statuses, asm: FrostfallSaga.Fight}
+      data:
+        <StatusType>k__BackingField: 1
+        <IsPermanent>k__BackingField: 0
+        <Duration>k__BackingField: 5
+        <TriggerOnFirstApply>k__BackingField: 1
+        <IsRecurring>k__BackingField: 1
+        <TriggerTime>k__BackingField: 0
+        <VisualsController>k__BackingField: {fileID: 11400000, guid: e549f4ec3ffc32845ba84beb73ada695, type: 2}
+        <BleedingDamage>k__BackingField: 5

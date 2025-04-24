@@ -53,7 +53,6 @@ namespace FrostfallSaga.Grid
 
                     HexDirection section = DetermineSection(x, y, centerCoords);
                     TerrainTypeSO selectedTerrain = terrainByDirection[section];
-                    cell.SetTerrainAccessibility(selectedTerrain.DefaultAccessible);
                     BiomeTypeSO selectedBiome = AvailableBiomes
                         .FirstOrDefault(b => b.TerrainTypeSO.Contains(selectedTerrain));
 
@@ -70,14 +69,9 @@ namespace FrostfallSaga.Grid
         private static void SetupCell(Cell cell, int x, int y, BiomeTypeSO selectedBiome, float hexSize,
             TerrainTypeSO selectedTerrain)
         {
-            bool isAccessible = !selectedTerrain.DefaultAccessible
-                ? Randomizer.GetBooleanOnChance(selectedTerrain.AccessibilityChanceOverride)
-                : selectedTerrain.DefaultAccessible;
-            cell.SetTerrainAccessibility(isAccessible);
             cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, hexSize, selectedTerrain, selectedBiome);
-            cell.HighlightController.SetupInitialMaterial(selectedTerrain.CellMaterial);
-            cell.HighlightController.UpdateCurrentDefaultMaterial(selectedTerrain.CellMaterial);
-            cell.HighlightController.ResetToDefaultMaterial();
+            cell.GenerateRandomAccessibility(EAccessibilityGenerationMode.FLIP_IF_NOT_ACCESSIBLE);
+            cell.SetTerrain(selectedTerrain);
         }
 
         private static HexDirection DetermineSection(int x, int y, Vector2Int center)

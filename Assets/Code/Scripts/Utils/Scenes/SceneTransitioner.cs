@@ -65,7 +65,6 @@ namespace FrostfallSaga.Utils.Scenes
             yield return StartCoroutine(Fade(1f, _fadeDuration));
 
             // Delete audio and event listener of the current scene
-            DeleteAllOfTypeFromScene<AudioSource>();
             DeleteAllOfTypeFromScene<AudioListener>();
             Destroy(GameObject.Find("EventSystem"));
 
@@ -120,7 +119,7 @@ namespace FrostfallSaga.Utils.Scenes
 
         private void DeleteAllOfTypeFromScene<T>() where T : Component
         {
-            FindObjectsOfType<T>().ToList().ForEach(audioSource => Destroy(audioSource));
+            FindObjectsOfType<T>().ToList().ForEach(componentToDelete => Destroy(componentToDelete));
         }
     }
 }

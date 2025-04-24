@@ -62,6 +62,11 @@ namespace FrostfallSaga.Kingdom.Entities
             return false;
         }
 
+        public bool CanSeeTarget(Transform target)
+        {
+            return MovementController.CanSeeTarget(target, EntityConfiguration.KingdomDetectionRange);
+        }
+
         public void Setup(string sessionId, bool isDead)
         {
             SessionId = sessionId;

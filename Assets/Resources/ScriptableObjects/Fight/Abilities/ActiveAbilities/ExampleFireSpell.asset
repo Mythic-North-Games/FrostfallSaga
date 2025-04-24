@@ -18,7 +18,7 @@ MonoBehaviour:
   <UnlockPoints>k__BackingField: 0
   <AbilitytriggerAnimationName>k__BackingField: FireBallTriggerAnimation
   <Targeter>k__BackingField:
-    <OriginCellRange>k__BackingField: 6
+    <OriginCellRange>k__BackingField: 12
     <CellsSequence>k__BackingField:
     - {x: 0, y: 0}
     <StartFromInitiator>k__BackingField: 0
@@ -29,14 +29,13 @@ MonoBehaviour:
     <StopedAtXthHigherHeightDifference>k__BackingField: 0
     <StopedAtXthLowerHeightDifference>k__BackingField: 0
     <StopedAtXthEncounteredFighters>k__BackingField: 0
-  <ActionPointsCost>k__BackingField: 2
+  <ActionPointsCost>k__BackingField: 0
   <GodFavorsPointsCost>k__BackingField: 0
-  <Dodgable>k__BackingField: 0
+  <Dodgable>k__BackingField: 1
   <Masterstrokable>k__BackingField: 1
   effects:
   - rid: 6053962956990054400
-  masterstrokeEffects:
-  - rid: 6053962956990054401
+  masterstrokeEffects: []
   cellAlterations: []
   <Animation>k__BackingField: {fileID: 11400000, guid: c5c748e08daba6d498be772871c05ec1, type: 2}
   references:
@@ -45,22 +44,5 @@ MonoBehaviour:
     - rid: 6053962956990054400
       type: {class: MagicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
-        MagicalDamageAmount: 40
-        MagicalElement: 0
-    - rid: 6053962956990054401
-      type: {class: ApplyStatusesEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
-      data:
-        statusesToApply:
-        - rid: 6053962956990054402
-    - rid: 6053962956990054402
-      type: {class: BleedStatus, ns: FrostfallSaga.Fight.Statuses, asm: FrostfallSaga.Fight}
-      data:
-        <Icon>k__BackingField: {fileID: 21300000, guid: 63a7459c7f7b7f24289d4c72b8eb8a6e, type: 3}
-        <StatusType>k__BackingField: 1
-        <IsPermanent>k__BackingField: 0
-        <Duration>k__BackingField: 3
-        <TriggerOnFirstApply>k__BackingField: 0
-        <IsRecurring>k__BackingField: 1
-        <TriggerTime>k__BackingField: 1
-        <VisualsController>k__BackingField: {fileID: 11400000, guid: e549f4ec3ffc32845ba84beb73ada695, type: 2}
-        <BleedingDamage>k__BackingField: 5
+        MagicalDamageAmount: 20
+        MagicalElement: 3

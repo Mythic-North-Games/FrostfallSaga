@@ -35,16 +35,16 @@ namespace FrostfallSaga.Core.Quests
         private void InitializeQuestSteps(TreeNode<QuestStep> questStep, MonoBehaviour currentSceneManager)
         {
             // If the quest step is not completed, initialize it but not the children yet.
-            if (!questStep.GetData().IsCompleted())
+            if (!questStep.Data.IsCompleted())
             {
-                questStep.GetData().Initialize(currentSceneManager);
-                questStep.GetData().onQuestStepCompleted += OnQuestStepCompleted;
+                questStep.Data.Initialize(currentSceneManager);
+                questStep.Data.onQuestStepCompleted += OnQuestStepCompleted;
                 return;
             }
 
             // If the quest step is completed, initialize the next child step.
-            int decisiveActionIndex = questStep.GetData().Actions.ChosenDecisiveActionIndex;
-            TreeNode<QuestStep> nextStep = questStep.GetChildren()[decisiveActionIndex];
+            int decisiveActionIndex = questStep.Data.Actions.ChosenDecisiveActionIndex;
+            TreeNode<QuestStep> nextStep = questStep.Children[decisiveActionIndex];
             InitializeQuestSteps(nextStep, currentSceneManager);
         }
 
@@ -73,15 +73,15 @@ namespace FrostfallSaga.Core.Quests
         private int[] GetLastCompletedStepPath(TreeNode<QuestStep> questStep, TreeNode<QuestStep> parent = null,
             List<int> lastCompletedStepPath = null)
         {
-            if (!questStep.GetData().IsCompleted()) return new int[0];
+            if (!questStep.Data.IsCompleted()) return new int[0];
 
             lastCompletedStepPath ??= new List<int>();
-            lastCompletedStepPath.Add(parent == null ? 0 : parent.GetChildren().IndexOf(questStep));
+            lastCompletedStepPath.Add(parent == null ? 0 : parent.Children.IndexOf(questStep));
 
-            if (questStep.GetChildren().Count == 0) return lastCompletedStepPath.ToArray();
+            if (questStep.Children.Count == 0) return lastCompletedStepPath.ToArray();
 
-            TreeNode<QuestStep> nextCompletedStep = questStep.GetChildren().Find(
-                childStep => childStep.GetData().IsCompleted()
+            TreeNode<QuestStep> nextCompletedStep = questStep.Children.Find(
+                childStep => childStep.Data.IsCompleted()
             );
             if (nextCompletedStep == null) return new int[0];
 

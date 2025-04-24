@@ -40,6 +40,7 @@ namespace FrostfallSaga.Fight.UI.FightEndMenu
             VisualTreeAsset itemRewardContainerTemplate,
             VisualTreeAsset statContainerTemplate,
             Color itemRewardStatsColor,
+            Color itemRewardStatIconColor,
             float itemRewardLongHoverDuration = 0.5f,
             string fightWonText = "Enemies defeated",
             string fightLostText = "You have been defeated"
@@ -66,7 +67,8 @@ namespace FrostfallSaga.Fight.UI.FightEndMenu
                 root: _objectDetailsPanelContainer,
                 statContainerTemplate: statContainerTemplate,
                 effectLineClassname: OBJECT_DETAILS_EFFECT_LINE_CLASSNAME,
-                statValueColor: itemRewardStatsColor
+                statValueColor: itemRewardStatsColor,
+                statIconTintColor: itemRewardStatIconColor
             );
             HideObjectDetailsPanel();
         }

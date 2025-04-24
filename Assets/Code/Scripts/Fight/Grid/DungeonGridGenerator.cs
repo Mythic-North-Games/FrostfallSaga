@@ -63,13 +63,9 @@ namespace FrostfallSaga.Dungeon
         private static void SetupCell(Cell cell, int x, int y, BiomeTypeSO selectedBiome, float hexSize,
             TerrainTypeSO selectedTerrain)
         {
-            float chance = selectedTerrain.DefaultAccessible ? 1f : selectedTerrain.AccessibilityChanceOverride;
-            bool isAccessible = Randomizer.GetBooleanOnChance(chance);
-            cell.SetTerrainAccessibility(isAccessible);
             cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, hexSize, selectedTerrain, selectedBiome);
-            cell.HighlightController.SetupInitialMaterial(selectedTerrain.CellMaterial);
-            cell.HighlightController.UpdateCurrentDefaultMaterial(selectedTerrain.CellMaterial);
-            cell.HighlightController.ResetToDefaultMaterial();
+            cell.GenerateRandomAccessibility(EAccessibilityGenerationMode.FLIP_IF_ACCESSIBLE);
+            cell.SetTerrain(selectedTerrain);
         }
 
         private static TerrainTypeSO GetTerrainTypeFromPerlinValue(float perlinValue, BiomeTypeSO selectedBiome)

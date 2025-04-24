@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace FrostfallSaga.Utils.GameObjectVisuals
@@ -10,14 +11,19 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
     {
         [field: SerializeField] public Material InitialMaterial { get; private set; }
         [field: SerializeField] public Material CurrentDefaultMaterial { get; private set; }
+        [field: SerializeField] public MeshRenderer TargetRenderer { get; private set; }
 
-        /// <summary>
-        ///     Meant to be used only once during set up, sets the initial material of the element.
-        /// </summary>
-        /// <param name="initialMaterial">The initial material of the element that should not change after.</param>
-        public void SetupInitialMaterial(Material initialMaterial)
+        private void Awake()
         {
-            InitialMaterial = initialMaterial;
+            if (!TargetRenderer)
+            {
+                Debug.LogError($"{nameof(TargetRenderer)} is not set");
+            }
+        }
+
+        public void SetInitialMaterial(Material material)
+        {
+            InitialMaterial = material;
         }
 
         /// <summary>
@@ -36,7 +42,8 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
         /// <param name="highlightMaterial">The material to set.</param>
         public void Highlight(Material highlightMaterial)
         {
-            GetComponent<MeshRenderer>().material = highlightMaterial;
+            if (TargetRenderer)
+                TargetRenderer.material = highlightMaterial;
         }
 
         /// <summary>
@@ -44,7 +51,8 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
         /// </summary>
         public void ResetToDefaultMaterial()
         {
-            GetComponent<MeshRenderer>().material = CurrentDefaultMaterial;
+            if (TargetRenderer)
+                TargetRenderer.material = CurrentDefaultMaterial;
         }
 
         /// <summary>
@@ -52,7 +60,8 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
         /// </summary>
         public void ResetToInitialMaterial()
         {
-            GetComponent<MeshRenderer>().material = InitialMaterial;
+            if (TargetRenderer)
+                TargetRenderer.material = InitialMaterial;
             CurrentDefaultMaterial = InitialMaterial;
         }
     }

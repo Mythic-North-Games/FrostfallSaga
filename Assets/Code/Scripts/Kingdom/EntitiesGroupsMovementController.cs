@@ -120,11 +120,6 @@ namespace FrostfallSaga.Kingdom
             return true;
         }
 
-        private EntitiesGroup GetEnemiesGroupThatWillCollide(Cell targetCell)
-        {
-            return _enemiesGroupsToMove.FirstOrDefault(entitiesGroup => entitiesGroup.cell == targetCell);
-        }
-
         private void EndMovementProcess()
         {
             _currentPathPerEnemiesGroup.Clear();
@@ -149,12 +144,18 @@ namespace FrostfallSaga.Kingdom
             Dictionary<EntitiesGroup, KingdomCell[]> pathPerEntitiesGroup = new();
             HashSet<KingdomCell> cellsCoveredByEntitiesGroups = new();
             foreach (EntitiesGroup entitiesGroup in entitiesGroups)
+            {
                 cellsCoveredByEntitiesGroups.Add(entitiesGroup.cell);
+            }
 
             foreach (EntitiesGroup entitiesGroup in entitiesGroups)
             {
-                KingdomCell[] path = GenerateRandomMovePathForEntitiesGroup(grid, entitiesGroup,
-                    cellsCoveredByEntitiesGroups, minPathLength);
+                KingdomCell[] path = GenerateRandomMovePathForEntitiesGroup(
+                    grid,
+                    entitiesGroup,
+                    cellsCoveredByEntitiesGroups,
+                    minPathLength
+                );
                 cellsCoveredByEntitiesGroups.UnionWith(path);
                 pathPerEntitiesGroup.Add(entitiesGroup, path);
             }
@@ -187,9 +188,8 @@ namespace FrostfallSaga.Kingdom
             Cell currentCellOfPath = entitiesGroup.cell;
             for (int i = 0; i < numberOfCellsInPath; i++)
             {
-                Cell[] neighbors = CellsNeighbors.GetNeighbors(kingdomGrid, currentCellOfPath);
-                List<KingdomCell> currentCellOfPathNeighbors =
-                    new(Array.ConvertAll(neighbors, cell => cell as KingdomCell));
+                Cell[] neighbors = CellsNeighbors.GetNeighbors(kingdomGrid, currentCellOfPath, includeOccupiedNeighbors: true);
+                List<KingdomCell> currentCellOfPathNeighbors = new(Array.ConvertAll(neighbors, cell => cell as KingdomCell));
                 currentCellOfPathNeighbors.Remove(entitiesGroup.cell);
                 currentCellOfPathNeighbors.RemoveAll(cell => randomMovePath.Contains(cell));
                 currentCellOfPathNeighbors.RemoveAll(cell => prohibitedCells.Contains(cell));

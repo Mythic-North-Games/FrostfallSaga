@@ -1,48 +1,97 @@
 using System.Collections;
+using FrostfallSaga.Utils;
 using UnityEngine;
 
 namespace FrostfallSaga.Audio
 {
-    public class AudioManager : MonoBehaviour
+    public class AudioManager : MonoBehaviourPersistingSingleton<AudioManager>
     {
-        // <summary>
-        ///     Instance a singleton of the AudioManager in the scene
-        /// </summary>
-        public static AudioManager Instance;
+        // Default audio settings
+        private static readonly float DEFAULT_UI_VOLUME = 1f;
+        private static readonly float DEFAULT_MUSIC_VOLUME = 0.25f;
+        private static readonly float DEFAULT_FX_VOLUME = 1f;
+        private static readonly float DEFAULT_MUSIC_FADE_IN_DURATION = 5f;
+        private static readonly float DEFAULT_MUSIC_FADE_OUT_DURATION = 2.5f;
 
-        [SerializeField] private UIAudioClipsConfig uiAudioClipsConfig;
-        [SerializeField] private AudioSource audioSourceObject;
-        private AudioSource _currentFXAudioSource;
-        private UIAudioClipSelector _uIAudioClipSelector;
+        // Paths to the audio resources
+        private const string UI_AUDIO_CLIPS_RESOURCE_PATH = "ScriptableObjects/Audio/UIAudioClips";
+        private const string MUSIC_AUDIO_CLIPS_RESOURCE_PATH = "ScriptableObjects/Audio/MusicAudioClips";
+        private const string FX_AUDIO_SOURCE_PREFAB_PATH = "Prefabs/Audio/FXAudioSource";
 
-        private void Awake()
+        // Audio clips
+        public UIAudioClips UIAudioClips { get; private set; }
+        public MusicAudioClips MusicAudioClips { get; private set; }
+
+        // Audio sources
+        private AudioSource _uiAudioSource;
+        private AudioSource _musicAudioSource;
+        private AudioSource _fxAudioSourcePrefab;
+
+        private void Start()
         {
-            if (Instance == null)
+            // Apply default volume settings
+            _uiAudioSource.volume = DEFAULT_UI_VOLUME;
+            _musicAudioSource.volume = DEFAULT_MUSIC_VOLUME;
+            _fxAudioSourcePrefab.volume = DEFAULT_FX_VOLUME;
+        }
+
+        /// <summary>
+        /// Play a UI sound effect (2d sound).
+        /// </summary>
+        /// <param name="uiAudioClip">The sound to play</param>
+        public void PlayUISound(AudioClip uiAudioClip)
+        {
+            _uiAudioSource.PlayOneShot(uiAudioClip);
+        }
+
+        /// <summary>
+        /// Play a music (2d sound) looping by default. Stops any current music.
+        /// If the same music is already playing, it will not be played again.
+        /// </summary>
+        /// <param name="musicAudioClip">The music to play.</param>
+        /// <param name="enableLooping">Whether the music should loop or not.</param>
+        /// <param name="fadeDuration">The duration of the fade in and out effect before playing the new music.</param>
+        public void PlayMusicSound(AudioClip musicAudioClip, bool enableLooping = true, float fadeDuration = -99f)
+        {
+            // Don't play the same music again
+            if (_musicAudioSource.clip == musicAudioClip) return;
+
+            if (_musicAudioSource.isPlaying)
             {
-                Instance = this;
+                // Fade out the current music
+                StartCoroutine(FadeOutMusicAndPlayNewOne(
+                    musicAudioClip,
+                    fadeDuration == -99f ? DEFAULT_MUSIC_FADE_OUT_DURATION : fadeDuration
+                ));
+            }
+            else
+            {
+                // Find in the new music clip
+                StartCoroutine(FadeInMusic(
+                    musicAudioClip,
+                    enableLooping,
+                    fadeDuration == -99f ? DEFAULT_MUSIC_FADE_IN_DURATION : fadeDuration
+                ));
+            }
+        }
+
+        /// <summary>
+        /// Stop the current music sound.
+        /// If fadeOutDuration is 0, the music will stop immediately.
+        /// </summary>
+        /// <param name="fadeOutDuration">The custom duration of the fade out effect.</param>
+        public void StopCurrentMusic(float fadeOutDuration = -99f)
+        {
+            if (fadeOutDuration == 0f)
+            {
+                _musicAudioSource.Stop();
+                return;
             }
 
-            _uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
-        }
-
-        /// <summary>
-        ///     Play a UI sound effect by using the UISounds enum
-        /// </summary>
-        /// <param name="sound">The sound to play</param>
-        public void PlayUISound(UISounds sound)
-        {
-            AudioClip audioClip = _uIAudioClipSelector.SelectAudioClip(sound);
-            if (audioClip != null) PlaySoundEffectClip(audioClip, transform, 1f);
-            else Debug.LogError("Audio clip " + sound + " not found");
-        }
-
-        /// <summary>
-        ///     Play a UI sound effect from a specific AudioClip
-        /// </summary>
-        /// <param name="sound">The sound to play</param>
-        public void PlayUISound(AudioClip sound)
-        {
-            PlaySoundEffectClip(sound, transform, 1f);
+            // Fade out the current music
+            StartCoroutine(FadeOutMusic(
+                fadeOutDuration == -99f ? DEFAULT_MUSIC_FADE_OUT_DURATION : fadeOutDuration
+            ));
         }
 
         /// <summary>
@@ -50,35 +99,18 @@ namespace FrostfallSaga.Audio
         /// </summary>
         /// <param name="sound">The sound to play</param>
         /// <param name="spawnTransform">The transform to spawn the audio source at</param>
-        /// <param name="volume">The volume of the audio clip</param>
-        /// <param name="fadeOutDuration">The duration of the fade out effect</param>
-        /// <param name="loop">Whether the sound should loop or not</param>
+        /// <param name="enableLooping">Whether the sound should loop or not</param>
         public void PlayFXSound(
             AudioClip sound,
             Transform spawnTransform,
-            float volume,
-            float fadeOutDuration,
-            bool loop = false
+            bool enableLooping = false
         )
         {
-            if (sound == null)
-            {
-                Debug.LogWarning("Tried to play a null sound clip.");
-                return;
-            }
-
-            // Fade out the current sound if it is playing
-            if (_currentFXAudioSource != null && _currentFXAudioSource.isPlaying)
-            {
-                StartCoroutine(FadeOutAndDestroyAudioSource(_currentFXAudioSource, fadeOutDuration));
-            }
-
             // Create and configure a new AudioSource
-            AudioSource newAudioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
+            AudioSource newAudioSource = Instantiate(_fxAudioSourcePrefab, spawnTransform.position, Quaternion.identity);
             newAudioSource.clip = sound;
-            newAudioSource.volume = volume;
-            newAudioSource.loop = loop;
-            _currentFXAudioSource = newAudioSource;
+            newAudioSource.loop = enableLooping;
+            newAudioSource.volume = DEFAULT_FX_VOLUME;
 
             // Play the new sound
             newAudioSource.Play();
@@ -87,78 +119,75 @@ namespace FrostfallSaga.Audio
             if (!newAudioSource.loop) Destroy(newAudioSource.gameObject, sound.length);
         }
 
-        /// <summary>
-        ///     Create an audioSource gameObject in the scene and play the audioClip, then delete the gameObject
-        /// </summary>
-        /// <param name="audioClip">The audio clip to play</param>
-        /// <param name="spawnTransform">The transform to spawn the audio source at</param>
-        /// <param name="audioVolume">The volume of the audio clip</param>
-        public void PlaySoundEffectClip(AudioClip audioClip, Transform spawnTransform, float audioVolume)
+        private IEnumerator FadeInMusic(AudioClip musicAudioClip, bool enableLooping, float fadeInDuration)
         {
-            float clipLength = audioClip.length;
-            AudioSource audioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
-            audioSource.clip = audioClip;
-            audioSource.volume = audioVolume;
-            audioSource.Play();
-            Destroy(audioSource.gameObject, clipLength);
-        }
+            float startVolume = 0f;
 
-        private static IEnumerator FadeOutAndDestroyAudioSource(AudioSource audioSource, float fadeDuration)
-        {
-            float startVolume = audioSource.volume;
-            float timer = 0f;
+            _musicAudioSource.clip = musicAudioClip;
+            _musicAudioSource.loop = enableLooping;
+            _musicAudioSource.volume = startVolume; // Start with volume 0
+            _musicAudioSource.Play();
 
-            while (timer < fadeDuration)
+            for (float t = 0; t < fadeInDuration; t += Time.deltaTime)
             {
-                timer += Time.deltaTime;
-                audioSource.volume = Mathf.Lerp(startVolume, 0f, timer / fadeDuration);
+                _musicAudioSource.volume = Mathf.Lerp(startVolume, DEFAULT_MUSIC_VOLUME, t / fadeInDuration);
                 yield return null;
             }
 
-            audioSource.Stop();
-            Destroy(audioSource.gameObject);
+            _musicAudioSource.volume = DEFAULT_MUSIC_VOLUME;
         }
 
-
-        // A UTILISER POUR LA MUSIQUE
-        //public void PlayMusicSound(FXSounds sound, Transform spawnTransform, float audioVolume, float duration)
-        //{
-        //AudioClip audioClip = fXAudioClipSelector.SelectAudioClip(sound);
-        //if (audioClip != null)
-        //{
-        //float clipLength = audioClip.length;
-        //float destroyTime = Mathf.Max(clipLength, duration); // On garde l'objet au moins le temps défini
-
-        // Créer une source audio
-        //AudioSource audioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);
-        //audioSource.clip = audioClip;
-        //audioSource.volume = audioVolume;
-
-        // Activez la lecture en boucle si la durée souhaitée est plus longue que la durée du clip
-        //if (duration > audioClip.length)
-        //{
-        //    audioSource.loop = true;
-        //}
-
-        // Jouez le son
-        //audioSource.Play();
-
-        // Démarrer une coroutine pour arrêter le son après la durée spécifiée
-        //StartCoroutine(StopSoundAfterDuration(audioSource, duration));
-
-        //Destroy(audioSource.gameObject, destroyTime);
-        //}
-        //else
-        //{
-        //Debug.LogError("Audio clip " + sound + " not found");
-        //}
-        //}
-
-#if UNITY_EDITOR
-        public void InitializeAudioClipSelectorFromTests(UIAudioClipsConfig uIAudioClipsConfig)
+        private IEnumerator FadeOutMusic(float fadeOutDuration)
         {
-            _uIAudioClipSelector = new UIAudioClipSelector(uiAudioClipsConfig);
+            float startVolume = _musicAudioSource.volume;
+
+            for (float t = 0; t < fadeOutDuration; t += Time.deltaTime)
+            {
+                _musicAudioSource.volume = Mathf.Lerp(startVolume, 0, t / fadeOutDuration);
+                yield return null;
+            }
+
+            _musicAudioSource.Stop();
+            _musicAudioSource.volume = startVolume; // Reset volume to original
         }
-#endif
+
+        private IEnumerator FadeOutMusicAndPlayNewOne(AudioClip newMusicClip, float fadeOutDuration)
+        {
+            StartCoroutine(FadeOutMusic(fadeOutDuration));
+            yield return new WaitForSeconds(fadeOutDuration);
+            PlayMusicSound(newMusicClip);
+        }
+
+        #region Initialization
+        protected override void Init()
+        {
+            // Load the audio clips
+            UIAudioClips = Resources.Load<UIAudioClips>(UI_AUDIO_CLIPS_RESOURCE_PATH);
+            MusicAudioClips = Resources.Load<MusicAudioClips>(MUSIC_AUDIO_CLIPS_RESOURCE_PATH);
+            if (UIAudioClips == null || MusicAudioClips == null)
+            {
+                Debug.LogError("Audio clips not found at specified paths.");
+                return;
+            }
+
+            // Create the audio sources
+            if (_uiAudioSource == null) _uiAudioSource = gameObject.AddComponent<AudioSource>();
+            if (_musicAudioSource == null) _musicAudioSource = gameObject.AddComponent<AudioSource>();
+
+            // Set the audio source properties for 2d sound
+            _uiAudioSource.spatialBlend = 0f;
+            _uiAudioSource.reverbZoneMix = 0f;
+            _musicAudioSource.spatialBlend = 0f;
+            _musicAudioSource.reverbZoneMix = 0f;
+
+            // Load the FX audio source prefab
+            _fxAudioSourcePrefab = Resources.Load<AudioSource>(FX_AUDIO_SOURCE_PREFAB_PATH);
+            if (_fxAudioSourcePrefab == null)
+            {
+                Debug.LogError("FX Audio Source prefab not found at specified path.");
+                return;
+            }
+        }
+        #endregion
     }
 }

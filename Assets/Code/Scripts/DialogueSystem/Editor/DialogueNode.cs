@@ -40,7 +40,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         }
 
         public TreeNode<DialogueLine> TreeNode { get; }
-        public DialogueLine Data => TreeNode.GetData();
+        public DialogueLine Data => TreeNode.Data;
         public int Depth { get; private set; }
         public Port InputPort { get; private set; }
         public Port OutputPort { get; private set; }
@@ -158,10 +158,10 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
                     _answersContainer.Add(answerField);
                 }
 
-            _addAnswerButton.SetEnabled(TreeNode.GetChildren().Count == 0 ||
+            _addAnswerButton.SetEnabled(TreeNode.Children.Count == 0 ||
                                         (Data.Answers != null && Data.Answers.Length > 0));
             _addContinuationButton.SetEnabled((Data.Answers == null || Data.Answers.Length == 0) &&
-                                              TreeNode.GetChildren().Count == 0);
+                                              TreeNode.Children.Count == 0);
         }
 
         private void UpdateAnswer(string oldAnswer, string newAnswer)

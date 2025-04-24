@@ -13,23 +13,22 @@ MonoBehaviour:
   m_Name: HeroFighterConfiguration
   m_EditorClassIdentifier: 
   <FighterPrefab>k__BackingField: {fileID: 2920049516156015753, guid: 5f1dab0e72fc4b080a019f723145dadf, type: 3}
-  <FighterClass>k__BackingField: {fileID: 11400000, guid: 244311150c8015944865b448e3fd1306, type: 2}
-  <PersonalityTrait>k__BackingField: {fileID: 11400000, guid: 770ae372dc3abe843a19020cabaa49fb, type: 2}
-  <AvailableActiveAbilities>k__BackingField:
-  - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-  <ActiveAbilitiesCapacity>k__BackingField: 0
-  <AvailablePassiveAbilities>k__BackingField: []
+  <FighterClass>k__BackingField: {fileID: 11400000, guid: 5f24cc96233dead12b894e0d28f6bdc1, type: 2}
+  <PersonalityTrait>k__BackingField: {fileID: 0}
+  <UnlockedActiveAbilities>k__BackingField: []
+  <ActiveAbilitiesCapacity>k__BackingField: 5
+  <UnlockedPassiveAbilities>k__BackingField: []
   <PassiveAbilitiesCapacity>k__BackingField: 0
   <AvailableItems>k__BackingField: []
   <MinStycasLoot>k__BackingField: 0
   <MaxStycasLoot>k__BackingField: 0
-  <MaxHealth>k__BackingField: 60
-  <MaxActionPoints>k__BackingField: 12
-  <MaxMovePoints>k__BackingField: 3
-  <Strength>k__BackingField: 3
+  <MaxHealth>k__BackingField: 120
+  <MaxActionPoints>k__BackingField: 6
+  <MaxMovePoints>k__BackingField: 5
+  <Strength>k__BackingField: 5
   <Dexterity>k__BackingField: 3
   <Tenacity>k__BackingField: 1
-  <PhysicalResistance>k__BackingField: 2
+  <PhysicalResistance>k__BackingField: 3
   <MagicalResistances>k__BackingField:
   - element: 0
     value: 0
@@ -57,17 +56,16 @@ MonoBehaviour:
   - element: 5
     value: 0
   <DodgeChance>k__BackingField: 0
-  <MasterstrokeChance>k__BackingField: 0
+  <MasterstrokeChance>k__BackingField: 0.5
   <Initiative>k__BackingField: 5
   <HealSelfAnimationName>k__BackingField: 
   <ReceiveDamageAnimationName>k__BackingField: 
   <ReduceStatAnimationName>k__BackingField: 
   <IncreaseStatAnimationName>k__BackingField: 
   <ConsumableUseAnimationName>k__BackingField: 
-  <EquipedActiveAbilities>k__BackingField:
-  - {fileID: 11400000, guid: b22ba3c2797bc25439231a90f23620ab, type: 2}
-  - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
-  <EquipedPassiveAbilities>k__BackingField: []
+  <EquippedActiveAbilities>k__BackingField: []
+  <EquippedPassiveAbilities>k__BackingField: []
+  <AbilityPoints>k__BackingField: 4
   <Inventory>k__BackingField:
     <WeaponSlot>k__BackingField:
       <Item>k__BackingField: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
@@ -78,7 +76,7 @@ MonoBehaviour:
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
     <ChestplateSlot>k__BackingField:
-      <Item>k__BackingField: {fileID: 11400000, guid: e7c210a3cfd435375856a52f09d3fda3, type: 2}
+      <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 1
       <MaxItemCount>k__BackingField: 1
     <GauntletsSlot>k__BackingField:
@@ -110,7 +108,7 @@ MonoBehaviour:
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
-      <MaxItemCount>k__BackingField: 99
+      <MaxItemCount>k__BackingField: 1
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
@@ -214,5 +212,6 @@ MonoBehaviour:
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
-  <Health>k__BackingField: 60
-  <UnlockedAbilities>k__BackingField: []
+  <Health>k__BackingField: 120
+  ActiveAbilitiesCapacity: 5
+  PassiveAbilitiesCapacity: 0

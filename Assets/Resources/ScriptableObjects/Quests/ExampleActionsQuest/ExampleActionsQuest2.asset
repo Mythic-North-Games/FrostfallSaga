@@ -26,18 +26,18 @@ MonoBehaviour:
         element: 1
         value: 1
   <IsCompleted>k__BackingField: 0
-  Actions:
-  - rid: 6860899929795592192
-  - rid: 6860899929795592193
-  <OrderedActions>k__BackingField: 0
+  actions:
+  - rid: 6053963237283332096
+  - rid: 6053963237283332097
+  <OrderedActions>k__BackingField: 1
   references:
     version: 2
     RefIds:
-    - rid: 6860899929795592192
+    - rid: 6053963237283332096
       type: {class: EncounterEnemiesGroupQuestAction, ns: FrostfallSaga.Kingdom.QuestActions, asm: FrostfallSaga.Kingdom}
       data:
         <IsCompleted>k__BackingField: 0
-    - rid: 6860899929795592193
+    - rid: 6053963237283332097
       type: {class: WinFightQuestAction, ns: FrostfallSaga.Fight.QuestActions, asm: FrostfallSaga.Fight}
       data:
         <IsCompleted>k__BackingField: 0

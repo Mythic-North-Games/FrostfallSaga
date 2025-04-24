@@ -25,7 +25,8 @@ namespace FrostfallSaga.InventorySystem.UI
         public InventoryBagPanelUIController(
             VisualElement root,
             VisualTreeAsset itemStatContainerTemplate,
-            Color statValueColor = default
+            Color statValueColor = default,
+            Color statIconColor = default
         )
         {
             // Get UI elements
@@ -35,7 +36,8 @@ namespace FrostfallSaga.InventorySystem.UI
                 _itemDetailsContainerRoot,
                 itemStatContainerTemplate,
                 ITEM_EFFECT_LINE_CLASSNAME,
-                statValueColor
+                statValueColor,
+                statIconColor
             );
 
             // Setup stycas count

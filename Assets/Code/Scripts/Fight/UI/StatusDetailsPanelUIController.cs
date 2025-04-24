@@ -5,7 +5,7 @@ namespace FrostfallSaga.Fight.UI
 {
     public class StatusDetailsPanelUIController
     {
-        private Label _statusDetailsLabel;
+        private readonly Label _statusDetailsLabel;
 
         public StatusDetailsPanelUIController(VisualElement root)
         {

@@ -85,6 +85,6 @@
     position: absolute;
     width: 30%;
     height: 15%;
-    left: 2.5%;
-    top: 2.5%;
+    left: 4%;
+    top: 4%;
 }

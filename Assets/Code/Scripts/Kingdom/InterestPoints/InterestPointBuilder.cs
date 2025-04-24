@@ -48,6 +48,7 @@ namespace FrostfallSaga.Kingdom.InterestPoints
             foreach (AInterestPointConfigurationSO interestPointConfig in interestPoints)
             {
                 KingdomCell cell = Randomizer.GetRandomElementFromArray(freeCells.ToArray());
+                DestroyDefaultVisual(cell.gameObject);               
                 InstantiateInterestPoint(interestPointConfig, cell);
                 freeCells.Remove(cell);
             }
@@ -63,7 +64,7 @@ namespace FrostfallSaga.Kingdom.InterestPoints
             instantiateInterestPoint.cell = cell;
             cell.SetOccupier(instantiateInterestPoint);
             Vector3 position = cell.GetCenter();
-            position.y += 0.5f;
+            position.y += 0.05f;
             instantiateInterestPoint.transform.SetPositionAndRotation(position, Quaternion.identity);
             instantiateInterestPoint.transform.SetParent(cell.transform);
             return instantiateInterestPoint;
@@ -80,5 +81,18 @@ namespace FrostfallSaga.Kingdom.InterestPoints
                 interestPoint.cell.Coordinates.y
             );
         }
+        
+        private static void DestroyDefaultVisual(GameObject parent, string targetTag = "CellVisual")
+        {
+            foreach (Transform child in parent.transform)
+            {
+                if (child.CompareTag(targetTag))
+                {
+                    DestroyImmediate(child.gameObject);
+                    break;
+                }
+            }
+        }
+
     }
 }

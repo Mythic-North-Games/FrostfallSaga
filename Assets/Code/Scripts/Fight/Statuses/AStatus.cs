@@ -7,8 +7,6 @@ namespace FrostfallSaga.Fight.Statuses
     [Serializable]
     public abstract class AStatus
     {
-        [field: SerializeField, Header("For the UI")]
-        public Sprite Icon { get; protected set; }
 
         [field: SerializeField]
         [field: Header("Status parameters")]
@@ -113,6 +111,12 @@ namespace FrostfallSaga.Fight.Statuses
                        : $"for {Duration} turns. <b>{lastingDuration}</b> turns left.") +
                    (IsRecurring ? $"\nStatus effect applied at the <b>{TriggerTime.ToUIString()}</b>." : "");
         }
+
+        /// <summary>
+        /// Get the icon of the status.
+        /// </summary>
+        /// <returns>Returns the icon of the status.</returns>
+        public abstract Sprite GetIcon();
 
 #if UNITY_EDITOR
         public void SetDuration(int duration)

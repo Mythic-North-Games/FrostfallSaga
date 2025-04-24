@@ -36,7 +36,7 @@ namespace FrostfallSaga.Grid
         [field: Range(000_000_000, 999_999_999)]
         public int Seed { get; set; }
 
-        public Dictionary<Vector2Int, Cell> Cells { get; protected set; } = new();
+        public Dictionary<Vector2Int, Cell> Cells { get; set; } = new();
 
 
         public abstract void GenerateGrid();
@@ -65,7 +65,6 @@ namespace FrostfallSaga.Grid
         /// </summary>
         public void ClearCells()
         {
-            if (Cells.Count <= 0) return;
             foreach (Cell child in GetCells()) DestroyImmediate(child.gameObject);
             Cells?.Clear();
         }
