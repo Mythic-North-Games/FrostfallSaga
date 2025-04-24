@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: d230357c492cb7e4e86a95cf5eec38dd, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -233,6 +233,10 @@ PrefabInstance:
       propertyPath: defaultBiomeType
       value: 
       objectReference: {fileID: 11400000, guid: 9083c3a2086937d4db46edaace4ef140, type: 2}
+    - target: {fileID: 3836396025498947227, guid: 6ffbec30350952f499de66cae939e928, type: 3}
+      propertyPath: <Seed>k__BackingField
+      value: 516231717
+      objectReference: {fileID: 0}
     - target: {fileID: 3836396025498947227, guid: 6ffbec30350952f499de66cae939e928, type: 3}
       propertyPath: <Width>k__BackingField
       value: 10
