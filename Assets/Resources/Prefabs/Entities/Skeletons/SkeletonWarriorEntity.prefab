@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
     - target: {fileID: 655829157724215565, guid: c0efe57f7e9561143b163beabd1831c3, type: 3}
       propertyPath: m_Name
-      value: SkeletonEntity1
+      value: SkeletonWarriorEntity
       objectReference: {fileID: 0}
     - target: {fileID: 1747195423429429190, guid: c0efe57f7e9561143b163beabd1831c3, type: 3}
       propertyPath: m_LocalScale.x
@@ -114,6 +114,18 @@ PrefabInstance:
     - target: {fileID: 2642517206327193562, guid: 27997df7ef3cf434c9c7e79b213ffd2a, type: 3}
       propertyPath: m_Name
       value: Skeleton_Warrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451951710418580832, guid: 27997df7ef3cf434c9c7e79b213ffd2a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451951710418580832, guid: 27997df7ef3cf434c9c7e79b213ffd2a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451951710418580832, guid: 27997df7ef3cf434c9c7e79b213ffd2a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3451951710418580832, guid: 27997df7ef3cf434c9c7e79b213ffd2a, type: 3}
       propertyPath: m_LocalPosition.x

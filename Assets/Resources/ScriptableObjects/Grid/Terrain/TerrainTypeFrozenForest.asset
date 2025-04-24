@@ -27,4 +27,4 @@ MonoBehaviour:
   <VisualsWhenBlocked>k__BackingField:
   - {fileID: 598771669309824393, guid: 20b0c055a0e3ddc4d81576c0d63a331a, type: 3}
   - {fileID: 598771669309824393, guid: 37487aeffaee17f48862405f05b3615e, type: 3}
-  <AccessibilityChanceOverride>k__BackingField: 0.95
+  <AccessibilityChanceOverride>k__BackingField: 0.85

@@ -91,7 +91,7 @@ namespace FrostfallSaga.Grid.Cells
             );
             
             if (HighlightController)
-                HighlightController.transform.localScale = Vector3.one * cellSize / 2.70f;
+                HighlightController.transform.localScale = Vector3.one * cellSize / 2.894f;
             else
                 Debug.LogError("Cell " + name + " has no visual to be set up. Please add a cell visual as a child.");
         }
@@ -106,7 +106,7 @@ namespace FrostfallSaga.Grid.Cells
         public void SetTerrain(TerrainTypeSO terrainType)
         {
             TerrainType = terrainType;
-            _cellVisualController?.ApplyViusals(terrainType, IsAccessible);
+            _cellVisualController?.ApplyVisuals(terrainType, IsAccessible);
         }
 
         // POSITION
