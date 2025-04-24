@@ -111,7 +111,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2642517206327193562, guid: 27997df7ef3cf434c9c7e79b213ffd2a, type: 3}
       propertyPath: m_Name
-      value: SkeletonFighter
+      value: SkeletonWarriorFighter
       objectReference: {fileID: 0}
     - target: {fileID: 2642517206327193562, guid: 27997df7ef3cf434c9c7e79b213ffd2a, type: 3}
       propertyPath: m_Layer
@@ -214,8 +214,8 @@ MonoBehaviour:
   <MovementController>k__BackingField: {fileID: 8175309857353662887}
   <FighterMouseEventsController>k__BackingField: {fileID: 1646451557653890633}
   <CameraAnchor>k__BackingField: {fileID: 238056207232155848}
-  <FighterConfiguration>k__BackingField: {fileID: 11400000, guid: be2a59e2c4ba3c543bde83ebbd0b85f3, type: 2}
-  <Race>k__BackingField: 0
+  <FighterConfiguration>k__BackingField: {fileID: 11400000, guid: 25a85d710d7b0da4e9814f23b3973a2b, type: 2}
+  <Race>k__BackingField: 1
   _stats:
     health: 0
     maxHealth: 0
