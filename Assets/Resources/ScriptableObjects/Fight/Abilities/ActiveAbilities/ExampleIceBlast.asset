@@ -16,7 +16,7 @@ MonoBehaviour:
   <Description>k__BackingField: Apply Ice on fighter
   <IconSprite>k__BackingField: {fileID: 21300000, guid: f6fc899a423eacb4a87e6c0bb5acb040, type: 3}
   <UnlockPoints>k__BackingField: 0
-  <AbilitytriggerAnimationName>k__BackingField: SpellTrigger
+  <AbilitytriggerAnimationName>k__BackingField: IceBlastTriggerAnimation
   <Targeter>k__BackingField:
     <OriginCellRange>k__BackingField: 1
     <CellsSequence>k__BackingField:

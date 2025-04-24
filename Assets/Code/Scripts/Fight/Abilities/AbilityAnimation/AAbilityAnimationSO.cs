@@ -10,6 +10,8 @@ namespace FrostfallSaga.Fight.Abilities.AbilityAnimation
         public Action<Fighter> onAnimationEnded;
         public Action<FightCell> onCellTouched;
         public Action<Fighter> onFighterTouched;
+        [field: SerializeField] public string TriggerAnimationName  { get; protected set; }
+
 
         /// <summary>
         ///     Executes the ability animation as configured.

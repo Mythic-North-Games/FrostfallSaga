@@ -9,7 +9,7 @@ namespace FrostfallSaga.EntitiesVisual
     public class EntityVisualAnimationController : MonoBehaviour
     {
         [field: SerializeField] public string DefaultAnimationState { get; private set; } = "Idle";
-        private Animator _animator;
+        public Animator _animator;
         public string CurrentStateName { get; private set; }
 
         private void Awake()
