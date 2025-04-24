@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SkeletonFighterConfiguration
   m_EditorClassIdentifier: 
   <FighterPrefab>k__BackingField: {fileID: 4614498120783710521, guid: 0b8b7e23e3c9c4e7da4e524eb1246d31, type: 3}
-  <FighterClass>k__BackingField: {fileID: 11400000, guid: 0a98b7f5e6fdf2cd18ccc734f252e5c7, type: 2}
+  <FighterClass>k__BackingField: {fileID: 11400000, guid: 5f24cc96233dead12b894e0d28f6bdc1, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 11400000, guid: fb35749618274e019a3ffb157934cc4f, type: 2}
   <UnlockedActiveAbilities>k__BackingField:
   - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}

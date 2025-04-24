@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8416ebd081a521d1c893a1eb03693a42, type: 3}
+  m_Name: ManCallingForHelpDialogue
+  m_EditorClassIdentifier: 
+  <DialogueTreeRoot>k__BackingField:
+    Children:
+    - Children:
+      - Children:
+        - Children:
+          - Children: []
+            Data:
+              rid: 6053963251082067972
+          - Children: []
+            Data:
+              rid: 6053963251082067973
+          Data:
+            rid: 6053963251082067971
+        Data:
+          rid: 6053963251082067970
+      Data:
+        rid: 6053963118975909893
+    Data:
+      rid: 6053963118975909888
+  <DialogueBackground>k__BackingField: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 6053963118975909888
+      type: {class: DialogueLine, ns: FrostfallSaga.Core.Dialogues, asm: FrostfallSaga.Core}
+      data:
+        <Title>k__BackingField: Dialogue start
+        <RichText>k__BackingField: Our end is near, this village is lost!
+        <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
+        <IsRight>k__BackingField: 1
+        <Answers>k__BackingField: []
+        <Quest>k__BackingField: {fileID: 0}
+    - rid: 6053963118975909893
+      type: {class: DialogueLine, ns: FrostfallSaga.Core.Dialogues, asm: FrostfallSaga.Core}
+      data:
+        <Title>k__BackingField: Dialogue start line continuation
+        <RichText>k__BackingField: What is happening here?
+        <Speaker>k__BackingField: {fileID: 11400000, guid: 19873534e26975d0d812e38e33331766, type: 2}
+        <IsRight>k__BackingField: 0
+        <Answers>k__BackingField: []
+        <Quest>k__BackingField: {fileID: 0}
+    - rid: 6053963251082067970
+      type: {class: DialogueLine, ns: FrostfallSaga.Core.Dialogues, asm: FrostfallSaga.Core}
+      data:
+        <Title>k__BackingField: Dialogue start line continuation line continuation
+        <RichText>k__BackingField: Since the ruins near the village have awoken,
+          skeletons have been wandering around, killing all the poeple that are travelling
+          a bit too far from the village.
+        <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
+        <IsRight>k__BackingField: 1
+        <Answers>k__BackingField: []
+        <Quest>k__BackingField: {fileID: 0}
+    - rid: 6053963251082067971
+      type: {class: DialogueLine, ns: FrostfallSaga.Core.Dialogues, asm: FrostfallSaga.Core}
+      data:
+        <Title>k__BackingField: Dialogue start line continuation line continuation
+          line continuation
+        <RichText>k__BackingField: We can't go outside the city anymore, we are lost!
+        <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
+        <IsRight>k__BackingField: 1
+        <Answers>k__BackingField:
+        - I'm going to help you
+        - A great story to scare the children!
+        <Quest>k__BackingField: {fileID: 0}
+    - rid: 6053963251082067972
+      type: {class: DialogueLine, ns: FrostfallSaga.Core.Dialogues, asm: FrostfallSaga.Core}
+      data:
+        <Title>k__BackingField: I'm going to help you answer
+        <RichText>k__BackingField: Bless the gods!
+        <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
+        <IsRight>k__BackingField: 1
+        <Answers>k__BackingField: []
+        <Quest>k__BackingField: {fileID: 11400000, guid: f572c0de53101d97ebadf6b1b9e6e337, type: 2}
+    - rid: 6053963251082067973
+      type: {class: DialogueLine, ns: FrostfallSaga.Core.Dialogues, asm: FrostfallSaga.Core}
+      data:
+        <Title>k__BackingField: A great story to scare the children! answer
+        <RichText>k__BackingField: I'm telling the truth... You'll see by yourself!
+        <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
+        <IsRight>k__BackingField: 1
+        <Answers>k__BackingField: []
+        <Quest>k__BackingField: {fileID: 0}
