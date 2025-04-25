@@ -4,9 +4,10 @@
     "references": [
         "FrostfallSaga.Core",
         "FrostfallSaga.Utils",
-        "FrostfallSaga.Quests",
         "FrostfallSaga.InventorySystem",
-        "FrostfallSaga.AbilitySystem"
+        "FrostfallSaga.Quests",
+        "FrostfallSaga.AbilitySystem",
+        "FrostfallSaga.Settings"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

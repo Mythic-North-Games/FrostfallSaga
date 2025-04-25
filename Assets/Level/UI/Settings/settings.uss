@@ -1,0 +1,89 @@
+.controlPanelButton {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 5%;
+    width: 90%;
+    height: 25%;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 250%;
+    border-left-color: rgb(100, 100, 100);
+    border-right-color: rgb(100, 100, 100);
+    border-top-color: rgb(100, 100, 100);
+    border-bottom-color: rgb(100, 100, 100);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 2px;
+    border-left-width: 0;
+    color: rgb(25, 25, 25);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -unity-text-align: lower-left;
+    background-color: rgba(225, 225, 225, 0);
+    transition-duration: 0.175s;
+    transition-timing-function: ease-in-out-cubic;
+    transition-property: background-color;
+}
+
+.controlPanelButton:hover {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 5%;
+    width: 90%;
+    height: 25%;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 250%;
+    border-left-color: rgb(100, 100, 100);
+    border-right-color: rgb(100, 100, 100);
+    border-top-color: rgb(100, 100, 100);
+    border-bottom-color: rgb(100, 100, 100);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 2px;
+    border-left-width: 0;
+    color: rgb(25, 25, 25);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -unity-text-align: lower-left;
+    background-color: rgba(225, 225, 225, 0.39);
+}
+
+.controlPanelButton:active {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 5%;
+    width: 90%;
+    height: 25%;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 250%;
+    border-left-color: rgb(100, 100, 100);
+    border-right-color: rgb(100, 100, 100);
+    border-top-color: rgb(100, 100, 100);
+    border-bottom-color: rgb(100, 100, 100);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 2px;
+    border-left-width: 0;
+    color: rgb(125, 125, 125);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -unity-text-align: lower-left;
+    background-color: rgba(225, 225, 225, 0.39);
+}

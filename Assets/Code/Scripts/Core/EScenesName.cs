@@ -8,6 +8,7 @@ namespace FrostfallSaga.Core
     /// </summary>
     public enum EScenesName
     {
+        TITLE_SCREEN,
         KINGDOM,
         FIGHT,
         CITY,
@@ -20,6 +21,7 @@ namespace FrostfallSaga.Core
         {
             return sceneName switch
             {
+                EScenesName.TITLE_SCREEN => "TitleScreenScene",
                 EScenesName.KINGDOM => "KingdomScene",
                 EScenesName.FIGHT => "FightScene",
                 EScenesName.CITY => "CityScene",
