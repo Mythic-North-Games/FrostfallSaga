@@ -1,0 +1,29 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Settings/settings.uss?fileID=7433441132597879392&amp;guid=0ac6ecb583d6482c1948ee9229abacdf&amp;type=3#settings" />
+    <ui:VisualElement name="ControlPanelContainer" style="width: 100%; height: 100%; align-items: flex-start; padding-top: 10%; padding-right: 10%; padding-bottom: 10%; padding-left: 10%; justify-content: flex-start;">
+        <ui:Label tabindex="-1" text="Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ControlMenuTitle" style="margin-top: 0; margin-right: 0; margin-bottom: 5%; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 50%; -unity-font-style: italic;" />
+        <ui:VisualElement name="AudioSettingsSectionContainer" style="width: 100%; height: 33%; justify-content: flex-start;">
+            <ui:Label tabindex="-1" text="Audio" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AudioSettingsSectionTitle" style="margin-top: 0; margin-right: 0; margin-bottom: 2.5%; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 1%; padding-left: 2%; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 35%; -unity-font-style: normal; border-bottom-width: 2px; border-left-color: rgb(25, 25, 25); border-right-color: rgb(25, 25, 25); border-top-color: rgb(25, 25, 25); border-bottom-color: rgb(25, 25, 25);" />
+            <ui:VisualElement name="SliderContainer" class="sliderContainer">
+                <ui:Label tabindex="-1" text="Master volume" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SliderTitle" class="sliderTitle" />
+                <ui:SliderInt label="Master volume" high-value="100" name="MasterVolumeSlider" show-input-field="true" class="baseSettingsSlider" />
+                <ui:Label tabindex="-1" text="100%" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SliderValue" class="sliderValue" />
+            </ui:VisualElement>
+            <ui:VisualElement name="SliderContainer" class="sliderContainer">
+                <ui:Label tabindex="-1" text="Music volume" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SliderTitle" class="sliderTitle" />
+                <ui:SliderInt label="Master volume" high-value="100" name="MusicVolumeSlider" show-input-field="true" class="baseSettingsSlider" />
+                <ui:Label tabindex="-1" text="50%" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SliderValue" class="sliderValue" />
+            </ui:VisualElement>
+            <ui:VisualElement name="SliderContainer" class="sliderContainer">
+                <ui:Label tabindex="-1" text="SFX volume" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SliderTitle" class="sliderTitle" />
+                <ui:SliderInt label="Master volume" high-value="100" name="SFXVolumeSlider" show-input-field="true" class="baseSettingsSlider" />
+                <ui:Label tabindex="-1" text="0%" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SliderValue" class="sliderValue" />
+            </ui:VisualElement>
+            <ui:VisualElement name="SliderContainer" class="sliderContainer">
+                <ui:Label tabindex="-1" text="Interface volume" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SliderTitle" class="sliderTitle" />
+                <ui:SliderInt label="Master volume" high-value="100" name="UIVolumeSlider" show-input-field="true" class="baseSettingsSlider" />
+                <ui:Label tabindex="-1" text="0%" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SliderValue" class="sliderValue" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

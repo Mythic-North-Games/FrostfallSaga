@@ -5,10 +5,17 @@ namespace FrostfallSaga.Audio
 {
     public class UIAudioRegistrator : MonoBehaviour
     {
+        AudioManager _audioManager;
+
         private void Start()
         {
+            _audioManager = AudioManager.Instance;
+
             UIDocument[] allUIDocuments = FindObjectsOfType<UIDocument>();
-            foreach (UIDocument uIDoc in allUIDocuments) RegisterUIAudioForUIDoc(uIDoc);
+            foreach (UIDocument uIDoc in allUIDocuments)
+            {
+                RegisterUIAudioForUIDoc(uIDoc);
+            }
         }
 
         private void RegisterUIAudioForUIDoc(UIDocument uIDoc)
@@ -26,12 +33,12 @@ namespace FrostfallSaga.Audio
 
         private void OnButtonClick(ClickEvent evt)
         {
-            AudioManager.Instance.PlayUISound(AudioManager.Instance.UIAudioClips.ButtonClick);
+            _audioManager.PlayUISound(_audioManager.UIAudioClips.ButtonClick);
         }
 
         private void OnButtonHover(MouseEnterEvent evt)
         {
-            AudioManager.Instance.PlayUISound(AudioManager.Instance.UIAudioClips.ButtonHover);
+            _audioManager.PlayUISound(_audioManager.UIAudioClips.ButtonHover);
         }
     }
 }

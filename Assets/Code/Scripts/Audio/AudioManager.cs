@@ -7,9 +7,10 @@ namespace FrostfallSaga.Audio
     public class AudioManager : MonoBehaviourPersistingSingleton<AudioManager>
     {
         // Default audio settings
-        private static readonly float DEFAULT_UI_VOLUME = 1f;
-        private static readonly float DEFAULT_MUSIC_VOLUME = 0.25f;
+        private static readonly float DEFAULT_MASTER_VOLUME = 1f;
+        private static readonly float DEFAULT_MUSIC_VOLUME = 1f;
         private static readonly float DEFAULT_FX_VOLUME = 1f;
+        private static readonly float DEFAULT_UI_VOLUME = 1f;
         private static readonly float DEFAULT_MUSIC_FADE_IN_DURATION = 5f;
         private static readonly float DEFAULT_MUSIC_FADE_OUT_DURATION = 2.5f;
 
@@ -22,18 +23,16 @@ namespace FrostfallSaga.Audio
         public UIAudioClips UIAudioClips { get; private set; }
         public MusicAudioClips MusicAudioClips { get; private set; }
 
+        // Current volume levels (can be modified)
+        public float MasterVolume { get; private set; } = DEFAULT_MASTER_VOLUME;
+        public float MusicVolume { get; private set; } = DEFAULT_MUSIC_VOLUME;
+        public float FXVolume { get; private set; } = DEFAULT_FX_VOLUME;
+        public float UIVolume { get; private set; } = DEFAULT_UI_VOLUME;
+
         // Audio sources
         private AudioSource _uiAudioSource;
         private AudioSource _musicAudioSource;
         private AudioSource _fxAudioSourcePrefab;
-
-        private void Start()
-        {
-            // Apply default volume settings
-            _uiAudioSource.volume = DEFAULT_UI_VOLUME;
-            _musicAudioSource.volume = DEFAULT_MUSIC_VOLUME;
-            _fxAudioSourcePrefab.volume = DEFAULT_FX_VOLUME;
-        }
 
         /// <summary>
         /// Play a UI sound effect (2d sound).
@@ -110,13 +109,44 @@ namespace FrostfallSaga.Audio
             AudioSource newAudioSource = Instantiate(_fxAudioSourcePrefab, spawnTransform.position, Quaternion.identity);
             newAudioSource.clip = sound;
             newAudioSource.loop = enableLooping;
-            newAudioSource.volume = DEFAULT_FX_VOLUME;
+            newAudioSource.volume = FXVolume * MasterVolume;
 
             // Play the new sound
             newAudioSource.Play();
 
             // Destroy the AudioSource after the sound has finished playing if not looping
             if (!newAudioSource.loop) Destroy(newAudioSource.gameObject, sound.length);
+        }
+
+        public void SetMasterVolume(float volume)
+        {
+            MasterVolume = Mathf.Clamp01(volume);
+            UpdateVolume();
+        }
+
+        public void SetMusicVolume(float volume)
+        {
+            MusicVolume = Mathf.Clamp01(volume);
+            _musicAudioSource.volume = MusicVolume * MasterVolume;
+        }
+
+        public void SetFXVolume(float volume)
+        {
+            FXVolume = Mathf.Clamp01(volume);
+            _fxAudioSourcePrefab.volume = FXVolume * MasterVolume;
+        }
+
+        public void SetUIVolume(float volume)
+        {
+            UIVolume = Mathf.Clamp01(volume);
+            _uiAudioSource.volume = UIVolume * MasterVolume;
+        }
+
+        private void UpdateVolume()
+        {
+            _musicAudioSource.volume = MusicVolume * MasterVolume;
+            _fxAudioSourcePrefab.volume = FXVolume * MasterVolume;
+            _uiAudioSource.volume = UIVolume * MasterVolume;
         }
 
         private IEnumerator FadeInMusic(AudioClip musicAudioClip, bool enableLooping, float fadeInDuration)
@@ -187,6 +217,8 @@ namespace FrostfallSaga.Audio
                 Debug.LogError("FX Audio Source prefab not found at specified path.");
                 return;
             }
+
+            UpdateVolume();
         }
         #endregion
     }
