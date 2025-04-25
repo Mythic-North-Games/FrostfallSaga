@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:Template name="TimelinePanel" src="project://database/Assets/Level/UI/Fight/TimelinePanel.uxml?fileID=9197481963319205126&amp;guid=0fa28d4408953c10f859548fb24df0f4&amp;type=3#TimelinePanel" />
     <ui:Template name="FighteInfosBar" src="project://database/Assets/Level/UI/Fight/FighteInfosBar.uxml?fileID=9197481963319205126&amp;guid=2b6bad45990218da38e5dd7c86f814a2&amp;type=3#FighteInfosBar" />
-    <ui:Template name="AllyDiamondProgress" src="project://database/Assets/Level/UI/Fight/AllyDiamondProgress.uxml?fileID=9197481963319205126&amp;guid=15f246463304c9e11a943c7f1ce1e51f&amp;type=3#AllyDiamondProgress" />
+    <ui:Template name="CharacterState" src="project://database/Assets/Level/UI/Components/CharacterState.uxml?fileID=9197481963319205126&amp;guid=2315259c78f5cb26a82297c02e9c83ce&amp;type=3#CharacterState" />
     <ui:Template name="RoundProgress" src="project://database/Assets/Level/UI/Components/RoundProgress.uxml?fileID=9197481963319205126&amp;guid=7c3ecac309c4d524b894f2c42fdda14e&amp;type=3#RoundProgress" />
     <ui:Template name="StatusIconContainer" src="project://database/Assets/Level/UI/Fight/StatusIconContainer.uxml?fileID=9197481963319205126&amp;guid=e65bb5637e2f1d1eb92a395ee8971e67&amp;type=3#StatusIconContainer" />
     <ui:Template name="ConsumableSlot" src="project://database/Assets/Level/UI/Fight/ConsumableSlot.uxml?fileID=9197481963319205126&amp;guid=62007e018c618b539bc251fd95fa5911&amp;type=3#ConsumableSlot" />
@@ -12,12 +12,12 @@
     <ui:VisualElement name="ActionPanelRoot" class="actionPanelRootDefault">
         <ui:VisualElement name="TeamInfosPanel" style="width: 20%; height: 100%; justify-content: flex-end;">
             <ui:VisualElement name="TeamMatePanelOtherCharacter" style="justify-content: space-between; align-self: auto; flex-direction: row; width: 100%; height: 40%; position: absolute; top: 13%; left: 2.5%;">
-                <ui:Instance template="AllyDiamondProgress" name="Mate1Progress" class="teamMateContainer" />
-                <ui:Instance template="AllyDiamondProgress" name="Mate2Progress" class="teamMateContainer" />
+                <ui:Instance template="CharacterState" name="Mate1CharacterState" class="teamMateContainer" />
+                <ui:Instance template="CharacterState" name="Mate2CharacterState" class="teamMateContainer" />
             </ui:VisualElement>
             <ui:VisualElement name="TeamMatePanelMainCharacter" style="flex-direction: row; align-items: flex-end; height: 65%; width: 95%; margin-left: 2.5%;">
                 <ui:Instance template="RoundProgress" name="MovementPointsProgress" class="roundStatContainer" style="left: 11%;" />
-                <ui:Instance template="AllyDiamondProgress" name="PlayingFighterProgress" style="width: 70%; height: 100%; margin-left: 17.5%;" />
+                <ui:Instance template="CharacterState" name="PlayingFighterCharacterState" style="width: 70%; height: 100%; margin-left: 17.5%;" />
                 <ui:Instance template="RoundProgress" name="ActionPointsProgress" class="roundStatContainer" style="right: 8%;" />
             </ui:VisualElement>
         </ui:VisualElement>
@@ -75,8 +75,8 @@
                         <Style src="project://database/Assets/Level/UI/Components/ObjectDetailsPanel.uss?fileID=7433441132597879392&amp;guid=ec2b51f90ef6f31ec99f3bc068c43e2e&amp;type=3#ObjectDetailsPanel" />
                         <ui:VisualElement name="ObjectDetailsContainer" style="padding-top: 0; padding-right: 1%; padding-bottom: 0; padding-left: 1%; justify-content: space-between; width: 100%;">
                             <ui:VisualElement name="DetailsHeader" style="width: 100%; height: 40%; flex-direction: row;">
-                                <ui:VisualElement name="IconContainer" style="width: 15%; height: 100%; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Backgrounds/fadedCircleBackground.png?fileID=2800000&amp;guid=bdd35670b3e5cc541a7d4be14cc1e577&amp;type=3#fadedCircleBackground&quot;); -unity-background-scale-mode: scale-to-fit;">
-                                    <ui:VisualElement name="Icon" style="width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Resources/UI/Icons/physicalDamageIcon.png?fileID=2800000&amp;guid=c76bf23a91b91f547963ba85711ce108&amp;type=3#physicalDamageIcon&quot;); -unity-background-scale-mode: scale-to-fit;" />
+                                <ui:VisualElement name="IconContainer" style="width: 15%; height: 100%; background-image: url(&quot;project://database/Assets/Art/UI/Backgrounds/fadedCircleBackground.png?fileID=2800000&amp;guid=bdd35670b3e5cc541a7d4be14cc1e577&amp;type=3#fadedCircleBackground&quot;); -unity-background-scale-mode: scale-to-fit;">
+                                    <ui:VisualElement name="Icon" style="width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Resources/UI/Icons/woodenSwordIcon.png?fileID=2800000&amp;guid=c76bf23a91b91f547963ba85711ce108&amp;type=3#woodenSwordIcon&quot;); -unity-background-scale-mode: scale-to-fit;" />
                                 </ui:VisualElement>
                                 <ui:VisualElement name="HeaderRightContainer" style="width: 84%; height: 100%; margin-left: 1%; justify-content: center;">
                                     <ui:Label tabindex="-1" text="Common sword" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NameLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 1%; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 30%; -unity-text-align: middle-left; color: rgb(225, 225, 225);" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FrostfallSaga.Audio;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.BookMenu.UI;
 using FrostfallSaga.Utils.Scenes;
 using UnityEngine;
 
@@ -10,9 +11,10 @@ namespace FrostfallSaga.Fight
 {
     public class FightLoader : MonoBehaviour
     {
-        [SerializeField] private FightHexGrid hexGrid;
-        [SerializeField] private EntityConfigurationSO[] devAlliesConfs;
-        [SerializeField] private EntityConfigurationSO[] devEnemiesConfs;
+        [SerializeField] private FightHexGrid _hexGrid;
+        [SerializeField] private BookMenuBarUIController _bookMenuBarUIController;
+        [SerializeField] private EntityConfigurationSO[] _devAlliesConfs;
+        [SerializeField] private EntityConfigurationSO[] _devEnemiesConfs;
         private FightersGenerator _fighterGenerator;
         public Action<Fighter[], Fighter[]> onFightLoaded;
 
@@ -20,16 +22,24 @@ namespace FrostfallSaga.Fight
 
         private void Awake()
         {
-            hexGrid ??= FindObjectOfType<FightHexGrid>();
-            _fighterGenerator = new FightersGenerator(devAlliesConfs, devEnemiesConfs);
+            _hexGrid ??= FindObjectOfType<FightHexGrid>();
+            _bookMenuBarUIController ??= FindObjectOfType<BookMenuBarUIController>();
+            _fighterGenerator = new FightersGenerator(_devAlliesConfs, _devEnemiesConfs);
         }
 
         #endregion
 
         private void Start()
         {
+            _bookMenuBarUIController.SetButtonsVisibility(
+                questsMenuButtonVisible: false,
+                inventoryMenuButtonVisible: false,
+                abilitySystemMenuButtonVisible: false,
+                settingsMenuButtonVisible: true
+            );
+
             Debug.Log("Generating Fight Grid...");
-            hexGrid.GenerateGrid();
+            _hexGrid.GenerateGrid();
             Debug.Log("Fight Grid Generated !");
             Debug.Log("Generating Fighters...");
             KeyValuePair<Fighter[], Fighter[]> fighters = GenerateFighters();
