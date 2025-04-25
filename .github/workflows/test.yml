@@ -1,10 +1,6 @@
 name: Only tests 🧪
 
-on:
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
+on: workflow_dispatch
 
 permissions: write-all
 
