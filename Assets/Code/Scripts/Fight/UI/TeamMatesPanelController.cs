@@ -10,22 +10,27 @@ namespace FrostfallSaga.Fight.UI
 {
     public class TeamMatesPanelController
     {
+        #region UXML Names & classes
+        private static readonly string PLAYING_FIGHTER_CHARACTER_STATE_ROOT_UI_NAME = "PlayingFighterCharacterState";
+        private static readonly string MATE_1_PROGRESS_CHARACTER_STATE_UI_NAME = "Mate1CharacterState";
+        private static readonly string MATE_2_PROGRESS_CHARACTER_STATE_UI_NAME = "Mate2CharacterState";
+        private static readonly string MOVEMENT_POINTS_PROGRESS_ROOT_UI_NAME = "MovementPointsProgress";
+        private static readonly string ACTION_POINTS_PROGRESS_ROOT_UI_NAME = "ActionPointsProgress";
+        #endregion
+
+        private readonly VisualElement _playingFighterCharacterStateRoot;
+        private readonly VisualElement _mate1CharacterStateRoot;
+        private readonly VisualElement _mate2CharacterStateRoot;
+
         private readonly Color _actionPointsProgressColor;
         private readonly VisualElement _actionPointsProgressRoot;
-        private readonly VisualElement _mate1HealthProgressRoot;
-        private readonly VisualElement _mate1Icon;
-        private readonly VisualElement _mate2HealthProgressRoot;
-        private readonly VisualElement _mate2Icon;
 
         private readonly Color _movementPointsProgressColor;
         private readonly VisualElement _movementPointsProgressRoot;
-        private readonly VisualElement _playingFighterHealthProgressRoot;
-
-        private readonly VisualElement _playingFighterIcon;
-        private Fighter _mate1;
-        private Fighter _mate2;
 
         private Fighter _playingFighter;
+        private Fighter _mate1;
+        private Fighter _mate2;
 
         public TeamMatesPanelController(
             VisualElement root,
@@ -33,18 +38,9 @@ namespace FrostfallSaga.Fight.UI
             Color actionPointsProgressColor
         )
         {
-            VisualElement playingFighterProgressRoot = root.Q<VisualElement>(PLAYING_FIGHTER_PROGRESS_ROOT_UI_NAME);
-            _playingFighterIcon = playingFighterProgressRoot.Q<VisualElement>(FIGHTER_ICON_CONTAINER_UI_NAME);
-            _playingFighterHealthProgressRoot =
-                playingFighterProgressRoot.Q<VisualElement>(HEALTH_PROGRESS_ROOT_UI_NAME);
-
-            VisualElement mate1ProgressRoot = root.Q<VisualElement>(MATE_1_PROGRESS_ROOT_UI_NAME);
-            _mate1Icon = mate1ProgressRoot.Q<VisualElement>(FIGHTER_ICON_CONTAINER_UI_NAME);
-            _mate1HealthProgressRoot = mate1ProgressRoot.Q<VisualElement>(HEALTH_PROGRESS_ROOT_UI_NAME);
-
-            VisualElement mate2ProgressRoot = root.Q<VisualElement>(MATE_2_PROGRESS_ROOT_UI_NAME);
-            _mate2Icon = mate2ProgressRoot.Q<VisualElement>(FIGHTER_ICON_CONTAINER_UI_NAME);
-            _mate2HealthProgressRoot = mate2ProgressRoot.Q<VisualElement>(HEALTH_PROGRESS_ROOT_UI_NAME);
+            _playingFighterCharacterStateRoot = root.Q<VisualElement>(PLAYING_FIGHTER_CHARACTER_STATE_ROOT_UI_NAME);
+            _mate1CharacterStateRoot = root.Q<VisualElement>(MATE_1_PROGRESS_CHARACTER_STATE_UI_NAME);
+            _mate2CharacterStateRoot = root.Q<VisualElement>(MATE_2_PROGRESS_CHARACTER_STATE_UI_NAME);
 
             _movementPointsProgressRoot = root.Q<VisualElement>(MOVEMENT_POINTS_PROGRESS_ROOT_UI_NAME);
             _actionPointsProgressRoot = root.Q<VisualElement>(ACTION_POINTS_PROGRESS_ROOT_UI_NAME);
@@ -64,18 +60,41 @@ namespace FrostfallSaga.Fight.UI
             _mate2 = mate2;
 
             // Set icons
-            _playingFighterIcon.style.backgroundImage = new(_playingFighter.DiamondIcon);
-            _mate1Icon.style.backgroundImage = new(_mate1 != null ? _mate1.DiamondIcon : null);
-            _mate2Icon.style.backgroundImage = new(mate2 != null ? mate2.DiamondIcon : null);
+            CharacterStateContainerUIController.Setup(
+                _playingFighterCharacterStateRoot,
+                _playingFighter.DiamondIcon,
+                _playingFighter.GetHealth(),
+                _playingFighter.GetMaxHealth()
+            );
+            if (mate1 != null)
+            {
+                CharacterStateContainerUIController.Setup(
+                    _mate1CharacterStateRoot,
+                    _mate1.DiamondIcon,
+                    _mate1.GetHealth(),
+                    _mate1.GetMaxHealth()
+                );
+            }
+            else _mate1CharacterStateRoot.style.display = DisplayStyle.None;
+            if (mate2 != null)
+            {
+                CharacterStateContainerUIController.Setup(
+                    _mate2CharacterStateRoot,
+                    _mate2.DiamondIcon,
+                    _mate2.GetHealth(),
+                    _mate2.GetMaxHealth()
+                );
+            }
+            else _mate2CharacterStateRoot.style.display = DisplayStyle.None;
 
             // Update playing fighter progress bars
-            UpdateLifeProgress(_playingFighter, _playingFighterHealthProgressRoot, true);
+            UpdateLifeProgress(_playingFighter, _playingFighterCharacterStateRoot, !_playingFighter.IsFullLife());
             UpdateMovementPointsProgress(_playingFighter);
             UpdateActionPointsProgress(_playingFighter);
 
             // Update mate progress bars
-            UpdateLifeProgress(_mate1, _mate1HealthProgressRoot, false);
-            UpdateLifeProgress(mate2, _mate2HealthProgressRoot, false);
+            if (mate1 != null) UpdateLifeProgress(_mate1, _mate1CharacterStateRoot, false);
+            if (mate2 != null) UpdateLifeProgress(_mate2, _mate2CharacterStateRoot, false);
 
             // Register fighter events to update progress bars during turn
             RegisterFighterEvents();
@@ -83,11 +102,10 @@ namespace FrostfallSaga.Fight.UI
 
         private void UpdateLifeProgress(Fighter fighter, VisualElement progressRoot, bool displayLabel)
         {
-            ProgressBarUIController.SetupProgressBar(
+            CharacterStateContainerUIController.UpdateHealth(
                 progressRoot,
                 fighter == null ? 1 : fighter.GetHealth(),
                 fighter == null ? 1 : fighter.GetMaxHealth(),
-                invertProgress: true,
                 displayValueLabel: displayLabel
             );
         }
@@ -125,7 +143,7 @@ namespace FrostfallSaga.Fight.UI
             EMagicalElement? _magicalElement
         )
         {
-            UpdateLifeProgress(_playingFighter, _playingFighterHealthProgressRoot, true);
+            UpdateLifeProgress(_playingFighter, _playingFighterCharacterStateRoot, !_playingFighter.IsFullLife());
         }
 
         private void OnPlayingFighterHealed(
@@ -134,7 +152,7 @@ namespace FrostfallSaga.Fight.UI
             bool _isMasterstroke
         )
         {
-            UpdateLifeProgress(_playingFighter, _playingFighterHealthProgressRoot, true);
+            UpdateLifeProgress(_playingFighter, _playingFighterCharacterStateRoot, !_playingFighter.IsFullLife());
         }
 
         private void OnMateFighterReceivedDamage(
@@ -144,14 +162,14 @@ namespace FrostfallSaga.Fight.UI
             EMagicalElement? _magicalElement
         )
         {
-            if (mateFighter == _mate1) UpdateLifeProgress(_mate1, _mate1HealthProgressRoot, false);
-            else if (mateFighter == _mate2) UpdateLifeProgress(_mate2, _mate2HealthProgressRoot, false);
+            if (mateFighter == _mate1) UpdateLifeProgress(_mate1, _mate1CharacterStateRoot, false);
+            else if (mateFighter == _mate2) UpdateLifeProgress(_mate2, _mate2CharacterStateRoot, false);
         }
 
         private void OnMateFighterHealed(Fighter mateFighter, int _value, bool _isMasterstroke)
         {
-            if (mateFighter == _mate1) UpdateLifeProgress(_mate1, _mate1HealthProgressRoot, false);
-            else if (mateFighter == _mate2) UpdateLifeProgress(_mate2, _mate2HealthProgressRoot, false);
+            if (mateFighter == _mate1) UpdateLifeProgress(_mate1, _mate1CharacterStateRoot, false);
+            else if (mateFighter == _mate2) UpdateLifeProgress(_mate2, _mate2CharacterStateRoot, false);
         }
 
         private void OnPlayingFighterActiveAbilityStarted(Fighter playingFighter, ActiveAbilitySO ability)
@@ -190,18 +208,6 @@ namespace FrostfallSaga.Fight.UI
             UpdateMovementPointsProgress(playingFighter);
             UpdateActionPointsProgress(playingFighter);
         }
-
-        #region UXML Names & classes
-
-        private static readonly string PLAYING_FIGHTER_PROGRESS_ROOT_UI_NAME = "PlayingFighterProgress";
-        private static readonly string MATE_1_PROGRESS_ROOT_UI_NAME = "Mate1Progress";
-        private static readonly string MATE_2_PROGRESS_ROOT_UI_NAME = "Mate2Progress";
-        private static readonly string FIGHTER_ICON_CONTAINER_UI_NAME = "FighterIcon";
-        private static readonly string HEALTH_PROGRESS_ROOT_UI_NAME = "HealthProgress";
-        private static readonly string MOVEMENT_POINTS_PROGRESS_ROOT_UI_NAME = "MovementPointsProgress";
-        private static readonly string ACTION_POINTS_PROGRESS_ROOT_UI_NAME = "ActionPointsProgress";
-
-        #endregion
 
         #region Fighter events registration
 

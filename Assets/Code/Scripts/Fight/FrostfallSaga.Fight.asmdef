@@ -8,6 +8,7 @@
         "FrostfallSaga.EntitiesVisual",
         "FrostfallSaga.GameObjectVisuals",
         "FrostfallSaga.InventorySystem",
+        "FrostfallSaga.BookMenu",
         "FrostfallSaga.Utils",
         "FrostfallSaga.Audio",
         "FrostfallSaga.Procedural"

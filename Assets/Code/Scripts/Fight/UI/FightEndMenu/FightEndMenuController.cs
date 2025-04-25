@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FrostfallSaga.Core.InventorySystem;
+using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.InventorySystem.UI;
 using FrostfallSaga.Utils.UI;
@@ -108,7 +109,12 @@ namespace FrostfallSaga.Fight.UI.FightEndMenu
             {
                 VisualElement fighterStateContainer = _fighterStateContainerTemplate.Instantiate();
                 fighterStateContainer.AddToClassList(FIGHTER_STATE_CONTAINER_ROOT_CLASSNAME);
-                FighterStateContainerUIController.Setup(fighter, fighterStateContainer);
+                CharacterStateContainerUIController.Setup(
+                    fighterStateContainer,
+                    fighter.DiamondIcon,
+                    fighter.GetHealth(),
+                    fighter.GetMaxHealth()
+                );
                 root.Add(fighterStateContainer);
             }
         }
