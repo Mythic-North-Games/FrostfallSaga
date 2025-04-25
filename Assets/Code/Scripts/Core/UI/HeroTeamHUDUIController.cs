@@ -10,8 +10,6 @@ namespace FrostfallSaga.Core.UI
         private static readonly string HERO_CONTAINER_LEFT_UI_NAME = "HeroContainerLeft";
         private static readonly string HERO_CONTAINER_MIDDLE_UI_NAME = "HeroContainerMiddle";
         private static readonly string HERO_CONTAINER_RIGHT_UI_NAME = "HeroContainerRight";
-        private static readonly string HERO_ICON_UI_NAME = "FighterIcon";
-        private static readonly string PROGRESS_BAR_ROOT_UI_NAME = "HealthProgress";
         #endregion
 
         private VisualElement _heroContainerLeft;
@@ -54,13 +52,11 @@ namespace FrostfallSaga.Core.UI
 
         private void UpdateHeroContainer(Hero hero, VisualElement heroContainer)
         {
-            heroContainer.Q(HERO_ICON_UI_NAME).style.backgroundImage = new(hero.EntityConfiguration.DiamondIcon);
-            ProgressBarUIController.SetupProgressBar(
-                root: heroContainer.Q(PROGRESS_BAR_ROOT_UI_NAME),
-                value: hero.PersistedFighterConfiguration.Health,
-                maxValue: hero.PersistedFighterConfiguration.MaxHealth,
-                invertProgress: true,
-                displayValueLabel: false
+            CharacterStateContainerUIController.Setup(
+                root: heroContainer,
+                diamondIcon: hero.EntityConfiguration.DiamondIcon,
+                currentHealth: hero.PersistedFighterConfiguration.Health,
+                maxHealth: hero.PersistedFighterConfiguration.MaxHealth
             );
         }
     }

@@ -4,5 +4,6 @@
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="InventoryMenuButton" enable-rich-text="true" class="bookMenuButton" style="background-image: resource(&apos;UI/Icons/backpackIcon&apos;);" />
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuestsMenuButton" enable-rich-text="true" class="bookMenuButton" style="background-image: resource(&apos;UI/Icons/questsIcon&apos;);" />
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="AbilitySystemMenuButton" enable-rich-text="true" class="bookMenuButton" style="background-image: resource(&apos;UI/Icons/awakeningCrystalIcon&apos;);" />
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="SettingsMenuButton" enable-rich-text="true" class="bookMenuButton" style="background-image: resource(&apos;UI/Icons/settingsIcon&apos;);" />
     </ui:VisualElement>
 </ui:UXML>
