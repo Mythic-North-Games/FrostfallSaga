@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3929082853208758289}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TerrainFrozenPlainVisual_3_ALT
   m_TagString: CellVisual
   m_Icon: {fileID: 0}
@@ -54,6 +54,10 @@ PrefabInstance:
     - target: {fileID: 134552, guid: a05f863b43c88ff48ad851af5fcccc6c, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Logs_01_Snow
+      objectReference: {fileID: 0}
+    - target: {fileID: 134552, guid: a05f863b43c88ff48ad851af5fcccc6c, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 477916, guid: a05f863b43c88ff48ad851af5fcccc6c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -116,6 +120,10 @@ PrefabInstance:
     - target: {fileID: 101696, guid: 42d962095b78097449757c712cc134a6, type: 3}
       propertyPath: m_Name
       value: SM_Env_Grass_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 101696, guid: 42d962095b78097449757c712cc134a6, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 475762, guid: 42d962095b78097449757c712cc134a6, type: 3}
       propertyPath: m_LocalScale.x
@@ -191,6 +199,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Grass_02
       objectReference: {fileID: 0}
+    - target: {fileID: 145646, guid: 025e901b282d2f047a7b252709c3e725, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 434800, guid: 025e901b282d2f047a7b252709c3e725, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.43857035
@@ -265,6 +277,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Stone_01_Snow
       objectReference: {fileID: 0}
+    - target: {fileID: 128074, guid: 0476c6be2849ec141a2fb96daad541bb, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 456208, guid: 0476c6be2849ec141a2fb96daad541bb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.016
@@ -326,6 +342,10 @@ PrefabInstance:
     - target: {fileID: 101696, guid: 42d962095b78097449757c712cc134a6, type: 3}
       propertyPath: m_Name
       value: SM_Env_Grass_03 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 101696, guid: 42d962095b78097449757c712cc134a6, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 475762, guid: 42d962095b78097449757c712cc134a6, type: 3}
       propertyPath: m_LocalScale.x
@@ -401,6 +421,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Wagon_01_Snow
       objectReference: {fileID: 0}
+    - target: {fileID: 197520, guid: 17b4bbe18f764db4fb9e7ebe10eb3ffe, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 459466, guid: 17b4bbe18f764db4fb9e7ebe10eb3ffe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.72711015
@@ -462,6 +486,10 @@ PrefabInstance:
     - target: {fileID: 101696, guid: 42d962095b78097449757c712cc134a6, type: 3}
       propertyPath: m_Name
       value: SM_Env_Grass_03 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 101696, guid: 42d962095b78097449757c712cc134a6, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 475762, guid: 42d962095b78097449757c712cc134a6, type: 3}
       propertyPath: m_LocalScale.x
@@ -536,6 +564,10 @@ PrefabInstance:
     - target: {fileID: 131374, guid: e969ea3b230ffd8498370c1a1ac01061, type: 3}
       propertyPath: m_Name
       value: SM_Env_GrassPatch_03_Snow
+      objectReference: {fileID: 0}
+    - target: {fileID: 131374, guid: e969ea3b230ffd8498370c1a1ac01061, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 429042, guid: e969ea3b230ffd8498370c1a1ac01061, type: 3}
       propertyPath: m_LocalScale.x
@@ -615,6 +647,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Dirt_Mound_04_Snow
       objectReference: {fileID: 0}
+    - target: {fileID: 124340, guid: 2b2a00a4b88a90344b3e615ae45a7580, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 485452, guid: 2b2a00a4b88a90344b3e615ae45a7580, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.089036696
@@ -689,6 +725,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Log_01_Snow
       objectReference: {fileID: 0}
+    - target: {fileID: 116910, guid: 7a82049f442f51b4082340f8e2efe9e8, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 443188, guid: 7a82049f442f51b4082340f8e2efe9e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.29306546
@@ -754,6 +794,10 @@ PrefabInstance:
     - target: {fileID: 151154, guid: c8b43e445fe4c4f42b5d10a27af5a060, type: 3}
       propertyPath: m_Name
       value: SM_Env_DirtMound_03_Snow
+      objectReference: {fileID: 0}
+    - target: {fileID: 151154, guid: c8b43e445fe4c4f42b5d10a27af5a060, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 426206, guid: c8b43e445fe4c4f42b5d10a27af5a060, type: 3}
       propertyPath: m_LocalScale.x
@@ -828,6 +872,10 @@ PrefabInstance:
     - target: {fileID: 165964, guid: a0714c6f5f92153499a9324cb4e3f16e, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_04_Snow
+      objectReference: {fileID: 0}
+    - target: {fileID: 165964, guid: a0714c6f5f92153499a9324cb4e3f16e, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 444238, guid: a0714c6f5f92153499a9324cb4e3f16e, type: 3}
       propertyPath: m_LocalScale.x

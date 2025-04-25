@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3929082853208758289}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TerrainFrozenForestVisual_1
   m_TagString: CellVisual
   m_Icon: {fileID: 0}
@@ -55,6 +55,10 @@ PrefabInstance:
     - target: {fileID: 173056, guid: 3ea8ed91c5976ff48a52694fdbc9d292, type: 3}
       propertyPath: m_Name
       value: SM_Env_DirtMound_04_Snow
+      objectReference: {fileID: 0}
+    - target: {fileID: 173056, guid: 3ea8ed91c5976ff48a52694fdbc9d292, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 451432, guid: 3ea8ed91c5976ff48a52694fdbc9d292, type: 3}
       propertyPath: m_LocalScale.x
@@ -130,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Reeds_02
       objectReference: {fileID: 0}
+    - target: {fileID: 161590, guid: 5f2cf25bef3b1454480dc6f5c1ebfc60, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 420148, guid: 5f2cf25bef3b1454480dc6f5c1ebfc60, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.69594
@@ -203,6 +211,10 @@ PrefabInstance:
     - target: {fileID: 101696, guid: 42d962095b78097449757c712cc134a6, type: 3}
       propertyPath: m_Name
       value: SM_Env_Grass_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 101696, guid: 42d962095b78097449757c712cc134a6, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 475762, guid: 42d962095b78097449757c712cc134a6, type: 3}
       propertyPath: m_LocalScale.x
@@ -278,6 +290,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Grass_03 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 101696, guid: 42d962095b78097449757c712cc134a6, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 475762, guid: 42d962095b78097449757c712cc134a6, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.41051808
@@ -352,6 +368,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Flax_03
       objectReference: {fileID: 0}
+    - target: {fileID: 101914, guid: aaf1457e8759f4042b76c7f665a6efb9, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 494784, guid: aaf1457e8759f4042b76c7f665a6efb9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.65
@@ -414,6 +434,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Stone_02_Snow
       objectReference: {fileID: 0}
+    - target: {fileID: 165502, guid: 892c21c32e00f2c44a7f97cf397968fa, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 443496, guid: 892c21c32e00f2c44a7f97cf397968fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.095
@@ -475,6 +499,10 @@ PrefabInstance:
     - target: {fileID: 191160, guid: c2a8e564167087d4db8f27793b3edc5f, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_02_Snow
+      objectReference: {fileID: 0}
+    - target: {fileID: 191160, guid: c2a8e564167087d4db8f27793b3edc5f, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 483612, guid: c2a8e564167087d4db8f27793b3edc5f, type: 3}
       propertyPath: m_LocalScale.x
@@ -550,6 +578,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_01_Snow
       objectReference: {fileID: 0}
+    - target: {fileID: 175030, guid: f52558401daeb134db579dc2046b570f, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 462770, guid: f52558401daeb134db579dc2046b570f, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.48162416
@@ -623,6 +655,10 @@ PrefabInstance:
     - target: {fileID: 129370, guid: 7a0188f8775a52b48b1934531ded2789, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_03_Snow
+      objectReference: {fileID: 0}
+    - target: {fileID: 129370, guid: 7a0188f8775a52b48b1934531ded2789, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 414438, guid: 7a0188f8775a52b48b1934531ded2789, type: 3}
       propertyPath: m_LocalScale.x
@@ -698,6 +734,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Reeds_01
       objectReference: {fileID: 0}
+    - target: {fileID: 101680, guid: 1bc8a792458a3a644be7f3da5af5ac6f, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 433482, guid: 1bc8a792458a3a644be7f3da5af5ac6f, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.44846
@@ -771,6 +811,10 @@ PrefabInstance:
     - target: {fileID: 101696, guid: 42d962095b78097449757c712cc134a6, type: 3}
       propertyPath: m_Name
       value: SM_Env_Grass_03 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 101696, guid: 42d962095b78097449757c712cc134a6, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 475762, guid: 42d962095b78097449757c712cc134a6, type: 3}
       propertyPath: m_LocalScale.x
@@ -846,6 +890,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Grass_02
       objectReference: {fileID: 0}
+    - target: {fileID: 145646, guid: 025e901b282d2f047a7b252709c3e725, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 434800, guid: 025e901b282d2f047a7b252709c3e725, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.47674
@@ -919,6 +967,10 @@ PrefabInstance:
     - target: {fileID: 151154, guid: c8b43e445fe4c4f42b5d10a27af5a060, type: 3}
       propertyPath: m_Name
       value: SM_Env_DirtMound_03_Snow
+      objectReference: {fileID: 0}
+    - target: {fileID: 151154, guid: c8b43e445fe4c4f42b5d10a27af5a060, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 426206, guid: c8b43e445fe4c4f42b5d10a27af5a060, type: 3}
       propertyPath: m_LocalScale.x

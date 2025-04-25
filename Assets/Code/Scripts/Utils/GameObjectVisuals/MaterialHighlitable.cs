@@ -1,68 +1,54 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace FrostfallSaga.Utils.GameObjectVisuals
 {
-    /// <summary>
-    ///     Add the possibility to highlight the visual aspects of the element through materials.
-    /// </summary>
     [RequireComponent(typeof(MeshRenderer))]
     public class MaterialHighlightable : MonoBehaviour
     {
-        [field: SerializeField] public Material InitialMaterial { get; private set; }
-        [field: SerializeField] public Material CurrentDefaultMaterial { get; private set; }
         [field: SerializeField] public MeshRenderer TargetRenderer { get; private set; }
+        [SerializeField] private List<HighlightColorData> highlightColors;
+
+        private Dictionary<HighlightColor, Color> _colorLookup;
+        private Material _materialInstance;
 
         private void Awake()
         {
             if (!TargetRenderer)
             {
                 Debug.LogError($"{nameof(TargetRenderer)} is not set");
+                return;
             }
+
+            if (!TargetRenderer.material)
+            {
+                Debug.LogError($"{nameof(TargetRenderer)} material is not set");
+                return;
+            }
+
+            _materialInstance = TargetRenderer.material;
+            _colorLookup = highlightColors.ToDictionary(color => color.colorType, color => color.color);
+
+            TargetRenderer.gameObject.SetActive(false);
         }
 
-        public void SetInitialMaterial(Material material)
+        public void Highlight(HighlightColor type)
         {
-            InitialMaterial = material;
+            Debug.Log($"{nameof(Highlight)}: {type}");
+            if (!_materialInstance) return;
+            _materialInstance.color = _colorLookup.TryGetValue(type, out Color color) ? color : Color.white;
+
+            TargetRenderer.gameObject.SetActive(true);
         }
 
-        /// <summary>
-        ///     Change the current default material to the one given.
-        ///     The current default material is the material set when the element is not highlighted.
-        /// </summary>
-        /// <param name="newDefaultMaterial">The new default material of the element.</param>
-        public void UpdateCurrentDefaultMaterial(Material newDefaultMaterial)
+        public void ResetToInitialColor()
         {
-            CurrentDefaultMaterial = newDefaultMaterial;
-        }
+            if (!_materialInstance) return;
+            _materialInstance.color =
+                _colorLookup.TryGetValue(HighlightColor.NONE, out Color color) ? color : Color.white;
 
-        /// <summary>
-        ///     Updates the current element's renderer material to highlight the element.
-        /// </summary>
-        /// <param name="highlightMaterial">The material to set.</param>
-        public void Highlight(Material highlightMaterial)
-        {
-            if (TargetRenderer)
-                TargetRenderer.material = highlightMaterial;
-        }
-
-        /// <summary>
-        ///     Resets the element's renderer material to the current default material of the element.
-        /// </summary>
-        public void ResetToDefaultMaterial()
-        {
-            if (TargetRenderer)
-                TargetRenderer.material = CurrentDefaultMaterial;
-        }
-
-        /// <summary>
-        ///     Resets the element's renderer material to the initial material of the element.
-        /// </summary>
-        public void ResetToInitialMaterial()
-        {
-            if (TargetRenderer)
-                TargetRenderer.material = InitialMaterial;
-            CurrentDefaultMaterial = InitialMaterial;
+            TargetRenderer.gameObject.SetActive(false);
         }
     }
 }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3929082853208758289}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TerrainFrozenWaterVisual_4
   m_TagString: CellVisual
   m_Icon: {fileID: 0}
@@ -45,6 +45,10 @@ PrefabInstance:
     - target: {fileID: 183804, guid: df38c304a9032fb4fa1ebde6a720cae4, type: 3}
       propertyPath: m_Name
       value: SM_Env_IceChunk_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 183804, guid: df38c304a9032fb4fa1ebde6a720cae4, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 465432, guid: df38c304a9032fb4fa1ebde6a720cae4, type: 3}
       propertyPath: m_LocalScale.x
@@ -120,6 +124,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_GrassPatch_01_Snow
       objectReference: {fileID: 0}
+    - target: {fileID: 106908, guid: 8613a64291b196b40a7772fa105f63f8, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 461402, guid: 8613a64291b196b40a7772fa105f63f8, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.0204123
@@ -185,6 +193,10 @@ PrefabInstance:
     - target: {fileID: 191924, guid: fe963c149e90da44f8d64ab1b01e1874, type: 3}
       propertyPath: m_Name
       value: SM_Env_IceChunk_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 191924, guid: fe963c149e90da44f8d64ab1b01e1874, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 498504, guid: fe963c149e90da44f8d64ab1b01e1874, type: 3}
       propertyPath: m_LocalScale.x

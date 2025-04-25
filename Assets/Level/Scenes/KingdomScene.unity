@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SubtractiveShadowColor: {r: 0.96981126, g: 0.5959364, b: 0.2836239, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: d230357c492cb7e4e86a95cf5eec38dd, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -396,7 +396,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 90
+  field of view: 20
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1068,7 +1068,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60861fee53a39ef40962b22ee3328e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CellHighlightMaterial>k__BackingField: {fileID: 2100000, guid: 1317001a5366be047821b25e2a15c957, type: 2}
   <CellInaccessibleHighlightMaterial>k__BackingField: {fileID: 2100000, guid: 3a49c1857eb90d545bdc83727456b7b3, type: 2}
   <KingdomGrid>k__BackingField: {fileID: 742855832}
   <HeroGroup>k__BackingField: {fileID: 0}
@@ -1534,7 +1533,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 90
+    FieldOfView: 20
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
