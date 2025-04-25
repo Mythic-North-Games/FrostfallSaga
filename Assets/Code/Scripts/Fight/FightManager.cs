@@ -210,10 +210,7 @@ namespace FrostfallSaga.Fight
             _playerController = gameObject.AddComponent<PlayerController>();
             _playerController.Setup(
                 this,
-                _actionPanel,
-                _cellHighlightMaterial,
-                _cellActionableHighlightMaterial,
-                _cellInaccessibleHighlightMateria
+                _actionPanel
             );
             _playerController.onFighterTurnEnded += OnFighterTurnEnded;
             _playerController.onFighterActionEnded += OnFighterActionEnded;
