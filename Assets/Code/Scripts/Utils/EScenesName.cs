@@ -1,6 +1,6 @@
 using System;
 
-namespace FrostfallSaga.Core
+namespace FrostfallSaga.Utils
 {
     /// <summary>
     ///     List of all the scenes that can be loaded in the game.

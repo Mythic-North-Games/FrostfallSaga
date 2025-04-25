@@ -1,5 +1,3 @@
-using System.Collections;
-using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.GameObjectVisuals;
 using UnityEngine;
 
@@ -49,6 +47,10 @@ namespace FrostfallSaga.Grid.Cells
         public bool IsAccessible => _cellTerrainAccessibilityController?.IsAccessible ?? false;
         public Vector2Int AxialCoordinates => HexMetrics.OffsetToAxial(Coordinates);
 
+        public bool HasVisual => _cellVisualController.VisualTransform != null;
+        public string VisualPrefabPath => _cellVisualController.PrefabPath;
+        public Transform VisualTransform => _cellVisualController.VisualTransform;
+        
 
         private void Awake()
         {
@@ -71,7 +73,6 @@ namespace FrostfallSaga.Grid.Cells
         public void Setup(
             Vector2Int coordinates,
             ECellHeight cellHeight,
-            float cellSize,
             TerrainTypeSO terrainType,
             BiomeTypeSO biomeType
         )
@@ -86,12 +87,12 @@ namespace FrostfallSaga.Grid.Cells
             _cellPositionController = new CellPositionController(
                 transform,
                 WorldHeightPerUnit,
-                cellSize,
+                AHexGrid.CELL_SIZE,
                 Coordinates
             );
             
             if (HighlightController)
-                HighlightController.transform.localScale = Vector3.one * cellSize / 2.894f;
+                HighlightController.transform.localScale = Vector3.one * AHexGrid.CELL_SIZE / 2.894f;
             else
                 Debug.LogError("Cell " + name + " has no visual to be set up. Please add a cell visual as a child.");
         }
@@ -101,6 +102,12 @@ namespace FrostfallSaga.Grid.Cells
         {
             _cellTerrainAccessibilityController ??= new CellTerrainAccessibilityController(TerrainType);
             _cellTerrainAccessibilityController.GenerateRandomAccessibility(mode);
+        }
+
+        public void LoadAccessibility(bool accessibility)
+        {
+            _cellTerrainAccessibilityController ??= new CellTerrainAccessibilityController(TerrainType);
+            _cellTerrainAccessibilityController.OverrideAccessibility(accessibility);
         }
 
         public void SetTerrain(TerrainTypeSO terrainType)
@@ -134,6 +141,27 @@ namespace FrostfallSaga.Grid.Cells
             Vector2Int initiatorAxial = initiatorCell.AxialCoordinates;
             Vector2Int targetAxial = targetCell.AxialCoordinates;
             return targetAxial - initiatorAxial;
+        }
+
+        // VISUALS
+        public void DestroyVisual()
+        {
+            _cellVisualController.DestroyVisual();
+        }
+
+        public void LoadVisual(
+            TerrainTypeSO terrainType,
+            string visualPrefabPath,
+            Vector3 visualPosition,
+            Quaternion visualRotation
+        )
+        {
+            _cellVisualController.RecoverVisuals(terrainType, visualPrefabPath, visualPosition, visualRotation);
+        }
+
+        public void UpdateBaseCellMaterial()
+        {
+            _cellVisualController.SetBaseCellMaterial(TerrainType);
         }
 
         #region toString

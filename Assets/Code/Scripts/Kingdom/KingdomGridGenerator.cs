@@ -31,12 +31,12 @@ namespace FrostfallSaga.Grid
             {
                 for (int x = 0; x < GridWidth; x++)
                 {
-                    Vector3 centerPosition = HexMetrics.Center(HexSize, x, y);
+                    Vector3 centerPosition = HexMetrics.Center(AHexGrid.CELL_SIZE, x, y);
                     Cell cell = Object.Instantiate(HexPrefab, centerPosition, Quaternion.identity, ParentGrid);
                     cell.name = $"Cell[{x};{y}]";
                     int biomeIndex = _voronoiBiomeManager.GetClosestBiomeIndex(x, y);
                     BiomeTypeSO selectedBiome = AvailableBiomes[biomeIndex];
-                    SetupCell(cell, x, y, selectedBiome, HexSize);
+                    SetupCell(cell, x, y, selectedBiome);
                     gridCells[new Vector2Int(x, y)] = cell;
                 }
             }
@@ -44,11 +44,11 @@ namespace FrostfallSaga.Grid
             return gridCells;
         }
 
-        private void SetupCell(Cell cell, int x, int y, BiomeTypeSO selectedBiome, float hexSize)
+        private void SetupCell(Cell cell, int x, int y, BiomeTypeSO selectedBiome)
         {
             float perlinValue = _perlinTerrainManager.GetNoiseValue(x, y);
             TerrainTypeSO selectedTerrain = GetTerrainTypeFromPerlinValue(perlinValue, selectedBiome);
-            cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, hexSize, selectedTerrain, selectedBiome);
+            cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, selectedTerrain, selectedBiome);
             cell.GenerateRandomAccessibility(EAccessibilityGenerationMode.FLIP_IF_ACCESSIBLE);
             cell.SetTerrain(selectedTerrain);
         }

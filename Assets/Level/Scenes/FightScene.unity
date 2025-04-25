@@ -299,17 +299,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7423635820620192851, guid: 6ffbec30350952f499de66cae939e928, type: 3}
   m_PrefabInstance: {fileID: 416455248}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &416455250 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3836396025498947227, guid: 6ffbec30350952f499de66cae939e928, type: 3}
-  m_PrefabInstance: {fileID: 416455248}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6557c83ab7a18dd49bdb9f3d2f933746, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &607521706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,6 +1219,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2053010646}
+  - {fileID: 416455249}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1814713791
@@ -1567,6 +1557,7 @@ MonoBehaviour:
   _dodgeStyleClass: dodgeLabel
   _masterstrokeStyleClass: masterstrokeLabel
   _fightLoader: {fileID: 2012426617}
+  _fightManager: {fileID: 1678739252}
   _fightCameraController: {fileID: 985944595}
 --- !u!114 &1952024168
 MonoBehaviour:
@@ -1836,7 +1827,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Width>k__BackingField: 10
   <Height>k__BackingField: 10
-  <HexSize>k__BackingField: 2
   <AvailableBiomes>k__BackingField:
   - {fileID: 11400000, guid: 62807aa1d0cd21844b1e3eef85934555, type: 2}
   <NoiseScale>k__BackingField: 0.2
