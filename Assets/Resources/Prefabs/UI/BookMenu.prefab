@@ -142,3 +142,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 883643899157145953}
   _controlPanelTemplate: {fileID: 9197481963319205126, guid: 881219872cfa3780495b08746aa4f6f0, type: 3}
+  _settingsPanelTemplate: {fileID: 9197481963319205126, guid: 8f00580fd8cccd51a8a35dfac972f8bf, type: 3}
