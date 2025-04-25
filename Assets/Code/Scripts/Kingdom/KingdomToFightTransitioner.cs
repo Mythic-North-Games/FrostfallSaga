@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using FrostfallSaga.Audio;
-using FrostfallSaga.Core;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Fight;
@@ -14,6 +12,7 @@ using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Utils.Scenes;
 using FrostfallSaga.Utils.Camera;
 using UnityEngine;
+using FrostfallSaga.Utils;
 
 namespace FrostfallSaga.Kingdom
 {

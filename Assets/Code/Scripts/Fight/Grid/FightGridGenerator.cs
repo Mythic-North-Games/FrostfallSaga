@@ -18,8 +18,16 @@ namespace FrostfallSaga.Grid
         private readonly Dictionary<HexDirection, Cell> _hexDirectionCells;
         private readonly PerlinTerrainManager _perlinTerrainManager;
 
-        public FightGridGenerator(FightCell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes,
-            Transform parentGrid, float noiseScale, int seed, BiomeTypeSO defaultBiomeType)
+        public FightGridGenerator(
+            FightCell hexPrefab,
+            int gridWidth,
+            int gridHeight,
+            BiomeTypeSO[] availableBiomes,
+            Transform parentGrid,
+            float noiseScale,
+            int seed,
+            BiomeTypeSO defaultBiomeType
+        )
             : base(hexPrefab, gridWidth, gridHeight, availableBiomes, parentGrid, noiseScale, seed)
         {
             _perlinTerrainManager = new PerlinTerrainManager(noiseScale, seed);
@@ -27,8 +35,17 @@ namespace FrostfallSaga.Grid
             _defaultBiomeType = defaultBiomeType;
         }
 
-        public FightGridGenerator(FightCell hexPrefab, int gridWidth, int gridHeight, BiomeTypeSO[] availableBiomes,
-            Transform parentGrid, float noiseScale, int seed, BiomeTypeSO defaultBiomeType, Dictionary<HexDirection, Cell> hexDirectionCells)
+        public FightGridGenerator(
+            FightCell hexPrefab,
+            int gridWidth,
+            int gridHeight,
+            BiomeTypeSO[] availableBiomes,
+            Transform parentGrid,
+            float noiseScale,
+            int seed,
+             BiomeTypeSO defaultBiomeType,
+             Dictionary<HexDirection, Cell> hexDirectionCells
+        )
             : base(hexPrefab, gridWidth, gridHeight, availableBiomes, parentGrid, noiseScale, seed)
         {
             _perlinTerrainManager = new PerlinTerrainManager(noiseScale, seed);
@@ -47,7 +64,7 @@ namespace FrostfallSaga.Grid
             {
                 for (int x = 0; x < GridWidth; x++)
                 {
-                    Vector3 centerPosition = HexMetrics.Center(HexSize, x, y);
+                    Vector3 centerPosition = HexMetrics.Center(AHexGrid.CELL_SIZE, x, y);
                     Cell cell = Object.Instantiate(HexPrefab, centerPosition, Quaternion.identity, ParentGrid);
                     cell.name = $"Cell[{x};{y}]";
 
@@ -56,7 +73,7 @@ namespace FrostfallSaga.Grid
                     BiomeTypeSO selectedBiome = AvailableBiomes
                         .FirstOrDefault(b => b.TerrainTypeSO.Contains(selectedTerrain));
 
-                    SetupCell(cell, x, y, selectedBiome, HexSize, selectedTerrain);
+                    SetupCell(cell, x, y, selectedBiome, selectedTerrain);
                     gridCells[new Vector2Int(x, y)] = cell;
                 }
             }
@@ -66,10 +83,15 @@ namespace FrostfallSaga.Grid
         }
 
 
-        private static void SetupCell(Cell cell, int x, int y, BiomeTypeSO selectedBiome, float hexSize,
-            TerrainTypeSO selectedTerrain)
+        private static void SetupCell(
+            Cell cell, 
+            int x, 
+            int y, 
+            BiomeTypeSO selectedBiome, 
+            TerrainTypeSO selectedTerrain
+        )
         {
-            cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, hexSize, selectedTerrain, selectedBiome);
+            cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, selectedTerrain, selectedBiome);
             cell.GenerateRandomAccessibility(EAccessibilityGenerationMode.FLIP_IF_NOT_ACCESSIBLE);
             cell.SetTerrain(selectedTerrain);
         }

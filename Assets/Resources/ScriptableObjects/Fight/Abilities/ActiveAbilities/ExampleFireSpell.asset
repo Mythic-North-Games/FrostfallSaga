@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: ExampleFireSpell
   <Description>k__BackingField: Apply fire on cell
-  <IconSprite>k__BackingField: {fileID: 21300000, guid: 1799c07f797a29a4b97725218112d6e0, type: 3}
+  <Icon>k__BackingField: {fileID: 0}
   <UnlockPoints>k__BackingField: 0
-  <AbilitytriggerAnimationName>k__BackingField: FireBallTriggerAnimation
   <Targeter>k__BackingField:
     <OriginCellRange>k__BackingField: 12
     <CellsSequence>k__BackingField:
@@ -44,5 +43,5 @@ MonoBehaviour:
     - rid: 6053962956990054400
       type: {class: MagicalDamageEffect, ns: FrostfallSaga.Fight.Effects, asm: FrostfallSaga.Fight}
       data:
-        MagicalDamageAmount: 20
-        MagicalElement: 3
+        MagicalDamageAmount: 150
+        MagicalElement: 0

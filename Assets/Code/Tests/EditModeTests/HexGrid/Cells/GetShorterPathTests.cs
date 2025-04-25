@@ -222,7 +222,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithInaccessibleCell_StraightVertical_Test()
         {
-            grid.Cells[new Vector2Int(0, 2)].Setup(new Vector2Int(0, 2), ECellHeight.LOW, 2f,
+            grid.Cells[new Vector2Int(0, 2)].Setup(new Vector2Int(0, 2), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(0, 0)];
@@ -244,7 +244,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithInaccessibleCell_StraightHorizontal_Test()
         {
-            grid.Cells[new Vector2Int(2, 0)].Setup(new Vector2Int(2, 0), ECellHeight.LOW, 2f,
+            grid.Cells[new Vector2Int(2, 0)].Setup(new Vector2Int(2, 0), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(0, 0)];
@@ -267,7 +267,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithInaccessibleCell_BottomLeftDiagonal_Test()
         {
-            grid.Cells[new Vector2Int(3, 3)].Setup(new Vector2Int(3, 3), ECellHeight.LOW, 2f,
+            grid.Cells[new Vector2Int(3, 3)].Setup(new Vector2Int(3, 3), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(4, 4)];
@@ -290,7 +290,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithInaccessibleCell_BottomRightDiagonal_Test()
         {
-            grid.Cells[new Vector2Int(0, 3)].Setup(new Vector2Int(0, 3), ECellHeight.LOW, 2f,
+            grid.Cells[new Vector2Int(0, 3)].Setup(new Vector2Int(0, 3), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(0, 4)];
@@ -313,7 +313,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithInaccessibleCell_TopLeftDiagonal_Test()
         {
-            grid.Cells[new Vector2Int(0, 1)].Setup(new Vector2Int(0, 1), ECellHeight.LOW, 2f,
+            grid.Cells[new Vector2Int(0, 1)].Setup(new Vector2Int(0, 1), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(0, 0)];
@@ -336,7 +336,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithInaccessibleCell_TopRightDiagonal_Test()
         {
-            grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.LOW, 2f,
+            grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(4, 0)];
@@ -359,7 +359,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithInaccessibleCell_BottomLeftToMiddle_Test()
         {
-            grid.Cells[new Vector2Int(1, 2)].Setup(new Vector2Int(1, 2), ECellHeight.LOW, 2f,
+            grid.Cells[new Vector2Int(1, 2)].Setup(new Vector2Int(1, 2), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(0, 0)];
@@ -381,7 +381,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithInaccessibleCell_BottomRightToMiddle_Test()
         {
-            grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.LOW, 2f,
+            grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(4, 0)];
@@ -403,7 +403,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithInaccessibleCell_TopLeftToMiddle_Test()
         {
-            grid.Cells[new Vector2Int(1, 2)].Setup(new Vector2Int(1, 2), ECellHeight.LOW, 2f,
+            grid.Cells[new Vector2Int(1, 2)].Setup(new Vector2Int(1, 2), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(0, 4)];
@@ -425,7 +425,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithInaccessibleCell_TopRightToMiddle_Test()
         {
-            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.LOW, 2f,
+            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(4, 4)];
@@ -451,7 +451,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithHeightInaccessibleCell_StraightVertical_Test()
         {
-            grid.Cells[new Vector2Int(0, 2)].Setup(new Vector2Int(0, 2), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(0, 2)].Setup(new Vector2Int(0, 2), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(0, 0)];
@@ -473,7 +473,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithHeightInaccessibleCell_StraightHorizontal_Test()
         {
-            grid.Cells[new Vector2Int(2, 0)].Setup(new Vector2Int(2, 0), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(2, 0)].Setup(new Vector2Int(2, 0), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(0, 0)];
@@ -496,7 +496,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithHeightInaccessibleCell_BottomLeftDiagonal_Test()
         {
-            grid.Cells[new Vector2Int(3, 3)].Setup(new Vector2Int(3, 3), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(3, 3)].Setup(new Vector2Int(3, 3), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(4, 4)];
@@ -519,7 +519,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithHeightInaccessibleCell_BottomRightDiagonal_Test()
         {
-            grid.Cells[new Vector2Int(0, 3)].Setup(new Vector2Int(0, 3), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(0, 3)].Setup(new Vector2Int(0, 3), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(0, 4)];
@@ -542,7 +542,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithHeightInaccessibleCell_TopLeftDiagonal_Test()
         {
-            grid.Cells[new Vector2Int(0, 1)].Setup(new Vector2Int(0, 1), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(0, 1)].Setup(new Vector2Int(0, 1), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(0, 0)];
@@ -565,7 +565,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithHeightInaccessibleCell_TopRightDiagonal_Test()
         {
-            grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(4, 0)];
@@ -588,7 +588,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithHeightInaccessibleCell_BottomLeftToMiddle_Test()
         {
-            grid.Cells[new Vector2Int(1, 2)].Setup(new Vector2Int(1, 2), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(1, 2)].Setup(new Vector2Int(1, 2), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(0, 0)];
@@ -610,7 +610,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithHeightInaccessibleCell_BottomRightToMiddle_Test()
         {
-            grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(4, 0)];
@@ -632,7 +632,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithHeightInaccessibleCell_TopLeftToMiddle_Test()
         {
-            grid.Cells[new Vector2Int(1, 2)].Setup(new Vector2Int(1, 2), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(1, 2)].Setup(new Vector2Int(1, 2), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(0, 4)];
@@ -654,7 +654,7 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithHeightInaccessibleCell_TopRightToMiddle_Test()
         {
-            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(4, 4)];
@@ -680,15 +680,15 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_WithMultipleInaccessibleCells_BottomLeftToMiddle_Test()
         {
-            grid.Cells[new Vector2Int(2, 1)].Setup(new Vector2Int(2, 1), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(2, 1)].Setup(new Vector2Int(2, 1), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new Vector2Int(1, 1)].Setup(new Vector2Int(1, 1), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(1, 1)].Setup(new Vector2Int(1, 1), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new Vector2Int(1, 2)].Setup(new Vector2Int(1, 2), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(1, 2)].Setup(new Vector2Int(1, 2), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new Vector2Int(1, 3)].Setup(new Vector2Int(1, 3), ECellHeight.LOW, 2f,
+            grid.Cells[new Vector2Int(1, 3)].Setup(new Vector2Int(1, 3), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.MEDIUM, 2f,
+            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.MEDIUM,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(0, 0)];
@@ -713,17 +713,17 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetShorterPath_TargetCellInaccessible_Test()
         {
-            grid.Cells[new Vector2Int(2, 1)].Setup(new Vector2Int(2, 1), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(2, 1)].Setup(new Vector2Int(2, 1), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new Vector2Int(1, 1)].Setup(new Vector2Int(1, 1), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(1, 1)].Setup(new Vector2Int(1, 1), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new Vector2Int(1, 2)].Setup(new Vector2Int(1, 2), ECellHeight.HIGH, 2f,
+            grid.Cells[new Vector2Int(1, 2)].Setup(new Vector2Int(1, 2), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new Vector2Int(1, 3)].Setup(new Vector2Int(1, 3), ECellHeight.LOW, 2f,
+            grid.Cells[new Vector2Int(1, 3)].Setup(new Vector2Int(1, 3), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.MEDIUM, 2f,
+            grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.MEDIUM,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            grid.Cells[new Vector2Int(3, 2)].Setup(new Vector2Int(3, 2), ECellHeight.MEDIUM, 2f,
+            grid.Cells[new Vector2Int(3, 2)].Setup(new Vector2Int(3, 2), ECellHeight.MEDIUM,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell startCell = grid.Cells[new Vector2Int(0, 0)];

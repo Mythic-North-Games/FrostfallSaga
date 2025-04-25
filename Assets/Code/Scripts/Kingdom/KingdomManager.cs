@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.GameState;
+using FrostfallSaga.Core.GameState.Grid;
 using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Core.Quests;
 using FrostfallSaga.Grid;
@@ -44,6 +45,11 @@ namespace FrostfallSaga.Kingdom
 
         public void SaveKingdomState()
         {
+            // Extract kingdom cells data
+            KingdomCellData[] kingdomCellsData = KingdomGrid.GetCells()
+                .Select(cell => KingdomCellBuilder.ExtractInterestPointData(cell as KingdomCell))
+                .ToArray();
+
             EntitiesGroupBuilder entitiesGroupBuilder = EntitiesGroupBuilder.Instance;
 
             // Extracting Hero Data
@@ -60,7 +66,12 @@ namespace FrostfallSaga.Kingdom
                 .ToArray();
 
             // Save into GameStateManager
-            GameStateManager.Instance.SaveKingdomState(heroGroupData, enemiesGroupsData, interestPointsData);
+            GameStateManager.Instance.SaveKingdomState(
+                kingdomCellsData: kingdomCellsData,
+                heroGroupData: heroGroupData, 
+                enemiesGroupsData: enemiesGroupsData, 
+                interestPointsData: interestPointsData
+            );
         }
 
 

@@ -12,6 +12,8 @@ namespace FrostfallSaga.Grid
     /// </summary>
     public abstract class AHexGrid : MonoBehaviour
     {
+        public static readonly float CELL_SIZE = 2f;
+
         [field: SerializeField]
         [field: Header("Grid settings")]
         [field: Range(000_001, 999_999)]
@@ -20,8 +22,6 @@ namespace FrostfallSaga.Grid
         [field: SerializeField]
         [field: Range(000_001, 999_999)]
         public int Height { get; set; }
-
-        [field: SerializeField] public float HexSize { get; set; } = 2f;
 
         [field: SerializeField]
         [field: Header("Biomes's list")]
@@ -114,7 +114,7 @@ namespace FrostfallSaga.Grid
             return "HexGrid:\n" +
                    $"- Width: {Width}\n" +
                    $"- Height: {Height}\n" +
-                   $"- HexSize: {HexSize}\n" +
+                   $"- Cell size: {CELL_SIZE}\n" +
                    $"- Noise Scale: {NoiseScale}\n" +
                    $"- Seed: {Seed}\n" +
                    $"- Available Biomes: {(AvailableBiomes != null && AvailableBiomes.Length > 0 ? string.Join(", ", AvailableBiomes.Select(b => b.name)) : "None")}\n" +

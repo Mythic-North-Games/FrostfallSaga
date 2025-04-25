@@ -15,7 +15,7 @@ namespace FrostfallSaga.Kingdom.InterestPoints
         }
 
         /// <summary>
-        ///     Construit un InterestPoint à partir des données sauvegardées
+        /// Builds an interest point from saved data.
         /// </summary>
         public static InterestPoint BuildInterestPoint(InterestPointData interestPointData, KingdomHexGrid grid)
         {
@@ -31,10 +31,12 @@ namespace FrostfallSaga.Kingdom.InterestPoints
         }
 
         /// <summary>
-        ///     Génère les InterestPoints initiaux
+        /// Place the interest points on the existing grid.
         /// </summary>
-        public static void FirstBuildInterestPoints(KingdomHexGrid kingdomHexGrid,
-            List<AInterestPointConfigurationSO> interestPoints)
+        public static void FirstBuildInterestPoints(    // TODO: Refactor grid generation to include this
+            KingdomHexGrid kingdomHexGrid,
+            List<AInterestPointConfigurationSO> interestPoints
+        )
         {
             Debug.Log("Generating Interest Points...");
 
@@ -48,14 +50,14 @@ namespace FrostfallSaga.Kingdom.InterestPoints
             foreach (AInterestPointConfigurationSO interestPointConfig in interestPoints)
             {
                 KingdomCell cell = Randomizer.GetRandomElementFromArray(freeCells.ToArray());
-                DestroyDefaultVisual(cell.gameObject);               
+                cell.DestroyVisual();
                 InstantiateInterestPoint(interestPointConfig, cell);
                 freeCells.Remove(cell);
             }
         }
 
         /// <summary>
-        ///     Crée une instance d'un InterestPoint sur une cellule
+        /// Instantiate an interest point in the given cell.
         /// </summary>
         private static InterestPoint InstantiateInterestPoint(AInterestPointConfigurationSO conf, KingdomCell cell)
         {
@@ -71,7 +73,7 @@ namespace FrostfallSaga.Kingdom.InterestPoints
         }
 
         /// <summary>
-        ///     Extrait les données d'un InterestPoint pour sauvegarde
+        /// Extract interest points data to a serializable format.
         /// </summary>
         public static InterestPointData ExtractInterestPointData(InterestPoint interestPoint)
         {
@@ -81,18 +83,5 @@ namespace FrostfallSaga.Kingdom.InterestPoints
                 interestPoint.cell.Coordinates.y
             );
         }
-        
-        private static void DestroyDefaultVisual(GameObject parent, string targetTag = "CellVisual")
-        {
-            foreach (Transform child in parent.transform)
-            {
-                if (child.CompareTag(targetTag))
-                {
-                    DestroyImmediate(child.gameObject);
-                    break;
-                }
-            }
-        }
-
     }
 }

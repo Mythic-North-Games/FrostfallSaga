@@ -122,9 +122,9 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetNeighbors_SomeInaccessible_Even_Test()
         {
-            _grid.Cells[new Vector2Int(2, 2)].Setup(new Vector2Int(2, 2), ECellHeight.LOW, 2f,
+            _grid.Cells[new Vector2Int(2, 2)].Setup(new Vector2Int(2, 2), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.LOW, 2f,
+            _grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell cellToGetTheNeighborsFrom = _grid.Cells[new Vector2Int(3, 2)];
@@ -147,9 +147,9 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetNeighbors_SomeHeightInaccessible_Even_Test()
         {
-            _grid.Cells[new Vector2Int(2, 2)].Setup(new Vector2Int(2, 2), ECellHeight.HIGH, 2f,
+            _grid.Cells[new Vector2Int(2, 2)].Setup(new Vector2Int(2, 2), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.HIGH, 2f,
+            _grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell cellToGetTheNeighborsFrom = _grid.Cells[new Vector2Int(3, 2)];
@@ -172,9 +172,9 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetNeighbors_LowHeightDifference_Even_Test()
         {
-            _grid.Cells[new Vector2Int(2, 2)].Setup(new Vector2Int(2, 2), ECellHeight.MEDIUM, 2f,
+            _grid.Cells[new Vector2Int(2, 2)].Setup(new Vector2Int(2, 2), ECellHeight.MEDIUM,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.MEDIUM, 2f,
+            _grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.MEDIUM,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell cellToGetTheNeighborsFrom = _grid.Cells[new Vector2Int(3, 2)];
@@ -199,17 +199,17 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetNeighbors_Isolated_Even_Test()
         {
-            _grid.Cells[new Vector2Int(2, 2)].Setup(new Vector2Int(2, 2), ECellHeight.HIGH, 2f,
+            _grid.Cells[new Vector2Int(2, 2)].Setup(new Vector2Int(2, 2), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.HIGH, 2f,
+            _grid.Cells[new Vector2Int(3, 1)].Setup(new Vector2Int(3, 1), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.MEDIUM, 2f,
+            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.MEDIUM,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(3, 3)].Setup(new Vector2Int(3, 3), ECellHeight.MEDIUM, 2f,
+            _grid.Cells[new Vector2Int(3, 3)].Setup(new Vector2Int(3, 3), ECellHeight.MEDIUM,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(4, 2)].Setup(new Vector2Int(4, 2), ECellHeight.MEDIUM, 2f,
+            _grid.Cells[new Vector2Int(4, 2)].Setup(new Vector2Int(4, 2), ECellHeight.MEDIUM,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(2, 1)].Setup(new Vector2Int(2, 1), ECellHeight.MEDIUM, 2f,
+            _grid.Cells[new Vector2Int(2, 1)].Setup(new Vector2Int(2, 1), ECellHeight.MEDIUM,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell cellToGetTheNeighborsFrom = _grid.Cells[new Vector2Int(3, 2)];
@@ -288,9 +288,9 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetNeighbors_SomeInaccessible_Odd_Test()
         {
-            _grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.LOW, 2f,
+            _grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.LOW, 2f,
+            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.LOW,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell cellToGetTheNeighborsFrom = _grid.Cells[new Vector2Int(3, 3)];
@@ -313,9 +313,9 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetNeighbors_SomeHeightInaccessible_Odd_Test()
         {
-            _grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.HIGH, 2f,
+            _grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.HIGH, 2f,
+            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell cellToGetTheNeighborsFrom = _grid.Cells[new Vector2Int(3, 3)];
@@ -338,9 +338,9 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetNeighbors_LowHeightDifference_Odd_Test()
         {
-            _grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.MEDIUM, 2f,
+            _grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.MEDIUM,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.MEDIUM, 2f,
+            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.MEDIUM,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell cellToGetTheNeighborsFrom = _grid.Cells[new Vector2Int(3, 3)];
@@ -365,17 +365,17 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetNeighbors_Isolated_Odd_Test()
         {
-            _grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.HIGH, 2f,
+            _grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.HIGH, 2f,
+            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(4, 4)].Setup(new Vector2Int(4, 4), ECellHeight.MEDIUM, 2f,
+            _grid.Cells[new Vector2Int(4, 4)].Setup(new Vector2Int(4, 4), ECellHeight.MEDIUM,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(3, 2)].Setup(new Vector2Int(3, 2), ECellHeight.MEDIUM, 2f,
+            _grid.Cells[new Vector2Int(3, 2)].Setup(new Vector2Int(3, 2), ECellHeight.MEDIUM,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(4, 2)].Setup(new Vector2Int(4, 2), ECellHeight.MEDIUM, 2f,
+            _grid.Cells[new Vector2Int(4, 2)].Setup(new Vector2Int(4, 2), ECellHeight.MEDIUM,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(3, 4)].Setup(new Vector2Int(3, 4), ECellHeight.MEDIUM, 2f,
+            _grid.Cells[new Vector2Int(3, 4)].Setup(new Vector2Int(3, 4), ECellHeight.MEDIUM,
                 CommonTestsHelper.InaccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
 
@@ -392,9 +392,9 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetNeighbors_IncludeInaccessible_Test()
         {
-            _grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.LOW, 2f,
+            _grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.LOW,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.LOW, 2f,
+            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.LOW,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell cellToGetTheNeighborsFrom = _grid.Cells[new Vector2Int(3, 3)];
@@ -419,9 +419,9 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetNeighbors_IncludeHeightInaccessible_Test()
         {
-            _grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.HIGH, 2f,
+            _grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.HIGH, 2f,
+            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell cellToGetTheNeighborsFrom = _grid.Cells[new Vector2Int(3, 3)];
@@ -446,9 +446,9 @@ namespace FrostfallSaga.EditModeTests.Grid.Cells
         [Test]
         public void GetNeighbors_IncludeHeightInaccessibleAndInaccessible_Test()
         {
-            _grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.HIGH, 2f,
+            _grid.Cells[new Vector2Int(4, 3)].Setup(new Vector2Int(4, 3), ECellHeight.HIGH,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
-            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.MEDIUM, 2f,
+            _grid.Cells[new Vector2Int(2, 3)].Setup(new Vector2Int(2, 3), ECellHeight.MEDIUM,
                 CommonTestsHelper.AccessibleTerrain, CommonTestsHelper.DefaultBiomeTest);
 
             Cell cellToGetTheNeighborsFrom = _grid.Cells[new Vector2Int(3, 3)];
