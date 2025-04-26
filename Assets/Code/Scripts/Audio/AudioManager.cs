@@ -50,7 +50,7 @@ namespace FrostfallSaga.Audio
         /// <param name="musicAudioClip">The music to play.</param>
         /// <param name="enableLooping">Whether the music should loop or not.</param>
         /// <param name="fadeDuration">The duration of the fade in and out effect before playing the new music.</param>
-        public void PlayMusicSound(AudioClip musicAudioClip, bool enableLooping = true, float fadeDuration = -99f)
+        public void PlayMusic(AudioClip musicAudioClip, bool enableLooping = true, float fadeDuration = -99f)
         {
             // Don't play the same music again
             if (_musicAudioSource.clip == musicAudioClip) return;
@@ -185,7 +185,7 @@ namespace FrostfallSaga.Audio
         {
             StartCoroutine(FadeOutMusic(fadeOutDuration));
             yield return new WaitForSeconds(fadeOutDuration);
-            PlayMusicSound(newMusicClip);
+            PlayMusic(newMusicClip);
         }
 
         #region Initialization
