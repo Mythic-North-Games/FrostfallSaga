@@ -9,5 +9,6 @@ namespace FrostfallSaga.Core.Cities
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public int RestCost { get; private set; }
         [field: SerializeField] public Sprite TavernIllustration { get; private set; }
+        [field: SerializeField] public AudioClip TavernMusic { get; private set; }
     }
 }

@@ -101,7 +101,7 @@ namespace FrostfallSaga.Kingdom
 
             // Start playing the fight scene music
             AudioManager audioManager = AudioManager.Instance;
-            audioManager.PlayMusicSound(audioManager.MusicAudioClips.Fight);
+            audioManager.PlayMusic(audioManager.MusicAudioClips.Fight);
 
             // Transition to the fight scene
             SceneTransitioner.TransitionToScene(EScenesName.FIGHT.ToSceneString());

@@ -15,5 +15,6 @@ namespace FrostfallSaga.Core.Cities
         [field: SerializeField] public Sprite ExitCityIllustration { get; private set; }
         [field: SerializeField] public TavernConfiguration TavernConfiguration { get; private set; }
         [field: SerializeField] public ACitySituationSO[] CitySituations { get; private set; }
+        [field: SerializeField] public AudioClip CityMusic { get; private set; }
     }
 }

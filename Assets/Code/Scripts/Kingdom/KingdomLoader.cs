@@ -53,7 +53,7 @@ namespace FrostfallSaga.Kingdom
             // Fade in the current scene and play the music
             SceneTransitioner.FadeInCurrentScene();
             AudioManager audioManager = AudioManager.Instance;
-            audioManager.PlayMusicSound(audioManager.MusicAudioClips.Kingdom);
+            audioManager.PlayMusic(audioManager.MusicAudioClips.Kingdom);
 
             // Generate or restore kingdom grid cells
             if (!_kingdomState.kingdomGridGenerated)

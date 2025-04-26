@@ -3,6 +3,7 @@
   "rootNamespace": "FrostfallSaga.City",
   "references": [
     "FrostfallSaga.Core",
+    "FrostfallSaga.Audio",
     "FrostfallSaga.Utils"
   ],
   "includePlatforms": [],
