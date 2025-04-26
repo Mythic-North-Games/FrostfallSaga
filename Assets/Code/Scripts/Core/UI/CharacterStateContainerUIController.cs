@@ -24,7 +24,7 @@ namespace FrostfallSaga.Core.UI
         )
         {
             root.Q<VisualElement>(FIGHTER_ICON_UI_NAME).style.backgroundImage = new(diamondIcon);
-            root.Q<VisualElement>(DEAD_ICON_CONTAINER_UI_NAME).visible = currentHealth <= 0;
+            UpdateDeadIcon(root, currentHealth <= 0);
             UpdateHealth(root, currentHealth, maxHealth, displayValueLabel);
         }
 
@@ -35,7 +35,7 @@ namespace FrostfallSaga.Core.UI
             bool displayValueLabel = false
         )
         {
-            root.Q<VisualElement>(DEAD_ICON_CONTAINER_UI_NAME).visible = currentHealth <= 0;
+            UpdateDeadIcon(root, currentHealth <= 0);
             ProgressBarUIController.SetupProgressBar(
                 root.Q<VisualElement>(HEALTH_PROGRESS_ROOT_UI_NAME),
                 currentHealth,
@@ -43,6 +43,11 @@ namespace FrostfallSaga.Core.UI
                 invertProgress: true,
                 displayValueLabel: displayValueLabel
             );
+        }
+
+        private static void UpdateDeadIcon(VisualElement root, bool isDead)
+        {
+            root.Q<VisualElement>(DEAD_ICON_CONTAINER_UI_NAME).style.opacity = isDead ? 1 : 0;
         }
     }
 }

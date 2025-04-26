@@ -54,7 +54,7 @@ namespace FrostfallSaga.Kingdom
             kingdomHexGrid.GenerateGrid();
 
             AudioManager audioManager = AudioManager.Instance;
-            audioManager.PlayMusicSound(audioManager.MusicAudioClips.Kingdom);
+            audioManager.PlayMusic(audioManager.MusicAudioClips.Kingdom);
 
             if (_gameStateManager.IsFirstSceneLaunch())
             {

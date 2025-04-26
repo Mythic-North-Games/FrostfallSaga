@@ -47,7 +47,7 @@ namespace FrostfallSaga.Fight
             SceneTransitioner.FadeInCurrentScene();
 
             AudioManager audioManager = AudioManager.Instance;
-            audioManager.PlayMusicSound(audioManager.MusicAudioClips.Fight);
+            audioManager.PlayMusic(audioManager.MusicAudioClips.Fight);
             onFightLoaded?.Invoke(fighters.Key, fighters.Value);
         }
 
