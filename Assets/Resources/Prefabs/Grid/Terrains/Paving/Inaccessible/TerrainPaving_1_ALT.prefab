@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3929082853208758289}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TerrainPaving_1_ALT
   m_TagString: CellVisual
   m_Icon: {fileID: 0}
@@ -43,6 +43,10 @@ PrefabInstance:
     - target: {fileID: 2248668204985562639, guid: 6968bebb2d23f5a40b15d92b0db22630, type: 3}
       propertyPath: m_Name
       value: Blocked Area
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248668204985562639, guid: 6968bebb2d23f5a40b15d92b0db22630, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2881088737575327003, guid: 6968bebb2d23f5a40b15d92b0db22630, type: 3}
       propertyPath: m_LocalPosition.x

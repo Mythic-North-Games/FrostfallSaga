@@ -10,6 +10,7 @@ using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.EntitiesGroupsSpawner;
 using FrostfallSaga.Kingdom.InterestPoints;
+using FrostfallSaga.Utils;
 using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
@@ -19,7 +20,6 @@ namespace FrostfallSaga.Kingdom
     /// </summary>
     public class KingdomManager : MonoBehaviour
     {
-        [field: SerializeField] public Material CellHighlightMaterial { get; private set; }
         [field: SerializeField] public Material CellInaccessibleHighlightMaterial { get; private set; }
         [field: SerializeField] public KingdomHexGrid KingdomGrid { get; private set; }
         [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
@@ -29,9 +29,9 @@ namespace FrostfallSaga.Kingdom
         [SerializeField] private KingdomLoader kingdomLoader;
         private MovePath _currentHeroGroupMovePath;
         private bool _entitiesAreMoving;
-        private bool _mousLeftButtonHold;
 
         private EntitiesGroupsMovementController _entitiesGroupsMovementController;
+        private bool _mousLeftButtonHold;
 
         // Parameters are: Encountered enemies group, hero group initiating ?
         public Action<EntitiesGroup, bool> OnEnemiesGroupEncountered;
@@ -137,12 +137,12 @@ namespace FrostfallSaga.Kingdom
             HighlightShorterPathCells();
         }
 
-        private void OnLongClickHold (Cell cell)
+        private void OnLongClickHold(Cell cell)
         {
             _mousLeftButtonHold = true;
         }
 
-        private void OnLongClick (Cell cell)
+        private void OnLongClick(Cell cell)
         {
             _mousLeftButtonHold = false;
         }
@@ -168,16 +168,16 @@ namespace FrostfallSaga.Kingdom
             foreach (Cell cell in _currentHeroGroupMovePath.Path)
             {
                 if (i < HeroGroup.movePoints)
-                    cell.HighlightController.Highlight(CellHighlightMaterial);
+                    cell.HighlightController.Highlight(HighlightColor.ACCESSIBLE);
                 else
-                    cell.HighlightController.Highlight(CellInaccessibleHighlightMaterial);
+                    cell.HighlightController.Highlight(HighlightColor.INACCESSIBLE);
                 i++;
             }
         }
 
         private void ResetShorterPathCellsDefaultMaterial()
         {
-            foreach (Cell cell in _currentHeroGroupMovePath.Path) cell.HighlightController.ResetToDefaultMaterial();
+            foreach (Cell cell in _currentHeroGroupMovePath.Path) cell.HighlightController.ResetToInitialColor();
         }
 
         #endregion
@@ -199,12 +199,6 @@ namespace FrostfallSaga.Kingdom
             {
                 Debug.LogError(
                     "No kingdom loader found. Won't be able to correctly manage entities groups after fight.");
-                return;
-            }
-
-            if (CellHighlightMaterial == null)
-            {
-                Debug.LogError("No highlight material provided. Can't highlight hovered cell.");
                 return;
             }
 

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3929082853208758289}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TerrainWaterVisual_4_ALT
   m_TagString: CellVisual
   m_Icon: {fileID: 0}
@@ -44,6 +44,10 @@ PrefabInstance:
     - target: {fileID: 116888, guid: 42a28d4b7cebc92479820fe47a316b1a, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Shield_Decor_07
+      objectReference: {fileID: 0}
+    - target: {fileID: 116888, guid: 42a28d4b7cebc92479820fe47a316b1a, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 459088, guid: 42a28d4b7cebc92479820fe47a316b1a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -106,6 +110,10 @@ PrefabInstance:
     - target: {fileID: 132848, guid: 837bce8248795a748839021d959b8da6, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Shield_Decor_01_Snow
+      objectReference: {fileID: 0}
+    - target: {fileID: 132848, guid: 837bce8248795a748839021d959b8da6, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 407148, guid: 837bce8248795a748839021d959b8da6, type: 3}
       propertyPath: m_LocalScale.x

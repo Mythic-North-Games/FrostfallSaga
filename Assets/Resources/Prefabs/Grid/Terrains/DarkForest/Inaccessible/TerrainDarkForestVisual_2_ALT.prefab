@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3929082853208758289}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TerrainDarkForestVisual_2_ALT
   m_TagString: CellVisual
   m_Icon: {fileID: 0}
@@ -55,6 +55,10 @@ PrefabInstance:
     - target: {fileID: 110142, guid: 037f0f215dfafad46b39aaae489b3dc5, type: 3}
       propertyPath: m_Name
       value: SM_Env_DirtMound_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 110142, guid: 037f0f215dfafad46b39aaae489b3dc5, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 416844, guid: 037f0f215dfafad46b39aaae489b3dc5, type: 3}
       propertyPath: m_LocalScale.x
@@ -130,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Reeds_01
       objectReference: {fileID: 0}
+    - target: {fileID: 101680, guid: 1bc8a792458a3a644be7f3da5af5ac6f, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 433482, guid: 1bc8a792458a3a644be7f3da5af5ac6f, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5974655
@@ -203,6 +211,10 @@ PrefabInstance:
     - target: {fileID: 101696, guid: 42d962095b78097449757c712cc134a6, type: 3}
       propertyPath: m_Name
       value: SM_Env_Grass_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 101696, guid: 42d962095b78097449757c712cc134a6, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 475762, guid: 42d962095b78097449757c712cc134a6, type: 3}
       propertyPath: m_LocalScale.x
@@ -278,6 +290,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Stone_02
       objectReference: {fileID: 0}
+    - target: {fileID: 163730, guid: 5b4f3c56cd0f6a647822256acfae4705, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 439656, guid: 5b4f3c56cd0f6a647822256acfae4705, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.095
@@ -339,6 +355,10 @@ PrefabInstance:
     - target: {fileID: 141144, guid: d120248ca191d7e41897fc4dbf5a21ea, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 141144, guid: d120248ca191d7e41897fc4dbf5a21ea, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 474880, guid: d120248ca191d7e41897fc4dbf5a21ea, type: 3}
       propertyPath: m_LocalScale.x
@@ -414,6 +434,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_01
       objectReference: {fileID: 0}
+    - target: {fileID: 127918, guid: 3f3975c421885324caf13f1e3d827174, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 492072, guid: 3f3975c421885324caf13f1e3d827174, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7791254
@@ -487,6 +511,10 @@ PrefabInstance:
     - target: {fileID: 182652, guid: c3f3e9bcc75fbc641bc9ff3e81f3e180, type: 3}
       propertyPath: m_Name
       value: SM_Env_Tree_Pine_Large_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 182652, guid: c3f3e9bcc75fbc641bc9ff3e81f3e180, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 459478, guid: c3f3e9bcc75fbc641bc9ff3e81f3e180, type: 3}
       propertyPath: m_LocalScale.x
@@ -562,6 +590,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Tree_Pine_Large_02
       objectReference: {fileID: 0}
+    - target: {fileID: 136856, guid: 4607da90814062e49b8024e29584b985, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 499392, guid: 4607da90814062e49b8024e29584b985, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.7142
@@ -635,6 +667,10 @@ PrefabInstance:
     - target: {fileID: 168014, guid: 05fd70783e9e7914d966ae59e564a325, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 168014, guid: 05fd70783e9e7914d966ae59e564a325, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 415896, guid: 05fd70783e9e7914d966ae59e564a325, type: 3}
       propertyPath: m_LocalScale.x
@@ -710,6 +746,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Rock_03
       objectReference: {fileID: 0}
+    - target: {fileID: 138596, guid: d69f2f606e7882c4ea8ec62f9ebe76ed, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 479604, guid: d69f2f606e7882c4ea8ec62f9ebe76ed, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.2501116
@@ -783,6 +823,10 @@ PrefabInstance:
     - target: {fileID: 174604, guid: e1b17852190d8be4c9c627ac5e3b2717, type: 3}
       propertyPath: m_Name
       value: SM_Env_Flax_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 174604, guid: e1b17852190d8be4c9c627ac5e3b2717, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 411426, guid: e1b17852190d8be4c9c627ac5e3b2717, type: 3}
       propertyPath: m_LocalScale.x
@@ -858,6 +902,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Grass_02
       objectReference: {fileID: 0}
+    - target: {fileID: 145646, guid: 025e901b282d2f047a7b252709c3e725, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 434800, guid: 025e901b282d2f047a7b252709c3e725, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.8885734
@@ -931,6 +979,10 @@ PrefabInstance:
     - target: {fileID: 195920, guid: 7b8fb55e3366341469cceb151fecfda2, type: 3}
       propertyPath: m_Name
       value: SM_Env_Tree_Pine_Large_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 195920, guid: 7b8fb55e3366341469cceb151fecfda2, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 481716, guid: 7b8fb55e3366341469cceb151fecfda2, type: 3}
       propertyPath: m_LocalScale.x
