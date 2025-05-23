@@ -15,7 +15,8 @@ MonoBehaviour:
   <FighterPrefab>k__BackingField: {fileID: 2920049516156015753, guid: 5f1dab0e72fc4b080a019f723145dadf, type: 3}
   <FighterClass>k__BackingField: {fileID: 11400000, guid: 5f24cc96233dead12b894e0d28f6bdc1, type: 2}
   <PersonalityTrait>k__BackingField: {fileID: 0}
-  <UnlockedActiveAbilities>k__BackingField: []
+  <UnlockedActiveAbilities>k__BackingField:
+  - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
   <ActiveAbilitiesCapacity>k__BackingField: 5
   <UnlockedPassiveAbilities>k__BackingField: []
   <PassiveAbilitiesCapacity>k__BackingField: 0
@@ -63,7 +64,8 @@ MonoBehaviour:
   <ReduceStatAnimationName>k__BackingField: 
   <IncreaseStatAnimationName>k__BackingField: 
   <ConsumableUseAnimationName>k__BackingField: 
-  <EquippedActiveAbilities>k__BackingField: []
+  <EquippedActiveAbilities>k__BackingField:
+  - {fileID: 11400000, guid: c6f52346b9631f048a268f26a031134f, type: 2}
   <EquippedPassiveAbilities>k__BackingField: []
   <AbilityPoints>k__BackingField: 4
   <Inventory>k__BackingField:
@@ -88,8 +90,8 @@ MonoBehaviour:
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
     <BagSlots>k__BackingField:
-    - <Item>k__BackingField: {fileID: 0}
-      <ItemCount>k__BackingField: 0
+    - <Item>k__BackingField: {fileID: 11400000, guid: 57da2480a19997f6da45abf7f0877db4, type: 2}
+      <ItemCount>k__BackingField: 3
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0

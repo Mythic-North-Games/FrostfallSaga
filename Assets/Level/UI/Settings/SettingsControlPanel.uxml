@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Settings/settings.uss?fileID=7433441132597879392&amp;guid=0ac6ecb583d6482c1948ee9229abacdf&amp;type=3#settings" />
+    <ui:VisualElement name="ControlPanelContainer" style="width: 100%; height: 100%; align-items: flex-start; padding-top: 10%; padding-right: 10%; padding-bottom: 10%; padding-left: 10%; justify-content: flex-start;">
+        <ui:Label tabindex="-1" text="Control menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ControlMenuTitle" style="margin-top: 0; margin-right: 0; margin-bottom: 5%; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 50%; -unity-font-style: italic;" />
+        <ui:VisualElement name="ControlButtonsContainer" style="width: 100%; height: 33%; justify-content: space-around;">
+            <ui:Button text="Save" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SaveButton" picking-mode="Ignore" class="controlPanelButton" style="opacity: 0.5;" />
+            <ui:Button text="Title screen" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TitleScreenButton" class="controlPanelButton" />
+            <ui:Button text="Quit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuitButton" class="controlPanelButton" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

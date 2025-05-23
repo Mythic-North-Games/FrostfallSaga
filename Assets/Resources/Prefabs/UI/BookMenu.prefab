@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6128218449410874647}
   - component: {fileID: 1406286895306152253}
   - component: {fileID: 8391194111372669161}
+  - component: {fileID: 18934429554924867}
   m_Layer: 0
   m_Name: BookMenu
   m_TagString: Untagged
@@ -66,9 +67,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 883643899157145953}
   _bookMenuBarController: {fileID: 0}
-  _questsMenuController: {fileID: 6128218449410874647}
   _inventoryMenuController: {fileID: 1406286895306152253}
+  _questsMenuController: {fileID: 6128218449410874647}
   _abilitySystemMenuController: {fileID: 8391194111372669161}
+  _settingsMenuController: {fileID: 18934429554924867}
 --- !u!114 &6128218449410874647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,3 +128,17 @@ MonoBehaviour:
   _statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
   _statValueColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   _statIconTintColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+--- !u!114 &18934429554924867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2851088692655008916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31548d3ea19ce7d5691ca563f63305a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDoc: {fileID: 883643899157145953}
+  _controlPanelTemplate: {fileID: 9197481963319205126, guid: 881219872cfa3780495b08746aa4f6f0, type: 3}

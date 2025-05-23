@@ -1,9 +1,10 @@
 using System.Collections;
 using FrostfallSaga.Core.BookMenu;
 using FrostfallSaga.Core.UI;
-using FrostfallSaga.Quests.UI;
 using FrostfallSaga.InventorySystem.UI;
+using FrostfallSaga.Quests.UI;
 using FrostfallSaga.AbilitySystem.UI;
+using FrostfallSaga.Settings.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,25 +13,26 @@ namespace FrostfallSaga.BookMenu.UI
     public class BookMenuUIManager : BaseUIController
     {
         [SerializeField] private BookMenuBarUIController _bookMenuBarController;
-        [SerializeField] private BookQuestsMenuUIController _questsMenuController;
         [SerializeField] private BookInventoryMenuUIController _inventoryMenuController;
+        [SerializeField] private BookQuestsMenuUIController _questsMenuController;
         [SerializeField] private BookAbilitySystemMenuUIController _abilitySystemMenuController;
+        [SerializeField] private BookSettingsMenuUIController _settingsMenuController;
 
         private VisualElement _bookMenuContainer;
         private VisualElement _bookMenuRoot;
         private ABookMenuUIController _currentMenuController;
 
-        private void OnQuestsMenuClicked()
-        {
-            _currentMenuController = _questsMenuController;
-            _questsMenuController.SetupMenu();
-            StartCoroutine(ShowBookMenu());
-        }
-
         private void OnInventoryMenuClicked()
         {
             _currentMenuController = _inventoryMenuController;
             _inventoryMenuController.SetupMenu();
+            StartCoroutine(ShowBookMenu());
+        }
+
+        private void OnQuestsMenuClicked()
+        {
+            _currentMenuController = _questsMenuController;
+            _questsMenuController.SetupMenu();
             StartCoroutine(ShowBookMenu());
         }
 
@@ -43,7 +45,9 @@ namespace FrostfallSaga.BookMenu.UI
 
         private void OnSettingsMenuClicked()
         {
-            Debug.Log("Opening settings menu...");
+            _currentMenuController = _settingsMenuController;
+            _settingsMenuController.SetupMenu();
+            StartCoroutine(ShowBookMenu());
         }
 
         private IEnumerator ShowBookMenu()
