@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
+using FrostfallSaga.Audio;
 using FrostfallSaga.Core;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Core.GameState.Fight;
@@ -11,8 +12,6 @@ using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.InterestPoints;
 using FrostfallSaga.Utils;
-using FrostfallSaga.Utils.GameObjectVisuals;
-using FrostfallSaga.Audio;
 using FrostfallSaga.Utils.Scenes;
 using UnityEngine;
 
@@ -47,7 +46,7 @@ namespace FrostfallSaga.Kingdom
         #endregion
 
         private void Start()
-        {   
+        {
             SceneTransitioner.FadeInCurrentScene();
             kingdomHexGrid.ClearCells();
             Debug.Log("Generating Kingdom Grid...");
@@ -101,8 +100,12 @@ namespace FrostfallSaga.Kingdom
         {
             KingdomState kingdomState = _gameStateManager.GetKingdomState();
             foreach (EntitiesGroupData enemiesGroupData in kingdomState.enemiesGroupsData)
+            {
+                KingdomCell kingdomCell =
+                    kingdomHexGrid.Cells[new Vector2Int(enemiesGroupData.cellX, enemiesGroupData.cellY)] as KingdomCell;
                 _respawnedEnemiesGroups.Add(
-                    EntitiesGroupBuilder.Instance.BuildEntitiesGroup(enemiesGroupData, kingdomHexGrid));
+                    EntitiesGroupBuilder.Instance.BuildEntitiesGroup(enemiesGroupData, kingdomCell));
+            }
 
             foreach (InterestPointData interestPointData in kingdomState.interestPointsData)
                 InterestPointBuilder.BuildInterestPoint(interestPointData, kingdomHexGrid);
@@ -114,39 +117,22 @@ namespace FrostfallSaga.Kingdom
 
         private void FirstSpawnHeroGroup()
         {
-            // Spawn an empty entities group prefab
-            GameObject entitesGroupGo = WorldGameObjectInstantiator.Instance.Instantiate(
-                EntitiesGroupBuilder.Instance.BlankEntitiesGroupPrefab
-            );
-            _respawnedHeroGroup = entitesGroupGo.GetComponent<EntitiesGroup>();
-            _respawnedHeroGroup.name = "HeroGroup";
-
-            // Spawn the hero entities
-            List<Entity> heroGroupEntities = new();
-            foreach (Hero hero in _heroTeam.Heroes)
-                heroGroupEntities.Add(
-                    Instantiate(
-                        hero.EntityConfiguration.KingdomEntityPrefab,
-                        _respawnedHeroGroup.transform
-                    ).GetComponent<Entity>()
-                );
-
-            // Configure the hero group with the hero entities
-            _respawnedHeroGroup.UpdateEntities(heroGroupEntities.ToArray());
-            _respawnedHeroGroup.movePoints = 10; // * For now, we give the hero group 10 move points.
             List<KingdomCell> kingdomCells = kingdomHexGrid.GetFreeCells();
-            KingdomCell kingdomCell = kingdomCells.FirstOrDefault(cell => cell.IsAccessible); 
-            if (kingdomCells.Count > 0 && kingdomCell) kingdomCell.SetOccupier(_respawnedHeroGroup);
+            KingdomCell kingdomCell = kingdomCells.FirstOrDefault(cell => cell.IsAccessible);
+            _respawnedHeroGroup =
+                EntitiesGroupBuilder.Instance.BuildEntitiesGroup(_heroTeam.EntitiesConfigurations, kingdomCell, _heroTeam.HeroGroupName, 10);
             AttachCameraToHeroGroup();
         }
 
         private void RestoreHeroGroup()
         {
+            EntitiesGroupData heroGroupData = _gameStateManager.GetKingdomState().heroGroupData;
+            KingdomCell kingdomCell =
+                kingdomHexGrid.Cells[new Vector2Int(heroGroupData.cellX, heroGroupData.cellY)] as KingdomCell;     
+            
             // Restore the hero group as lastly saved
             _respawnedHeroGroup =
-                EntitiesGroupBuilder.Instance.BuildEntitiesGroup(_gameStateManager.GetKingdomState().heroGroupData,
-                    kingdomHexGrid);
-            _respawnedHeroGroup.name = "HeroGroup";
+                EntitiesGroupBuilder.Instance.BuildEntitiesGroup(heroGroupData, kingdomCell);
 
             // Adjust the entities depending on the hero team state
             foreach (Hero hero in _heroTeam.Heroes)

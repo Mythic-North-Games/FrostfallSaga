@@ -282,7 +282,7 @@ namespace FrostfallSaga.Fight.Fighters
             PlayAnimationIfAny(activeAbility.Animation.TriggerAnimationName);
             float animationDuration = 0f;
 
-            foreach (var clip in AnimationController._animator.runtimeAnimatorController.animationClips)
+            foreach (var clip in AnimationController.animator.runtimeAnimatorController.animationClips)
             {
                 if (clip.name == activeAbility.Animation.TriggerAnimationName)
                 {

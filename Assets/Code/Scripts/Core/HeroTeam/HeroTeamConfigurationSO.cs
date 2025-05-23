@@ -10,6 +10,7 @@ namespace FrostfallSaga.Core.HeroTeam
         [field: SerializeField] public EntityConfigurationSO HeroEntityConfiguration { get; private set; }
         [field: SerializeField] public EntityConfigurationSO Companion1EntityConfiguration { get; private set; }
         [field: SerializeField] public EntityConfigurationSO Companion2EntityConfiguration { get; private set; }
+        public string HeroGroupName = "HeroGroup";
         public int Stycas;
     }
 }

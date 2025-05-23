@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Kingdom.Entities;
 using FrostfallSaga.Utils;
@@ -13,28 +14,55 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
     /// </summary>
     public class EntitiesGroupBuilder : MonoBehaviourPersistingSingleton<EntitiesGroupBuilder>
     {
-        private readonly EntityBuilder _entityBuilder = new();
+        private EntityBuilder _entityBuilder;
 
         static EntitiesGroupBuilder()
         {
             PersistAcrossScenes = false;
         }
 
-        public GameObject BlankEntitiesGroupPrefab { get; private set; }
-
-        public EntitiesGroup BuildEntitiesGroup(EntitiesGroupData entitiesGroupData, KingdomHexGrid grid)
+        private GameObject _blankEntitiesGroupPrefab;
+        
+        public EntitiesGroup BuildEntitiesGroup(EntitiesGroupData entitiesGroupData, KingdomCell kingdomCell)
         {
-            GameObject entitiesGroupPrefab = WorldGameObjectInstantiator.Instance.Instantiate(BlankEntitiesGroupPrefab);
+            GameObject entitiesGroupPrefab =
+                WorldGameObjectInstantiator.Instance.Instantiate(_blankEntitiesGroupPrefab);
             EntitiesGroup entitiesGroup = entitiesGroupPrefab.GetComponent<EntitiesGroup>();
             List<Entity> entities = new();
             entitiesGroupData.entitiesData.ToList()
                 .ForEach(entityData => entities.Add(_entityBuilder.BuildEntity(entityData)));
+
             entitiesGroup.UpdateEntities(entities.ToArray());
             entitiesGroup.UpdateDisplayedEntity(entities.Find(entity =>
                 entity.SessionId == entitiesGroupData.displayedEntitySessionId));
+
+            entitiesGroup.name = entitiesGroupData.entitiesGroupName;
             entitiesGroup.movePoints = entitiesGroupData.movePoints;
-            entitiesGroup.TeleportToCell(
-                grid.Cells[new Vector2Int(entitiesGroupData.cellX, entitiesGroupData.cellY)] as KingdomCell);
+
+            entitiesGroup.TeleportToCell(kingdomCell);
+            return entitiesGroup;
+        }
+
+        public EntitiesGroup BuildEntitiesGroup(List<EntityConfigurationSO> entitiesConfiguration,
+            KingdomCell kingdomCell, string entityGroupName, int movePoints)
+        {
+            GameObject entitesGroupPrefab =
+                WorldGameObjectInstantiator.Instance.Instantiate(Instance._blankEntitiesGroupPrefab);
+
+            EntitiesGroup entitiesGroup = entitesGroupPrefab.GetComponent<EntitiesGroup>();
+            entitiesGroup.name = entityGroupName;
+
+            List<Entity> entities = new();
+            foreach (EntityConfigurationSO entityConfiguration in entitiesConfiguration)
+                entities.Add(_entityBuilder.BuildEntity(entityConfiguration));
+            entitiesGroup.UpdateEntities(entities.ToArray());
+
+            entitiesGroup.UpdateDisplayedEntity(entitiesGroup.GetRandomAliveEntity());
+            
+            entitiesGroup.movePoints = movePoints;
+            
+            entitiesGroup.TeleportToCell(kingdomCell);
+
             return entitiesGroup;
         }
 
@@ -42,6 +70,7 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         {
             return new EntitiesGroupData
             {
+                entitiesGroupName = entitiesGroup.name,
                 movePoints = entitiesGroup.movePoints,
                 cellX = entitiesGroup.cell.Coordinates.x,
                 cellY = entitiesGroup.cell.Coordinates.y,
@@ -60,7 +89,8 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
 
         protected override void Init()
         {
-            BlankEntitiesGroupPrefab = Resources.Load<GameObject>("Prefabs/EntitiesGroups/EmptyEntitiesGroup");
+            _blankEntitiesGroupPrefab = Resources.Load<GameObject>("Prefabs/EntitiesGroups/EmptyEntitiesGroup");
+            _entityBuilder = new EntityBuilder(Resources.Load<GameObject>("Prefabs/Entities/Entity"));
         }
     }
 }

@@ -1,5 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement name="HeroChoiceContainer" style="width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Containers/blackDiamondContainer.png?fileID=2800000&amp;guid=25ff3775975c72b45bc91c2eb9fa1477&amp;type=3#blackDiamondContainer&quot;); -unity-background-scale-mode: scale-to-fit;">
-        <ui:VisualElement name="HeroIcon" style="-unity-background-scale-mode: scale-to-fit; background-image: url(&quot;project://database/Assets/Art/UI/Portraits/vikingDiamondPortrait.png?fileID=2800000&amp;guid=54602b48bb6b71e4b967d9777b79ae1e&amp;type=3#vikingDiamondPortrait&quot;); width: 93%; height: 94%; margin-top: 5%; margin-left: 3%;" />
-    </ui:VisualElement>
-</ui:UXML>

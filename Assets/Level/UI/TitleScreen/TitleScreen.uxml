@@ -1,6 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Level/UI/TitleScreen/titleScreen.uss?fileID=7433441132597879392&amp;guid=511845a72fd7aa0d0b96da1109128d12&amp;type=3#titleScreen" />
-    <ui:VisualElement name="TitleScreenContainer" style="width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Art/UI/Illustrations/titleScreenBackground.png?fileID=2800000&amp;guid=28bce33c11af358479c902bfcafc3322&amp;type=3#titleScreenBackground&quot;);">
-        <ui:Button text="Click to start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" class="startButtonDefault" style="width: 20%; left: 40%; bottom: 20%;" />
-    </ui:VisualElement>
-</ui:UXML>

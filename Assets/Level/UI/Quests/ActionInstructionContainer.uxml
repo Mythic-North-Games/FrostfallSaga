@@ -1,7 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Level/UI/Quests/quests.uss?fileID=7433441132597879392&amp;guid=b826a21f7b38516eb91dbfd688398aff&amp;type=3#quests" />
-    <ui:VisualElement name="ActionInstructionContainer" style="flex-direction: row;">
-        <ui:VisualElement name="InstructionCompletionIcon" class="instructionCompletionIconCompleted" />
-        <ui:Label tabindex="-1" text="&lt;s&gt;Lorem ipsum dolor sit amet&lt;/s&gt;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="InstructionLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 30px; -unity-font-style: normal; -unity-text-align: upper-left; white-space: normal; color: rgb(25, 25, 25); height: 100%;" />
-    </ui:VisualElement>
-</ui:UXML>

@@ -17,7 +17,7 @@ TagManager:
   - UI
   - Fighter
   - FighterInteractable
-  - EntityVisual
+  - Entity
   - Building
   - HighlightCell
   - 

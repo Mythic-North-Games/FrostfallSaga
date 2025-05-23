@@ -9,21 +9,21 @@ EditorBuildSettings:
     path: Assets/Level/Scenes/DevScenes/DevHub.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Level/Scenes/TitleScreen.unity
+    path: Assets/Scenes/TitleScreen.unity
     guid: 47f05d675b9e256348e0d39852f2dc42
   - enabled: 1
-    path: Assets/Level/Scenes/KingdomScene.unity
+    path: Assets/Scenes/KingdomScene.unity
     guid: e1eb173a4849dfa49bf3153c458c1023
   - enabled: 1
-    path: Assets/Level/Scenes/FightScene.unity
+    path: Assets/Scenes/FightScene.unity
     guid: 8af133c5e849bb04698ae28ebc4e55d8
   - enabled: 1
-    path: Assets/Level/Scenes/CityScene.unity
+    path: Assets/Scenes/CityScene.unity
     guid: 929c97d6540905bf498c56c125b0ca43
   - enabled: 1
-    path: Assets/Level/Scenes/DungeonScene.unity
+    path: Assets/Scenes/DungeonScene.unity
     guid: 442dbf652b823b3e384017a918a348c1
   - enabled: 1
-    path: Assets/Level/Scenes/LoadingScene.unity
+    path: Assets/Scenes/LoadingScene.unity
     guid: b17c493fa5cf2b2728c70f508298a6e4
   m_configObjects: {}

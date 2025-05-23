@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: HeroTeamConfiguration
   m_EditorClassIdentifier: 
   <HeroEntityConfiguration>k__BackingField: {fileID: 11400000, guid: d5746e71b0a5c65469ca2b997f19b595, type: 2}
-  <Companion1EntityConfiguration>k__BackingField: {fileID: 0}
-  <Companion2EntityConfiguration>k__BackingField: {fileID: 11400000, guid: b7e92890f66efb24ca7baca0d5973873, type: 2}
+  <Companion1EntityConfiguration>k__BackingField: {fileID: 11400000, guid: d5746e71b0a5c65469ca2b997f19b595, type: 2}
+  <Companion2EntityConfiguration>k__BackingField: {fileID: 11400000, guid: d5746e71b0a5c65469ca2b997f19b595, type: 2}
+  HeroGroupName: HeroGroup
   Stycas: 0
