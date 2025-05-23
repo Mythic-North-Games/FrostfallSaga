@@ -13,7 +13,14 @@ namespace FrostfallSaga.Core.UI
         BLEED,
         PARALYSIS,
         WEAKNESS,
-        SLOWNESS
+        SLOWNESS,
+        HELMET,
+        CHESTPLATE,
+        GAUNTLETS,
+        LEGGINGS,
+        BOOTS,
+        WEAPON,
+        BAG
     }
 
     public static class UIIconsMethods
@@ -30,6 +37,13 @@ namespace FrostfallSaga.Core.UI
                 UIIcons.PARALYSIS => "bleed",
                 UIIcons.WEAKNESS => "bleed",
                 UIIcons.SLOWNESS => "bleed",
+                UIIcons.HELMET => "helmet",
+                UIIcons.CHESTPLATE => "chestplate",
+                UIIcons.GAUNTLETS => "gauntlets",
+                UIIcons.LEGGINGS => "leggings",
+                UIIcons.BOOTS => "boots",
+                UIIcons.WEAPON => "weapon",
+                UIIcons.BAG => "bag",
                 _ => string.Empty
             };
         }

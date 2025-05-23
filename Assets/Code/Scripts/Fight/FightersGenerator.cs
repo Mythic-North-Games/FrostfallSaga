@@ -136,10 +136,7 @@ namespace FrostfallSaga.Fight
             Inventory inventory = new();
 
             // Get the start items for the enemy inventory
-            ItemSO[] startItems = ComputeEnemyInventoryStartItems(
-                SElementToValue<ItemSO, SElementToValue<float, int>>.GetDictionaryFromArray(fighterConfiguration
-                    .AvailableItems)
-            );
+            ItemSO[] startItems = ComputeEnemyInventoryStartItems(fighterConfiguration.AvailableItems);
             foreach (ItemSO item in startItems)
             {
                 inventory.AddItemAndEquipIfPossible(item);
@@ -159,14 +156,16 @@ namespace FrostfallSaga.Fight
         /// </summary>
         /// <param name="availableItems">The available items and their apparition chances.</param>
         /// <returns>The computed enemy start items.</returns>
-        private static ItemSO[] ComputeEnemyInventoryStartItems(Dictionary<ItemSO, SElementToValue<float, int>> availableItems)
+        private static ItemSO[] ComputeEnemyInventoryStartItems(
+            Dictionary<ItemSO, (float apparitionChance, int maxApparitionCount)> availableItems
+        )
         {
             List<ItemSO> items = new();
-            foreach (KeyValuePair<ItemSO, SElementToValue<float, int>> item in availableItems)
+            foreach (KeyValuePair<ItemSO, (float apparitionChance, int maxApparitionCount)> item in availableItems)
             {
                 ItemSO possibleItem = item.Key;
-                float includeInInventoryChance = item.Value.element;
-                int maxPossibleItemCount = item.Value.value;
+                float includeInInventoryChance = item.Value.apparitionChance;
+                int maxPossibleItemCount = item.Value.maxApparitionCount;
 
                 for (int i = 0; i < maxPossibleItemCount; i++)
                 {

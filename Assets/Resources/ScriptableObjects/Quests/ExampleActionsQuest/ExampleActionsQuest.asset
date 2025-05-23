@@ -13,23 +13,39 @@ MonoBehaviour:
   m_Name: ExampleActionsQuest
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Example actions quest
+  <TeaserDescription>k__BackingField: 
   <Description>k__BackingField: You have to do this then that because the world is
     mad you know.
   <OriginLocation>k__BackingField: Sovengard
-  <Type>k__BackingField: 2
-  <IsCompleted>k__BackingField: 0
-  Actions:
-  - rid: 2054917332478984194
-  - rid: 2054917332478984195
-  <OrderedActions>k__BackingField: 1
+  <Illustration>k__BackingField: {fileID: 0}
+  <Type>k__BackingField: 1
+  <RewardConfiguration>k__BackingField:
+    <FixedRewardConfiguration>k__BackingField:
+      StycasEarned: 50
+      _itemsEarned:
+      - element: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
+        value: 2
+      - element: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
+        value: 1
+    <VariableRewardConfiguration>k__BackingField:
+      <MinStycas>k__BackingField: 0
+      <MaxStycas>k__BackingField: 0
+      _possibleItems: []
+    <IsRewardShownFromStart>k__BackingField: 1
+  <EarnedReward>k__BackingField:
+    StycasEarned: 20
+    _itemsEarned:
+    - element: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
+      value: 10
+  <IsCompleted>k__BackingField: 1
+  IsTracked: 0
+  actions:
+  - rid: 141771405339918343
+  <OrderedActions>k__BackingField: 0
   references:
     version: 2
     RefIds:
-    - rid: 2054917332478984194
+    - rid: 141771405339918343
       type: {class: EncounterEnemiesGroupQuestAction, ns: FrostfallSaga.Kingdom.QuestActions, asm: FrostfallSaga.Kingdom}
-      data:
-        <IsCompleted>k__BackingField: 1
-    - rid: 2054917332478984195
-      type: {class: WinFightQuestAction, ns: FrostfallSaga.Fight.QuestActions, asm: FrostfallSaga.Fight}
       data:
         <IsCompleted>k__BackingField: 0

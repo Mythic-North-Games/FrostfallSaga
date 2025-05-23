@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/AbilityTree/AbilityTree.uss?fileID=7433441132597879392&amp;guid=72f2c2d8da35a2f449989e428d32f411&amp;type=3#AbilityTree" />
+    <ui:Button name="EqquipedAbility" class="equippedAbility">
+        <ui:VisualElement name="IconBackground" class="equippedAbilityBackground" />
+        <ui:VisualElement name="Icon" class="equippedAbilityIcon" style="transition-duration: 0.25s; transition-timing-function: ease-in-out-cubic;" />
+        <ui:VisualElement name="IconFrame" class="abilityIconFrame" />
+    </ui:Button>
+</ui:UXML>

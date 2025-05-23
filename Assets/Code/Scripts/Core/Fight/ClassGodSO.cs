@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FrostfallSaga.Utils;
 using UnityEngine;
 
@@ -11,6 +12,11 @@ namespace FrostfallSaga.Core.Fight
     public class ClassGodSO : ScriptableObject
     {
         [field: SerializeField] public string GodName { get; private set; }
-        [field: SerializeField] public SElementToValue<EGodFavorsAction, int>[] FavorGivingActions { get; private set; }
+        [field: SerializeField] private SElementToValue<EGodFavorsAction, int>[] _favorGivingActions;
+        public Dictionary<EGodFavorsAction, int> FavorGivingActions
+        {
+            get => SElementToValue<EGodFavorsAction, int>.GetDictionaryFromArray(_favorGivingActions);
+            private set => _favorGivingActions = SElementToValue<EGodFavorsAction, int>.GetArrayFromDictionary(value);
+        }
     }
 }

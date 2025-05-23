@@ -8,14 +8,20 @@ namespace FrostfallSaga.Quests.UI
     public class BookQuestsMenuUIController : ABookMenuUIController
     {
         [SerializeField] private VisualTreeAsset questsListTemplate;
-        [SerializeField] private VisualTreeAsset listQuestItemTemplate;
+        [SerializeField] private VisualTreeAsset locationListQuestItemTemplate;
+        [SerializeField] private VisualTreeAsset descriptionListQuestItemTemplate;
         [SerializeField] private VisualTreeAsset questDetailsTemplate;
         [SerializeField] private VisualTreeAsset questStepTemplate;
         [SerializeField] private VisualTreeAsset actionInstructionTemplate;
+        [SerializeField] private VisualTreeAsset actionInstructionSeparatorTemplate;
+        [SerializeField] private VisualTreeAsset itemSlotTemplate;
+        [SerializeField] private VisualTreeAsset rewardItemDetailsOverlay;
+        [SerializeField] private VisualTreeAsset statContainerTemplate;
         [SerializeField] private AQuestSO[] devQuests;
         private VisualElement _questDetailsPanelRoot;
 
         private QuestsListMenuUIController _questsListMenuUIController;
+        private QuestDetailsPanelUIController _questDetailsPanelUIController;
         private AQuestSO[] _questsToShow;
 
         #region Setup
@@ -30,7 +36,7 @@ namespace FrostfallSaga.Quests.UI
                 return;
             }
 
-            if (listQuestItemTemplate == null)
+            if (locationListQuestItemTemplate == null)
             {
                 Debug.LogError("ListQuestItemTemplate is not set in the inspector.");
                 return;
@@ -51,6 +57,30 @@ namespace FrostfallSaga.Quests.UI
             if (actionInstructionTemplate == null)
             {
                 Debug.LogError("ActionInstructionTemplate is not set in the inspector.");
+                return;
+            }
+
+            if (actionInstructionSeparatorTemplate == null)
+            {
+                Debug.LogError("ActionInstructionSeparatorTemplate is not set in the inspector.");
+            }
+
+            if (itemSlotTemplate == null)
+            {
+                Debug.LogError("ItemSlotTemplate is not set in the inspector.");
+                return;
+            }
+
+            if (rewardItemDetailsOverlay == null)
+            {
+                Debug.LogError("RewardItemDetailsOverlay is not set in the inspector.");
+                return;
+            }
+
+            if (statContainerTemplate == null)
+            {
+                Debug.LogError("StatContainerTemplate is not set in the inspector.");
+                return;
             }
         }
 
@@ -64,15 +94,25 @@ namespace FrostfallSaga.Quests.UI
             questsListMenuRoot.StretchToParentSize();
             _questsListMenuUIController = new QuestsListMenuUIController(
                 questsListMenuRoot,
-                listQuestItemTemplate,
-                _questsToShow
+                _questsToShow,
+                locationListQuestItemTemplate,
+                descriptionListQuestItemTemplate
             );
             _questsListMenuUIController.onQuestSelected += OnQuestSelected;
-            _questsListMenuUIController.onQuestsFilterChanged += OnQuestsFilterChanged;
+            _questsListMenuUIController.onQuestUnselected += HideQuestDetailsPanel;
+            _questsListMenuUIController.onQuestsFilterChanged += HideQuestDetailsPanel;
 
             _questDetailsPanelRoot = questDetailsTemplate.Instantiate();
             _questDetailsPanelRoot.StretchToParentSize();
-            QuestDetailsPanelUIController.ResetQuestDetailsPanel(_questDetailsPanelRoot);
+            _questDetailsPanelUIController = new QuestDetailsPanelUIController(
+                _questDetailsPanelRoot,
+                questStepTemplate,
+                actionInstructionTemplate,
+                actionInstructionSeparatorTemplate,
+                itemSlotTemplate,
+                rewardItemDetailsOverlay,
+                statContainerTemplate
+            );
 
             _leftPageContainer.Add(questsListMenuRoot);
             _rightPageContainer.Add(_questDetailsPanelRoot);
@@ -87,17 +127,19 @@ namespace FrostfallSaga.Quests.UI
 
         private void OnQuestSelected(AQuestSO selectedQuest)
         {
-            QuestDetailsPanelUIController.DisplayQuestDetails(
-                _questDetailsPanelRoot,
-                questStepTemplate,
-                actionInstructionTemplate,
-                selectedQuest
-            );
+            if (selectedQuest == null)
+            {
+                Debug.LogError("Selected quest is null.");
+                return;
+            }
+
+            _uiDoc.StartCoroutine(_questDetailsPanelUIController.DisplayQuestDetails(selectedQuest));
         }
 
-        private void OnQuestsFilterChanged()
+        private void HideQuestDetailsPanel()
         {
-            QuestDetailsPanelUIController.ResetQuestDetailsPanel(_questDetailsPanelRoot);
+            if (_questDetailsPanelUIController.IsDisplayed())
+                _uiDoc.StartCoroutine(_questDetailsPanelUIController.ResetAndHidePanel());
         }
 
         private void SetQuestsToShow()

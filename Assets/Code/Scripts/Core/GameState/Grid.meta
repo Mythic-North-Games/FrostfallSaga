@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Code/Scripts/Core/GameState/Grid.meta
 guid: e4e73095a29c638199bf65d9976ff997
+========
+guid: c383b658e15b7396087fd56eff6c4f0e
+>>>>>>>> aa7e0b50 (feat: big ui enhancement):Assets/Code/Scripts/Core/Rewards.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

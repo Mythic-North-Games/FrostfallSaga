@@ -8,7 +8,7 @@
     padding-bottom: 0;
     padding-left: 0;
     background-color: rgba(25, 25, 25, 0);
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
     font-size: 40px;
     color: rgb(214, 214, 214);
     -unity-background-scale-mode: scale-and-crop;
@@ -24,6 +24,8 @@
     transition-duration: 0.25s;
     transition-timing-function: ease-in-out-cubic;
     background-image: url("project://database/Assets/Art/UI/Backgrounds/fadedCircleBackground.png?fileID=2800000&guid=bdd35670b3e5cc541a7d4be14cc1e577&type=3#fadedCircleBackground");
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(214, 214, 214);
 }
 
 .mainMenuButtonDefault:hover {
@@ -36,7 +38,7 @@
     padding-bottom: 0;
     padding-left: 0;
     background-color: rgba(46, 46, 46, 0);
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
     font-size: 40px;
     color: rgb(214, 214, 214);
     background-image: url("project://database/Assets/Art/UI/Backgrounds/fadedCircleBackground.png?fileID=2800000&guid=bdd35670b3e5cc541a7d4be14cc1e577&type=3#fadedCircleBackground");
@@ -51,12 +53,14 @@
     -unity-text-align: middle-center;
     -unity-font-style: normal;
     scale: 1.1 1.1;
+    -unity-text-outline-color: rgb(214, 214, 214);
+    -unity-text-outline-width: 1px;
 }
 
 .leftContainerDefault {
     height: 100%;
     width: 33%;
-    padding-top: 5%;
+    padding-top: 7%;
     padding-right: 2%;
     padding-bottom: 2%;
     padding-left: 2%;
@@ -70,7 +74,7 @@
 .leftContainerHidden {
     height: 100%;
     width: 33%;
-    padding-top: 5%;
+    padding-top: 7%;
     padding-right: 2%;
     padding-bottom: 2%;
     padding-left: 2%;
@@ -116,31 +120,7 @@
     margin-top: 17.5%;
 }
 
-.situationButtonDefault {
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    background-color: rgba(25, 25, 25, 0);
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 40px;
-    color: rgb(214, 214, 214);
-    -unity-background-scale-mode: scale-and-crop;
-    -unity-background-image-tint-color: rgb(255, 255, 255);
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 0;
-    -unity-text-align: middle-left;
-    -unity-font-style: normal;
-    white-space: normal;
-}
-
-.situationButtonContainerRoot {
+.situationContainer {
     margin-bottom: 5%;
     background-color: rgba(25, 25, 25, 0);
     padding-top: 0;
@@ -150,25 +130,11 @@
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out-cubic;
     align-items: flex-start;
+    margin-left: 8.5%;
+    visibility: visible;
 }
 
-.situationButtonContainerRoot:enabled:hover {
-    margin-bottom: 5%;
-    background-color: rgba(25, 25, 25, 0);
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    transition-duration: 0.1s;
-    transition-timing-function: ease-in-out-cubic;
-    border-left-width: 10px;
-    border-left-color: rgb(225, 225, 225);
-    border-right-color: rgb(225, 225, 225);
-    border-top-color: rgb(225, 225, 225);
-    border-bottom-color: rgb(225, 225, 225);
-}
-
-.situationButtonContainerRootHidden {
+.situationContainerHidden {
     margin-bottom: 5%;
     background-color: rgba(25, 25, 25, 0.88);
     padding-top: 0;
@@ -179,9 +145,10 @@
     transition-timing-function: ease-in-out-cubic;
     translate: -150% 0;
     opacity: 0;
+    margin-left: 0;
 }
 
-.situationButtonContainerRoot:disabled {
+.situationContainer:disabled {
     margin-bottom: 5%;
     background-color: rgba(25, 25, 25, 0);
     padding-top: 0;
@@ -192,6 +159,67 @@
     transition-timing-function: ease-in-out-cubic;
     align-items: flex-start;
     opacity: 0.5;
+    margin-left: 8.5%;
+}
+
+#LeftArrowButtonContainer #Button {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
+    font-size: 36px;
+    color: rgb(214, 214, 214);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-text-align: middle-left;
+    -unity-font-style: normal;
+    white-space: normal;
+    -unity-text-outline-color: rgb(214, 214, 214);
+    -unity-text-outline-width: 1px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/Art/UI/Containers/oldScratchedPageContainer.png?fileID=21300000&guid=5f85d13b9e9695c309675f4032d034fa&type=3#oldScratchedPageContainer");
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-slice-scale: 0.25px;
+    -unity-background-image-tint-color: rgba(50, 50, 50, 0.69);
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+#LeftArrowButtonContainer #Button:hover {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
+    font-size: 36px;
+    color: rgb(214, 214, 214);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-text-align: middle-left;
+    -unity-font-style: normal;
+    white-space: normal;
+    -unity-text-outline-color: rgb(214, 214, 214);
+    -unity-text-outline-width: 1px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/Art/UI/Containers/oldScratchedPageContainer.png?fileID=21300000&guid=5f85d13b9e9695c309675f4032d034fa&type=3#oldScratchedPageContainer");
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-slice-scale: 0.25px;
+    -unity-background-image-tint-color: rgb(50, 50, 50);
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
 }
 
 .situationIllustrationDefault {
@@ -251,7 +279,7 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
     font-size: 40px;
     background-image: url("project://database/Assets/Art/UI/Backgrounds/fadedCircleBackground.png?fileID=2800000&guid=bdd35670b3e5cc541a7d4be14cc1e577&type=3#fadedCircleBackground");
     -unity-background-scale-mode: scale-and-crop;
@@ -264,6 +292,8 @@
     height: 6%;
     transition-duration: 0.25s;
     transition-timing-function: ease-in-out-cubic;
+    -unity-text-outline-color: rgb(225, 225, 225);
+    -unity-text-outline-width: 1px;
 }
 
 .situationsReturnButton:hover {
@@ -276,7 +306,7 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
     font-size: 40px;
     background-image: url("project://database/Assets/Art/UI/Backgrounds/fadedCircleBackground.png?fileID=2800000&guid=bdd35670b3e5cc541a7d4be14cc1e577&type=3#fadedCircleBackground");
     -unity-background-scale-mode: scale-and-crop;
@@ -288,6 +318,8 @@
     border-left-width: 0;
     height: 6%;
     scale: 1.1 1.1;
+    -unity-text-outline-color: rgb(225, 225, 225);
+    -unity-text-outline-width: 1px;
 }
 
 .tavernLeftContainerDefault {
@@ -318,7 +350,7 @@
 .tavernSituationsContainerDefault {
     justify-content: flex-start;
     align-items: flex-start;
-    height: 47.5%;
+    height: 44%;
     margin-right: 0;
     margin-bottom: 5%;
     margin-left: 0;
@@ -345,19 +377,22 @@
     padding-left: 6%;
     height: 100%;
     flex-direction: row;
-    background-color: rgb(15, 15, 15);
-    border-left-color: rgb(15, 15, 15);
-    border-right-color: rgb(15, 15, 15);
-    border-top-color: rgb(15, 15, 15);
-    border-bottom-color: rgb(15, 15, 15);
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 0;
     justify-content: space-between;
     min-width: 40%;
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out-cubic;
+    background-color: rgba(15, 15, 15, 0);
+    background-image: url("project://database/Assets/Art/UI/Containers/oldScratchedPageContainer.png?fileID=21300000&guid=5f85d13b9e9695c309675f4032d034fa&type=3#oldScratchedPageContainer");
+    -unity-slice-scale: 0.2px;
+    -unity-background-image-tint-color: rgb(200, 166, 144);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
 }
 
 .tavernRestButton:disabled {
@@ -371,7 +406,6 @@
     padding-left: 6%;
     height: 100%;
     flex-direction: row;
-    background-color: rgb(15, 15, 15);
     border-left-color: rgb(15, 15, 15);
     border-right-color: rgb(15, 15, 15);
     border-top-color: rgb(15, 15, 15);
@@ -385,6 +419,10 @@
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out-cubic;
     opacity: 0.5;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/Art/UI/Containers/oldScratchedPageColorContainer.png?fileID=21300000&guid=25cfc2af69cd00c3baba4887b054c851&type=3#oldScratchedPageColorContainer");
+    -unity-slice-scale: 0.1px;
+    -unity-background-image-tint-color: rgb(200, 166, 144);
 }
 
 .tavernRestButton:enabled:hover {
@@ -398,17 +436,22 @@
     padding-left: 6%;
     height: 100%;
     flex-direction: row;
-    background-color: rgb(15, 15, 15);
-    border-left-color: rgb(225, 225, 225);
-    border-right-color: rgb(225, 225, 225);
-    border-top-color: rgb(225, 225, 225);
-    border-bottom-color: rgb(225, 225, 225);
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 5px;
-    border-left-width: 0;
+    background-color: rgba(15, 15, 15, 0);
     justify-content: space-between;
     min-width: 40%;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out-cubic;
+    background-image: url("project://database/Assets/Art/UI/Containers/oldScratchedPageContainer.png?fileID=21300000&guid=5f85d13b9e9695c309675f4032d034fa&type=3#oldScratchedPageContainer");
+    -unity-slice-scale: 0.2px;
+    -unity-background-image-tint-color: rgb(140, 91, 59);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
 }
 
 .cityTavernMenuRootDefault {
@@ -430,4 +473,86 @@
     width: 100%;
     height: 100%;
     translate: 0 105%;
+}
+
+.cityNameLabel {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    -unity-font-style: normal;
+    font-size: 72px;
+    color: rgb(236, 236, 236);
+    width: 80%;
+    -unity-text-align: upper-center;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(236, 236, 236);
+}
+
+.cityNameLabelHighMarginBottom {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 3%;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    -unity-font-style: normal;
+    font-size: 72px;
+    color: rgb(236, 236, 236);
+    width: 80%;
+    -unity-text-align: upper-center;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(236, 236, 236);
+}
+
+#SituationsContainer #unity-content-viewport {
+    overflow: visible;
+}
+
+.tavernNameLabel {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 2%;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 80px;
+    -unity-font-style: normal;
+    color: rgb(225, 225, 225);
+    height: 10%;
+    width: 80%;
+    -unity-text-align: upper-center;
+    -unity-text-outline-color: rgb(214, 214, 214);
+    -unity-text-outline-width: 1px;
+}
+
+.tavernNameLabelHighMarginBottom {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 4%;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 2%;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 80px;
+    -unity-font-style: normal;
+    color: rgb(225, 225, 225);
+    height: 10%;
+    width: 80%;
+    -unity-text-align: upper-center;
+    -unity-text-outline-color: rgb(214, 214, 214);
+    -unity-text-outline-width: 1px;
 }

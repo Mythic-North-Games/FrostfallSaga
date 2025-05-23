@@ -15,8 +15,9 @@ MonoBehaviour:
   <Name>k__BackingField: Aesir
   <Icon>k__BackingField: {fileID: 21300000, guid: 105e7d79f1261f2d0b8406f9d79ef625, type: 3}
   <DiamondIcon>k__BackingField: {fileID: 21300000, guid: 0c04a02748f0cea348cf00d24dbf3707, type: 3}
+  <InventoryBackgroundIllustration>k__BackingField: {fileID: 21300000, guid: 2b40cbba9aef260b8b6f057cd5762822, type: 3}
+  <InventoryTPoseIllustration>k__BackingField: {fileID: 21300000, guid: 2f9e891036807c325bc53c52d8839c11, type: 3}
   <KingdomEntityPrefab>k__BackingField: {fileID: 4432762545338704991, guid: e0f2e0ebd2fe2154bb88ea014c107f2a, type: 3}
-  <InventoryVisualPrefab>k__BackingField: {fileID: 7229199734263576984, guid: 33a519de18742ed3a80cc23566377b4b, type: 3}
   <FighterConfiguration>k__BackingField: {fileID: 11400000, guid: df382171cf8a1ba4db6687dbbef384ff, type: 2}
   <Race>k__BackingField: 0
   <KingdomDetectionRange>k__BackingField: 90

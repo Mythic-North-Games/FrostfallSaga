@@ -5,14 +5,11 @@
     <ui:VisualElement name="TimelinePanelContainer" style="flex-grow: 1;">
         <ui:ScrollView name="TimelinePanel" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="height: 100%; width: 100%;">
             <ui:VisualElement name="TimelineContentContainer" style="width: 100%; height: 100%;">
-                <ui:Instance template="TimelineCharacterContainer" name="TimelineCharacterContainer" class="timelineCharacterContainerRoot" />
-                <ui:Instance template="TimelineCharacterContainer" name="TimelineCharacterContainer" class="timelineCharacterContainerRoot" />
-                <ui:Instance template="TimelineCharacterContainer" name="TimelineCharacterContainer" class="timelineCharacterContainerRoot" />
+                <ui:Instance template="TimelineCharacterContainer" name="TimelineCharacterContainer" />
+                <ui:Instance template="TimelineCharacterContainer" name="TimelineCharacterContainer" />
+                <ui:Instance template="TimelineCharacterContainer" name="TimelineCharacterContainer" />
             </ui:VisualElement>
         </ui:ScrollView>
         <ui:Instance template="FighterResistancesPanel" name="FighterResistancesPanel" class="fighterResistancesPanelDefault" />
-        <ui:VisualElement name="StatusDetailsPanel" class="timelinePanelStatusDetailsPanelDefault">
-            <ui:Label tabindex="-1" text="&lt;b&gt;Bleed&lt;/b&gt; applied permanently.\nStatus effect applied at &lt;b&gt;the start of the turn&lt;/b&gt;." parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatusDetailsLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 24px; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); color: rgb(225, 225, 225);" />
-        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

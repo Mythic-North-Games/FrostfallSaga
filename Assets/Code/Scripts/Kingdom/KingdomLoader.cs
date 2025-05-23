@@ -209,16 +209,12 @@ namespace FrostfallSaga.Kingdom
         private void AdjustKingdomAfterFight()
         {
             PostFightData postFightData = _gameStateManager.GetPostFightData();
-            Dictionary<string, PostFightFighterState> enemiesPostFightState =
-                SElementToValue<string, PostFightFighterState>.GetDictionaryFromArray(
-                    postFightData.enemiesState.ToArray()
-                );
-            EntitiesGroup foughtEnemiesGroup = GetFoughtEnemiesGroup(enemiesPostFightState);
+            EntitiesGroup foughtEnemiesGroup = GetFoughtEnemiesGroup(postFightData.enemiesState);
 
 
             // If allies have lost, adjust enemies groups that won
             if (!postFightData.AlliesHaveWon())
-                UpdateEntitiesGroupAfterFight(foughtEnemiesGroup, enemiesPostFightState);
+                UpdateEntitiesGroupAfterFight(foughtEnemiesGroup, postFightData.enemiesState);
             else // Otherwise, destroy enemies group that lost
                 DestroyImmediate(foughtEnemiesGroup.gameObject);
         }

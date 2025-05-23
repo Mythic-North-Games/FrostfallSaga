@@ -37,7 +37,7 @@
 
 .abilitiesUnusable {
     flex-grow: 1;
-    background-image: url("project://database/Assets/Art/UI/UIKit/Backgrounds/fadedWhiteCircleBackground.png?fileID=2800000&guid=e317b3f3bbbe0444fb034ff574616f3f&type=3#fadedWhiteCircleBackground");
+    background-image: url('project://database/Assets/Art/UI/Backgrounds/fadedWhiteCircleBackground.png?fileID=2800000&guid=e317b3f3bbbe0444fb034ff574616f3f&type=3#fadedWhiteCircleBackground');
     -unity-background-scale-mode: scale-to-fit;
     background-color: rgba(0, 0, 0, 0);
     transition-duration: 0.1s;
@@ -46,16 +46,16 @@
 }
 
 .timelinePanel {
-    top: 10%;
+    top: 7.5%;
     position: absolute;
-    width: 20%;
+    width: 17.5%;
     height: 80%;
     right: 0;
 }
 
 .timelineCharacterContainerRoot {
     width: 65%;
-    min-height: 14.5%;
+    min-height: 12.5%;
     align-self: flex-end;
 }
 
@@ -170,7 +170,7 @@
 
 .roundStatContainer {
     left: auto;
-    width: 18%;
+    width: 17.5%;
     height: 25%;
     border-top-left-radius: 100%;
     border-top-right-radius: 100%;
@@ -224,7 +224,7 @@
     padding-left: 0;
     width: 13.5%;
     height: 65%;
-    background-image: url("project://database/Assets/Art/UI/UIKit/Containers/blackDiamondContainer.png?fileID=2800000&guid=25ff3775975c72b45bc91c2eb9fa1477&type=3#blackDiamondContainer");
+    background-image: url("project://database/Assets/Art/UI/Containers/blackDiamondContainer.png?fileID=2800000&guid=25ff3775975c72b45bc91c2eb9fa1477&type=3#blackDiamondContainer");
     background-color: rgba(188, 188, 188, 0);
     -unity-background-image-tint-color: rgb(25, 25, 25);
     overflow: visible;
@@ -245,7 +245,7 @@
     padding-left: 0;
     width: 13.5%;
     height: 65%;
-    background-image: url("project://database/Assets/Art/UI/UIKit/Containers/blackDiamondContainer.png?fileID=2800000&guid=25ff3775975c72b45bc91c2eb9fa1477&type=3#blackDiamondContainer");
+    background-image: url("project://database/Assets/Art/UI/Containers/blackDiamondContainer.png?fileID=2800000&guid=25ff3775975c72b45bc91c2eb9fa1477&type=3#blackDiamondContainer");
     -unity-background-image-tint-color: rgb(255, 255, 255);
     overflow: visible;
     border-top-width: 0;
@@ -265,8 +265,8 @@
     padding-left: 0;
     width: 100%;
     height: 100%;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 40px;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 60px;
     color: rgb(225, 225, 225);
     background-color: rgba(25, 25, 25, 0.78);
     border-left-color: rgb(225, 225, 225);
@@ -277,10 +277,12 @@
     border-right-width: 3px;
     border-bottom-width: 3px;
     border-left-width: 3px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    -unity-text-outline-color: rgb(225, 225, 225);
+    -unity-text-outline-width: 0.5px;
 }
 
 .expandInventoryButton:hover {
@@ -294,8 +296,8 @@
     padding-left: 0;
     width: 100%;
     height: 100%;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 40px;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 60px;
     color: rgb(225, 225, 225);
     background-color: rgba(100, 100, 100, 0.78);
     border-left-color: rgb(225, 225, 225);
@@ -310,6 +312,8 @@
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
+    -unity-text-outline-width: 0.5px;
+    -unity-text-outline-color: rgb(225, 225, 225);
 }
 
 .fighterResistancesPanelDefault {
@@ -359,23 +363,6 @@
     padding-left: 2%;
 }
 
-.statusDetailsPanelHidden {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    background-color: rgba(25, 25, 25, 0.78);
-    padding-top: 1%;
-    padding-right: 1.5%;
-    padding-bottom: 1%;
-    padding-left: 1.5%;
-    width: 80%;
-    height: 35%;
-    margin-top: 2%;
-    margin-left: 4%;
-    display: none;
-}
-
 .timelinePanelStatusDetailsPanelDefault {
     position: absolute;
     border-top-left-radius: 10px;
@@ -383,66 +370,15 @@
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     background-color: rgba(25, 25, 25, 0.78);
-    padding-top: 1%;
-    padding-right: 1.5%;
-    padding-bottom: 1%;
-    padding-left: 1.5%;
+    padding-top: 1.5%;
+    padding-right: 2%;
+    padding-bottom: 1.5%;
+    padding-left: 2%;
     top: 0;
     left: -85%;
 }
 
 .extraConsumablesSlotsContainerHidden {
-    display: none;
-}
-
-.objectDetailsEffectLine {
-    color: rgb(225, 225, 225);
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    font-size: 135%;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    white-space: normal;
-}
-
-.objectDetailsPanelContainerDefault {
-    width: 100%;
-    background-color: rgba(25, 25, 25, 0.88);
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    padding-top: 1%;
-    padding-right: 1%;
-    padding-bottom: 1%;
-    padding-left: 1%;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out-cubic;
-    margin-left: 2.5%;
-    height: auto;
-}
-
-.objectDetailsPanelContainerHidden {
-    width: 100%;
-    background-color: rgba(25, 25, 25, 0.88);
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    padding-top: 1%;
-    padding-right: 1%;
-    padding-bottom: 1%;
-    padding-left: 1%;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out-cubic;
-    margin-left: 2.5%;
-    height: auto;
-    opacity: 0;
     display: none;
 }
 
@@ -458,4 +394,57 @@
     width: 100%;
     height: 100%;
     background-color: rgba(225, 225, 225, 0.35);
+}
+
+.timelineCharacterContainerTop {
+    width: 50%;
+    height: 100%;
+    background-color: rgba(25, 25, 25, 0.39);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 2.5px;
+    border-left-width: 5px;
+    border-left-color: rgb(25, 25, 25);
+    border-right-color: rgb(25, 25, 25);
+    border-top-color: rgb(25, 25, 25);
+    border-bottom-color: rgb(25, 25, 25);
+}
+
+.timelineCharacterContainerMiddle {
+    width: 50%;
+    height: 100%;
+    border-top-width: 2.5px;
+    border-right-width: 5px;
+    border-bottom-width: 2.5px;
+    border-left-width: 5px;
+    border-left-color: rgb(25, 25, 25);
+    border-right-color: rgb(25, 25, 25);
+    border-top-color: rgb(25, 25, 25);
+    border-bottom-color: rgb(25, 25, 25);
+}
+
+.timelineCharacterContainerBottom {
+    width: 50%;
+    height: 100%;
+    border-top-width: 2.5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-left-color: rgb(25, 25, 25);
+    border-right-color: rgb(25, 25, 25);
+    border-top-color: rgb(25, 25, 25);
+    border-bottom-color: rgb(25, 25, 25);
+}
+
+.timelineCharacterContainerSolo {
+    width: 50%;
+    height: 100%;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-left-color: rgb(25, 25, 25);
+    border-right-color: rgb(25, 25, 25);
+    border-top-color: rgb(25, 25, 25);
+    border-bottom-color: rgb(25, 25, 25);
 }

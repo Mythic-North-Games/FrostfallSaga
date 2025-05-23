@@ -3,25 +3,38 @@ using System.Collections.Generic;
 using FrostfallSaga.Core.UI;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
+using FrostfallSaga.Utils.UI;
 using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Fight.UI
 {
     public class TimelineCharacterUIController
     {
-        private readonly VisualElement _characterIconContainer;
+        #region UXML UI Names & Classes
+        private static readonly string CHARACTER_ICON_CONTAINER_UI_NAME = "TimelineCharacterIconContainer";
+        private static readonly string CHARACTER_ICON_UI_NAME = "TimelineCharacterIcon";
+        private static readonly string STATUSES_CONTAINER_UI_NAME = "TimelineCharacterStatusesContainer";
 
-        private readonly VisualTreeAsset _statusIconContainerTemplate;
+        private static readonly string CHARACTER_ICON_CONTAINER_TOP_CLASSNAME = "timelineCharacterContainerTop";
+        private static readonly string CHARACTER_ICON_CONTAINER_MIDDLE_CLASSNAME = "timelineCharacterContainerMiddle";
+        private static readonly string CHARACTER_ICON_CONTAINER_BOTTOM_CLASSNAME = "timelineCharacterContainerBottom";
+        private static readonly string CHARACTER_ICON_CONTAINER_SOLO_CLASSNAME = "timelineCharacterContainerSolo";
+        private static readonly string STATUS_ICON_CONTAINER_ROOT_CLASSNAME = "statusIconContainerRoot";
+        #endregion
 
         public Action<TimelineCharacterUIController> onFighterHovered;
         public Action<TimelineCharacterUIController> onFighterUnhovered;
         public Action<TimelineCharacterUIController, AStatus, int> onStatusIconHovered;
         public Action<TimelineCharacterUIController, AStatus, int> onStatusIconUnhovered;
 
+        private readonly VisualElement _characterIconContainer;
+        private readonly VisualTreeAsset _statusIconContainerTemplate;
+
         public TimelineCharacterUIController(
             VisualElement root,
             Fighter fighter,
-            VisualTreeAsset statusIconContainerTemplate
+            VisualTreeAsset statusIconContainerTemplate,
+            ETimelinePosition positionInTimeline
         )
         {
             Root = root;
@@ -33,6 +46,7 @@ namespace FrostfallSaga.Fight.UI
             //////////////
             // Setup character icon life progress
             _characterIconContainer = Root.Q<VisualElement>(CHARACTER_ICON_CONTAINER_UI_NAME);
+            _characterIconContainer.AddToClassList(GetTimelinePositionClassName(positionInTimeline));
             UpdateHealth();
             Fighter.onDamageReceived += (_, _, _, _) => UpdateHealth();
             Fighter.onHealReceived += (_, _, _) => UpdateHealth();
@@ -90,24 +104,36 @@ namespace FrostfallSaga.Fight.UI
                 VisualElement statusIconContainerRoot = _statusIconContainerTemplate.Instantiate();
                 statusIconContainerRoot.AddToClassList(STATUS_ICON_CONTAINER_ROOT_CLASSNAME);
                 StatusContainerUIController.SetupStatusContainer(statusIconContainerRoot, status.Key);
-                statusIconContainerRoot.RegisterCallback<MouseEnterEvent>(
-                    _ => onStatusIconHovered?.Invoke(this, status.Key, status.Value.duration)
-                );
-                statusIconContainerRoot.RegisterCallback<MouseLeaveEvent>(
-                    _ => onStatusIconUnhovered?.Invoke(this, status.Key, status.Value.duration)
-                );
+
+                // Setup long hover events
+                LongHoverEventController<VisualElement> longHoverEventController = new(statusIconContainerRoot);
+                longHoverEventController.onElementLongHovered += _ =>
+                    onStatusIconHovered?.Invoke(this, status.Key, status.Value.duration);
+                longHoverEventController.onElementLongUnhovered += _ =>
+                    onStatusIconUnhovered?.Invoke(this, status.Key, status.Value.duration);
+
                 statusesContainer.Add(statusIconContainerRoot);
             }
         }
 
-        #region UXML UI Names & Classes
+        private static string GetTimelinePositionClassName(ETimelinePosition position)
+        {
+            return position switch
+            {
+                ETimelinePosition.TOP => CHARACTER_ICON_CONTAINER_TOP_CLASSNAME,
+                ETimelinePosition.MIDDLE => CHARACTER_ICON_CONTAINER_MIDDLE_CLASSNAME,
+                ETimelinePosition.BOTTOM => CHARACTER_ICON_CONTAINER_BOTTOM_CLASSNAME,
+                ETimelinePosition.SOLO => CHARACTER_ICON_CONTAINER_SOLO_CLASSNAME,
+                _ => throw new ArgumentOutOfRangeException(nameof(position), position, null)
+            };
+        }
 
-        private static readonly string CHARACTER_ICON_CONTAINER_UI_NAME = "TimelineCharacterContainer";
-        private static readonly string CHARACTER_ICON_UI_NAME = "TimelineCharacterIcon";
-        private static readonly string STATUSES_CONTAINER_UI_NAME = "TimelineCharacterStatusesContainer";
-
-        private static readonly string STATUS_ICON_CONTAINER_ROOT_CLASSNAME = "statusIconContainerRoot";
-
-        #endregion
+        public enum ETimelinePosition
+        {
+            TOP,
+            MIDDLE,
+            BOTTOM,
+            SOLO
+        }
     }
 }

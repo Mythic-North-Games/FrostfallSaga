@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using FrostfallSaga.Utils;
-using FrostfallSaga.Utils.Trees;
 using UnityEngine;
+using FrostfallSaga.Utils;
+using FrostfallSaga.Utils.DataStructures.TreeNode;
 
 namespace FrostfallSaga.Core.Quests
 {
@@ -10,17 +10,47 @@ namespace FrostfallSaga.Core.Quests
     {
         [field: SerializeField]
         [field: Tooltip("Possible endings depending on last quest step decisive action.")]
-        public SElementToValue<int[], QuestEnding>[] PossibleQuestEndings { get; private set; }
+        private SElementToValue<int[], QuestEnding>[] _possibleQuestEndings;
+        public Dictionary<int[], QuestEnding> PossibleQuestEndings
+        {
+            get => SElementToValue<int[], QuestEnding>.GetDictionaryFromArray(_possibleQuestEndings);
+            private set => _possibleQuestEndings = SElementToValue<int[], QuestEnding>.GetArrayFromDictionary(value);
+        }
 
-        [field: SerializeField] public TreeNode<QuestStep> Steps { get; private set; }
-
+        [field: SerializeField]
+        [field: Tooltip("Only set this in the editor for testing. Will be overriden at runtime if the quest is completed for real.")]
         public QuestEnding ChosenQuestEnding { get; private set; }
 
+        ///////////////////::///
+        /// Quest steps tree ///
+        //////////////////:::///
+        public TreeNode<QuestStep> Steps => _runtimeSteps;
+        private TreeNode<QuestStep> _runtimeSteps;
+        [SerializeField] private List<TreeNodeDTO<QuestStep>> _serializedSteps;
 
-        /// <summary>
-        ///     Start listening to the events that will update the action completion.
-        /// </summary>
-        /// <param name="currentSceneManager">The specific manager of the scene the action is related to.</param>
+        private void OnEnable()
+        {
+            _runtimeSteps = TreeNodeSerializer.DeserializeTree(_serializedSteps);
+        }
+
+#if UNITY_EDITOR
+        public void SetSteps(TreeNode<QuestStep> newSteps)
+        {
+            _runtimeSteps = newSteps;
+            SaveSteps();
+        }
+
+        public void SaveSteps()
+        {
+            _serializedSteps = TreeNodeSerializer.SerializeTree(_runtimeSteps);
+        }
+
+        public void SetPossibleQuestEndings(Dictionary<int[], QuestEnding> newPossibleQuestEndings)
+        {
+            PossibleQuestEndings = newPossibleQuestEndings;
+        }
+#endif
+
         public override void Initialize(MonoBehaviour currentSceneManager)
         {
             if (IsCompleted)
@@ -29,12 +59,11 @@ namespace FrostfallSaga.Core.Quests
                 return;
             }
 
-            InitializeQuestSteps(Steps, currentSceneManager);
+            InitializeQuestSteps(_runtimeSteps, currentSceneManager);
         }
 
         private void InitializeQuestSteps(TreeNode<QuestStep> questStep, MonoBehaviour currentSceneManager)
         {
-            // If the quest step is not completed, initialize it but not the children yet.
             if (!questStep.Data.IsCompleted())
             {
                 questStep.Data.Initialize(currentSceneManager);
@@ -42,7 +71,6 @@ namespace FrostfallSaga.Core.Quests
                 return;
             }
 
-            // If the quest step is completed, initialize the next child step.
             int decisiveActionIndex = questStep.Data.Actions.ChosenDecisiveActionIndex;
             TreeNode<QuestStep> nextStep = questStep.Children[decisiveActionIndex];
             InitializeQuestSteps(nextStep, currentSceneManager);
@@ -50,28 +78,20 @@ namespace FrostfallSaga.Core.Quests
 
         private void OnQuestStepCompleted(QuestStep completedStep)
         {
-            // Unsubscribe from the event to avoid multiple completion of the same step.
             completedStep.onQuestStepCompleted -= OnQuestStepCompleted;
 
-            // Try to find the last completed step path.
-            int[] lastCompletedStepPath = GetLastCompletedStepPath(Steps);
-
-            // If no completed step path, the quest is not completed yet. Initialize the next step.
+            int[] lastCompletedStepPath = GetLastCompletedStepPath(_runtimeSteps);
             if (lastCompletedStepPath.Length == 0)
             {
-                InitializeQuestSteps(TreeNode<QuestStep>.FindChild(Steps, completedStep),
-                    completedStep.CurrentSceneManager);
+                InitializeQuestSteps(TreeNode<QuestStep>.FindChild(_runtimeSteps, completedStep), completedStep.CurrentSceneManager);
                 return;
             }
 
-            // Otherwise, the quest is completed. Set the chosen quest ending and complete the quest.
-            ChosenQuestEnding =
-                SElementToValue<int[], QuestEnding>.GetDictionaryFromArray(PossibleQuestEndings)[lastCompletedStepPath];
+            ChosenQuestEnding = PossibleQuestEndings[lastCompletedStepPath];
             CompleteQuest();
         }
 
-        private int[] GetLastCompletedStepPath(TreeNode<QuestStep> questStep, TreeNode<QuestStep> parent = null,
-            List<int> lastCompletedStepPath = null)
+        private int[] GetLastCompletedStepPath(TreeNode<QuestStep> questStep, TreeNode<QuestStep> parent = null, List<int> lastCompletedStepPath = null)
         {
             if (!questStep.Data.IsCompleted()) return new int[0];
 
@@ -80,26 +100,10 @@ namespace FrostfallSaga.Core.Quests
 
             if (questStep.Children.Count == 0) return lastCompletedStepPath.ToArray();
 
-            TreeNode<QuestStep> nextCompletedStep = questStep.Children.Find(
-                childStep => childStep.Data.IsCompleted()
-            );
+            TreeNode<QuestStep> nextCompletedStep = questStep.Children.Find(childStep => childStep.Data.IsCompleted());
             if (nextCompletedStep == null) return new int[0];
 
             return GetLastCompletedStepPath(nextCompletedStep, questStep, lastCompletedStepPath);
         }
-
-#if UNITY_EDITOR
-
-        public void SetSteps(TreeNode<QuestStep> newSteps)
-        {
-            Steps = newSteps;
-        }
-
-        public void SetPossibleQuestEndings(SElementToValue<int[], QuestEnding>[] newPossibleQuestEndings)
-        {
-            PossibleQuestEndings = newPossibleQuestEndings;
-        }
-
-#endif
     }
 }

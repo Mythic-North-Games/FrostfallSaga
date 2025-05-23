@@ -1,49 +1,212 @@
 .itemSlotContainerRootDefault {
-    width: 10%;
-    height: 13.5%;
-    margin-bottom: 2%;
-    margin-right: 2%;
-    margin-left: 2%;
-    margin-top: 2%;
+    width: 11.5%;
+    height: 15.5%;
+    margin-bottom: 1.25%;
+    margin-right: 1.25%;
+    margin-left: 1.25%;
+    margin-top: 1.25%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.itemSlotContainerRootDefault:enabled:hover {
+    width: 11.5%;
+    height: 15.5%;
+    margin-bottom: 1.25%;
+    margin-right: 1.25%;
+    margin-left: 1.25%;
+    margin-top: 1.25%;
+    translate: 0 -7.5%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.itemSlotContainerRootDefault:disabled {
+    width: 11.5%;
+    height: 15.5%;
+    margin-bottom: 1.25%;
+    margin-right: 1.25%;
+    margin-left: 1.25%;
+    margin-top: 1.25%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    opacity: 0.9;
 }
 
 .equippedItemSlotContainerRootDefault {
-    width: 100%;
+    width: 16.5%;
     height: 13%;
+    position: absolute;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.equippedItemSlotContainerRootDefault:enabled:hover {
+    width: 16.5%;
+    height: 13%;
+    position: absolute;
+    translate: 0 -7.5%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.equippedItemSlotContainerRootDefault:disabled {
+    width: 16.5%;
+    height: 13%;
+    position: absolute;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    opacity: 0.9;
 }
 
 .itemSlotContainer {
     width: 100%;
     height: 100%;
-    border-top-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 4px;
-    border-left-width: 4px;
-    border-left-color: rgb(25, 25, 25);
-    border-right-color: rgb(25, 25, 25);
-    border-top-color: rgb(25, 25, 25);
-    border-bottom-color: rgb(25, 25, 25);
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnSquareContainer.png?fileID=2800000&guid=d10b364b533c0d6e7b3b87d0e763957d&type=3#handDrawnSquareContainer");
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    padding-top: 10%;
+    padding-right: 10%;
+    padding-bottom: 10%;
+    padding-left: 10%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    scale: 1 1;
+    translate: 0 0;
 }
 
-.itemSlotContainer:hover {
+.itemSlotBackground {
+    flex-grow: 1;
+    position: absolute;
+    left: 2.5%;
+    top: 2.5%;
+    width: 95%;
+    height: 95%;
+    background-image: url("project://database/Assets/Art/UI/Backgrounds/parchmentBackgroundTexture.png?fileID=2800000&guid=799a05eeaf068e4ab949cdd2cf7b4450&type=3#parchmentBackgroundTexture");
+    -unity-background-image-tint-color: rgba(175, 175, 175, 0.39);
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.itemSlotContainerActive {
     width: 100%;
     height: 100%;
-    border-top-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 4px;
-    border-left-width: 4px;
-    border-left-color: rgb(225, 225, 225);
-    border-right-color: rgb(225, 225, 225);
-    border-top-color: rgb(225, 225, 225);
-    border-bottom-color: rgb(225, 225, 225);
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnSelectedSquareContainer.png?fileID=2800000&guid=aec95d218e91933b38e63f73f5ba4688&type=3#handDrawnSelectedSquareContainer");
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    padding-top: 10%;
+    padding-right: 10%;
+    padding-bottom: 10%;
+    padding-left: 10%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    scale: 1 1;
+}
+
+.itemSlotContainerSelected {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnSelectedSquareContainer.png?fileID=2800000&guid=aec95d218e91933b38e63f73f5ba4688&type=3#handDrawnSelectedSquareContainer");
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    opacity: 0;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    top: 0;
+    left: 0;
 }
 
 .itemDetailsContainerRootDefault {
-    width: 100%;
+    width: 97.75%;
     height: 30%;
 }
 
-.specialEffectLabelDefault {
+.quickAccessSlotContainer {
+    height: 87.5%;
+    width: 14%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.quickAccessSlotContainer:enabled:hover {
+    height: 87.5%;
+    width: 14%;
+    translate: 0 -7.5%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.quickAccessSlotContainer:disabled {
+    height: 87.5%;
+    width: 14%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    opacity: 0.9;
+}
+
+.fighterEquipmentsContainer {
+    width: 65%;
+    height: 75%;
+    position: absolute;
+    right: 17.5%;
+    top: 10%;
+}
+
+.fighterTPose {
+    flex-grow: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("project://database/Assets/Art/UI/Portraits/shieldMaidenInventoryTPose.png?fileID=2800000&guid=67c43b358a4553684a62c3eb0ab2f9d5&type=3#shieldMaidenInventoryTPose");
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    transition-duration: 0.25s;
+}
+
+.fighterTPoseHidden {
+    flex-grow: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("project://database/Assets/Art/UI/Portraits/shieldMaidenInventoryTPose.png?fileID=2800000&guid=67c43b358a4553684a62c3eb0ab2f9d5&type=3#shieldMaidenInventoryTPose");
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    opacity: 0;
+    translate: 0 0;
+    transition-duration: 0.25s;
+}
+
+.fighterNameContainer {
+    margin-top: 5%;
+    margin-bottom: 0;
+    flex-direction: column;
+    height: 5.5%;
+    max-width: 40%;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.fighterNameLabel {
+    margin-top: -5%;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    width: 100%;
+    height: 100%;
+    -unity-text-align: middle-center;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 250%;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(25, 25, 25);
+}
+
+.fighterNameLabelHidden {
     margin-top: 0;
     margin-right: 0;
     margin-bottom: 0;
@@ -52,13 +215,79 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 22px;
-    -unity-text-align: middle-left;
-    white-space: normal;
+    width: 100%;
+    height: 100%;
+    -unity-text-align: middle-center;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 250%;
+    opacity: 0;
+    translate: 0 0;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(25, 25, 25);
 }
 
-.quickAccessSlotContainer {
+.itemSlot {
+    width: 100%;
     height: 100%;
-    width: 13%;
+    background-image: resource('UI/Icons/magicIcon');
+    -unity-background-scale-mode: scale-to-fit;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.itemSlotHidden {
+    width: 100%;
+    height: 100%;
+    background-image: resource('UI/Icons/magicIcon');
+    -unity-background-scale-mode: scale-to-fit;
+    opacity: 0;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.itemSlotCount {
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Italic%20SDF.asset?fileID=11400000&guid=88eb4e0b66753f5859b647f81dbab064&type=2#Almendra-Italic SDF");
+    font-size: 180%;
+    -unity-text-align: middle-center;
+    position: absolute;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    color: rgb(25, 25, 25);
+    right: 10%;
+    -unity-font-style: normal;
+    -unity-text-outline-color: rgb(25, 25, 25);
+    -unity-text-outline-width: 1px;
+    bottom: 1%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.itemSlotCountHidden {
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Italic%20SDF.asset?fileID=11400000&guid=88eb4e0b66753f5859b647f81dbab064&type=2#Almendra-Italic SDF");
+    font-size: 180%;
+    -unity-text-align: middle-center;
+    position: absolute;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    color: rgb(25, 25, 25);
+    right: 7%;
+    -unity-font-style: normal;
+    -unity-text-outline-color: rgb(25, 25, 25);
+    -unity-text-outline-width: 1px;
+    bottom: 1%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    opacity: 0;
 }

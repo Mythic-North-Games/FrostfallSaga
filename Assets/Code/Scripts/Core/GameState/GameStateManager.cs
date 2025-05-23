@@ -103,12 +103,10 @@ namespace FrostfallSaga.Core.GameState
 
         public void SavePostFightData(AFighter[] enemies)
         {
-            _postFightData.enemiesState = new List<SElementToValue<string, PostFightFighterState>>();
+            _postFightData.enemiesState = new Dictionary<string, PostFightFighterState>();
             enemies.ToList().ForEach(enemy =>
-                _postFightData.enemiesState.Add(
-                    new SElementToValue<string, PostFightFighterState>(enemy.EntitySessionId,
-                        new PostFightFighterState(enemy.GetHealth()))));
-
+                _postFightData.enemiesState.Add(enemy.EntitySessionId, new PostFightFighterState(enemy.GetHealth()))
+            );
             _postFightData.isActive = true;
         }
 

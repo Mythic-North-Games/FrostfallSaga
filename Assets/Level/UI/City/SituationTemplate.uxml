@@ -1,6 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Level/UI/City/CityStyles.uss?fileID=7433441132597879392&amp;guid=41b3143ea7e0b52078409fcf6bbfda5c&amp;type=3#CityStyles" />
-    <ui:VisualElement name="SituationButtonContainer" style="padding-top: 2%; padding-right: 2%; padding-bottom: 2%; padding-left: 2%; background-color: rgb(25, 25, 25);">
-        <ui:Button text="A man is building a drakkar" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SituationButton" class="situationButtonDefault" />
-    </ui:VisualElement>
-</ui:UXML>

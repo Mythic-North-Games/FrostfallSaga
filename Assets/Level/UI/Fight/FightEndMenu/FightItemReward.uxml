@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="ItemSlotBackground" class="itemSlotBackground" style="display: flex;">
+        <ui:VisualElement name="ItemSlotTagIcon" style="flex-grow: 0; -unity-background-scale-mode: scale-to-fit; position: absolute; left: 10%; top: 10%; width: 80%; height: 80%; background-image: resource(&apos;UI/Icons/helmetIcon&apos;); -unity-background-image-tint-color: rgba(225, 225, 225, 0.59);" />
+    </ui:VisualElement>
+    <ui:VisualElement name="ItemSlotContainer" class="itemSlotContainer">
+        <ui:VisualElement name="ItemSlot" class="itemSlot" style="transition-duration: 0.2s; transition-timing-function: ease-in-out-cubic; background-image: resource(&apos;UI/Icons/ironAxeIcon&apos;); transition-delay: 0s;" />
+        <ui:Label tabindex="-1" text="3" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemSlotCount" class="itemSlotCount" style="transition-delay: 0s;" />
+    </ui:VisualElement>
+</ui:UXML>

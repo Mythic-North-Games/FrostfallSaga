@@ -1,0 +1,30 @@
+.fighterBackgroundIllustration {
+    flex-grow: 1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-image: url('project://database/Assets/Art/UI/Illustrations/shieldmaiden3.png?fileID=2800000&guid=ab3b0e5cadcdee43f858d75bae90c480&type=3#shieldmaiden3');
+    width: 100%;
+    height: 100%;
+    -unity-background-scale-mode: scale-and-crop;
+    opacity: 0.5;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    transition-property: all;
+    -unity-background-image-tint-color: rgb(188, 133, 102);
+}
+
+.fighterBackgroundIllustrationHidden {
+    flex-grow: 1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-image: url('project://database/Assets/Art/UI/Illustrations/shieldmaiden3.png?fileID=2800000&guid=ab3b0e5cadcdee43f858d75bae90c480&type=3#shieldmaiden3');
+    width: 100%;
+    height: 100%;
+    -unity-background-scale-mode: scale-and-crop;
+    opacity: 0;
+    translate: 0 0;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}

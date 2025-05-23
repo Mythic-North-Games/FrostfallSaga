@@ -3,18 +3,42 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace FrostfallSaga.InventorySystem.UI
+namespace FrostfallSaga.Core.UI
 {
     public class ObjectDetailsUIController
     {
-        private readonly Label _descriptionLabel;
-        private readonly string _effectLineClassname;
-        private readonly VisualElement _icon;
+        private const string MORE_PADDING_TOP_LETTERS = "lkhfdI";
+
+        #region UI Elements Names & Classes
+        private static readonly string ICON_UI_NAME = "Icon";
+        private static readonly string NAME_LABEL_UI_NAME = "NameLabel";
+        private static readonly string DESCRIPTION_LABEL_UI_NAME = "DescriptionLabel";
+        private static readonly string DETAILS_CONTENT_UI_NAME = "DetailsContent";
+        private static readonly string STATS_CONTAINER_UI_NAME = "StatsContainer";
+        private static readonly string PRIMARY_EFFECTS_CONTAINER_UI_NAME = "EffectsContainer";
+        private static readonly string PRIMARY_EFFECTS_LIST_TITLE_UI_NAME = "EffectsTitle";
+        private static readonly string PRIMARY_EFFECTS_LIST_CONTAINER_UI_NAME = "EffectsList";
+        private static readonly string SECONDARY_EFFECTS_CONTAINER_UI_NAME = "SecondaryEffectsContainer";
+        private static readonly string SECONDARY_EFFECTS_LIST_TITLE_UI_NAME = "SecondaryEffectsTitle";
+        private static readonly string SECONDARY_EFFECTS_LIST_CONTAINER_UI_NAME = "SecondaryEffectsList";
+
+        private static readonly string STAT_CONTAINER_ROOT_CLASSNAME = "objectStatContainerRoot";
+        #endregion
+
+        private readonly VisualElement _root;
+
         private readonly Label _nameLabel;
+        private readonly Label _descriptionLabel;
+        private readonly VisualElement _icon;
+
+        private readonly VisualElement _detailsContentContainer;
+
+        private readonly string _effectLineClassname;
+        private readonly VisualElement _primaryEffectsContainer;
         private readonly VisualElement _primaryEffectsListContainer;
         private readonly Label _primaryEffectsTitleLabel;
 
-        private readonly VisualElement _root;
+        private readonly VisualElement _secondaryEffectsContainer;
         private readonly VisualElement _secondaryEffectsListContainer;
         private readonly Label _secondaryEffectsTitleLabel;
 
@@ -23,12 +47,15 @@ namespace FrostfallSaga.InventorySystem.UI
         private readonly Color _statValueColor;
         private readonly Color _statIconTintColor;
 
+        private readonly float _extraPaddingTop;
+
         public ObjectDetailsUIController(
             VisualElement root,
             VisualTreeAsset statContainerTemplate,
             string effectLineClassname,
             Color statValueColor = default,
-            Color statIconTintColor = default
+            Color statIconTintColor = default,
+            float extraPaddingTopOnBigLetters = 0f
         )
         {
             _root = root;
@@ -36,13 +63,17 @@ namespace FrostfallSaga.InventorySystem.UI
             _effectLineClassname = effectLineClassname;
             _statValueColor = statValueColor;
             _statIconTintColor = statIconTintColor;
+            _extraPaddingTop = extraPaddingTopOnBigLetters;
 
             _icon = _root.Q<VisualElement>(ICON_UI_NAME);
             _nameLabel = _root.Q<Label>(NAME_LABEL_UI_NAME);
             _descriptionLabel = _root.Q<Label>(DESCRIPTION_LABEL_UI_NAME);
+            _detailsContentContainer = _root.Q<VisualElement>(DETAILS_CONTENT_UI_NAME);
             _statsContainer = _root.Q<VisualElement>(STATS_CONTAINER_UI_NAME);
+            _primaryEffectsContainer = _root.Q<VisualElement>(PRIMARY_EFFECTS_CONTAINER_UI_NAME);
             _primaryEffectsTitleLabel = _root.Q<Label>(PRIMARY_EFFECTS_LIST_TITLE_UI_NAME);
             _primaryEffectsListContainer = _root.Q<VisualElement>(PRIMARY_EFFECTS_LIST_CONTAINER_UI_NAME);
+            _secondaryEffectsContainer = _root.Q<VisualElement>(SECONDARY_EFFECTS_CONTAINER_UI_NAME);
             _secondaryEffectsTitleLabel = _root.Q<Label>(SECONDARY_EFFECTS_LIST_TITLE_UI_NAME);
             _secondaryEffectsListContainer = _root.Q<VisualElement>(SECONDARY_EFFECTS_LIST_CONTAINER_UI_NAME);
 
@@ -51,19 +82,18 @@ namespace FrostfallSaga.InventorySystem.UI
             _secondaryEffectsTitleLabel.parent.style.display = DisplayStyle.None;
         }
 
-        public void Setup(
-            Sprite icon,
-            string name,
-            string description,
-            Dictionary<Sprite, string> stats = null,
-            string primaryEffectsTitle = null,
-            List<string> primaryEffects = null,
-            string secondaryEffectsTitle = null,
-            List<string> secondaryEffects = null
-        )
+        public void Setup(IUIObjectDescribable objectToDescribe)
         {
-            SetupHeader(icon, name, description);
+            SetupHeader(objectToDescribe.GetIcon(), objectToDescribe.GetName(), objectToDescribe.GetDescription());
 
+            if (!HasAnyStatsOrEffects(objectToDescribe))
+            {
+                _detailsContentContainer.style.display = DisplayStyle.None;
+                return;
+            }
+            _detailsContentContainer.style.display = DisplayStyle.Flex;
+
+            Dictionary<Sprite, string> stats = objectToDescribe.GetStatsUIData();
             if (stats != null && stats.Count > 0)
             {
                 _statsContainer.style.display = DisplayStyle.Flex;
@@ -71,21 +101,33 @@ namespace FrostfallSaga.InventorySystem.UI
             }
             else _statsContainer.style.display = DisplayStyle.None;
 
+            List<string> primaryEffects = objectToDescribe.GetPrimaryEffectsUIData();
             if (primaryEffects != null && primaryEffects.Count > 0)
             {
                 _primaryEffectsTitleLabel.parent.style.display = DisplayStyle.Flex;
-                SetupEffectsList(_primaryEffectsTitleLabel, _primaryEffectsListContainer, primaryEffectsTitle,
-                    primaryEffects);
+                SetupEffectsList(
+                    _primaryEffectsTitleLabel,
+                    _primaryEffectsListContainer,
+                    objectToDescribe.GetPrimaryEffectsTitle(),
+                    primaryEffects
+                );
             }
             else _primaryEffectsTitleLabel.parent.style.display = DisplayStyle.None;
 
+            List<string> secondaryEffects = objectToDescribe.GetSecondaryEffectsUIData();
             if (secondaryEffects != null && secondaryEffects.Count > 0)
             {
                 _secondaryEffectsTitleLabel.parent.style.display = DisplayStyle.Flex;
-                SetupEffectsList(_secondaryEffectsTitleLabel, _secondaryEffectsListContainer, secondaryEffectsTitle,
-                    secondaryEffects);
+                SetupEffectsList(
+                    _secondaryEffectsTitleLabel,
+                    _secondaryEffectsListContainer,
+                    objectToDescribe.GetSecondaryEffectsTitle(),
+                    secondaryEffects
+                );
             }
             else _secondaryEffectsTitleLabel.parent.style.display = DisplayStyle.None;
+
+            AdjustEffectsContainersMargins(primaryEffects, secondaryEffects);
         }
 
         private void SetupHeader(Sprite icon, string name, string description)
@@ -116,33 +158,53 @@ namespace FrostfallSaga.InventorySystem.UI
             }
         }
 
-        private void SetupEffectsList(Label titleLabel, VisualElement effectsDescriptionContainer,
-            string effectsListTitle, List<string> effectsDescription)
+        private void SetupEffectsList(
+            Label titleLabel,
+            VisualElement effectsDescriptionContainer,
+            string effectsListTitle,
+            List<string> effectsDescription
+        )
         {
-            titleLabel.text = $"<u>{effectsListTitle}</u>";
+            titleLabel.text = effectsListTitle;
             effectsDescriptionContainer.Clear();
             effectsDescription.ForEach(effectDescription =>
             {
                 Label effectLabel = new();
                 effectLabel.AddToClassList(_effectLineClassname);
-                effectLabel.text = effectDescription;
+                effectLabel.text = $"- {effectDescription}";
                 effectsDescriptionContainer.Add(effectLabel);
             });
         }
 
-        #region UI Elements Names & Classes
+        private void AdjustEffectsContainersMargins(List<string> primaryEffects, List<string> secondaryEffects)
+        {
+            bool hasPrimaryEffects = primaryEffects != null && primaryEffects.Count > 0;
+            bool hasSecondaryEffects = secondaryEffects != null && secondaryEffects.Count > 0;
 
-        private static readonly string ICON_UI_NAME = "Icon";
-        private static readonly string NAME_LABEL_UI_NAME = "NameLabel";
-        private static readonly string DESCRIPTION_LABEL_UI_NAME = "DescriptionLabel";
-        private static readonly string STATS_CONTAINER_UI_NAME = "StatsContainer";
-        private static readonly string PRIMARY_EFFECTS_LIST_TITLE_UI_NAME = "EffectsTitle";
-        private static readonly string PRIMARY_EFFECTS_LIST_CONTAINER_UI_NAME = "EffectsList";
-        private static readonly string SECONDARY_EFFECTS_LIST_TITLE_UI_NAME = "SecondaryEffectsTitle";
-        private static readonly string SECONDARY_EFFECTS_LIST_CONTAINER_UI_NAME = "SecondaryEffectsList";
+            if (hasPrimaryEffects && !hasSecondaryEffects)
+            {
+                _primaryEffectsContainer.style.marginTop = new Length(5, LengthUnit.Percent);
+            }
+            else if (!hasPrimaryEffects && hasSecondaryEffects)
+            {
+                _secondaryEffectsContainer.style.marginTop = new Length(5, LengthUnit.Percent);
+            }
+            else
+            {
+                _primaryEffectsContainer.style.marginTop = new Length(3, LengthUnit.Percent);
+                _secondaryEffectsContainer.style.marginTop = new Length(3, LengthUnit.Percent);
+            }
+        }
 
-        private static readonly string STAT_CONTAINER_ROOT_CLASSNAME = "objectStatContainerRoot";
+        private bool HasAnyStatsOrEffects(IUIObjectDescribable objectToDescribe)
+        {
+            Dictionary<Sprite, string> stats = objectToDescribe.GetStatsUIData();
+            List<string> primaryEffects = objectToDescribe.GetPrimaryEffectsUIData();
+            List<string> secondaryEffects = objectToDescribe.GetSecondaryEffectsUIData();
 
-        #endregion
+            return (stats != null && stats.Count > 0) ||
+                   (primaryEffects != null && primaryEffects.Count > 0) ||
+                   (secondaryEffects != null && secondaryEffects.Count > 0);
+        }
     }
 }

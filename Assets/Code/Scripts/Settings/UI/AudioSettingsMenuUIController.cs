@@ -12,7 +12,7 @@ namespace FrostfallSaga.Settings.UI
         private static readonly string UI_VOLUME_SLIDER_UI_NAME = "UIVolumeSlider";
         private static readonly string SLIDER_VALUE_LABEL_UI_NAME = "SliderValue";
 
-        private static readonly string SLIDER_DRAGGER_ACTIVE_CLASS_NAME = "sliderDraggerActive";
+        private static readonly string SLIDER_DRAGGER_ACTIVE_CLASSNAME = "sliderDraggerActive";
         #endregion
 
         private static AudioManager _audioManager;
@@ -77,13 +77,13 @@ namespace FrostfallSaga.Settings.UI
         private static void OnMouseEnterDragger(MouseEnterEvent evt)
         {
             VisualElement dragger = (VisualElement)evt.currentTarget;
-            dragger.AddToClassList(SLIDER_DRAGGER_ACTIVE_CLASS_NAME);
+            dragger.AddToClassList(SLIDER_DRAGGER_ACTIVE_CLASSNAME);
         }
 
         private static void OnMouseLeaveDragger(MouseLeaveEvent evt)
         {
             VisualElement dragger = (VisualElement)evt.currentTarget;
-            dragger.RemoveFromClassList(SLIDER_DRAGGER_ACTIVE_CLASS_NAME);
+            dragger.RemoveFromClassList(SLIDER_DRAGGER_ACTIVE_CLASSNAME);
         }
 
         private static void SetSliderValue(SliderInt slider, int value)

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Core.InventorySystem;
-using FrostfallSaga.Utils.Trees;
+using FrostfallSaga.Utils.DataStructures.GraphNode;
 using UnityEngine;
 
 namespace FrostfallSaga.Core.Fight
@@ -60,7 +60,7 @@ namespace FrostfallSaga.Core.Fight
             }
 
             // Otherwise, check if all parents are unlocked
-            GraphNode<ABaseAbility> node = GraphNode<ABaseAbility>.FindInGraph(FighterClass.AbilitiesGraphModel, ability);
+            GraphNode<ABaseAbility> node = GraphNode<ABaseAbility>.FindInGraph(FighterClass.AbilitiesGraphRoot, ability);
             if (node == null)
             {
                 Debug.LogError($"Ability {ability.Name} not found in graph.");
@@ -68,7 +68,7 @@ namespace FrostfallSaga.Core.Fight
             }
 
             // If all parents are unlocked, return unlockable state
-            if (node.Parents.All(
+            if (node.Parents.Count == 0 || node.Parents.All(
                 parent => UnlockedActiveAbilities.Contains(parent.Data) || UnlockedPassiveAbilities.Contains(parent.Data)
             ))
             {
@@ -89,10 +89,10 @@ namespace FrostfallSaga.Core.Fight
                     return;
                 }
 
+                // Replace the last equipped ability if the capacity is reached
                 if (EquippedActiveAbilities.Count >= ActiveAbilitiesCapacity)
                 {
-                    Debug.Log($"Cannot equip more than {ActiveAbilitiesCapacity} active abilities.");
-                    return;
+                    EquippedActiveAbilities.RemoveAt(-1);
                 }
 
                 EquippedActiveAbilities.Add(activeAbility);
@@ -105,10 +105,10 @@ namespace FrostfallSaga.Core.Fight
                     return;
                 }
 
+                // Replace the last equipped ability if the capacity is reached
                 if (EquippedPassiveAbilities.Count >= PassiveAbilitiesCapacity)
                 {
-                    Debug.Log($"Cannot equip more than {PassiveAbilitiesCapacity} passive abilities.");
-                    return;
+                    EquippedPassiveAbilities.RemoveAt(-1);
                 }
 
                 EquippedPassiveAbilities.Add(passiveAbility);
@@ -124,6 +124,23 @@ namespace FrostfallSaga.Core.Fight
             else if (ability is APassiveAbility passiveAbility)
             {
                 return EquippedPassiveAbilities.Remove(passiveAbility);
+            }
+            else
+            {
+                Debug.LogError($"Ability {ability.Name} is not an active or passive ability.");
+                return false;
+            }
+        }
+
+        public bool IsAbilityEquipped(ABaseAbility ability)
+        {
+            if (ability is AActiveAbility activeAbility)
+            {
+                return EquippedActiveAbilities.Contains(activeAbility);
+            }
+            else if (ability is APassiveAbility passiveAbility)
+            {
+                return EquippedPassiveAbilities.Contains(passiveAbility);
             }
             else
             {

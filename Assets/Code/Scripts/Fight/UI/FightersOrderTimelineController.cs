@@ -9,17 +9,27 @@ namespace FrostfallSaga.Fight.UI
 {
     public class FightersOrderTimelineController : BaseUIController
     {
-        [SerializeField] private VisualTreeAsset characterContainerTemplate;
-        [SerializeField] private VisualTreeAsset statContainerTemplate;
-        [SerializeField] private VisualTreeAsset statusIconContainerTemplate;
-        [SerializeField] private FightManager fightManager;
-        private FighterResistancesPanelController _resistancesPanelController;
-        private StatusDetailsPanelUIController _statusesDetailsPanelController;
+        #region UXML UI Names & Classes
+        private static readonly string TIMELINE_ROOT_UI_NAME = "TimelinePanelRoot";
+        private static readonly string TIMELINE_PANEL_UI_NAME = "TimelinePanel";
+        private static readonly string TIMELINE_CONTENT_CONTAINER_UI_NAME = "TimelineContentContainer";
+        private static readonly string FIGHTER_RESISTANCE_PANEL_UI_NAME = "FighterResistancesPanel";
 
-        private VisualElement _timelineContentContainer;
+        private static readonly string TIMELINE_CHARACTER_CONTAINER_ROOT_CLASSNAME = "timelineCharacterContainerRoot";
+        #endregion
+
+        [SerializeField] private VisualTreeAsset _characterContainerTemplate;
+        [SerializeField] private VisualTreeAsset _statContainerTemplate;
+        [SerializeField] private VisualTreeAsset _statusIconContainerTemplate;
+        [SerializeField] private VisualTreeAsset _statusDetailsOverlayTemplate;
+        [SerializeField] private FightManager _fightManager;
 
         public Action<Fighter> onFighterHovered;
         public Action<Fighter> onFighterUnhovered;
+
+        private VisualElement _timelineContentContainer;
+        private FighterResistancesPanelController _resistancesPanelController;
+        private StatusDetailsOverlayUIController _statusesDetailsOverlayController;
 
         #region Setup & tear down
 
@@ -32,14 +42,14 @@ namespace FrostfallSaga.Fight.UI
                 return;
             }
 
-            if (fightManager == null) fightManager = FindObjectOfType<FightManager>();
-            if (fightManager == null)
+            if (_fightManager == null) _fightManager = FindObjectOfType<FightManager>();
+            if (_fightManager == null)
             {
                 Debug.LogError("No FightManager to work with. UI can't be updated dynamically.");
                 return;
             }
 
-            if (characterContainerTemplate == null)
+            if (_characterContainerTemplate == null)
             {
                 Debug.LogError("No character container template to work with. UI can't be updated dynamically.");
                 return;
@@ -54,15 +64,14 @@ namespace FrostfallSaga.Fight.UI
 
             _resistancesPanelController = new(
                 timelineRoot.Q<VisualElement>(FIGHTER_RESISTANCE_PANEL_UI_NAME),
-                statContainerTemplate
+                _statContainerTemplate
             );
             _resistancesPanelController.Hide();
 
-            _statusesDetailsPanelController = new(timelineRoot.Q<VisualElement>(STATUS_DETAILS_PANEL_UI_NAME));
-            _statusesDetailsPanelController.Hide();
+            _statusesDetailsOverlayController = new(_statusDetailsOverlayTemplate);
 
-            fightManager.onFightersTurnOrderUpdated += OnFightersTurnOrderUpdated;
-            fightManager.onFightEnded += (_, _) => _timelineContentContainer.RemoveFromHierarchy();
+            _fightManager.onFightersTurnOrderUpdated += OnFightersTurnOrderUpdated;
+            _fightManager.onFightEnded += (_, _) => _timelineContentContainer.RemoveFromHierarchy();
         }
 
         #endregion
@@ -76,14 +85,19 @@ namespace FrostfallSaga.Fight.UI
             float timelineCharacterContainerHeight = GetTimelineCharacterContainerHeight(fighters.Length);
 
             // Instantiate the new character containers for each fighter
-            foreach (Fighter fighter in fighters)
+            for (int i = 0;  i < fighters.Length; i++)
             {
+                Fighter fighter = fighters[i];
+
                 // Configure the character container
-                VisualElement characterContainerRoot = characterContainerTemplate.Instantiate();
+                VisualElement characterContainerRoot = _characterContainerTemplate.Instantiate();
                 characterContainerRoot.AddToClassList(TIMELINE_CHARACTER_CONTAINER_ROOT_CLASSNAME);
 
                 TimelineCharacterUIController characterUIController = new(
-                    characterContainerRoot, fighter, statusIconContainerTemplate
+                    root: characterContainerRoot,
+                    fighter: fighter,
+                    statusIconContainerTemplate: _statusIconContainerTemplate,
+                    positionInTimeline: GetPositionInTimeline(i, fighters.Length)
                 );
                 characterUIController.onFighterHovered += OnFighterHovered;
                 characterUIController.onFighterUnhovered += OnFighterUnhovered;
@@ -93,6 +107,17 @@ namespace FrostfallSaga.Fight.UI
                 // Add the character container to the timeline content container
                 _timelineContentContainer.Add(characterContainerRoot);
             }
+        }
+
+        private static TimelineCharacterUIController.ETimelinePosition GetPositionInTimeline(
+            int fighterIndex,
+            int totalFighters
+        )
+        {
+            if (totalFighters == 1) return TimelineCharacterUIController.ETimelinePosition.SOLO;
+            if (fighterIndex == 0) return TimelineCharacterUIController.ETimelinePosition.TOP;
+            if (fighterIndex == totalFighters - 1) return TimelineCharacterUIController.ETimelinePosition.BOTTOM;
+            return TimelineCharacterUIController.ETimelinePosition.MIDDLE;
         }
 
         private void OnFighterHovered(TimelineCharacterUIController hoveredCharacter)
@@ -109,34 +134,21 @@ namespace FrostfallSaga.Fight.UI
 
         private void OnStatusIconHovered(TimelineCharacterUIController character, AStatus status, int lastingDuration)
         {
-            _statusesDetailsPanelController.Root.style.top =
-                character.Root.worldBound.y - character.Root.worldBound.height + 20;
-            _statusesDetailsPanelController.Display(status, lastingDuration);
+            _statusesDetailsOverlayController.SetStatus(status, lastingDuration);
+            _statusesDetailsOverlayController.ShowOverlay(followMouse: true);
         }
 
         private void OnStatusIconUnhovered(TimelineCharacterUIController character, AStatus status, int lastingDuration)
         {
-            _statusesDetailsPanelController.Hide();
+            _statusesDetailsOverlayController.HideOverlay();
         }
 
         private static float GetTimelineCharacterContainerHeight(int characterContainerCount)
         {
             if (characterContainerCount == 0) return 0; // Avoid division by zero
-            return
-                (314.31f / characterContainerCount) -
-                2.08f; // INFO: Formula to compute the height of the character containers
+
+            // INFO: Formula to compute the height of the character containers
+            return (314.31f / characterContainerCount) - 2.08f;
         }
-
-        #region UXML UI Names & Classes
-
-        private static readonly string TIMELINE_ROOT_UI_NAME = "TimelinePanelRoot";
-        private static readonly string TIMELINE_PANEL_UI_NAME = "TimelinePanel";
-        private static readonly string TIMELINE_CONTENT_CONTAINER_UI_NAME = "TimelineContentContainer";
-        private static readonly string FIGHTER_RESISTANCE_PANEL_UI_NAME = "FighterResistancesPanel";
-        private static readonly string STATUS_DETAILS_PANEL_UI_NAME = "StatusDetailsPanel";
-
-        private static readonly string TIMELINE_CHARACTER_CONTAINER_ROOT_CLASSNAME = "timelineCharacterContainerRoot";
-
-        #endregion
     }
 }

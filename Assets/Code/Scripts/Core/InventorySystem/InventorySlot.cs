@@ -7,21 +7,32 @@ namespace FrostfallSaga.Core.InventorySystem
     public class InventorySlot
     {
         [field: SerializeField] public ItemSO Item { get; private set; }
+        [field: SerializeField] public EItemSlotTag SlotTag { get; private set; }
         [field: SerializeField] public int ItemCount { get; private set; }
         [field: SerializeField] public int MaxItemCount { get; private set; }
 
         public InventorySlot()
         {
             Item = null;
+            SlotTag = EItemSlotTag.BAG;
             ItemCount = 0;
             MaxItemCount = 99;
         }
 
-        public InventorySlot(int maxItemCount)
+        public InventorySlot(int maxItemCount, EItemSlotTag slotTag)
         {
+            SlotTag = slotTag;
             Item = null;
             ItemCount = 0;
             MaxItemCount = maxItemCount;
+        }
+
+        public InventorySlot(ItemSO item, int itemCount, int maxItemCount, EItemSlotTag slotTag)
+        {
+            Item = item;
+            ItemCount = itemCount;
+            MaxItemCount = maxItemCount;
+            SlotTag = slotTag;
         }
 
         public Tuple<ItemSO, int> ReplaceItem(ItemSO item, int itemCount)

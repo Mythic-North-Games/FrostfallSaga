@@ -19,6 +19,7 @@ namespace FrostfallSaga.Core.InventorySystem
         [field: SerializeField] public InventorySlot HelmetSlot { get; protected set; }
         [field: SerializeField] public InventorySlot ChestplateSlot { get; protected set; }
         [field: SerializeField] public InventorySlot GauntletsSlot { get; protected set; }
+        [field: SerializeField] public InventorySlot LeggingsSlot { get; protected set; }
         [field: SerializeField] public InventorySlot BootsSlot { get; protected set; }
 
         /////////////////
@@ -36,11 +37,12 @@ namespace FrostfallSaga.Core.InventorySystem
 
         public Inventory()
         {
-            WeaponSlot = new InventorySlot(1);
-            HelmetSlot = new InventorySlot(1);
-            ChestplateSlot = new InventorySlot(1);
-            GauntletsSlot = new InventorySlot(1);
-            BootsSlot = new InventorySlot(1);
+            WeaponSlot = new InventorySlot(1, EItemSlotTag.WEAPON);
+            HelmetSlot = new InventorySlot(1, EItemSlotTag.HEAD);
+            ChestplateSlot = new InventorySlot(1, EItemSlotTag.CHEST);
+            GauntletsSlot = new InventorySlot(1, EItemSlotTag.HANDS);
+            LeggingsSlot = new InventorySlot(1, EItemSlotTag.LEGS);
+            BootsSlot = new InventorySlot(1, EItemSlotTag.FEET);
 
             BagSlots = new InventorySlot[24];
             for (int i = 0; i < BagSlots.Length; i++) BagSlots[i] = new InventorySlot();
@@ -89,6 +91,15 @@ namespace FrostfallSaga.Core.InventorySystem
         }
 
         /// <summary>
+        /// Get the leggings equipped by the player if there are some.
+        /// </summary>
+        /// <returns>The leggings equipped by the player, or null if there are none</returns>
+        public AArmor GetLeggings()
+        {
+            return LeggingsSlot.Item as AArmor;
+        }
+
+        /// <summary>
         /// Get the boots equipped by the player if there are some.
         /// </summary>
         /// <returns>The boots equipped by the player, or null if there are none</returns>
@@ -107,6 +118,7 @@ namespace FrostfallSaga.Core.InventorySystem
             if (!HelmetSlot.IsEmpty()) armorPieces.Add(HelmetSlot.Item as AArmor);
             if (!ChestplateSlot.IsEmpty()) armorPieces.Add(ChestplateSlot.Item as AArmor);
             if (!GauntletsSlot.IsEmpty()) armorPieces.Add(GauntletsSlot.Item as AArmor);
+            if (!LeggingsSlot.IsEmpty()) armorPieces.Add(LeggingsSlot.Item as AArmor);
             if (!BootsSlot.IsEmpty()) armorPieces.Add(BootsSlot.Item as AArmor);
             return armorPieces.ToArray();
         }
@@ -117,7 +129,7 @@ namespace FrostfallSaga.Core.InventorySystem
         /// <returns>An array of all the equipment slots</returns>
         public InventorySlot[] GetEquipmentSlots()
         {
-            return new InventorySlot[] { WeaponSlot, HelmetSlot, ChestplateSlot, GauntletsSlot, BootsSlot };
+            return new InventorySlot[] { WeaponSlot, HelmetSlot, ChestplateSlot, GauntletsSlot, LeggingsSlot, BootsSlot };
         }
 
         /// <summary>
@@ -180,11 +192,12 @@ namespace FrostfallSaga.Core.InventorySystem
 
             Tuple<ItemSO, int> replacedItem = item.SlotTag switch
             {
-                EItemSlotTag.WEAPON => WeaponSlot.ReplaceItem(item, 1),
                 EItemSlotTag.HEAD => HelmetSlot.ReplaceItem(item, 1),
                 EItemSlotTag.CHEST => ChestplateSlot.ReplaceItem(item, 1),
                 EItemSlotTag.HANDS => GauntletsSlot.ReplaceItem(item, 1),
+                EItemSlotTag.LEGS => LeggingsSlot.ReplaceItem(item, 1),
                 EItemSlotTag.FEET => BootsSlot.ReplaceItem(item, 1),
+                EItemSlotTag.WEAPON => WeaponSlot.ReplaceItem(item, 1),
                 EItemSlotTag.BAG => throw new InventoryException("Cannot equip bag items"),
                 _ => null
             };

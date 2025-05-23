@@ -175,7 +175,7 @@ namespace FrostfallSaga.Fight.Abilities
             };
         }
 
-        public override List<string> GetEffectsUIData()
+        public override List<string> GetPrimaryEffectsUIData()
         {
             return effects
                 .Select(effect => effect.GetUIEffectDescription())
@@ -183,7 +183,7 @@ namespace FrostfallSaga.Fight.Abilities
                 .ToList();
         }
 
-        public override List<string> GetMasterstrokeEffectsUIData()
+        public override List<string> GetSecondaryEffectsUIData()
         {
             return masterstrokeEffects
                 .Select(effect => effect.GetUIEffectDescription())

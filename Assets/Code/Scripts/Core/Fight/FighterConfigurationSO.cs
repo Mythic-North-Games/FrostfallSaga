@@ -20,7 +20,13 @@ namespace FrostfallSaga.Core.Fight
 
         [field: SerializeField]
         [field: Tooltip("Item -> (Apparition chance at fight start, Max apparition count)")]
-        public SElementToValue<ItemSO, SElementToValue<float, int>>[] AvailableItems { get; private set; }
+        private SElementToValue<ItemSO, (float apparitionChance, int maxApparitionCount)>[] _availableItems;
+
+        public Dictionary<ItemSO, (float apparitionChance, int maxApparitionCount)> AvailableItems
+        {
+            get => SElementToValue<ItemSO, (float, int)>.GetDictionaryFromArray(_availableItems);
+            private set => _availableItems = SElementToValue<ItemSO, (float, int)>.GetArrayFromDictionary(value);
+        }
 
         [field: SerializeField] public int MinStycasLoot { get; private set; }
         [field: SerializeField] public int MaxStycasLoot { get; private set; }
@@ -41,23 +47,23 @@ namespace FrostfallSaga.Core.Fight
             Dexterity = 0;
             Tenacity = 0;
             PhysicalResistance = 0;
-            MagicalResistances = new SElementToValue<EMagicalElement, int>[]
+            MagicalResistances = new Dictionary<EMagicalElement, int>
             {
-                new(EMagicalElement.FIRE, 0),
-                new(EMagicalElement.ICE, 0),
-                new(EMagicalElement.LIGHTNING, 0),
-                new(EMagicalElement.EARTH, 0),
-                new(EMagicalElement.LIGHT, 0),
-                new(EMagicalElement.DARKNESS, 0)
+                { EMagicalElement.FIRE, 0 },
+                { EMagicalElement.ICE, 0 },
+                { EMagicalElement.LIGHTNING, 0 },
+                { EMagicalElement.EARTH, 0 },
+                { EMagicalElement.LIGHT, 0 },
+                { EMagicalElement.DARKNESS, 0 }
             };
-            MagicalResistances = new SElementToValue<EMagicalElement, int>[]
+            MagicalStrengths = new Dictionary<EMagicalElement, int>
             {
-                new(EMagicalElement.FIRE, 0),
-                new(EMagicalElement.ICE, 0),
-                new(EMagicalElement.LIGHTNING, 0),
-                new(EMagicalElement.EARTH, 0),
-                new(EMagicalElement.LIGHT, 0),
-                new(EMagicalElement.DARKNESS, 0)
+                { EMagicalElement.FIRE, 0 },
+                { EMagicalElement.ICE, 0 },
+                { EMagicalElement.LIGHTNING, 0 },
+                { EMagicalElement.EARTH, 0 },
+                { EMagicalElement.LIGHT, 0 },
+                { EMagicalElement.DARKNESS, 0 }
             };
             DodgeChance = 0;
             MasterstrokeChance = 0;
@@ -82,8 +88,8 @@ namespace FrostfallSaga.Core.Fight
                 dexterity = Dexterity,
                 tenacity = Tenacity,
                 physicalResistance = PhysicalResistance,
-                magicalResistances = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(MagicalResistances),
-                magicalStrengths = SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(MagicalStrengths),
+                magicalResistances = MagicalResistances,
+                magicalStrengths = MagicalStrengths,
                 dodgeChance = DodgeChance,
                 masterstrokeChance = MasterstrokeChance,
                 initiative = Initiative
@@ -120,8 +126,19 @@ namespace FrostfallSaga.Core.Fight
         [field: Range(0, 9999)]
         public int PhysicalResistance { get; private set; }
 
-        [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MagicalResistances { get; private set; }
-        [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MagicalStrengths { get; private set; }
+        [field: SerializeField] private SElementToValue<EMagicalElement, int>[] _magicalResistances;
+        public Dictionary<EMagicalElement, int> MagicalResistances
+        {
+            get => SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(_magicalResistances);
+            private set => _magicalResistances = SElementToValue<EMagicalElement, int>.GetArrayFromDictionary(value);
+        }
+
+        [field: SerializeField] private SElementToValue<EMagicalElement, int>[] _magicalStrengths;
+        public Dictionary<EMagicalElement, int> MagicalStrengths
+        {
+            get => SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(_magicalStrengths);
+            private set => _magicalStrengths = SElementToValue<EMagicalElement, int>.GetArrayFromDictionary(value);
+        }
 
         [field: SerializeField]
         [field: Range(0, 1)]

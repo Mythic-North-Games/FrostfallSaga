@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FrostfallSaga.Core.InventorySystem
@@ -12,6 +11,9 @@ namespace FrostfallSaga.Core.InventorySystem
             SlotTag = EItemSlotTag.BAG;
         }
 
-        public abstract List<string> GetEffectsUIData();
+        public override string GetPrimaryEffectsTitle()
+        {
+            return "Effects";
+        }
     }
 }

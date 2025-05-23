@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Core.Dialogues;
 using FrostfallSaga.Core.Quests;
-using FrostfallSaga.Utils.Trees;
+using FrostfallSaga.Utils.DataStructures.TreeNode;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;

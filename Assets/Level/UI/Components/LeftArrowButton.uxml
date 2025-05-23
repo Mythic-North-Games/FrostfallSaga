@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Components/leftArrowButton.uss?fileID=7433441132597879392&amp;guid=4f4739b88a24282cfa3367bdca6a966a&amp;type=3#leftArrowButton" />
+    <ui:VisualElement name="LeftArrowButtonContainer" style="width: 100%; height: 100%; flex-direction: row; align-items: center;">
+        <ui:VisualElement name="LeftArrow" class="leftArrow" />
+        <ui:Button text="What do you know about god favors?" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Button" />
+    </ui:VisualElement>
+</ui:UXML>

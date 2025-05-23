@@ -1,93 +1,3 @@
-.controlPanelButton {
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-left: 5%;
-    width: 90%;
-    height: 25%;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 250%;
-    border-left-color: rgb(100, 100, 100);
-    border-right-color: rgb(100, 100, 100);
-    border-top-color: rgb(100, 100, 100);
-    border-bottom-color: rgb(100, 100, 100);
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 2px;
-    border-left-width: 0;
-    color: rgb(25, 25, 25);
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    -unity-text-align: lower-left;
-    background-color: rgba(225, 225, 225, 0);
-    transition-duration: 0.175s;
-    transition-timing-function: ease-in-out-cubic;
-    transition-property: background-color;
-}
-
-.controlPanelButton:hover {
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-left: 5%;
-    width: 90%;
-    height: 25%;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 250%;
-    border-left-color: rgb(100, 100, 100);
-    border-right-color: rgb(100, 100, 100);
-    border-top-color: rgb(100, 100, 100);
-    border-bottom-color: rgb(100, 100, 100);
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 2px;
-    border-left-width: 0;
-    color: rgb(25, 25, 25);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    -unity-text-align: lower-left;
-    background-color: rgba(225, 225, 225, 0.39);
-}
-
-.controlPanelButton:active {
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-left: 5%;
-    width: 90%;
-    height: 25%;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 250%;
-    border-left-color: rgb(100, 100, 100);
-    border-right-color: rgb(100, 100, 100);
-    border-top-color: rgb(100, 100, 100);
-    border-bottom-color: rgb(100, 100, 100);
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 2px;
-    border-left-width: 0;
-    color: rgb(125, 125, 125);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    -unity-text-align: lower-left;
-    background-color: rgba(225, 225, 225, 0.39);
-}
-
 .baseSettingsSlider {
     align-items: stretch;
     margin-top: 0;
@@ -98,7 +8,9 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    width: 60%;
+    width: 64%;
+    background-color: rgba(0, 0, 0, 0);
+    justify-content: center;
 }
 
 .baseSettingsSlider > Label {
@@ -107,19 +19,25 @@
 
 .baseSettingsSlider > VisualElement {
     flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    justify-content: center;
+    align-items: stretch;
 }
 
 .baseSettingsSlider #unity-tracker {
-    background-color: rgba(25, 25, 25, 0.78);
+    background-color: rgba(25, 25, 25, 0);
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
-    border-top-width: 1px;
-    border-right-width: 1px;
-    border-bottom-width: 1px;
-    border-left-width: 1px;
-    height: 20%;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    height: 30%;
+    background-image: url("project://database/Assets/Art/UI/Separators/handDrawnSeparators.png?fileID=-2088539320&guid=29ff46483fb1774b1b00fa4cacc3ac67&type=3#handDrawnSimpleSeparator_0");
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    -unity-slice-scale: 0.25px;
 }
 
 .baseSettingsSlider #unity-dragger {
@@ -127,40 +45,52 @@
     border-right-color: rgb(25, 25, 25);
     border-top-color: rgb(25, 25, 25);
     border-bottom-color: rgb(25, 25, 25);
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
-    background-color: rgb(225, 225, 225);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    width: 21px;
+    width: 23px;
     rotate: 45deg;
-    background-image: none;
-    height: 21px;
-    margin-top: -11px;
+    height: 23px;
+    margin-top: -11.5px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnFilledSquareContainer.png?fileID=21300000&guid=5f925e3114de89700a7417920f24565c&type=3#handDrawnFilledSquareContainer");
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    -unity-background-scale-mode: scale-to-fit;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.baseSettingsSlider #unity-dragger:hover {
+    border-left-color: rgb(25, 25, 25);
+    border-right-color: rgb(25, 25, 25);
+    border-top-color: rgb(25, 25, 25);
+    border-bottom-color: rgb(25, 25, 25);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    width: 23px;
+    rotate: 45deg;
+    height: 23px;
+    margin-top: -11.5px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnFilledSquareContainer.png?fileID=21300000&guid=5f925e3114de89700a7417920f24565c&type=3#handDrawnFilledSquareContainer");
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    -unity-background-scale-mode: scale-to-fit;
+    scale: 1.1 1.1;
 }
 
 .baseSettingsSlider #unity-text-field {
     display: none;
-}
-
-.baseSettingsSlider TextElement {
-    background-color: rgba(0, 0, 0, 0);
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 175%;
-    color: rgb(25, 25, 25);
-    -unity-text-align: middle-left;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
 }
 
 .sliderContainer {
@@ -174,16 +104,19 @@
 
 .sliderTitle {
     margin-top: 0;
-    margin-right: 6%;
+    margin-right: 3%;
     margin-bottom: 0;
     margin-left: 0;
     padding-top: 0;
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 200%;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
+    font-size: 160%;
     width: 25%;
+    -unity-font-style: normal;
+    -unity-text-outline-width: 0.5px;
+    -unity-text-outline-color: rgb(25, 25, 25);
 }
 
 .sliderDraggerActive {
@@ -199,7 +132,35 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 175%;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
+    font-size: 160%;
     -unity-text-align: middle-right;
+    -unity-text-outline-width: 0.5px;
+    -unity-text-outline-color: rgb(25, 25, 25);
+}
+
+#ControlButtonsContainer #Button {
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    -unity-text-outline-width: 1.5px;
+    color: rgb(25, 25, 25);
+    -unity-text-outline-color: rgb(25, 25, 25);
+    font-size: 60px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-text-align: middle-center;
+}
+
+#ControlButtonsContainer #LeftArrow {
+    -unity-background-image-tint-color: rgb(25, 25, 25);
 }

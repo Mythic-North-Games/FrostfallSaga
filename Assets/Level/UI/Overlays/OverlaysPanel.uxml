@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Overlays/objectDetailsOverlay.uss?fileID=7433441132597879392&amp;guid=438e75fec5fb8f9b5972c278b25d02e9&amp;type=3#objectDetailsOverlay" />
+    <Style src="project://database/Assets/Level/UI/Overlays/statusDetailsOverlay.uss?fileID=7433441132597879392&amp;guid=edf57dfdfab7bdedbb4391720dcf13e6&amp;type=3#statusDetailsOverlay" />
+    <ui:VisualElement name="OverlaysRoot" picking-mode="Ignore" style="flex-grow: 1; width: 100%; height: 100%;" />
+</ui:UXML>

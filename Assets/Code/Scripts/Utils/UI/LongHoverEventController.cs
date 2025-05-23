@@ -15,7 +15,7 @@ namespace FrostfallSaga.Utils.UI
         public Action<T> onElementLongHovered;
         public Action<T> onElementLongUnhovered;
 
-        public LongHoverEventController(T element, float duration = 1f)
+        public LongHoverEventController(T element, float duration = 0.5f)
         {
             _targetElement = element;
             _hoverDuration = duration;

@@ -6,7 +6,7 @@ using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Targeters;
 using FrostfallSaga.Utils;
-using FrostfallSaga.Utils.Trees.BehaviourTree;
+using FrostfallSaga.Utils.DataStructures.BehaviourTree;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions
 {

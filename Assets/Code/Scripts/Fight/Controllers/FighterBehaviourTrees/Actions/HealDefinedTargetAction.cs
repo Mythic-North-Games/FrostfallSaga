@@ -4,7 +4,7 @@ using FrostfallSaga.Fight.Abilities;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Utils;
-using FrostfallSaga.Utils.Trees.BehaviourTree;
+using FrostfallSaga.Utils.DataStructures.BehaviourTree;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions

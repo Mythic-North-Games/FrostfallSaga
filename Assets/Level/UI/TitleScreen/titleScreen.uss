@@ -8,8 +8,8 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 400%;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 75px;
     -unity-font-style: normal;
     color: rgb(225, 225, 225);
     -unity-text-align: middle-center;
@@ -25,6 +25,8 @@
     border-left-width: 0;
     text-shadow: 0 1px 50px rgba(225, 225, 225, 0.59);
     left: 45%;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(233, 233, 233);
 }
 
 .startButtonDefault:hover {
@@ -37,8 +39,8 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 400%;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 75px;
     -unity-font-style: normal;
     color: rgb(225, 225, 225);
     -unity-text-align: middle-center;
@@ -54,6 +56,8 @@
     border-left-width: 0;
     text-shadow: 0 3px 50px rgb(225, 225, 225);
     left: 45%;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(233, 233, 233);
 }
 
 .startButtonGlow {
@@ -66,8 +70,8 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 400%;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 75px;
     -unity-font-style: normal;
     color: rgb(225, 225, 225);
     -unity-text-align: middle-center;
@@ -83,6 +87,8 @@
     border-left-width: 0;
     text-shadow: 0 3px 50px rgb(225, 225, 225);
     left: 45%;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(225, 225, 225);
 }
 
 .startButtonHidden {
@@ -95,8 +101,8 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 400%;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 75px;
     -unity-font-style: normal;
     color: rgb(225, 225, 225);
     -unity-text-align: middle-center;
@@ -114,4 +120,6 @@
     left: 45%;
     opacity: 0;
     letter-spacing: 5px;
+    -unity-text-outline-color: rgb(225, 225, 225);
+    -unity-text-outline-width: 1px;
 }

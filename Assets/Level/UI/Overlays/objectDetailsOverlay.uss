@@ -1,0 +1,62 @@
+.objectDetailsContainer {
+    position: absolute;
+    width: auto;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    top: auto;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+    bottom: auto;
+    background-image: url("project://database/Assets/Art/UI/Containers/agedScratchedPageContainer.png?fileID=21300000&guid=5f85d13b9e9695c309675f4032d034fa&type=3#agedScratchedPageContainer");
+    -unity-slice-scale: 0.4px;
+    left: auto;
+    max-width: 650px;
+    -unity-background-image-tint-color: rgb(70, 70, 70);
+}
+
+.objectDetailsContainerHidden {
+    position: absolute;
+    width: auto;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    top: auto;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+    bottom: auto;
+    background-image: url("project://database/Assets/Art/UI/Containers/agedScratchedPageContainer.png?fileID=21300000&guid=5f85d13b9e9695c309675f4032d034fa&type=3#agedScratchedPageContainer");
+    -unity-background-image-tint-color: rgb(70, 70, 70);
+    -unity-slice-scale: 0.4px;
+    left: auto;
+    max-width: 650px;
+    opacity: 0;
+}
+
+.objectDetailsEffectLine {
+    -unity-text-outline-color: rgb(225, 225, 225);
+    color: rgb(225, 225, 225);
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
+    font-size: 19px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-text-outline-width: 1px;
+    white-space: normal;
+    min-width: 250px;
+}

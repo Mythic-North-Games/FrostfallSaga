@@ -9,7 +9,6 @@ namespace FrostfallSaga.Core.UI
     public class BaseUIController : MonoBehaviour
     {
         [SerializeField] protected UIDocument _uiDoc;
-
         private void Start()
         {
             if (_uiDoc == null)

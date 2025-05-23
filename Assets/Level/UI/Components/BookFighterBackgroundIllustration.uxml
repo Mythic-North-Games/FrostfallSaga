@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Components/BookFighterBackgroundIllustration.uss?fileID=7433441132597879392&amp;guid=8d604e6d88cb03753b44ff4ae5cd0fe5&amp;type=3#BookFighterBackgroundIllustration" />
+    <ui:VisualElement name="FighterBackgroundIllustration" class="fighterBackgroundIllustration" style="transition-duration: 0.25s; background-image: url(&quot;project://database/Assets/Art/UI/Illustrations/shamanInventoryIllustration.png?fileID=2800000&amp;guid=2b40cbba9aef260b8b6f057cd5762822&amp;type=3#shamanInventoryIllustration&quot;); -unity-background-image-tint-color: rgb(173, 135, 91);" />
+</ui:UXML>

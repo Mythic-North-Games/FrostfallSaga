@@ -15,7 +15,7 @@ MonoBehaviour:
   <Name>k__BackingField: Iron axe
   <Description>k__BackingField: Basic iron axe, good for any beginner adventurer
   <IconSprite>k__BackingField: {fileID: 21300000, guid: afc31317a00029b59b5827c276718dec, type: 3}
-  <SlotTag>k__BackingField: 4
+  <SlotTag>k__BackingField: 5
   <LootChance>k__BackingField: 0
   <AttackTargeter>k__BackingField:
     <OriginCellRange>k__BackingField: 1

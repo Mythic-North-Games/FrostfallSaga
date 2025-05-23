@@ -66,7 +66,9 @@ namespace FrostfallSaga.Fight.UI
                     statContainerRoot.Children().First(),
                     magicalStatIcon,
                     magicalResistance.Value.ToString(),
-                    justifyContent: Justify.SpaceAround
+                    justifyContent: Justify.SpaceAround,
+                    statValueColor: new Color(225f / 255f, 255f / 255f, 255f / 255f, 1f),
+                    iconTintColor: Color.white
                 );
 
                 _resistancesStatsContainer.Add(statContainerRoot);

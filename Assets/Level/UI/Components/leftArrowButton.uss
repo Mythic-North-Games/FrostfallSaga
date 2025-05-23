@@ -1,0 +1,36 @@
+.leftArrow {
+    position: absolute;
+    width: 25px;
+    height: 30px;
+    background-image: resource('UI/Icons/handDrawnArrowIcon');
+    -unity-background-image-tint-color: rgb(225, 225, 225);
+    left: -45px;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out-cubic;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.leftArrowLeft {
+    position: absolute;
+    width: 25px;
+    height: 30px;
+    left: -55px;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out-cubic;
+    background-image: resource('UI/Icons/handDrawnArrowIcon');
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: rgb(225, 225, 225);
+}
+
+.leftArrowHidden {
+    position: absolute;
+    width: 25px;
+    height: 30px;
+    left: -45px;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out-cubic;
+    opacity: 0;
+    background-image: resource('UI/Icons/handDrawnArrowIcon');
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: rgb(225, 225, 225);
+}

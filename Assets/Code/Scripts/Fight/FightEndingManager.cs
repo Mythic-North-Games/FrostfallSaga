@@ -24,9 +24,7 @@ namespace FrostfallSaga.Fight
         [SerializeField] private VisualTreeAsset _fighterStateContainerTemplate;
         [SerializeField] private VisualTreeAsset _itemRewardContainerTemplate;
         [SerializeField] private VisualTreeAsset _statContainerTemplate;
-        [SerializeField] private Color _itemRewardStatsColor = new(0.8f, 0.8f, 0.8f, 1f);
-        [SerializeField] private Color _itemRewardStatIconColor;
-        [SerializeField] private float _itemRewardLongHoverDuration = 0.5f;
+        [SerializeField] private VisualTreeAsset _rewardItemDetailsOverlayTemplate;
         [SerializeField] private string _fightWonText = "Enemies defeated";
         [SerializeField] private string _fightLostText = "You have been defeated";
 
@@ -64,17 +62,15 @@ namespace FrostfallSaga.Fight
             }
 
             _fightEndMenuController = new FightEndMenuController(
-                _fightEndMenuUIDocument.rootVisualElement,
-                _fighterStateContainerTemplate,
-                _itemRewardContainerTemplate,
-                _statContainerTemplate,
-                _itemRewardStatsColor,
-                _itemRewardStatIconColor,
-                _itemRewardLongHoverDuration,
-                _fightWonText,
-                _fightLostText
+                root: _fightEndMenuUIDocument.rootVisualElement,
+                fighterStateContainerTemplate: _fighterStateContainerTemplate,
+                itemRewardContainerTemplate: _itemRewardContainerTemplate,
+                statContainerTemplate: _statContainerTemplate,
+                rewardItemDetailsOverlayTemplate: _rewardItemDetailsOverlayTemplate,
+                fightWonText: _fightWonText,
+                fightLostText: _fightLostText
             );
-            _fightEndMenuController.SetVisible(false);
+            _fightEndMenuController.HideMenu();
             _fightEndMenuController.onContinueClicked += OnPlayerContinues;
 
             _gameStateManager = GameStateManager.Instance;
@@ -98,7 +94,7 @@ namespace FrostfallSaga.Fight
 
             // Handle rewards
             int stycasReward = 0;
-            List<ItemSO> itemsReward = new();
+            Dictionary<ItemSO, int> itemsReward = new();
             if (alliesWon)
             {
                 stycasReward = FightRewardGenerator.GenerateStycasReward(enemies);
@@ -107,12 +103,12 @@ namespace FrostfallSaga.Fight
                 // Add loot to hero team inventory
                 HeroTeam heroTeam = HeroTeam.Instance;
                 heroTeam.AddStycas(stycasReward);
-                heroTeam.DistributeItems(itemsReward.ToArray());
+                heroTeam.DistributeItems(itemsReward);
             }
 
             // Configure and display the fight end menu
             _fightEndMenuController.Setup(allies, enemies, alliesWon, stycasReward, itemsReward);
-            _fightEndMenuController.SetVisible(true);
+            StartCoroutine(_fightEndMenuController.DisplayMenu());
 
             // Play the appropriate sound based on the fight outcome
             audioManager.PlayUISound(alliesWon ? audioManager.UIAudioClips.FightWon : audioManager.UIAudioClips.FightLost);

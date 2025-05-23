@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Grid;
-using FrostfallSaga.Utils.Trees.BehaviourTree;
+using FrostfallSaga.Utils.DataStructures.BehaviourTree;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Actions

@@ -29,6 +29,7 @@ public static class StatContainerUIController
         root.Q<VisualElement>(STAT_ICON_UI_NAME).style.unityBackgroundImageTintColor = iconTintColor;
         root.Q<Label>(STAT_LABEL_UI_NAME).text = statValue;
         root.Q<Label>(STAT_LABEL_UI_NAME).style.color = statValueColor;
+        root.Q<Label>(STAT_LABEL_UI_NAME).style.unityTextOutlineColor = statValueColor;
         root.style.justifyContent = justifyContent;
     }
 

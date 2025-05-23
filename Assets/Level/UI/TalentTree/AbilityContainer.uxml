@@ -1,8 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Level/UI/TalentTree/AbilityTree.uss?fileID=7433441132597879392&amp;guid=72f2c2d8da35a2f449989e428d32f411&amp;type=3#AbilityTree" />
-    <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" focusable="true" name="AbilityButton" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 100%; height: 100%; background-color: rgba(188, 188, 188, 0); border-left-color: rgb(225, 225, 225); border-right-color: rgb(225, 225, 225); border-top-color: rgb(225, 225, 225); border-bottom-color: rgb(225, 225, 225); border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-top-left-radius: 100%; border-top-right-radius: 100%; border-bottom-right-radius: 100%; border-bottom-left-radius: 100%;">
-        <ui:VisualElement name="AbilityIcon" class="abilityIconUnlocked" style="background-image: url(&quot;project://database/Assets/Art/UI/Portraits/skeletonSquarePortrait.jpeg?fileID=2800000&amp;guid=f6fc899a423eacb4a87e6c0bb5acb040&amp;type=3#skeletonSquarePortrait&quot;); -unity-background-scale-mode: scale-and-crop;" />
-        <ui:VisualElement name="IceLock" />
-        <ui:VisualElement name="IconHover" class="abilityIconHover" />
-    </ui:Button>
-</ui:UXML>

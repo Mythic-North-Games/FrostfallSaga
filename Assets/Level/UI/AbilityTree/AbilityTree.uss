@@ -1,0 +1,692 @@
+.abilityIconLocked {
+    height: 72%;
+    width: 73%;
+    background-image: resource('UI/Icons/fireBallAbilityIcon');
+    -unity-background-scale-mode: scale-and-crop;
+    visibility: visible;
+    overflow: visible;
+    opacity: 0.4;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    position: absolute;
+    left: 13.5%;
+    top: 13.5%;
+}
+
+.abilityIconUnlocked {
+    height: 72.5%;
+    width: 72.5%;
+    background-image: resource('UI/Icons/fireBallAbilityIcon');
+    -unity-background-scale-mode: scale-and-crop;
+    visibility: visible;
+    overflow: visible;
+    opacity: 1;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    position: absolute;
+    left: 13.5%;
+    top: 13.5%;
+}
+
+.abilityIconHidden {
+    height: 72%;
+    width: 73%;
+    background-image: resource('UI/Icons/fireBallAbilityIcon');
+    -unity-background-scale-mode: scale-and-crop;
+    visibility: visible;
+    overflow: visible;
+    opacity: 0;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    position: absolute;
+    left: 13.5%;
+    top: 13.5%;
+}
+
+.lockVisible {
+    width: 73%;
+    height: 72%;
+    position: absolute;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    top: 13.5%;
+    left: 13.5%;
+    background-color: rgba(25, 25, 25, 0.39);
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.lockHidden {
+    width: 73%;
+    height: 72%;
+    position: absolute;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    top: 13.5%;
+    left: 13.5%;
+    display: none;
+    opacity: 0;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.equippedAbility {
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out-cubic;
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnSquareContainer.png?fileID=2800000&guid=d10b364b533c0d6e7b3b87d0e763957d&type=3#handDrawnSquareContainer");
+    width: 100%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+}
+
+.equippedAbility:enabled:hover {
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnSquareContainer.png?fileID=2800000&guid=d10b364b533c0d6e7b3b87d0e763957d&type=3#handDrawnSquareContainer");
+    width: 100%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    translate: 0 -7.5%;
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+}
+
+.equippedAbility:disabled {
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out-cubic;
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnSquareContainer.png?fileID=2800000&guid=d10b364b533c0d6e7b3b87d0e763957d&type=3#handDrawnSquareContainer");
+    width: 100%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    opacity: 0.9;
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+}
+
+.equippedAbilityJump {
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnSquareContainer.png?fileID=2800000&guid=d10b364b533c0d6e7b3b87d0e763957d&type=3#handDrawnSquareContainer");
+    width: 100%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    translate: 0 -15%;
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out-cubic;
+    scale: 1 1;
+}
+
+.equippedAbilityBackground {
+    background-image: url("project://database/Assets/Art/UI/Backgrounds/parchmentBackgroundTexture.png?fileID=21300000&guid=799a05eeaf068e4ab949cdd2cf7b4450&type=3#parchmentBackgroundTexture");
+    left: 5.5%;
+    top: 5.5%;
+    width: 89%;
+    height: 89%;
+    -unity-background-image-tint-color: rgba(175, 175, 175, 0.39);
+}
+
+.abilityIconFrame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnSelectedSquareContainer.png?fileID=2800000&guid=aec95d218e91933b38e63f73f5ba4688&type=3#handDrawnSelectedSquareContainer");
+    opacity: 0;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out-cubic;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+}
+
+.abilityIconFrameActive {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnSelectedSquareContainer.png?fileID=2800000&guid=aec95d218e91933b38e63f73f5ba4688&type=3#handDrawnSelectedSquareContainer");
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+}
+
+.unlockButton {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 250%;
+    -unity-font-style: normal;
+    width: 100%;
+    height: 100%;
+    align-self: center;
+    color: rgb(25, 25, 25);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(25, 25, 25);
+    background-image: url("project://database/Assets/Art/UI/Buttons/handDrawnButton.png?fileID=21300000&guid=077d449d537274060add817c18a959f5&type=3#handDrawnButton");
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-slice-left: 0;
+    -unity-slice-right: 0;
+    -unity-slice-scale: 0.3px;
+    -unity-slice-top: 0;
+    -unity-slice-bottom: 0;
+    flex-direction: row;
+    justify-content: center;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.unlockButtonLocked {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 250%;
+    -unity-font-style: normal;
+    width: 100%;
+    height: 100%;
+    align-self: center;
+    color: rgb(225, 225, 225);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(225, 225, 225);
+    background-image: url("project://database/Assets/Art/UI/Buttons/handDrawnFilledButton.png?fileID=21300000&guid=e4667480ac91da43a8227d0a2928dec1&type=3#handDrawnFilledButton");
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-slice-left: 0;
+    -unity-slice-right: 0;
+    -unity-slice-scale: 0.3px;
+    -unity-slice-top: 0;
+    -unity-slice-bottom: 0;
+    flex-direction: row;
+    justify-content: center;
+    transition-duration: 0s;
+    transition-timing-function: ease-in-out-cubic;
+    opacity: 0.8;
+}
+
+.unlockButtonFilled {
+    flex-grow: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: url("project://database/Assets/Art/UI/Buttons/handDrawnFilledButton.png?fileID=21300000&guid=e4667480ac91da43a8227d0a2928dec1&type=3#handDrawnFilledButton");
+    -unity-slice-scale: 0.3px;
+    opacity: 0;
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 250%;
+    color: rgb(225, 225, 225);
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(225, 225, 225);
+}
+
+.unlockButtonFilled:hover {
+    flex-grow: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: url("project://database/Assets/Art/UI/Buttons/handDrawnFilledButton.png?fileID=21300000&guid=e4667480ac91da43a8227d0a2928dec1&type=3#handDrawnFilledButton");
+    -unity-slice-scale: 0.3px;
+    opacity: 1;
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 250%;
+    color: rgb(225, 225, 225);
+    scale: 1 1;
+    letter-spacing: 0;
+    -unity-text-outline-color: rgb(225, 225, 225);
+    -unity-text-outline-width: 1.5px;
+}
+
+.unlockButtonFilled:active {
+    flex-grow: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: url("project://database/Assets/Art/UI/Buttons/handDrawnFilledButton.png?fileID=21300000&guid=e4667480ac91da43a8227d0a2928dec1&type=3#handDrawnFilledButton");
+    -unity-slice-scale: 0.3px;
+    opacity: 1;
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 250%;
+    color: rgb(225, 225, 225);
+    scale: 1 1;
+    -unity-font-style: normal;
+    letter-spacing: 0;
+    -unity-text-outline-color: rgb(225, 225, 225);
+    -unity-text-outline-width: 1.5px;
+}
+
+.abilityPointsIconDefault {
+    flex-grow: 1;
+    background-image: resource('UI/Icons/awakeningCrystalIcon');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.abilityButton {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(188, 188, 188, 0);
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnCircleContainer.png?fileID=2800000&guid=014d43b09c89d251c8c2e52137a52650&type=3#handDrawnCircleContainer");
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+}
+
+.abilityButton:hover {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(188, 188, 188, 0);
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnCircleContainer.png?fileID=2800000&guid=014d43b09c89d251c8c2e52137a52650&type=3#handDrawnCircleContainer");
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    translate: 0 -7.5%;
+}
+
+.abilityButtonUnlock {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(188, 188, 188, 0);
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnCircleContainer.png?fileID=2800000&guid=014d43b09c89d251c8c2e52137a52650&type=3#handDrawnCircleContainer");
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    translate: 0 -7.5%;
+    scale: 1.25 1.25;
+    rotate: 0;
+}
+
+.abilityButtonSelectedFrame {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnCircleSelectedContainer.png?fileID=2800000&guid=94066965329dfc5f193c47db4bb45262&type=3#handDrawnCircleSelectedContainer");
+    opacity: 0;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+}
+
+.abilityButtonSelectedFrameActive {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("project://database/Assets/Art/UI/Containers/handDrawnCircleSelectedContainer.png?fileID=2800000&guid=94066965329dfc5f193c47db4bb45262&type=3#handDrawnCircleSelectedContainer");
+    opacity: 1;
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+}
+
+.abilityPointsLabel {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
+    font-size: 250%;
+    color: rgb(25, 25, 25);
+    height: 100%;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(65, 56, 56);
+    -unity-text-align: lower-center;
+    -unity-font-style: normal;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+}
+
+.abilityPointsLabelHidden {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
+    font-size: 250%;
+    color: rgb(25, 25, 25);
+    height: 100%;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(65, 56, 56);
+    -unity-text-align: lower-center;
+    -unity-font-style: normal;
+    opacity: 1;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    scale: 1 1;
+    translate: 0 100%;
+}
+
+.abilityPointsCostLabel {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    font-size: 250%;
+    height: auto;
+    flex-grow: 0;
+    width: auto;
+    -unity-text-outline-width: 1px;
+    color: rgb(146, 214, 206);
+    -unity-font-style: bold;
+    -unity-text-align: middle-right;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Italic%20SDF.asset?fileID=11400000&guid=88eb4e0b66753f5859b647f81dbab064&type=2#Almendra-Italic SDF");
+    -unity-text-outline-color: rgb(25, 25, 25);
+}
+
+.abilityPointsCostLabelLocked {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    font-size: 250%;
+    height: auto;
+    flex-grow: 0;
+    width: auto;
+    -unity-text-outline-width: 1px;
+    color: rgb(150, 25, 25);
+    -unity-font-style: bold;
+    -unity-text-align: middle-right;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Italic%20SDF.asset?fileID=11400000&guid=88eb4e0b66753f5859b647f81dbab064&type=2#Almendra-Italic SDF");
+    -unity-text-outline-color: rgb(25, 25, 25);
+}
+
+.equippedAbilityContainer {
+    width: 15.5%;
+}
+
+.fighterNameLabel {
+    margin-top: -20%;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    font-size: 250%;
+    width: auto;
+    height: 100%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    -unity-font-style: normal;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(25, 25, 25);
+}
+
+.fighterNameLabelHidden {
+    margin-top: -20%;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 250%;
+    width: auto;
+    height: 100%;
+    opacity: 0;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(25, 25, 25);
+}
+
+.equippedAbilityIcon {
+    background-image: resource('UI/Icons/healAbilityIcon');
+    position: absolute;
+    width: 91%;
+    height: 91%;
+    left: 4.5%;
+    top: 4.5%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    opacity: 1;
+}
+
+.equippedAbilityIconHidden {
+    background-image: resource('UI/Icons/healAbilityIcon');
+    position: absolute;
+    width: 91%;
+    height: 91%;
+    left: 4.5%;
+    top: 4.5%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    opacity: 0;
+}

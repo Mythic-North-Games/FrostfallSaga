@@ -15,9 +15,9 @@ namespace FrostfallSaga.Core.Fight
         {
             return state switch
             {
-                EAbilityState.Locked => "Dormant",
-                EAbilityState.Unlockable => "Awaken",
-                EAbilityState.Unlocked => "Awoken",
+                EAbilityState.Locked => "Dormant...",
+                EAbilityState.Unlockable => "AWAKEN",
+                EAbilityState.Unlocked => "AWOKEN",
                 _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
             };
         }

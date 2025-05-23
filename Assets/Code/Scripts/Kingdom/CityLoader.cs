@@ -1,4 +1,5 @@
 using System.Collections;
+using FrostfallSaga.Core;
 using FrostfallSaga.Core.Cities;
 using FrostfallSaga.Core.GameState;
 using FrostfallSaga.Kingdom.UI;
@@ -11,7 +12,7 @@ namespace FrostfallSaga.Kingdom
     public class CityLoader : MonoBehaviour
     {
         [SerializeField] private KingdomManager _kingdomManager;
-        [SerializeField] private EnterCityPanelController _enterCityPanelController;
+        [SerializeField] private BaseEnterInterestPointPanelUIController _enterCityPanelController;
         [SerializeField] private float _delayBeforeLoadingCityScene = 0.6f;
 
         #region Setup
@@ -32,18 +33,24 @@ namespace FrostfallSaga.Kingdom
                 return;
             }
 
-            _enterCityPanelController.onCityEnterClicked += OnCityEnterClicked;
+            _enterCityPanelController.onInterestPointEnterClicked += OnCityEnterClicked;
         }
 
         #endregion
 
-        private void OnCityEnterClicked(CityBuildingConfigurationSO cityBuildingConfiguration)
+        private void OnCityEnterClicked(AInterestPointConfigurationSO interestPointConfiguration)
         {
-            Debug.Log($"Saving kingdom state before loading city scene for {cityBuildingConfiguration.Name}.");
+            if (interestPointConfiguration is not CityBuildingConfigurationSO cityBuildingConfig)
+            {
+                Debug.LogError("CityBuildingConfigurationSO is null. Cannot load city scene.");
+                return;
+            }
+
+            Debug.Log($"Saving kingdom state before loading city scene for {cityBuildingConfig.Name}.");
             _kingdomManager.SaveKingdomState();
 
-            Debug.Log($"Saving city load data for {cityBuildingConfiguration.Name}.");
-            GameStateManager.Instance.SaveCityLoadData(cityBuildingConfiguration.InCityConfiguration);
+            Debug.Log($"Saving city load data for {cityBuildingConfig.Name}.");
+            GameStateManager.Instance.SaveCityLoadData(cityBuildingConfig.InCityConfiguration);
 
             Debug.Log("Launching city scene...");
             StartCoroutine(WaitAndLaunchCityScene());

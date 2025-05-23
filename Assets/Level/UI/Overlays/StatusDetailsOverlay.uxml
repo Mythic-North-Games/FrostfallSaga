@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="StatusDetailsPanel" style="width: auto; height: auto; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px;">
+        <ui:Label tabindex="-1" text="&lt;b&gt;Bleed&lt;/b&gt; applied permanently.\nStatus effect applied at &lt;b&gt;the start of the turn&lt;/b&gt;." parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatusDetailsLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 22px; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&amp;guid=7d18b115c05ba9bf5954496f908e3550&amp;type=2#Almendra-Regular SDF&quot;); color: rgb(225, 225, 225); width: auto; height: auto; -unity-text-align: middle-left; -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(225, 225, 225);" />
+    </ui:VisualElement>
+</ui:UXML>

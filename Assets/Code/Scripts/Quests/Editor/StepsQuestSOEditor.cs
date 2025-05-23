@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using FrostfallSaga.Core.Quests;
-using FrostfallSaga.Utils;
-using FrostfallSaga.Utils.Trees;
 using UnityEditor;
 using UnityEngine;
+using FrostfallSaga.Core.Quests;
+using FrostfallSaga.Utils;
+using FrostfallSaga.Utils.DataStructures.TreeNode;
 
 namespace FrostfallSaga.FFSEditor.Quests
 {
@@ -16,6 +16,11 @@ namespace FrostfallSaga.FFSEditor.Quests
         private void OnEnable()
         {
             quest = (StepsQuestSO)target;
+            if (quest.Steps == null)
+            {
+                string rootId = System.Guid.NewGuid().ToString();
+                quest.SetSteps(new TreeNode<QuestStep>(rootId, new QuestStep("First Step", "Description", null)));
+            }
         }
 
         public override void OnInspectorGUI()
@@ -33,17 +38,7 @@ namespace FrostfallSaga.FFSEditor.Quests
 
         private void DrawQuestStepTree(TreeNode<QuestStep> node, int indentLevel, List<int> currentPath)
         {
-            if (node == null)
-            {
-                node = new TreeNode<QuestStep>(new QuestStep("First step", "Lorem ipsum dolor sit amet", null));
-                SyncPossibleQuestEndings();
-            }
-
-            if (node.Data == null)
-            {
-                node.Data = new QuestStep("First step", "Lorem ipsum dolor sit amet", null);
-                SyncPossibleQuestEndings();
-            }
+            if (node == null || node.Data == null) return;
 
             QuestStep data = node.Data;
             EditorGUI.indentLevel = indentLevel;
@@ -53,21 +48,18 @@ namespace FrostfallSaga.FFSEditor.Quests
             EditorGUILayout.LabelField("Step: " + data.Title);
             data.SetTitle(EditorGUILayout.TextField("Title", data.Title));
             data.SetDescription(EditorGUILayout.TextField("Description", data.Description));
-            data.SetActions((QuestStepActionsSO)EditorGUILayout.ObjectField("Actions", data.Actions,
-                typeof(QuestStepActionsSO), false));
+            data.SetActions((QuestStepActionsSO)EditorGUILayout.ObjectField("Actions", data.Actions, typeof(QuestStepActionsSO), false));
 
             if (GUILayout.Button("Add Child Step"))
             {
                 Undo.RecordObject(quest, "Add Child Step");
-                TreeNode<QuestStep> newChild = new(new QuestStep("New Step", "Description", null));
+                var childId = System.Guid.NewGuid().ToString();
+                TreeNode<QuestStep> newChild = new(childId, new QuestStep("New Step", "Description", null));
                 node.AddChild(newChild);
+                quest.SaveSteps();
                 EditorUtility.SetDirty(quest);
-
-                // Sync possible endings
                 SyncPossibleQuestEndings();
             }
-
-            if (node.Children == null) return;
 
             for (int i = 0; i < node.Children.Count; i++)
             {
@@ -79,9 +71,8 @@ namespace FrostfallSaga.FFSEditor.Quests
             {
                 Undo.RecordObject(quest, "Remove Step");
                 node.Parent.RemoveChild(node);
+                quest.SaveSteps();
                 EditorUtility.SetDirty(quest);
-
-                // Sync possible endings
                 SyncPossibleQuestEndings();
                 return;
             }
@@ -91,35 +82,21 @@ namespace FrostfallSaga.FFSEditor.Quests
 
         private void SyncPossibleQuestEndings()
         {
-            // Generate new list of endings based on the tree structure
-            List<SElementToValue<int[], QuestEnding>> newPossibleEndings = new();
+            Dictionary<int[], QuestEnding> newPossibleEndings = new();
             List<int> currentPath = new() { 0 };
             GeneratePossibleEndings(quest.Steps, currentPath, newPossibleEndings);
-
-            // Assign the new list to the quest object
-            quest.SetPossibleQuestEndings(newPossibleEndings.ToArray());
-
-            // Mark object as dirty so the editor updates
+            quest.SetPossibleQuestEndings(newPossibleEndings);
             EditorUtility.SetDirty(quest);
         }
 
-        private void GeneratePossibleEndings(TreeNode<QuestStep> node, List<int> currentPath,
-            List<SElementToValue<int[], QuestEnding>> endingsList)
+        private void GeneratePossibleEndings(TreeNode<QuestStep> node, List<int> currentPath, Dictionary<int[], QuestEnding> endingsList)
         {
-            if (node.Children == null)
+            if (node.Children == null || node.Children.Count == 0)
             {
-                endingsList.Add(new SElementToValue<int[], QuestEnding>(currentPath.ToArray(), null));
+                endingsList.Add(currentPath.ToArray(), null);
                 return;
             }
 
-            // If it's a leaf node, add the current path to the list
-            if (node.Children.Count == 0)
-            {
-                endingsList.Add(new SElementToValue<int[], QuestEnding>(currentPath.ToArray(), null));
-                return;
-            }
-
-            // Otherwise, recursively process children
             for (int i = 0; i < node.Children.Count; i++)
             {
                 List<int> childPath = new(currentPath) { i };

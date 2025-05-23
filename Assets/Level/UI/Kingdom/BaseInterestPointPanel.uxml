@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/Kingdom/enterInterestPointPanel.uss?fileID=7433441132597879392&amp;guid=a7be44d98f65ccb9bb751d0ad8cfd4ad&amp;type=3#enterInterestPointPanel" />
+    <ui:VisualElement name="ScreenPanelContainer" class="panelContainerDefault" style="transition-duration: 0.5s; transition-timing-function: ease-in-out-cubic; min-width: 100%; min-height: 100%;">
+        <ui:VisualElement name="InterestPointPanelContainer" class="interestPointPanelContainerDefault" style="transition-duration: 0.4s; transition-timing-function: ease-in-out-cubic; align-items: center;">
+            <ui:VisualElement name="InterestPointPreview" class="interestPointPreview" />
+            <ui:VisualElement name="InterestPointDialogContainer" class="interestPointDialogContainer">
+                <ui:Label tabindex="-1" text="Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet " parse-escape-sequences="true" display-tooltip-when-elided="true" name="DescriptionLabel" enable-rich-text="true" class="descriptionLabel" />
+                <ui:VisualElement name="ButtonsContainer" style="width: 100%; height: 25%; justify-content: space-around; flex-direction: row; align-items: center;">
+                    <ui:VisualElement name="ExitButtonContainer" class="interestPointGateButtonContainer">
+                        <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExitButton" class="interestPointGateButtonDefault" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="EnterButtonContainer" class="interestPointGateButtonContainer">
+                        <ui:Button text="Enter" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EnterButton" class="interestPointGateButtonDefault" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="InterestPointNameContainer" class="interestPointNameContainer">
+                <ui:Label tabindex="-1" text="Sovengard" parse-escape-sequences="true" display-tooltip-when-elided="true" name="InterestPointNameLabel" class="interestPointNameLabel" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
