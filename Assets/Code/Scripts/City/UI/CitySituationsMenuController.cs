@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using FrostfallSaga.Core.Cities.CitySituations;
-using FrostfallSaga.Core.Dialogues;
+using FrostfallSaga.Core.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 

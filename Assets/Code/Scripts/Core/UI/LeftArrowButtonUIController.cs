@@ -4,7 +4,7 @@ using FrostfallSaga.Utils;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace FrostfallSaga.Core.Dialogues
+namespace FrostfallSaga.Core.UI
 {
     public class LeftArrowButtonUIController
     {

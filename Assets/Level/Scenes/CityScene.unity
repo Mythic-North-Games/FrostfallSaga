@@ -648,26 +648,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BookUI
       objectReference: {fileID: 0}
-    - target: {fileID: 8886953520428313435, guid: 0cf3b2833e764c475bfc2c8964bce948, type: 3}
-      propertyPath: devQuests.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8886953520428313435, guid: 0cf3b2833e764c475bfc2c8964bce948, type: 3}
-      propertyPath: devQuests.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 3a253f80c6e9bcf7ebccfc658f089b55, type: 2}
-    - target: {fileID: 8886953520428313435, guid: 0cf3b2833e764c475bfc2c8964bce948, type: 3}
-      propertyPath: devQuests.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: f572c0de53101d97ebadf6b1b9e6e337, type: 2}
-    - target: {fileID: 8886953520428313435, guid: 0cf3b2833e764c475bfc2c8964bce948, type: 3}
-      propertyPath: devQuests.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 58eb1abe7cfcefb3fab7594ffe5cd525, type: 2}
-    - target: {fileID: 8886953520428313435, guid: 0cf3b2833e764c475bfc2c8964bce948, type: 3}
-      propertyPath: devQuests.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 58eb1abe7cfcefb3fab7594ffe5cd525, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8533436684355367972, guid: 0cf3b2833e764c475bfc2c8964bce948, type: 3}

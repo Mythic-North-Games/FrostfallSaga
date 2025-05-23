@@ -350,7 +350,7 @@
 .tavernSituationsContainerDefault {
     justify-content: flex-start;
     align-items: flex-start;
-    height: 47.5%;
+    height: 44%;
     margin-right: 0;
     margin-bottom: 5%;
     margin-left: 0;
