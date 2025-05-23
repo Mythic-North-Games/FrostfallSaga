@@ -1,0 +1,184 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf9b68cef373954fa0d8e82209c712d, type: 3}
+  m_Name: ShieldmaidenPersistedFighterConfiguration
+  m_EditorClassIdentifier: 
+  <FighterPrefab>k__BackingField: {fileID: 7968725389963319580, guid: 75a944fe96fa54e49bbced9ec1af62bd, type: 3}
+  <FighterClass>k__BackingField: {fileID: 11400000, guid: 5f24cc96233dead12b894e0d28f6bdc1, type: 2}
+  <PersonalityTrait>k__BackingField: {fileID: 0}
+  <UnlockedActiveAbilities>k__BackingField: []
+  <ActiveAbilitiesCapacity>k__BackingField: 5
+  <UnlockedPassiveAbilities>k__BackingField: []
+  <PassiveAbilitiesCapacity>k__BackingField: 0
+  <AvailableItems>k__BackingField: []
+  <MinStycasLoot>k__BackingField: 0
+  <MaxStycasLoot>k__BackingField: 0
+  <MaxHealth>k__BackingField: 120
+  <MaxActionPoints>k__BackingField: 6
+  <MaxMovePoints>k__BackingField: 5
+  <Strength>k__BackingField: 5
+  <Dexterity>k__BackingField: 3
+  <Tenacity>k__BackingField: 1
+  <PhysicalResistance>k__BackingField: 3
+  <MagicalResistances>k__BackingField:
+  - element: 0
+    value: 0
+  - element: 1
+    value: 0
+  - element: 2
+    value: 0
+  - element: 3
+    value: 0
+  - element: 4
+    value: 0
+  - element: 5
+    value: 0
+  <MagicalStrengths>k__BackingField:
+  - element: 0
+    value: 0
+  - element: 0
+    value: 0
+  - element: 0
+    value: 0
+  - element: 0
+    value: 0
+  - element: 0
+    value: 0
+  - element: 0
+    value: 0
+  <DodgeChance>k__BackingField: 0
+  <MasterstrokeChance>k__BackingField: 0.5
+  <Initiative>k__BackingField: 5
+  <HealSelfAnimationName>k__BackingField: 
+  <ReceiveDamageAnimationName>k__BackingField: 
+  <ReduceStatAnimationName>k__BackingField: 
+  <IncreaseStatAnimationName>k__BackingField: 
+  <ConsumableUseAnimationName>k__BackingField: 
+  <EquippedActiveAbilities>k__BackingField: []
+  <EquippedPassiveAbilities>k__BackingField: []
+  <AbilityPoints>k__BackingField: 4
+  <Inventory>k__BackingField:
+    <WeaponSlot>k__BackingField:
+      <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 1
+    <HelmetSlot>k__BackingField:
+      <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 1
+    <ChestplateSlot>k__BackingField:
+      <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 1
+    <GauntletsSlot>k__BackingField:
+      <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 1
+    <BootsSlot>k__BackingField:
+      <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 1
+    <BagSlots>k__BackingField:
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    <ConsumablesQuickAccessSlots>k__BackingField:
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+    - <Item>k__BackingField: {fileID: 0}
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 99
+  <Health>k__BackingField: 120
+  ActiveAbilitiesCapacity: 5
+  PassiveAbilitiesCapacity: 0

@@ -24,11 +24,6 @@ namespace FrostfallSaga.Kingdom.Entities
             MovementController = GetComponentInChildren<EntityVisualMovementController>();
             if (!MovementController)
                 Debug.LogWarning("Entity " + name + " does not have a movement controller and a visual.");
-
-            SessionId = Guid.NewGuid().ToString();
-            name = $"{EntityConfiguration.Name}_{SessionId}";
-            if (EntityConfiguration.FighterConfiguration is PersistedFighterConfigurationSO
-                persistedFighterConfiguration) IsDead = persistedFighterConfiguration.Health == 0;
         }
 
         #endregion
@@ -67,10 +62,20 @@ namespace FrostfallSaga.Kingdom.Entities
             return MovementController.CanSeeTarget(target, EntityConfiguration.KingdomDetectionRange);
         }
 
-        public void Setup(string sessionId, bool isDead)
+        public void Setup(EntityConfigurationSO entityConfigurationSO, string sessionId, bool isDead)
         {
+            EntityConfiguration = entityConfigurationSO;
             SessionId = sessionId;
             IsDead = isDead;
+        }
+
+        public void Setup(EntityConfigurationSO entityConfiguration)
+        {
+            EntityConfiguration = entityConfiguration;
+            SessionId = Guid.NewGuid().ToString();
+            name = $"{EntityConfiguration.Name}_{SessionId}";
+            if (EntityConfiguration.FighterConfiguration is PersistedFighterConfigurationSO
+                persistedFighterConfiguration) IsDead = persistedFighterConfiguration.Health == 0;
         }
     }
 }

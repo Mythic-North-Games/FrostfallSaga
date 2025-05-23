@@ -81,7 +81,7 @@ namespace FrostfallSaga.InventorySystem.UI
 
         private void UpdatePanel()
         {
-            _heroRenderTextureSceneController.SetupHeroModel(_currentHeroEntityConf.InventoryVisualPrefab);
+            // _heroRenderTextureSceneController.SetupHeroModel(_currentHeroEntityConf.InventoryVisualPrefab);
             UpdateFighterName();
             UpdateEquipment(_currentHeroFighterConf.Inventory);
             UpdateQuickAccessSlots(_currentHeroFighterConf.Inventory);

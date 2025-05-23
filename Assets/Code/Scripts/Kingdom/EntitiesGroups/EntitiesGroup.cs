@@ -77,7 +77,6 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
                 entity.transform.parent = transform;
                 entity.transform.localPosition = new Vector3(0, 0, 0);
             });
-            UpdateDisplayedEntity(GetRandomAliveEntity());
         }
 
         public void UpdateDisplayedEntity(Entity newDisplayedEntity)
@@ -100,33 +99,6 @@ namespace FrostfallSaga.Kingdom.EntitiesGroups
         public Entity GetRandomAliveEntity()
         {
             return Randomizer.GetRandomElementFromArray(Entities.Where(entity => !entity.IsDead).ToArray());
-        }
-
-        public static Entity[] GenerateRandomEntities(
-            GameObject[] availableEntityPrefabs,
-            int minNumberOfEntities = 1,
-            int maxNumberOfEntities = 3
-        )
-        {
-            List<Entity> entities = new();
-
-            while (entities.Count < minNumberOfEntities)
-            {
-                GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntityPrefabs));
-                entities.Add(entityPrefab.GetComponent<Entity>());
-            }
-
-            if (entities.Count >= maxNumberOfEntities) return entities.ToArray();
-
-            int placeLeftInTeam = maxNumberOfEntities - minNumberOfEntities;
-            for (int i = 0; i < placeLeftInTeam; i++)
-                if (Randomizer.GetBooleanOnChance(0.5f))
-                {
-                    GameObject entityPrefab = Instantiate(Randomizer.GetRandomElementFromArray(availableEntityPrefabs));
-                    entities.Add(entityPrefab.GetComponent<Entity>());
-                }
-
-            return entities.ToArray();
         }
     }
 }

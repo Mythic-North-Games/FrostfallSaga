@@ -22,7 +22,9 @@ namespace FrostfallSaga.Core.HeroTeam
         }
 
         public List<Hero> Heroes { get; private set; }
+        public List<EntityConfigurationSO> EntitiesConfigurations { get; private set; }
         public int Stycas => _heroTeamConfiguration.Stycas;
+        public string HeroGroupName => _heroTeamConfiguration.HeroGroupName;
 
         protected override void Init()
         {
@@ -37,6 +39,12 @@ namespace FrostfallSaga.Core.HeroTeam
             {
                 new(_heroTeamConfiguration.HeroEntityConfiguration),
                 new(_heroTeamConfiguration.Companion2EntityConfiguration)
+            };
+            
+            EntitiesConfigurations = new List<EntityConfigurationSO>
+            {
+                _heroTeamConfiguration.HeroEntityConfiguration,
+                _heroTeamConfiguration.Companion2EntityConfiguration
             };
             FullHealTeam(); // * For now, we fully heal the team on initialization.
         }

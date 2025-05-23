@@ -9,19 +9,20 @@ namespace FrostfallSaga.EntitiesVisual
     public class EntityVisualAnimationController : MonoBehaviour
     {
         [field: SerializeField] public string DefaultAnimationState { get; private set; } = "Idle";
-        public Animator _animator;
+        public Animator animator;
         public string CurrentStateName { get; private set; }
-
-        private void Awake()
-        {
-            _animator = GetComponent<Animator>();
-        }
-
+        
         private void Start()
         {
+            animator = GetComponentInChildren<Animator>();
+            if (!animator)
+            {
+                Debug.LogError("No animator component attached");
+                return;
+            }
             try
             {
-                _animator.Play(DefaultAnimationState);
+                animator.Play(DefaultAnimationState);
                 CurrentStateName = DefaultAnimationState;
             }
             catch (Exception)
@@ -35,7 +36,7 @@ namespace FrostfallSaga.EntitiesVisual
         {
             try
             {
-                _animator.Play(newState);
+                animator.Play(newState);
                 CurrentStateName = newState;
             }
             catch (Exception)
@@ -49,7 +50,7 @@ namespace FrostfallSaga.EntitiesVisual
         {
             try
             {
-                _animator.Play(DefaultAnimationState);
+                animator.Play(DefaultAnimationState);
                 CurrentStateName = DefaultAnimationState;
             }
             catch (Exception)
