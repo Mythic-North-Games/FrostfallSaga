@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Grid;
+using UnityEditor;
 using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
@@ -35,7 +36,7 @@ namespace FrostfallSaga.Kingdom
 
         public void Initialize()
         {
-            _hexKingdomPrefab ??= Resources.Load<KingdomCell>("Prefabs/Grid/KingdomCell");
+            _hexKingdomPrefab ??= AssetDatabase.LoadAssetAtPath<KingdomCell>("Assets/Content/Grid/KingdomCell.prefab");
             if (!_hexKingdomPrefab) Debug.LogError("KingdomCellPrefab is null.");
         }
 
