@@ -87,3 +87,119 @@
     -unity-text-align: lower-left;
     background-color: rgba(225, 225, 225, 0.39);
 }
+
+.baseSettingsSlider {
+    align-items: stretch;
+    margin-top: 0;
+    margin-right: 2%;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    width: 60%;
+}
+
+.baseSettingsSlider > Label {
+    display: none;
+}
+
+.baseSettingsSlider > VisualElement {
+    flex-grow: 1;
+}
+
+.baseSettingsSlider #unity-tracker {
+    background-color: rgba(25, 25, 25, 0.78);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    height: 20%;
+}
+
+.baseSettingsSlider #unity-dragger {
+    border-left-color: rgb(25, 25, 25);
+    border-right-color: rgb(25, 25, 25);
+    border-top-color: rgb(25, 25, 25);
+    border-bottom-color: rgb(25, 25, 25);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    background-color: rgb(225, 225, 225);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    width: 21px;
+    rotate: 45deg;
+    background-image: none;
+    height: 21px;
+    margin-top: -11px;
+}
+
+.baseSettingsSlider #unity-text-field {
+    display: none;
+}
+
+.baseSettingsSlider TextElement {
+    background-color: rgba(0, 0, 0, 0);
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 175%;
+    color: rgb(25, 25, 25);
+    -unity-text-align: middle-left;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.sliderContainer {
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    height: 15%;
+    margin-bottom: 1%;
+}
+
+.sliderTitle {
+    margin-top: 0;
+    margin-right: 6%;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 200%;
+    width: 25%;
+}
+
+.sliderDraggerActive {
+    scale: 1.2 1.2;
+}
+
+.sliderValue {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 175%;
+    -unity-text-align: middle-right;
+}

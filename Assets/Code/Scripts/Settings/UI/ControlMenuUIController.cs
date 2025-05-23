@@ -1,5 +1,5 @@
 using FrostfallSaga.Audio;
-using FrostfallSaga.Core;
+using FrostfallSaga.Utils;
 using FrostfallSaga.Utils.Scenes;
 using UnityEngine;
 using UnityEngine.UIElements;

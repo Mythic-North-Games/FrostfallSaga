@@ -7,6 +7,7 @@ namespace FrostfallSaga.Settings.UI
     public class BookSettingsMenuUIController  : ABookMenuUIController
     {
         [SerializeField] private VisualTreeAsset _controlPanelTemplate;
+        [SerializeField] private VisualTreeAsset _settingsPanelTemplate;
 
         public override void SetupMenu()
         {
@@ -15,7 +16,13 @@ namespace FrostfallSaga.Settings.UI
             controlPanelRoot.StretchToParentSize();
             ControlMenuUIController.Setup(controlPanelRoot);
 
+            // Setup settings panel
+            VisualElement settingsPanelRoot = _settingsPanelTemplate.Instantiate();
+            settingsPanelRoot.StretchToParentSize();
+            SettingsMenuUIController.Setup(settingsPanelRoot);
+
             _leftPageContainer.Add(controlPanelRoot);
+            _rightPageContainer.Add(settingsPanelRoot);
         }
     }
 }
