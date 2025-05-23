@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Default_Highlight_Cell
+  m_Name: M_Highlight_Cell
   m_Shader: {fileID: -6465566751694194690, guid: 2c94aa2e784599847bb12d3073206fc0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -50,12 +50,23 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Alpha: 1
+    - _BlinkSpeed: 2
+    - _EmmisionStrength: 0.8
+    - _Opacity: 0.2
+    - _Power: 5
+    - _PulseSpeed: 2
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Speed: 5
     - _emmisionStrength: 0.9
     - _opacity: 0
     - _pulseSpeed: 0.2
     m_Colors:
-    - _baseColor: {r: 1, g: 1, b: 1, a: 0.19607843}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.9490196, g: 0.9490196, b: 0.9490196, a: 1}
+    - _ColorEmission: {r: 0.95904946, g: 0.97735846, b: 0.7210323, a: 1}
+    - _EmissionColor: {r: 0.6396227, g: 1, b: 0.9339499, a: 0}
+    - _baseColor: {r: 0.9490196, g: 0.9490196, b: 0.9490196, a: 0.19607843}
     - _baseColorEmission: {r: 0.7729619, g: 0.8490566, b: 0.8430491, a: 0}
   m_BuildTextureStacks: []
