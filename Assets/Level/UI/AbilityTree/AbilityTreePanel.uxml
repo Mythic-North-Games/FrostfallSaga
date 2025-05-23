@@ -1,0 +1,68 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="BookFighterBackgroundIllustration" src="project://database/Assets/Level/UI/Components/BookFighterBackgroundIllustration.uxml?fileID=9197481963319205126&amp;guid=e84aa4280129ee9a5a271b37e7afc291&amp;type=3#BookFighterBackgroundIllustration" />
+    <ui:Template name="SkillContainer" src="project://database/Assets/Level/UI/AbilityTree/AbilityContainer.uxml?fileID=9197481963319205126&amp;guid=e3dad8705411bae438316b90ec6ccc8e&amp;type=3#AbilityContainer" />
+    <ui:Template name="EqquipedAbility" src="project://database/Assets/Level/UI/AbilityTree/EqquipedAbility.uxml?fileID=9197481963319205126&amp;guid=b047b3d5ac7f29fc795df75fc5cdfee3&amp;type=3#EqquipedAbility" />
+    <ui:Template name="HeroChooserContainer" src="project://database/Assets/Level/UI/BookMenu/HeroChooserContainer.uxml?fileID=9197481963319205126&amp;guid=66d2a94d4f0bf0c6a876b4736a045e4a&amp;type=3#HeroChooserContainer" />
+    <Style src="project://database/Assets/Level/UI/AbilityTree/AbilityTree.uss?fileID=7433441132597879392&amp;guid=72f2c2d8da35a2f449989e428d32f411&amp;type=3#AbilityTree" />
+    <Style src="project://database/Assets/Level/UI/BookMenu/bookMenu.uss?fileID=7433441132597879392&amp;guid=f1c6556d6bd019516a51483c72d964d5&amp;type=3#bookMenu" />
+    <ui:VisualElement name="PageDecorations" picking-mode="Ignore" style="flex-grow: 0; position: absolute; width: 97%; height: 97%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; left: 1.5%; top: 1.5%; opacity: 1;">
+        <ui:VisualElement name="LeftTopDecoration" picking-mode="Ignore" style="width: 45%; height: 45%; background-image: url(&quot;project://database/Assets/Art/UI/Decorations/handDrawnCornerDecoration1.png?fileID=21300000&amp;guid=036714bc1716a972889f7d0d251dfd54&amp;type=3#handDrawnCornerDecoration1&quot;); -unity-background-image-tint-color: rgba(76, 36, 22, 0.29); -unity-slice-scale: 1px; position: absolute; left: 0; top: 0;" />
+        <ui:VisualElement name="LeftStraightDecoration" picking-mode="Ignore" style="flex-grow: 0; width: 10%; height: 3%; background-image: url(&quot;project://database/Assets/Art/UI/Decorations/handDrawnStraightDecoration.png?fileID=21300000&amp;guid=f3ed84d0271bd897791489c108be92c9&amp;type=3#handDrawnStraightDecoration&quot;); -unity-background-scale-mode: stretch-to-fill; -unity-background-image-tint-color: rgba(76, 36, 22, 0.29); rotate: -90deg; position: absolute; left: -3.825%; top: 48.4%; display: flex;" />
+        <ui:VisualElement name="LeftBottomDecoration" picking-mode="Ignore" style="width: 45%; height: 45%; background-image: url(&quot;project://database/Assets/Art/UI/Decorations/handDrawnCornerDecoration1.png?fileID=21300000&amp;guid=036714bc1716a972889f7d0d251dfd54&amp;type=3#handDrawnCornerDecoration1&quot;); -unity-background-image-tint-color: rgba(76, 36, 22, 0.29); -unity-slice-scale: 1px; scale: 1 -1; position: absolute; bottom: 0; left: 0;" />
+        <ui:VisualElement name="TopStraightDecoration" style="flex-grow: 0; width: 10%; height: 3%; background-image: url(&quot;project://database/Assets/Art/UI/Decorations/handDrawnStraightDecoration.png?fileID=21300000&amp;guid=f3ed84d0271bd897791489c108be92c9&amp;type=3#handDrawnStraightDecoration&quot;); -unity-background-scale-mode: stretch-to-fill; -unity-background-image-tint-color: rgba(76, 36, 22, 0.29); rotate: 0; position: absolute; left: 45%; top: -0.3%;" />
+        <ui:VisualElement name="RightTopDecoration" picking-mode="Ignore" style="width: 45%; height: 45%; background-image: url(&quot;project://database/Assets/Art/UI/Decorations/handDrawnCornerDecoration1.png?fileID=21300000&amp;guid=036714bc1716a972889f7d0d251dfd54&amp;type=3#handDrawnCornerDecoration1&quot;); -unity-background-image-tint-color: rgba(76, 36, 22, 0.29); -unity-slice-scale: 1px; position: absolute; left: auto; top: 0; right: 0; scale: -1 1;" />
+        <ui:VisualElement name="RightStraightDecoration" picking-mode="Ignore" style="flex-grow: 0; width: 10%; height: 3%; background-image: url(&quot;project://database/Assets/Art/UI/Decorations/handDrawnStraightDecoration.png?fileID=21300000&amp;guid=f3ed84d0271bd897791489c108be92c9&amp;type=3#handDrawnStraightDecoration&quot;); -unity-background-scale-mode: stretch-to-fill; -unity-background-image-tint-color: rgba(76, 36, 22, 0.29); rotate: 90deg; position: absolute; left: auto; top: 48.4%; display: flex; right: -3.825%; scale: 1 1;" />
+        <ui:VisualElement name="RightBottomDecoration" picking-mode="Ignore" style="width: 45%; height: 45%; background-image: url(&quot;project://database/Assets/Art/UI/Decorations/handDrawnCornerDecoration1.png?fileID=21300000&amp;guid=036714bc1716a972889f7d0d251dfd54&amp;type=3#handDrawnCornerDecoration1&quot;); -unity-background-image-tint-color: rgba(76, 36, 22, 0.29); -unity-slice-scale: 1px; scale: -1 -1; position: absolute; bottom: 0; left: auto; right: 0;" />
+        <ui:VisualElement name="BottomStraightDecoration" picking-mode="Ignore" style="flex-grow: 0; width: 10%; height: 3%; background-image: url(&quot;project://database/Assets/Art/UI/Decorations/handDrawnStraightDecoration.png?fileID=21300000&amp;guid=f3ed84d0271bd897791489c108be92c9&amp;type=3#handDrawnStraightDecoration&quot;); -unity-background-scale-mode: stretch-to-fill; -unity-background-image-tint-color: rgba(76, 36, 22, 0.29); rotate: 0; position: absolute; left: 45%; top: auto; bottom: -0.3%; scale: 1 -1;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="LeftPageContainer" style="width: 100%; height: 100%; display: flex; align-items: center; padding-top: 1%; padding-right: 1%; padding-bottom: 1%; padding-left: 1%;">
+        <ui:Instance template="BookFighterBackgroundIllustration" name="BookFighterBackgroundIllustration" style="position: absolute; left: 0; bottom: 0; width: 75%; height: 90%;" />
+        <ui:VisualElement name="AbilityPointsContainer" style="position: absolute; width: auto; height: 6%; top: 5%; right: 6%; flex-direction: row; -unity-text-align: middle-left; padding-top: 0; padding-right: 0.5%; padding-bottom: 0.5%; padding-left: 0.5%; justify-content: center; align-items: center; min-width: 8%; max-width: 20%; overflow: visible;">
+            <ui:VisualElement name="AbilityPointsIconContainer" style="height: 40px; width: 40px; margin-top: 3px;">
+                <ui:VisualElement name="AbilityPointsIcon" style="background-image: resource(&apos;UI/Icons/awakeningCrystalIcon&apos;); -unity-background-scale-mode: scale-to-fit; height: 100%; width: 100%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="AbilityPointsLabelContainer" style="flex-grow: 1; overflow: hidden;">
+                <ui:Label tabindex="-1" text="7" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AbilityPointsLabel" class="abilityPointsLabel" style="transition-duration: 0.25s; transition-timing-function: ease-in-out-cubic; color: rgb(146, 214, 206); -unity-font-style: bold; -unity-text-outline-width: 1.5px; font-size: 32px; margin-left: 2.5%; -unity-font-definition: initial; -unity-font: url(&quot;project://database/Assets/Art/UI/Fonts/Almendra-Regular.ttf?fileID=12800000&amp;guid=65e7de613c84fc6d8a94e5a76cc8071c&amp;type=3#Almendra-Regular&quot;);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="AbilityPointsSeparator" style="position: absolute; width: 110%; background-image: url(&quot;project://database/Assets/Art/UI/Separators/handDrawnSeparators.png?fileID=-1718709414&amp;guid=29ff46483fb1774b1b00fa4cacc3ac67&amp;type=3#handDrawnSimpleSeparator_1&quot;); height: 10%; -unity-background-scale-mode: stretch-to-fill; bottom: 0; -unity-background-image-tint-color: rgb(25, 25, 25);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="FighterNameContainer" style="flex-grow: 0; position: relative; width: auto; align-items: center; justify-content: center; height: 5.5%; margin-top: 5%; max-width: 40%;">
+            <ui:Label tabindex="-1" text="Torkiel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="FighterNameLabel" class="fighterNameLabel" />
+            <ui:VisualElement name="FighterNameLabelDecoration" style="flex-grow: 0; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Separators/handDrawnSeparators.png?fileID=-822759853&amp;guid=29ff46483fb1774b1b00fa4cacc3ac67&amp;type=3#handDrawnDecoratedSeparator_2&quot;); -unity-slice-scale: 0.2px; width: 175%; bottom: 0; height: 20%; -unity-background-image-tint-color: rgb(25, 25, 25);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="AbilityTreeContainer" style="height: 82.5%; width: 82.5%; margin-left: 0; margin-top: -2%;">
+            <ui:VisualElement name="AbilityRow" style="position: absolute; width: 80%; flex-direction: row; align-items: center; justify-content: center; left: 10%; top: 5%; height: 10%;">
+                <ui:Instance template="SkillContainer" name="AbilityContainer0" style="height: 125%; width: 17.5%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="AbilityRow1" style="position: absolute; width: 80%; flex-direction: row; align-items: center; justify-content: space-around; left: 10%; top: 22%; height: 10%;">
+                <ui:Instance template="SkillContainer" name="AbilityContainer1" style="height: 125%; width: 17.5%;" />
+                <ui:Instance template="SkillContainer" name="AbilityContainer2" style="height: 125%; width: 17.5%;" />
+                <ui:Instance template="SkillContainer" name="AbilityContainer3" style="height: 125%; width: 17.5%;" />
+                <ui:Instance template="SkillContainer" name="AbilityContainer4" style="height: 125%; width: 17.5%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="AbilityRow2" style="position: absolute; width: 80%; flex-direction: row; align-items: center; justify-content: space-around; left: 10%; top: 39%; height: 10%;">
+                <ui:Instance template="SkillContainer" name="AbilityContainer5" style="height: 125%; width: 17.5%;" />
+                <ui:Instance template="SkillContainer" name="AbilityContainer6" style="height: 125%; width: 17.5%;" />
+                <ui:Instance template="SkillContainer" name="AbilityContainer7" style="height: 125%; width: 17.5%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="AbilityRow3" style="position: absolute; width: 80%; flex-direction: row; align-items: center; justify-content: space-around; left: 10%; top: 56%; height: 10%;">
+                <ui:Instance template="SkillContainer" name="AbilityContainer8" style="height: 125%; width: 17.5%;" />
+                <ui:Instance template="SkillContainer" name="AbilityContainer9" style="height: 125%; width: 17.5%;" />
+                <ui:Instance template="SkillContainer" name="AbilityContainer10" style="height: 125%; width: 17.5%;" />
+                <ui:Instance template="SkillContainer" name="AbilityContainer11" style="height: 125%; width: 17.5%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="AbilityRow4" style="position: absolute; width: 80%; flex-direction: row; align-items: center; justify-content: space-around; left: 10%; top: 73%; height: 15%;">
+                <ui:Instance template="SkillContainer" name="AbilityContainer12" style="height: 125%; width: 26%;" />
+                <ui:Instance template="SkillContainer" name="AbilityContainer13" style="height: 125%; width: 26%;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="EquippedAbilitiesContainer" style="width: 62.5%; height: 8.75%; position: absolute; left: 18.75%; bottom: 5%; flex-direction: row; justify-content: space-between;">
+            <ui:Instance template="EqquipedAbility" name="EqquipedAbility" class="equippedAbilityContainer" />
+            <ui:Instance template="EqquipedAbility" name="EqquipedAbility" class="equippedAbilityContainer" />
+            <ui:Instance template="EqquipedAbility" name="EqquipedAbility" class="equippedAbilityContainer" />
+            <ui:Instance template="EqquipedAbility" name="EqquipedAbility" class="equippedAbilityContainer" />
+            <ui:Instance template="EqquipedAbility" name="EqquipedAbility" class="equippedAbilityContainer" />
+        </ui:VisualElement>
+        <ui:Instance template="HeroChooserContainer" name="HeroChooserContainerRoot" class="heroChooserContainerRootDefault" />
+    </ui:VisualElement>
+</ui:UXML>

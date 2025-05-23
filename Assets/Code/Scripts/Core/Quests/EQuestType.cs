@@ -2,7 +2,7 @@ namespace FrostfallSaga.Core.Quests
 {
     public enum EQuestType
     {
-        MAIN,
+        PRIMARY,
         SECONDARY,
         MISSION
     }

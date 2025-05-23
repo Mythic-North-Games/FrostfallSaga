@@ -17,17 +17,28 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
     <OptionalEnemies>k__BackingField:
     - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
-    <MinOptionalEnemies>k__BackingField: 2
-    <MaxOptionalEnemies>k__BackingField: 2
+    <MinOptionalEnemies>k__BackingField: 1
+    <MaxOptionalEnemies>k__BackingField: 3
   <PreBossFightConfigurations>k__BackingField:
   - <MandatoryEnemies>k__BackingField:
     - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
-    <OptionalEnemies>k__BackingField:
-    - {fileID: 11400000, guid: 4057a68e842637b4083ddaa23a153d71, type: 2}
+    <OptionalEnemies>k__BackingField: []
     <MinOptionalEnemies>k__BackingField: 0
-    <MaxOptionalEnemies>k__BackingField: 1
+    <MaxOptionalEnemies>k__BackingField: 0
   <RewardConfiguration>k__BackingField:
-    <MinStycas>k__BackingField: 0
-    <MaxStycas>k__BackingField: 0
-    <PossibleItems>k__BackingField: []
-  <BiomeType>k__BackingField: {fileID: 11400000, guid: 8d4e48b6cfff9a04881c62782947b270, type: 2}
+    <FixedRewardConfiguration>k__BackingField:
+      StycasEarned: 100
+      _itemsEarned:
+      - element: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
+        value: 1
+      - element: {fileID: 11400000, guid: 454366d476c8570b39dfeb239c6994c5, type: 2}
+        value: 5
+    <VariableRewardConfiguration>k__BackingField:
+      <MinStycas>k__BackingField: 0
+      <MaxStycas>k__BackingField: 0
+      _possibleItems: []
+    <IsRewardShownFromStart>k__BackingField: 0
+  <EarnedReward>k__BackingField:
+    StycasEarned: 0
+    _itemsEarned: []
+  <BiomeType>k__BackingField: {fileID: 0}

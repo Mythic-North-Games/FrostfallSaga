@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: d230357c492cb7e4e86a95cf5eec38dd, type: 2}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -360,6 +360,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4737978133632107311, guid: 0cf3b2833e764c475bfc2c8964bce948, type: 3}
   m_PrefabInstance: {fileID: 577918667}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &590978247
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2015873281}
+    m_Modifications:
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020726823616174661, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_Name
+      value: OverlayUI
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+--- !u!4 &590978248 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+  m_PrefabInstance: {fileID: 590978247}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &607521706
 GameObject:
@@ -910,11 +972,9 @@ MonoBehaviour:
   _fightManager: {fileID: 1678739252}
   _fightEndMenuUIDocument: {fileID: 793609182}
   _fighterStateContainerTemplate: {fileID: 9197481963319205126, guid: 2315259c78f5cb26a82297c02e9c83ce, type: 3}
-  _itemRewardContainerTemplate: {fileID: 9197481963319205126, guid: 29d858b9d0555dc3081d42492e454377, type: 3}
+  _itemRewardContainerTemplate: {fileID: 9197481963319205126, guid: bfe50874e294c1748b1a420686237611, type: 3}
   _statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
-  _itemRewardStatsColor: {r: 0.88235295, g: 0.88235295, b: 0.88235295, a: 1}
-  _itemRewardStatIconColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-  _itemRewardLongHoverDuration: 0.5
+  _rewardItemDetailsOverlayTemplate: {fileID: 9197481963319205126, guid: 004554ed4d12a483d8dfc43ddc94ef16, type: 3}
   _fightWonText: Enemies defeated
   _fightLostText: You have been defeated
 --- !u!1 &1242875529
@@ -1184,7 +1244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <RoundCount>k__BackingField: 0
   _fightLoader: {fileID: 2012426617}
-  <FightGrid>k__BackingField: {fileID: 2056515858}
+  <FightGrid>k__BackingField: {fileID: 0}
   _actionPanel: {fileID: 1952024164}
   _cellHighlightMaterial: {fileID: 2100000, guid: 1317001a5366be047821b25e2a15c957, type: 2}
   _cellActionableHighlightMaterial: {fileID: 2100000, guid: fa4458785f81f784e894a2e9bf387954, type: 2}
@@ -1218,7 +1278,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2053010646}
   - {fileID: 416455249}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1310,26 +1369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1833085312
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 1842277432839327036, guid: 01e556993f221ac4fbda0ba65da88ddb, type: 3}
-  m_PrefabInstance: {fileID: 2053010645}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2053010646}
-  - component: {fileID: 2056515861}
-  - component: {fileID: 2056515860}
-  - component: {fileID: 2056515859}
-  - component: {fileID: 2056515858}
-  m_Layer: 0
-  m_Name: FightHexGrid
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1850674449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,13 +1550,14 @@ MonoBehaviour:
   _uiDoc: {fileID: 1952024162}
   _fightManager: {fileID: 1678739252}
   _statusIconContainerTemplate: {fileID: 9197481963319205126, guid: e65bb5637e2f1d1eb92a395ee8971e67, type: 3}
+  _objectDetailsOverlayTemplate: {fileID: 9197481963319205126, guid: 004554ed4d12a483d8dfc43ddc94ef16, type: 3}
   _statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
+  _statusDetailsOverlayTemplate: {fileID: 9197481963319205126, guid: 2307dafb3ca0155d495486db6576b0b5, type: 3}
   _consumableSlotTemplate: {fileID: 9197481963319205126, guid: 62007e018c618b539bc251fd95fa5911, type: 3}
-  _movementPointsProgressColor: {r: 0.17253397, g: 0.5459742, b: 0.7754027, a: 1}
-  _actionPointsProgressColor: {r: 0.35846135, g: 0.8221862, b: 0.4000684, a: 1}
+  _movementPointsProgressColor: {r: 0.29803923, g: 0.59607846, b: 0.7647059, a: 1}
+  _actionPointsProgressColor: {r: 0.23529412, g: 0.58431375, b: 0.19607843, a: 1}
   _statValueColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-  _statIconColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-  _statusDetailsPanelXOffset: 4
+  _statIconColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
 --- !u!114 &1952024165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1531,10 +1571,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
-  characterContainerTemplate: {fileID: 9197481963319205126, guid: 0748e2c7616b69c7c9a8edf950346285, type: 3}
-  statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
-  statusIconContainerTemplate: {fileID: 9197481963319205126, guid: e65bb5637e2f1d1eb92a395ee8971e67, type: 3}
-  fightManager: {fileID: 1678739252}
+  _characterContainerTemplate: {fileID: 9197481963319205126, guid: 0748e2c7616b69c7c9a8edf950346285, type: 3}
+  _statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
+  _statusIconContainerTemplate: {fileID: 9197481963319205126, guid: e65bb5637e2f1d1eb92a395ee8971e67, type: 3}
+  _statusDetailsOverlayTemplate: {fileID: 9197481963319205126, guid: 2307dafb3ca0155d495486db6576b0b5, type: 3}
+  _fightManager: {fileID: 1678739252}
 --- !u!114 &1952024167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1572,11 +1613,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 1952024162}
-  statusContainerTemplate: {fileID: 9197481963319205126, guid: e65bb5637e2f1d1eb92a395ee8971e67, type: 3}
-  fightManager: {fileID: 1678739252}
-  fightLoader: {fileID: 2012426617}
-  timelineController: {fileID: 1952024165}
-  displayDurationOnAction: 3
+  _statusContainerTemplate: {fileID: 9197481963319205126, guid: e65bb5637e2f1d1eb92a395ee8971e67, type: 3}
+  _statusDetailsOverlayTemplate: {fileID: 9197481963319205126, guid: 2307dafb3ca0155d495486db6576b0b5, type: 3}
+  _fightLoader: {fileID: 2012426617}
+  _fightManager: {fileID: 1678739252}
+  _timelineController: {fileID: 1952024165}
+  _displayDurationOnAction: 2
 --- !u!114 &1952024169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1684,7 +1726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 989a85e7f725cfd45966b24abe6da8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hexGrid: {fileID: 2056515858}
+  _hexGrid: {fileID: 0}
   _bookMenuBarUIController: {fileID: 0}
   _devAlliesConfs:
   - {fileID: 11400000, guid: d5746e71b0a5c65469ca2b997f19b595, type: 2}
@@ -1723,6 +1765,7 @@ Transform:
   - {fileID: 1952024163}
   - {fileID: 793609183}
   - {fileID: 577918668}
+  - {fileID: 590978248}
   - {fileID: 709765507}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

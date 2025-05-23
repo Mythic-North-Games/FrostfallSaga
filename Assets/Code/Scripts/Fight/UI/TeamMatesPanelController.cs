@@ -119,7 +119,7 @@ namespace FrostfallSaga.Fight.UI
                 adjustWidth: false,
                 adjustHeight: true,
                 displayMaxValueLabel: false,
-                customColor: _movementPointsProgressColor
+                customBackgroundTintColor: _movementPointsProgressColor
             );
         }
 
@@ -132,7 +132,7 @@ namespace FrostfallSaga.Fight.UI
                 adjustWidth: false,
                 adjustHeight: true,
                 displayMaxValueLabel: false,
-                customColor: _actionPointsProgressColor
+                customBackgroundTintColor: _actionPointsProgressColor
             );
         }
 

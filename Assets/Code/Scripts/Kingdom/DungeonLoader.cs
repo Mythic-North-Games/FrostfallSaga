@@ -12,7 +12,7 @@ namespace FrostfallSaga.Kingdom
     public class DungeonLoader : MonoBehaviour
     {
         [SerializeField] private KingdomManager kingdomManager;
-        [SerializeField] private EnterDungeonPanelController enterDungeonPanelController;
+        [SerializeField] private BaseEnterInterestPointPanelUIController enterDungeonPanelController;
         [SerializeField] private float _delayBeforeLoadingCityScene = 0.6f;
 
         #region Setup
@@ -33,20 +33,26 @@ namespace FrostfallSaga.Kingdom
                 return;
             }
 
-            enterDungeonPanelController.onDungeonEnterClicked += OnDungeonEnterClicked;
+            enterDungeonPanelController.onInterestPointEnterClicked += OnDungeonEnterClicked;
         }
 
         #endregion
 
-        private void OnDungeonEnterClicked(DungeonBuildingConfigurationSO dungeonBuildingConfiguration)
+        private void OnDungeonEnterClicked(AInterestPointConfigurationSO interestPointConfiguration)
         {
-            Debug.Log($"Saving kingdom state before loading dungeon scene for {dungeonBuildingConfiguration.Name}.");
+            if (interestPointConfiguration is not DungeonBuildingConfigurationSO dungeonConfiguration)
+            {
+                Debug.LogError("DungeonBuildingConfigurationSO is null. Cannot load dungeon scene.");
+                return;
+            }
+
+            Debug.Log($"Saving kingdom state before loading dungeon scene for {dungeonConfiguration.Name}.");
             kingdomManager.SaveKingdomState();
 
-            Debug.Log($"Saving dungeon load data for {dungeonBuildingConfiguration.Name}.");
-            GameStateManager.Instance.InitDungeonState(dungeonBuildingConfiguration.DungeonConfiguration);
+            Debug.Log($"Saving dungeon load data for {dungeonConfiguration.Name}.");
+            GameStateManager.Instance.InitDungeonState(dungeonConfiguration.DungeonConfiguration);
 
-            AudioManager.Instance.PlayUISound(dungeonBuildingConfiguration.EnterDungeonSound);
+            AudioManager.Instance.PlayUISound(dungeonConfiguration.EnterDungeonSound);
 
             Debug.Log("Launching dungeon scene...");
             StartCoroutine(WaitAndLaunchDungeonScene());

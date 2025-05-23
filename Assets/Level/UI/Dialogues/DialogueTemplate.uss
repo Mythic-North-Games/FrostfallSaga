@@ -1,7 +1,7 @@
 .dialogueScreenRootDefault {
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.78);
+    background-color: rgba(25, 25, 25, 0.67);
     justify-content: flex-start;
 }
 
@@ -36,19 +36,8 @@
     transition-timing-function: ease-in-out-cubic;
 }
 
-.dialogueLineContainerHidden {
-    width: 75%;
-    margin-left: 12.5%;
-    height: 33%;
-    margin-bottom: 5%;
-    flex-direction: row;
-    justify-content: flex-end;
-    opacity: 0;
-    translate: 0 50%;
-}
-
 .characterIconLeft {
-    background-image: url("project://database/Assets/Art/UI/Portraits/vikingSquarePortrait.jpeg?fileID=2800000&guid=650560cad05210a4396e7d04c5ad61aa&type=3#vikingSquarePortrait");
+    background-image: url("project://database/Assets/Art/UI/Portraits/valkyriePortrait.png?fileID=2800000&guid=362042da36cb9a81c9677f3b7068c188&type=3#valkyriePortrait");
     -unity-background-scale-mode: scale-and-crop;
     position: absolute;
     left: -5%;
@@ -58,11 +47,11 @@
 }
 
 .characterIconRight {
-    background-image: url("project://database/Assets/Art/UI/Portraits/vikingSquarePortrait.jpeg?fileID=2800000&guid=650560cad05210a4396e7d04c5ad61aa&type=3#vikingSquarePortrait");
+    background-image: url("project://database/Assets/Art/UI/Portraits/scaredVillagerPortrait.png?fileID=2800000&guid=8ecc645973b216cb69c839733dea6ae0&type=3#scaredVillagerPortrait");
     -unity-background-scale-mode: scale-and-crop;
     position: absolute;
     width: 30%;
-    height: 200%;
+    height: 190%;
     bottom: -28%;
     right: -5%;
 }
@@ -74,6 +63,10 @@
     margin-bottom: 0;
     margin-top: 0;
     margin-right: 0;
+    flex-direction: column-reverse;
+    height: 110%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
 }
 
 .dialogueBoxContainerRight {
@@ -83,46 +76,60 @@
     margin-bottom: 0;
     margin-top: 0;
     margin-right: 0;
+    flex-direction: column-reverse;
+    height: 110%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
 }
 
-.richTextContainerRight {
-    flex-grow: 1;
-    background-color: rgb(25, 25, 25);
+.characterNameContainerRight {
     align-items: flex-start;
-    width: 100%;
-    height: 100%;
-    border-left-color: rgb(225, 225, 225);
-    border-right-color: rgb(225, 225, 225);
-    border-top-color: rgb(225, 225, 225);
-    border-bottom-color: rgb(225, 225, 225);
-    border-top-width: 10px;
-    border-right-width: 10px;
-    border-bottom-width: 10px;
-    border-left-width: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
+    padding-top: 1%;
+    padding-right: 3.5%;
+    padding-bottom: 0;
+    padding-left: 3%;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 0;
+    background-image: url("project://database/Assets/Art/UI/Containers/oldScratchedRollContainer.png?fileID=21300000&guid=9c36572cf95e84c538af7aa3cc3ad337&type=3#oldScratchedRollContainer");
+    -unity-slice-scale: 0.2px;
+    rotate: 2.5deg;
+    -unity-background-image-tint-color: rgb(192, 177, 164);
+    position: relative;
+    top: 8%;
+    left: 2%;
 }
 
-.richTextContainerLeft {
+.characterNameContainerLeft {
+    align-items: flex-start;
+    padding-top: 1%;
+    padding-right: 3.5%;
+    padding-bottom: 0;
+    padding-left: 3%;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 0;
+    background-image: url("project://database/Assets/Art/UI/Containers/oldScratchedRollContainer.png?fileID=21300000&guid=9c36572cf95e84c538af7aa3cc3ad337&type=3#oldScratchedRollContainer");
+    -unity-slice-scale: 0.2px;
+    top: 8%;
+    left: -2%;
+    rotate: -2.5deg;
+    -unity-background-image-tint-color: rgb(192, 177, 164);
+}
+
+.richTextContainer {
     flex-grow: 1;
-    background-color: rgb(25, 25, 25);
     align-items: flex-start;
     width: 100%;
-    height: 100%;
-    border-left-color: rgb(225, 225, 225);
-    border-right-color: rgb(225, 225, 225);
-    border-top-color: rgb(225, 225, 225);
-    border-bottom-color: rgb(225, 225, 225);
-    border-top-width: 10px;
-    border-right-width: 10px;
-    border-bottom-width: 10px;
-    border-left-width: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
+    background-image: url("project://database/Assets/Art/UI/Containers/oldScratchedPageContainer.png?fileID=21300000&guid=5f85d13b9e9695c309675f4032d034fa&type=3#oldScratchedPageContainer");
+    -unity-slice-scale: 0.3px;
+    -unity-background-image-tint-color: rgb(50, 50, 50);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
 }
 
 .answersContainerLeft {
@@ -139,7 +146,7 @@
 .answersContainerRight {
     align-items: flex-start;
     width: 52.5%;
-    margin-left: 5%;
+    margin-left: 6%;
     justify-content: flex-end;
     margin-top: 8%;
     align-self: flex-start;
@@ -161,48 +168,101 @@
     margin-left: 0;
 }
 
-.answerContainerDefault {
+#AnswersContainer #Button {
     -unity-font-style: normal;
-    font-size: 42px;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 36px;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
     color: rgb(225, 225, 225);
-    background-color: rgba(25, 25, 25, 0.88);
     border-top-width: 0;
     border-right-width: 0;
     border-bottom-width: 0;
     border-left-width: 0;
-    transition-duration: 0.1s;
+    transition-duration: 0.2s;
     transition-timing-function: ease-in-out-cubic;
     -unity-text-align: middle-left;
     text-overflow: clip;
     white-space: normal;
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(225, 225, 225);
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/Art/UI/Containers/oldScratchedPageContainer.png?fileID=21300000&guid=5f85d13b9e9695c309675f4032d034fa&type=3#oldScratchedPageContainer");
+    -unity-background-scale-mode: scale-and-crop;
+    -unity-slice-scale: 0.2px;
+    -unity-background-image-tint-color: rgba(50, 50, 50, 0.59);
 }
 
-.answerContainerDefault:hover {
+#AnswersContainer #Button:hover {
     -unity-font-style: normal;
-    font-size: 42px;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
+    font-size: 36px;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
     color: rgb(225, 225, 225);
-    background-color: rgba(25, 25, 25, 0.88);
     border-top-width: 0;
     border-right-width: 0;
     border-bottom-width: 0;
-    border-left-width: 10px;
-    transition-duration: 0.1s;
+    border-left-width: 0;
+    transition-duration: 0.2s;
     transition-timing-function: ease-in-out-cubic;
     -unity-text-align: middle-left;
     text-overflow: clip;
     white-space: normal;
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border-left-color: rgb(225, 225, 225);
-    border-right-color: rgb(225, 225, 225);
-    border-top-color: rgb(225, 225, 225);
-    border-bottom-color: rgb(225, 225, 225);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(225, 225, 225);
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/Art/UI/Containers/oldScratchedPageContainer.png?fileID=21300000&guid=5f85d13b9e9695c309675f4032d034fa&type=3#oldScratchedPageContainer");
+    -unity-background-scale-mode: scale-and-crop;
+    -unity-slice-scale: 0.2px;
+    -unity-background-image-tint-color: rgb(50, 50, 50);
+}
+
+.characterNameLabel {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 60px;
+    -unity-font-style: normal;
+    color: rgb(225, 225, 225);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-text-align: middle-left;
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(225, 225, 225);
+    text-shadow: 5px 5px 0 rgba(25, 25, 25, 0.59);
+}
+
+.characterNameLabelExtraMarginBottom {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 10px;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 60px;
+    -unity-font-style: normal;
+    color: rgb(225, 225, 225);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-text-align: middle-left;
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(225, 225, 225);
+}
+
+.containerHidden {
+    translate: 0 75px;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-in-out-cubic;
+    scale: 1 1;
+    opacity: 0;
 }

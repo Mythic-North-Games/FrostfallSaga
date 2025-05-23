@@ -16,11 +16,10 @@ namespace FrostfallSaga.InventorySystem.UI
         private readonly Dictionary<VisualElement, ItemSlotContainerUIController> _itemSlotContainers = new();
 
         private readonly VisualElement _root;
-
         private Inventory _currentInventory;
-        public Action<InventorySlot> onItemSlotEquipClicked;
 
-        public Action<InventorySlot> onItemSlotSelected;
+        public Action<ItemSlotContainerUIController> onItemSlotEquipClicked;
+        public Action<ItemSlotContainerUIController> onItemSlotSelected;
 
         public InventoryBagPanelUIController(
             VisualElement root,
@@ -62,17 +61,15 @@ namespace FrostfallSaga.InventorySystem.UI
             UpdateBagSlots();
         }
 
+        public void HideItems()
+        {
+            _itemSlotContainers.Values.ToList().ForEach(itemSlotController => itemSlotController.HideItem());
+        }
+
         public void DisplayItemDetails(ItemSO item)
         {
             _itemDetailsContainerRoot.style.display = DisplayStyle.Flex;
-            _itemDetailsController.Setup(
-                name: item.Name,
-                description: item.Description,
-                icon: item.IconSprite,
-                stats: GetItemStats(item),
-                primaryEffectsTitle: item is AEquipment ? "Special effects" : "Effects",
-                primaryEffects: GetItemEffects(item)
-            );
+            _itemDetailsController.Setup(item);
         }
 
         public void HideItemDetails()
@@ -87,28 +84,6 @@ namespace FrostfallSaga.InventorySystem.UI
                 ItemSlotContainerUIController itemSlotContainer = _itemSlotContainers.ElementAt(i).Value;
                 itemSlotContainer.SetItemSlot(_currentInventory.BagSlots[i]);
             }
-        }
-
-        private static Dictionary<Sprite, string> GetItemStats(ItemSO item)
-        {
-            if (item is AEquipment equipment)
-            {
-                return equipment.GetStatsUIData()
-                    .Concat(equipment.GetMagicalStatsUIData())
-                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            }
-
-            return new Dictionary<Sprite, string>();
-        }
-
-        private static List<string> GetItemEffects(ItemSO item)
-        {
-            return item switch
-            {
-                AEquipment equipment => equipment.GetSpecialEffectsUIData(),
-                AConsumable consumable => consumable.GetEffectsUIData(),
-                _ => new List<string>()
-            };
         }
 
         #region UI Elements Names & Classes

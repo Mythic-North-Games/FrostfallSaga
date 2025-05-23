@@ -1,5 +1,6 @@
 using System;
 using FrostfallSaga.Grid;
+using FrostfallSaga.Core.Rewards;
 using UnityEngine;
 
 namespace FrostfallSaga.Core.Dungeons
@@ -11,14 +12,16 @@ namespace FrostfallSaga.Core.Dungeons
         [field: SerializeField] public DungeonFightConfiguration BossFightConfiguration { get; private set; }
         [field: SerializeField] public DungeonFightConfiguration[] PreBossFightConfigurations { get; private set; }
         [field: SerializeField] public RewardConfiguration RewardConfiguration { get; private set; }
+        [field: SerializeField] public Reward EarnedReward { get; private set; }
         [field: SerializeField] public BiomeTypeSO BiomeType { get; private set; }
 
         public Action<DungeonConfigurationSO> onDungeonCompleted;
 
         public void CompleteDungeon()
         {
-            // Reward the hero team
-            HeroTeam.HeroTeam.Instance.CollectReward(RewardConfiguration);
+            // Reward the player
+            EarnedReward = RewardConfiguration.GenerateReward();
+            HeroTeam.HeroTeam.Instance.CollectReward(EarnedReward);
 
             onDungeonCompleted?.Invoke(this);
         }

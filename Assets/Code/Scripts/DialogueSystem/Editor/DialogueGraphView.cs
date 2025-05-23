@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Core.Dialogues;
-using FrostfallSaga.Utils.Trees;
+using FrostfallSaga.Utils.DataStructures.TreeNode;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -39,7 +40,7 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             if (dialogue.DialogueTreeRoot == null || dialogue.DialogueTreeRoot.Data == null)
             {
                 DialogueLine rootData = new("Start", "Begin conversation...", null, false);
-                dialogue.SetRoot(new TreeNode<DialogueLine>(rootData));
+                dialogue.SetRoot(new TreeNode<DialogueLine>(Guid.NewGuid().ToString(), rootData));
                 AutoSave();
             }
 
@@ -95,26 +96,26 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
         private void HandleAnswerAdded(DialogueNode parentNode)
         {
             DialogueLine newLine = new("New Answer", "Enter text...", null, false);
-            TreeNode<DialogueLine> newTreeNode = new(newLine);
+            TreeNode<DialogueLine> newTreeNode = new(Guid.NewGuid().ToString(), newLine);
             parentNode.TreeNode.AddChild(newTreeNode);
             parentNode.TreeNode.Data.SetAnswers(
                 parentNode.TreeNode.Children.Select(child => child.Data.Title).ToArray()
             );
-            AutoSave();
 
             CreateDialogueNode(newTreeNode, parentNode.Depth + 1, parentNode);
             parentNode.RefreshNode();
+            AutoSave();
         }
 
         private void HandleContinuationAdded(DialogueNode parentNode)
         {
             DialogueLine newLine = new("Continuation", "Continue text...", null, false);
-            TreeNode<DialogueLine> newTreeNode = new(newLine);
+            TreeNode<DialogueLine> newTreeNode = new(Guid.NewGuid().ToString(), newLine);
             parentNode.TreeNode.AddChild(newTreeNode);
-            AutoSave();
 
             DialogueNode newNode = CreateDialogueNode(newTreeNode, parentNode.Depth + 1, parentNode);
             parentNode.RefreshNode();
+            AutoSave();
         }
 
         private void HandleNodeRemoved(DialogueNode nodeToRemove)
@@ -126,18 +127,20 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
             int index = parentTreeNode.Children.IndexOf(nodeToRemove.TreeNode);
             parentTreeNode.RemoveChild(nodeToRemove.TreeNode);
             DialogueLine parentData = parentTreeNode.Data;
+
             if (parentData.Answers != null && parentData.Answers.Length > 0 && index < parentData.Answers.Length)
             {
                 List<string> answersList = new(parentData.Answers);
                 answersList.RemoveAt(index);
                 parentData.SetAnswers(answersList.ToArray());
-                (nodeToRemove.InputPort.connections.First().output.node as DialogueNode).RefreshNode();
-            }
 
-            AutoSave();
+                if (nodeToRemove.InputPort.connections.FirstOrDefault()?.output?.node is DialogueNode parentOfRemoved)
+                    parentOfRemoved.RefreshNode();
+            }
 
             RemoveNodeAndChildrenInGraph(nodeToRemove);
             AutoPositionChildren(parentNode);
+            AutoSave();
         }
 
         private void RemoveNodeAndChildrenInGraph(DialogueNode nodeToRemove)
@@ -146,13 +149,15 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
             foreach (Edge edge in nodeToRemove.OutputPort.connections.ToList())
             {
-                if (edge.input.node is DialogueNode childNode) childrenToRemove.Add(childNode);
+                if (edge.input.node is DialogueNode childNode)
+                    childrenToRemove.Add(childNode);
                 RemoveElement(edge);
             }
 
-            foreach (DialogueNode child in childrenToRemove) RemoveNodeAndChildrenInGraph(child);
+            foreach (DialogueNode child in childrenToRemove)
+                RemoveNodeAndChildrenInGraph(child);
 
-            if (nodeToRemove.InputPort.connections.Count() > 0)
+            if (nodeToRemove.InputPort.connections.Any())
                 RemoveElement(nodeToRemove.InputPort.connections.First());
 
             RemoveElement(nodeToRemove);
@@ -168,12 +173,14 @@ namespace FrostfallSaga.FFSEditor.DialogueSystem
 
         public void ClearGraph()
         {
-            foreach (GraphElement element in graphElements.ToList()) RemoveElement(element);
+            foreach (GraphElement element in graphElements.ToList())
+                RemoveElement(element);
         }
 
         private void AutoSave()
         {
             if (_currentDialogue == null) return;
+            _currentDialogue.SaveTree(); // <-- Serialize to DTOs
             EditorUtility.SetDirty(_currentDialogue);
         }
     }

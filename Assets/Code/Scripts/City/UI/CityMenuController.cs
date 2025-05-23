@@ -15,6 +15,8 @@ namespace FrostfallSaga.City.UI
 {
     public class CityMenuController : BaseUIController
     {
+        private static readonly string HIGH_MARGIN_BOTTOM_LETTERS = "g";
+
         #region UXML Names & classes
         private static readonly string CITY_NAME_LABEL_UI_NAME = "CityNameLabel";
         private static readonly string CITY_BG_UI_NAME = "MainMenuContainer";
@@ -24,6 +26,8 @@ namespace FrostfallSaga.City.UI
         private static readonly string LEFT_CONTAINER_UI_NAME = "LeftContainer";
         private static readonly string TAVERN_MENU_ROOT_UI_NAME = "CityTavernMenu";
         private static readonly string SITUATIONS_MENU_ROOT_UI_NAME = "CitySituationsMenu";
+
+        private static readonly string CITY_NAME_LABEL_HIGH_MARGIN_BOTTOM_CLASSNAME = "cityNameLabelHighMarginBottom";
         #endregion
 
         [SerializeField] private InCityConfigurationSO _devCityConfiguration;
@@ -86,6 +90,8 @@ namespace FrostfallSaga.City.UI
         {
             // Main menu setup
             _uiDoc.rootVisualElement.Q<Label>(CITY_NAME_LABEL_UI_NAME).text = _cityConfiguration.Name;
+            AdjustCityNameLabelMargin();
+
             _uiDoc.rootVisualElement.Q<VisualElement>(CITY_BG_UI_NAME).style.backgroundImage =
                 new StyleBackground(_cityConfiguration.CityBackground);
             _uiDoc.rootVisualElement.Q<Button>(TAVERN_BUTTON_UI_NAME).clicked += OnTavernButtonClicked;
@@ -101,6 +107,20 @@ namespace FrostfallSaga.City.UI
                 _situationsButtonTemplate
             );
             _situationsMenuController.SetupSituationsMenu(_cityConfiguration.CitySituations);
+        }
+
+        private void AdjustCityNameLabelMargin()
+        {
+            Label cityNameLabel = _uiDoc.rootVisualElement.Q<Label>(CITY_NAME_LABEL_UI_NAME);
+            foreach (char letter in cityNameLabel.text)
+            {
+                if (HIGH_MARGIN_BOTTOM_LETTERS.Contains(letter))
+                {
+                    cityNameLabel.AddToClassList(CITY_NAME_LABEL_HIGH_MARGIN_BOTTOM_CLASSNAME);
+                    return;
+                }
+            }
+            cityNameLabel.RemoveFromClassList(CITY_NAME_LABEL_HIGH_MARGIN_BOTTOM_CLASSNAME);
         }
 
         private IEnumerator LaunchMainMenu()
@@ -158,7 +178,7 @@ namespace FrostfallSaga.City.UI
 
         private void OnSituationButtonClicked(ACitySituationSO citySituation)
         {
-            _situationsMenuController.Hide();
+            StartCoroutine(_situationsMenuController.Hide());
             onCitySituationClicked?.Invoke(citySituation);
         }
 

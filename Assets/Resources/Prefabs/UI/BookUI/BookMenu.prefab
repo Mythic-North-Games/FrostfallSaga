@@ -85,10 +85,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 883643899157145953}
   questsListTemplate: {fileID: 9197481963319205126, guid: 44f5d685324fc5f08afba5dcde2ee82b, type: 3}
-  listQuestItemTemplate: {fileID: 9197481963319205126, guid: 1b0add5b72ea4c93baa4fa470aaf9b98, type: 3}
+  locationListQuestItemTemplate: {fileID: 0}
+  descriptionListQuestItemTemplate: {fileID: 0}
   questDetailsTemplate: {fileID: 9197481963319205126, guid: b123ec5ba851f1362b9e5b0a92e90d7e, type: 3}
   questStepTemplate: {fileID: 9197481963319205126, guid: 74be39bbe00f23ca480296fb4699af3f, type: 3}
   actionInstructionTemplate: {fileID: 9197481963319205126, guid: 8c05b7c3f827d9ac18bfa213c03059dd, type: 3}
+  actionInstructionSeparatorTemplate: {fileID: 9197481963319205126, guid: 1becac0899f9b583191c29e8441006ef, type: 3}
+  itemSlotTemplate: {fileID: 9197481963319205126, guid: bd8931e65b6471ad7a09ed3fbed39560, type: 3}
+  rewardItemDetailsOverlay: {fileID: 9197481963319205126, guid: 004554ed4d12a483d8dfc43ddc94ef16, type: 3}
+  statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}
   devQuests: []
 --- !u!114 &1406286895306152253
 MonoBehaviour:
@@ -103,7 +108,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiDoc: {fileID: 883643899157145953}
-  heroRenderTextureSceneController: {fileID: 0}
   equippedPanelTemplate: {fileID: 9197481963319205126, guid: 85cc35556c3486bfdb3589f4f7f9de63, type: 3}
   bagPanelTemplate: {fileID: 9197481963319205126, guid: 620d5dbc289500c3bbae70a2ddaf0182, type: 3}
   statContainerTemplate: {fileID: 9197481963319205126, guid: 22da055cc17ae6f30ae35e1e3faa75c8, type: 3}

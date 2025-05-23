@@ -11,6 +11,7 @@ namespace FrostfallSaga.Core.Quests
         [field: SerializeField]
         [field: Tooltip("If the actions should be done in order or not.")]
         public bool OrderedActions { get; private set; }
+        public string ConclusionText { get; private set; }
 
         /// <summary>
         ///     Start listening to the events that will update the action completion.

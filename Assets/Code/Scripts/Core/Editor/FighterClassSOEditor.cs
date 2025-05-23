@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using FrostfallSaga.Core.Fight;
-using FrostfallSaga.Utils.Trees;
+using FrostfallSaga.Utils.DataStructures.GraphNode;
 
 namespace FrostfallSaga.Core
 {
@@ -18,6 +19,7 @@ namespace FrostfallSaga.Core
         {
             if (target == null) return;
             _fighterClassSO = (FighterClassSO)target;
+            _fighterClassSO.RebuildRuntimeGraph(); // Ensure graph is ready
         }
 
         public override void OnInspectorGUI()
@@ -27,11 +29,14 @@ namespace FrostfallSaga.Core
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Ability Graph Editor", EditorStyles.boldLabel);
 
-            if (_fighterClassSO.AbilitiesGraphModel == null)
+            if (_fighterClassSO.AbilitiesGraphRoot == null)
             {
                 if (GUILayout.Button("Create Root Node"))
                 {
-                    _fighterClassSO.SetGraphRoot(new GraphNode<ABaseAbility> { Data = null });
+                    string newId = Guid.NewGuid().ToString();
+                    var rootNode = new GraphNode<ABaseAbility>(newId, null);
+                    _fighterClassSO.GetGraphMap()[newId] = rootNode;
+                    _fighterClassSO.SaveRuntimeGraph();
                 }
             }
             else
@@ -40,7 +45,7 @@ namespace FrostfallSaga.Core
                 if (_showGraph)
                 {
                     EditorGUI.indentLevel++;
-                    DrawGraph(_fighterClassSO.AbilitiesGraphModel);
+                    DrawGraph(_fighterClassSO.AbilitiesGraphRoot);
                     EditorGUI.indentLevel--;
                 }
             }
@@ -49,6 +54,12 @@ namespace FrostfallSaga.Core
             {
                 RemoveNode(_nodeToRemove);
                 _nodeToRemove = null;
+                _fighterClassSO.SaveRuntimeGraph();
+            }
+
+            if (GUI.changed)
+            {
+                EditorUtility.SetDirty(_fighterClassSO);
             }
         }
 
@@ -58,7 +69,6 @@ namespace FrostfallSaga.Core
                 return;
 
             string label = (node.Data == null) ? "Untitled Node" : node.Data.Name;
-            bool isRoot = node.Parents == null || node.Parents.Count == 0;
 
             if (!_nodeFoldouts.ContainsKey(node)) _nodeFoldouts[node] = true;
 
@@ -67,7 +77,7 @@ namespace FrostfallSaga.Core
             _nodeFoldouts[node] = EditorGUILayout.Foldout(_nodeFoldouts[node], label, true);
             if (GUILayout.Button("Remove", GUILayout.MaxWidth(70)))
             {
-                _nodeToRemove = node;                
+                _nodeToRemove = node;
             }
 
             EditorGUILayout.EndHorizontal();
@@ -78,7 +88,7 @@ namespace FrostfallSaga.Core
                 if (newAbility != node.Data)
                 {
                     node.Data = newAbility;
-                    EditorUtility.SetDirty(_fighterClassSO);
+                    _fighterClassSO.SaveRuntimeGraph();
                 }
 
                 EditorGUILayout.Space();
@@ -107,23 +117,29 @@ namespace FrostfallSaga.Core
         {
             if (parent == null) return;
 
-            GraphNode<ABaseAbility> newNode = new() { Data = null };
+            string newId = Guid.NewGuid().ToString();
+            var newNode = new GraphNode<ABaseAbility>(newId, null);
+
             parent.Children.Add(newNode);
             newNode.Parents.Add(parent);
+
+            _fighterClassSO.GetGraphMap()[newId] = newNode;
             _nodeFoldouts[newNode] = true;
-            EditorUtility.SetDirty(_fighterClassSO);
+            _fighterClassSO.SaveRuntimeGraph();
         }
 
         private void RemoveNode(GraphNode<ABaseAbility> node)
         {
-            if (node == null) return;
+            if (node == null || node.Parents == null) return;
 
-            foreach (GraphNode<ABaseAbility> parent in node.Parents)
-            {
-                if (parent.Children.Contains(node)) parent.Children.Remove(node);
-            }
+            foreach (var parent in node.Parents)
+                parent.Children.Remove(node);
+
+            foreach (var child in node.Children)
+                child.Parents.Remove(node);
+
+            _fighterClassSO.GetGraphMap().Remove(node.ID);
             _nodeFoldouts.Remove(node);
-            EditorUtility.SetDirty(_fighterClassSO);
         }
     }
 }

@@ -135,12 +135,12 @@ namespace FrostfallSaga.Fight.Abilities
             throw new System.NotImplementedException();
         }
 
-        public override List<string> GetEffectsUIData()
+        public override List<string> GetPrimaryEffectsUIData()
         {
             throw new System.NotImplementedException();
         }
 
-        public override List<string> GetMasterstrokeEffectsUIData()
+        public override List<string> GetSecondaryEffectsUIData()
         {
             throw new System.NotImplementedException();
         }

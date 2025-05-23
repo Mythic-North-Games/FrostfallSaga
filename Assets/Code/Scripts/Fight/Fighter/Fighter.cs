@@ -633,11 +633,8 @@ namespace FrostfallSaga.Fight.Fighters
 
         public void TryIncreaseGodFavorsPointsForAction(EGodFavorsAction action)
         {
-            Dictionary<EGodFavorsAction, int> amountPerAction =
-                SElementToValue<EGodFavorsAction, int>.GetDictionaryFromArray(
-                    FighterClass.God.FavorGivingActions
-                );
-            if (amountPerAction.Keys.Contains(action)) _godFavorsPoints += amountPerAction[action];
+            Dictionary<EGodFavorsAction, int> favorGivingActions = FighterClass.God.FavorGivingActions;
+            if (favorGivingActions.Keys.Contains(action)) _godFavorsPoints += favorGivingActions[action];
         }
 
         public float GetMutableStat(EFighterMutableStat mutableStat)
@@ -692,12 +689,10 @@ namespace FrostfallSaga.Fight.Fighters
             _stats.physicalResistance = _initialStats.physicalResistance + FighterClass.ClassPhysicalResistance;
 
             _stats.magicalResistances = _initialStats.magicalResistances;
-            _stats.AddMagicalResistances(
-                SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(FighterClass.ClassMagicalResistances));
+            _stats.AddMagicalResistances(FighterClass.ClassMagicalResistances);
 
             _stats.magicalStrengths = _initialStats.magicalStrengths;
-            _stats.AddMagicalStrengths(
-                SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(FighterClass.ClassMagicalStrengths));
+            _stats.AddMagicalStrengths(FighterClass.ClassMagicalStrengths);
 
             _stats.dodgeChance = _initialStats.dodgeChance + FighterClass.ClassDodgeChance;
             _stats.masterstrokeChance = _initialStats.masterstrokeChance + FighterClass.ClassMasterstrokeChance;
@@ -905,13 +900,9 @@ namespace FrostfallSaga.Fight.Fighters
             foreach (EMagicalElement magicalElement in Enum.GetValues(typeof(EMagicalElement)))
                 armorMagicalResistances.Add(magicalElement, 0);
 
-            foreach (ArmorSO armorPiece in Inventory.GetArmorPieces())
+            foreach (ArmorSO armorPiece in Inventory.GetArmorPieces().Cast<ArmorSO>())
             {
-                Dictionary<EMagicalElement, int> armorPieceMagicalResistances =
-                    SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
-                        armorPiece.MagicalResistances
-                    );
-                foreach (KeyValuePair<EMagicalElement, int> magicalResistance in armorPieceMagicalResistances)
+                foreach (KeyValuePair<EMagicalElement, int> magicalResistance in armorPiece.MagicalResistances)
                     armorMagicalResistances[magicalResistance.Key] += magicalResistance.Value;
             }
 

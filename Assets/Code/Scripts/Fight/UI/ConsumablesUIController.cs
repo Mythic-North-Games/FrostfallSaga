@@ -146,11 +146,11 @@ namespace FrostfallSaga.Fight.UI
             }
         }
 
-        private void OnConsumableSlotClicked(InventorySlot clickedConsumableSlot)
+        private void OnConsumableSlotClicked(ItemSlotContainerUIController clickedConsumableSlot)
         {
-            if (clickedConsumableSlot.Item is ConsumableSO) // Should always be true
+            if (clickedConsumableSlot.CurrentItemSlot.Item is ConsumableSO) // Should always be true
             {
-                onConsumableUsed?.Invoke(clickedConsumableSlot);
+                onConsumableUsed?.Invoke(clickedConsumableSlot.CurrentItemSlot);
             }
         }
 

@@ -2,8 +2,8 @@
     <Style src="project://database/Assets/Level/UI/BookMenu/bookMenu.uss?fileID=7433441132597879392&amp;guid=f1c6556d6bd019516a51483c72d964d5&amp;type=3#bookMenu" />
     <ui:VisualElement name="BookMenuContainer" class="bookMenuContainerDefault">
         <ui:VisualElement name="BookRoot" class="bookRootDefault" style="background-color: rgb(214, 199, 175); border-left-color: rgb(80, 80, 80); border-right-color: rgb(80, 80, 80); border-top-color: rgb(80, 80, 80); border-bottom-color: rgb(80, 80, 80);">
-            <ui:VisualElement name="LeftPageContainer" style="width: 50%; height: 100%; border-right-width: 5px; border-left-color: rgb(80, 80, 80); border-right-color: rgb(80, 80, 80); border-top-color: rgb(80, 80, 80); border-bottom-color: rgb(80, 80, 80); background-image: url(&quot;project://database/Assets/Art/UI/Backgrounds/Talent%20tree/norseVikingPaperBackground.jpg?fileID=2800000&amp;guid=2c51253e9f97ecf24907cdee23bd4b2e&amp;type=3#norseVikingPaperBackground&quot;); -unity-background-scale-mode: scale-and-crop; -unity-background-image-tint-color: rgb(225, 225, 225);" />
-            <ui:VisualElement name="RightPageContainer" style="width: 50%; height: 100%; border-right-width: 0; border-left-color: rgb(80, 80, 80); border-right-color: rgb(80, 80, 80); border-top-color: rgb(80, 80, 80); border-bottom-color: rgb(80, 80, 80); border-left-width: 5px; background-image: url(&quot;project://database/Assets/Art/UI/Backgrounds/Talent%20tree/norseVikingPaperBackground.jpg?fileID=2800000&amp;guid=2c51253e9f97ecf24907cdee23bd4b2e&amp;type=3#norseVikingPaperBackground&quot;); -unity-background-scale-mode: scale-and-crop; -unity-background-image-tint-color: rgb(225, 225, 225);" />
+            <ui:VisualElement name="LeftPageContainer" style="width: 45.5%; height: 90%; padding-top: 0; padding-left: 0; padding-bottom: 0; padding-right: 0; position: absolute; left: 4.5%; top: 5%; display: flex;" />
+            <ui:VisualElement name="RightPageContainer" style="width: 45.5%; height: 90%; position: absolute; left: 50%; top: 5%;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

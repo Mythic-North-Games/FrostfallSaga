@@ -1,16 +1,18 @@
 .effectLine {
-    margin-top: 0;
+    margin-top: -0.5%;
     margin-right: 0;
-    margin-bottom: 0;
+    margin-bottom: -0.5%;
     margin-left: 0;
     padding-top: 0;
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&type=2#MorrisRomanBlack SDF");
-    font-size: 150%;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
+    font-size: 20px;
     color: rgb(25, 25, 25);
     white-space: normal;
+    -unity-text-outline-width: 0.5px;
+    -unity-text-outline-color: rgb(25, 25, 25);
 }
 
 .objectStatContainerRoot {

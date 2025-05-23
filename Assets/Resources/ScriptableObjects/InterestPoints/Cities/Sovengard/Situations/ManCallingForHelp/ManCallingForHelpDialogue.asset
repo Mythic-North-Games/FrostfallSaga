@@ -12,85 +12,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8416ebd081a521d1c893a1eb03693a42, type: 3}
   m_Name: ManCallingForHelpDialogue
   m_EditorClassIdentifier: 
-  <DialogueTreeRoot>k__BackingField:
-    Children:
-    - Children:
-      - Children:
-        - Children:
-          - Children: []
-            Data:
-              rid: 6053963251082067972
-          - Children: []
-            Data:
-              rid: 6053963251082067973
-          Data:
-            rid: 6053963251082067971
-        Data:
-          rid: 6053963251082067970
-      Data:
-        rid: 6053963118975909893
-    Data:
-      rid: 6053963118975909888
   <DialogueBackground>k__BackingField: {fileID: 0}
-  references:
-    version: 2
-    RefIds:
-    - rid: 6053963118975909888
-      type: {class: DialogueLine, ns: FrostfallSaga.Core.Dialogues, asm: FrostfallSaga.Core}
-      data:
-        <Title>k__BackingField: Dialogue start
-        <RichText>k__BackingField: Our end is near, this village is lost!
-        <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
-        <IsRight>k__BackingField: 1
-        <Answers>k__BackingField: []
-        <Quest>k__BackingField: {fileID: 0}
-    - rid: 6053963118975909893
-      type: {class: DialogueLine, ns: FrostfallSaga.Core.Dialogues, asm: FrostfallSaga.Core}
-      data:
-        <Title>k__BackingField: Dialogue start line continuation
-        <RichText>k__BackingField: What is happening here?
-        <Speaker>k__BackingField: {fileID: 11400000, guid: 19873534e26975d0d812e38e33331766, type: 2}
-        <IsRight>k__BackingField: 0
-        <Answers>k__BackingField: []
-        <Quest>k__BackingField: {fileID: 0}
-    - rid: 6053963251082067970
-      type: {class: DialogueLine, ns: FrostfallSaga.Core.Dialogues, asm: FrostfallSaga.Core}
-      data:
-        <Title>k__BackingField: Dialogue start line continuation line continuation
-        <RichText>k__BackingField: Since the ruins near the village have awoken,
-          skeletons have been wandering around, killing all the poeple that are travelling
-          a bit too far from the village.
-        <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
-        <IsRight>k__BackingField: 1
-        <Answers>k__BackingField: []
-        <Quest>k__BackingField: {fileID: 0}
-    - rid: 6053963251082067971
-      type: {class: DialogueLine, ns: FrostfallSaga.Core.Dialogues, asm: FrostfallSaga.Core}
-      data:
-        <Title>k__BackingField: Dialogue start line continuation line continuation
-          line continuation
-        <RichText>k__BackingField: We can't go outside the city anymore, we are lost!
-        <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
-        <IsRight>k__BackingField: 1
-        <Answers>k__BackingField:
-        - I'm going to help you
-        - A great story to scare the children!
-        <Quest>k__BackingField: {fileID: 0}
-    - rid: 6053963251082067972
-      type: {class: DialogueLine, ns: FrostfallSaga.Core.Dialogues, asm: FrostfallSaga.Core}
-      data:
-        <Title>k__BackingField: I'm going to help you answer
-        <RichText>k__BackingField: Bless the gods!
-        <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
-        <IsRight>k__BackingField: 1
-        <Answers>k__BackingField: []
-        <Quest>k__BackingField: {fileID: 11400000, guid: f572c0de53101d97ebadf6b1b9e6e337, type: 2}
-    - rid: 6053963251082067973
-      type: {class: DialogueLine, ns: FrostfallSaga.Core.Dialogues, asm: FrostfallSaga.Core}
-      data:
-        <Title>k__BackingField: A great story to scare the children! answer
-        <RichText>k__BackingField: I'm telling the truth... You'll see by yourself!
-        <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
-        <IsRight>k__BackingField: 1
-        <Answers>k__BackingField: []
-        <Quest>k__BackingField: {fileID: 0}
+  _serializedTree:
+  - ID: 3d968664-6f1b-49ad-8518-b068ba945635
+    Data:
+      <Title>k__BackingField: Dialogue start
+      <RichText>k__BackingField: Help me!
+      <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
+      <IsRight>k__BackingField: 1
+      <Answers>k__BackingField: []
+      <Quest>k__BackingField: {fileID: 0}
+    ParentID: 
+    ChildrenIDs:
+    - 73363817-fd5d-446c-976f-cbaa17563d93
+  - ID: 73363817-fd5d-446c-976f-cbaa17563d93
+    Data:
+      <Title>k__BackingField: Dialogue start continuation
+      <RichText>k__BackingField: What is happening old man?
+      <Speaker>k__BackingField: {fileID: 11400000, guid: 19873534e26975d0d812e38e33331766, type: 2}
+      <IsRight>k__BackingField: 0
+      <Answers>k__BackingField: []
+      <Quest>k__BackingField: {fileID: 0}
+    ParentID: 3d968664-6f1b-49ad-8518-b068ba945635
+    ChildrenIDs:
+    - d357a7e5-30ef-4f37-ba87-8f52aabfbac7
+  - ID: d357a7e5-30ef-4f37-ba87-8f52aabfbac7
+    Data:
+      <Title>k__BackingField: Dialogue start continuation continuation
+      <RichText>k__BackingField: The village is attacked! Please, help us!
+      <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
+      <IsRight>k__BackingField: 1
+      <Answers>k__BackingField:
+      - I will help you
+      - I'm too busy sorry
+      <Quest>k__BackingField: {fileID: 0}
+    ParentID: 73363817-fd5d-446c-976f-cbaa17563d93
+    ChildrenIDs:
+    - d35c2ba3-e1d3-4139-a093-a56be5bb385e
+    - 47ff8e93-7d2f-4211-bfe2-db4bfd9a19bd
+  - ID: d35c2ba3-e1d3-4139-a093-a56be5bb385e
+    Data:
+      <Title>k__BackingField: I will help you answer
+      <RichText>k__BackingField: May the gods be blessed!
+      <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
+      <IsRight>k__BackingField: 1
+      <Answers>k__BackingField: []
+      <Quest>k__BackingField: {fileID: 11400000, guid: 3a253f80c6e9bcf7ebccfc658f089b55, type: 2}
+    ParentID: d357a7e5-30ef-4f37-ba87-8f52aabfbac7
+    ChildrenIDs: []
+  - ID: 47ff8e93-7d2f-4211-bfe2-db4bfd9a19bd
+    Data:
+      <Title>k__BackingField: I'm too busy sorry answer
+      <RichText>k__BackingField: We're looooost noooo!
+      <Speaker>k__BackingField: {fileID: 11400000, guid: 54c28b6d2e5456b4f9543ae4ae670c23, type: 2}
+      <IsRight>k__BackingField: 1
+      <Answers>k__BackingField: []
+      <Quest>k__BackingField: {fileID: 0}
+    ParentID: d357a7e5-30ef-4f37-ba87-8f52aabfbac7
+    ChildrenIDs: []

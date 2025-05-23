@@ -17,26 +17,28 @@ namespace FrostfallSaga.Fight
             return stycasLoot;
         }
 
-        public static List<ItemSO> GenerateItemsReward(Fighter[] enemies)
+        public static Dictionary<ItemSO, int> GenerateItemsReward(Fighter[] enemies)
         {
-            List<ItemSO> allInventoriesLoot = new();
-            enemies.ToList().ForEach(enemy => allInventoriesLoot.AddRange(LootInventory(enemy.Inventory)));
+            Dictionary<ItemSO, int> allInventoriesLoot = new();
+            foreach (var enemy in enemies)
+            {
+                foreach (var item in LootInventory(enemy.Inventory))
+                {
+                    allInventoriesLoot[item.Key] = allInventoriesLoot.GetValueOrDefault(item.Key) + item.Value;
+                }
+            }
             return allInventoriesLoot;
         }
 
-        private static ItemSO[] LootInventory(Inventory inventory)
+        private static Dictionary<ItemSO, int> LootInventory(Inventory inventory)
         {
-            List<ItemSO> loot = new();
-
-            foreach (ItemSO inventoryItem in inventory.GetAllItems())
+            Dictionary<ItemSO, int> itemsToLoot = new();
+            foreach (var inventoryItem in inventory.GetAllItems())
             {
                 if (Randomizer.GetBooleanOnChance(inventoryItem.LootChance))
-                {
-                    loot.Add(inventoryItem);
-                }
+                    itemsToLoot[inventoryItem] = itemsToLoot.GetValueOrDefault(inventoryItem) + 1;
             }
-
-            return loot.ToArray();
+            return itemsToLoot;
         }
     }
 }

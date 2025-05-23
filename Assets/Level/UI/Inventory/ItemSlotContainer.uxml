@@ -1,9 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Level/UI/Inventory/inventory.uss?fileID=7433441132597879392&amp;guid=d49bf6daebebedc64ac592304a2a63e5&amp;type=3#inventory" />
-    <ui:VisualElement name="ItemSlotContainer" class="itemSlotContainer">
-        <ui:VisualElement name="ItemSlot" style="width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Art/UI/UIKit/Icons/magicIcon.png?fileID=2800000&amp;guid=2e2e6eb292043da4a9f88ff5ab9a66cc&amp;type=3#magicIcon&quot;); -unity-background-scale-mode: scale-to-fit;" />
+    <ui:VisualElement name="ItemSlotBackground" class="itemSlotBackground" style="display: flex;">
+        <ui:VisualElement name="ItemSlotTagIcon" style="flex-grow: 0; -unity-background-scale-mode: scale-to-fit; position: absolute; left: 10%; top: 10%; width: 80%; height: 80%; background-image: resource(&apos;UI/Icons/helmetIcon&apos;); -unity-background-image-tint-color: rgba(25, 25, 25, 0.59);" />
     </ui:VisualElement>
-    <ui:VisualElement name="ItemSlotCountContainer" style="position: absolute; right: -20%; top: -20%; width: 40%; height: 40%; border-left-color: rgb(25, 25, 25); border-right-color: rgb(25, 25, 25); border-top-color: rgb(25, 25, 25); border-bottom-color: rgb(25, 25, 25); border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-top-left-radius: 100%; border-top-right-radius: 100%; border-bottom-right-radius: 100%; border-bottom-left-radius: 100%; background-color: rgb(225, 225, 225);">
-        <ui:Label tabindex="-1" text="9" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemSlotCount" style="width: 100%; height: 100%; margin-top: 7.5%; margin-right: 0; margin-bottom: 0; margin-left: 5%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Level/UI/FontAssets/MorrisRomanBlack%20SDF.asset?fileID=11400000&amp;guid=3fc2ff6b214ea4acd8efbcc2f4e3760a&amp;type=2#MorrisRomanBlack SDF&quot;); font-size: 30px; -unity-text-align: middle-center;" />
+    <ui:VisualElement name="ItemSlotContainer" class="itemSlotContainer">
+        <ui:VisualElement name="ItemSlot" class="itemSlot" style="transition-duration: 0.2s; transition-timing-function: ease-in-out-cubic; background-image: resource(&apos;UI/Icons/ironAxeIcon&apos;); transition-delay: 0s;" />
+        <ui:Label tabindex="-1" text="3" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ItemSlotCount" class="itemSlotCount" style="transition-delay: 0s;" />
+        <ui:VisualElement name="ItemSlotContainerSelected" class="itemSlotContainerSelected" />
     </ui:VisualElement>
 </ui:UXML>

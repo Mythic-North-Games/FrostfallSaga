@@ -15,7 +15,7 @@ MonoBehaviour:
   <Name>k__BackingField: Leather boots (example)
   <Description>k__BackingField: Good first boots for any beginner adventurer
   <IconSprite>k__BackingField: {fileID: 21300000, guid: 54602b48bb6b71e4b967d9777b79ae1e, type: 3}
-  <SlotTag>k__BackingField: 2
+  <SlotTag>k__BackingField: 4
   <LootChance>k__BackingField: 0.25
   <PhysicalResistance>k__BackingField: 5
   <MagicalResistances>k__BackingField:

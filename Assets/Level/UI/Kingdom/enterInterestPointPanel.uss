@@ -1,0 +1,181 @@
+.interestPointGateButtonContainer {
+    width: 33%;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    height: 50px;
+}
+
+.interestPointGateButtonDefault {
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 250%;
+    -unity-font-style: normal;
+    width: 100%;
+    align-self: center;
+    color: rgb(225, 225, 225);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(225, 225, 225);
+    background-image: url("project://database/Assets/Art/UI/Buttons/handDrawnButton.png?fileID=21300000&guid=077d449d537274060add817c18a959f5&type=3#handDrawnButton");
+    -unity-background-image-tint-color: rgb(225, 225, 225);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-slice-left: 0;
+    -unity-slice-right: 0;
+    -unity-slice-scale: 0.3px;
+    -unity-slice-top: 0;
+    -unity-slice-bottom: 0;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    margin-top: 0;
+}
+
+.interestPointGateButtonDefault:hover {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 250%;
+    -unity-font-style: normal;
+    width: 100%;
+    align-self: center;
+    color: rgb(72, 50, 32);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(72, 50, 32);
+    background-image: url("project://database/Assets/Art/UI/Buttons/handDrawnFilledButton.png?fileID=21300000&guid=e4667480ac91da43a8227d0a2928dec1&type=3#handDrawnFilledButton");
+    -unity-background-image-tint-color: rgb(225, 225, 225);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-slice-left: 0;
+    -unity-slice-right: 0;
+    -unity-slice-scale: 0.3px;
+    -unity-slice-top: 0;
+    -unity-slice-bottom: 0;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+}
+
+.panelContainerDefault {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.39);
+}
+
+.panelContainerHidden {
+    opacity: 0;
+}
+
+.interestPointPanelContainerDefault {
+    position: absolute;
+    top: 40%;
+    left: 25%;
+    width: 50%;
+    height: auto;
+}
+
+.interestPointPanelContainerHidden {
+    opacity: 0;
+    translate: 0 100%;
+}
+
+.descriptionLabel {
+    max-height: 75%;
+    margin-top: 5%;
+    margin-right: 0;
+    margin-bottom: 4%;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/Almendra-Regular%20SDF.asset?fileID=11400000&guid=7d18b115c05ba9bf5954496f908e3550&type=2#Almendra-Regular SDF");
+    font-size: 28px;
+    white-space: normal;
+    -unity-text-align: upper-center;
+    color: rgb(225, 225, 225);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(225, 225, 225);
+    -unity-font-style: normal;
+}
+
+.interestPointNameContainer {
+    width: 66%;
+    margin-left: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+    position: absolute;
+    background-image: url("project://database/Assets/Art/UI/Containers/oldScratchedBannerContainer.png?fileID=21300000&guid=1b0b5f41199a3b984b240e0f38eef727&type=3#oldScratchedBannerContainer");
+    -unity-slice-scale: 0.3px;
+    margin-right: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+    top: auto;
+    align-items: center;
+    padding-top: 0;
+    justify-content: center;
+    padding-right: 0;
+    padding-bottom: 2.6%;
+    padding-left: 0;
+    height: 75px;
+    -unity-background-image-tint-color: rgb(142, 99, 64);
+}
+
+.interestPointPreview {
+    width: 100%;
+    background-image: url("project://database/Assets/Art/UI/Illustrations/cityPreview_1.png?fileID=21300000&guid=15d3d1ecdb355ab43901eb55beab693a&type=3#cityPreview_1");
+    -unity-background-scale-mode: scale-to-fit;
+    position: absolute;
+    height: 450px;
+    top: -350px;
+}
+
+.interestPointDialogContainer {
+    flex-grow: 1;
+    justify-content: space-between;
+    padding-top: 5%;
+    padding-right: 10%;
+    padding-bottom: 5%;
+    padding-left: 10%;
+    -unity-slice-scale: 0.75px;
+    align-items: center;
+    width: 100%;
+    background-image: url("project://database/Assets/Art/UI/Containers/oldScratchedRollColoredContainer.png?fileID=21300000&guid=50c05349dc7b44e0092140cbeaf4f534&type=3#oldScratchedRollColoredContainer");
+}
+
+.interestPointNameLabel {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    color: rgb(224, 224, 224);
+    font-size: 46px;
+    -unity-text-align: middle-center;
+    -unity-text-outline-color: rgb(224, 224, 224);
+    -unity-text-outline-width: 1.5px;
+}

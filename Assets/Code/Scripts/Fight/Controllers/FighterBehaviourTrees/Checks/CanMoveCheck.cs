@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using FrostfallSaga.Fight.Fighters;
-using FrostfallSaga.Utils.Trees.BehaviourTree;
+using FrostfallSaga.Utils.DataStructures.BehaviourTree;
 
 namespace FrostfallSaga.Fight.Controllers.FighterBehaviourTrees.Checks
 {

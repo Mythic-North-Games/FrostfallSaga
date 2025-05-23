@@ -55,10 +55,16 @@ namespace FrostfallSaga.Core.Quests
         /// </summary>
         public void CheckIsCompleted()
         {
-            if (NonDecisiveActions.All(action => action.IsCompleted) &&
-                DecisiveActions.Any(action => action.IsCompleted))
+            if (
+                NonDecisiveActions.All(action => action.IsCompleted) &&
+                DecisiveActions.Any(action => action.IsCompleted)
+            )
             {
                 ChosenDecisiveActionIndex = DecisiveActions.FindIndex(action => action.IsCompleted);
+            }
+            else
+            {
+                ChosenDecisiveActionIndex = -1;
             }
         }
 

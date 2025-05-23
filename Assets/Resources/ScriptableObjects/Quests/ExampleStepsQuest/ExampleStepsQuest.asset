@@ -12,30 +12,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfab220a3a1e5ab99b8db9e565cf11c9, type: 3}
   m_Name: ExampleStepsQuest
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
+  <Name>k__BackingField: Where is you family?
+  <TeaserDescription>k__BackingField: After waking up from the dungeon, I need to
+    get back to the village and find my family.
+  <Description>k__BackingField: After waking up from the dungeon, I need to get back
+    to the village and find my family. After waking up from the dungeon, I need to
+    get back to the village and find my family.
   <OriginLocation>k__BackingField: 
+  <Illustration>k__BackingField: {fileID: 21300000, guid: b2e60596e12406ecc9a87ce861cae4fb, type: 3}
   <Type>k__BackingField: 0
   <RewardConfiguration>k__BackingField:
-    <MinStycas>k__BackingField: 0
-    <MaxStycas>k__BackingField: 0
-    <PossibleItems>k__BackingField: []
-  <IsCompleted>k__BackingField: 0
-  <PossibleQuestEndings>k__BackingField:
-  - element: 00000000
-    value:
-      <ConclusionText>k__BackingField: 
-      <EndingIllustration>k__BackingField: {fileID: 0}
-  <Steps>k__BackingField:
-    Children: []
+    <FixedRewardConfiguration>k__BackingField:
+      StycasEarned: 100
+      _itemsEarned:
+      - element: {fileID: 11400000, guid: 964d7204bfe573dc09b026ad31aa5c92, type: 2}
+        value: 1
+    <VariableRewardConfiguration>k__BackingField:
+      <MinStycas>k__BackingField: 0
+      <MaxStycas>k__BackingField: 0
+      _possibleItems: []
+    <IsRewardShownFromStart>k__BackingField: 0
+  <EarnedReward>k__BackingField:
+    StycasEarned: 0
+    _itemsEarned:
+    - element: {fileID: 11400000, guid: 57da2480a19997f6da45abf7f0877db4, type: 2}
+      value: 10
+  <IsCompleted>k__BackingField: 1
+  IsTracked: 0
+  _possibleQuestEndings: []
+  <ChosenQuestEnding>k__BackingField:
+    <ConclusionText>k__BackingField: I say it in front of all the nothern gods. I
+      will avenge them!
+  _serializedSteps:
+  - ID: 323fb257-da21-4545-99cd-681124cfdfc4
     Data:
-      rid: 6053963118975909898
-  references:
-    version: 2
-    RefIds:
-    - rid: 6053963118975909898
-      type: {class: QuestStep, ns: FrostfallSaga.Core.Quests, asm: FrostfallSaga.Core}
-      data:
-        <Title>k__BackingField: First step
-        <Description>k__BackingField: Lorem ipsum dolor sit amet
-        <Actions>k__BackingField: {fileID: 0}
+      <Title>k__BackingField: Get back to the village
+      <Description>k__BackingField: The village is at one day by foot. I need to
+        get back there
+      <Actions>k__BackingField: {fileID: 11400000, guid: 7a856edaacd54f49e9fbe75dd0535ca6, type: 2}
+    ParentID: 
+    ChildrenIDs:
+    - a0956898-c1df-4ec0-8a44-6bbb6dcd63d5
+  - ID: a0956898-c1df-4ec0-8a44-6bbb6dcd63d5
+    Data:
+      <Title>k__BackingField: The village is... empty ?!
+      <Description>k__BackingField: Where is everyone? I need to find out what happened...
+      <Actions>k__BackingField: {fileID: 11400000, guid: 90d296405d047a47eb1bf9d1298c8124, type: 2}
+    ParentID: 323fb257-da21-4545-99cd-681124cfdfc4
+    ChildrenIDs: []

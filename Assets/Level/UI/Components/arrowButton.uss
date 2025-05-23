@@ -1,0 +1,175 @@
+.controlPanelButton {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 0;
+    width: auto;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 350%;
+    border-left-color: rgba(25, 25, 25, 0.78);
+    border-right-color: rgba(25, 25, 25, 0.78);
+    border-top-color: rgba(25, 25, 25, 0.78);
+    border-bottom-color: rgba(25, 25, 25, 0.78);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    color: rgb(25, 25, 25);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -unity-text-align: middle-center;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out-cubic;
+    transition-property: all;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0;
+    -unity-font-style: normal;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(25, 25, 25);
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.controlPanelButtonHovered {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 0;
+    width: auto;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 350%;
+    border-left-color: rgba(25, 25, 25, 0.78);
+    border-right-color: rgba(25, 25, 25, 0.78);
+    border-top-color: rgba(25, 25, 25, 0.78);
+    border-bottom-color: rgba(25, 25, 25, 0.78);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    color: rgb(25, 25, 25);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -unity-text-align: middle-center;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out-cubic;
+    transition-property: all;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0;
+    -unity-text-outline-width: 1.8px;
+    -unity-text-outline-color: rgb(25, 25, 25);
+    flex-grow: 1;
+    scale: 1 1;
+    -unity-font-style: normal;
+    text-shadow: 0 2.5px 5px rgba(50, 50, 50, 0.39);
+    word-spacing: 0;
+    letter-spacing: 0;
+}
+
+.controlPanelButtonActive {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 0;
+    width: auto;
+    -unity-font-definition: url("project://database/Assets/Level/UI/FontAssets/JimNightshade-Regular%20SDF.asset?fileID=11400000&guid=c1721a64485c07a1b951d49b9c4cd202&type=2#JimNightshade-Regular SDF");
+    font-size: 350%;
+    border-left-color: rgba(25, 25, 25, 0.78);
+    border-right-color: rgba(25, 25, 25, 0.78);
+    border-top-color: rgba(25, 25, 25, 0.78);
+    border-bottom-color: rgba(25, 25, 25, 0.78);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    color: rgb(25, 25, 25);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -unity-text-align: middle-center;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out-cubic;
+    transition-property: all;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0;
+    -unity-text-outline-width: 1.8px;
+    -unity-text-outline-color: rgb(25, 25, 25);
+    flex-grow: 1;
+    scale: 1 1;
+    -unity-font-style: normal;
+    text-shadow: 0 2.5px 5px rgba(50, 50, 50, 0.39);
+    word-spacing: 0;
+    letter-spacing: 4px;
+}
+
+.leftArrow {
+    flex-grow: 0;
+    position: relative;
+    width: 25px;
+    height: 30px;
+    background-image: resource('UI/Icons/handDrawnArrowIcon');
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    -unity-background-scale-mode: scale-to-fit;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    left: -45px;
+}
+
+.leftArrowLeft {
+    flex-grow: 0;
+    position: relative;
+    width: 25px;
+    height: 30px;
+    background-image: resource('UI/Icons/handDrawnArrowIcon');
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    -unity-background-scale-mode: scale-to-fit;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    left: -55px;
+}
+
+.rightArrow {
+    flex-grow: 0;
+    position: relative;
+    width: 45px;
+    height: 45px;
+    background-image: resource('UI/Icons/handDrawnArrowIcon');
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    -unity-background-scale-mode: scale-to-fit;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    left: auto;
+    right: -20%;
+    scale: -1 1;
+}
+
+.rightArrowRight {
+    flex-grow: 0;
+    position: relative;
+    width: 45px;
+    height: 45px;
+    background-image: resource('UI/Icons/handDrawnArrowIcon');
+    -unity-background-image-tint-color: rgb(25, 25, 25);
+    -unity-background-scale-mode: scale-to-fit;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    left: auto;
+    right: -35%;
+    scale: -1 1;
+}

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FrostfallSaga.Core.Entities;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.InventorySystem;
@@ -13,8 +14,19 @@ namespace FrostfallSaga.Fight.FightItems
     public class ArmorSO : AArmor
     {
         [field: SerializeField] public int PhysicalResistance { get; private set; }
-        [field: SerializeField] public SElementToValue<EMagicalElement, int>[] MagicalResistances { get; private set; }
-        [field: SerializeField] public SElementToValue<EEntityRace, float>[] FightersStrengths { get; private set; }
+        [field: SerializeField] private SElementToValue<EMagicalElement, int>[] _magicalResistances;
+        public Dictionary<EMagicalElement, int> MagicalResistances
+        {
+            get => SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(_magicalResistances);
+            private set => _magicalResistances = SElementToValue<EMagicalElement, int>.GetArrayFromDictionary(value);
+        }
+
+        [field: SerializeField] private SElementToValue<EEntityRace, float>[] _fightersStrengths;
+        public Dictionary<EEntityRace, float> FightersStrengths
+        {
+            get => SElementToValue<EEntityRace, float>.GetDictionaryFromArray(_fightersStrengths);
+            private set => _fightersStrengths = SElementToValue<EEntityRace, float>.GetArrayFromDictionary(value);
+        }
 
         public override Dictionary<Sprite, string> GetStatsUIData()
         {
@@ -25,40 +37,34 @@ namespace FrostfallSaga.Fight.FightItems
                     PhysicalResistance.ToString()
                 }
             };
-            return statsUIData;
+            return statsUIData.Concat(
+                GetMagicalStatsUIData()
+            ).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         }
 
-        public override Dictionary<Sprite, string> GetMagicalStatsUIData()
+        private Dictionary<Sprite, string> GetMagicalStatsUIData()
         {
             Dictionary<Sprite, string> magicalResistancesUIData = new();
 
-            Dictionary<EMagicalElement, int> magicalResistances =
-                SElementToValue<EMagicalElement, int>.GetDictionaryFromArray(
-                    MagicalResistances
-                );
-            foreach (EMagicalElement magicalElement in magicalResistances.Keys)
+            foreach (EMagicalElement magicalElement in MagicalResistances.Keys)
             {
                 magicalResistancesUIData.Add(
                     UIIconsProvider.Instance.GetIcon(magicalElement.GetIconResourceName()),
-                    magicalResistances[magicalElement].ToString()
+                    MagicalResistances[magicalElement].ToString()
                 );
             }
 
             return magicalResistancesUIData;
         }
 
-        public override List<string> GetSpecialEffectsUIData()
+        public override List<string> GetPrimaryEffectsUIData()
         {
             List<string> specialEffectsUIData = new();
 
-            Dictionary<EEntityRace, float> fightersStrengths =
-                SElementToValue<EEntityRace, float>.GetDictionaryFromArray(
-                    FightersStrengths
-                );
-            foreach (EEntityRace entityRace in fightersStrengths.Keys)
+            foreach (EEntityRace entityRace in FightersStrengths.Keys)
             {
-                string sign = fightersStrengths[entityRace] > 0 ? "+" : "-";
-                int asPercentage = (int)((fightersStrengths[entityRace] - 1) * 100);
+                string sign = FightersStrengths[entityRace] > 0 ? "+" : "-";
+                int asPercentage = (int)((FightersStrengths[entityRace] - 1) * 100);
                 specialEffectsUIData.Add($"{sign}{asPercentage}% resistance against {entityRace.ToUIString()}");
             }
 

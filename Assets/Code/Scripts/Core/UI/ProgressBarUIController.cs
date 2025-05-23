@@ -14,7 +14,8 @@ namespace FrostfallSaga.Core.UI
             bool adjustHeight = false,
             bool displayValueLabel = true,
             bool displayMaxValueLabel = true,
-            Color customColor = default
+            Color customColor = default,
+            Color customBackgroundTintColor = default
         )
         {
             Label progressBarValueLabel = root.Q<Label>(PROGRESS_BAR_LABEL_UI_NAME);
@@ -47,6 +48,12 @@ namespace FrostfallSaga.Core.UI
                     progress,
                     LengthUnit.Percent
                 );
+            }
+
+            if (customBackgroundTintColor != default)
+            {
+                root.Q<VisualElement>(PROGRESS_BAR_FILL_UI_NAME).style.unityBackgroundImageTintColor =
+                    customBackgroundTintColor;
             }
 
             if (customColor != default)

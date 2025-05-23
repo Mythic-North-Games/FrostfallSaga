@@ -13,19 +13,30 @@ MonoBehaviour:
   m_Name: ExampleActionsQuest2
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Another example actions quest
+  <TeaserDescription>k__BackingField: 
   <Description>k__BackingField: You have to do this then that because the world is
     mad you know.
-  <OriginLocation>k__BackingField: Sovengard
+  <OriginLocation>k__BackingField: Bordeaux plage
+  <Illustration>k__BackingField: {fileID: 0}
   <Type>k__BackingField: 2
   <RewardConfiguration>k__BackingField:
-    <MinStycas>k__BackingField: 100
-    <MaxStycas>k__BackingField: 100
-    <PossibleItems>k__BackingField:
+    <FixedRewardConfiguration>k__BackingField:
+      StycasEarned: 0
+      _itemsEarned: []
+    <VariableRewardConfiguration>k__BackingField:
+      <MinStycas>k__BackingField: 200
+      <MaxStycas>k__BackingField: 400
+      <PossibleItems>k__BackingField: []
+    <IsRewardShownFromStart>k__BackingField: 0
+  <EarnedReward>k__BackingField:
+    StycasEarned: 300
+    _itemsEarned:
+    - element: {fileID: 11400000, guid: 57da2480a19997f6da45abf7f0877db4, type: 2}
+      value: 0
     - element: {fileID: 11400000, guid: 6d0f892e31201c0d0a9cfe9f295c83ac, type: 2}
-      value:
-        element: 1
-        value: 1
+      value: 0
   <IsCompleted>k__BackingField: 0
+  IsTracked: 0
   actions:
   - rid: 6053963237283332096
   - rid: 6053963237283332097

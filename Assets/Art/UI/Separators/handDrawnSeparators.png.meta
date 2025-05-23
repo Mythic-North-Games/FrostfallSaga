@@ -1,0 +1,365 @@
+fileFormatVersion: 2
+guid: 29ff46483fb1774b1b00fa4cacc3ac67
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: handDrawnSimpleSeparator_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 986
+        width: 1024
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 30, y: 0, z: 30, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcb3ab069db52ab6fad3c0d515a24ca5
+      internalID: -2088539320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: handDrawnSeparatorDecoration_0
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 776
+        width: 200
+        height: 134
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 586011beda4f41295804bceaf616625d
+      internalID: -924627510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: handDrawnDecoratedSeparator_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 775
+        width: 1023
+        height: 135
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1884a27b372b73a0a29448d7e2082c0
+      internalID: 606785192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: handDrawnSimpleSeparator_1
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 630
+        width: 1021
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 640c2b1cf310deef0beffeff3bd00860
+      internalID: -1718709414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: handDrawnSemiSeparators_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 461
+        width: 414
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 73, y: 0, z: 15, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31748167c222258258c8f330350d0721
+      internalID: 174617985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: handDrawnSeparatorDecoration_1
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 411
+        width: 173
+        height: 147
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dd24e6a3683e1f11a4cab0eda26cd47
+      internalID: -1526938058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: handDrawnDecoratedSeparator_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 266
+        width: 1024
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 85, y: 0, z: 90, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cd7f3ecbe29993db960407b2ae632ac
+      internalID: -822759853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: handDrawnDecoratedSeparator_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 24
+        width: 1024
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 150, y: 0, z: 150, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e0dc676fde1ea732a3d1fff05700ffd
+      internalID: -1397828240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: handDrawnDecoratedSeparator_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 411
+        width: 1024
+        height: 147
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 75, y: 0, z: 75, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0607066bd9b44e38c8af9d77140c2119
+      internalID: -196892272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: handDrawnSemiSeparators_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 806
+        width: 399
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 50, y: 7, z: 50, w: 7}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 371444425ce5d5588bbdaed3c040dfa3
+      internalID: -208073306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 1d01782de7f886f41bb754d1cc3b15a8
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      handDrawnDecoratedSeparator_0: 606785192
+      handDrawnDecoratedSeparator_1: -196892272
+      handDrawnDecoratedSeparator_2: -822759853
+      handDrawnDecoratedSeparator_3: -1397828240
+      handDrawnSemiSeparators_0: -208073306
+      handDrawnSemiSeparators_1: 174617985
+      handDrawnSeparatorDecoration_0: -924627510
+      handDrawnSeparatorDecoration_1: -1526938058
+      handDrawnSeparators_11: 805145285
+      handDrawnSeparators_12: -77977136
+      handDrawnSeparators_13: 565601484
+      handDrawnSeparators_14: 556302511
+      handDrawnSeparators_17: 922131263
+      handDrawnSeparators_18: 1534490707
+      handDrawnSeparators_19: 1918318627
+      handDrawnSeparators_20: 1276424672
+      handDrawnSeparators_21: 850825474
+      handDrawnSeparators_23: -53148349
+      handDrawnSeparators_25: -1258815134
+      handDrawnSeparators_26: -385632993
+      handDrawnSeparators_27: 499929077
+      handDrawnSeparators_4: 1360440792
+      handDrawnSeparators_6: -1877693233
+      handDrawnSeparators_7: 1348703871
+      handDrawnSeparators_8: 2088777969
+      handDrawnSeparators_9: -1842727844
+      handDrawnSimpleSeparator_0: -2088539320
+      handDrawnSimpleSeparator_1: -1718709414
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

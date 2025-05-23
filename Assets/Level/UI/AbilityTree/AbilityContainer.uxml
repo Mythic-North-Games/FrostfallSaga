@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI/AbilityTree/AbilityTree.uss?fileID=7433441132597879392&amp;guid=72f2c2d8da35a2f449989e428d32f411&amp;type=3#AbilityTree" />
+    <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" focusable="true" name="AbilityButton" class="abilityButton">
+        <ui:VisualElement name="AbilityIcon" class="abilityIconUnlocked" style="transition-duration: 0.25s; transition-timing-function: ease-in-out-cubic;" />
+        <ui:VisualElement name="Lock" class="lockVisible" style="justify-content: center; align-items: center; transition-duration: 0.25s; transition-timing-function: ease-in-out-cubic;">
+            <ui:VisualElement name="LockIcon" style="background-image: resource(&apos;UI/Icons/handDrawnLockIcon&apos;); width: 60%; height: 60%; position: relative; -unity-background-image-tint-color: rgb(25, 25, 25);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="AbilityButtonSelectedFrame" class="abilityButtonSelectedFrame" />
+    </ui:Button>
+</ui:UXML>

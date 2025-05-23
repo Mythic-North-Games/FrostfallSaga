@@ -16,6 +16,6 @@ MonoBehaviour:
   <Description>k__BackingField: This is a scary dungeon in the middle of the forest.
     Who knows what you are going to encounter inside...
   <InterestPointPrefab>k__BackingField: {fileID: 1579975777369734056, guid: 93ef8c6f4f6efe146957172931db7402, type: 3}
-  <DungeonPreview>k__BackingField: {fileID: 21300000, guid: 334973eac8f38834d969fb2853907578, type: 3}
+  <InterestPointPreview>k__BackingField: {fileID: 21300000, guid: 334973eac8f38834d969fb2853907578, type: 3}
   <DungeonConfiguration>k__BackingField: {fileID: 11400000, guid: 30031eaa451e03f3c83ed19de21f89ab, type: 2}
   <EnterDungeonSound>k__BackingField: {fileID: 8300000, guid: fc5d74cd565c24e40a4695c10b95bda5, type: 3}

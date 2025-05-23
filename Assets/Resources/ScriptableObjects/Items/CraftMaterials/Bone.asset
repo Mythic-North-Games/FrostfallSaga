@@ -15,5 +15,5 @@ MonoBehaviour:
   <Name>k__BackingField: Bone
   <Description>k__BackingField: Comes from a skeleton
   <IconSprite>k__BackingField: {fileID: 21300000, guid: 482b4bcd91f24bffc88889716d84edb5, type: 3}
-  <SlotTag>k__BackingField: 5
+  <SlotTag>k__BackingField: 6
   <LootChance>k__BackingField: 0.9

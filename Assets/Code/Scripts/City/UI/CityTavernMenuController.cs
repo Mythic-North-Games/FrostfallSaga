@@ -11,6 +11,8 @@ namespace FrostfallSaga.City.UI
 {
     public class CityTavernMenuController
     {
+        private static readonly string HIGH_MARGIN_BOTTOM_LETTERS = "g";
+
         #region UXML Names and classes
         private static readonly string TAVERN_MENU_CONTAINER_UI_NAME = "TavernMenuContainer";
         private static readonly string TAVERN_LEFT_CONTAINER_UI_NAME = "TavernLeftContainer";
@@ -25,6 +27,7 @@ namespace FrostfallSaga.City.UI
 
         private static readonly string TAVERN_MENU_HIDDEN_CLASSNAME = "cityTavernMenuRootHidden";
         private static readonly string TAVERN_LEFT_CONTAINER_HIDDEN_CLASSNAME = "tavernLeftContainerHidden";
+        private static readonly string TAVERN_NAME_LABEL_HIGH_MARGIN_BOTTOM_CLASSNAME = "tavernNameLabelHighMarginBottom";
         #endregion
 
         public Action onExitClicked;
@@ -68,6 +71,7 @@ namespace FrostfallSaga.City.UI
 
             _menuContainer.style.backgroundImage = new(tavernConfiguration.TavernIllustration);
             _tavernNameLabel.text = tavernConfiguration.Name;
+            AdjustTavernNameLabelMargin();
             _restCostLabel.text = tavernConfiguration.RestCost.ToString();
             UpdateHeroTeamStycasLabel();
             UpdateHeroTeamState();
@@ -75,6 +79,19 @@ namespace FrostfallSaga.City.UI
             bool canPayRest = _heroTeam.Stycas >= tavernConfiguration.RestCost;
             _restButton.SetEnabled(canPayRest);
             if (canPayRest) _root.Q<Button>(REST_BUTTON_UI_NAME).clicked += OnRestButtonClicked;
+        }
+
+        private void AdjustTavernNameLabelMargin()
+        {
+            foreach (char letter in _tavernNameLabel.text)
+            {
+                if (HIGH_MARGIN_BOTTOM_LETTERS.Contains(letter))
+                {
+                    _tavernNameLabel.AddToClassList(TAVERN_NAME_LABEL_HIGH_MARGIN_BOTTOM_CLASSNAME);
+                    return;
+                }
+            }
+            _tavernNameLabel.RemoveFromClassList(TAVERN_NAME_LABEL_HIGH_MARGIN_BOTTOM_CLASSNAME);
         }
 
         public IEnumerator Display()

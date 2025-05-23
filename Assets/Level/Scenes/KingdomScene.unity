@@ -221,6 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 140945771}
   - component: {fileID: 140945772}
+  - component: {fileID: 140945773}
   m_Layer: 0
   m_Name: CityLoader
   m_TagString: Untagged
@@ -256,8 +257,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _kingdomManager: {fileID: 899991118}
-  _enterCityPanelController: {fileID: 791242499}
+  _enterCityPanelController: {fileID: 140945773}
   _delayBeforeLoadingCityScene: 0.6
+--- !u!114 &140945773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140945770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bdbc266efd92b2f39865ffccc76f7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDoc: {fileID: 791242498}
+  <EnterInterestPointPanelTemplate>k__BackingField: {fileID: 9197481963319205126, guid: 7bbdc949c79f1c4a48101f9f9b5d0bfe, type: 3}
+  _kingdomManager: {fileID: 899991118}
 --- !u!1 &161755160
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,6 +673,7 @@ Transform:
   - {fileID: 791242496}
   - {fileID: 122992664}
   - {fileID: 851965524}
+  - {fileID: 1111190135}
   - {fileID: 308382777}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -837,8 +854,6 @@ GameObject:
   - component: {fileID: 791242496}
   - component: {fileID: 791242498}
   - component: {fileID: 791242497}
-  - component: {fileID: 791242499}
-  - component: {fileID: 791242500}
   m_Layer: 0
   m_Name: KingdomUI
   m_TagString: Untagged
@@ -893,36 +908,6 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: ea627911c4fa52a51aea063a896adca0, type: 3}
   m_SortingOrder: 0
---- !u!114 &791242499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 791242495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7052914262146b45a09f919f0c4b7c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiDoc: {fileID: 791242498}
-  <EnterCityPanelTemplate>k__BackingField: {fileID: 9197481963319205126, guid: 29fdbd1f64f773c49a08c2579f02b9df, type: 3}
-  _kingdomManager: {fileID: 899991118}
---- !u!114 &791242500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 791242495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 888a7d89ffc32b9de9a5c5c32a9a2c9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiDoc: {fileID: 791242498}
-  <EnterDungeonPanelTemplate>k__BackingField: {fileID: 9197481963319205126, guid: c57e0225349877ce289e6c2214543dd3, type: 3}
-  _kingdomManager: {fileID: 899991118}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,6 +1047,68 @@ MonoBehaviour:
   <EnemiesGroups>k__BackingField: []
   enemiesGroupSpawner: {fileID: 106982315}
   kingdomLoader: {fileID: 483864513}
+--- !u!1001 &1111190134
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 411216151}
+    m_Modifications:
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020726823616174661, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+      propertyPath: m_Name
+      value: OverlayUI
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+--- !u!4 &1111190135 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3503339814492930437, guid: 1ce95f6c695b125e1907b98c098e7e5e, type: 3}
+  m_PrefabInstance: {fileID: 1111190134}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1268217342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,6 +1187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1357631930}
   - component: {fileID: 1357631931}
+  - component: {fileID: 1357631932}
   m_Layer: 0
   m_Name: DungeonLoader
   m_TagString: Untagged
@@ -1175,8 +1223,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kingdomManager: {fileID: 899991118}
-  enterDungeonPanelController: {fileID: 791242500}
+  enterDungeonPanelController: {fileID: 1357631932}
   _delayBeforeLoadingCityScene: 0.6
+--- !u!114 &1357631932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357631929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5493a3ca3db976e7db76f44607cf2450, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiDoc: {fileID: 791242498}
+  <EnterInterestPointPanelTemplate>k__BackingField: {fileID: 9197481963319205126, guid: 6b6475b24bac894b788155c0ac584cf6, type: 3}
+  _kingdomManager: {fileID: 899991118}
 --- !u!4 &1423030739 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1479775305423822545, guid: d45a524df70c0fabdab5b0d9d07a227c, type: 3}

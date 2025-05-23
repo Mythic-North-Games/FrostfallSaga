@@ -1,10 +1,12 @@
-using UnityEngine;
-using UnityEngine.UIElements;
+using System.Collections.Generic;
 using FrostfallSaga.Core.BookMenu;
 using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.HeroTeam;
 using FrostfallSaga.Core.UI;
-using System.Collections.Generic;
+using FrostfallSaga.Utils;
+using FrostfallSaga.Utils.UI;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace FrostfallSaga.AbilitySystem.UI
 {
@@ -21,20 +23,34 @@ namespace FrostfallSaga.AbilitySystem.UI
         private AbilityDetailsPanelUIController _abilityDetailsPanelController;
         private AbilityTreeUIController _abilityTreeController;
         private HeroChooserUIController _heroChooserUIController;
-        private PersistedFighterConfigurationSO _currentFighter;
+        private Hero _currentHero;
+        private PersistedFighterConfigurationSO _currentFighterConf;
+
+        private AbilityContainerUIController _currentShownTreeAbilityUIController;
+        private EquippedAbilityUIController _currentShownEquippedAbilityUIController;
+
+        private CoroutineRunner _coroutineRunner;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _coroutineRunner = CoroutineRunner.Instance;
+        }
 
         public override void SetupMenu()
         {
             List<Hero> heroes = HeroTeam.Instance.Heroes;
             // Get current fighter
-            _currentFighter = heroes[0].PersistedFighterConfiguration;
+            _currentHero = heroes[0];
+            _currentFighterConf = _currentHero.PersistedFighterConfiguration;
 
             // Setup ability tree panel
             VisualElement abilityTreePanelRoot = _abilityTreePanelTemplate.Instantiate();
             abilityTreePanelRoot.StretchToParentSize();
             _abilityTreeController = new AbilityTreeUIController(abilityTreePanelRoot);
-            _abilityTreeController.UpdatePanel(_currentFighter);
-            _abilityTreeController.onShowAbilityDetailsClicked += OnShowAbilityDetailsClicked;
+            _coroutineRunner.StartCoroutine(_abilityTreeController.UpdateAllPanel(_currentHero));
+            _abilityTreeController.onShowTreeAbilityDetailsClicked += OnShowTreeAbilityDetailsClicked;
+            _abilityTreeController.onShowEquippedAbilityDetailsClicked += OnShowEquippedAbilityDetailsClicked;
             _abilityTreeController.onEquipAbilityClicked += OnEquipAbilityClicked;
             _abilityTreeController.onUnequipAbilityClicked += OnUnequipAbilityClicked;
 
@@ -54,13 +70,36 @@ namespace FrostfallSaga.AbilitySystem.UI
             // Setup hero chooser 
             _heroChooserUIController = new HeroChooserUIController(abilityTreePanelRoot);
             _heroChooserUIController.SetHeroes(heroes);
+            _heroChooserUIController.ActivateHero(heroes[0]);
             _heroChooserUIController.onHeroChosen += OnHeroChosen;
 
             _leftPageContainer.Add(abilityTreePanelRoot);
             _rightPageContainer.Add(abilityDetailsPanelRoot);
         }
 
-        private void OnShowAbilityDetailsClicked(ABaseAbility ability)
+        private void OnShowTreeAbilityDetailsClicked(AbilityContainerUIController abilityContainerUIController)
+        {
+            _currentShownTreeAbilityUIController?.SetActive(false);
+            _currentShownEquippedAbilityUIController?.SetActive(false);
+
+            UpdateAbilityDetailsPanel(abilityContainerUIController.CurrentAbility);
+
+            _currentShownTreeAbilityUIController = abilityContainerUIController;
+            _currentShownTreeAbilityUIController.SetActive(true);
+        }
+
+        private void OnShowEquippedAbilityDetailsClicked(EquippedAbilityUIController equippedAbilityUIController)
+        {
+            _currentShownTreeAbilityUIController?.SetActive(false);
+            _currentShownEquippedAbilityUIController?.SetActive(false);
+
+            UpdateAbilityDetailsPanel(equippedAbilityUIController.CurrentAbility);
+            
+            _currentShownEquippedAbilityUIController = equippedAbilityUIController;
+            _currentShownEquippedAbilityUIController.SetActive(true);
+        }
+
+        private void UpdateAbilityDetailsPanel(ABaseAbility ability)
         {
             if (ability == null)
             {
@@ -70,50 +109,75 @@ namespace FrostfallSaga.AbilitySystem.UI
 
             _abilityDetailsPanelController.UpdatePanel(
                 ability,
-                _currentFighter.GetAbilityState(ability),
-                _currentFighter.AbilityPoints
+                _currentFighterConf.GetAbilityState(ability),
+                _currentFighterConf.AbilityPoints
             );
         }
 
-        private void OnEquipAbilityClicked(ABaseAbility ability)
+        private void OnEquipAbilityClicked(AbilityContainerUIController abilityContainer)
         {
-            if (_currentFighter.GetAbilityState(ability) != EAbilityState.Unlocked)
+            bool abilityNotUnlocked = _currentFighterConf.GetAbilityState(abilityContainer.CurrentAbility) != EAbilityState.Unlocked;
+
+            if (abilityNotUnlocked)
             {
+                _coroutineRunner.StartCoroutine(CommonUIAnimations.PlayShakeAnimation(abilityContainer.Root));
                 return;
             }
-            _currentFighter.EquipAbility(ability);
-            _abilityTreeController.UpdatePanel(_currentFighter);
-        }
 
-        private void OnUnequipAbilityClicked(ABaseAbility ability)
-        {
-            if (_currentFighter.UnequipAbility(ability))
+            if (!_currentFighterConf.IsAbilityEquipped(abilityContainer.CurrentAbility))
             {
-                _abilityTreeController.UpdatePanel(_currentFighter);
-                _abilityDetailsPanelController.UpdatePanel(null, EAbilityState.Locked, -1);
+                _currentFighterConf.EquipAbility(abilityContainer.CurrentAbility);
+                _abilityTreeController.UpdateEquippedAbilities(
+                    _currentHero.PersistedFighterConfiguration.EquippedActiveAbilities.ToArray()
+                );
             }
             else
             {
-                Debug.LogError($"Failed to unequip ability {ability.Name}");
+                _coroutineRunner.StartCoroutine(CommonUIAnimations.PlayShakeAnimation(abilityContainer.Root));
+            }
+
+            _abilityTreeController.PlayEquippedAbilityJumpAnimation(
+                abilityContainer.CurrentAbility
+            );
+        }
+
+        private void OnUnequipAbilityClicked(EquippedAbilityUIController equippedAbilityUIController)
+        {
+            if (_currentFighterConf.UnequipAbility(equippedAbilityUIController.CurrentAbility))
+            {
+                _abilityTreeController.UpdateEquippedAbilities(
+                    _currentHero.PersistedFighterConfiguration.EquippedActiveAbilities.ToArray()
+                );
+            }
+            else
+            {
+                Debug.LogError($"Failed to unequip ability {equippedAbilityUIController.CurrentAbility.Name}");
             }
         }
 
         private void OnUnlockAbilityButtonClicked(ABaseAbility ability)
         {
-            _currentFighter.UnlockAbility(ability);
-            _abilityTreeController.UpdatePanel(_currentFighter);
+            _currentFighterConf.UnlockAbility(ability);
+            _coroutineRunner.StartCoroutine(_abilityTreeController.UpdateAbilityPointsLabel(_currentFighterConf.AbilityPoints));
+            _abilityTreeController.UpdateAbilityTree(_currentFighterConf);
+            _abilityTreeController.PlayUnlockAnimation(ability);
             _abilityDetailsPanelController.UpdatePanel(
                 ability,
-                _currentFighter.GetAbilityState(ability),
-                _currentFighter.AbilityPoints
+                _currentFighterConf.GetAbilityState(ability),
+                _currentFighterConf.AbilityPoints
             );
         }
 
         private void OnHeroChosen(Hero hero)
         {
-            _currentFighter = hero.PersistedFighterConfiguration;
-            _abilityTreeController.UpdatePanel(_currentFighter);
+            _currentHero = hero;
+            _currentFighterConf = hero.PersistedFighterConfiguration;
+
+            _coroutineRunner.StartCoroutine(_abilityTreeController.UpdateAllPanel(_currentHero));
             _abilityDetailsPanelController.UpdatePanel(null, EAbilityState.Locked, -1);
+
+            _currentShownTreeAbilityUIController?.SetActive(false);
+            _currentShownEquippedAbilityUIController?.SetActive(false);
         }
     }
 }
