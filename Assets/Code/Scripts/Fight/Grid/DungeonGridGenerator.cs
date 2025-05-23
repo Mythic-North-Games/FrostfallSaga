@@ -18,8 +18,15 @@ namespace FrostfallSaga.Dungeon
         private BiomeTypeSO _biomeType;
         private PerlinTerrainManager _perlinTerrainManager;
 
-        public DungeonGridGenerator(FightCell hexPrefab, int gridWidth, int gridHeight,
-            Transform parentGrid, float noiseScale, int seed, BiomeTypeSO defaultBiome)
+        public DungeonGridGenerator(
+            FightCell hexPrefab,
+            int gridWidth,
+            int gridHeight,
+            Transform parentGrid,
+            float noiseScale,
+            int seed,
+            BiomeTypeSO defaultBiome
+        )
             : base(hexPrefab, gridWidth, gridHeight, parentGrid, noiseScale, seed)
         {
             _biomeType = GameStateManager.Instance.GetDungeonState().DungeonConfiguration.BiomeType;
@@ -45,12 +52,12 @@ namespace FrostfallSaga.Dungeon
             {
                 for (int x = 0; x < GridWidth; x++)
                 {
-                    Vector3 centerPosition = HexMetrics.Center(HexSize, x, y);
+                    Vector3 centerPosition = HexMetrics.Center(AHexGrid.CELL_SIZE, x, y);
                     Cell cell = Object.Instantiate(HexPrefab, centerPosition, Quaternion.identity, ParentGrid);
                     cell.name = $"Cell[{x};{y}]";
                     float perlinValue = _perlinTerrainManager.GetNoiseValue(x, y);
                     TerrainTypeSO selectedTerrain = GetTerrainTypeFromPerlinValue(perlinValue, _biomeType);
-                    SetupCell(cell, x, y, _biomeType, HexSize, selectedTerrain);
+                    SetupCell(cell, x, y, _biomeType, selectedTerrain);
                     gridCells[new Vector2Int(x, y)] = cell;
                 }
             }
@@ -60,10 +67,15 @@ namespace FrostfallSaga.Dungeon
         }
 
 
-        private static void SetupCell(Cell cell, int x, int y, BiomeTypeSO selectedBiome, float hexSize,
-            TerrainTypeSO selectedTerrain)
+        private static void SetupCell(
+            Cell cell,
+            int x,
+            int y,
+            BiomeTypeSO selectedBiome,
+            TerrainTypeSO selectedTerrain
+        )
         {
-            cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, hexSize, selectedTerrain, selectedBiome);
+            cell.Setup(new Vector2Int(x, y), ECellHeight.LOW, selectedTerrain, selectedBiome);
             cell.GenerateRandomAccessibility(EAccessibilityGenerationMode.FLIP_IF_ACCESSIBLE);
             cell.SetTerrain(selectedTerrain);
         }

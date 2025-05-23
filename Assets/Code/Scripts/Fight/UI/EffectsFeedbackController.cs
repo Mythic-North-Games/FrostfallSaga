@@ -29,9 +29,9 @@ namespace FrostfallSaga.Fight.UI
         [SerializeField] private string _dodgeStyleClass;
         [SerializeField] private string _masterstrokeStyleClass;
 
-        [SerializeField]
         [Header("Needed components")]
-        private FightLoader _fightLoader;
+        [SerializeField] private FightLoader _fightLoader;
+        [SerializeField] private FightManager _fightManager;
 
         [SerializeField] private CameraController _fightCameraController;
 
@@ -44,6 +44,7 @@ namespace FrostfallSaga.Fight.UI
         private void Awake()
         {
             _fightLoader.onFightLoaded += OnFightLoaded;
+            _fightManager.onFightEnded += OnFightEnded;
         }
 
         #endregion
@@ -222,6 +223,28 @@ namespace FrostfallSaga.Fight.UI
             }
 
             return newPos;
+        }
+
+        private void OnFightEnded(Fighter[] allies, Fighter[] enemies)
+        {
+            // Destroys all current effects panels
+            foreach (var kvp in _fighterEffectsPanel)
+            {
+                foreach (var panel in kvp.Value)
+                {
+                    if (_panelsAnchors.TryGetValue(panel, out GameObject anchor))
+                    {
+                        Destroy(anchor);
+                    }
+
+                    if (_positioners.TryGetValue(panel, out WorldUIPositioner positioner))
+                    {
+                        Destroy(positioner);
+                    }
+
+                    panel.RemoveFromHierarchy();
+                }
+            }
         }
     }
 }

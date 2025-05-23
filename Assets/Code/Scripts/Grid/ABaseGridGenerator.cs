@@ -7,8 +7,6 @@ namespace FrostfallSaga.Grid
 {
     public abstract class ABaseGridGenerator
     {
-        protected const float HexSize = 2.0f;
-
         protected ABaseGridGenerator()
         {
         }

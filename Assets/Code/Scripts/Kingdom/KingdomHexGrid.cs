@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using FrostfallSaga.Core.GameState.Grid;
 using FrostfallSaga.Grid;
+using FrostfallSaga.Grid.Cells;
 using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
@@ -16,6 +18,13 @@ namespace FrostfallSaga.Kingdom
             _kingdomGridGenerator = new KingdomGridGenerator(_hexKingdomPrefab, Width, Height, AvailableBiomes,
                 transform, NoiseScale, Seed);
             Cells = _kingdomGridGenerator.GenerateGrid();
+        }
+
+        public void RestoreGridCells(KingdomCellData[] kingdomCellsData)
+        {
+            Cells = kingdomCellsData
+                .Select(cellData => KingdomCellBuilder.BuildKingdomCell(cellData, this))
+                .ToDictionary(cell => cell.Coordinates, cell => (Cell)cell);
         }
 
         /// <summary>

@@ -74,8 +74,7 @@ namespace FrostfallSaga.EditModeTests
             Vector2Int coordinates,
             AHexGrid parentGrid,
             bool fightCell = false,
-            ECellHeight height = ECellHeight.LOW,
-            float hexGridSize = 2f
+            ECellHeight height = ECellHeight.LOW
         )
         {
             GameObject cellGameObject = new();
@@ -95,7 +94,7 @@ namespace FrostfallSaga.EditModeTests
             newCell.transform.SetParent(parentGrid.transform);
 
             newCell.Initialize();
-            newCell.Setup(coordinates, height, hexGridSize, AccessibleTerrain, DefaultBiomeTest);
+            newCell.Setup(coordinates, height, AccessibleTerrain, DefaultBiomeTest);
 
             parentGrid.Cells[coordinates] = newCell;
 

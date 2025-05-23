@@ -7,6 +7,7 @@ using FrostfallSaga.Core.Fight;
 using FrostfallSaga.Core.GameState.City;
 using FrostfallSaga.Core.GameState.Dungeon;
 using FrostfallSaga.Core.GameState.Fight;
+using FrostfallSaga.Core.GameState.Grid;
 using FrostfallSaga.Core.GameState.Kingdom;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
@@ -49,11 +50,13 @@ namespace FrostfallSaga.Core.GameState
         #region Kingdom states
 
         public void SaveKingdomState(
+            KingdomCellData[] kingdomCellsData,
             EntitiesGroupData heroGroupData,
             EntitiesGroupData[] enemiesGroupsData,
             InterestPointData[] interestPointsData
         )
         {
+            _kingdomState.kingdomCellsData = kingdomCellsData;
             _kingdomState.heroGroupData = heroGroupData;
             _kingdomState.enemiesGroupsData = enemiesGroupsData;
             _kingdomState.interestPointsData = interestPointsData;

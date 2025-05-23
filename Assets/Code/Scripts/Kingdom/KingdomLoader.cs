@@ -25,6 +25,7 @@ namespace FrostfallSaga.Kingdom
         [SerializeField] public List<AInterestPointConfigurationSO> interestPointConfigs;
         private readonly List<EntitiesGroup> _respawnedEnemiesGroups = new();
         private GameStateManager _gameStateManager;
+        private KingdomState _kingdomState;
         private HeroTeam _heroTeam;
         private EntitiesGroup _respawnedHeroGroup;
         public Action onKingdomLoaded;
@@ -41,6 +42,7 @@ namespace FrostfallSaga.Kingdom
             }
 
             _gameStateManager = GameStateManager.Instance;
+            _kingdomState = _gameStateManager.GetKingdomState();
             _heroTeam = HeroTeam.Instance;
         }
 
@@ -48,14 +50,26 @@ namespace FrostfallSaga.Kingdom
 
         private void Start()
         {   
+            // Fade in the current scene and play the music
             SceneTransitioner.FadeInCurrentScene();
-            kingdomHexGrid.ClearCells();
-            Debug.Log("Generating Kingdom Grid...");
-            kingdomHexGrid.GenerateGrid();
-
             AudioManager audioManager = AudioManager.Instance;
             audioManager.PlayMusicSound(audioManager.MusicAudioClips.Kingdom);
 
+            // Generate or restore kingdom grid cells
+            if (!_kingdomState.kingdomGridGenerated)
+            {
+                kingdomHexGrid.ClearCells();
+                Debug.Log("Generating Kingdom Grid...");
+                kingdomHexGrid.GenerateGrid();
+                _kingdomState.kingdomGridGenerated = true;
+            }
+            else
+            {
+                Debug.Log("Restoring Kingdom Grid...");
+                kingdomHexGrid.RestoreGridCells(_kingdomState.kingdomCellsData);
+            }
+
+            // Spawn the hero group and interest points if it's the first scene launch
             if (_gameStateManager.IsFirstSceneLaunch())
             {
                 Debug.Log("First scene launch. No kingdom to load.");
@@ -65,7 +79,7 @@ namespace FrostfallSaga.Kingdom
                 return;
             }
 
-            Debug.Log("Start loading kingdom.");
+            // Otherwise, load the kingdom as it was before the fight
             DestroyDevOccupiers();
             LoadKingdomAsBeforeFight();
             RestoreHeroGroup();
@@ -79,6 +93,7 @@ namespace FrostfallSaga.Kingdom
 
             AdjustKingdomAfterFight();
             _gameStateManager.CleanPostFightData();
+
             Debug.Log("Kingdom loaded.");
             onKingdomLoaded?.Invoke();
         }
@@ -99,7 +114,7 @@ namespace FrostfallSaga.Kingdom
         /// </summary>
         private void LoadKingdomAsBeforeFight()
         {
-            KingdomState kingdomState = _gameStateManager.GetKingdomState();
+            KingdomState kingdomState = _kingdomState;
             foreach (EntitiesGroupData enemiesGroupData in kingdomState.enemiesGroupsData)
                 _respawnedEnemiesGroups.Add(
                     EntitiesGroupBuilder.Instance.BuildEntitiesGroup(enemiesGroupData, kingdomHexGrid));
@@ -144,7 +159,7 @@ namespace FrostfallSaga.Kingdom
         {
             // Restore the hero group as lastly saved
             _respawnedHeroGroup =
-                EntitiesGroupBuilder.Instance.BuildEntitiesGroup(_gameStateManager.GetKingdomState().heroGroupData,
+                EntitiesGroupBuilder.Instance.BuildEntitiesGroup(_kingdomState.heroGroupData,
                     kingdomHexGrid);
             _respawnedHeroGroup.name = "HeroGroup";
 
