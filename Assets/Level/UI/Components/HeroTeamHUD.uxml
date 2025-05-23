@@ -1,9 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Template name="FighterDiamondProgress" src="project://database/Assets/Level/UI/Components/FighterDiamondProgress.uxml?fileID=9197481963319205126&amp;guid=15f246463304c9e11a943c7f1ce1e51f&amp;type=3#FighterDiamondProgress" />
+    <ui:Template name="CharacterState" src="project://database/Assets/Level/UI/Components/CharacterState.uxml?fileID=9197481963319205126&amp;guid=2315259c78f5cb26a82297c02e9c83ce&amp;type=3#CharacterState" />
     <Style src="project://database/Assets/Level/UI/Components/HeroTeamHUD.uss?fileID=7433441132597879392&amp;guid=2362ae73b9983fa6b8c38c26903d27ea&amp;type=3#HeroTeamHUD" />
     <ui:VisualElement name="HeroTeamHUDContainer" picking-mode="Ignore" style="height: 10%; flex-direction: row; align-items: center; justify-content: space-between; width: 16.75%; position: absolute; left: 1%; top: 3%;">
-        <ui:Instance template="FighterDiamondProgress" name="HeroContainerLeft" class="heroLeft" />
-        <ui:Instance template="FighterDiamondProgress" name="HeroContainerMiddle" class="heroMiddle" />
-        <ui:Instance template="FighterDiamondProgress" name="HeroContainerRight" class="heroRight" />
+        <ui:Instance template="CharacterState" name="HeroContainerLeft" class="heroLeft" />
+        <ui:Instance template="CharacterState" name="HeroContainerMiddle" class="heroLeft heroMiddle" />
+        <ui:Instance template="CharacterState" name="HeroContainerRight" class="heroLeft heroRight" />
     </ui:VisualElement>
 </ui:UXML>

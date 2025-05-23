@@ -41,6 +41,11 @@ namespace FrostfallSaga.BookMenu.UI
             StartCoroutine(ShowBookMenu());
         }
 
+        private void OnSettingsMenuClicked()
+        {
+            Debug.Log("Opening settings menu...");
+        }
+
         private IEnumerator ShowBookMenu()
         {
             _bookMenuContainer.RemoveFromClassList(BOOK_MENU_CONTAINER_HIDDEN_CLASSNAME);
@@ -116,6 +121,7 @@ namespace FrostfallSaga.BookMenu.UI
             _bookMenuBarController.onQuestsMenuClicked += OnQuestsMenuClicked;
             _bookMenuBarController.onInventoryMenuClicked += OnInventoryMenuClicked;
             _bookMenuBarController.onAbilitySystemMenuClicked += OnAbilitySystemMenuClicked;
+            _bookMenuBarController.onSettingsMenuClicked += OnSettingsMenuClicked;
         }
 
         #endregion
