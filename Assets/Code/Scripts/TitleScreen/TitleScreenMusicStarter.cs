@@ -19,7 +19,7 @@ namespace FrostfallSaga.TitleScreen
 
             // Play the title screen music
             AudioManager audioManager = AudioManager.Instance;
-            audioManager.PlayMusicSound(audioManager.MusicAudioClips.TitleScreen, true);
+            audioManager.PlayMusic(audioManager.MusicAudioClips.TitleScreen, true);
         }
     }
 }

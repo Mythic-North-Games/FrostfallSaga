@@ -212,6 +212,6 @@ MonoBehaviour:
     - <Item>k__BackingField: {fileID: 0}
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
-  <Health>k__BackingField: 80
+  <Health>k__BackingField: 0
   ActiveAbilitiesCapacity: 5
   PassiveAbilitiesCapacity: 0

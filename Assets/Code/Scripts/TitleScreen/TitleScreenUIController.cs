@@ -45,7 +45,7 @@ namespace FrostfallSaga.TitleScreen
         {
             _startButton.AddToClassList(START_BUTTON_HIDDEN_CLASSNAME);
             yield return new WaitForSeconds(_startButtonHideDuration);
-            AudioManager.Instance.PlayMusicSound(AudioManager.Instance.MusicAudioClips.Kingdom);
+            AudioManager.Instance.PlayMusic(AudioManager.Instance.MusicAudioClips.Kingdom);
             SceneTransitioner.TransitionToScene(EScenesName.KINGDOM.ToSceneString());
         }
     }

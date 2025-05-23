@@ -15,27 +15,22 @@ namespace FrostfallSaga.City.UI
         private VisualElement _situationsContainer;
 
         private VisualElement _situationsMenuRoot;
-        private float _timeBeforeSituationsButtonDisplay;
-        private float _timeBetweenSituationsButtonDisplay;
 
         public Action<ACitySituationSO> onCitySituationClicked;
         public Action onReturnClicked;
 
         public void Init(
             VisualElement citySituationsMenuRoot,
-            VisualTreeAsset citySituationButtonTemplate,
-            float timeBeforeSituationsButtonDisplay = 0.5f,
-            float timeBetweenSituationsButtonDisplay = 0.2f
+            VisualTreeAsset citySituationButtonTemplate
         )
         {
             // Assign all parameters and retreive the necessary UI elements
             _situationsMenuRoot = citySituationsMenuRoot;
+            SetPickingMode(_situationsMenuRoot, PickingMode.Ignore);
             _situationsContainer = _situationsMenuRoot.Q<VisualElement>(SITUATIONS_CONTAINER_UI_NAME);
             _situationIllustration = _situationsMenuRoot.Q<VisualElement>(SITUATION_ILLUSTRATION_UI_NAME);
             _returnButton = _situationsMenuRoot.Q<Button>(RETURN_BUTTON_UI_NAME);
             _citySituationButtonTemplate = citySituationButtonTemplate;
-            _timeBeforeSituationsButtonDisplay = timeBeforeSituationsButtonDisplay;
-            _timeBetweenSituationsButtonDisplay = timeBetweenSituationsButtonDisplay;
             _returnButton.RegisterCallback<ClickEvent>(evt => onReturnClicked?.Invoke());
         }
 
@@ -113,23 +108,46 @@ namespace FrostfallSaga.City.UI
 
         public IEnumerator Display()
         {
+            yield return new WaitForSeconds(0.3f);
             _situationsMenuRoot.RemoveFromClassList(SITUATIONS_MENU_HIDDEN_CLASSNAME);
-            yield return new WaitForSeconds(_timeBeforeSituationsButtonDisplay);
-            StartCoroutine(DisplaySituationsButton());
+            yield return new WaitForSeconds(0.3f);
+            StartCoroutine(DisplaySituationsButtons());
+            SetPickingMode(_situationsMenuRoot, PickingMode.Position);
         }
 
-        public void Hide()
+        public IEnumerator Hide()
         {
+            SetPickingMode(_situationsMenuRoot, PickingMode.Ignore);
             _situationIllustration.AddToClassList(SITUATION_ILLUSTRATION_HIDDEN_CLASSNAME);
+            StartCoroutine(HideSituationsButtons());
+            yield return new WaitForSeconds(0.4f * _currentCitySituations.Length);
             _situationsMenuRoot.AddToClassList(SITUATIONS_MENU_HIDDEN_CLASSNAME);
         }
 
-        private IEnumerator DisplaySituationsButton()
+        private IEnumerator DisplaySituationsButtons()
         {
             foreach (VisualElement situationButtonContainer in _situationsContainer.Children())
             {
                 situationButtonContainer.RemoveFromClassList(SITUATION_BUTTON_CONTAINER_HIDDEN_CLASSNAME);
-                yield return new WaitForSeconds(_timeBetweenSituationsButtonDisplay);
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+
+        private IEnumerator HideSituationsButtons()
+        {
+            foreach (VisualElement situationButtonContainer in _situationsContainer.Children())
+            {
+                situationButtonContainer.AddToClassList(SITUATION_BUTTON_CONTAINER_HIDDEN_CLASSNAME);
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+
+        private void SetPickingMode(VisualElement element, PickingMode mode)
+        {
+            element.pickingMode = mode;
+            foreach (VisualElement child in element.Children())
+            {
+                SetPickingMode(child, mode);
             }
         }
 
