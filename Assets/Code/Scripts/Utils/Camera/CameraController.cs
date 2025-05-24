@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements.Experimental;
 
 namespace FrostfallSaga.Utils.Camera
@@ -15,7 +15,7 @@ namespace FrostfallSaga.Utils.Camera
         [field: SerializeField] public float MinFOV { get; private set; } = 20.0f;
         [field: SerializeField] public float MaxFOV { get; private set; } = 120.0f;
         [field: SerializeField] public float BaseFOV { get; private set; } = 75.0f;
-        [field: SerializeField] public float ZoomMultiplier { get; private set; } = 5.0f;
+        [field: SerializeField] public float ZoomMultiplier { get; private set; } = 0.01f;
 
         [field: SerializeField] public Transform mouseFollowTarget;
         [field: SerializeField] public Vector2 MouseTargetOffset { get; private set; } = new(0.1f, 0.1f);
@@ -38,7 +38,7 @@ namespace FrostfallSaga.Utils.Camera
         private void Awake()
         {
             if (!virtualCamera) Debug.LogError("No camera to control");
-            UnityEngine.Cursor.SetCursor(mouseCursor, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(mouseCursor, Vector2.zero, CursorMode.Auto);
         }
 
         private void Start()
@@ -48,7 +48,6 @@ namespace FrostfallSaga.Utils.Camera
 
         public void ZoomIn(float zoomAmount, float zoomDuration)
         {
-            // Do the zoom in using corountine
             StartCoroutine(ZoomCoroutine(zoomAmount, zoomDuration));
         }
 
@@ -71,26 +70,33 @@ namespace FrostfallSaga.Utils.Camera
 
         private void Update()
         {
+            if (Mouse.current == null) return;
+
+            // Zoom
             if (AllowZoom)
             {
-                float deltaZoom = -Input.mouseScrollDelta.y * ZoomMultiplier;
+                float deltaZoom = -Mouse.current.scroll.ReadValue().y * ZoomMultiplier;
                 SetFOV(virtualCamera.m_Lens.FieldOfView + deltaZoom);
             }
 
-            if (Input.GetMouseButtonUp((int)MouseButton.MiddleMouse))
+            // Toggle follow
+            if (Mouse.current.middleButton.wasReleasedThisFrame)
             {
                 ToggleFollowTarget();
             }
 
-            if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse))
+            // Start drag
+            if (Mouse.current.leftButton.wasPressedThisFrame)
             {
-                _mouseDragStartPosition = Input.mousePosition;
+                _mouseDragStartPosition = Mouse.current.position.ReadValue();
                 _isDragging = false;
             }
 
-            if (Input.GetMouseButton((int)MouseButton.LeftMouse))
+            // Dragging
+            if (Mouse.current.leftButton.isPressed)
             {
-                if (!_isDragging && Vector3.Distance(Input.mousePosition, _mouseDragStartPosition) > DRAG_THRESHOLD)
+                Vector2 currentPos = Mouse.current.position.ReadValue();
+                if (!_isDragging && Vector2.Distance(currentPos, _mouseDragStartPosition) > DRAG_THRESHOLD)
                 {
                     _isDragging = true;
 
@@ -104,21 +110,24 @@ namespace FrostfallSaga.Utils.Camera
 
                 if (_isDragging && IsFollowingMouse())
                 {
-                    UnityEngine.Cursor.SetCursor(grabCursor, Vector2.zero, CursorMode.Auto);
+                    Cursor.SetCursor(grabCursor, Vector2.zero, CursorMode.Auto);
                     UpdateMouseFollowTargetPosition();
                 }
             }
 
-            if (Input.GetMouseButton((int)MouseButton.RightMouse))
+            // Camera rotation
+            if (Mouse.current.rightButton.isPressed)
             {
-                UnityEngine.Cursor.SetCursor(grabCursor, Vector2.zero, CursorMode.Auto);
+                Cursor.SetCursor(grabCursor, Vector2.zero, CursorMode.Auto);
                 UpdateCameraRotation();
             }
 
-            if (Input.GetMouseButtonUp((int)MouseButton.LeftMouse) || Input.GetMouseButtonUp((int)MouseButton.RightMouse))
+            // Reset drag/rotation
+            if (Mouse.current.leftButton.wasReleasedThisFrame || Mouse.current.rightButton.wasReleasedThisFrame)
             {
                 _isDragging = false;
-                UnityEngine.Cursor.SetCursor(mouseCursor, Vector2.zero, CursorMode.Auto);
+                _isRotating = false;
+                Cursor.SetCursor(mouseCursor, Vector2.zero, CursorMode.Auto);
             }
         }
 
@@ -142,7 +151,7 @@ namespace FrostfallSaga.Utils.Camera
 
         private void SetFOV(float newFOV)
         {
-            virtualCamera.m_Lens.FieldOfView = Math.Clamp(newFOV, MinFOV, MaxFOV);
+            virtualCamera.m_Lens.FieldOfView = Mathf.Clamp(newFOV, MinFOV, MaxFOV);
             float zoomFactor = Mathf.InverseLerp(MinFOV, MaxFOV, virtualCamera.m_Lens.FieldOfView);
             float targetY = Mathf.Lerp(MinY, MaxY, zoomFactor);
 
@@ -159,7 +168,7 @@ namespace FrostfallSaga.Utils.Camera
             if (!mouseFollowTarget) return;
 
             Plane plane = new(Vector3.up, new Vector3(0, mouseFollowTarget.position.y, 0));
-            Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
             if (!plane.Raycast(ray, out float distance)) return;
             Vector3 mouseWorldPos = ray.GetPoint(distance);
@@ -176,26 +185,21 @@ namespace FrostfallSaga.Utils.Camera
 
         private void UpdateCameraRotation()
         {
-            if (Input.GetMouseButtonDown(1))
+            if (Mouse.current.rightButton.wasPressedThisFrame)
             {
                 _isRotating = true;
-                _lastMousePosition = Input.mousePosition;
-            }
-            else if (Input.GetMouseButtonUp(1))
-            {
-                _isRotating = false;
+                _lastMousePosition = Mouse.current.position.ReadValue();
             }
 
             if (_isRotating)
             {
-                Vector3 delta = Input.mousePosition - _lastMousePosition;
-                _lastMousePosition = Input.mousePosition;
+                Vector3 mousePosition = Mouse.current.position.ReadValue();
+                Vector3 delta = mousePosition - _lastMousePosition;
+                _lastMousePosition = mousePosition;
 
                 float rotationY = delta.x * rotationSpeed * Time.deltaTime;
-
                 Quaternion currentRotation = virtualCamera.transform.rotation;
                 float currentX = currentRotation.eulerAngles.x;
-
                 Quaternion targetRotation = Quaternion.Euler(currentX, currentRotation.eulerAngles.y + rotationY, 0f);
                 virtualCamera.transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, 0.4f);
             }

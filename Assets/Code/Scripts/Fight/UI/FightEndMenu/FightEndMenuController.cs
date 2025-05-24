@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FrostfallSaga.Core.UI;
 using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Fight.Fighters;
+using FrostfallSaga.Utils.UI;
 using UnityEngine.UIElements;
 using System.Collections;
 using UnityEngine;
@@ -118,10 +119,13 @@ namespace FrostfallSaga.Fight.UI.FightEndMenu
 
             _continueButtonContainer.RemoveFromClassList(SECTION_HIDDEN_CLASSNAME);
             yield return new WaitForSeconds(SECTION_DISPLAY_DELAY);
+
+            UIUtils.SetHierachyPickingMode(_root, PickingMode.Position);
         }
 
         public void HideMenu()
         {
+            UIUtils.SetHierachyPickingMode(_root, PickingMode.Ignore);
             _root.AddToClassList(CONTAINER_HIDDEN_CLASSNAME);
             _resultContainer.AddToClassList(SECTION_HIDDEN_CLASSNAME);
             _alliesStateContainer.AddToClassList(SECTION_HIDDEN_CLASSNAME);

@@ -36,9 +36,6 @@ namespace FrostfallSaga.Grid.Cells
         [field: Tooltip("Contain all controllers")]
         public MaterialHighlightable HighlightController { get; private set; }
 
-        [field: SerializeField] 
-        public CellMouseEventsController CellMouseEventsController { get; private set; }
-
         private AHexGrid _parentGrid;
         private CellVisualController _cellVisualController;
         private CellTerrainAccessibilityController _cellTerrainAccessibilityController;
@@ -64,9 +61,6 @@ namespace FrostfallSaga.Grid.Cells
 
             HighlightController ??= GetComponentInChildren<MaterialHighlightable>();
             if (!HighlightController) Debug.LogError("Cell is missing a MaterialHighlightable");
-
-            CellMouseEventsController ??= GetComponentInChildren<CellMouseEventsController>();
-            if (!CellMouseEventsController) Debug.LogError("Cell is missing a CellMouseEventsController");
         }
 
 
@@ -175,8 +169,7 @@ namespace FrostfallSaga.Grid.Cells
                    $"- BiomeType: {BiomeType?.name ?? "None"}\n" +
                    $"- Height: {Height}\n" +
                    $"- UpdateHeightDuration: {UpdateHeightDuration}\n" +
-                   $"- HighlightController: {(HighlightController != null ? "Set" : "Not Set")}\n" +
-                   $"- CellMouseEventsController: {(CellMouseEventsController != null ? "Set" : "Not Set")}";
+                   $"- HighlightController: {(HighlightController != null ? "Set" : "Not Set")}\n";
         }
         #endregion
         

@@ -35,7 +35,6 @@ namespace FrostfallSaga.Utils.GameObjectVisuals
 
         public void Highlight(HighlightColor type)
         {
-            Debug.Log($"{nameof(Highlight)}: {type}");
             if (!_materialInstance) return;
             _materialInstance.color = _colorLookup.TryGetValue(type, out Color color) ? color : Color.white;
 

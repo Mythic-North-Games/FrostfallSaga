@@ -25,9 +25,6 @@ namespace FrostfallSaga.Fight
 
         [field: SerializeField] public FightHexGrid FightGrid { get; private set; }
         [SerializeField] private FighterActionPanelController _actionPanel;
-        [SerializeField] private Material _cellHighlightMaterial;
-        [SerializeField] private Material _cellActionableHighlightMaterial;
-        [SerializeField] private Material _cellInaccessibleHighlightMateria;
 
         // Internal state
         private List<Fighter> _allies;

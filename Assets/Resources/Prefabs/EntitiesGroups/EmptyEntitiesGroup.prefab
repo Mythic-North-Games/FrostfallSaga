@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6379418522271526532}
   - component: {fileID: 8913832457967199624}
-  - component: {fileID: 5525347053112364121}
-  - component: {fileID: 4153090437366475275}
+  - component: {fileID: 5996978383416252681}
   m_Layer: 0
   m_Name: EmptyEntitiesGroup
   m_TagString: Untagged
@@ -48,10 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cell: {fileID: 0}
-  <MouseEventsController>k__BackingField: {fileID: 4153090437366475275}
   movePoints: 3
   <CameraAnchor>k__BackingField: {fileID: 3677640880969923407}
---- !u!136 &5525347053112364121
+--- !u!136 &5996978383416252681
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,22 +68,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.1211951
-  m_Height: 3.6458528
+  m_Radius: 0.753374
+  m_Height: 2.635868
   m_Direction: 1
-  m_Center: {x: -0.11959052, y: 1.3229264, z: 0}
---- !u!114 &4153090437366475275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2373063617049297155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70ace8faf1d304e61bcf08f8c90de0e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Center: {x: 0, y: 0.81793404, z: 0.039003253}
 --- !u!1 &5025682813669058577
 GameObject:
   m_ObjectHideFlags: 0

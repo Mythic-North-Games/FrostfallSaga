@@ -11,7 +11,6 @@ namespace FrostfallSaga.Fight.UI
     {
         #region UXML UI Names & Classes
         private static readonly string TIMELINE_ROOT_UI_NAME = "TimelinePanelRoot";
-        private static readonly string TIMELINE_PANEL_UI_NAME = "TimelinePanel";
         private static readonly string TIMELINE_CONTENT_CONTAINER_UI_NAME = "TimelineContentContainer";
         private static readonly string FIGHTER_RESISTANCE_PANEL_UI_NAME = "FighterResistancesPanel";
 
@@ -56,10 +55,6 @@ namespace FrostfallSaga.Fight.UI
             }
 
             VisualElement timelineRoot = _uiDoc.rootVisualElement.Q<VisualElement>(TIMELINE_ROOT_UI_NAME);
-
-            ScrollView timelinePanel = timelineRoot.Q<ScrollView>(TIMELINE_PANEL_UI_NAME);
-            timelinePanel.contentContainer.StretchToParentSize();
-            timelinePanel.contentContainer.style.minHeight = new StyleLength(new Length(100, LengthUnit.Percent));
             _timelineContentContainer = timelineRoot.Q<VisualElement>(TIMELINE_CONTENT_CONTAINER_UI_NAME);
 
             _resistancesPanelController = new(
@@ -80,9 +75,6 @@ namespace FrostfallSaga.Fight.UI
         {
             // Clear the previous content
             _timelineContentContainer.Clear();
-
-            // Compute the new height for the character containers
-            float timelineCharacterContainerHeight = GetTimelineCharacterContainerHeight(fighters.Length);
 
             // Instantiate the new character containers for each fighter
             for (int i = 0;  i < fighters.Length; i++)
@@ -141,14 +133,6 @@ namespace FrostfallSaga.Fight.UI
         private void OnStatusIconUnhovered(TimelineCharacterUIController character, AStatus status, int lastingDuration)
         {
             _statusesDetailsOverlayController.HideOverlay();
-        }
-
-        private static float GetTimelineCharacterContainerHeight(int characterContainerCount)
-        {
-            if (characterContainerCount == 0) return 0; // Avoid division by zero
-
-            // INFO: Formula to compute the height of the character containers
-            return (314.31f / characterContainerCount) - 2.08f;
         }
     }
 }

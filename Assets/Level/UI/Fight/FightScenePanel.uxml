@@ -9,8 +9,8 @@
     <Style src="project://database/Assets/Level/UI/globalStyles.uss?fileID=7433441132597879392&amp;guid=1849fa32056df9a58b3c371fd6e7ddf2&amp;type=3#globalStyles" />
     <ui:Instance template="TimelinePanel" name="TimelinePanelRoot" picking-mode="Ignore" class="timelinePanel" />
     <ui:Instance template="FighteInfosBar" name="FighteInfosBarContainer" class="fighterInfoBarContainer" />
-    <ui:VisualElement name="ActionPanelRoot" class="actionPanelRootDefault">
-        <ui:VisualElement name="TeamInfosPanel" style="width: 20%; height: 100%; justify-content: flex-end;">
+    <ui:VisualElement name="ActionPanelRoot" picking-mode="Ignore" class="actionPanelRootDefault">
+        <ui:VisualElement name="TeamInfosPanel" picking-mode="Ignore" style="width: 20%; height: 100%; justify-content: flex-end;">
             <ui:VisualElement name="TeamMatePanelOtherCharacter" style="justify-content: space-between; align-self: auto; flex-direction: row; width: 100%; height: 40%; position: absolute; top: 13%; left: 2.5%;">
                 <ui:Instance template="CharacterState" name="Mate1CharacterState" class="teamMateContainer" />
                 <ui:Instance template="CharacterState" name="Mate2CharacterState" class="teamMateContainer" />

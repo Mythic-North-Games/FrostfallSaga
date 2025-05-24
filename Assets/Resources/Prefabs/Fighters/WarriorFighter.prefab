@@ -114,10 +114,7 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 8175203037433477271}
     - targetCorrespondingSourceObject: {fileID: 7229199734263576984, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 9121339937089846296}
-    - targetCorrespondingSourceObject: {fileID: 7229199734263576984, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
-      insertIndex: 8
+      insertIndex: -1
       addedObject: {fileID: 2606586245611480665}
   m_SourcePrefab: {fileID: 100100000, guid: 79bbb57d7c6043d4c8e5f9fa2744891b, type: 3}
 --- !u!114 &2786380324111642071 stripped
@@ -156,7 +153,6 @@ MonoBehaviour:
   <EntitySessionId>k__BackingField: 
   <AnimationController>k__BackingField: {fileID: 2786380324111642071}
   <MovementController>k__BackingField: {fileID: 4125931660738862989}
-  <FighterMouseEventsController>k__BackingField: {fileID: 9121339937089846296}
   <CameraAnchor>k__BackingField: {fileID: 418671907733613392}
   <FighterConfiguration>k__BackingField: {fileID: 11400000, guid: be2a59e2c4ba3c543bde83ebbd0b85f3, type: 2}
   <Race>k__BackingField: 0
@@ -194,114 +190,154 @@ MonoBehaviour:
   <Inventory>k__BackingField:
     <WeaponSlot>k__BackingField:
       <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 5
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
     <HelmetSlot>k__BackingField:
       <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 0
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
     <ChestplateSlot>k__BackingField:
       <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 1
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
     <GauntletsSlot>k__BackingField:
       <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 2
+      <ItemCount>k__BackingField: 0
+      <MaxItemCount>k__BackingField: 1
+    <LeggingsSlot>k__BackingField:
+      <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 3
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
     <BootsSlot>k__BackingField:
       <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 4
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 1
     <BagSlots>k__BackingField:
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     <ConsumablesQuickAccessSlots>k__BackingField:
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
     - <Item>k__BackingField: {fileID: 0}
+      <SlotTag>k__BackingField: 6
       <ItemCount>k__BackingField: 0
       <MaxItemCount>k__BackingField: 99
   <Weapon>k__BackingField: {fileID: 0}
@@ -318,19 +354,6 @@ MonoBehaviour:
   <FighterName>k__BackingField: 
   <Icon>k__BackingField: {fileID: 0}
   <DiamondIcon>k__BackingField: {fileID: 0}
---- !u!114 &9121339937089846296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2920049516156015753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f089ba37bd1d324b8e8d897c0121fb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clickThreshold: 0.4
 --- !u!136 &2606586245611480665
 CapsuleCollider:
   m_ObjectHideFlags: 0

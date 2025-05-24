@@ -1,16 +1,17 @@
 {
-	"name": "FrostfallSaga.Utils",
-	"rootNamespace": "FrostfallSaga.Utils",
-	"references": [
-		"Cinemachine"
-	],
-	"includePlatforms": [],
-	"excludePlatforms": [],
-	"allowUnsafeCode": false,
-	"overrideReferences": false,
-	"precompiledReferences": [],
-	"autoReferenced": true,
-	"defineConstraints": [],
-	"versionDefines": [],
-	"noEngineReferences": false
+    "name": "FrostfallSaga.Utils",
+    "rootNamespace": "FrostfallSaga.Utils",
+    "references": [
+        "Cinemachine",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

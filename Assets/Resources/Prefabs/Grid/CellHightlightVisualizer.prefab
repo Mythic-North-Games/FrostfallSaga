@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CellHightlightVisualizer
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e40b166a09297bd4e9824cb4f6d71552, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
