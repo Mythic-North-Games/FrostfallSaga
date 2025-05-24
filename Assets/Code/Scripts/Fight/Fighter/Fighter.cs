@@ -31,7 +31,6 @@ namespace FrostfallSaga.Fight.Fighters
         public EntityVisualAnimationController AnimationController { get; private set; }
 
         [field: SerializeField] public EntityVisualMovementController MovementController { get; private set; }
-        [field: SerializeField] public FighterMouseEventsController FighterMouseEventsController { get; private set; }
         [field: SerializeField] public Transform CameraAnchor { get; private set; }
 
         //////////////////////

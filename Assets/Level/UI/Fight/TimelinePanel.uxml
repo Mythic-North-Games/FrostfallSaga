@@ -3,11 +3,11 @@
     <ui:Template name="FighterResistancesPanel" src="project://database/Assets/Level/UI/Fight/FighterResistancesPanel.uxml?fileID=9197481963319205126&amp;guid=d00385b87258a224ab3b968089d24399&amp;type=3#FighterResistancesPanel" />
     <Style src="project://database/Assets/Level/UI/Fight/FightScenePanel.uss?fileID=7433441132597879392&amp;guid=e5eb9d2bf6d4bff42afd0f1a4c723e76&amp;type=3#FightScenePanel" />
     <ui:VisualElement name="TimelinePanelContainer" style="flex-grow: 1;">
-        <ui:ScrollView name="TimelinePanel" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="height: 100%; width: 100%;">
-            <ui:VisualElement name="TimelineContentContainer" style="width: 100%; height: 100%;">
-                <ui:Instance template="TimelineCharacterContainer" name="TimelineCharacterContainer" />
-                <ui:Instance template="TimelineCharacterContainer" name="TimelineCharacterContainer" />
-                <ui:Instance template="TimelineCharacterContainer" name="TimelineCharacterContainer" />
+        <ui:ScrollView name="TimelinePanel" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="height: auto; width: 100%;">
+            <ui:VisualElement name="TimelineContentContainer" style="width: 100%; height: auto;">
+                <ui:Instance template="TimelineCharacterContainer" name="TimelineCharacterContainer" class="timelineCharacterContainerRoot" />
+                <ui:Instance template="TimelineCharacterContainer" name="TimelineCharacterContainer" class="timelineCharacterContainerRoot" />
+                <ui:Instance template="TimelineCharacterContainer" name="TimelineCharacterContainer" class="timelineCharacterContainerRoot" />
             </ui:VisualElement>
         </ui:ScrollView>
         <ui:Instance template="FighterResistancesPanel" name="FighterResistancesPanel" class="fighterResistancesPanelDefault" />

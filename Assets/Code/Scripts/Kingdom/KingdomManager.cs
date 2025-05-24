@@ -12,6 +12,7 @@ using FrostfallSaga.Kingdom.EntitiesGroups;
 using FrostfallSaga.Kingdom.EntitiesGroupsSpawner;
 using FrostfallSaga.Kingdom.InterestPoints;
 using FrostfallSaga.Utils;
+using FrostfallSaga.Utils.Inputs;
 using UnityEngine;
 
 namespace FrostfallSaga.Kingdom
@@ -21,7 +22,6 @@ namespace FrostfallSaga.Kingdom
     /// </summary>
     public class KingdomManager : MonoBehaviour
     {
-        [field: SerializeField] public Material CellInaccessibleHighlightMaterial { get; private set; }
         [field: SerializeField] public KingdomHexGrid KingdomGrid { get; private set; }
         [field: SerializeField] public EntitiesGroup HeroGroup { get; private set; }
         [field: SerializeField] public List<InterestPoint> InterestPoints { get; private set; }
@@ -126,9 +126,6 @@ namespace FrostfallSaga.Kingdom
         private void OnEnemiesGroupSpawned(EntitiesGroup spawnedEnemiesGroup)
         {
             EnemiesGroups.Add(spawnedEnemiesGroup);
-            spawnedEnemiesGroup.MouseEventsController.OnElementHover += OnKingdomCellOccupierHovered;
-            spawnedEnemiesGroup.MouseEventsController.OnElementUnhover += OnKingdomCellOccupierUnhovered;
-            spawnedEnemiesGroup.MouseEventsController.OnLeftMouseUp += OnKingdomCellOccupierClicked;
         }
 
         #region Cells hovering and highlighting
@@ -153,7 +150,7 @@ namespace FrostfallSaga.Kingdom
             _mousLeftButtonHold = true;
         }
 
-        private void OnLongClick(Cell cell)
+        private void OnLongClickHoldReleased(Cell cell)
         {
             _mousLeftButtonHold = false;
         }
@@ -246,25 +243,20 @@ namespace FrostfallSaga.Kingdom
 
         private void BindCellMouseEvents()
         {
-            foreach (Cell cell in KingdomGrid.GetCells())
-            {
-                cell.CellMouseEventsController.OnElementHover += OnCellHovered;
-                cell.CellMouseEventsController.OnElementUnhover += OnCellUnhovered;
-                cell.CellMouseEventsController.OnLeftMouseUp += OnCellClicked;
-                cell.CellMouseEventsController.OnLongClickHold += OnLongClickHold;
-                cell.CellMouseEventsController.OnLongClick += OnLongClick;
-            }
+            TypedWorldMouseInteractor<KingdomCell> cellsMouseInteractor = new();
+            cellsMouseInteractor.onHovered += OnCellHovered;
+            cellsMouseInteractor.onUnhovered += OnCellUnhovered;
+            cellsMouseInteractor.onLeftUp += OnCellClicked;
+            cellsMouseInteractor.onLeftClickHold += OnLongClickHold;
+            cellsMouseInteractor.onLeftClickHoldReleased += OnLongClickHoldReleased;
         }
 
         private void BindOccupiersMouseEvents()
         {
-            KingdomCellOccupier[] occupiers = FindObjectsOfType<KingdomCellOccupier>();
-            foreach (KingdomCellOccupier occupier in occupiers)
-            {
-                occupier.MouseEventsController.OnElementHover += OnKingdomCellOccupierHovered;
-                occupier.MouseEventsController.OnElementUnhover += OnKingdomCellOccupierUnhovered;
-                occupier.MouseEventsController.OnLeftMouseUp += OnKingdomCellOccupierClicked;
-            }
+            TypedWorldMouseInteractor<KingdomCellOccupier> kingdomOccupiersMouseInteractor = new();
+            kingdomOccupiersMouseInteractor.onHovered += OnKingdomCellOccupierHovered;
+            kingdomOccupiersMouseInteractor.onUnhovered += OnKingdomCellOccupierUnhovered;
+            kingdomOccupiersMouseInteractor.onLeftUp += OnKingdomCellOccupierClicked;
         }
 
         #endregion

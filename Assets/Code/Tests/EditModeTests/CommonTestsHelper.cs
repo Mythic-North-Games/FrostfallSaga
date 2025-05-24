@@ -87,7 +87,6 @@ namespace FrostfallSaga.EditModeTests
             GameObject cellVisualGameObject = new();
             cellVisualGameObject.transform.SetParent(cellGameObject.transform);
             cellVisualGameObject.AddComponent<MeshCollider>();
-            cellVisualGameObject.AddComponent<CellMouseEventsController>();
             cellVisualGameObject.AddComponent<MaterialHighlightable>();
 
             Cell newCell = cellGameObject.GetComponent<Cell>();

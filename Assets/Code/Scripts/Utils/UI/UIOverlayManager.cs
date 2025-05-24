@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 namespace FrostfallSaga.Utils.UI
@@ -120,7 +121,7 @@ namespace FrostfallSaga.Utils.UI
 
         private Vector2 GetCurrentMousePosition()
         {
-            Vector2 screenMousePosition = Input.mousePosition;
+            Vector2 screenMousePosition = Mouse.current.position.ReadValue();
             screenMousePosition.y = Screen.height - screenMousePosition.y;  // Invert Y coordinate
             return RuntimePanelUtils.ScreenToPanel(_overlaysRoot.panel, screenMousePosition);
         }

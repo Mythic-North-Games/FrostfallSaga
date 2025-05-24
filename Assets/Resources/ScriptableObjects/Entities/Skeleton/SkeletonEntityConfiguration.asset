@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Skeleton
   <Icon>k__BackingField: {fileID: 21300000, guid: 6b5ea3c07ca6b7f08b9a31879c17f5ec, type: 3}
-  <DiamondIcon>k__BackingField: {fileID: 21300000, guid: d9743836dfaa5e64fa533ec9bd2a2440, type: 3}
+  <DiamondIcon>k__BackingField: {fileID: 21300000, guid: 6b5ea3c07ca6b7f08b9a31879c17f5ec, type: 3}
+  <InventoryBackgroundIllustration>k__BackingField: {fileID: 0}
+  <InventoryTPoseIllustration>k__BackingField: {fileID: 0}
   <KingdomEntityPrefab>k__BackingField: {fileID: 2212725807847524150, guid: 8a4e68b8dbb3ad94785d94170c7b1d0e, type: 3}
-  <InventoryVisualPrefab>k__BackingField: {fileID: 0}
   <FighterConfiguration>k__BackingField: {fileID: 11400000, guid: 25a85d710d7b0da4e9814f23b3973a2b, type: 2}
   <Race>k__BackingField: 1
   <KingdomDetectionRange>k__BackingField: 180

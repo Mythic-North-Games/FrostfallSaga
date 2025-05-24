@@ -49,14 +49,15 @@
     top: 7.5%;
     position: absolute;
     width: 17.5%;
-    height: 80%;
+    height: auto;
     right: 0;
+    max-height: 80%;
 }
 
 .timelineCharacterContainerRoot {
     width: 65%;
-    min-height: 12.5%;
     align-self: flex-end;
+    height: 110px;
 }
 
 .statusIconContainerRoot {

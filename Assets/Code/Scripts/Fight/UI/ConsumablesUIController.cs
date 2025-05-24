@@ -157,6 +157,16 @@ namespace FrostfallSaga.Fight.UI
         private void OnExpandConsumablesButtonClicked(ClickEvent clickEvent)
         {
             _extraConsumablesSlotsContainer.ToggleInClassList(EXTRA_CONSUMABLES_SLOTS_CONTAINER_HIDDEN_CLASSNAME);
+            if (_extraConsumablesSlotsContainer.ClassListContains(EXTRA_CONSUMABLES_SLOTS_CONTAINER_HIDDEN_CLASSNAME))
+            {
+                _expandConsumablesButton.text = "+";
+                _extraConsumablesSlotsContainer.pickingMode = PickingMode.Ignore;
+            }
+            else
+            {
+                _expandConsumablesButton.text = "-";
+                _extraConsumablesSlotsContainer.pickingMode = PickingMode.Position;
+            }
         }
 
         #region UXML Element names and classes

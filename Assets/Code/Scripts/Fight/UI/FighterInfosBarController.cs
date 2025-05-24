@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Codice.Client.Commands;
 using FrostfallSaga.Core.UI;
+using FrostfallSaga.Fight.FightCells;
 using FrostfallSaga.Fight.Fighters;
 using FrostfallSaga.Fight.Statuses;
+using FrostfallSaga.Utils.Inputs;
 using FrostfallSaga.Utils.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -141,11 +143,13 @@ namespace FrostfallSaga.Fight.UI
         private void Display()
         {
             _infosBarContainer.RemoveFromClassList(INFOS_BAR_CONTAINER_HIDDEN_CLASSNAME);
+            _infosBarContainer.pickingMode = PickingMode.Position;
         }
 
         private void Hide()
         {
             _infosBarContainer.AddToClassList(INFOS_BAR_CONTAINER_HIDDEN_CLASSNAME);
+            _infosBarContainer.pickingMode = PickingMode.Ignore;
         }
 
         private void OnFightLoaded(Fighter[] allies, Fighter[] enemies)
@@ -156,14 +160,20 @@ namespace FrostfallSaga.Fight.UI
                 .ToList()
                 .ForEach(fighter =>
                 {
-                    fighter.FighterMouseEventsController.OnElementHover += OnFighterHovered;
-                    fighter.FighterMouseEventsController.OnElementUnhover += OnFighterUnhovered;
                     fighter.onDamageReceived += (targetFighter, _, _, _) => StartCoroutine(DisplayForSeconds(targetFighter));
                     fighter.onHealReceived += (targetFighter, _, _) => StartCoroutine(DisplayForSeconds(targetFighter));
                     fighter.onStatusApplied += (targetFighter, _) => StartCoroutine(DisplayForSeconds(targetFighter));
                     fighter.onStatusRemoved += (targetFighter, _) => StartCoroutine(DisplayForSeconds(targetFighter));
                     fighter.onFighterDied += (targetFighter) => StartCoroutine(DisplayForSeconds(targetFighter));
                 });
+
+            TypedWorldMouseInteractor<Fighter> fightersMouseInteractor = new();
+            fightersMouseInteractor.onHovered += OnFighterHovered;
+            fightersMouseInteractor.onUnhovered += OnFighterUnhovered;
+
+            TypedWorldMouseInteractor<FightCell> fightCellsMouseInteractor = new();
+            fightCellsMouseInteractor.onHovered += (cell) => { if (cell.Fighter != null) OnFighterHovered(cell.Fighter); };
+            fightCellsMouseInteractor.onUnhovered += (cell) => { if (cell.Fighter != null) OnFighterUnhovered(cell.Fighter); };
         }
 
         private void OnFightEnded(Fighter[] allies, Fighter[] enemies)

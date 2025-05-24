@@ -52,6 +52,7 @@ namespace FrostfallSaga.BookMenu.UI
 
         private IEnumerator ShowBookMenu()
         {
+            _bookMenuRoot.pickingMode = PickingMode.Position;
             _bookMenuContainer.RemoveFromClassList(BOOK_MENU_CONTAINER_HIDDEN_CLASSNAME);
             yield return new WaitForSeconds(0.5f);
             _bookMenuRoot.RemoveFromClassList(BOOK_MENU_ROOT_HIDDEN_CLASSNAME);
@@ -59,6 +60,7 @@ namespace FrostfallSaga.BookMenu.UI
 
         private IEnumerator HideBookMenu()
         {
+            _bookMenuRoot.pickingMode = PickingMode.Ignore;
             _bookMenuRoot.AddToClassList(BOOK_MENU_ROOT_HIDDEN_CLASSNAME);
             yield return new WaitForSeconds(0.5f);
             _bookMenuContainer.AddToClassList(BOOK_MENU_CONTAINER_HIDDEN_CLASSNAME);

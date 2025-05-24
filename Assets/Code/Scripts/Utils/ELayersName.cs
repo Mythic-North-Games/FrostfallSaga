@@ -40,5 +40,24 @@ namespace FrostfallSaga.Utils
                 _ => throw new InvalidOperationException("Unknown layer.")
             };
         }
+
+        public static string ToLayerName(this ELayersName layerName)
+        {
+            return layerName switch
+            {
+                ELayersName.DEFAULT => "Default",
+                ELayersName.TRANSPARENT_FX => "TransparentFX",
+                ELayersName.IGNORE_RAYCAST => "Ignore Raycast",
+                ELayersName.CELL => "Cell",
+                ELayersName.WATER => "Water",
+                ELayersName.UI => "UI",
+                ELayersName.FIGHTER => "Fighter",
+                ELayersName.FIGHTER_INTERACTABLE => "FighterInteractable",
+                ELayersName.ENTITY_VISUAL => "EntityVisual",
+                ELayersName.BUILDING => "Building",
+                ELayersName.HIGHLIGHT_CELL => "HighlightCell",
+                _ => throw new InvalidOperationException("Unknown layer.")
+            };
+        }
     }
 }

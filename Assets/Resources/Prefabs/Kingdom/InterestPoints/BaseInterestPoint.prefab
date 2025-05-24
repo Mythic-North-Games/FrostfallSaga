@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5684808255556343365}
   - component: {fileID: 4935981763341799180}
   - component: {fileID: 4146391893925370050}
-  - component: {fileID: 9155010897982803068}
   m_Layer: 9
   m_Name: BaseInterestPoint
   m_TagString: Untagged
@@ -56,10 +55,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
+  m_Radius: 1.6190073
+  m_Height: 3.4949698
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0, y: 0.3603828, z: 0.06367135}
 --- !u!54 &4935981763341799180
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -100,22 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cell: {fileID: 0}
-  <MouseEventsController>k__BackingField: {fileID: 9155010897982803068}
   <NamePanelAnchor>k__BackingField: {fileID: 4321929382229055619}
   <InterestPointConfiguration>k__BackingField: {fileID: 11400000, guid: 4762792f3dfda5a23abdd8c64aab5bf1, type: 2}
---- !u!114 &9155010897982803068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209365568012508299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70ace8faf1d304e61bcf08f8c90de0e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clickThreshold: 0.4
 --- !u!1 &4321929382229055619
 GameObject:
   m_ObjectHideFlags: 0

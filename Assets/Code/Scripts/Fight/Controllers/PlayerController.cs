@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using FrostfallSaga.Core.InventorySystem;
 using FrostfallSaga.Fight.Abilities;
@@ -11,6 +10,7 @@ using FrostfallSaga.Fight.UI;
 using FrostfallSaga.Grid;
 using FrostfallSaga.Grid.Cells;
 using FrostfallSaga.Utils;
+using FrostfallSaga.Utils.Inputs;
 using UnityEngine;
 
 namespace FrostfallSaga.Fight.Controllers
@@ -27,9 +27,13 @@ namespace FrostfallSaga.Fight.Controllers
         private bool _fighterIsActing;
         private bool _fighterIsTargetingForActiveAbility;
         private bool _fighterIsTargetingForDirectAttack;
+        private HighlightColor _currentDefaultHighlightColor;
         private FightManager _fightManager;
         private bool _isMouseLeftButtonHold;
         private Fighter _possessedFighter;
+
+        private TypedWorldMouseInteractor<FightCell> _cellsMouseInteractor;
+        private TypedWorldMouseInteractor<Fighter> _fightersMouseInteractor;
 
         public void Setup(
             FightManager fightManager,
@@ -54,10 +58,11 @@ namespace FrostfallSaga.Fight.Controllers
             _fighterIsActing = false;
             _fighterIsTargetingForActiveAbility = false;
             _fighterIsTargetingForDirectAttack = false;
+            _currentDefaultHighlightColor = HighlightColor.NONE;
 
             BindPossessedFighterEventsForTurn(fighterToPlay);
-            BindFightersMouseEvents(_fightManager.FighterTeams.Keys.ToList());
-            BindCellMouseEventsForTurn(_fightManager.FightGrid);
+            BindFightersMouseEvents();
+            BindCellMouseEvents();
         }
 
         private void OnCellClicked(Cell clickedCell)
@@ -170,12 +175,12 @@ namespace FrostfallSaga.Fight.Controllers
             onFighterActionEnded?.Invoke(_possessedFighter);
         }
 
-        private void OnLongClickHold(Cell cell)
+        private void OnLongClickHold(Cell _cell)
         {
             _isMouseLeftButtonHold = true;
         }
 
-        private void OnLongClick(Cell cell)
+        private void OnLongClick(Cell _cell)
         {
             _isMouseLeftButtonHold = false;
         }
@@ -183,8 +188,8 @@ namespace FrostfallSaga.Fight.Controllers
         private void OnFightEnded(Fighter[] _allies, Fighter[] _enemies)
         {
             UnbindFighterEventsForTurn();
-            UnbindCellMouseEvents(_fightManager.FightGrid);
-            UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
+            UnbindCellMouseEvents();
+            UnbindFightersMouseEvents();
         }
 
         #region Suicide handling
@@ -193,8 +198,8 @@ namespace FrostfallSaga.Fight.Controllers
         {
             if (_fighterThatDied != _possessedFighter) return;
             UnbindFighterEventsForTurn();
-            UnbindCellMouseEvents(_fightManager.FightGrid);
-            UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
+            UnbindCellMouseEvents();
+            UnbindFightersMouseEvents();
         }
 
         #endregion
@@ -269,6 +274,7 @@ namespace FrostfallSaga.Fight.Controllers
                 cell => cell.HighlightController.Highlight(HighlightColor.ACCESSIBLE)
             );
 
+            _currentDefaultHighlightColor = HighlightColor.ACCESSIBLE;
             _fighterIsTargetingForDirectAttack = true;
         }
 
@@ -301,6 +307,7 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void StopTargetingForDirectAttack()
         {
+            _currentDefaultHighlightColor = HighlightColor.NONE;
             _fighterIsTargetingForDirectAttack = false;
             _possessedFighter.Weapon.AttackTargeter.GetAllCellsAvailableForTargeting(
                 _fightManager.FightGrid,
@@ -355,6 +362,8 @@ namespace FrostfallSaga.Fight.Controllers
             cellsAvailableForTargeting.ToList().ForEach(
                 cell => cell.HighlightController.Highlight(HighlightColor.ACCESSIBLE)
             );
+
+            _currentDefaultHighlightColor = HighlightColor.ACCESSIBLE;
             _fighterIsTargetingForActiveAbility = true;
         }
 
@@ -390,6 +399,7 @@ namespace FrostfallSaga.Fight.Controllers
 
         private void StopTargetingActiveActiveAbility()
         {
+            _currentDefaultHighlightColor = HighlightColor.NONE;
             _fighterIsTargetingForActiveAbility = false;
             _possessedFighter.cell.HighlightController.ResetToInitialColor();
             _currentActiveAbility.Targeter.GetAllCellsAvailableForTargeting(
@@ -454,8 +464,8 @@ namespace FrostfallSaga.Fight.Controllers
         private void EndPossessedFighterTurn()
         {
             UnbindFighterEventsForTurn();
-            UnbindCellMouseEvents(_fightManager.FightGrid);
-            UnbindEntitiesGroupsMouseEvents(_fightManager.FighterTeams.Keys.ToList());
+            UnbindCellMouseEvents();
+            UnbindFightersMouseEvents();
             onFighterTurnEnded?.Invoke(_possessedFighter);
         }
 
@@ -514,7 +524,15 @@ namespace FrostfallSaga.Fight.Controllers
                 _possessedFighter.cell,
                 originCell
             );
-            targetedCells.ToList().ForEach(cell => cell.HighlightController.ResetToInitialColor());
+            targetedCells.ToList().ForEach(
+                cell =>
+                {
+                    if (_currentDefaultHighlightColor != HighlightColor.NONE)
+                        cell.HighlightController.Highlight(_currentDefaultHighlightColor);
+                    else
+                        cell.HighlightController.ResetToInitialColor();
+                }
+            );
         }
 
         #endregion
@@ -542,54 +560,55 @@ namespace FrostfallSaga.Fight.Controllers
 
         #region Cells mouse events binding
 
-        private void BindCellMouseEventsForTurn(FightHexGrid fightGrid)
+        private void BindCellMouseEvents()
         {
-            foreach (Cell cell in fightGrid.GetCells())
-            {
-                cell.CellMouseEventsController.OnElementHover += OnCellHovered;
-                cell.CellMouseEventsController.OnElementUnhover += OnCellUnhovered;
-                cell.CellMouseEventsController.OnLeftMouseUp += OnCellClicked;
-                cell.CellMouseEventsController.OnLongClickHold += OnLongClickHold;
-                cell.CellMouseEventsController.OnLongClick += OnLongClick;
-            }
+            _cellsMouseInteractor = new();
+            _cellsMouseInteractor.onHovered += OnCellHovered;
+            _cellsMouseInteractor.onUnhovered += OnCellUnhovered;
+            _cellsMouseInteractor.onLeftUp += OnCellClicked;
+            _cellsMouseInteractor.onLeftClickHold += OnLongClickHold;
+            _cellsMouseInteractor.onLeftClickHoldReleased += OnLongClick;
         }
 
-        private void UnbindCellMouseEvents(FightHexGrid fightGrid)
+        private void UnbindCellMouseEvents()
         {
-            foreach (Cell cell in fightGrid.GetCells())
-            {
-                cell.CellMouseEventsController.OnElementHover -= OnCellHovered;
-                cell.CellMouseEventsController.OnElementUnhover -= OnCellUnhovered;
-                cell.CellMouseEventsController.OnLeftMouseUp -= OnCellClicked;
-                cell.CellMouseEventsController.OnLongClickHold -= OnLongClickHold;
-                cell.CellMouseEventsController.OnLongClick -= OnLongClick;
-            }
+            if (_cellsMouseInteractor == null) return;
+            
+            _cellsMouseInteractor.onHovered -= OnCellHovered;
+            _cellsMouseInteractor.onUnhovered -= OnCellUnhovered;
+            _cellsMouseInteractor.onLeftUp -= OnCellClicked;
+            _cellsMouseInteractor.onLeftClickHold -= OnLongClickHold;
+            _cellsMouseInteractor.onLeftClickHoldReleased -= OnLongClick;
         }
 
         #endregion
 
         #region Fighters mouse events binding
 
-        private void BindFightersMouseEvents(List<Fighter> fighters)
+        private void BindFightersMouseEvents()
         {
-            fighters.ForEach(fighter =>
-            {
-                fighter.FighterMouseEventsController.OnElementHover += OnFighterHovered;
-                fighter.FighterMouseEventsController.OnElementUnhover += OnFighterUnhovered;
-                fighter.FighterMouseEventsController.OnLeftMouseUp += OnFighterClicked;
-            });
+            _fightersMouseInteractor = new();
+            _fightersMouseInteractor.onHovered += OnFighterHovered;
+            _fightersMouseInteractor.onUnhovered += OnFighterUnhovered;
+            _fightersMouseInteractor.onLeftUp += OnFighterClicked;
         }
 
-        private void UnbindEntitiesGroupsMouseEvents(List<Fighter> fighters)
+        private void UnbindFightersMouseEvents()
         {
-            fighters.ForEach(fighter =>
-            {
-                fighter.FighterMouseEventsController.OnElementHover += OnFighterHovered;
-                fighter.FighterMouseEventsController.OnElementUnhover += OnFighterUnhovered;
-                fighter.FighterMouseEventsController.OnLeftMouseUp += OnFighterClicked;
-            });
+            if (_fightersMouseInteractor == null) return;
+
+            _fightersMouseInteractor.onHovered -= OnFighterHovered;
+            _fightersMouseInteractor.onUnhovered -= OnFighterUnhovered;
+            _fightersMouseInteractor.onLeftUp -= OnFighterClicked;
         }
 
         #endregion
+
+        private void OnDisable()
+        {
+            UnbindCellMouseEvents();
+            UnbindFighterEventsForTurn();
+            UnbindFightersMouseEvents();
+        }
     }
 }

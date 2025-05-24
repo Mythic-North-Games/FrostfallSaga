@@ -36,6 +36,7 @@ namespace FrostfallSaga.Fight.UI
 
             _root.RemoveFromClassList(RESISTANCES_STATS_CONTAINER_HIDDEN_CLASSNAME);
             _root.SetEnabled(true);
+            _root.pickingMode = PickingMode.Position;
         }
 
         public void Hide()
@@ -48,6 +49,7 @@ namespace FrostfallSaga.Fight.UI
 
             _root.AddToClassList(RESISTANCES_STATS_CONTAINER_HIDDEN_CLASSNAME);
             _root.SetEnabled(false);
+            _root.pickingMode = PickingMode.Ignore;
         }
 
         private void UpdateStats(Fighter fighter)
